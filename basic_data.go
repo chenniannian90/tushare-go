@@ -16,6 +16,18 @@ func (api *TuShare) StockBasic(params map[string]string, fields []string) (*APIR
 	return api.postData(body)
 }
 
+func (api *TuShare) BakBasic(params map[string]string, fields []string) (*APIResponse, error) {
+	body := map[string]interface{}{
+		"api_name": "bak_basic",
+		"token":    api.token,
+		"params":   params,
+		"fields":   fields,
+	}
+
+	return api.postData(body)
+}
+
+
 // TradeCal 获取各大交易所交易日历数据,默认提取的是上交所
 func (api *TuShare) TradeCal(params map[string]string, fields []string) (*APIResponse, error) {
 	body := map[string]interface{}{
