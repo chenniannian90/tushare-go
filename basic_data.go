@@ -27,7 +27,6 @@ func (api *TuShare) BakBasic(params map[string]string, fields []string) (*APIRes
 	return api.postData(body)
 }
 
-
 // TradeCal 获取各大交易所交易日历数据,默认提取的是上交所
 func (api *TuShare) TradeCal(params map[string]string, fields []string) (*APIResponse, error) {
 	body := map[string]interface{}{
@@ -91,5 +90,171 @@ func (api *TuShare) NewShare(params map[string]string, fields []string) (*APIRes
 		"fields":   fields,
 	}
 
+	return api.postData(body)
+}
+
+// MoneyFlow 个股资金流向
+func (api *TuShare) MoneyFlow(params map[string]string, fields []string) (*APIResponse, error) {
+	body := map[string]interface{}{
+		"api_name": "moneyflow",
+		"token":    api.token,
+		"params":   params,
+		"fields":   fields,
+	}
+
+	return api.postData(body)
+}
+
+// LimitList 涨跌停列表（新）
+func (api *TuShare) LimitList(params map[string]string, fields []string) (*APIResponse, error) {
+	body := map[string]interface{}{
+		"api_name": "limit_list_d",
+		"token":    api.token,
+		"params":   params,
+		"fields":   fields,
+	}
+
+	return api.postData(body)
+}
+
+// ThsIndex 同花顺概念和行业指数
+func (api *TuShare) ThsIndex(params map[string]string, fields []string) (*APIResponse, error) {
+	body := map[string]interface{}{
+		"api_name": "ths_index",
+		"token":    api.token,
+		"params":   params,
+		"fields":   fields,
+	}
+
+	return api.postData(body)
+}
+
+// ThsDaily 同花顺板块指数行情
+func (api *TuShare) ThsDaily(params map[string]string, fields []string) (*APIResponse, error) {
+	body := map[string]interface{}{
+		"api_name": "ths_daily",
+		"token":    api.token,
+		"params":   params,
+		"fields":   fields,
+	}
+
+	return api.postData(body)
+}
+
+// ThsMember 同花顺概念板块成分
+func (api *TuShare) ThsMember(params map[string]string, fields []string) (*APIResponse, error) {
+	body := map[string]interface{}{
+		"api_name": "ths_member",
+		"token":    api.token,
+		"params":   params,
+		"fields":   fields,
+	}
+
+	return api.postData(body)
+}
+
+// CiDaily 中信行业指数行情
+func (api *TuShare) CiDaily(params map[string]string, fields []string) (*APIResponse, error) {
+	body := map[string]interface{}{
+		"api_name": "ci_daily",
+		"token":    api.token,
+		"params":   params,
+		"fields":   fields,
+	}
+
+	return api.postData(body)
+}
+
+// IndexDaily 指数日线行情
+func (api *TuShare) IndexDaily(params map[string]string, fields []string) (*APIResponse, error) {
+	body := map[string]interface{}{
+		"api_name": "index_daily",
+		"token":    api.token,
+		"params":   params,
+		"fields":   fields,
+	}
+
+	return api.postData(body)
+}
+
+// IndexBasic 指数基本信息
+func (api *TuShare) IndexBasic(params map[string]string, fields []string) (*APIResponse, error) {
+	body := map[string]interface{}{
+		"api_name": "index_basic",
+		"token":    api.token,
+		"params":   params,
+		"fields":   fields,
+	}
+
+	return api.postData(body)
+}
+
+// IndexWeight 指数成分和权重
+func (api *TuShare) IndexWeight(params map[string]string, fields []string) (*APIResponse, error) {
+	body := map[string]interface{}{
+		"api_name": "index_weight",
+		"token":    api.token,
+		"params":   params,
+		"fields":   fields,
+	}
+
+	return api.postData(body)
+}
+
+// IndexDailyBasic 大盘指数每日指标
+func (api *TuShare) IndexDailyBasic(params map[string]string, fields []string) (*APIResponse, error) {
+	body := map[string]interface{}{
+		"api_name": "index_dailybasic",
+		"token":    api.token,
+		"params":   params,
+		"fields":   fields,
+	}
+
+	return api.postData(body)
+}
+
+// IndexClassify 申万行业分类
+func (api *TuShare) IndexClassify(params map[string]string, fields []string) (*APIResponse, error) {
+	body := map[string]interface{}{
+		"api_name": "index_classify",
+		"token":    api.token,
+		"params":   params,
+		"fields":   fields,
+	}
+
+	return api.postData(body)
+}
+
+// DailyInfo 市场交易统计
+func (api *TuShare) DailyInfo(params map[string]string, fields []string) (*APIResponse, error) {
+	body := map[string]interface{}{
+		"api_name": "daily_info",
+		"token":    api.token,
+		"params":   params,
+		"fields":   fields,
+	}
+
+	return api.postData(body)
+}
+
+// SzDailyInfo 深圳市场每日交易概况
+func (api *TuShare) SzDailyInfo(params map[string]string, fields []string) (*APIResponse, error) {
+	body := map[string]interface{}{
+		"api_name": "sz_daily_info",
+		"token":    api.token,
+		"params":   params,
+		"fields":   fields,
+	}
+	return api.postData(body)
+}
+
+// IndexGlobal 国际指数
+func (api *TuShare) IndexGlobal(params map[string]string, fields []string) (*APIResponse, error) {
+	body := map[string]interface{}{
+		"api_name": "index_global",
+		"token":    api.token,
+		"params":   params,
+		"fields":   fields,
+	}
 	return api.postData(body)
 }
