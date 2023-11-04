@@ -70,9 +70,13 @@ func (api *TuShare) GgtTop10(params map[string]string, fields []string) (*APIRes
 // Margin 获取融资融券每日交易汇总数据
 func (api *TuShare) Margin(params map[string]string, fields []string) (*APIResponse, error) {
 	// Check params
-	_, hasTsCode := params["trade_date"]
-	if !hasTsCode {
-		return nil, fmt.Errorf("trade_date is a required argument")
+	// Check param
+	_, hasTsCode := params["ts_code"]
+	_, hasTradeDate := params["trade_date"]
+
+	// ts_code & trade_date required
+	if (!hasTsCode && !hasTradeDate) || (hasTsCode && hasTradeDate) {
+		return nil, fmt.Errorf("Need one argument ts_code or trade_date")
 	}
 
 	body := map[string]interface{}{
@@ -88,9 +92,13 @@ func (api *TuShare) Margin(params map[string]string, fields []string) (*APIRespo
 // MarginDetail 获取沪深两市每日融资融券明细
 func (api *TuShare) MarginDetail(params map[string]string, fields []string) (*APIResponse, error) {
 	// Check params
-	_, hasTsCode := params["trade_date"]
-	if !hasTsCode {
-		return nil, fmt.Errorf("trade_date is a required argument")
+	// Check param
+	_, hasTsCode := params["ts_code"]
+	_, hasTradeDate := params["trade_date"]
+
+	// ts_code & trade_date required
+	if (!hasTsCode && !hasTradeDate) || (hasTsCode && hasTradeDate) {
+		return nil, fmt.Errorf("Need one argument ts_code or trade_date")
 	}
 
 	body := map[string]interface{}{
