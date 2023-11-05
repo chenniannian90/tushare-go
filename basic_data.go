@@ -313,3 +313,14 @@ func (api *TuShare) SwDaily(params map[string]string, fields []string) (*APIResp
 	}
 	return api.postData(body)
 }
+
+// IndexMember 申万行业成分构成
+func (api *TuShare) IndexMember(params map[string]string, fields []string) (*APIResponse, error) {
+	body := map[string]interface{}{
+		"api_name": "index_member",
+		"token":    api.token,
+		"params":   params,
+		"fields":   fields,
+	}
+	return api.postData(body)
+}
