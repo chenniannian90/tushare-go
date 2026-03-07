@@ -89,6 +89,29 @@ go run cmd/examples/trade_cal/main.go
 - 确定市场开市/收市状态
 - 统计交易日与非交易日
 
+### 7. 链式调用 (`chain_call`)
+演示两种不同的 API 调用方式：
+
+```bash
+go run cmd/examples/chain_call/main.go
+```
+
+功能：
+- 对比直接调用和链式调用两种方式
+- 展示如何实现链式调用包装器
+- 提供最佳实践建议
+
+**链式调用示例：**
+```go
+// 创建链式调用客户端
+apiClient := NewAPIClient(client)
+
+// 使用链式调用
+apiClient.StockBoard().TopList(ctx, req)
+apiClient.StockMarket().Daily(ctx, req)
+apiClient.StockBasic().TradeCal(ctx, req)
+```
+
 ### 📈 指数数据示例
 
 #### 7. 指数数据 (`index_data`)
