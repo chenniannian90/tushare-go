@@ -1,0 +1,172 @@
+{
+  "_comment": "Tushare MCP Server 配置文件示例",
+  "_comment_usage": "复制此文件为 config.json 并根据需要修改",
+
+  "host": "0.0.0.0",
+  "port": 8080,
+  "transport": "stdio",
+
+  "services": {
+    "all": {
+      "name": "all",
+      "path": "/",
+      "description": "All Tushare APIs (stock, bond, futures, etc.)",
+      "categories": [],
+      "auth": {
+        "type": "none",
+        "required": false
+      }
+    },
+
+    "stock": {
+      "name": "stock",
+      "path": "/stock",
+      "description": "股票市场数据API - 包含基础数据、行情、财务等",
+      "categories": [
+        "stock_basic",
+        "stock_market",
+        "stock_financial",
+        "stock_board",
+        "stock_feature",
+        "stock_fund_flow",
+        "stock_margin",
+        "stock_reference"
+      ],
+      "auth": {
+        "type": "none",
+        "required": false
+      }
+    },
+
+    "bond": {
+      "name": "bond",
+      "path": "/bond",
+      "description": "债券市场数据API",
+      "categories": ["bond"],
+      "auth": {
+        "type": "none",
+        "required": false
+      }
+    },
+
+    "futures": {
+      "name": "futures",
+      "path": "/futures",
+      "description": "期货市场数据API",
+      "categories": ["futures"],
+      "auth": {
+        "type": "none",
+        "required": false
+      }
+    },
+
+    "fund": {
+      "name": "fund",
+      "path": "/fund",
+      "description": "基金市场数据API",
+      "categories": ["fund"],
+      "auth": {
+        "type": "none",
+        "required": false
+      }
+    },
+
+    "index": {
+      "name": "index",
+      "path": "/index",
+      "description": "指数数据API",
+      "categories": ["index"],
+      "auth": {
+        "type": "none",
+        "required": false
+      }
+    },
+
+    "macro": {
+      "name": "macro",
+      "path": "/macro",
+      "description": "宏观经济数据API - 包含经济、商业、价格、利率等",
+      "categories": [
+        "macro_economy",
+        "macro_business",
+        "macro_price",
+        "macro_interest_rate"
+      ],
+      "auth": {
+        "type": "none",
+        "required": false
+      }
+    },
+
+    "options": {
+      "name": "options",
+      "path": "/options",
+      "description": "期权数据API",
+      "categories": ["options"],
+      "auth": {
+        "type": "none",
+        "required": false
+      }
+    },
+
+    "forex": {
+      "name": "forex",
+      "path": "/forex",
+      "description": "外汇数据API",
+      "categories": ["forex"],
+      "auth": {
+        "type": "none",
+        "required": false
+      }
+    },
+
+    "hk_stock": {
+      "name": "hk_stock",
+      "path": "/hk_stock",
+      "description": "港股数据API",
+      "categories": ["hk_stock"],
+      "auth": {
+        "type": "none",
+        "required": false
+      }
+    },
+
+    "us_stock": {
+      "name": "us_stock",
+      "path": "/us_stock",
+      "description": "美股数据API",
+      "categories": ["us_stock"],
+      "auth": {
+        "type": "none",
+        "required": false
+      }
+    },
+
+    "etf": {
+      "name": "etf",
+      "path": "/etf",
+      "description": "ETF数据API",
+      "categories": ["etf"],
+      "auth": {
+        "type": "none",
+        "required": false
+      }
+    },
+
+    "spot": {
+      "name": "spot",
+      "path": "/spot",
+      "description": "现货数据API",
+      "categories": ["spot"],
+      "auth": {
+        "type": "none",
+        "required": false
+      }
+    }
+  },
+
+  "global_auth": {
+    "type": "none",
+    "required": false
+  }
+}
