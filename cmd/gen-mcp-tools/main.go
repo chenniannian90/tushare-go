@@ -347,18 +347,15 @@ import (
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 
 	// Import all tool modules
-	bondtools "github.com/chenniannian90/tushare-go/pkg/mcp/tools/bond"
-	etftools "github.com/chenniannian90/tushare-go/pkg/mcp/tools/etf"
-	forextools "github.com/chenniannian90/tushare-go/pkg/mcp/tools/forex"
-	fundtools "github.com/chenniannian90/tushare-go/pkg/mcp/tools/fund"
-	futurestools "github.com/chenniannian90/tushare-go/pkg/mcp/tools/futures"
-	hk_stocktools "github.com/chenniannian90/tushare-go/pkg/mcp/tools/hk_stock"
-	indextools "github.com/chenniannian90/tushare-go/pkg/mcp/tools/index"
-	llm_corpustools "github.com/chenniannian90/tushare-go/pkg/mcp/tools/llm_corpus"
-	optionstools "github.com/chenniannian90/tushare-go/pkg/mcp/tools/options"
-	spottools "github.com/chenniannian90/tushare-go/pkg/mcp/tools/spot"
-	us_stocktools "github.com/chenniannian90/tushare-go/pkg/mcp/tools/us_stock"
+`
 
+	// Generate import statements for all modules dynamically
+	for _, module := range g.modules {
+		packageAlias := module.Name + "tools"
+		content += fmt.Sprintf("\t%s \"github.com/chenniannian90/tushare-go/pkg/mcp/tools/%s\"\n", packageAlias, module.Name)
+	}
+
+	content += `
 	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
 )
 
@@ -546,7 +543,7 @@ func (m *` + className + `Tools) CallTool(ctx context.Context, toolName string, 
 	}
 
 	// Write to file
-	outputPath := filepath.Join(moduleDir, module.Name+".go")
+	outputPath := filepath.Join(moduleDir, "registry.go")
 	return os.WriteFile(outputPath, []byte(content), 0644)
 }
 
@@ -614,7 +611,7 @@ func (m *%sTools) call%s(ctx context.Context, args map[string]interface{}) (*com
 	outputPath := filepath.Join(moduleDir, filename)
 
 	// Check if this would overwrite the main module file
-	mainModuleFile := filepath.Join(moduleDir, module.Name + ".go")
+	mainModuleFile := filepath.Join(moduleDir, "registry.go")
 	if outputPath == mainModuleFile {
 		// Add a prefix to avoid conflict
 		filename = "call_" + g.toSnakeCase(fn.Name) + ".go"

@@ -35,10 +35,10 @@ func TestServer_GetTools(t *testing.T) {
 		t.Error("GetTools() should return at least one tool")
 	}
 
-	// Check that stock_basic tool exists
+	// Check that stock_basic.stock_basic tool exists (new naming convention)
 	found := false
 	for _, tool := range tools {
-		if tool.Name == "stock_basic" {
+		if tool.Name == "stock_basic.stock_basic" {
 			found = true
 			if tool.Description == "" {
 				t.Error("Tool should have a description")
@@ -48,7 +48,7 @@ func TestServer_GetTools(t *testing.T) {
 	}
 
 	if !found {
-		t.Error("stock_basic tool should be in the tool list")
+		t.Error("stock_basic.stock_basic tool should be in the tool list")
 	}
 }
 
@@ -65,7 +65,7 @@ func TestServer_CallTool(t *testing.T) {
 	}{
 		{
 			name:     "call stock_basic tool",
-			toolName: "stock_basic",
+			toolName: "stock_basic.stock_basic",
 			args: map[string]interface{}{
 				"ts_code": "000001.SZ",
 			},

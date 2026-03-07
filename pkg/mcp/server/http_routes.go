@@ -14,17 +14,30 @@ type HTTPRoute struct {
 	Tool        string
 	HTTPMethod  string
 	Description string
+	ParamName   string  // Parameter name for unified endpoints
+	QueryParam  bool    // Whether to use query parameter for tool selection
 }
 
 // HTTPRouter manages HTTP route mappings
 type HTTPRouter struct {
-	routes []HTTPRoute
+	routes      []HTTPRoute
+	groupRoutes map[string][]HTTPRoute // Module path -> group of routes
+}
+
+// RouteGroup represents a group of routes under a common path
+type RouteGroup struct {
+	BasePath    string
+	Module      string
+	HTTPMethod  string
+	Description string
+	Routes      []string // Tool names in this group
 }
 
 // NewHTTPRouter creates a new HTTP router
 func NewHTTPRouter() *HTTPRouter {
 	router := &HTTPRouter{
-		routes: []HTTPRoute{},
+		routes:      []HTTPRoute{},
+		groupRoutes: make(map[string][]HTTPRoute),
 	}
 
 	// Initialize routes from all modules
@@ -33,70 +46,8 @@ func NewHTTPRouter() *HTTPRouter {
 	return router
 }
 
-// initializeRoutes initializes all HTTP routes
-func (r *HTTPRouter) initializeRoutes() {
-	// Bond API routes
-	r.addRoutes("bond", []string{
-		"api272", "api392", "block_trade", "bond_oc", "bond_repurchase",
-		"bond_zs", "cb_basic", "cb_call", "cb_daily", "cb_interest",
-		"cb_issue", "cb_redemption", "global_calendar",
-	})
-
-	// ETF API routes
-	r.addRoutes("etf", []string{
-		"api127", "api199", "api385", "api387", "api400", "api408", "api416",
-	})
-
-	// Forex API routes
-	r.addRoutes("forex", []string{
-		"api178", "forex_daily",
-	})
-
-	// Fund API routes
-	r.addRoutes("fund", []string{
-		"fund_basic", "fund_nav", "fund_div", "fund_manager", "api359",
-	})
-
-	// Futures API routes
-	r.addRoutes("futures", []string{
-		"fut_basic", "fut_daily", "fut_weekly", "fut_settlement", "trade_cal",
-	})
-
-	// HK Stock API routes
-	r.addRoutes("hk_stock", []string{
-		"hk_basic", "hk_daily", "hk_cal", "hk_min", "hk_factor",
-	})
-
-	// Index API routes
-	r.addRoutes("index", []string{
-		"index_basic", "index_daily", "index_member", "index_weight",
-		"api358", "index_weekly",
-	})
-
-	// LLM Corpus API routes
-	r.addRoutes("llm_corpus", []string{
-		"announcement", "api143", "api195", "einteraction",
-		"news_broadcast", "policy", "research_report",
-	})
-
-	// Options API routes
-	r.addRoutes("options", []string{
-		"opt_basic", "opt_daily", "opt_min",
-	})
-
-	// Spot API routes
-	r.addRoutes("spot", []string{
-		"spot_basic", "spot_daily",
-	})
-
-	// US Stock API routes
-	r.addRoutes("us_stock", []string{
-		"us_basic", "us_daily", "us_cal", "us_factor",
-	})
-}
-
-// addRoutes adds routes for a module
-func (r *HTTPRouter) addRoutes(module string, tools []string) {
+// addModuleRoutes adds routes for a module with individual paths
+func (r *HTTPRouter) addModuleRoutes(module string, tools []string) {
 	for _, tool := range tools {
 		r.routes = append(r.routes, HTTPRoute{
 			Path:        r.buildPath(module, tool),
@@ -106,6 +57,121 @@ func (r *HTTPRouter) addRoutes(module string, tools []string) {
 			Description: fmt.Sprintf("HTTP endpoint for %s.%s", module, tool),
 		})
 	}
+}
+
+// addUnifiedModuleRoutes adds routes for a module with a unified endpoint
+func (r *HTTPRouter) addUnifiedModuleRoutes(module string, tools []string) {
+	basePath := fmt.Sprintf("/api/v1/%s", module)
+
+	// Add individual routes for each tool (backward compatibility)
+	for _, tool := range tools {
+		r.routes = append(r.routes, HTTPRoute{
+			Path:        r.buildPath(module, tool),
+			Module:      module,
+			Tool:        tool,
+			HTTPMethod:  "POST",
+			Description: fmt.Sprintf("HTTP endpoint for %s.%s", module, tool),
+		})
+	}
+
+	// Add unified endpoint that accepts tool parameter
+	r.routes = append(r.routes, HTTPRoute{
+		Path:        basePath,
+		Module:      module,
+		Tool:        "*", // Wildcard indicating unified endpoint
+		HTTPMethod:  "POST",
+		Description: fmt.Sprintf("Unified endpoint for %s module tools", module),
+		ParamName:   "tool",
+		QueryParam:  true,
+	})
+}
+
+// addRoutes adds routes for a module (legacy method for compatibility)
+func (r *HTTPRouter) addRoutes(module string, tools []string) {
+	r.addModuleRoutes(module, tools)
+}
+
+// initializeRouteGroups initializes route groups for modules with unified endpoints
+func (r *HTTPRouter) initializeRouteGroups() {
+	// HK Stock unified endpoint group
+	hkGroupBasePath := "/api/v1/hk_stock"
+	hkGroupRoutes := []HTTPRoute{
+		{
+			Path:        hkGroupBasePath,
+			Module:      "hk_stock",
+			HTTPMethod:  "POST",
+			Description: "Unified endpoint for HK stock data APIs",
+			ParamName:   "tool",
+			QueryParam:  true,
+		},
+	}
+	r.groupRoutes[hkGroupBasePath] = hkGroupRoutes
+	r.routes = append(r.routes, hkGroupRoutes...)
+}
+
+// initializeRoutes initializes all HTTP routes
+func (r *HTTPRouter) initializeRoutes() {
+	// Define route groups for better organization
+	r.initializeRouteGroups()
+
+	// Bond API routes
+	r.addModuleRoutes("bond", []string{
+		"api272", "api392", "block_trade", "bond_oc", "bond_repurchase",
+		"bond_zs", "cb_basic", "cb_call", "cb_daily", "cb_interest",
+		"cb_issue", "cb_redemption", "global_calendar",
+	})
+
+	// ETF API routes
+	r.addModuleRoutes("etf", []string{
+		"api127", "api199", "api385", "api387", "api400", "api408", "api416",
+	})
+
+	// Forex API routes
+	r.addModuleRoutes("forex", []string{
+		"api178", "forex_daily",
+	})
+
+	// Fund API routes
+	r.addModuleRoutes("fund", []string{
+		"fund_basic", "fund_nav", "fund_div", "fund_manager", "api359",
+	})
+
+	// Futures API routes
+	r.addModuleRoutes("futures", []string{
+		"fut_basic", "fut_daily", "fut_weekly", "fut_settlement", "trade_cal",
+	})
+
+	// HK Stock API routes - with unified endpoint
+	r.addUnifiedModuleRoutes("hk_stock", []string{
+		"hk_basic", "hk_daily", "hk_cal", "hk_min", "hk_factor",
+	})
+
+	// Index API routes
+	r.addModuleRoutes("index", []string{
+		"index_basic", "index_daily", "index_member", "index_weight",
+		"api358", "index_weekly",
+	})
+
+	// LLM Corpus API routes
+	r.addModuleRoutes("llm_corpus", []string{
+		"announcement", "api143", "api195", "einteraction",
+		"news_broadcast", "policy", "research_report",
+	})
+
+	// Options API routes
+	r.addModuleRoutes("options", []string{
+		"opt_basic", "opt_daily", "opt_min",
+	})
+
+	// Spot API routes
+	r.addModuleRoutes("spot", []string{
+		"spot_basic", "spot_daily",
+	})
+
+	// US Stock API routes
+	r.addModuleRoutes("us_stock", []string{
+		"us_basic", "us_daily", "us_cal", "us_factor",
+	})
 }
 
 // buildPath builds HTTP path for a tool
@@ -169,7 +235,7 @@ func (r *HTTPRouter) HTTPPathToToolName(path string) (string, error) {
 	path = strings.TrimPrefix(path, "/api/v1/")
 
 	parts := strings.Split(path, "/")
-	if len(parts) != 2 {
+	if len(parts) < 2 {
 		return "", fmt.Errorf("invalid HTTP path format: %s", path)
 	}
 
@@ -177,4 +243,54 @@ func (r *HTTPRouter) HTTPPathToToolName(path string) (string, error) {
 	tool := parts[1]
 
 	return fmt.Sprintf("%s.%s", module, tool), nil
+}
+
+// GetUnifiedEndpoints returns all unified endpoints (modules with single path for multiple tools)
+func (r *HTTPRouter) GetUnifiedEndpoints() []HTTPRoute {
+	var unified []HTTPRoute
+	for _, route := range r.routes {
+		if route.Tool == "*" { // Wildcard indicates unified endpoint
+			unified = append(unified, route)
+		}
+	}
+	return unified
+}
+
+// GetModuleUnifiedEndpoint returns the unified endpoint for a specific module
+func (r *HTTPRouter) GetModuleUnifiedEndpoint(module string) (*HTTPRoute, bool) {
+	basePath := fmt.Sprintf("/api/v1/%s", module)
+	for i := range r.routes {
+		if r.routes[i].Path == basePath && r.routes[i].Tool == "*" {
+			return &r.routes[i], true
+		}
+	}
+	return nil, false
+}
+
+// GetModuleTools returns all available tools for a specific module
+func (r *HTTPRouter) GetModuleTools(module string) []string {
+	var tools []string
+	for _, route := range r.routes {
+		if route.Module == module && route.Tool != "" && route.Tool != "*" {
+			tools = append(tools, route.Tool)
+		}
+	}
+	return tools
+}
+
+// ResolveUnifiedEndpoint resolves a unified endpoint call with tool parameter
+func (r *HTTPRouter) ResolveUnifiedEndpoint(path, tool string) (string, error) {
+	// Check if this is a unified endpoint
+	if _, ok := r.GetModuleUnifiedEndpoint(path); ok {
+		// Verify the requested tool exists in this module
+		availableTools := r.GetModuleTools(path)
+		for _, availableTool := range availableTools {
+			if availableTool == tool {
+				return fmt.Sprintf("%s.%s", path, tool), nil
+			}
+		}
+		return "", fmt.Errorf("tool '%s' not found in module '%s'. Available tools: %v", tool, path, availableTools)
+	}
+
+	return "", fmt.Errorf("path '%s' is not a unified endpoint", path)
 }

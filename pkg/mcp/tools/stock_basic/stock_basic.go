@@ -6,126 +6,27 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	stock_stock_basic "github.com/chenniannian90/tushare-go/pkg/sdk/api/stock/stock_basic"
 	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
 )
 
-// Stock_basicTools implements tools for stock_basic API
-type Stock_basicTools struct {
-	client *sdk.Client
-}
+// callStockBasic handles StockBasic tool calls
+func (m *Stock_basicTools) callStockBasic(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
+	req := &stock_stock_basic.StockBasicRequest{}
 
-// NewStock_basicTools creates a new stock_basic tools instance
-func NewStock_basicTools(client *sdk.Client) *Stock_basicTools {
-	return &Stock_basicTools{
-		client: client,
+	// Parse arguments into request
+	// TODO: Implement proper argument parsing based on request struct fields
+	// For now, this is a placeholder implementation
+
+	items, err := stock_stock_basic.StockBasic(ctx, m.client, req)
+	if err != nil {
+		return nil, fmt.Errorf("failed to call stock_basic API: %w", err)
 	}
-}
 
-// GetAPIName returns the Tushare API name for this module
-func (m *Stock_basicTools) GetAPIName() string {
-	return "stock_basic"
-}
-
-// ListTools returns all available tools in this module
-func (m *Stock_basicTools) ListTools() []common.Tool {
-	return []common.Tool{
-		{
-			Name: "stock_basic.bse_code_translate",
-			Description: "Access bse_code_translate data from Tushare API",
-		},
-		{
-			Name: "stock_basic.daily_basic",
-			Description: "Access daily_basic data from Tushare API",
-		},
-		{
-			Name: "stock_basic.hk_hold_stock",
-			Description: "Access hk_hold_stock data from Tushare API",
-		},
-		{
-			Name: "stock_basic.namechange",
-			Description: "Access namechange data from Tushare API",
-		},
-		{
-			Name: "stock_basic.new_share",
-			Description: "Access new_share data from Tushare API",
-		},
-		{
-			Name: "stock_basic.st_risk_warning",
-			Description: "Access st_risk_warning data from Tushare API",
-		},
-		{
-			Name: "stock_basic.st_stock_list",
-			Description: "Access st_stock_list data from Tushare API",
-		},
-		{
-			Name: "stock_basic.stk_managers",
-			Description: "Access stk_managers data from Tushare API",
-		},
-		{
-			Name: "stock_basic.stk_rewards",
-			Description: "Access stk_rewards data from Tushare API",
-		},
-		{
-			Name: "stock_basic.stock_basic",
-			Description: "Access stock_basic data from Tushare API",
-		},
-		{
-			Name: "stock_basic.stock_company",
-			Description: "Access stock_company data from Tushare API",
-		},
-		{
-			Name: "stock_basic.stock_history",
-			Description: "Access stock_history data from Tushare API",
-		},
-		{
-			Name: "stock_basic.trade_cal",
-			Description: "Access trade_cal data from Tushare API",
-		},
+	// Format results
+	result, err := common.APIResult(items, "stock_basic", "stock_basic")
+	if err != nil {
+		return nil, err
 	}
-}
-
-// HandlesTool checks if this module handles a tool
-func (m *Stock_basicTools) HandlesTool(toolName string) bool {
-	tools := m.ListTools()
-	for _, tool := range tools {
-		if tool.Name == toolName {
-			return true
-		}
-	}
-	return false
-}
-
-// CallTool executes a tool call
-func (m *Stock_basicTools) CallTool(ctx context.Context, toolName string, args map[string]interface{}) (*common.ToolResult, error) {
-	switch toolName {
-	case "stock_basic.bse_code_translate":
-		return m.callBseCodeTranslate(ctx, args)
-	case "stock_basic.daily_basic":
-		return m.callDailyBasic(ctx, args)
-	case "stock_basic.hk_hold_stock":
-		return m.callHkHoldStock(ctx, args)
-	case "stock_basic.namechange":
-		return m.callNamechange(ctx, args)
-	case "stock_basic.new_share":
-		return m.callNewShare(ctx, args)
-	case "stock_basic.st_risk_warning":
-		return m.callStRiskWarning(ctx, args)
-	case "stock_basic.st_stock_list":
-		return m.callStStockList(ctx, args)
-	case "stock_basic.stk_managers":
-		return m.callStkManagers(ctx, args)
-	case "stock_basic.stk_rewards":
-		return m.callStkRewards(ctx, args)
-	case "stock_basic.stock_basic":
-		return m.callStockBasic(ctx, args)
-	case "stock_basic.stock_company":
-		return m.callStockCompany(ctx, args)
-	case "stock_basic.stock_history":
-		return m.callStockHistory(ctx, args)
-	case "stock_basic.trade_cal":
-		return m.callTradeCal(ctx, args)
-	default:
-		return nil, fmt.Errorf("unknown tool: %s", toolName)
-	}
+	return result, nil
 }

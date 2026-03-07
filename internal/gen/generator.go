@@ -66,13 +66,27 @@ func toPascalCase(s string) string {
 	words := strings.Split(s, "_")
 	var result strings.Builder
 
-	for _, word := range words {
+	for i, word := range words {
 		if word == "" {
 			continue
 		}
-		// Capitalize first letter, keep rest as is
-		result.WriteString(strings.ToUpper(word[:1]))
-		result.WriteString(word[1:])
+		// Handle words starting with numbers
+		if word[0] >= '0' && word[0] <= '9' {
+			// For first word starting with number, add "Field" prefix
+			// For subsequent words, just capitalize first letter
+			if i == 0 {
+				result.WriteString("Field")
+				result.WriteString(strings.ToUpper(word[:1]))
+				result.WriteString(word[1:])
+			} else {
+				result.WriteString(strings.ToUpper(word[:1]))
+				result.WriteString(word[1:])
+			}
+		} else {
+			// Capitalize first letter, keep rest as is
+			result.WriteString(strings.ToUpper(word[:1]))
+			result.WriteString(word[1:])
+		}
 	}
 
 	return result.String()

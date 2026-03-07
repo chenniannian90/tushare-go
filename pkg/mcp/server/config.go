@@ -12,20 +12,24 @@ import (
 // ServerConfig holds MCP server configuration
 type ServerConfig struct {
 	Token           string
+	APIKey          string
 	Endpoint        string
 	Timeout         time.Duration
 	LogLevel        string
 	ShutdownTimeout time.Duration
+	RequireAuth     bool
 }
 
 // DefaultServerConfig returns default server configuration
 func DefaultServerConfig() *ServerConfig {
 	return &ServerConfig{
 		Token:           os.Getenv("TUSHARE_TOKEN"),
+		APIKey:          os.Getenv("MCP_API_KEY"),
 		Endpoint:        os.Getenv("TUSHARE_ENDPOINT"),
 		Timeout:         30 * time.Second,
 		LogLevel:        os.Getenv("LOG_LEVEL"),
 		ShutdownTimeout: 10 * time.Second,
+		RequireAuth:     os.Getenv("MCP_REQUIRE_AUTH") == "true",
 	}
 }
 
@@ -33,6 +37,11 @@ func DefaultServerConfig() *ServerConfig {
 func (c *ServerConfig) Validate() error {
 	if c.Token == "" {
 		return fmt.Errorf("TUSHARE_TOKEN is required")
+	}
+
+	// Validate API Key if authentication is required
+	if c.RequireAuth && c.APIKey == "" {
+		return fmt.Errorf("MCP_API_KEY is required when MCP_REQUIRE_AUTH is true")
 	}
 
 	if c.Endpoint == "" {

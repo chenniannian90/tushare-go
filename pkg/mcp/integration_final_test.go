@@ -24,20 +24,20 @@ func TestMCPIntegration_RealAPIThroughMCP(t *testing.T) {
 
 	config, _ := sdk.NewConfig(token)
 	client := sdk.NewClient(config)
-	registry := NewToolRegistry()
+	registry := NewToolRegistry(client)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
 	// Test tools through MCP
 	t.Run("list_tools_through_mcp", func(t *testing.T) {
-		tools := registry.GetTools()
+		tools := registry.ListTools()
 
-		if len(tools) != 19 {
-			t.Errorf("expected 19 tools, got %d", len(tools))
+		if len(tools) < 100 {
+			t.Errorf("expected at least 100 tools, got %d", len(tools))
 		}
 
-		t.Logf("✓ All 19 tools are registered in MCP server")
+		t.Logf("✓ All %d tools are registered in MCP server", len(tools))
 
 		// Verify each tool has required fields
 		for _, tool := range tools {
@@ -51,7 +51,7 @@ func TestMCPIntegration_RealAPIThroughMCP(t *testing.T) {
 	})
 
 	t.Run("call_stock_basic_through_mcp", func(t *testing.T) {
-		result, err := registry.CallTool(ctx, client, "stock_basic", map[string]interface{}{
+		result, err := registry.CallTool(ctx, "stock_basic.stock_basic", map[string]interface{}{
 			"ts_code": "000001.SZ",
 		})
 
@@ -71,7 +71,7 @@ func TestMCPIntegration_RealAPIThroughMCP(t *testing.T) {
 	})
 
 	t.Run("call_trade_cal_through_mcp", func(t *testing.T) {
-		result, err := registry.CallTool(ctx, client, "trade_cal", map[string]interface{}{
+		result, err := registry.CallTool(ctx, "stock_market.trade_cal", map[string]interface{}{
 			"exchange":  "SSE",
 			"start_date": "20240101",
 			"end_date":   "20240105",
@@ -98,13 +98,13 @@ func TestMCPIntegration_ErrorHandlingThroughMCP(t *testing.T) {
 
 	config, _ := sdk.NewConfig(token)
 	client := sdk.NewClient(config)
-	registry := NewToolRegistry()
+	registry := NewToolRegistry(client)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
 	t.Run("invalid_tool_name", func(t *testing.T) {
-		result, err := registry.CallTool(ctx, client, "invalid_tool_name", map[string]interface{}{})
+		result, err := registry.CallTool(ctx, "invalid_tool_name", map[string]interface{}{})
 
 		if err != nil {
 			t.Errorf("unexpected error: %v", err)
@@ -122,7 +122,7 @@ func TestMCPIntegration_ErrorHandlingThroughMCP(t *testing.T) {
 	})
 
 	t.Run("invalid_parameters", func(t *testing.T) {
-		result, err := registry.CallTool(ctx, client, "stock_basic", map[string]interface{}{
+		result, err := registry.CallTool(ctx, "stock_basic.stock_basic", map[string]interface{}{
 			"ts_code": "INVALID_FORMAT_12345",
 		})
 
@@ -147,7 +147,7 @@ func TestMCPIntegration_ConcurrentCallsThroughMCP(t *testing.T) {
 
 	config, _ := sdk.NewConfig(token)
 	client := sdk.NewClient(config)
-	registry := NewToolRegistry()
+	registry := NewToolRegistry(client)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
 	defer cancel()
@@ -156,15 +156,15 @@ func TestMCPIntegration_ConcurrentCallsThroughMCP(t *testing.T) {
 
 	// Concurrent tool calls
 	go func() {
-		_, err := registry.CallTool(ctx, client, "stock_basic", map[string]interface{}{
+		_, err := registry.CallTool(ctx, "stock_basic.stock_basic", map[string]interface{}{
 			"ts_code": "000001.SZ",
 		})
 		results <- err
 	}()
 
 	go func() {
-		_, err := registry.CallTool(ctx, client, "trade_cal", map[string]interface{}{
-			"exchange":  "SSE",
+		_, err := registry.CallTool(ctx, "stock_market.trade_cal", map[string]interface{}{
+			"exchange":   "SSE",
 			"start_date": "20240101",
 			"end_date":   "20240105",
 		})
@@ -172,7 +172,7 @@ func TestMCPIntegration_ConcurrentCallsThroughMCP(t *testing.T) {
 	}()
 
 	go func() {
-		_, err := registry.CallTool(ctx, client, "index_basic", map[string]interface{}{
+		_, err := registry.CallTool(ctx, "index.index_basic", map[string]interface{}{
 			"market": "SSE",
 		})
 		results <- err
@@ -195,8 +195,8 @@ func TestMCPIntegration_ConcurrentCallsThroughMCP(t *testing.T) {
 	}
 }
 
-// TestMCPIntegration_ServerLifecycle tests server lifecycle management
-func TestMCPIntegration_ServerLifecycle(t *testing.T) {
+// TestMCPIntegration_ToolCount verifies the expected number of tools
+func TestMCPIntegration_ToolCount(t *testing.T) {
 	token := os.Getenv("TUSHARE_TOKEN")
 	if token == "" {
 		t.Skip("TUSHARE_TOKEN environment variable not set")
@@ -204,40 +204,31 @@ func TestMCPIntegration_ServerLifecycle(t *testing.T) {
 
 	config, _ := sdk.NewConfig(token)
 	client := sdk.NewClient(config)
-	server := NewStdioMCPServer(client)
+	registry := NewToolRegistry(client)
 
-	// Test health status
-	t.Run("health_status", func(t *testing.T) {
-		health := server.Health.GetStatus(19)
+	tools := registry.ListTools()
 
-		if health.Status != "healthy" {
-			t.Errorf("expected healthy status, got %s", health.Status)
+	// We expect at least 190 tools (195 was the count at migration time)
+	if len(tools) < 190 {
+		t.Errorf("expected at least 190 tools, got %d", len(tools))
+	}
+
+	t.Logf("✓ Tool registry contains %d tools", len(tools))
+
+	// Verify no duplicate tool names
+	toolNames := make(map[string]bool)
+	duplicates := []string{}
+
+	for _, tool := range tools {
+		if toolNames[tool.Name] {
+			duplicates = append(duplicates, tool.Name)
 		}
+		toolNames[tool.Name] = true
+	}
 
-		if health.ToolCount != 19 {
-			t.Errorf("expected 19 tools, got %d", health.ToolCount)
-		}
-
-		if health.Uptime == "" {
-			t.Error("expected uptime string")
-		}
-
-		t.Logf("✓ Server health: %s, uptime: %s, tools: %d",
-			health.Status, health.Uptime, health.ToolCount)
-	})
-
-	// Test lifecycle management
-	t.Run("lifecycle_management", func(t *testing.T) {
-		lifecycle := server.Lifecycle
-
-		if lifecycle == nil {
-			t.Fatal("expected lifecycle manager")
-		}
-
-		if lifecycle.IsShutdown() {
-			t.Error("server should not be shutdown")
-		}
-
-		t.Log("✓ Lifecycle manager is properly initialized")
-	})
+	if len(duplicates) > 0 {
+		t.Errorf("found duplicate tool names: %v", duplicates)
+	} else {
+		t.Log("✓ No duplicate tool names found")
+	}
 }
