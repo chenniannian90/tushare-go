@@ -4,7 +4,6 @@ package stock_financialtools
 
 import (
 	"context"
-	"fmt"
 
 	stock_stock_financial "github.com/chenniannian90/tushare-go/pkg/sdk/api/stock/stock_financial"
 	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
@@ -15,18 +14,19 @@ func (m *Stock_financialTools) callFinaAudit(ctx context.Context, args map[strin
 	req := &stock_stock_financial.FinaAuditRequest{}
 
 	// Parse arguments into request
-	// TODO: Implement proper argument parsing based on request struct fields
-	// For now, this is a placeholder implementation
+	if err := common.ParseInput(args, req); err != nil {
+		return common.ErrorResult(err), nil
+	}
 
 	items, err := stock_stock_financial.FinaAudit(ctx, m.client, req)
 	if err != nil {
-		return nil, fmt.Errorf("failed to call fina_audit API: %w", err)
+		return common.ErrorResult(err), nil
 	}
 
 	// Format results
 	result, err := common.APIResult(items, "stock_financial", "fina_audit")
 	if err != nil {
-		return nil, err
+		return common.ErrorResult(err), nil
 	}
 	return result, nil
 }

@@ -4,7 +4,6 @@ package optionstools
 
 import (
 	"context"
-	"fmt"
 
 	options "github.com/chenniannian90/tushare-go/pkg/sdk/api/options"
 	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
@@ -15,18 +14,19 @@ func (m *OptionsTools) callOptDaily(ctx context.Context, args map[string]interfa
 	req := &options.OptDailyRequest{}
 
 	// Parse arguments into request
-	// TODO: Implement proper argument parsing based on request struct fields
-	// For now, this is a placeholder implementation
+	if err := common.ParseInput(args, req); err != nil {
+		return common.ErrorResult(err), nil
+	}
 
 	items, err := options.OptDaily(ctx, m.client, req)
 	if err != nil {
-		return nil, fmt.Errorf("failed to call opt_daily API: %w", err)
+		return common.ErrorResult(err), nil
 	}
 
 	// Format results
 	result, err := common.APIResult(items, "options", "opt_daily")
 	if err != nil {
-		return nil, err
+		return common.ErrorResult(err), nil
 	}
 	return result, nil
 }

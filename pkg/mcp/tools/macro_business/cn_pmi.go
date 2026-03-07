@@ -4,7 +4,6 @@ package macro_businesstools
 
 import (
 	"context"
-	"fmt"
 
 	macro_macro_domestic_macro_business "github.com/chenniannian90/tushare-go/pkg/sdk/api/macro/macro_domestic/macro_business"
 	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
@@ -15,18 +14,19 @@ func (m *Macro_businessTools) callCnPmi(ctx context.Context, args map[string]int
 	req := &macro_macro_domestic_macro_business.CnPmiRequest{}
 
 	// Parse arguments into request
-	// TODO: Implement proper argument parsing based on request struct fields
-	// For now, this is a placeholder implementation
+	if err := common.ParseInput(args, req); err != nil {
+		return common.ErrorResult(err), nil
+	}
 
 	items, err := macro_macro_domestic_macro_business.CnPmi(ctx, m.client, req)
 	if err != nil {
-		return nil, fmt.Errorf("failed to call cn_pmi API: %w", err)
+		return common.ErrorResult(err), nil
 	}
 
 	// Format results
 	result, err := common.APIResult(items, "macro_business", "cn_pmi")
 	if err != nil {
-		return nil, err
+		return common.ErrorResult(err), nil
 	}
 	return result, nil
 }

@@ -4,7 +4,6 @@ package stock_fund_flowtools
 
 import (
 	"context"
-	"fmt"
 
 	stock_stock_fund_flow "github.com/chenniannian90/tushare-go/pkg/sdk/api/stock/stock_fund_flow"
 	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
@@ -15,18 +14,19 @@ func (m *Stock_fund_flowTools) callMoneyflowThs(ctx context.Context, args map[st
 	req := &stock_stock_fund_flow.MoneyflowThsRequest{}
 
 	// Parse arguments into request
-	// TODO: Implement proper argument parsing based on request struct fields
-	// For now, this is a placeholder implementation
+	if err := common.ParseInput(args, req); err != nil {
+		return common.ErrorResult(err), nil
+	}
 
 	items, err := stock_stock_fund_flow.MoneyflowThs(ctx, m.client, req)
 	if err != nil {
-		return nil, fmt.Errorf("failed to call moneyflow_ths API: %w", err)
+		return common.ErrorResult(err), nil
 	}
 
 	// Format results
 	result, err := common.APIResult(items, "stock_fund_flow", "moneyflow_ths")
 	if err != nil {
-		return nil, err
+		return common.ErrorResult(err), nil
 	}
 	return result, nil
 }

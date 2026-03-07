@@ -565,7 +565,6 @@ package %s
 
 import (
 	"context"
-	"fmt"
 
 	%s "github.com/chenniannian90/tushare-go/pkg/sdk/api/%s"
 	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
@@ -576,18 +575,19 @@ func (m *%sTools) call%s(ctx context.Context, args map[string]interface{}) (*com
 	req := &%s.%s{}
 
 	// Parse arguments into request
-	// TODO: Implement proper argument parsing based on request struct fields
-	// For now, this is a placeholder implementation
+	if err := common.ParseInput(args, req); err != nil {
+		return common.ErrorResult(err), nil
+	}
 
 	items, err := %s.%s(ctx, m.client, req)
 	if err != nil {
-		return nil, fmt.Errorf("failed to call %s API: %%w", err)
+		return common.ErrorResult(err), nil
 	}
 
 	// Format results
 	result, err := common.APIResult(items, "%s", "%s")
 	if err != nil {
-		return nil, err
+		return common.ErrorResult(err), nil
 	}
 	return result, nil
 }
@@ -597,7 +597,7 @@ func (m *%sTools) call%s(ctx context.Context, args map[string]interface{}) (*com
 		fn.Name, fn.Name,
 		className, fn.Name,
 		importAlias, requestType,
-		importAlias, fn.Name, apiName,
+		importAlias, fn.Name,
 		moduleName, apiName)
 
 	// Ensure the module directory exists

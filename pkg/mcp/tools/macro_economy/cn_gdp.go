@@ -4,7 +4,6 @@ package macro_economytools
 
 import (
 	"context"
-	"fmt"
 
 	macro_macro_domestic_macro_economy "github.com/chenniannian90/tushare-go/pkg/sdk/api/macro/macro_domestic/macro_economy"
 	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
@@ -15,18 +14,19 @@ func (m *Macro_economyTools) callCnGdp(ctx context.Context, args map[string]inte
 	req := &macro_macro_domestic_macro_economy.CnGdpRequest{}
 
 	// Parse arguments into request
-	// TODO: Implement proper argument parsing based on request struct fields
-	// For now, this is a placeholder implementation
+	if err := common.ParseInput(args, req); err != nil {
+		return common.ErrorResult(err), nil
+	}
 
 	items, err := macro_macro_domestic_macro_economy.CnGdp(ctx, m.client, req)
 	if err != nil {
-		return nil, fmt.Errorf("failed to call cn_gdp API: %w", err)
+		return common.ErrorResult(err), nil
 	}
 
 	// Format results
 	result, err := common.APIResult(items, "macro_economy", "cn_gdp")
 	if err != nil {
-		return nil, err
+		return common.ErrorResult(err), nil
 	}
 	return result, nil
 }

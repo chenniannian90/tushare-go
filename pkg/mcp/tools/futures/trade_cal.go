@@ -4,7 +4,6 @@ package futurestools
 
 import (
 	"context"
-	"fmt"
 
 	futures "github.com/chenniannian90/tushare-go/pkg/sdk/api/futures"
 	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
@@ -15,18 +14,19 @@ func (m *FuturesTools) callTradeCal(ctx context.Context, args map[string]interfa
 	req := &futures.TradeCalRequest{}
 
 	// Parse arguments into request
-	// TODO: Implement proper argument parsing based on request struct fields
-	// For now, this is a placeholder implementation
+	if err := common.ParseInput(args, req); err != nil {
+		return common.ErrorResult(err), nil
+	}
 
 	items, err := futures.TradeCal(ctx, m.client, req)
 	if err != nil {
-		return nil, fmt.Errorf("failed to call trade_cal API: %w", err)
+		return common.ErrorResult(err), nil
 	}
 
 	// Format results
 	result, err := common.APIResult(items, "futures", "trade_cal")
 	if err != nil {
-		return nil, err
+		return common.ErrorResult(err), nil
 	}
 	return result, nil
 }

@@ -4,7 +4,6 @@ package indextools
 
 import (
 	"context"
-	"fmt"
 
 	index "github.com/chenniannian90/tushare-go/pkg/sdk/api/index"
 	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
@@ -15,18 +14,19 @@ func (m *IndexTools) callCiIndexMember(ctx context.Context, args map[string]inte
 	req := &index.CiIndexMemberRequest{}
 
 	// Parse arguments into request
-	// TODO: Implement proper argument parsing based on request struct fields
-	// For now, this is a placeholder implementation
+	if err := common.ParseInput(args, req); err != nil {
+		return common.ErrorResult(err), nil
+	}
 
 	items, err := index.CiIndexMember(ctx, m.client, req)
 	if err != nil {
-		return nil, fmt.Errorf("failed to call ci_index_member API: %w", err)
+		return common.ErrorResult(err), nil
 	}
 
 	// Format results
 	result, err := common.APIResult(items, "index", "ci_index_member")
 	if err != nil {
-		return nil, err
+		return common.ErrorResult(err), nil
 	}
 	return result, nil
 }

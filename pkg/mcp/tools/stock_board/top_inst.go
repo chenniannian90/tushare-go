@@ -4,7 +4,6 @@ package stock_boardtools
 
 import (
 	"context"
-	"fmt"
 
 	stock_stock_board "github.com/chenniannian90/tushare-go/pkg/sdk/api/stock/stock_board"
 	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
@@ -15,18 +14,19 @@ func (m *Stock_boardTools) callTopInst(ctx context.Context, args map[string]inte
 	req := &stock_stock_board.TopInstRequest{}
 
 	// Parse arguments into request
-	// TODO: Implement proper argument parsing based on request struct fields
-	// For now, this is a placeholder implementation
+	if err := common.ParseInput(args, req); err != nil {
+		return common.ErrorResult(err), nil
+	}
 
 	items, err := stock_stock_board.TopInst(ctx, m.client, req)
 	if err != nil {
-		return nil, fmt.Errorf("failed to call top_inst API: %w", err)
+		return common.ErrorResult(err), nil
 	}
 
 	// Format results
 	result, err := common.APIResult(items, "stock_board", "top_inst")
 	if err != nil {
-		return nil, err
+		return common.ErrorResult(err), nil
 	}
 	return result, nil
 }

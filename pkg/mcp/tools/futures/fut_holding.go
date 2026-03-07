@@ -4,7 +4,6 @@ package futurestools
 
 import (
 	"context"
-	"fmt"
 
 	futures "github.com/chenniannian90/tushare-go/pkg/sdk/api/futures"
 	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
@@ -15,18 +14,19 @@ func (m *FuturesTools) callFutHolding(ctx context.Context, args map[string]inter
 	req := &futures.FutHoldingRequest{}
 
 	// Parse arguments into request
-	// TODO: Implement proper argument parsing based on request struct fields
-	// For now, this is a placeholder implementation
+	if err := common.ParseInput(args, req); err != nil {
+		return common.ErrorResult(err), nil
+	}
 
 	items, err := futures.FutHolding(ctx, m.client, req)
 	if err != nil {
-		return nil, fmt.Errorf("failed to call fut_holding API: %w", err)
+		return common.ErrorResult(err), nil
 	}
 
 	// Format results
 	result, err := common.APIResult(items, "futures", "fut_holding")
 	if err != nil {
-		return nil, err
+		return common.ErrorResult(err), nil
 	}
 	return result, nil
 }

@@ -4,7 +4,6 @@ package stock_margintools
 
 import (
 	"context"
-	"fmt"
 
 	stock_stock_margin "github.com/chenniannian90/tushare-go/pkg/sdk/api/stock/stock_margin"
 	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
@@ -15,18 +14,19 @@ func (m *Stock_marginTools) callSlbSec(ctx context.Context, args map[string]inte
 	req := &stock_stock_margin.SlbSecRequest{}
 
 	// Parse arguments into request
-	// TODO: Implement proper argument parsing based on request struct fields
-	// For now, this is a placeholder implementation
+	if err := common.ParseInput(args, req); err != nil {
+		return common.ErrorResult(err), nil
+	}
 
 	items, err := stock_stock_margin.SlbSec(ctx, m.client, req)
 	if err != nil {
-		return nil, fmt.Errorf("failed to call slb_sec API: %w", err)
+		return common.ErrorResult(err), nil
 	}
 
 	// Format results
 	result, err := common.APIResult(items, "stock_margin", "slb_sec")
 	if err != nil {
-		return nil, err
+		return common.ErrorResult(err), nil
 	}
 	return result, nil
 }

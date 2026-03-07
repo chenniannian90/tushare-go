@@ -4,7 +4,6 @@ package etftools
 
 import (
 	"context"
-	"fmt"
 
 	etf "github.com/chenniannian90/tushare-go/pkg/sdk/api/etf"
 	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
@@ -15,18 +14,19 @@ func (m *EtfTools) callEtfBasic(ctx context.Context, args map[string]interface{}
 	req := &etf.EtfBasicRequest{}
 
 	// Parse arguments into request
-	// TODO: Implement proper argument parsing based on request struct fields
-	// For now, this is a placeholder implementation
+	if err := common.ParseInput(args, req); err != nil {
+		return common.ErrorResult(err), nil
+	}
 
 	items, err := etf.EtfBasic(ctx, m.client, req)
 	if err != nil {
-		return nil, fmt.Errorf("failed to call etf_basic API: %w", err)
+		return common.ErrorResult(err), nil
 	}
 
 	// Format results
 	result, err := common.APIResult(items, "etf", "etf_basic")
 	if err != nil {
-		return nil, err
+		return common.ErrorResult(err), nil
 	}
 	return result, nil
 }

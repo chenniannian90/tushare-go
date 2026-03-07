@@ -4,7 +4,6 @@ package bondtools
 
 import (
 	"context"
-	"fmt"
 
 	bond "github.com/chenniannian90/tushare-go/pkg/sdk/api/bond"
 	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
@@ -15,18 +14,19 @@ func (m *BondTools) callBcBestotcqt(ctx context.Context, args map[string]interfa
 	req := &bond.BcBestotcqtRequest{}
 
 	// Parse arguments into request
-	// TODO: Implement proper argument parsing based on request struct fields
-	// For now, this is a placeholder implementation
+	if err := common.ParseInput(args, req); err != nil {
+		return common.ErrorResult(err), nil
+	}
 
 	items, err := bond.BcBestotcqt(ctx, m.client, req)
 	if err != nil {
-		return nil, fmt.Errorf("failed to call bc_bestotcqt API: %w", err)
+		return common.ErrorResult(err), nil
 	}
 
 	// Format results
 	result, err := common.APIResult(items, "bond", "bc_bestotcqt")
 	if err != nil {
-		return nil, err
+		return common.ErrorResult(err), nil
 	}
 	return result, nil
 }

@@ -4,7 +4,6 @@ package futurestools
 
 import (
 	"context"
-	"fmt"
 
 	futures "github.com/chenniannian90/tushare-go/pkg/sdk/api/futures"
 	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
@@ -15,18 +14,19 @@ func (m *FuturesTools) callRtFutMin(ctx context.Context, args map[string]interfa
 	req := &futures.RtFutMinRequest{}
 
 	// Parse arguments into request
-	// TODO: Implement proper argument parsing based on request struct fields
-	// For now, this is a placeholder implementation
+	if err := common.ParseInput(args, req); err != nil {
+		return common.ErrorResult(err), nil
+	}
 
 	items, err := futures.RtFutMin(ctx, m.client, req)
 	if err != nil {
-		return nil, fmt.Errorf("failed to call rt_fut_min API: %w", err)
+		return common.ErrorResult(err), nil
 	}
 
 	// Format results
 	result, err := common.APIResult(items, "futures", "rt_fut_min")
 	if err != nil {
-		return nil, err
+		return common.ErrorResult(err), nil
 	}
 	return result, nil
 }

@@ -4,7 +4,6 @@ package industry_tmttools
 
 import (
 	"context"
-	"fmt"
 
 	industry_industry_tmt "github.com/chenniannian90/tushare-go/pkg/sdk/api/industry/industry_tmt"
 	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
@@ -15,18 +14,19 @@ func (m *Industry_tmtTools) callBoWeekly(ctx context.Context, args map[string]in
 	req := &industry_industry_tmt.BoWeeklyRequest{}
 
 	// Parse arguments into request
-	// TODO: Implement proper argument parsing based on request struct fields
-	// For now, this is a placeholder implementation
+	if err := common.ParseInput(args, req); err != nil {
+		return common.ErrorResult(err), nil
+	}
 
 	items, err := industry_industry_tmt.BoWeekly(ctx, m.client, req)
 	if err != nil {
-		return nil, fmt.Errorf("failed to call bo_weekly API: %w", err)
+		return common.ErrorResult(err), nil
 	}
 
 	// Format results
 	result, err := common.APIResult(items, "industry_tmt", "bo_weekly")
 	if err != nil {
-		return nil, err
+		return common.ErrorResult(err), nil
 	}
 	return result, nil
 }

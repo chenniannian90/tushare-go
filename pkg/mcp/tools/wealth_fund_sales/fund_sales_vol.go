@@ -4,7 +4,6 @@ package wealth_fund_salestools
 
 import (
 	"context"
-	"fmt"
 
 	wealth_wealth_fund_sales "github.com/chenniannian90/tushare-go/pkg/sdk/api/wealth/wealth_fund_sales"
 	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
@@ -15,18 +14,19 @@ func (m *Wealth_fund_salesTools) callFundSalesVol(ctx context.Context, args map[
 	req := &wealth_wealth_fund_sales.FundSalesVolRequest{}
 
 	// Parse arguments into request
-	// TODO: Implement proper argument parsing based on request struct fields
-	// For now, this is a placeholder implementation
+	if err := common.ParseInput(args, req); err != nil {
+		return common.ErrorResult(err), nil
+	}
 
 	items, err := wealth_wealth_fund_sales.FundSalesVol(ctx, m.client, req)
 	if err != nil {
-		return nil, fmt.Errorf("failed to call fund_sales_vol API: %w", err)
+		return common.ErrorResult(err), nil
 	}
 
 	// Format results
 	result, err := common.APIResult(items, "wealth_fund_sales", "fund_sales_vol")
 	if err != nil {
-		return nil, err
+		return common.ErrorResult(err), nil
 	}
 	return result, nil
 }

@@ -4,7 +4,6 @@ package indextools
 
 import (
 	"context"
-	"fmt"
 
 	index "github.com/chenniannian90/tushare-go/pkg/sdk/api/index"
 	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
@@ -15,18 +14,19 @@ func (m *IndexTools) callRtIdxK(ctx context.Context, args map[string]interface{}
 	req := &index.RtIdxKRequest{}
 
 	// Parse arguments into request
-	// TODO: Implement proper argument parsing based on request struct fields
-	// For now, this is a placeholder implementation
+	if err := common.ParseInput(args, req); err != nil {
+		return common.ErrorResult(err), nil
+	}
 
 	items, err := index.RtIdxK(ctx, m.client, req)
 	if err != nil {
-		return nil, fmt.Errorf("failed to call rt_idx_k API: %w", err)
+		return common.ErrorResult(err), nil
 	}
 
 	// Format results
 	result, err := common.APIResult(items, "index", "rt_idx_k")
 	if err != nil {
-		return nil, err
+		return common.ErrorResult(err), nil
 	}
 	return result, nil
 }

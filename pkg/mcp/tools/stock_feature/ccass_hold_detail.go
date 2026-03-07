@@ -4,7 +4,6 @@ package stock_featuretools
 
 import (
 	"context"
-	"fmt"
 
 	stock_stock_feature "github.com/chenniannian90/tushare-go/pkg/sdk/api/stock/stock_feature"
 	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
@@ -15,18 +14,19 @@ func (m *Stock_featureTools) callCcassHoldDetail(ctx context.Context, args map[s
 	req := &stock_stock_feature.CcassHoldDetailRequest{}
 
 	// Parse arguments into request
-	// TODO: Implement proper argument parsing based on request struct fields
-	// For now, this is a placeholder implementation
+	if err := common.ParseInput(args, req); err != nil {
+		return common.ErrorResult(err), nil
+	}
 
 	items, err := stock_stock_feature.CcassHoldDetail(ctx, m.client, req)
 	if err != nil {
-		return nil, fmt.Errorf("failed to call ccass_hold_detail API: %w", err)
+		return common.ErrorResult(err), nil
 	}
 
 	// Format results
 	result, err := common.APIResult(items, "stock_feature", "ccass_hold_detail")
 	if err != nil {
-		return nil, err
+		return common.ErrorResult(err), nil
 	}
 	return result, nil
 }

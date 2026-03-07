@@ -4,7 +4,6 @@ package macro_interest_ratetools
 
 import (
 	"context"
-	"fmt"
 
 	macro_macro_domestic_macro_interest_rate "github.com/chenniannian90/tushare-go/pkg/sdk/api/macro/macro_domestic/macro_interest_rate"
 	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
@@ -15,18 +14,19 @@ func (m *Macro_interest_rateTools) callShibor(ctx context.Context, args map[stri
 	req := &macro_macro_domestic_macro_interest_rate.ShiborRequest{}
 
 	// Parse arguments into request
-	// TODO: Implement proper argument parsing based on request struct fields
-	// For now, this is a placeholder implementation
+	if err := common.ParseInput(args, req); err != nil {
+		return common.ErrorResult(err), nil
+	}
 
 	items, err := macro_macro_domestic_macro_interest_rate.Shibor(ctx, m.client, req)
 	if err != nil {
-		return nil, fmt.Errorf("failed to call shibor API: %w", err)
+		return common.ErrorResult(err), nil
 	}
 
 	// Format results
 	result, err := common.APIResult(items, "macro_interest_rate", "shibor")
 	if err != nil {
-		return nil, err
+		return common.ErrorResult(err), nil
 	}
 	return result, nil
 }

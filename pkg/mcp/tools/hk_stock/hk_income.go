@@ -4,7 +4,6 @@ package hk_stocktools
 
 import (
 	"context"
-	"fmt"
 
 	hk_stock "github.com/chenniannian90/tushare-go/pkg/sdk/api/hk_stock"
 	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
@@ -15,18 +14,19 @@ func (m *Hk_stockTools) callHkIncome(ctx context.Context, args map[string]interf
 	req := &hk_stock.HkIncomeRequest{}
 
 	// Parse arguments into request
-	// TODO: Implement proper argument parsing based on request struct fields
-	// For now, this is a placeholder implementation
+	if err := common.ParseInput(args, req); err != nil {
+		return common.ErrorResult(err), nil
+	}
 
 	items, err := hk_stock.HkIncome(ctx, m.client, req)
 	if err != nil {
-		return nil, fmt.Errorf("failed to call hk_income API: %w", err)
+		return common.ErrorResult(err), nil
 	}
 
 	// Format results
 	result, err := common.APIResult(items, "hk_stock", "hk_income")
 	if err != nil {
-		return nil, err
+		return common.ErrorResult(err), nil
 	}
 	return result, nil
 }

@@ -72,3 +72,19 @@ func ErrorResult(err error) *ToolResult {
 		},
 	}
 }
+
+// ParseInput parses input arguments from map[string]interface{} to target struct
+func ParseInput(args map[string]interface{}, target interface{}) error {
+	// Convert args to JSON and then unmarshal into target
+	jsonData, err := json.Marshal(args)
+	if err != nil {
+		return fmt.Errorf("failed to marshal args: %w", err)
+	}
+
+	err = json.Unmarshal(jsonData, target)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal args: %w", err)
+	}
+
+	return nil
+}

@@ -4,7 +4,6 @@ package macro_pricetools
 
 import (
 	"context"
-	"fmt"
 
 	macro_macro_domestic_macro_price "github.com/chenniannian90/tushare-go/pkg/sdk/api/macro/macro_domestic/macro_price"
 	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
@@ -15,18 +14,19 @@ func (m *Macro_priceTools) callCnCpi(ctx context.Context, args map[string]interf
 	req := &macro_macro_domestic_macro_price.CnCpiRequest{}
 
 	// Parse arguments into request
-	// TODO: Implement proper argument parsing based on request struct fields
-	// For now, this is a placeholder implementation
+	if err := common.ParseInput(args, req); err != nil {
+		return common.ErrorResult(err), nil
+	}
 
 	items, err := macro_macro_domestic_macro_price.CnCpi(ctx, m.client, req)
 	if err != nil {
-		return nil, fmt.Errorf("failed to call cn_cpi API: %w", err)
+		return common.ErrorResult(err), nil
 	}
 
 	// Format results
 	result, err := common.APIResult(items, "macro_price", "cn_cpi")
 	if err != nil {
-		return nil, err
+		return common.ErrorResult(err), nil
 	}
 	return result, nil
 }

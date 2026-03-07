@@ -4,7 +4,6 @@ package stock_basictools
 
 import (
 	"context"
-	"fmt"
 
 	stock_stock_basic "github.com/chenniannian90/tushare-go/pkg/sdk/api/stock/stock_basic"
 	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
@@ -15,18 +14,19 @@ func (m *Stock_basicTools) callStkManagers(ctx context.Context, args map[string]
 	req := &stock_stock_basic.StkManagersRequest{}
 
 	// Parse arguments into request
-	// TODO: Implement proper argument parsing based on request struct fields
-	// For now, this is a placeholder implementation
+	if err := common.ParseInput(args, req); err != nil {
+		return common.ErrorResult(err), nil
+	}
 
 	items, err := stock_stock_basic.StkManagers(ctx, m.client, req)
 	if err != nil {
-		return nil, fmt.Errorf("failed to call stk_managers API: %w", err)
+		return common.ErrorResult(err), nil
 	}
 
 	// Format results
 	result, err := common.APIResult(items, "stock_basic", "stk_managers")
 	if err != nil {
-		return nil, err
+		return common.ErrorResult(err), nil
 	}
 	return result, nil
 }
