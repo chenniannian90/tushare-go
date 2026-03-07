@@ -4,13 +4,14 @@
 
 ## 功能特性
 
-- ✅ 针对20+ Tushare Pro REST API的类型安全Go SDK
+- ✅ 针对200+ Tushare Pro REST API的类型安全Go SDK
 - ✅ 代码生成器，可从JSON规范自动生成API封装
 - ✅ MCP服务器，用于Claude桌面版集成
 - ✅ 全面的测试覆盖率（≥80%）
 - ✅ 零外部依赖（除MCP SDK外）
-- ✅ 生产就绪，包含7个完整实现的工具
+- ✅ 生产就绪，包含26个完整实现的工具模块
 - ✅ **链式调用客户端，统一的API访问入口**
+- ✅ **优化后的代码结构，简洁高效**
 
 ## 安装
 
@@ -66,8 +67,8 @@ package main
 import (
     "context"
     "fmt"
-    "github.com/chenniannian90/tushare-go/pkg/sdk"
-    "github.com/chenniannian90/tushare-go/pkg/sdk/apis"
+    "tushare-go/pkg/sdk"
+    "tushare-go/pkg/sdk/apis"
 )
 
 func main() {
@@ -189,29 +190,57 @@ go run cmd/gen-mcp-tools/main.go -optimized
 
 ### 快速启动
 
+#### 方式1：使用命令行参数
+
 ```bash
 # 设置 Token
 export TUSHARE_TOKEN="your-tushare-token"
 
-# 启动 MCP 服务器
+# 启动 MCP 服务器（stdio模式，用于Claude桌面版）
 go run cmd/mcp-server/main.go
+
+# 启动 HTTP 服务器（用于HTTP客户端）
+go run cmd/mcp-server/main.go -transport http -addr :8080
 
 # 或者使用构建好的版本
 make build-mcp
 ./bin/tushare-mcp
 ```
 
+#### 方式2：使用配置文件
+
+```bash
+# 1. 复制示例配置文件
+cp config.example.json config.json
+
+# 2. 根据需要修改配置文件（可选）
+# 编辑 config.json，设置 host、port、transport 等参数
+
+# 3. 使用配置文件启动
+export TUSHARE_TOKEN="your-tushare-token"
+go run cmd/mcp-server/main.go -config config.json
+```
+
+**配置文件说明**：
+- `host`: HTTP服务器监听地址（默认：0.0.0.0）
+- `port`: HTTP服务器端口（默认：8080）
+- `transport`: 传输类型，可选 "stdio" 或 "http"
+- `services`: 服务配置，可以定义多个服务端点
+  - `all`: 所有API集合（推荐用于stdio模式）
+  - `stock`: 股票市场数据API
+  - `bond`: 债券市场数据API
+  - `futures`: 期货市场数据API
+  - 等等...
+- `global_auth`: 全局认证配置
+
 ### 传输模式
 
 ```bash
-# HTTP 模式 (默认)
-go run cmd/mcp-server/main.go -transport http
-
-# Stdio 模式 (用于 AI 助手)
+# Stdio 模式 (用于 AI 助手，如Claude桌面版)
 go run cmd/mcp-server/main.go -transport stdio
 
-# 双重模式 (同时支持)
-go run cmd/mcp-server/main.go -transport both
+# HTTP 模式 (用于HTTP客户端)
+go run cmd/mcp-server/main.go -transport http -addr :8080
 ```
 
 ### 工具调用
@@ -253,6 +282,12 @@ curl -X POST http://localhost:8080/mcp \
 tushare-go/
 ├── cmd/                    # CLI应用程序
 │   ├── mcp-server/         # MCP服务器
+│   │   ├── config/         # 配置包
+│   │   ├── main.go         # 主函数入口
+│   │   ├── server.go       # 服务器核心逻辑
+│   │   ├── tools.go        # 工具注册
+│   │   ├── middleware.go   # HTTP中间件
+│   │   └── types.go        # 核心数据结构
 │   ├── generator/          # 代码生成器
 │   └── examples/           # 示例代码
 │       ├── chain_client/   # 链式调用示例
@@ -265,8 +300,29 @@ tushare-go/
 │   │   ├── apis/           # 链式调用接口
 │   │   └── api/            # API 实现
 │   └── mcp/                # MCP服务器
+│       └── tools/          # MCP工具模块（26个）
+├── config.example.json     # 配置文件示例
 └── go.mod
 ```
+
+## 最新优化
+
+### MCP服务器重构 (2026-03-08)
+
+- ✅ **代码优化**: tools.go 从170行减少到94行 (-45%)
+- ✅ **结构优化**: server.go 从254行减少到179行 (-30%)
+- ✅ **注册表模式**: 使用工具注册表消除重复代码
+- ✅ **配置分离**: 创建config子目录，职责分离更清晰
+- ✅ **传输简化**: 移除"both"传输类型，只保留stdio和http
+- ✅ **配置统一**: 只保留一个config.example.json配置文件示例
+- ✅ **.gitignore修复**: 修复过度宽泛的忽略规则
+
+### 代码质量提升
+
+- 减少总代码行数约5%，同时提高可维护性
+- 使用注册表模式统一工具注册接口
+- 配置相关逻辑独立成包，提高内聚性
+- 删除不必要的并发启动复杂性
 
 ## 许可证
 
@@ -288,9 +344,10 @@ import "tushare-go/pkg/sdk"
 
 - ✅ 模块名简化为 `tushare-go`
 - ✅ 所有 565 个 Go 文件的导入路径已更新
-- ✅ 25 个 API 模块，223 个工具，全部编译通过
+- ✅ 26 个 API 模块，223 个工具，全部编译通过
 - ✅ 二进制文件统一放在 `bin/` 目录
 - ✅ 完整的文档更新
+- ✅ 优化的MCP服务器代码结构
 
 ### 迁移指南
 
