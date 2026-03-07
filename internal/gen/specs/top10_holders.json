@@ -1,6 +1,11 @@
 {
   "api_name": "top10_holders",
   "description": "获取十大股东数据",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=109",
+    "name": "十大股东数据",
+    "category": "股票信息"
+  },
   "request_params": [
     {"name": "ts_code", "type": "string", "description": "TS代码"},
     {"name": "period", "type": "string", "description": "报告期"},

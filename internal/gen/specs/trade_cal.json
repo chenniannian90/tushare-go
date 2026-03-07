@@ -1,6 +1,11 @@
 {
   "api_name": "trade_cal",
   "description": "交易日历数据",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=109",
+    "name": "交易日历",
+    "category": "交易日历"
+  },
   "request_params": [
     {"name": "exchange", "type": "string", "description": "交易所代码"},
     {"name": "start_date", "type": "string", "description": "开始日期"},

@@ -1,6 +1,11 @@
 {
   "api_name": "dividend",
   "description": "分红数据",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=117",
+    "name": "分红送股",
+    "category": "权益数据"
+  },
   "request_params": [
     {"name": "ts_code", "type": "string", "description": "TS代码"},
     {"name": "ann_date", "type": "string", "description": "公告日期"},

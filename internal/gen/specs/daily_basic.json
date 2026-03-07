@@ -1,6 +1,11 @@
 {
   "api_name": "daily_basic",
   "description": "每日基本面数据",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=32",
+    "name": "每日基本面",
+    "category": "行情数据"
+  },
   "request_params": [
     {"name": "ts_code", "type": "string", "description": "TS代码"},
     {"name": "trade_date", "type": "string", "description": "交易日期"},

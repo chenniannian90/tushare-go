@@ -1,6 +1,11 @@
 {
   "api_name": "index_daily",
   "description": "获取指数日线行情",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=126",
+    "name": "指数日线行情",
+    "category": "指数数据"
+  },
   "request_params": [
     {"name": "ts_code", "type": "string", "description": "TS代码"},
     {"name": "trade_date", "type": "string", "description": "交易日期"},

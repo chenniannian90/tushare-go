@@ -1,6 +1,11 @@
 {
   "api_name": "holder_number",
   "description": "股东人数数据",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=109",
+    "name": "股东人数数据",
+    "category": "股票信息"
+  },
   "request_params": [
     {"name": "ts_code", "type": "string", "description": "TS代码"},
     {"name": "ann_date", "type": "string", "description": "公告日期"},

@@ -1,6 +1,11 @@
 {
   "api_name": "fina_indicator",
   "description": "财务指标数据",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=86",
+    "name": "财务指标",
+    "category": "财务数据"
+  },
   "request_params": [
     {"name": "ts_code", "type": "string", "description": "TS代码"},
     {"name": "ann_date", "type": "string", "description": "公告日期"},

@@ -1,6 +1,11 @@
 {
   "api_name": "stock_basic",
   "description": "获取股票列表",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=25",
+    "name": "股票信息",
+    "category": "股票信息"
+  },
   "request_params": [
     {"name": "ts_code", "type": "string", "description": "股票代码"},
     {"name": "list_status", "type": "string", "description": "上市状态"},

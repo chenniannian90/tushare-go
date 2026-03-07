@@ -1,6 +1,11 @@
 {
   "api_name": "pro_bar",
   "description": "综合行情接口，兼容多种周期和类型",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=109",
+    "name": "综合行情",
+    "category": "行情数据"
+  },
   "request_params": [
     {"name": "ts_code", "type": "string", "description": "证券代码"},
     {"name": "start_date", "type": "string", "description": "开始日期"},
