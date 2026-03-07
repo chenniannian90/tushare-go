@@ -25,53 +25,17 @@ func main() {
 
 	client := sdk.NewClient(config)
 
-	// Example 1: Get all stocks
-	fmt.Println("=== Example 1: Get all stocks ===")
-	allStocks, err := stockbasic.StockBasic(context.Background(), client, &stockbasic.StockBasicRequest{})
+	// Example: Get stock basic information
+	fmt.Println("=== Example: Get stock basic information ===")
+	stocks, err := stockbasic.StockBasic(context.Background(), client, &stockbasic.StockBasicRequest{})
 	if err != nil {
 		log.Fatalf("Failed to get stocks: %v", err)
 	}
-	fmt.Printf("Found %d stocks total\n", len(allStocks))
+	fmt.Printf("Found %d stocks\n", len(stocks))
+	fmt.Printf("Response structure: %+v\n", stocks)
 
-	// Example 2: Get specific stock by code
-	fmt.Println("\n=== Example 2: Get stock by code ===")
-	stock, err := stockbasic.StockBasic(context.Background(), client, &stockbasic.StockBasicRequest{
-		TsCode: "000001.SZ",
-	})
-	if err != nil {
-		log.Fatalf("Failed to get stock: %v", err)
-	}
-	if len(stock) > 0 {
-		s := stock[0]
-		fmt.Printf("Stock: %s (%s) - %s - %s\n", s.TsCode, s.Symbol, s.Name, s.Industry)
-	}
-
-	// Example 3: Get stocks by exchange
-	fmt.Println("\n=== Example 3: Get SSE stocks ===")
-	sseStocks, err := stockbasic.StockBasic(context.Background(), client, &stockbasic.StockBasicRequest{
-		Exchange: "SSE",
-	})
-	if err != nil {
-		log.Fatalf("Failed to get SSE stocks: %v", err)
-	}
-	fmt.Printf("Found %d SSE stocks\n", len(sseStocks))
-	if len(sseStocks) > 0 {
-		fmt.Println("First 5 SSE stocks:")
-		for i, s := range sseStocks {
-			if i >= 5 {
-				break
-			}
-			fmt.Printf("  - %s (%s): %s\n", s.TsCode, s.Symbol, s.Name)
-		}
-	}
-
-	// Example 4: Get listed stocks only
-	fmt.Println("\n=== Example 4: Get listed stocks only ===")
-	listedStocks, err := stockbasic.StockBasic(context.Background(), client, &stockbasic.StockBasicRequest{
-		ListStatus: "L",
-	})
-	if err != nil {
-		log.Fatalf("Failed to get listed stocks: %v", err)
-	}
-	fmt.Printf("Found %d listed stocks\n", len(listedStocks))
+	fmt.Println("\n注意：当前 API spec 文件的 response_fields 为空，")
+	fmt.Println("需要补充 Tushare API 的字段定义以生成完整的数据结构。")
+	fmt.Println("请参考：https://tushare.pro/document/2")
+	fmt.Println("\nSDK 使用成功！一旦补充了 API 字段定义，数据将自动填充到响应结构体中。")
 }

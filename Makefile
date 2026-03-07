@@ -1,4 +1,4 @@
-.PHONY: test build clean gen gen-specs examples fix-encoding
+.PHONY: test build clean gen gen-specs examples fix-encoding run-examples
 
 test:
 	go test -v -race -coverprofile=coverage.out ./...
@@ -22,10 +22,29 @@ gen-specs: build-spec-gen
 examples: build-examples
 
 build-examples:
+	@echo "Building all examples..."
+	@mkdir -p bin
 	go build -o bin/stock_basic_example ./cmd/examples/stock_basic
 	go build -o bin/daily_example ./cmd/examples/daily
 	go build -o bin/daily_basic_example ./cmd/examples/daily_basic
 	go build -o bin/trade_cal_example ./cmd/examples/trade_cal
+	go build -o bin/financial_data_example ./cmd/examples/financial_data
+	go build -o bin/index_data_example ./cmd/examples/index_data
+	go build -o bin/futures_example ./cmd/examples/futures
+	go build -o bin/fund_example ./cmd/examples/fund
+	go build -o bin/hk_stock_example ./cmd/examples/hk_stock
+	go build -o bin/boards_example ./cmd/examples/boards
+	@echo "✅ Examples built successfully!"
+
+run-examples: build-examples
+	@echo "Running examples..."
+	@echo "Note: Make sure TUSHARE_TOKEN environment variable is set"
+	@for example in bin/*_example; do \
+		if [ -x "$$example" ]; then \
+			echo "\n🚀 Running $$(basename $$example)..."; \
+			$$example; \
+		fi; \
+	done
 
 clean:
 	rm -rf bin/

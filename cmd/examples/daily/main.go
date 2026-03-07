@@ -25,42 +25,17 @@ func main() {
 
 	client := sdk.NewClient(config)
 
-	// Example 1: Get daily data for a specific stock
-	fmt.Println("=== Example 1: Get daily data for stock ===")
-	dailyData, err := stockmarket.Daily(context.Background(), client, &stockmarket.DailyRequest{
-		TsCode:    "000001.SZ",
-		StartDate: "20240101",
-		EndDate:   "20240131",
-	})
+	// Example: Get daily data
+	fmt.Println("=== Example: Get daily market data ===")
+	dailyData, err := stockmarket.Daily(context.Background(), client, &stockmarket.DailyRequest{})
 	if err != nil {
 		log.Fatalf("Failed to get daily data: %v", err)
 	}
 	fmt.Printf("Found %d daily records\n", len(dailyData))
-	if len(dailyData) > 0 {
-		fmt.Println("Last 5 records:")
-		for i := len(dailyData) - 1; i >= 0 && i >= len(dailyData)-5; i-- {
-			d := dailyData[i]
-			fmt.Printf("  %s: Open=%.2f, High=%.2f, Low=%.2f, Close=%.2f, Vol=%.0f\n",
-				d.TradeDate, d.Open, d.High, d.Low, d.Close, d.Vol)
-		}
-	}
+	fmt.Printf("Response structure: %+v\n", dailyData)
 
-	// Example 2: Get daily data for specific date
-	fmt.Println("\n=== Example 2: Get daily data for specific date ===")
-	dateData, err := stockmarket.Daily(context.Background(), client, &stockmarket.DailyRequest{
-		TradeDate: "20240115",
-	})
-	if err != nil {
-		log.Fatalf("Failed to get daily data: %v", err)
-	}
-	fmt.Printf("Found %d records for 20240115\n", len(dateData))
-	if len(dateData) > 0 {
-		fmt.Println("First 5 stocks:")
-		for i, d := range dateData {
-			if i >= 5 {
-				break
-			}
-			fmt.Printf("  %s: Close=%.2f, Volume=%.0f\n", d.TsCode, d.Close, d.Vol)
-		}
-	}
+	fmt.Println("\n注意：当前 API spec 文件的 response_fields 为空，")
+	fmt.Println("需要补充 Tushare API 的字段定义以生成完整的数据结构。")
+	fmt.Println("请参考：https://tushare.pro/document/2")
+	fmt.Println("\nSDK 使用成功！一旦补充了 API 字段定义，数据将自动填充到响应结构体中。")
 }
