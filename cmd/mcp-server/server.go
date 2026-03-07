@@ -10,9 +10,9 @@ import (
 	"syscall"
 	"time"
 
+	mcpsdk "github.com/modelcontextprotocol/go-sdk/mcp"
 	"tushare-go/cmd/mcp-server/config"
 	"tushare-go/pkg/sdk"
-	mcpsdk "github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
 // NewServer creates a new multi-service MCP server
@@ -64,14 +64,6 @@ func (s *Server) Start() error {
 		return s.startStdio()
 	case "http":
 		return s.startHTTP()
-	case "both":
-		// Start HTTP in background, then run stdio in foreground
-		go func() {
-			if err := s.startHTTP(); err != nil {
-				log.Printf("HTTP server error: %v", err)
-			}
-		}()
-		return s.startStdio()
 	default:
 		return fmt.Errorf("unknown transport type: %s", s.config.Transport)
 	}

@@ -12,8 +12,8 @@ import (
 func main() {
 	// Parse command-line flags
 	configPath := flag.String("config", "", "Path to configuration file (JSON)")
-	transport := flag.String("transport", "stdio", "Transport type: stdio, http, or both (overridden by config file)")
-	addr := flag.String("addr", ":8080", "HTTP server address (for http/both transports) (overridden by config file)")
+	transport := flag.String("transport", "stdio", "Transport type: stdio or http (overridden by config file)")
+	addr := flag.String("addr", ":8080", "HTTP server address (for http transport) (overridden by config file)")
 	flag.Parse()
 
 	// Get Tushare token from environment

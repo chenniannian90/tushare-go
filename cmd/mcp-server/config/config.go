@@ -24,7 +24,7 @@ type ServiceConfig struct {
 type ServerConfig struct {
 	Host       string                   `json:"host"`
 	Port       int                      `json:"port"`
-	Transport  string                   `json:"transport"`   // "stdio", "http", "both"
+	Transport  string                   `json:"transport"`   // "stdio" or "http"
 	Services   map[string]ServiceConfig `json:"services"`    // named service configurations
 	GlobalAuth AuthConfig               `json:"global_auth"` // fallback auth config
 }
