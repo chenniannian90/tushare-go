@@ -13,11 +13,11 @@ import (
 // toGoType converts API type to Go type
 func toGoType(apiType string) string {
 	switch strings.ToLower(apiType) {
-	case "string":
+	case "string", "str":
 		return "string"
 	case "int", "integer":
 		return "int"
-	case "float", "double":
+	case "float", "float64", "double":
 		return "float64"
 	case "bool", "boolean":
 		return "bool"

@@ -9,7 +9,6 @@ import (
 )
 
 type Futures interface {
-	Api314(ctx context.Context, req *futures.Api314Request) ([]futures.Api314Item, error)
 	FtLimit(ctx context.Context, req *futures.FtLimitRequest) ([]futures.FtLimitItem, error)
 	FtMins(ctx context.Context, req *futures.FtMinsRequest) ([]futures.FtMinsItem, error)
 	FutBasic(ctx context.Context, req *futures.FutBasicRequest) ([]futures.FutBasicItem, error)
@@ -17,6 +16,7 @@ type Futures interface {
 	FutHolding(ctx context.Context, req *futures.FutHoldingRequest) ([]futures.FutHoldingItem, error)
 	FutMapping(ctx context.Context, req *futures.FutMappingRequest) ([]futures.FutMappingItem, error)
 	FutSettle(ctx context.Context, req *futures.FutSettleRequest) ([]futures.FutSettleItem, error)
+	FutTick(ctx context.Context, req *futures.FutTickRequest) ([]futures.FutTickItem, error)
 	FutWeeklyDetail(ctx context.Context, req *futures.FutWeeklyDetailRequest) ([]futures.FutWeeklyDetailItem, error)
 	FutWeeklyMonthly(ctx context.Context, req *futures.FutWeeklyMonthlyRequest) ([]futures.FutWeeklyMonthlyItem, error)
 	FutWsr(ctx context.Context, req *futures.FutWsrRequest) ([]futures.FutWsrItem, error)
@@ -27,10 +27,6 @@ type Futures interface {
 
 type futuresImpl struct {
 	client *sdk.Client
-}
-
-func (impl *futuresImpl) Api314(ctx context.Context, req *futures.Api314Request) ([]futures.Api314Item, error) {
-	return futures.Api314(ctx, impl.client, req)
 }
 
 func (impl *futuresImpl) FtLimit(ctx context.Context, req *futures.FtLimitRequest) ([]futures.FtLimitItem, error) {
@@ -59,6 +55,10 @@ func (impl *futuresImpl) FutMapping(ctx context.Context, req *futures.FutMapping
 
 func (impl *futuresImpl) FutSettle(ctx context.Context, req *futures.FutSettleRequest) ([]futures.FutSettleItem, error) {
 	return futures.FutSettle(ctx, impl.client, req)
+}
+
+func (impl *futuresImpl) FutTick(ctx context.Context, req *futures.FutTickRequest) ([]futures.FutTickItem, error) {
+	return futures.FutTick(ctx, impl.client, req)
 }
 
 func (impl *futuresImpl) FutWeeklyDetail(ctx context.Context, req *futures.FutWeeklyDetailRequest) ([]futures.FutWeeklyDetailItem, error) {

@@ -1,12 +1,110 @@
 {
   "api_name": "历史Tick行情",
-  "api_code": "api_314",
-  "description": "",
+  "api_code": "fut_tick",
+  "description": "获取期货合约历史Tick数据，包括最新成交、买一、卖一、买量、卖量等数据",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=314",
     "name": "历史Tick行情",
     "category": "期货数据___futures"
   },
-  "request_params": null,
-  "response_fields": null
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "合约代码",
+      "required": true
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期（YYYYMMDD格式）",
+      "required": true
+    },
+    {
+      "name": "start_time",
+      "type": "str",
+      "description": "开始时间（格式：HH:MM:SS）",
+      "required": false
+    },
+    {
+      "name": "end_time",
+      "type": "str",
+      "description": "结束时间（格式：HH:MM:SS）",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "trade_time",
+      "type": "str",
+      "description": "成交时间",
+      "default_display": true
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "合约代码",
+      "default_display": true
+    },
+    {
+      "name": "last_price",
+      "type": "float64",
+      "description": "最新价",
+      "default_display": true
+    },
+    {
+      "name": "bid_price1",
+      "type": "float64",
+      "description": "买一价",
+      "default_display": false
+    },
+    {
+      "name": "bid_volume1",
+      "type": "float64",
+      "description": "买一量",
+      "default_display": false
+    },
+    {
+      "name": "ask_price1",
+      "type": "float64",
+      "description": "卖一价",
+      "default_display": false
+    },
+    {
+      "name": "ask_volume1",
+      "type": "float64",
+      "description": "卖一量",
+      "default_display": false
+    },
+    {
+      "name": "open_interest",
+      "type": "float64",
+      "description": "持仓量",
+      "default_display": true
+    },
+    {
+      "name": "volume",
+      "type": "float64",
+      "description": "成交量",
+      "default_display": true
+    },
+    {
+      "name": "open",
+      "type": "float64",
+      "description": "开盘价",
+      "default_display": false
+    },
+    {
+      "name": "high",
+      "type": "float64",
+      "description": "最高价",
+      "default_display": false
+    },
+    {
+      "name": "low",
+      "type": "float64",
+      "description": "最低价",
+      "default_display": false
+    }
+  ]
 }

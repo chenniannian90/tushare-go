@@ -100,16 +100,42 @@ func main() {
 			continue
 		}
 
-		// 生成输出路径
-		outputPath, err := getOutputPath(specPath, specsRootAbs, outputRootAbs)
+		// 生成输出路径 - 使用 api_code 作为文件名
+		relPath, err := filepath.Rel(specsRootAbs, specPath)
 		if err != nil {
-			fmt.Printf("❌ Error: failed to generate output path for %s: %v\n", specPath, err)
+			fmt.Printf("❌ Error: failed to get relative path for %s: %v\n", specPath, err)
+			errorCount++
+			continue
+		}
+
+		// 提取目录路径并处理每个组件
+		dirPath := filepath.Dir(relPath)
+		if dirPath == "." {
+			dirPath = ""
+		}
+
+		// 处理目录路径，提取每个组件中的英文名称
+		var processedDirComponents []string
+		if dirPath != "" {
+			dirComponents := strings.Split(dirPath, string(filepath.Separator))
+			for _, component := range dirComponents {
+				processedDirComponents = append(processedDirComponents, extractNameFromPath(component))
+			}
+		}
+
+		// 使用 spec.APICode 作为文件名
+		outputDir := filepath.Join(outputRootAbs, filepath.Join(processedDirComponents...))
+		outputFile := filepath.Join(outputDir, spec.APICode+".go")
+
+		// 确保输出目录存在
+		if err := os.MkdirAll(outputDir, 0755); err != nil {
+			fmt.Printf("❌ Error: failed to create directory %s: %v\n", outputDir, err)
 			errorCount++
 			continue
 		}
 
 		// 生成代码
-		if err := gen.Generate(spec, outputPath); err != nil {
+		if err := gen.Generate(spec, outputFile); err != nil {
 			fmt.Printf("❌ Error: failed to generate %s: %v\n", spec.APIName, err)
 			errorCount++
 			continue
