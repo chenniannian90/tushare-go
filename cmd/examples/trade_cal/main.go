@@ -7,7 +7,7 @@ import (
 	"os"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	tradingcalendar "github.com/chenniannian90/tushare-go/pkg/sdk/api/trading_calendar"
+	stockbasic "github.com/chenniannian90/tushare-go/pkg/sdk/api/stock/stock_basic"
 )
 
 func main() {
@@ -27,41 +27,19 @@ func main() {
 
 	// Example: Get trading calendar
 	fmt.Println("=== Trading Calendar Example ===")
-	calData, err := tradingcalendar.TradeCal(context.Background(), client, &tradingcalendar.TradeCalRequest{
-		Exchange:  "SSE",
-		StartDate: "20240101",
-		EndDate:   "20240131",
-	})
+	calData, err := stockbasic.TradeCal(context.Background(), client, &stockbasic.TradeCalRequest{})
 	if err != nil {
 		log.Fatalf("Failed to get trading calendar: %v", err)
 	}
 
 	fmt.Printf("Found %d calendar days\n", len(calData))
-
-	// Count trading days vs non-trading days
-	tradingDays := 0
-	nonTradingDays := 0
-	for _, d := range calData {
-		if d.IsOpen == "1" {
-			tradingDays++
-		} else {
-			nonTradingDays++
+	if len(calData) > 0 {
+		fmt.Println("\nFirst 5 days:")
+		for i, d := range calData {
+			if i >= 5 {
+				break
+			}
+			fmt.Printf("  Data: %+v\n", d)
 		}
-	}
-
-	fmt.Printf("Trading days: %d\n", tradingDays)
-	fmt.Printf("Non-trading days: %d\n", nonTradingDays)
-
-	// Show first 10 days
-	fmt.Println("\nFirst 10 days:")
-	for i, d := range calData {
-		if i >= 10 {
-			break
-		}
-		status := "Closed"
-		if d.IsOpen == "1" {
-			status = "Open"
-		}
-		fmt.Printf("  %s: %s\n", d.CalDate, status)
 	}
 }

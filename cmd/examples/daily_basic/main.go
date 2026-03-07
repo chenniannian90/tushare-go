@@ -7,7 +7,7 @@ import (
 	"os"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	marketdata "github.com/chenniannian90/tushare-go/pkg/sdk/api/market_data"
+	stockmarket "github.com/chenniannian90/tushare-go/pkg/sdk/api/stock/stock_market"
 )
 
 func main() {
@@ -27,11 +27,7 @@ func main() {
 
 	// Example: Get daily basic metrics
 	fmt.Println("=== Daily Basic Metrics Example ===")
-	basicData, err := marketdata.DailyBasic(context.Background(), client, &marketdata.DailyBasicRequest{
-		TsCode:    "000001.SZ",
-		StartDate: "20240101",
-		EndDate:   "20240110",
-	})
+	basicData, err := stockmarket.DailyBasic(context.Background(), client, &stockmarket.DailyBasicRequest{})
 	if err != nil {
 		log.Fatalf("Failed to get daily basic data: %v", err)
 	}
@@ -40,14 +36,8 @@ func main() {
 	if len(basicData) > 0 {
 		fmt.Println("\nDaily Basic Metrics:")
 		for _, d := range basicData {
-			fmt.Printf("\nDate: %s\n", d.TradeDate)
-			fmt.Printf("  PE (TTM): %.2f\n", d.PeTtm)
-			fmt.Printf("  PB: %.2f\n", d.Pb)
-			fmt.Printf("  PS (TTM): %.2f\n", d.PsTtm)
-			fmt.Printf("  Total MV: %.2f亿\n", d.TotalMv)
-			fmt.Printf("  Circ MV: %.2f亿\n", d.CircMv)
-			fmt.Printf("  Turnover Rate: %.2f%%\n", d.TurnoverRate)
-			fmt.Printf("  Volume Ratio: %.2f\n", d.VolumeRatio)
+			fmt.Printf("\nData: %+v\n", d)
+			break
 		}
 	}
 }

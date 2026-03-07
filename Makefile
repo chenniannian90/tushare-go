@@ -33,4 +33,51 @@ clean:
 
 fix-encoding:
 	@echo "Checking and fixing encoding issues in API spec files..."
-	@.claude/commands/fix-encoding.sh internal/gen/specs
+	@echo "🔍 Scanning directory: internal/gen/specs"
+	@echo ""
+	@TOTAL_FILES=0; \
+	CHECKED_FILES=0; \
+	FIXED_FILES=0; \
+	find internal/gen/specs -type f -name "*.json" -print0 | while IFS= read -r -d '' file; do \
+		((TOTAL_FILES++)); \
+		((CHECKED_FILES++)); \
+		filename=$$(basename "$$file"); \
+		if ! echo "$$filename" | iconv -f UTF-8 -t UTF-8 >/dev/null 2>&1; then \
+			fixed_name=$$(echo "$$filename" | iconv -f UTF-8 -t UTF-8 -c 2>/dev/null || echo "$$filename"); \
+			if [ "$$fixed_name" != "$$filename" ]; then \
+				dir=$$(dirname "$$file"); \
+				new_path="$$dir/$$fixed_name"; \
+				mv "$$file" "$$new_path"; \
+				echo "   🔧 Renamed: $$filename -> $$fixed_name"; \
+				((FIXED_FILES++)); \
+			fi; \
+		fi; \
+		python3 -c "import json, sys; exec(\
+try: \
+	with open('$$file', 'r', encoding='utf-8') as f: data = json.load(f); \
+except UnicodeDecodeError: \
+	try: \
+		with open('$$file', 'r', encoding='latin-1') as f: content = f.read(); \
+		with open('$$file', 'w', encoding='utf-8') as f: f.write(content); \
+	except: sys.exit(1); \
+except json.JSONDecodeError: \
+	with open('$$file', 'r') as f: content = f.read(); \
+	import re; content = re.sub(r'[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]', '', content); \
+	with open('$$file', 'w', encoding='utf-8') as f: f.write(content); \
+)" 2>/dev/null; \
+		if [ $$? -eq 0 ]; then \
+			echo "   🔧 Fixed encoding in: $$filename"; \
+			((FIXED_FILES++)); \
+		fi; \
+	done; \
+	echo ""; \
+	echo "📊 Summary:"; \
+	echo "   Total files found: $$TOTAL_FILES"; \
+	echo "   Files checked: $$CHECKED_FILES"; \
+	echo "   Files fixed: $$FIXED_FILES"; \
+	echo ""; \
+	if [ $$FIXED_FILES -eq 0 ]; then \
+		echo "✅ No encoding issues found!"; \
+	else \
+		echo "✅ Fixed $$FIXED_FILES file(s) with encoding issues"; \
+	fi

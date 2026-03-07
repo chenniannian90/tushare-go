@@ -112,6 +112,18 @@ func Generate(spec *APISpec, outputPath string) error {
 		return fmt.Errorf("failed to read template from %s: %w", tmplPath, err)
 	}
 
+	// Extract package name from output path
+	packageName := extractPackageName(outputPath)
+
+	// Create template data with package name
+	templateData := struct {
+		*APISpec
+		PackageName string
+	}{
+		APISpec:     spec,
+		PackageName: packageName,
+	}
+
 	// Create template with custom functions
 	tmpl, err := template.New("api.go.tmpl").Funcs(templateFuncs).Parse(string(tmplContent))
 	if err != nil {
@@ -120,7 +132,7 @@ func Generate(spec *APISpec, outputPath string) error {
 
 	// Execute template
 	var buf bytes.Buffer
-	if err := tmpl.Execute(&buf, spec); err != nil {
+	if err := tmpl.Execute(&buf, templateData); err != nil {
 		return fmt.Errorf("failed to execute template: %w", err)
 	}
 
@@ -136,6 +148,44 @@ func Generate(spec *APISpec, outputPath string) error {
 	}
 
 	return nil
+}
+
+// extractPackageName extracts the package name from the output file path
+func extractPackageName(outputPath string) string {
+	// Get the directory containing the output file
+	outputDir := filepath.Dir(outputPath)
+
+	// Get the last component of the directory path
+	dirName := filepath.Base(outputDir)
+
+	// Convert to a valid Go package name
+	// Replace hyphens and dots with underscores
+	goPackageName := strings.Map(func(r rune) rune {
+		if r == '-' || r == '.' {
+			return '_'
+		}
+		return r
+	}, dirName)
+
+	// Ensure the package name is a valid Go identifier
+	if !isValidGoIdentifier(goPackageName) {
+		return "api"
+	}
+
+	return goPackageName
+}
+
+// isValidGoIdentifier checks if a string is a valid Go identifier
+func isValidGoIdentifier(s string) bool {
+	if s == "" {
+		return false
+	}
+	for i, r := range s {
+		if (r < 'a' || r > 'z') && (r < 'A' || r > 'Z') && r != '_' && (i == 0 || r < '0' || r > '9') {
+			return false
+		}
+	}
+	return true
 }
 
 // ListSpecs returns a list of all spec file paths (including subdirectories)
