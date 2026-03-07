@@ -1,0 +1,12 @@
+{
+  "api_name": "us_daily",
+  "api_code": "us_daily",
+  "description": "美股日线行情",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=254",
+    "name": "美股日线行情",
+    "category": "美股数据___us_stock"
+  },
+  "request_params": [],
+  "response_fields": []
+}

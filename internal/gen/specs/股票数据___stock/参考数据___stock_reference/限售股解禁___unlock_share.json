@@ -1,0 +1,12 @@
+{
+  "api_name": "unlock_share",
+  "api_code": "unlock_share",
+  "description": "限售股解禁",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=160",
+    "name": "限售股解禁",
+    "category": "参考数据___stock_reference"
+  },
+  "request_params": [],
+  "response_fields": []
+}

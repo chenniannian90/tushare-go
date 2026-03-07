@@ -1,0 +1,12 @@
+{
+  "api_name": "api_199",
+  "api_code": "api_199",
+  "description": "ETF复权因子",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=199",
+    "name": "ETF复权因子",
+    "category": "ETF专题___etf"
+  },
+  "request_params": [],
+  "response_fields": []
+}

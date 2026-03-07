@@ -1,0 +1,12 @@
+{
+  "api_name": "us_income",
+  "api_code": "us_income",
+  "description": "美股利润表",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=394",
+    "name": "美股利润表",
+    "category": "美股数据___us_stock"
+  },
+  "request_params": [],
+  "response_fields": []
+}

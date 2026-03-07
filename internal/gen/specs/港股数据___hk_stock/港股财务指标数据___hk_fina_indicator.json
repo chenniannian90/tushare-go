@@ -1,0 +1,12 @@
+{
+  "api_name": "hk_fina_indicator",
+  "api_code": "hk_fina_indicator",
+  "description": "港股财务指标数据",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=388",
+    "name": "港股财务指标数据",
+    "category": "港股数据___hk_stock"
+  },
+  "request_params": [],
+  "response_fields": []
+}

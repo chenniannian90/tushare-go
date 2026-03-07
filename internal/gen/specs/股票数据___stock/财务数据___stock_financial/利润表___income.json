@@ -1,0 +1,12 @@
+{
+  "api_name": "income",
+  "api_code": "income",
+  "description": "利润表",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=33",
+    "name": "利润表",
+    "category": "财务数据___stock_financial"
+  },
+  "request_params": [],
+  "response_fields": []
+}

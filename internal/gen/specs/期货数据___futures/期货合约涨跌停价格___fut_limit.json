@@ -1,0 +1,12 @@
+{
+  "api_name": "fut_limit",
+  "api_code": "fut_limit",
+  "description": "期货合约涨跌停价格",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=368",
+    "name": "期货合约涨跌停价格",
+    "category": "期货数据___futures"
+  },
+  "request_params": [],
+  "response_fields": []
+}

@@ -1,0 +1,12 @@
+{
+  "api_name": "api_392",
+  "api_code": "api_392",
+  "description": "可转债技术面因子(专业版)",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=392",
+    "name": "可转债技术面因子(专业版)",
+    "category": "债券专题___bond"
+  },
+  "request_params": [],
+  "response_fields": []
+}

@@ -1,0 +1,12 @@
+{
+  "api_name": "auction",
+  "api_code": "auction",
+  "description": "股票收盘集合竞价数据",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=354",
+    "name": "股票收盘集合竞价数据",
+    "category": "特色数据___stock_feature"
+  },
+  "request_params": [],
+  "response_fields": []
+}

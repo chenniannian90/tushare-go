@@ -1,0 +1,12 @@
+{
+  "api_name": "api_143",
+  "api_code": "api_143",
+  "description": "新闻快讯（短讯）",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=143",
+    "name": "新闻快讯（短讯）",
+    "category": "大模型语料专题数据___llm_corpus"
+  },
+  "request_params": [],
+  "response_fields": []
+}

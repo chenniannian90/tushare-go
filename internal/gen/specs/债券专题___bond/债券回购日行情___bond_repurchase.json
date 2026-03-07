@@ -1,0 +1,12 @@
+{
+  "api_name": "bond_repurchase",
+  "api_code": "bond_repurchase",
+  "description": "债券回购日行情",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=256",
+    "name": "债券回购日行情",
+    "category": "债券专题___bond"
+  },
+  "request_params": [],
+  "response_fields": []
+}

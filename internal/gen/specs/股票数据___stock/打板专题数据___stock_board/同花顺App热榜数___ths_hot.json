@@ -1,0 +1,12 @@
+{
+  "api_name": "ths_hot",
+  "api_code": "ths_hot",
+  "description": "同花顺App热榜数",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=320",
+    "name": "同花顺App热榜数",
+    "category": "打板专题数据___stock_board"
+  },
+  "request_params": [],
+  "response_fields": []
+}

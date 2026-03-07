@@ -1,0 +1,12 @@
+{
+  "api_name": "fund_portfolio",
+  "api_code": "fund_portfolio",
+  "description": "基金持仓",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=121",
+    "name": "基金持仓",
+    "category": "公募基金___fund"
+  },
+  "request_params": [],
+  "response_fields": []
+}

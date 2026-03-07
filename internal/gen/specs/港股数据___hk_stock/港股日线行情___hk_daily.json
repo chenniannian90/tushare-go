@@ -1,0 +1,12 @@
+{
+  "api_name": "hk_daily",
+  "api_code": "hk_daily",
+  "description": "港股日线行情",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=192",
+    "name": "港股日线行情",
+    "category": "港股数据___hk_stock"
+  },
+  "request_params": [],
+  "response_fields": []
+}

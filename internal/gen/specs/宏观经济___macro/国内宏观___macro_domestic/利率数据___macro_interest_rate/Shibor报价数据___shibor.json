@@ -1,0 +1,12 @@
+{
+  "api_name": "shibor",
+  "api_code": "shibor",
+  "description": "Shibor报价数据",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=150",
+    "name": "Shibor报价数据",
+    "category": "利率数据___macro_interest_rate"
+  },
+  "request_params": [],
+  "response_fields": []
+}

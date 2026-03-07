@@ -1,0 +1,12 @@
+{
+  "api_name": "api_228",
+  "api_code": "api_228",
+  "description": "居民消费价格指数（CPI）",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=228",
+    "name": "居民消费价格指数（CPI）",
+    "category": "价格指数___macro_price"
+  },
+  "request_params": [],
+  "response_fields": []
+}

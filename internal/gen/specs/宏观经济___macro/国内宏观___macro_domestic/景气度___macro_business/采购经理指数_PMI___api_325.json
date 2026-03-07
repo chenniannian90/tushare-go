@@ -1,0 +1,12 @@
+{
+  "api_name": "api_325",
+  "api_code": "api_325",
+  "description": "采购经理指数（PMI）",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=325",
+    "name": "采购经理指数（PMI）",
+    "category": "景气度___macro_business"
+  },
+  "request_params": [],
+  "response_fields": []
+}

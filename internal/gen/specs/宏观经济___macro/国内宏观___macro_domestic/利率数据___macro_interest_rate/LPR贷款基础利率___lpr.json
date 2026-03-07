@@ -1,0 +1,12 @@
+{
+  "api_name": "lpr",
+  "api_code": "lpr",
+  "description": "LPR贷款基础利率",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=151",
+    "name": "LPR贷款基础利率",
+    "category": "利率数据___macro_interest_rate"
+  },
+  "request_params": [],
+  "response_fields": []
+}

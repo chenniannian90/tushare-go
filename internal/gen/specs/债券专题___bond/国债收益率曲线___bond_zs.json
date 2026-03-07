@@ -1,0 +1,12 @@
+{
+  "api_name": "bond_zs",
+  "api_code": "bond_zs",
+  "description": "国债收益率曲线",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=201",
+    "name": "国债收益率曲线",
+    "category": "债券专题___bond"
+  },
+  "request_params": [],
+  "response_fields": []
+}

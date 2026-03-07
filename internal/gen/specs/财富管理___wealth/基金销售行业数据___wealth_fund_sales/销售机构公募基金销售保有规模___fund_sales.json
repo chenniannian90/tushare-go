@@ -1,0 +1,12 @@
+{
+  "api_name": "fund_sales",
+  "api_code": "fund_sales",
+  "description": "销售机构公募基金销售保有规模",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=266",
+    "name": "销售机构公募基金销售保有规模",
+    "category": "基金销售行业数据___wealth_fund_sales"
+  },
+  "request_params": [],
+  "response_fields": []
+}

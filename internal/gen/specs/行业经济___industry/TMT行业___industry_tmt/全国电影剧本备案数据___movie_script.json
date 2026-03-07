@@ -1,0 +1,12 @@
+{
+  "api_name": "movie_script",
+  "api_code": "movie_script",
+  "description": "全国电影剧本备案数据",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=156",
+    "name": "全国电影剧本备案数据",
+    "category": "TMT行业___industry_tmt"
+  },
+  "request_params": [],
+  "response_fields": []
+}

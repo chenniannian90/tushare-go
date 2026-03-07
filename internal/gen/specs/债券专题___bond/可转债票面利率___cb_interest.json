@@ -1,0 +1,12 @@
+{
+  "api_name": "cb_interest",
+  "api_code": "cb_interest",
+  "description": "可转债票面利率",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=305",
+    "name": "可转债票面利率",
+    "category": "债券专题___bond"
+  },
+  "request_params": [],
+  "response_fields": []
+}

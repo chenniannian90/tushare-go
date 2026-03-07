@@ -1,0 +1,12 @@
+{
+  "api_name": "announcement",
+  "api_code": "announcement",
+  "description": "上市公司公告",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=176",
+    "name": "上市公司公告",
+    "category": "大模型语料专题数据___llm_corpus"
+  },
+  "request_params": [],
+  "response_fields": []
+}

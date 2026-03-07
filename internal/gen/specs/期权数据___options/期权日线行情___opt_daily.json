@@ -1,0 +1,12 @@
+{
+  "api_name": "opt_daily",
+  "api_code": "opt_daily",
+  "description": "期权日线行情",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=159",
+    "name": "期权日线行情",
+    "category": "期权数据___options"
+  },
+  "request_params": [],
+  "response_fields": []
+}

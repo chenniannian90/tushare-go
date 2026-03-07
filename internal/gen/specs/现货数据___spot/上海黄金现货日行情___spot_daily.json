@@ -1,0 +1,12 @@
+{
+  "api_name": "spot_daily",
+  "api_code": "spot_daily",
+  "description": "上海黄金现货日行情",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=285",
+    "name": "上海黄金现货日行情",
+    "category": "现货数据___spot"
+  },
+  "request_params": [],
+  "response_fields": []
+}

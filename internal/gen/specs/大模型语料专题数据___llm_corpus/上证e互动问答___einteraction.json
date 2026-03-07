@@ -1,0 +1,12 @@
+{
+  "api_name": "einteraction",
+  "api_code": "einteraction",
+  "description": "上证e互动问答",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=366",
+    "name": "上证e互动问答",
+    "category": "大模型语料专题数据___llm_corpus"
+  },
+  "request_params": [],
+  "response_fields": []
+}

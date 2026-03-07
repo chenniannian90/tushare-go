@@ -1,0 +1,12 @@
+{
+  "api_name": "api_337",
+  "api_code": "api_337",
+  "description": "期货周/月线行情(每日更新)",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=337",
+    "name": "期货周/月线行情(每日更新)",
+    "category": "期货数据___futures"
+  },
+  "request_params": [],
+  "response_fields": []
+}

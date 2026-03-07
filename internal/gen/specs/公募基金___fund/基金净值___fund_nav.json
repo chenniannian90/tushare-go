@@ -1,0 +1,12 @@
+{
+  "api_name": "fund_nav",
+  "api_code": "fund_nav",
+  "description": "基金净值",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=119",
+    "name": "基金净值",
+    "category": "公募基金___fund"
+  },
+  "request_params": [],
+  "response_fields": []
+}

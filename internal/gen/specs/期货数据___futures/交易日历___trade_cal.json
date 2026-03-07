@@ -1,0 +1,12 @@
+{
+  "api_name": "trade_cal",
+  "api_code": "trade_cal",
+  "description": "交易日历",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=137",
+    "name": "交易日历",
+    "category": "期货数据___futures"
+  },
+  "request_params": [],
+  "response_fields": []
+}

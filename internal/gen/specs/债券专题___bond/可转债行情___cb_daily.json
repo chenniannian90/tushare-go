@@ -1,0 +1,12 @@
+{
+  "api_name": "cb_daily",
+  "api_code": "cb_daily",
+  "description": "可转债行情",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=187",
+    "name": "可转债行情",
+    "category": "债券专题___bond"
+  },
+  "request_params": [],
+  "response_fields": []
+}

@@ -1,0 +1,12 @@
+{
+  "api_name": "api_359",
+  "api_code": "api_359",
+  "description": "基金技术面因子(专业版)",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=359",
+    "name": "基金技术面因子(专业版)",
+    "category": "公募基金___fund"
+  },
+  "request_params": [],
+  "response_fields": []
+}

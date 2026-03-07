@@ -1,0 +1,12 @@
+{
+  "api_name": "us_fina_indicator",
+  "api_code": "us_fina_indicator",
+  "description": "美股财务指标数据",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=393",
+    "name": "美股财务指标数据",
+    "category": "美股数据___us_stock"
+  },
+  "request_params": [],
+  "response_fields": []
+}

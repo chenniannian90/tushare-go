@@ -1,0 +1,12 @@
+{
+  "api_name": "fund_manager",
+  "api_code": "fund_manager",
+  "description": "基金经理",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=208",
+    "name": "基金经理",
+    "category": "公募基金___fund"
+  },
+  "request_params": [],
+  "response_fields": []
+}

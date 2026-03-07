@@ -1,0 +1,12 @@
+{
+  "api_name": "gg_daily",
+  "api_code": "gg_daily",
+  "description": "港股通每日成交统计",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=196",
+    "name": "港股通每日成交统计",
+    "category": "行情数据___stock_market"
+  },
+  "request_params": [],
+  "response_fields": []
+}

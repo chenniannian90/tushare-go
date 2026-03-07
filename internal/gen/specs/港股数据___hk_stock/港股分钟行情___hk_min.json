@@ -1,0 +1,12 @@
+{
+  "api_name": "hk_min",
+  "api_code": "hk_min",
+  "description": "港股分钟行情",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=304",
+    "name": "港股分钟行情",
+    "category": "港股数据___hk_stock"
+  },
+  "request_params": [],
+  "response_fields": []
+}

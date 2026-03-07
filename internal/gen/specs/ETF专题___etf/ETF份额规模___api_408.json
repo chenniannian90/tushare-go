@@ -1,0 +1,12 @@
+{
+  "api_name": "api_408",
+  "api_code": "api_408",
+  "description": "ETF份额规模",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=408",
+    "name": "ETF份额规模",
+    "category": "ETF专题___etf"
+  },
+  "request_params": [],
+  "response_fields": []
+}

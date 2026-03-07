@@ -1,0 +1,12 @@
+{
+  "api_name": "api_178",
+  "api_code": "api_178",
+  "description": "外汇基础信息（海外）",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=178",
+    "name": "外汇基础信息（海外）",
+    "category": "外汇数据___forex"
+  },
+  "request_params": [],
+  "response_fields": []
+}

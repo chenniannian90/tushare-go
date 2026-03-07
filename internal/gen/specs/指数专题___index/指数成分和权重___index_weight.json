@@ -1,0 +1,12 @@
+{
+  "api_name": "index_weight",
+  "api_code": "index_weight",
+  "description": "指数成分和权重",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=96",
+    "name": "指数成分和权重",
+    "category": "指数专题___index"
+  },
+  "request_params": [],
+  "response_fields": []
+}

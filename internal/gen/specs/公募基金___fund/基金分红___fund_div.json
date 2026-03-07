@@ -1,0 +1,12 @@
+{
+  "api_name": "fund_div",
+  "api_code": "fund_div",
+  "description": "基金分红",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=120",
+    "name": "基金分红",
+    "category": "公募基金___fund"
+  },
+  "request_params": [],
+  "response_fields": []
+}

@@ -1,0 +1,12 @@
+{
+  "api_name": "api_227",
+  "api_code": "api_227",
+  "description": "国内生产总值（GDP）",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=227",
+    "name": "国内生产总值（GDP）",
+    "category": "国民经济___macro_economy"
+  },
+  "request_params": [],
+  "response_fields": []
+}

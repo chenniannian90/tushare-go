@@ -1,0 +1,12 @@
+{
+  "api_name": "index_classify",
+  "api_code": "index_classify",
+  "description": "申万行业分类",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=181",
+    "name": "申万行业分类",
+    "category": "指数专题___index"
+  },
+  "request_params": [],
+  "response_fields": []
+}

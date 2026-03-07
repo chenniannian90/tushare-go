@@ -1,0 +1,12 @@
+{
+  "api_name": "cb_call",
+  "api_code": "cb_call",
+  "description": "可转债转股结果",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=247",
+    "name": "可转债转股结果",
+    "category": "债券专题___bond"
+  },
+  "request_params": [],
+  "response_fields": []
+}

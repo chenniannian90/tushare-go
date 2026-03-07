@@ -1,0 +1,12 @@
+{
+  "api_name": "monthly_stock",
+  "api_code": "monthly_stock",
+  "description": "券商月度金股",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=267",
+    "name": "券商月度金股",
+    "category": "特色数据___stock_feature"
+  },
+  "request_params": [],
+  "response_fields": []
+}

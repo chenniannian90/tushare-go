@@ -1,0 +1,12 @@
+{
+  "api_name": "api_316",
+  "api_code": "api_316",
+  "description": "实时成交（爬虫）",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=316",
+    "name": "实时成交（爬虫）",
+    "category": "行情数据___stock_market"
+  },
+  "request_params": [],
+  "response_fields": []
+}

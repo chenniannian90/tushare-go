@@ -1,0 +1,12 @@
+{
+  "api_name": "us_cashflow",
+  "api_code": "us_cashflow",
+  "description": "美股现金流量表",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=396",
+    "name": "美股现金流量表",
+    "category": "美股数据___us_stock"
+  },
+  "request_params": [],
+  "response_fields": []
+}

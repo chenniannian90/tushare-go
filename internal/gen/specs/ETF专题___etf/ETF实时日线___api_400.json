@@ -1,0 +1,12 @@
+{
+  "api_name": "api_400",
+  "api_code": "api_400",
+  "description": "ETF实时日线",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=400",
+    "name": "ETF实时日线",
+    "category": "ETF专题___etf"
+  },
+  "request_params": [],
+  "response_fields": []
+}

@@ -1,0 +1,12 @@
+{
+  "api_name": "api_272",
+  "api_code": "api_272",
+  "description": "大宗交易明细",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=272",
+    "name": "大宗交易明细",
+    "category": "债券专题___bond"
+  },
+  "request_params": [],
+  "response_fields": []
+}

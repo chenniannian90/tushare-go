@@ -1,0 +1,12 @@
+{
+  "api_name": "global_calendar",
+  "api_code": "global_calendar",
+  "description": "全球财经事件",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=233",
+    "name": "全球财经事件",
+    "category": "债券专题___bond"
+  },
+  "request_params": [],
+  "response_fields": []
+}

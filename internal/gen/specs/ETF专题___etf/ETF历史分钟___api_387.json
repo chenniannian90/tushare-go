@@ -1,0 +1,12 @@
+{
+  "api_name": "api_387",
+  "api_code": "api_387",
+  "description": "ETF历史分钟",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=387",
+    "name": "ETF历史分钟",
+    "category": "ETF专题___etf"
+  },
+  "request_params": [],
+  "response_fields": []
+}

@@ -1,0 +1,12 @@
+{
+  "api_name": "tsy",
+  "api_code": "tsy",
+  "description": "国债实际收益率曲线利率",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=220",
+    "name": "国债实际收益率曲线利率",
+    "category": "美国利率___macro_us_rate"
+  },
+  "request_params": [],
+  "response_fields": []
+}

@@ -1,0 +1,12 @@
+{
+  "api_name": "hk_cashflow",
+  "api_code": "hk_cashflow",
+  "description": "港股现金流量表",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=391",
+    "name": "港股现金流量表",
+    "category": "港股数据___hk_stock"
+  },
+  "request_params": [],
+  "response_fields": []
+}

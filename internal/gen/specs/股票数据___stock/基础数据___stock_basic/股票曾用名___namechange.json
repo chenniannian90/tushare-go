@@ -1,0 +1,12 @@
+{
+  "api_name": "namechange",
+  "api_code": "namechange",
+  "description": "股票曾用名",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=100",
+    "name": "股票曾用名",
+    "category": "基础数据___stock_basic"
+  },
+  "request_params": [],
+  "response_fields": []
+}

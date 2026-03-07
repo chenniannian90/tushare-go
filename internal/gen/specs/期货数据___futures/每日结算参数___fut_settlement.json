@@ -1,0 +1,12 @@
+{
+  "api_name": "fut_settlement",
+  "api_code": "fut_settlement",
+  "description": "每日结算参数",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=141",
+    "name": "每日结算参数",
+    "category": "期货数据___futures"
+  },
+  "request_params": [],
+  "response_fields": []
+}

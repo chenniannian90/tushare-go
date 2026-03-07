@@ -1,0 +1,12 @@
+{
+  "api_name": "hk_cal",
+  "api_code": "hk_cal",
+  "description": "港股交易日历",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=250",
+    "name": "港股交易日历",
+    "category": "港股数据___hk_stock"
+  },
+  "request_params": [],
+  "response_fields": []
+}

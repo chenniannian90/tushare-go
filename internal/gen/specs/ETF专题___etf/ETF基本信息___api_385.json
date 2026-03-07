@@ -1,0 +1,12 @@
+{
+  "api_name": "api_385",
+  "api_code": "api_385",
+  "description": "ETF基本信息",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=385",
+    "name": "ETF基本信息",
+    "category": "ETF专题___etf"
+  },
+  "request_params": [],
+  "response_fields": []
+}

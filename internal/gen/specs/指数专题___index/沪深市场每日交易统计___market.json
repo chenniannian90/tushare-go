@@ -1,0 +1,12 @@
+{
+  "api_name": "market",
+  "api_code": "market",
+  "description": "沪深市场每日交易统计",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=215",
+    "name": "沪深市场每日交易统计",
+    "category": "指数专题___index"
+  },
+  "request_params": [],
+  "response_fields": []
+}

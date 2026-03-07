@@ -1,0 +1,12 @@
+{
+  "api_name": "api_336",
+  "api_code": "api_336",
+  "description": "周/月线行情(每日更新)",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=336",
+    "name": "周/月线行情(每日更新)",
+    "category": "行情数据___stock_market"
+  },
+  "request_params": [],
+  "response_fields": []
+}

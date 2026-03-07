@@ -1,0 +1,12 @@
+{
+  "api_name": "fut_holding_rank",
+  "api_code": "fut_holding_rank",
+  "description": "每日持仓排名",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=139",
+    "name": "每日持仓排名",
+    "category": "期货数据___futures"
+  },
+  "request_params": [],
+  "response_fields": []
+}

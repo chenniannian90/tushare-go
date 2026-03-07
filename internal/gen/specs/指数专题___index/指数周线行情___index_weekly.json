@@ -1,0 +1,12 @@
+{
+  "api_name": "index_weekly",
+  "api_code": "index_weekly",
+  "description": "指数周线行情",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=171",
+    "name": "指数周线行情",
+    "category": "指数专题___index"
+  },
+  "request_params": [],
+  "response_fields": []
+}

@@ -1,0 +1,12 @@
+{
+  "api_name": "movie_boxoffice",
+  "api_code": "movie_boxoffice",
+  "description": "影院日度票房",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=116",
+    "name": "影院日度票房",
+    "category": "TMT行业___industry_tmt"
+  },
+  "request_params": [],
+  "response_fields": []
+}

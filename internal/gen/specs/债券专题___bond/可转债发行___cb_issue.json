@@ -1,0 +1,12 @@
+{
+  "api_name": "cb_issue",
+  "api_code": "cb_issue",
+  "description": "可转债发行",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=186",
+    "name": "可转债发行",
+    "category": "债券专题___bond"
+  },
+  "request_params": [],
+  "response_fields": []
+}

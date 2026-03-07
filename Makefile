@@ -1,4 +1,4 @@
-.PHONY: test build clean gen examples
+.PHONY: test build clean gen gen-specs examples fix-encoding
 
 test:
 	go test -v -race -coverprofile=coverage.out ./...
@@ -10,8 +10,14 @@ build-mcp:
 build-gen:
 	go build -o bin/generator ./cmd/generator
 
-gen:
+build-spec-gen:
+	go build -o bin/spec-gen ./cmd/spec-gen
+
+gen: build-gen
 	./bin/generator pkg/sdk/api
+
+gen-specs: build-spec-gen
+	./bin/spec-gen docs/api-directory.json internal/gen/specs
 
 examples: build-examples
 
@@ -24,3 +30,7 @@ build-examples:
 clean:
 	rm -rf bin/
 	rm -f coverage.out coverage.html
+
+fix-encoding:
+	@echo "Checking and fixing encoding issues in API spec files..."
+	@.claude/commands/fix-encoding.sh internal/gen/specs

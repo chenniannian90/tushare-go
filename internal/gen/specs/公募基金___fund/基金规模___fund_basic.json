@@ -1,0 +1,12 @@
+{
+  "api_name": "fund_basic",
+  "api_code": "fund_basic",
+  "description": "基金规模",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=207",
+    "name": "基金规模",
+    "category": "公募基金___fund"
+  },
+  "request_params": [],
+  "response_fields": []
+}

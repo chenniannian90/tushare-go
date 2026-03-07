@@ -1,0 +1,12 @@
+{
+  "api_name": "hk_basic",
+  "api_code": "hk_basic",
+  "description": "港股基础信息",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=191",
+    "name": "港股基础信息",
+    "category": "港股数据___hk_stock"
+  },
+  "request_params": [],
+  "response_fields": []
+}

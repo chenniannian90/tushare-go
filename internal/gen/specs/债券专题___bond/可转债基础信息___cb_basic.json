@@ -1,0 +1,12 @@
+{
+  "api_name": "cb_basic",
+  "api_code": "cb_basic",
+  "description": "可转债基础信息",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=185",
+    "name": "可转债基础信息",
+    "category": "债券专题___bond"
+  },
+  "request_params": [],
+  "response_fields": []
+}

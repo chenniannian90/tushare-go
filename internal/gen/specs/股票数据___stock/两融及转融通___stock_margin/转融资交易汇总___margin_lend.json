@@ -1,0 +1,12 @@
+{
+  "api_name": "margin_lend",
+  "api_code": "margin_lend",
+  "description": "转融资交易汇总",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=331",
+    "name": "转融资交易汇总",
+    "category": "两融及转融通___stock_margin"
+  },
+  "request_params": [],
+  "response_fields": []
+}

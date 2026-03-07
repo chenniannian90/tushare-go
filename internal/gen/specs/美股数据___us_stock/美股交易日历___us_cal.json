@@ -1,0 +1,12 @@
+{
+  "api_name": "us_cal",
+  "api_code": "us_cal",
+  "description": "美股交易日历",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=253",
+    "name": "美股交易日历",
+    "category": "美股数据___us_stock"
+  },
+  "request_params": [],
+  "response_fields": []
+}

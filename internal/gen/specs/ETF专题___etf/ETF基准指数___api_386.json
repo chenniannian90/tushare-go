@@ -1,0 +1,12 @@
+{
+  "api_name": "api_386",
+  "api_code": "api_386",
+  "description": "ETF基准指数",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=386",
+    "name": "ETF基准指数",
+    "category": "ETF专题___etf"
+  },
+  "request_params": [],
+  "response_fields": []
+}

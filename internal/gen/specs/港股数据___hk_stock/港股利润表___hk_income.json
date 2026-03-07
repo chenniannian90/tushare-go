@@ -1,0 +1,12 @@
+{
+  "api_name": "hk_income",
+  "api_code": "hk_income",
+  "description": "港股利润表",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=389",
+    "name": "港股利润表",
+    "category": "港股数据___hk_stock"
+  },
+  "request_params": [],
+  "response_fields": []
+}

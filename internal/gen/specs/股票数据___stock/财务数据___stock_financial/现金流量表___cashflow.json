@@ -1,0 +1,12 @@
+{
+  "api_name": "cashflow",
+  "api_code": "cashflow",
+  "description": "现金流量表",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=44",
+    "name": "现金流量表",
+    "category": "财务数据___stock_financial"
+  },
+  "request_params": [],
+  "response_fields": []
+}

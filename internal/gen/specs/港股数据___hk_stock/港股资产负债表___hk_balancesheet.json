@@ -1,0 +1,12 @@
+{
+  "api_name": "hk_balancesheet",
+  "api_code": "hk_balancesheet",
+  "description": "港股资产负债表",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=390",
+    "name": "港股资产负债表",
+    "category": "港股数据___hk_stock"
+  },
+  "request_params": [],
+  "response_fields": []
+}

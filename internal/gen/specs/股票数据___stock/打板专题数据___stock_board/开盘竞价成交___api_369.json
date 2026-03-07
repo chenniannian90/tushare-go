@@ -1,0 +1,12 @@
+{
+  "api_name": "api_369",
+  "api_code": "api_369",
+  "description": "开盘竞价成交（当日）",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=369",
+    "name": "开盘竞价成交（当日）",
+    "category": "打板专题数据___stock_board"
+  },
+  "request_params": [],
+  "response_fields": []
+}

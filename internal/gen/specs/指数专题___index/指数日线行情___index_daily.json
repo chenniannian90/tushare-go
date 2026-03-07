@@ -1,0 +1,12 @@
+{
+  "api_name": "index_daily",
+  "api_code": "index_daily",
+  "description": "指数日线行情",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=95",
+    "name": "指数日线行情",
+    "category": "指数专题___index"
+  },
+  "request_params": [],
+  "response_fields": []
+}

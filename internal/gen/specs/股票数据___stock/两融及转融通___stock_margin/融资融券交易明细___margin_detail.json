@@ -1,0 +1,12 @@
+{
+  "api_name": "margin_detail",
+  "api_code": "margin_detail",
+  "description": "融资融券交易明细",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=59",
+    "name": "融资融券交易明细",
+    "category": "两融及转融通___stock_margin"
+  },
+  "request_params": [],
+  "response_fields": []
+}

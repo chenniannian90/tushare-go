@@ -1,0 +1,12 @@
+{
+  "api_name": "fut_basic",
+  "api_code": "fut_basic",
+  "description": "合约信息",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=135",
+    "name": "合约信息",
+    "category": "期货数据___futures"
+  },
+  "request_params": [],
+  "response_fields": []
+}

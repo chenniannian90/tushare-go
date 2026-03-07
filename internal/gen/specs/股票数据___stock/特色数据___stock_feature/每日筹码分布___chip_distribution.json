@@ -1,0 +1,12 @@
+{
+  "api_name": "chip_distribution",
+  "api_code": "chip_distribution",
+  "description": "每日筹码分布",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=294",
+    "name": "每日筹码分布",
+    "category": "特色数据___stock_feature"
+  },
+  "request_params": [],
+  "response_fields": []
+}

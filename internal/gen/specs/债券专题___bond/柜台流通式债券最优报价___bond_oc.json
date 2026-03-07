@@ -1,0 +1,12 @@
+{
+  "api_name": "bond_oc",
+  "api_code": "bond_oc",
+  "description": "柜台流通式债券最优报价",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=323",
+    "name": "柜台流通式债券最优报价",
+    "category": "债券专题___bond"
+  },
+  "request_params": [],
+  "response_fields": []
+}

@@ -1,0 +1,12 @@
+{
+  "api_name": "fut_min",
+  "api_code": "fut_min",
+  "description": "实时分钟行情",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=340",
+    "name": "实时分钟行情",
+    "category": "期货数据___futures"
+  },
+  "request_params": [],
+  "response_fields": []
+}

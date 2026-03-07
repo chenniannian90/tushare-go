@@ -1,0 +1,12 @@
+{
+  "api_name": "fut_holdings",
+  "api_code": "fut_holdings",
+  "description": "仓单日报",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=140",
+    "name": "仓单日报",
+    "category": "期货数据___futures"
+  },
+  "request_params": [],
+  "response_fields": []
+}

@@ -1,0 +1,12 @@
+{
+  "api_name": "us_basic",
+  "api_code": "us_basic",
+  "description": "美股基础信息",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=252",
+    "name": "美股基础信息",
+    "category": "美股数据___us_stock"
+  },
+  "request_params": [],
+  "response_fields": []
+}

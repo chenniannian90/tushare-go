@@ -1,0 +1,12 @@
+{
+  "api_name": "fut_daily",
+  "api_code": "fut_daily",
+  "description": "日线行情",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=138",
+    "name": "日线行情",
+    "category": "期货数据___futures"
+  },
+  "request_params": [],
+  "response_fields": []
+}

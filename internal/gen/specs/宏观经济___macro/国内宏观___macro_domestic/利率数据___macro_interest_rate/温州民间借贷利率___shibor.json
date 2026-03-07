@@ -1,0 +1,12 @@
+{
+  "api_name": "shibor",
+  "api_code": "shibor",
+  "description": "温州民间借贷利率",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=173",
+    "name": "温州民间借贷利率",
+    "category": "利率数据___macro_interest_rate"
+  },
+  "request_params": [],
+  "response_fields": []
+}
