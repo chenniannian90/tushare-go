@@ -10,11 +10,11 @@ import (
 
 // Top10FloatholdersRequest 表示 前十大流通股东 API 的请求
 type Top10FloatholdersRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	Period string `json:"period,omitempty"`
-	AnnDate string `json:"ann_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // TS代码
+	Period string `json:"period,omitempty"` // 报告期（YYYYMMDD格式，一般为每个季度最后一天）
+	AnnDate string `json:"ann_date,omitempty"` // 公告日期
+	StartDate string `json:"start_date,omitempty"` // 报告期开始日期
+	EndDate string `json:"end_date,omitempty"` // 报告期结束日期
 }
 
 // Top10FloatholdersItem 表示单个 前十大流通股东 数据项

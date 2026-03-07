@@ -11,22 +11,22 @@ import (
 
 // TdxIndexRequest 表示 通达信板块信息 API 的请求
 type TdxIndexRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	IdxType string `json:"idx_type,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 板块代码：xxxxxx.TDX
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期(格式：YYYYMMDD）
+	IdxType string `json:"idx_type,omitempty"` // 板块类型：概念板块、行业板块、风格板块、地区板块
 }
 
 // TdxIndexItem 表示单个 通达信板块信息 数据项
 type TdxIndexItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	Name string `json:"name"`
-	IdxType string `json:"idx_type"`
-	IdxCount int `json:"idx_count"`
-	TotalShare float64 `json:"total_share"`
-	FloatShare float64 `json:"float_share"`
-	TotalMv float64 `json:"total_mv"`
-	FloatMv float64 `json:"float_mv"`
+	TsCode string `json:"ts_code"` // 板块代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	Name string `json:"name"` // 板块名称
+	IdxType string `json:"idx_type"` // 板块类型
+	IdxCount int `json:"idx_count"` // 成分个数
+	TotalShare float64 `json:"total_share"` // 总股本(亿)
+	FloatShare float64 `json:"float_share"` // 流通股(亿)
+	TotalMv float64 `json:"total_mv"` // 总市值(亿)
+	FloatMv float64 `json:"float_mv"` // 流通市值(亿)
 }
 
 // TdxIndex 调用 通达信板块信息 API

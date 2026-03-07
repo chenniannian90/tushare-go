@@ -11,28 +11,28 @@ import (
 
 // MoneyflowMktDcRequest 表示 大盘资金流向（DC） API 的请求
 type MoneyflowMktDcRequest struct {
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期(YYYYMMDD格式，下同）
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // MoneyflowMktDcItem 表示单个 大盘资金流向（DC） 数据项
 type MoneyflowMktDcItem struct {
-	TradeDate string `json:"trade_date"`
-	CloseSh float64 `json:"close_sh"`
-	PctChangeSh float64 `json:"pct_change_sh"`
-	CloseSz float64 `json:"close_sz"`
-	PctChangeSz float64 `json:"pct_change_sz"`
-	NetAmount float64 `json:"net_amount"`
-	NetAmountRate float64 `json:"net_amount_rate"`
-	BuyElgAmount float64 `json:"buy_elg_amount"`
-	BuyElgAmountRate float64 `json:"buy_elg_amount_rate"`
-	BuyLgAmount float64 `json:"buy_lg_amount"`
-	BuyLgAmountRate float64 `json:"buy_lg_amount_rate"`
-	BuyMdAmount float64 `json:"buy_md_amount"`
-	BuyMdAmountRate float64 `json:"buy_md_amount_rate"`
-	BuySmAmount float64 `json:"buy_sm_amount"`
-	BuySmAmountRate float64 `json:"buy_sm_amount_rate"`
+	TradeDate string `json:"trade_date"` // 交易日期
+	CloseSh float64 `json:"close_sh"` // 上证收盘价（点）
+	PctChangeSh float64 `json:"pct_change_sh"` // 上证涨跌幅(%)
+	CloseSz float64 `json:"close_sz"` // 深证收盘价（点）
+	PctChangeSz float64 `json:"pct_change_sz"` // 深证涨跌幅(%)
+	NetAmount float64 `json:"net_amount"` // 今日主力净流入 净额（元）
+	NetAmountRate float64 `json:"net_amount_rate"` // 今日主力净流入净占比%
+	BuyElgAmount float64 `json:"buy_elg_amount"` // 今日超大单净流入 净额（元）
+	BuyElgAmountRate float64 `json:"buy_elg_amount_rate"` // 今日超大单净流入 净占比%
+	BuyLgAmount float64 `json:"buy_lg_amount"` // 今日大单净流入 净额（元）
+	BuyLgAmountRate float64 `json:"buy_lg_amount_rate"` // 今日大单净流入 净占比%
+	BuyMdAmount float64 `json:"buy_md_amount"` // 今日中单净流入 净额（元）
+	BuyMdAmountRate float64 `json:"buy_md_amount_rate"` // 今日中单净流入 净占比%
+	BuySmAmount float64 `json:"buy_sm_amount"` // 今日小单净流入 净额（元）
+	BuySmAmountRate float64 `json:"buy_sm_amount_rate"` // 今日小单净流入 净占比%
 }
 
 // MoneyflowMktDc 调用 大盘资金流向（DC） API

@@ -11,25 +11,25 @@ import (
 
 // RtEtfKRequest 表示 ETF实时日线 API 的请求
 type RtEtfKRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	Topic string `json:"topic,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 支持通配符方式，e.g. 5*.SH、15*.SZ、159101.SZ
+	Topic string `json:"topic,omitempty"` // 分类参数，取上海ETF时，需要输入'HQ_FND_TICK'，参考下面例子
 }
 
 // RtEtfKItem 表示单个 ETF实时日线 数据项
 type RtEtfKItem struct {
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	PreClose float64 `json:"pre_close"`
-	High float64 `json:"high"`
-	Open float64 `json:"open"`
-	Low float64 `json:"low"`
-	Close float64 `json:"close"`
-	Vol int `json:"vol"`
-	Amount int `json:"amount"`
-	Num int `json:"num"`
-	AskVolume1 int `json:"ask_volume1"`
-	BidVolume1 int `json:"bid_volume1"`
-	TradeTime string `json:"trade_time"`
+	TsCode string `json:"ts_code"` // ETF代码
+	Name string `json:"name"` // ETF名称
+	PreClose float64 `json:"pre_close"` // 昨收价
+	High float64 `json:"high"` // 最高价
+	Open float64 `json:"open"` // 开盘价
+	Low float64 `json:"low"` // 最低价
+	Close float64 `json:"close"` // 收盘价（最新价）
+	Vol int `json:"vol"` // 成交量（股）
+	Amount int `json:"amount"` // 成交金额（元）
+	Num int `json:"num"` // 开盘以来成交笔数
+	AskVolume1 int `json:"ask_volume1"` // 委托卖盘（股）
+	BidVolume1 int `json:"bid_volume1"` // 委托买盘（股）
+	TradeTime string `json:"trade_time"` // 交易时间
 }
 
 // RtEtfK 调用 ETF实时日线 API

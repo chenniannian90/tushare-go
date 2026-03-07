@@ -11,24 +11,24 @@ import (
 
 // StkSurvRequest 表示 机构调研数据 API 的请求
 type StkSurvRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	TradeDate string `json:"trade_date,omitempty"` // 调研日期
+	StartDate string `json:"start_date,omitempty"` // 调研开始日期
+	EndDate string `json:"end_date,omitempty"` // 调研结束日期
 }
 
 // StkSurvItem 表示单个 机构调研数据 数据项
 type StkSurvItem struct {
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	SurvDate string `json:"surv_date"`
-	FundVisitors string `json:"fund_visitors"`
-	RecePlace string `json:"rece_place"`
-	ReceMode string `json:"rece_mode"`
-	ReceOrg string `json:"rece_org"`
-	OrgType string `json:"org_type"`
-	CompRece string `json:"comp_rece"`
-	Content string `json:"content"`
+	TsCode string `json:"ts_code"` // 股票代码
+	Name string `json:"name"` // 股票名称
+	SurvDate string `json:"surv_date"` // 调研日期
+	FundVisitors string `json:"fund_visitors"` // 机构参与人员
+	RecePlace string `json:"rece_place"` // 接待地点
+	ReceMode string `json:"rece_mode"` // 接待方式
+	ReceOrg string `json:"rece_org"` // 接待的公司
+	OrgType string `json:"org_type"` // 接待公司类型
+	CompRece string `json:"comp_rece"` // 上市公司接待人员
+	Content string `json:"content"` // 调研内容
 }
 
 // StkSurv 调用 机构调研数据 API

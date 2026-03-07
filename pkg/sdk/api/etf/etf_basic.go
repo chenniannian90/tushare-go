@@ -11,30 +11,30 @@ import (
 
 // EtfBasicRequest 表示 ETF基本信息 API 的请求
 type EtfBasicRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	IndexCode string `json:"index_code,omitempty"`
-	ListDate string `json:"list_date,omitempty"`
-	ListStatus string `json:"list_status,omitempty"`
-	Exchange string `json:"exchange,omitempty"`
-	Mgr string `json:"mgr,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // ETF代码（带.SZ/.SH后缀的6位数字，如：159526.SZ）
+	IndexCode string `json:"index_code,omitempty"` // 跟踪指数代码
+	ListDate string `json:"list_date,omitempty"` // 上市日期（格式：YYYYMMDD）
+	ListStatus string `json:"list_status,omitempty"` // 上市状态（L上市 D退市 P待上市）
+	Exchange string `json:"exchange,omitempty"` // 交易所（SH上交所 SZ深交所）
+	Mgr string `json:"mgr,omitempty"` // 管理人（简称，e.g.华夏基金)
 }
 
 // EtfBasicItem 表示单个 ETF基本信息 数据项
 type EtfBasicItem struct {
-	TsCode string `json:"ts_code"`
-	Csname string `json:"csname"`
-	Extname string `json:"extname"`
-	Cname string `json:"cname"`
-	IndexCode string `json:"index_code"`
-	IndexName string `json:"index_name"`
-	SetupDate string `json:"setup_date"`
-	ListDate string `json:"list_date"`
-	ListStatus string `json:"list_status"`
-	Exchange string `json:"exchange"`
-	MgrName string `json:"mgr_name"`
-	CustodName string `json:"custod_name"`
-	MgtFee float64 `json:"mgt_fee"`
-	EtfType string `json:"etf_type"`
+	TsCode string `json:"ts_code"` // 基金交易代码
+	Csname string `json:"csname"` // ETF中文简称
+	Extname string `json:"extname"` // ETF扩位简称(对应交易所简称)
+	Cname string `json:"cname"` // 基金中文全称
+	IndexCode string `json:"index_code"` // ETF基准指数代码
+	IndexName string `json:"index_name"` // ETF基准指数中文全称
+	SetupDate string `json:"setup_date"` // 设立日期（格式：YYYYMMDD）
+	ListDate string `json:"list_date"` // 上市日期（格式：YYYYMMDD）
+	ListStatus string `json:"list_status"` // 存续状态（L上市 D退市 P待上市）
+	Exchange string `json:"exchange"` // 交易所（上交所SH 深交所SZ）
+	MgrName string `json:"mgr_name"` // 基金管理人简称
+	CustodName string `json:"custod_name"` // 基金托管人名称
+	MgtFee float64 `json:"mgt_fee"` // 基金管理人收取的费用
+	EtfType string `json:"etf_type"` // 基金投资通道类型（境内、QDII）
 }
 
 // EtfBasic 调用 ETF基本信息 API

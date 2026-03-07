@@ -11,23 +11,23 @@ import (
 
 // StkAuctionCRequest 表示 股票收盘集合竞价数据 API 的请求
 type StkAuctionCRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期(YYYYMMDD)
+	StartDate string `json:"start_date,omitempty"` // 开始日期(YYYYMMDD)
+	EndDate string `json:"end_date,omitempty"` // 结束日期(YYYYMMDD)
 }
 
 // StkAuctionCItem 表示单个 股票收盘集合竞价数据 数据项
 type StkAuctionCItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	Close float64 `json:"close"`
-	Open float64 `json:"open"`
-	High float64 `json:"high"`
-	Low float64 `json:"low"`
-	Vol float64 `json:"vol"`
-	Amount float64 `json:"amount"`
-	Vwap float64 `json:"vwap"`
+	TsCode string `json:"ts_code"` // 股票代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	Close float64 `json:"close"` // 收盘集合竞价收盘价
+	Open float64 `json:"open"` // 收盘集合竞价开盘价
+	High float64 `json:"high"` // 收盘集合竞价最高价
+	Low float64 `json:"low"` // 收盘集合竞价最低价
+	Vol float64 `json:"vol"` // 收盘集合竞价成交量
+	Amount float64 `json:"amount"` // 收盘集合竞价成交额
+	Vwap float64 `json:"vwap"` // 收盘集合竞价均价
 }
 
 // StkAuctionC 调用 股票收盘集合竞价数据 API

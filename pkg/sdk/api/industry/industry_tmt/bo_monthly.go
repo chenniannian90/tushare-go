@@ -11,21 +11,21 @@ import (
 
 // BoMonthlyRequest 表示 电影月度票房 API 的请求
 type BoMonthlyRequest struct {
-	Date string `json:"date,omitempty"`
+	Date string `json:"date,omitempty"` // 日期（每月1号，格式YYYYMMDD）
 }
 
 // BoMonthlyItem 表示单个 电影月度票房 数据项
 type BoMonthlyItem struct {
-	Date string `json:"date"`
-	Name string `json:"name"`
-	ListDate string `json:"list_date"`
-	AvgPrice float64 `json:"avg_price"`
-	MonthAmount float64 `json:"month_amount"`
-	ListDay int `json:"list_day"`
-	PPc int `json:"p_pc"`
-	WomIndex float64 `json:"wom_index"`
-	MRatio float64 `json:"m_ratio"`
-	Rank int `json:"rank"`
+	Date string `json:"date"` // 日期
+	Name string `json:"name"` // 影片名称
+	ListDate string `json:"list_date"` // 上映日期
+	AvgPrice float64 `json:"avg_price"` // 平均票价
+	MonthAmount float64 `json:"month_amount"` // 当月票房（万）
+	ListDay int `json:"list_day"` // 月内天数
+	PPc int `json:"p_pc"` // 场均人次
+	WomIndex float64 `json:"wom_index"` // 口碑指数
+	MRatio float64 `json:"m_ratio"` // 月度占比（%）
+	Rank int `json:"rank"` // 排名
 }
 
 // BoMonthly 调用 电影月度票房 API

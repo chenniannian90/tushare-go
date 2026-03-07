@@ -11,21 +11,21 @@ import (
 
 // EtfIndexRequest 表示 ETF基准指数 API 的请求
 type EtfIndexRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	PubDate string `json:"pub_date,omitempty"`
-	BaseDate string `json:"base_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 指数代码
+	PubDate string `json:"pub_date,omitempty"` // 发布日期（格式：YYYYMMDD）
+	BaseDate string `json:"base_date,omitempty"` // 指数基期（格式：YYYYMMDD）
 }
 
 // EtfIndexItem 表示单个 ETF基准指数 数据项
 type EtfIndexItem struct {
-	TsCode string `json:"ts_code"`
-	IndxName string `json:"indx_name"`
-	IndxCsname string `json:"indx_csname"`
-	PubPartyName string `json:"pub_party_name"`
-	PubDate string `json:"pub_date"`
-	BaseDate string `json:"base_date"`
-	Bp float64 `json:"bp"`
-	AdjCircle string `json:"adj_circle"`
+	TsCode string `json:"ts_code"` // 指数代码
+	IndxName string `json:"indx_name"` // 指数全称
+	IndxCsname string `json:"indx_csname"` // 指数简称
+	PubPartyName string `json:"pub_party_name"` // 指数发布机构
+	PubDate string `json:"pub_date"` // 指数发布日期
+	BaseDate string `json:"base_date"` // 指数基日
+	Bp float64 `json:"bp"` // 指数基点(点)
+	AdjCircle string `json:"adj_circle"` // 指数成份证券调整周期
 }
 
 // EtfIndex 调用 ETF基准指数 API

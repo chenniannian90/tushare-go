@@ -15,24 +15,24 @@ type StockCompanyRequest struct {
 
 // StockCompanyItem 表示单个 上市公司基本信息 数据项
 type StockCompanyItem struct {
-	TsCode string `json:"ts_code"`
-	ComName string `json:"com_name"`
-	ComId string `json:"com_id"`
-	Exchange string `json:"exchange"`
-	Chairman string `json:"chairman"`
-	Manager string `json:"manager"`
-	Secretary string `json:"secretary"`
-	RegCapital float64 `json:"reg_capital"`
-	SetupDate string `json:"setup_date"`
-	Province string `json:"province"`
-	City string `json:"city"`
-	Introduction string `json:"introduction"`
-	Website string `json:"website"`
-	Email string `json:"email"`
-	Office string `json:"office"`
-	Employees int `json:"employees"`
-	MainBusiness string `json:"main_business"`
-	BusinessScope string `json:"business_scope"`
+	TsCode string `json:"ts_code"` // 股票代码
+	ComName string `json:"com_name"` // 公司全称
+	ComId string `json:"com_id"` // 统一社会信用代码
+	Exchange string `json:"exchange"` // 交易所代码
+	Chairman string `json:"chairman"` // 法人代表
+	Manager string `json:"manager"` // 总经理
+	Secretary string `json:"secretary"` // 董秘
+	RegCapital float64 `json:"reg_capital"` // 注册资本(万元)
+	SetupDate string `json:"setup_date"` // 注册日期
+	Province string `json:"province"` // 所在省份
+	City string `json:"city"` // 所在城市
+	Introduction string `json:"introduction"` // 公司介绍
+	Website string `json:"website"` // 公司主页
+	Email string `json:"email"` // 电子邮件
+	Office string `json:"office"` // 办公室
+	Employees int `json:"employees"` // 员工人数
+	MainBusiness string `json:"main_business"` // 主要业务及产品
+	BusinessScope string `json:"business_scope"` // 经营范围
 }
 
 // StockCompany 调用 上市公司基本信息 API

@@ -11,20 +11,20 @@ import (
 
 // HkIncomeRequest 表示 港股利润表 API 的请求
 type HkIncomeRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	Period string `json:"period,omitempty"`
-	IndName string `json:"ind_name,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	Period string `json:"period,omitempty"` // 报告期(格式：YYYYMMDD）
+	IndName string `json:"ind_name,omitempty"` // 指标名（如：营业额）
+	StartDate string `json:"start_date,omitempty"` // 报告期开始日期（格式：YYYYMMDD）
+	EndDate string `json:"end_date,omitempty"` // 报告结束始日期（格式：YYYYMMDD）
 }
 
 // HkIncomeItem 表示单个 港股利润表 数据项
 type HkIncomeItem struct {
-	TsCode string `json:"ts_code"`
-	EndDate string `json:"end_date"`
-	Name string `json:"name"`
-	IndName string `json:"ind_name"`
-	IndValue float64 `json:"ind_value"`
+	TsCode string `json:"ts_code"` // 股票代码
+	EndDate string `json:"end_date"` // 报告期
+	Name string `json:"name"` // 股票名称
+	IndName string `json:"ind_name"` // 财务科目名称
+	IndValue float64 `json:"ind_value"` // 财务科目值
 }
 
 // HkIncome 调用 港股利润表 API

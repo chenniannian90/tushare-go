@@ -11,18 +11,18 @@ import (
 
 // GgtDailyRequest 表示 港股通每日成交统计 API 的请求
 type GgtDailyRequest struct {
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期 （格式YYYYMMDD，下同。支持单日和多日输入）
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // GgtDailyItem 表示单个 港股通每日成交统计 数据项
 type GgtDailyItem struct {
-	TradeDate string `json:"trade_date"`
-	BuyAmount float64 `json:"buy_amount"`
-	BuyVolume float64 `json:"buy_volume"`
-	SellAmount float64 `json:"sell_amount"`
-	SellVolume float64 `json:"sell_volume"`
+	TradeDate string `json:"trade_date"` // 交易日期
+	BuyAmount float64 `json:"buy_amount"` // 买入成交金额（亿元）
+	BuyVolume float64 `json:"buy_volume"` // 买入成交笔数（万笔）
+	SellAmount float64 `json:"sell_amount"` // 卖出成交金额（亿元）
+	SellVolume float64 `json:"sell_volume"` // 卖出成交笔数（万笔）
 }
 
 // GgtDaily 调用 港股通每日成交统计 API

@@ -11,47 +11,47 @@ import (
 
 // BakDailyRequest 表示 备用行情 API 的请求
 type BakDailyRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Offset string `json:"offset,omitempty"`
-	Limit string `json:"limit,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	Offset string `json:"offset,omitempty"` // 开始行数
+	Limit string `json:"limit,omitempty"` // 最大行数
 }
 
 // BakDailyItem 表示单个 备用行情 数据项
 type BakDailyItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	Name string `json:"name"`
-	PctChange float64 `json:"pct_change"`
-	Close float64 `json:"close"`
-	Change float64 `json:"change"`
-	Open float64 `json:"open"`
-	High float64 `json:"high"`
-	Low float64 `json:"low"`
-	PreClose float64 `json:"pre_close"`
-	VolRatio float64 `json:"vol_ratio"`
-	TurnOver float64 `json:"turn_over"`
-	Swing float64 `json:"swing"`
-	Vol float64 `json:"vol"`
-	Amount float64 `json:"amount"`
-	Selling float64 `json:"selling"`
-	Buying float64 `json:"buying"`
-	TotalShare float64 `json:"total_share"`
-	FloatShare float64 `json:"float_share"`
-	Pe float64 `json:"pe"`
-	Industry string `json:"industry"`
-	Area string `json:"area"`
-	FloatMv float64 `json:"float_mv"`
-	TotalMv float64 `json:"total_mv"`
-	AvgPrice float64 `json:"avg_price"`
-	Strength float64 `json:"strength"`
-	Activity float64 `json:"activity"`
-	AvgTurnover float64 `json:"avg_turnover"`
-	Attack float64 `json:"attack"`
-	Interval3 float64 `json:"interval_3"`
-	Interval6 float64 `json:"interval_6"`
+	TsCode string `json:"ts_code"` // 股票代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	Name string `json:"name"` // 股票名称
+	PctChange float64 `json:"pct_change"` // 涨跌幅
+	Close float64 `json:"close"` // 收盘价
+	Change float64 `json:"change"` // 涨跌额
+	Open float64 `json:"open"` // 开盘价
+	High float64 `json:"high"` // 最高价
+	Low float64 `json:"low"` // 最低价
+	PreClose float64 `json:"pre_close"` // 昨收价
+	VolRatio float64 `json:"vol_ratio"` // 量比
+	TurnOver float64 `json:"turn_over"` // 换手率
+	Swing float64 `json:"swing"` // 振幅
+	Vol float64 `json:"vol"` // 成交量
+	Amount float64 `json:"amount"` // 成交额
+	Selling float64 `json:"selling"` // 内盘（主动卖，手）
+	Buying float64 `json:"buying"` // 外盘（主动买， 手）
+	TotalShare float64 `json:"total_share"` // 总股本(亿)
+	FloatShare float64 `json:"float_share"` // 流通股本(亿)
+	Pe float64 `json:"pe"` // 市盈(动)
+	Industry string `json:"industry"` // 所属行业
+	Area string `json:"area"` // 所属地域
+	FloatMv float64 `json:"float_mv"` // 流通市值
+	TotalMv float64 `json:"total_mv"` // 总市值
+	AvgPrice float64 `json:"avg_price"` // 平均价
+	Strength float64 `json:"strength"` // 强弱度(%)
+	Activity float64 `json:"activity"` // 活跃度(%)
+	AvgTurnover float64 `json:"avg_turnover"` // 笔换手
+	Attack float64 `json:"attack"` // 攻击波(%)
+	Interval3 float64 `json:"interval_3"` // 近3月涨幅
+	Interval6 float64 `json:"interval_6"` // 近6月涨幅
 }
 
 // BakDaily 调用 备用行情 API

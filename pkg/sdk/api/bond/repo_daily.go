@@ -11,26 +11,26 @@ import (
 
 // RepoDailyRequest 表示 债券回购日行情 API 的请求
 type RepoDailyRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // TS代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期(YYYYMMDD格式，下同)
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // RepoDailyItem 表示单个 债券回购日行情 数据项
 type RepoDailyItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	RepoMaturity string `json:"repo_maturity"`
-	PreClose float64 `json:"pre_close"`
-	Open float64 `json:"open"`
-	High float64 `json:"high"`
-	Low float64 `json:"low"`
-	Close float64 `json:"close"`
-	Weight float64 `json:"weight"`
-	WeightR float64 `json:"weight_r"`
-	Amount float64 `json:"amount"`
-	Num int `json:"num"`
+	TsCode string `json:"ts_code"` // TS代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	RepoMaturity string `json:"repo_maturity"` // 期限品种
+	PreClose float64 `json:"pre_close"` // 前收盘(%)
+	Open float64 `json:"open"` // 开盘价(%)
+	High float64 `json:"high"` // 最高价(%)
+	Low float64 `json:"low"` // 最低价(%)
+	Close float64 `json:"close"` // 收盘价(%)
+	Weight float64 `json:"weight"` // 加权价(%)
+	WeightR float64 `json:"weight_r"` // 加权价(利率债)(%)
+	Amount float64 `json:"amount"` // 成交金额(万元)
+	Num int `json:"num"` // 成交笔数(笔)
 }
 
 // RepoDaily 调用 债券回购日行情 API

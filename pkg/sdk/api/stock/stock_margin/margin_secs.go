@@ -11,19 +11,19 @@ import (
 
 // MarginSecsRequest 表示 融资融券标的（盘前） API 的请求
 type MarginSecsRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	Exchange string `json:"exchange,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 标的代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日
+	Exchange string `json:"exchange,omitempty"` // 交易所（SSE上交所 SZSE深交所 BSE北交所）
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // MarginSecsItem 表示单个 融资融券标的（盘前） 数据项
 type MarginSecsItem struct {
-	TradeDate string `json:"trade_date"`
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	Exchange string `json:"exchange"`
+	TradeDate string `json:"trade_date"` // 交易日期
+	TsCode string `json:"ts_code"` // 标的代码
+	Name string `json:"name"` // 标的名称
+	Exchange string `json:"exchange"` // 交易所
 }
 
 // MarginSecs 调用 融资融券标的（盘前） API

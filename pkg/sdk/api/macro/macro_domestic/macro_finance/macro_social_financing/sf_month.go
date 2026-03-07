@@ -11,17 +11,17 @@ import (
 
 // SfMonthRequest 表示 社融增量（月度） API 的请求
 type SfMonthRequest struct {
-	M string `json:"m,omitempty"`
-	StartM string `json:"start_m,omitempty"`
-	EndM string `json:"end_m,omitempty"`
+	M string `json:"m,omitempty"` // 月份（YYYYMM，下同），支持多个月份同时输入，逗号分隔
+	StartM string `json:"start_m,omitempty"` // 开始月份
+	EndM string `json:"end_m,omitempty"` // 结束月份
 }
 
 // SfMonthItem 表示单个 社融增量（月度） 数据项
 type SfMonthItem struct {
-	Month string `json:"month"`
-	IncMonth float64 `json:"inc_month"`
-	IncCumval float64 `json:"inc_cumval"`
-	StkEndval float64 `json:"stk_endval"`
+	Month string `json:"month"` // 月度
+	IncMonth float64 `json:"inc_month"` // 社融增量当月值（亿元）
+	IncCumval float64 `json:"inc_cumval"` // 社融增量累计值（亿元）
+	StkEndval float64 `json:"stk_endval"` // 社融存量期末值（万亿元）
 }
 
 // SfMonth 调用 社融增量（月度） API

@@ -11,19 +11,19 @@ import (
 
 // PledgeStatRequest 表示 股权质押统计数据 API 的请求
 type PledgeStatRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	EndDate string `json:"end_date,omitempty"` // 截止日期
 }
 
 // PledgeStatItem 表示单个 股权质押统计数据 数据项
 type PledgeStatItem struct {
-	TsCode string `json:"ts_code"`
-	EndDate string `json:"end_date"`
-	PledgeCount int `json:"pledge_count"`
-	UnrestPledge float64 `json:"unrest_pledge"`
-	RestPledge float64 `json:"rest_pledge"`
-	TotalShare float64 `json:"total_share"`
-	PledgeRatio float64 `json:"pledge_ratio"`
+	TsCode string `json:"ts_code"` // TS代码
+	EndDate string `json:"end_date"` // 截止日期
+	PledgeCount int `json:"pledge_count"` // 质押次数
+	UnrestPledge float64 `json:"unrest_pledge"` // 无限售股质押数量（万）
+	RestPledge float64 `json:"rest_pledge"` // 限售股份质押数量（万）
+	TotalShare float64 `json:"total_share"` // 总股本
+	PledgeRatio float64 `json:"pledge_ratio"` // 质押比例
 }
 
 // PledgeStat 调用 股权质押统计数据 API

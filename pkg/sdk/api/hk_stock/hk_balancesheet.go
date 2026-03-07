@@ -11,20 +11,20 @@ import (
 
 // HkBalancesheetRequest 表示 港股资产负债表 API 的请求
 type HkBalancesheetRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	Period string `json:"period,omitempty"`
-	IndName string `json:"ind_name,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	Period string `json:"period,omitempty"` // 报告期(格式：YYYYMMDD）
+	IndName string `json:"ind_name,omitempty"` // 指标名（如：应收帐款）
+	StartDate string `json:"start_date,omitempty"` // 报告期开始日期（格式：YYYYMMDD）
+	EndDate string `json:"end_date,omitempty"` // 报告结束始日期（格式：YYYYMMDD）
 }
 
 // HkBalancesheetItem 表示单个 港股资产负债表 数据项
 type HkBalancesheetItem struct {
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	EndDate string `json:"end_date"`
-	IndName string `json:"ind_name"`
-	IndValue float64 `json:"ind_value"`
+	TsCode string `json:"ts_code"` // 股票代码
+	Name string `json:"name"` // 股票名称
+	EndDate string `json:"end_date"` // 报告期
+	IndName string `json:"ind_name"` // 财务科目名称
+	IndValue float64 `json:"ind_value"` // 财务科目值
 }
 
 // HkBalancesheet 调用 港股资产负债表 API

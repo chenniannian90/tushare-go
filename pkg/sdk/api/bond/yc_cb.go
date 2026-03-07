@@ -11,22 +11,22 @@ import (
 
 // YcCbRequest 表示 国债收益率曲线 API 的请求
 type YcCbRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	CurveType string `json:"curve_type,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	CurveTerm float64 `json:"curve_term,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 收益率曲线编码：1001.CB-国债收益率曲线
+	CurveType string `json:"curve_type,omitempty"` // 曲线类型：0-到期，1-即期
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期
+	StartDate string `json:"start_date,omitempty"` // 查询起始日期
+	EndDate string `json:"end_date,omitempty"` // 查询结束日期
+	CurveTerm float64 `json:"curve_term,omitempty"` // 期限
 }
 
 // YcCbItem 表示单个 国债收益率曲线 数据项
 type YcCbItem struct {
-	TradeDate string `json:"trade_date"`
-	TsCode string `json:"ts_code"`
-	CurveName string `json:"curve_name"`
-	CurveType string `json:"curve_type"`
-	CurveTerm float64 `json:"curve_term"`
-	Yield float64 `json:"yield"`
+	TradeDate string `json:"trade_date"` // 交易日期
+	TsCode string `json:"ts_code"` // 曲线编码
+	CurveName string `json:"curve_name"` // 曲线名称
+	CurveType string `json:"curve_type"` // 曲线类型：0-到期，1-即期
+	CurveTerm float64 `json:"curve_term"` // 期限(年)
+	Yield float64 `json:"yield"` // 收益率(%)
 }
 
 // YcCb 调用 国债收益率曲线 API

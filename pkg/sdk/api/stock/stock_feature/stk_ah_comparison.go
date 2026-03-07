@@ -11,26 +11,26 @@ import (
 
 // StkAhComparisonRequest 表示 AH股比价 API 的请求
 type StkAhComparisonRequest struct {
-	HkCode string `json:"hk_code,omitempty"`
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	HkCode string `json:"hk_code,omitempty"` // 港股股票代码（xxxxx.HK)
+	TsCode string `json:"ts_code,omitempty"` // A股票代码(xxxxxx.SH/SZ/BJ)
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（格式：YYYYMMDD下同）
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // StkAhComparisonItem 表示单个 AH股比价 数据项
 type StkAhComparisonItem struct {
-	HkCode string `json:"hk_code"`
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	HkName string `json:"hk_name"`
-	HkPctChg float64 `json:"hk_pct_chg"`
-	HkClose float64 `json:"hk_close"`
-	Name string `json:"name"`
-	Close float64 `json:"close"`
-	PctChg float64 `json:"pct_chg"`
-	AhComparison float64 `json:"ah_comparison"`
-	AhPremium float64 `json:"ah_premium"`
+	HkCode string `json:"hk_code"` // 港股股票代码
+	TsCode string `json:"ts_code"` // A股股票代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	HkName string `json:"hk_name"` // 港股股票名称
+	HkPctChg float64 `json:"hk_pct_chg"` // 港股股票涨跌幅
+	HkClose float64 `json:"hk_close"` // 港股股票收盘价
+	Name string `json:"name"` // A股股票名称
+	Close float64 `json:"close"` // A股股票收盘价
+	PctChg float64 `json:"pct_chg"` // A股股票涨跌幅
+	AhComparison float64 `json:"ah_comparison"` // 比价(A/H)
+	AhPremium float64 `json:"ah_premium"` // 溢价(A/H)%
 }
 
 // StkAhComparison 调用 AH股比价 API

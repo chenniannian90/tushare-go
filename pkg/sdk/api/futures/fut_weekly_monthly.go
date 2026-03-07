@@ -11,34 +11,34 @@ import (
 
 // FutWeeklyMonthlyRequest 表示 期货周/月线行情(每日更新) API 的请求
 type FutWeeklyMonthlyRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Freq string `json:"freq,omitempty"`
-	Exchange string `json:"exchange,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // TS代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期
+	StartDate string `json:"start_date,omitempty"` // 开始交易日期
+	EndDate string `json:"end_date,omitempty"` // 结束交易日期
+	Freq string `json:"freq,omitempty"` // 频率week周，month月
+	Exchange string `json:"exchange,omitempty"` // 交易所
 }
 
 // FutWeeklyMonthlyItem 表示单个 期货周/月线行情(每日更新) 数据项
 type FutWeeklyMonthlyItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	EndDate string `json:"end_date"`
-	Freq string `json:"freq"`
-	Open float64 `json:"open"`
-	High float64 `json:"high"`
-	Low float64 `json:"low"`
-	Close float64 `json:"close"`
-	PreClose float64 `json:"pre_close"`
-	Settle float64 `json:"settle"`
-	PreSettle float64 `json:"pre_settle"`
-	Vol float64 `json:"vol"`
-	Amount float64 `json:"amount"`
-	Oi float64 `json:"oi"`
-	OiChg float64 `json:"oi_chg"`
-	Exchange string `json:"exchange"`
-	Change1 float64 `json:"change1"`
-	Change2 float64 `json:"change2"`
+	TsCode string `json:"ts_code"` // 期货代码
+	TradeDate string `json:"trade_date"` // 交易日期（每周五或者月末日期）
+	EndDate string `json:"end_date"` // 计算截至日期
+	Freq string `json:"freq"` // 频率(周week,月month)
+	Open float64 `json:"open"` // (周/月)开盘价
+	High float64 `json:"high"` // (周/月)最高价
+	Low float64 `json:"low"` // (周/月)最低价
+	Close float64 `json:"close"` // (周/月)收盘价
+	PreClose float64 `json:"pre_close"` // 前一(周/月)收盘价
+	Settle float64 `json:"settle"` // (周/月)结算价
+	PreSettle float64 `json:"pre_settle"` // 前一(周/月)结算价
+	Vol float64 `json:"vol"` // (周/月)成交量(手)
+	Amount float64 `json:"amount"` // (周/月)成交金额(万元)
+	Oi float64 `json:"oi"` // (周/月)持仓量(手)
+	OiChg float64 `json:"oi_chg"` // (周/月)持仓量变化
+	Exchange string `json:"exchange"` // 交易所
+	Change1 float64 `json:"change1"` // (周/月)涨跌1 收盘价-昨结算价
+	Change2 float64 `json:"change2"` // (周/月)涨跌2 结算价-昨结算价
 }
 
 // FutWeeklyMonthly 调用 期货周/月线行情(每日更新) API

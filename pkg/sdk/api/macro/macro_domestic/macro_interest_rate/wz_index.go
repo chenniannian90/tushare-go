@@ -11,26 +11,26 @@ import (
 
 // WzIndexRequest 表示 温州民间借贷利率 API 的请求
 type WzIndexRequest struct {
-	Date string `json:"date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	Date string `json:"date,omitempty"` // 日期
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // WzIndexItem 表示单个 温州民间借贷利率 数据项
 type WzIndexItem struct {
-	Date string `json:"date"`
-	CompRate float64 `json:"comp_rate"`
-	CenterRate float64 `json:"center_rate"`
-	MicroRate float64 `json:"micro_rate"`
-	CmRate float64 `json:"cm_rate"`
-	SdbRate float64 `json:"sdb_rate"`
-	OmRate float64 `json:"om_rate"`
-	AaRate float64 `json:"aa_rate"`
-	M1Rate float64 `json:"m1_rate"`
-	M3Rate float64 `json:"m3_rate"`
-	M6Rate float64 `json:"m6_rate"`
-	M12Rate float64 `json:"m12_rate"`
-	LongRate float64 `json:"long_rate"`
+	Date string `json:"date"` // 日期
+	CompRate float64 `json:"comp_rate"` // 温州民间融资综合利率指数 (%，下同)
+	CenterRate float64 `json:"center_rate"` // 民间借贷服务中心利率
+	MicroRate float64 `json:"micro_rate"` // 小额贷款公司放款利率
+	CmRate float64 `json:"cm_rate"` // 民间资本管理公司融资价格
+	SdbRate float64 `json:"sdb_rate"` // 社会直接借贷利率
+	OmRate float64 `json:"om_rate"` // 其他市场主体利率
+	AaRate float64 `json:"aa_rate"` // 农村互助会互助金费率
+	M1Rate float64 `json:"m1_rate"` // 温州地区民间借贷分期限利率（一月期）
+	M3Rate float64 `json:"m3_rate"` // 温州地区民间借贷分期限利率（三月期）
+	M6Rate float64 `json:"m6_rate"` // 温州地区民间借贷分期限利率（六月期）
+	M12Rate float64 `json:"m12_rate"` // 温州地区民间借贷分期限利率（一年期）
+	LongRate float64 `json:"long_rate"` // 温州地区民间借贷分期限利率（长期）
 }
 
 // WzIndex 调用 温州民间借贷利率 API

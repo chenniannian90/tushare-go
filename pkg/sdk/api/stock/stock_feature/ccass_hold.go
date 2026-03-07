@@ -11,21 +11,21 @@ import (
 
 // CcassHoldRequest 表示 中央结算系统持股统计 API 的请求
 type CcassHoldRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	HkCode string `json:"hk_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码 (e.g. 605009.SH)
+	HkCode string `json:"hk_code,omitempty"` // 港交所代码 （e.g. 95009）
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期(YYYYMMDD格式，下同)
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // CcassHoldItem 表示单个 中央结算系统持股统计 数据项
 type CcassHoldItem struct {
-	TradeDate string `json:"trade_date"`
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	Shareholding string `json:"shareholding"`
-	HoldNums string `json:"hold_nums"`
-	HoldRatio string `json:"hold_ratio"`
+	TradeDate string `json:"trade_date"` // 交易日期
+	TsCode string `json:"ts_code"` // 股票代号
+	Name string `json:"name"` // 股票名称
+	Shareholding string `json:"shareholding"` // 于中央结算系统的持股量(股)Shareholding in CCASS
+	HoldNums string `json:"hold_nums"` // 参与者数目（个）
+	HoldRatio string `json:"hold_ratio"` // 占于上交所上市及交易的A股总数的百分比（%）% of the total number of A shares listed and traded on the SSE
 }
 
 // CcassHold 调用 中央结算系统持股统计 API

@@ -11,20 +11,20 @@ import (
 
 // StRequest 表示 ST风险警示板股票 API 的请求
 type StRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	PubDate string `json:"pub_date,omitempty"`
-	ImpDate string `json:"imp_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	PubDate string `json:"pub_date,omitempty"` // 发布日期
+	ImpDate string `json:"imp_date,omitempty"` // 实施日期
 }
 
 // StItem 表示单个 ST风险警示板股票 数据项
 type StItem struct {
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	PubDate string `json:"pub_date"`
-	ImpDate string `json:"imp_date"`
-	StTpye string `json:"st_tpye"`
-	StReason string `json:"st_reason"`
-	StExplain string `json:"st_explain"`
+	TsCode string `json:"ts_code"` // 股票代码
+	Name string `json:"name"` // 股票名称
+	PubDate string `json:"pub_date"` // 发布日期
+	ImpDate string `json:"imp_date"` // 实施日期
+	StTpye string `json:"st_tpye"` // 类型
+	StReason string `json:"st_reason"` // st变更原因
+	StExplain string `json:"st_explain"` // st变更详细原因
 }
 
 // St 调用 ST风险警示板股票 API

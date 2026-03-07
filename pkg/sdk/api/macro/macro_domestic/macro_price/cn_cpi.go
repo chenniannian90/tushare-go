@@ -11,26 +11,26 @@ import (
 
 // CnCpiRequest 表示 居民消费价格指数（CPI） API 的请求
 type CnCpiRequest struct {
-	M string `json:"m,omitempty"`
-	StartM string `json:"start_m,omitempty"`
-	EndM string `json:"end_m,omitempty"`
+	M string `json:"m,omitempty"` // 月份（YYYYMM，下同），支持多个月份同时输入，逗号分隔
+	StartM string `json:"start_m,omitempty"` // 开始月份
+	EndM string `json:"end_m,omitempty"` // 结束月份
 }
 
 // CnCpiItem 表示单个 居民消费价格指数（CPI） 数据项
 type CnCpiItem struct {
-	Month string `json:"month"`
-	NtVal float64 `json:"nt_val"`
-	NtYoy float64 `json:"nt_yoy"`
-	NtMom float64 `json:"nt_mom"`
-	NtAccu float64 `json:"nt_accu"`
-	TownVal float64 `json:"town_val"`
-	TownYoy float64 `json:"town_yoy"`
-	TownMom float64 `json:"town_mom"`
-	TownAccu float64 `json:"town_accu"`
-	CntVal float64 `json:"cnt_val"`
-	CntYoy float64 `json:"cnt_yoy"`
-	CntMom float64 `json:"cnt_mom"`
-	CntAccu float64 `json:"cnt_accu"`
+	Month string `json:"month"` // 月份YYYYMM
+	NtVal float64 `json:"nt_val"` // 全国当月值
+	NtYoy float64 `json:"nt_yoy"` // 全国同比（%）
+	NtMom float64 `json:"nt_mom"` // 全国环比（%）
+	NtAccu float64 `json:"nt_accu"` // 全国累计值
+	TownVal float64 `json:"town_val"` // 城市当月值
+	TownYoy float64 `json:"town_yoy"` // 城市同比（%）
+	TownMom float64 `json:"town_mom"` // 城市环比（%）
+	TownAccu float64 `json:"town_accu"` // 城市累计值
+	CntVal float64 `json:"cnt_val"` // 农村当月值
+	CntYoy float64 `json:"cnt_yoy"` // 农村同比（%）
+	CntMom float64 `json:"cnt_mom"` // 农村环比（%）
+	CntAccu float64 `json:"cnt_accu"` // 农村累计值
 }
 
 // CnCpi 调用 居民消费价格指数（CPI） API

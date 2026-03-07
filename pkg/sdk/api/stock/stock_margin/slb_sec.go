@@ -11,21 +11,21 @@ import (
 
 // SlbSecRequest 表示 转融券交易汇总(停） API 的请求
 type SlbSecRequest struct {
-	TradeDate string `json:"trade_date,omitempty"`
-	TsCode string `json:"ts_code,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（YYYYMMDD格式，下同）
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // SlbSecItem 表示单个 转融券交易汇总(停） 数据项
 type SlbSecItem struct {
-	TradeDate string `json:"trade_date"`
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	OpeInv float64 `json:"ope_inv"`
-	LentQnt float64 `json:"lent_qnt"`
-	ClsInv float64 `json:"cls_inv"`
-	EndBal float64 `json:"end_bal"`
+	TradeDate string `json:"trade_date"` // 交易日期（YYYYMMDD）
+	TsCode string `json:"ts_code"` // 股票代码
+	Name string `json:"name"` // 股票名称
+	OpeInv float64 `json:"ope_inv"` // 期初余量(万股)
+	LentQnt float64 `json:"lent_qnt"` // 转融券融出数量(万股)
+	ClsInv float64 `json:"cls_inv"` // 期末余量(万股)
+	EndBal float64 `json:"end_bal"` // 期末余额(万元)
 }
 
 // SlbSec 调用 转融券交易汇总(停） API

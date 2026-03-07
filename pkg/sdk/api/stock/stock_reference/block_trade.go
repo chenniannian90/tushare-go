@@ -11,21 +11,21 @@ import (
 
 // BlockTradeRequest 表示 大宗交易 API 的请求
 type BlockTradeRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // TS代码（股票代码和日期至少输入一个参数）
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（格式：YYYYMMDD，下同）
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // BlockTradeItem 表示单个 大宗交易 数据项
 type BlockTradeItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	Price float64 `json:"price"`
-	Vol float64 `json:"vol"`
-	Amount float64 `json:"amount"`
-	Buyer string `json:"buyer"`
-	Seller string `json:"seller"`
+	TsCode string `json:"ts_code"` // TS代码
+	TradeDate string `json:"trade_date"` // 交易日历
+	Price float64 `json:"price"` // 成交价
+	Vol float64 `json:"vol"` // 成交量（万股）
+	Amount float64 `json:"amount"` // 成交金额
+	Buyer string `json:"buyer"` // 买方营业部
+	Seller string `json:"seller"` // 卖方营业部
 }
 
 // BlockTrade 调用 大宗交易 API

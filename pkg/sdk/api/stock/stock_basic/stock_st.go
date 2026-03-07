@@ -11,19 +11,19 @@ import (
 
 // StockStRequest 表示 ST股票列表 API 的请求
 type StockStRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（格式：YYYYMMDD下同）
+	StartDate string `json:"start_date,omitempty"` // 开始时间
+	EndDate string `json:"end_date,omitempty"` // 结束时间
 }
 
 // StockStItem 表示单个 ST股票列表 数据项
 type StockStItem struct {
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	TradeDate string `json:"trade_date"`
-	Type string `json:"type"`
-	TypeName string `json:"type_name"`
+	TsCode string `json:"ts_code"` // 股票代码
+	Name string `json:"name"` // 股票名称
+	TradeDate string `json:"trade_date"` // 交易日期
+	Type string `json:"type"` // 类型
+	TypeName string `json:"type_name"` // 类型名称
 }
 
 // StockSt 调用 ST股票列表 API

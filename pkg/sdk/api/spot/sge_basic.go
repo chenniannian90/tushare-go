@@ -11,25 +11,25 @@ import (
 
 // SgeBasicRequest 表示 上海黄金基础信息 API 的请求
 type SgeBasicRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 合约代码 （支持多个，逗号分隔，不输入为获取全部）
 }
 
 // SgeBasicItem 表示单个 上海黄金基础信息 数据项
 type SgeBasicItem struct {
-	TsCode string `json:"ts_code"`
-	TsName string `json:"ts_name"`
-	TradeType string `json:"trade_type"`
-	TUnit float64 `json:"t_unit"`
-	PUnit float64 `json:"p_unit"`
-	MinChange float64 `json:"min_change"`
-	PriceLimit float64 `json:"price_limit"`
-	MinVol int `json:"min_vol"`
-	MaxVol int `json:"max_vol"`
-	TradeMode string `json:"trade_mode"`
-	MarginRate float64 `json:"margin_rate"`
-	LiqRate float64 `json:"liq_rate"`
-	TradeTime string `json:"trade_time"`
-	ListDate string `json:"list_date"`
+	TsCode string `json:"ts_code"` // 品种代码
+	TsName string `json:"ts_name"` // 品种名称
+	TradeType string `json:"trade_type"` // 交易类型
+	TUnit float64 `json:"t_unit"` // 交易单位(克/手)
+	PUnit float64 `json:"p_unit"` // 报价单位
+	MinChange float64 `json:"min_change"` // 最小变动价位
+	PriceLimit float64 `json:"price_limit"` // 每日价格最大波动限制
+	MinVol int `json:"min_vol"` // 最小单笔报价量(手)
+	MaxVol int `json:"max_vol"` // 最大单笔报价量(手)
+	TradeMode string `json:"trade_mode"` // 交易期限
+	MarginRate float64 `json:"margin_rate"` // 保证金比例
+	LiqRate float64 `json:"liq_rate"` // 违约金比例(%)
+	TradeTime string `json:"trade_time"` // 交易时间
+	ListDate string `json:"list_date"` // 上市日期
 }
 
 // SgeBasic 调用 上海黄金基础信息 API

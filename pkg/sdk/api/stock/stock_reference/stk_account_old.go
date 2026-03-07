@@ -11,21 +11,21 @@ import (
 
 // StkAccountOldRequest 表示 股票开户数据（旧） API 的请求
 type StkAccountOldRequest struct {
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // StkAccountOldItem 表示单个 股票开户数据（旧） 数据项
 type StkAccountOldItem struct {
-	Date string `json:"date"`
-	NewSh int `json:"new_sh"`
-	NewSz int `json:"new_sz"`
-	ActiveSh float64 `json:"active_sh"`
-	ActiveSz float64 `json:"active_sz"`
-	TotalSh float64 `json:"total_sh"`
-	TotalSz float64 `json:"total_sz"`
-	TradeSh float64 `json:"trade_sh"`
-	TradeSz float64 `json:"trade_sz"`
+	Date string `json:"date"` // 统计周期
+	NewSh int `json:"new_sh"` // 本周新增（上海，户）
+	NewSz int `json:"new_sz"` // 本周新增（深圳，户）
+	ActiveSh float64 `json:"active_sh"` // 期末有效账户（上海，万户）
+	ActiveSz float64 `json:"active_sz"` // 期末有效账户（深圳，万户）
+	TotalSh float64 `json:"total_sh"` // 期末账户数（上海，万户）
+	TotalSz float64 `json:"total_sz"` // 期末账户数（深圳，万户）
+	TradeSh float64 `json:"trade_sh"` // 参与交易账户数（上海，万户）
+	TradeSz float64 `json:"trade_sz"` // 参与交易账户数（深圳，万户）
 }
 
 // StkAccountOld 调用 股票开户数据（旧） API

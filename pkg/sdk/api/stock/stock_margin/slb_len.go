@@ -11,19 +11,19 @@ import (
 
 // SlbLenRequest 表示 转融资交易汇总 API 的请求
 type SlbLenRequest struct {
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（YYYYMMDD格式，下同）
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // SlbLenItem 表示单个 转融资交易汇总 数据项
 type SlbLenItem struct {
-	TradeDate string `json:"trade_date"`
-	Ob float64 `json:"ob"`
-	AucAmount float64 `json:"auc_amount"`
-	RepoAmount float64 `json:"repo_amount"`
-	RepayAmount float64 `json:"repay_amount"`
-	Cb float64 `json:"cb"`
+	TradeDate string `json:"trade_date"` // 交易日期
+	Ob float64 `json:"ob"` // 期初余额(亿元)
+	AucAmount float64 `json:"auc_amount"` // 竞价成交金额(亿元)
+	RepoAmount float64 `json:"repo_amount"` // 再借成交金额(亿元)
+	RepayAmount float64 `json:"repay_amount"` // 偿还金额(亿元)
+	Cb float64 `json:"cb"` // 期末余额(亿元)
 }
 
 // SlbLen 调用 转融资交易汇总 API

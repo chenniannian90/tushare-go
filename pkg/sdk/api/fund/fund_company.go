@@ -15,24 +15,24 @@ type FundCompanyRequest struct {
 
 // FundCompanyItem 表示单个 基金管理人 数据项
 type FundCompanyItem struct {
-	Name string `json:"name"`
-	Shortname string `json:"shortname"`
-	ShortEnname string `json:"short_enname"`
-	Province string `json:"province"`
-	City string `json:"city"`
-	Address string `json:"address"`
-	Phone string `json:"phone"`
-	Office string `json:"office"`
-	Website string `json:"website"`
-	Chairman string `json:"chairman"`
-	Manager string `json:"manager"`
-	RegCapital float64 `json:"reg_capital"`
-	SetupDate string `json:"setup_date"`
-	EndDate string `json:"end_date"`
-	Employees float64 `json:"employees"`
-	MainBusiness string `json:"main_business"`
-	OrgCode string `json:"org_code"`
-	CreditCode string `json:"credit_code"`
+	Name string `json:"name"` // 基金公司名称
+	Shortname string `json:"shortname"` // 简称
+	ShortEnname string `json:"short_enname"` // 英文缩写
+	Province string `json:"province"` // 省份
+	City string `json:"city"` // 城市
+	Address string `json:"address"` // 注册地址
+	Phone string `json:"phone"` // 电话
+	Office string `json:"office"` // 办公地址
+	Website string `json:"website"` // 公司网址
+	Chairman string `json:"chairman"` // 法人代表
+	Manager string `json:"manager"` // 总经理
+	RegCapital float64 `json:"reg_capital"` // 注册资本
+	SetupDate string `json:"setup_date"` // 成立日期
+	EndDate string `json:"end_date"` // 公司终止日期
+	Employees float64 `json:"employees"` // 员工总数
+	MainBusiness string `json:"main_business"` // 主要产品及业务
+	OrgCode string `json:"org_code"` // 组织机构代码
+	CreditCode string `json:"credit_code"` // 统一社会信用代码
 }
 
 // FundCompany 调用 基金管理人 API

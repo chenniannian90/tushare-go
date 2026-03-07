@@ -11,22 +11,22 @@ import (
 
 // ShareFloatRequest 表示 限售股解禁 API 的请求
 type ShareFloatRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	AnnDate string `json:"ann_date,omitempty"`
-	FloatDate string `json:"float_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // TS股票代码
+	AnnDate string `json:"ann_date,omitempty"` // 公告日期（日期格式：YYYYMMDD，下同）
+	FloatDate string `json:"float_date,omitempty"` // 解禁日期
+	StartDate string `json:"start_date,omitempty"` // 解禁开始日期
+	EndDate string `json:"end_date,omitempty"` // 解禁结束日期
 }
 
 // ShareFloatItem 表示单个 限售股解禁 数据项
 type ShareFloatItem struct {
-	TsCode string `json:"ts_code"`
-	AnnDate string `json:"ann_date"`
-	FloatDate string `json:"float_date"`
-	FloatShare float64 `json:"float_share"`
-	FloatRatio float64 `json:"float_ratio"`
-	HolderName string `json:"holder_name"`
-	ShareType string `json:"share_type"`
+	TsCode string `json:"ts_code"` // TS代码
+	AnnDate string `json:"ann_date"` // 公告日期
+	FloatDate string `json:"float_date"` // 解禁日期
+	FloatShare float64 `json:"float_share"` // 流通股份(股)
+	FloatRatio float64 `json:"float_ratio"` // 流通股份占总股本比率
+	HolderName string `json:"holder_name"` // 股东名称
+	ShareType string `json:"share_type"` // 股份类型
 }
 
 // ShareFloat 调用 限售股解禁 API

@@ -11,27 +11,27 @@ import (
 
 // FutSettleRequest 表示 每日结算参数 API 的请求
 type FutSettleRequest struct {
-	TradeDate string `json:"trade_date,omitempty"`
-	TsCode string `json:"ts_code,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Exchange string `json:"exchange,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期 （trade_date/ts_code至少需要输入一个参数）
+	TsCode string `json:"ts_code,omitempty"` // 合约代码
+	StartDate string `json:"start_date,omitempty"` // 开始日期(YYYYMMDD格式，下同)
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	Exchange string `json:"exchange,omitempty"` // 交易所代码
 }
 
 // FutSettleItem 表示单个 每日结算参数 数据项
 type FutSettleItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	Settle float64 `json:"settle"`
-	TradingFeeRate float64 `json:"trading_fee_rate"`
-	TradingFee float64 `json:"trading_fee"`
-	DeliveryFee float64 `json:"delivery_fee"`
-	BHedgingMarginRate float64 `json:"b_hedging_margin_rate"`
-	SHedgingMarginRate float64 `json:"s_hedging_margin_rate"`
-	LongMarginRate float64 `json:"long_margin_rate"`
-	ShortMarginRate float64 `json:"short_margin_rate"`
-	OffsetTodayFee float64 `json:"offset_today_fee"`
-	Exchange string `json:"exchange"`
+	TsCode string `json:"ts_code"` // 合约代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	Settle float64 `json:"settle"` // 结算价
+	TradingFeeRate float64 `json:"trading_fee_rate"` // 交易手续费率
+	TradingFee float64 `json:"trading_fee"` // 交易手续费
+	DeliveryFee float64 `json:"delivery_fee"` // 交割手续费
+	BHedgingMarginRate float64 `json:"b_hedging_margin_rate"` // 买套保交易保证金率
+	SHedgingMarginRate float64 `json:"s_hedging_margin_rate"` // 卖套保交易保证金率
+	LongMarginRate float64 `json:"long_margin_rate"` // 买投机交易保证金率
+	ShortMarginRate float64 `json:"short_margin_rate"` // 卖投机交易保证金率
+	OffsetTodayFee float64 `json:"offset_today_fee"` // 平今仓手续率
+	Exchange string `json:"exchange"` // 交易所
 }
 
 // FutSettle 调用 每日结算参数 API

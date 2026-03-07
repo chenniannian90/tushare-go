@@ -11,22 +11,22 @@ import (
 
 // GgtMonthlyRequest 表示 港股通每月成交统计 API 的请求
 type GgtMonthlyRequest struct {
-	Month string `json:"month,omitempty"`
-	StartMonth string `json:"start_month,omitempty"`
-	EndMonth string `json:"end_month,omitempty"`
+	Month string `json:"month,omitempty"` // 月度（格式YYYYMM，下同，支持多个输入）
+	StartMonth string `json:"start_month,omitempty"` // 开始月度
+	EndMonth string `json:"end_month,omitempty"` // 结束月度
 }
 
 // GgtMonthlyItem 表示单个 港股通每月成交统计 数据项
 type GgtMonthlyItem struct {
-	Month string `json:"month"`
-	DayBuyAmt float64 `json:"day_buy_amt"`
-	DayBuyVol float64 `json:"day_buy_vol"`
-	DaySellAmt float64 `json:"day_sell_amt"`
-	DaySellVol float64 `json:"day_sell_vol"`
-	TotalBuyAmt float64 `json:"total_buy_amt"`
-	TotalBuyVol float64 `json:"total_buy_vol"`
-	TotalSellAmt float64 `json:"total_sell_amt"`
-	TotalSellVol float64 `json:"total_sell_vol"`
+	Month string `json:"month"` // 交易日期
+	DayBuyAmt float64 `json:"day_buy_amt"` // 当月日均买入成交金额（亿元）
+	DayBuyVol float64 `json:"day_buy_vol"` // 当月日均买入成交笔数（万笔）
+	DaySellAmt float64 `json:"day_sell_amt"` // 当月日均卖出成交金额（亿元）
+	DaySellVol float64 `json:"day_sell_vol"` // 当月日均卖出成交笔数（万笔）
+	TotalBuyAmt float64 `json:"total_buy_amt"` // 总买入成交金额（亿元）
+	TotalBuyVol float64 `json:"total_buy_vol"` // 总买入成交笔数（万笔）
+	TotalSellAmt float64 `json:"total_sell_amt"` // 总卖出成交金额（亿元）
+	TotalSellVol float64 `json:"total_sell_vol"` // 总卖出成交笔数（万笔）
 }
 
 // GgtMonthly 调用 港股通每月成交统计 API

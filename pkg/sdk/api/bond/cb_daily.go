@@ -11,29 +11,29 @@ import (
 
 // CbDailyRequest 表示 可转债行情 API 的请求
 type CbDailyRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // TS代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期(YYYYMMDD格式，下同)
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // CbDailyItem 表示单个 可转债行情 数据项
 type CbDailyItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	PreClose float64 `json:"pre_close"`
-	Open float64 `json:"open"`
-	High float64 `json:"high"`
-	Low float64 `json:"low"`
-	Close float64 `json:"close"`
-	Change float64 `json:"change"`
-	PctChg float64 `json:"pct_chg"`
-	Vol float64 `json:"vol"`
-	Amount float64 `json:"amount"`
-	BondValue float64 `json:"bond_value"`
-	BondOverRate float64 `json:"bond_over_rate"`
-	CbValue float64 `json:"cb_value"`
-	CbOverRate float64 `json:"cb_over_rate"`
+	TsCode string `json:"ts_code"` // 转债代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	PreClose float64 `json:"pre_close"` // 昨收盘价(元)
+	Open float64 `json:"open"` // 开盘价(元)
+	High float64 `json:"high"` // 最高价(元)
+	Low float64 `json:"low"` // 最低价(元)
+	Close float64 `json:"close"` // 收盘价(元)
+	Change float64 `json:"change"` // 涨跌(元)
+	PctChg float64 `json:"pct_chg"` // 涨跌幅(%)
+	Vol float64 `json:"vol"` // 成交量(手)
+	Amount float64 `json:"amount"` // 成交金额(万元)
+	BondValue float64 `json:"bond_value"` // 纯债价值
+	BondOverRate float64 `json:"bond_over_rate"` // 纯债溢价率(%)
+	CbValue float64 `json:"cb_value"` // 转股价值
+	CbOverRate float64 `json:"cb_over_rate"` // 转股溢价率(%)
 }
 
 // CbDaily 调用 可转债行情 API

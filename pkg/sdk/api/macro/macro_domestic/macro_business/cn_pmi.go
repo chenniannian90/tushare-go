@@ -11,73 +11,73 @@ import (
 
 // CnPmiRequest 表示 采购经理指数（PMI） API 的请求
 type CnPmiRequest struct {
-	M string `json:"m,omitempty"`
-	StartM string `json:"start_m,omitempty"`
-	EndM string `json:"end_m,omitempty"`
+	M string `json:"m,omitempty"` // 月度（202401表示，2024年1月）
+	StartM string `json:"start_m,omitempty"` // 开始月度
+	EndM string `json:"end_m,omitempty"` // 结束月度（e.g. fields='month,pmi010000,pmi010400'）
 }
 
 // CnPmiItem 表示单个 采购经理指数（PMI） 数据项
 type CnPmiItem struct {
-	Month string `json:"month"`
-	Pmi010000 float64 `json:"pmi010000"`
-	Pmi010100 float64 `json:"pmi010100"`
-	Pmi010200 float64 `json:"pmi010200"`
-	Pmi010300 float64 `json:"pmi010300"`
-	Pmi010400 float64 `json:"pmi010400"`
-	Pmi010401 float64 `json:"pmi010401"`
-	Pmi010402 float64 `json:"pmi010402"`
-	Pmi010403 float64 `json:"pmi010403"`
-	Pmi010500 float64 `json:"pmi010500"`
-	Pmi010501 float64 `json:"pmi010501"`
-	Pmi010502 float64 `json:"pmi010502"`
-	Pmi010503 float64 `json:"pmi010503"`
-	Pmi010600 float64 `json:"pmi010600"`
-	Pmi010601 float64 `json:"pmi010601"`
-	Pmi010602 float64 `json:"pmi010602"`
-	Pmi010603 float64 `json:"pmi010603"`
-	Pmi010700 float64 `json:"pmi010700"`
-	Pmi010701 float64 `json:"pmi010701"`
-	Pmi010702 float64 `json:"pmi010702"`
-	Pmi010703 float64 `json:"pmi010703"`
-	Pmi010800 float64 `json:"pmi010800"`
-	Pmi010801 float64 `json:"pmi010801"`
-	Pmi010802 float64 `json:"pmi010802"`
-	Pmi010803 float64 `json:"pmi010803"`
-	Pmi010900 float64 `json:"pmi010900"`
-	Pmi011000 float64 `json:"pmi011000"`
-	Pmi011100 float64 `json:"pmi011100"`
-	Pmi011200 float64 `json:"pmi011200"`
-	Pmi011300 float64 `json:"pmi011300"`
-	Pmi011400 float64 `json:"pmi011400"`
-	Pmi011500 float64 `json:"pmi011500"`
-	Pmi011600 float64 `json:"pmi011600"`
-	Pmi011700 float64 `json:"pmi011700"`
-	Pmi011800 float64 `json:"pmi011800"`
-	Pmi011900 float64 `json:"pmi011900"`
-	Pmi012000 float64 `json:"pmi012000"`
-	Pmi020100 float64 `json:"pmi020100"`
-	Pmi020101 float64 `json:"pmi020101"`
-	Pmi020102 float64 `json:"pmi020102"`
-	Pmi020200 float64 `json:"pmi020200"`
-	Pmi020201 float64 `json:"pmi020201"`
-	Pmi020202 float64 `json:"pmi020202"`
-	Pmi020300 float64 `json:"pmi020300"`
-	Pmi020301 float64 `json:"pmi020301"`
-	Pmi020302 float64 `json:"pmi020302"`
-	Pmi020400 float64 `json:"pmi020400"`
-	Pmi020401 float64 `json:"pmi020401"`
-	Pmi020402 float64 `json:"pmi020402"`
-	Pmi020500 float64 `json:"pmi020500"`
-	Pmi020501 float64 `json:"pmi020501"`
-	Pmi020502 float64 `json:"pmi020502"`
-	Pmi020600 float64 `json:"pmi020600"`
-	Pmi020601 float64 `json:"pmi020601"`
-	Pmi020602 float64 `json:"pmi020602"`
-	Pmi020700 float64 `json:"pmi020700"`
-	Pmi020800 float64 `json:"pmi020800"`
-	Pmi020900 float64 `json:"pmi020900"`
-	Pmi021000 float64 `json:"pmi021000"`
-	Pmi030000 float64 `json:"pmi030000"`
+	Month string `json:"month"` // 月份YYYYMM
+	Pmi010000 float64 `json:"pmi010000"` // 制造业PMI
+	Pmi010100 float64 `json:"pmi010100"` // 制造业PMI:企业规模/大型企业
+	Pmi010200 float64 `json:"pmi010200"` // 制造业PMI:企业规模/中型企业
+	Pmi010300 float64 `json:"pmi010300"` // 制造业PMI:企业规模/小型企业
+	Pmi010400 float64 `json:"pmi010400"` // 制造业PMI:构成指数/生产指数
+	Pmi010401 float64 `json:"pmi010401"` // 制造业PMI:构成指数/生产指数:企业规模/大型企业
+	Pmi010402 float64 `json:"pmi010402"` // 制造业PMI:构成指数/生产指数:企业规模/中型企业
+	Pmi010403 float64 `json:"pmi010403"` // 制造业PMI:构成指数/生产指数:企业规模/小型企业
+	Pmi010500 float64 `json:"pmi010500"` // 制造业PMI:构成指数/新订单指数
+	Pmi010501 float64 `json:"pmi010501"` // 制造业PMI:构成指数/新订单指数:企业规模/大型企业
+	Pmi010502 float64 `json:"pmi010502"` // 制造业PMI:构成指数/新订单指数:企业规模/中型企业
+	Pmi010503 float64 `json:"pmi010503"` // 制造业PMI:构成指数/新订单指数:企业规模/小型企业
+	Pmi010600 float64 `json:"pmi010600"` // 制造业PMI:构成指数/供应商配送时间指数
+	Pmi010601 float64 `json:"pmi010601"` // 制造业PMI:构成指数/供应商配送时间指数:企业规模/大型企业
+	Pmi010602 float64 `json:"pmi010602"` // 制造业PMI:构成指数/供应商配送时间指数:企业规模/中型企业
+	Pmi010603 float64 `json:"pmi010603"` // 制造业PMI:构成指数/供应商配送时间指数:企业规模/小型企业
+	Pmi010700 float64 `json:"pmi010700"` // 制造业PMI:构成指数/原材料库存指数
+	Pmi010701 float64 `json:"pmi010701"` // 制造业PMI:构成指数/原材料库存指数:企业规模/大型企业
+	Pmi010702 float64 `json:"pmi010702"` // 制造业PMI:构成指数/原材料库存指数:企业规模/中型企业
+	Pmi010703 float64 `json:"pmi010703"` // 制造业PMI:构成指数/原材料库存指数:企业规模/小型企业
+	Pmi010800 float64 `json:"pmi010800"` // 制造业PMI:构成指数/从业人员指数
+	Pmi010801 float64 `json:"pmi010801"` // 制造业PMI:构成指数/从业人员指数:企业规模/大型企业
+	Pmi010802 float64 `json:"pmi010802"` // 制造业PMI:构成指数/从业人员指数:企业规模/中型企业
+	Pmi010803 float64 `json:"pmi010803"` // 制造业PMI:构成指数/从业人员指数:企业规模/小型企业
+	Pmi010900 float64 `json:"pmi010900"` // 制造业PMI:其他/新出口订单
+	Pmi011000 float64 `json:"pmi011000"` // 制造业PMI:其他/进口
+	Pmi011100 float64 `json:"pmi011100"` // 制造业PMI:其他/采购量
+	Pmi011200 float64 `json:"pmi011200"` // 制造业PMI:其他/主要原材料购进价格
+	Pmi011300 float64 `json:"pmi011300"` // 制造业PMI:其他/出厂价格
+	Pmi011400 float64 `json:"pmi011400"` // 制造业PMI:其他/产成品库存
+	Pmi011500 float64 `json:"pmi011500"` // 制造业PMI:其他/在手订单
+	Pmi011600 float64 `json:"pmi011600"` // 制造业PMI:其他/生产经营活动预期
+	Pmi011700 float64 `json:"pmi011700"` // 制造业PMI:分行业/装备制造业
+	Pmi011800 float64 `json:"pmi011800"` // 制造业PMI:分行业/高技术制造业
+	Pmi011900 float64 `json:"pmi011900"` // 制造业PMI:分行业/基础原材料制造业
+	Pmi012000 float64 `json:"pmi012000"` // 制造业PMI:分行业/消费品制造业
+	Pmi020100 float64 `json:"pmi020100"` // 非制造业PMI:商务活动
+	Pmi020101 float64 `json:"pmi020101"` // 非制造业PMI:商务活动:分行业/建筑业
+	Pmi020102 float64 `json:"pmi020102"` // 非制造业PMI:商务活动:分行业/服务业业
+	Pmi020200 float64 `json:"pmi020200"` // 非制造业PMI:新订单指数
+	Pmi020201 float64 `json:"pmi020201"` // 非制造业PMI:新订单指数:分行业/建筑业
+	Pmi020202 float64 `json:"pmi020202"` // 非制造业PMI:新订单指数:分行业/服务业
+	Pmi020300 float64 `json:"pmi020300"` // 非制造业PMI:投入品价格指数
+	Pmi020301 float64 `json:"pmi020301"` // 非制造业PMI:投入品价格指数:分行业/建筑业
+	Pmi020302 float64 `json:"pmi020302"` // 非制造业PMI:投入品价格指数:分行业/服务业
+	Pmi020400 float64 `json:"pmi020400"` // 非制造业PMI:销售价格指数
+	Pmi020401 float64 `json:"pmi020401"` // 非制造业PMI:销售价格指数:分行业/建筑业
+	Pmi020402 float64 `json:"pmi020402"` // 非制造业PMI:销售价格指数:分行业/服务业
+	Pmi020500 float64 `json:"pmi020500"` // 非制造业PMI:从业人员指数
+	Pmi020501 float64 `json:"pmi020501"` // 非制造业PMI:从业人员指数:分行业/建筑业
+	Pmi020502 float64 `json:"pmi020502"` // 非制造业PMI:从业人员指数:分行业/服务业
+	Pmi020600 float64 `json:"pmi020600"` // 非制造业PMI:业务活动预期指数
+	Pmi020601 float64 `json:"pmi020601"` // 非制造业PMI:业务活动预期指数:分行业/建筑业
+	Pmi020602 float64 `json:"pmi020602"` // 非制造业PMI:业务活动预期指数:分行业/服务业
+	Pmi020700 float64 `json:"pmi020700"` // 非制造业PMI:新出口订单
+	Pmi020800 float64 `json:"pmi020800"` // 非制造业PMI:在手订单
+	Pmi020900 float64 `json:"pmi020900"` // 非制造业PMI:存货
+	Pmi021000 float64 `json:"pmi021000"` // 非制造业PMI:供应商配送时间
+	Pmi030000 float64 `json:"pmi030000"` // 中国综合PMI:产出指数
 }
 
 // CnPmi 调用 采购经理指数（PMI） API

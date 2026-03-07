@@ -11,25 +11,25 @@ import (
 
 // CbCallRequest 表示 可转债赎回信息 API 的请求
 type CbCallRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	AnnDate string `json:"ann_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 转债代码，支持多值输入
+	AnnDate string `json:"ann_date,omitempty"` // 公告日期(YYYYMMDD格式，下同)
+	StartDate string `json:"start_date,omitempty"` // 公告开始日期
+	EndDate string `json:"end_date,omitempty"` // 公告结束日期
 }
 
 // CbCallItem 表示单个 可转债赎回信息 数据项
 type CbCallItem struct {
-	TsCode string `json:"ts_code"`
-	CallType string `json:"call_type"`
-	IsCall string `json:"is_call"`
-	AnnDate string `json:"ann_date"`
-	CallDate string `json:"call_date"`
-	CallPrice float64 `json:"call_price"`
-	CallPriceTax float64 `json:"call_price_tax"`
-	CallVol float64 `json:"call_vol"`
-	CallAmount float64 `json:"call_amount"`
-	PaymentDate string `json:"payment_date"`
-	CallRegDate string `json:"call_reg_date"`
+	TsCode string `json:"ts_code"` // 转债代码
+	CallType string `json:"call_type"` // 赎回类型：到赎、强赎
+	IsCall string `json:"is_call"` // 是否赎回：已满足强赎条件、公告提示强赎、公告实施强赎、公告到期赎回、公告不强赎
+	AnnDate string `json:"ann_date"` // 公告/提示日期
+	CallDate string `json:"call_date"` // 赎回日期
+	CallPrice float64 `json:"call_price"` // 赎回价格(含税，元/张)
+	CallPriceTax float64 `json:"call_price_tax"` // 赎回价格(扣税，元/张)
+	CallVol float64 `json:"call_vol"` // 赎回债券数量(张)
+	CallAmount float64 `json:"call_amount"` // 赎回金额(万元)
+	PaymentDate string `json:"payment_date"` // 行权后款项到账日
+	CallRegDate string `json:"call_reg_date"` // 赎回登记日
 }
 
 // CbCall 调用 可转债赎回信息 API

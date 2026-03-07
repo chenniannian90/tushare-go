@@ -11,32 +11,32 @@ import (
 
 // ShiborQuoteRequest 表示 Shibor报价数据 API 的请求
 type ShiborQuoteRequest struct {
-	Date string `json:"date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Bank string `json:"bank,omitempty"`
+	Date string `json:"date,omitempty"` // 日期 (日期输入格式：YYYYMMDD，下同)
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	Bank string `json:"bank,omitempty"` // 银行名称 （中文名称，例如 农业银行）
 }
 
 // ShiborQuoteItem 表示单个 Shibor报价数据 数据项
 type ShiborQuoteItem struct {
-	Date string `json:"date"`
-	Bank string `json:"bank"`
-	OnB float64 `json:"on_b"`
-	OnA float64 `json:"on_a"`
-	1wB float64 `json:"1w_b"`
-	1wA float64 `json:"1w_a"`
-	2wB float64 `json:"2w_b"`
-	2wA float64 `json:"2w_a"`
-	1mB float64 `json:"1m_b"`
-	1mA float64 `json:"1m_a"`
-	3mB float64 `json:"3m_b"`
-	3mA float64 `json:"3m_a"`
-	6mB float64 `json:"6m_b"`
-	6mA float64 `json:"6m_a"`
-	9mB float64 `json:"9m_b"`
-	9mA float64 `json:"9m_a"`
-	1yB float64 `json:"1y_b"`
-	1yA float64 `json:"1y_a"`
+	Date string `json:"date"` // 日期
+	Bank string `json:"bank"` // 报价银行
+	OnB float64 `json:"on_b"` // 隔夜_Bid
+	OnA float64 `json:"on_a"` // 隔夜_Ask
+	1wB float64 `json:"1w_b"` // 1周_Bid
+	1wA float64 `json:"1w_a"` // 1周_Ask
+	2wB float64 `json:"2w_b"` // 2周_Bid
+	2wA float64 `json:"2w_a"` // 2周_Ask
+	1mB float64 `json:"1m_b"` // 1月_Bid
+	1mA float64 `json:"1m_a"` // 1月_Ask
+	3mB float64 `json:"3m_b"` // 3月_Bid
+	3mA float64 `json:"3m_a"` // 3月_Ask
+	6mB float64 `json:"6m_b"` // 6月_Bid
+	6mA float64 `json:"6m_a"` // 6月_Ask
+	9mB float64 `json:"9m_b"` // 9月_Bid
+	9mA float64 `json:"9m_a"` // 9月_Ask
+	1yB float64 `json:"1y_b"` // 1年_Bid
+	1yA float64 `json:"1y_a"` // 1年_Ask
 }
 
 // ShiborQuote 调用 Shibor报价数据 API

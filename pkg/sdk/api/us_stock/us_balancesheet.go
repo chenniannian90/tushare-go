@@ -11,23 +11,23 @@ import (
 
 // UsBalancesheetRequest 表示 美股资产负债表 API 的请求
 type UsBalancesheetRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	Period string `json:"period,omitempty"`
-	IndName string `json:"ind_name,omitempty"`
-	ReportType string `json:"report_type,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	Period string `json:"period,omitempty"` // 报告期（格式：YYYYMMDD，每个季度最后一天的日期，如20241231)
+	IndName string `json:"ind_name,omitempty"` // 指标名(如：新增借款）
+	ReportType string `json:"report_type,omitempty"` // 报告期类型(Q1一季报Q2半年报Q3三季报Q4年报)
+	StartDate string `json:"start_date,omitempty"` // 报告期开始时间（格式：YYYYMMDD）
+	EndDate string `json:"end_date,omitempty"` // 报告结束始时间（格式：YYYYMMDD）
 }
 
 // UsBalancesheetItem 表示单个 美股资产负债表 数据项
 type UsBalancesheetItem struct {
-	TsCode string `json:"ts_code"`
-	EndDate string `json:"end_date"`
-	IndType string `json:"ind_type"`
-	Name string `json:"name"`
-	IndName string `json:"ind_name"`
-	IndValue float64 `json:"ind_value"`
-	ReportType string `json:"report_type"`
+	TsCode string `json:"ts_code"` // 股票代码
+	EndDate string `json:"end_date"` // 报告期
+	IndType string `json:"ind_type"` // 报告期类型(Q1一季报Q2半年报Q3三季报Q4年报)
+	Name string `json:"name"` // 股票名称
+	IndName string `json:"ind_name"` // 财务科目名称
+	IndValue float64 `json:"ind_value"` // 财务科目值
+	ReportType string `json:"report_type"` // 报告类型
 }
 
 // UsBalancesheet 调用 美股资产负债表 API

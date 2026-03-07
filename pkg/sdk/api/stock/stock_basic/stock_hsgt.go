@@ -11,20 +11,20 @@ import (
 
 // StockHsgtRequest 表示 沪深港通股票列表 API 的请求
 type StockHsgtRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	Type string `json:"type,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（格式：YYYYMMDD）
+	Type string `json:"type,omitempty"` // 类型（参考下表）
+	StartDate string `json:"start_date,omitempty"` // 开始时间
+	EndDate string `json:"end_date,omitempty"` // 结束时间
 }
 
 // StockHsgtItem 表示单个 沪深港通股票列表 数据项
 type StockHsgtItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	Type string `json:"type"`
-	Name string `json:"name"`
-	TypeName string `json:"type_name"`
+	TsCode string `json:"ts_code"` // 股票代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	Type string `json:"type"` // 类型
+	Name string `json:"name"` // 股票名称
+	TypeName string `json:"type_name"` // 类型名称
 }
 
 // StockHsgt 调用 沪深港通股票列表 API

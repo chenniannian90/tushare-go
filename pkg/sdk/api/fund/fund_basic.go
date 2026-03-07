@@ -11,38 +11,38 @@ import (
 
 // FundBasicRequest 表示 基金列表 API 的请求
 type FundBasicRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	Market string `json:"market,omitempty"`
-	Status string `json:"status,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 基金代码
+	Market string `json:"market,omitempty"` // 交易市场: E场内 O场外（默认E）
+	Status string `json:"status,omitempty"` // 存续状态 D摘牌 I发行 L上市中
 }
 
 // FundBasicItem 表示单个 基金列表 数据项
 type FundBasicItem struct {
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	Management string `json:"management"`
-	Custodian string `json:"custodian"`
-	FundType string `json:"fund_type"`
-	FoundDate string `json:"found_date"`
-	DueDate string `json:"due_date"`
-	ListDate string `json:"list_date"`
-	IssueDate string `json:"issue_date"`
-	DelistDate string `json:"delist_date"`
-	IssueAmount float64 `json:"issue_amount"`
-	MFee float64 `json:"m_fee"`
-	CFee float64 `json:"c_fee"`
-	DurationYear float64 `json:"duration_year"`
-	PValue float64 `json:"p_value"`
-	MinAmount float64 `json:"min_amount"`
-	ExpReturn float64 `json:"exp_return"`
-	Benchmark string `json:"benchmark"`
-	Status string `json:"status"`
-	InvestType string `json:"invest_type"`
-	Type string `json:"type"`
-	Trustee string `json:"trustee"`
-	PurcStartdate string `json:"purc_startdate"`
-	RedmStartdate string `json:"redm_startdate"`
-	Market string `json:"market"`
+	TsCode string `json:"ts_code"` // 基金代码
+	Name string `json:"name"` // 简称
+	Management string `json:"management"` // 管理人
+	Custodian string `json:"custodian"` // 托管人
+	FundType string `json:"fund_type"` // 投资类型
+	FoundDate string `json:"found_date"` // 成立日期
+	DueDate string `json:"due_date"` // 到期日期
+	ListDate string `json:"list_date"` // 上市时间
+	IssueDate string `json:"issue_date"` // 发行日期
+	DelistDate string `json:"delist_date"` // 退市日期
+	IssueAmount float64 `json:"issue_amount"` // 发行份额(亿)
+	MFee float64 `json:"m_fee"` // 管理费
+	CFee float64 `json:"c_fee"` // 托管费
+	DurationYear float64 `json:"duration_year"` // 存续期
+	PValue float64 `json:"p_value"` // 面值
+	MinAmount float64 `json:"min_amount"` // 起点金额(万元)
+	ExpReturn float64 `json:"exp_return"` // 预期收益率
+	Benchmark string `json:"benchmark"` // 业绩比较基准
+	Status string `json:"status"` // 存续状态D摘牌 I发行 L已上市
+	InvestType string `json:"invest_type"` // 投资风格
+	Type string `json:"type"` // 基金类型
+	Trustee string `json:"trustee"` // 受托人
+	PurcStartdate string `json:"purc_startdate"` // 日常申购起始日
+	RedmStartdate string `json:"redm_startdate"` // 日常赎回起始日
+	Market string `json:"market"` // E场内O场外
 }
 
 // FundBasic 调用 基金列表 API

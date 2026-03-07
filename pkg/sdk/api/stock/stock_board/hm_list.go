@@ -11,14 +11,14 @@ import (
 
 // HmListRequest 表示 市场游资最全名录 API 的请求
 type HmListRequest struct {
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty"` // 游资名称
 }
 
 // HmListItem 表示单个 市场游资最全名录 数据项
 type HmListItem struct {
-	Name string `json:"name"`
-	Desc string `json:"desc"`
-	Orgs string `json:"orgs"`
+	Name string `json:"name"` // 游资名称
+	Desc string `json:"desc"` // 说明
+	Orgs string `json:"orgs"` // 关联机构
 }
 
 // HmList 调用 市场游资最全名录 API

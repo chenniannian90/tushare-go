@@ -11,34 +11,34 @@ import (
 
 // MoneyflowRequest 表示 个股资金流向 API 的请求
 type MoneyflowRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码 （股票和时间参数至少输入一个）
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // MoneyflowItem 表示单个 个股资金流向 数据项
 type MoneyflowItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	BuySmVol int `json:"buy_sm_vol"`
-	BuySmAmount float64 `json:"buy_sm_amount"`
-	SellSmVol int `json:"sell_sm_vol"`
-	SellSmAmount float64 `json:"sell_sm_amount"`
-	BuyMdVol int `json:"buy_md_vol"`
-	BuyMdAmount float64 `json:"buy_md_amount"`
-	SellMdVol int `json:"sell_md_vol"`
-	SellMdAmount float64 `json:"sell_md_amount"`
-	BuyLgVol int `json:"buy_lg_vol"`
-	BuyLgAmount float64 `json:"buy_lg_amount"`
-	SellLgVol int `json:"sell_lg_vol"`
-	SellLgAmount float64 `json:"sell_lg_amount"`
-	BuyElgVol int `json:"buy_elg_vol"`
-	BuyElgAmount float64 `json:"buy_elg_amount"`
-	SellElgVol int `json:"sell_elg_vol"`
-	SellElgAmount float64 `json:"sell_elg_amount"`
-	NetMfVol int `json:"net_mf_vol"`
-	NetMfAmount float64 `json:"net_mf_amount"`
+	TsCode string `json:"ts_code"` // TS代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	BuySmVol int `json:"buy_sm_vol"` // 小单买入量（手）
+	BuySmAmount float64 `json:"buy_sm_amount"` // 小单买入金额（万元）
+	SellSmVol int `json:"sell_sm_vol"` // 小单卖出量（手）
+	SellSmAmount float64 `json:"sell_sm_amount"` // 小单卖出金额（万元）
+	BuyMdVol int `json:"buy_md_vol"` // 中单买入量（手）
+	BuyMdAmount float64 `json:"buy_md_amount"` // 中单买入金额（万元）
+	SellMdVol int `json:"sell_md_vol"` // 中单卖出量（手）
+	SellMdAmount float64 `json:"sell_md_amount"` // 中单卖出金额（万元）
+	BuyLgVol int `json:"buy_lg_vol"` // 大单买入量（手）
+	BuyLgAmount float64 `json:"buy_lg_amount"` // 大单买入金额（万元）
+	SellLgVol int `json:"sell_lg_vol"` // 大单卖出量（手）
+	SellLgAmount float64 `json:"sell_lg_amount"` // 大单卖出金额（万元）
+	BuyElgVol int `json:"buy_elg_vol"` // 特大单买入量（手）
+	BuyElgAmount float64 `json:"buy_elg_amount"` // 特大单买入金额（万元）
+	SellElgVol int `json:"sell_elg_vol"` // 特大单卖出量（手）
+	SellElgAmount float64 `json:"sell_elg_amount"` // 特大单卖出金额（万元）
+	NetMfVol int `json:"net_mf_vol"` // 净流入量（手）
+	NetMfAmount float64 `json:"net_mf_amount"` // 净流入额（万元）
 }
 
 // Moneyflow 调用 个股资金流向 API

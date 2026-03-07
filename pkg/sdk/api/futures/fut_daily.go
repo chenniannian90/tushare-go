@@ -11,31 +11,31 @@ import (
 
 // FutDailyRequest 表示 日线行情 API 的请求
 type FutDailyRequest struct {
-	TradeDate string `json:"trade_date,omitempty"`
-	TsCode string `json:"ts_code,omitempty"`
-	Exchange string `json:"exchange,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期(YYYYMMDD格式，下同)
+	TsCode string `json:"ts_code,omitempty"` // 合约代码
+	Exchange string `json:"exchange,omitempty"` // 交易所代码
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // FutDailyItem 表示单个 日线行情 数据项
 type FutDailyItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	PreClose float64 `json:"pre_close"`
-	PreSettle float64 `json:"pre_settle"`
-	Open float64 `json:"open"`
-	High float64 `json:"high"`
-	Low float64 `json:"low"`
-	Close float64 `json:"close"`
-	Settle float64 `json:"settle"`
-	Change1 float64 `json:"change1"`
-	Change2 float64 `json:"change2"`
-	Vol float64 `json:"vol"`
-	Amount float64 `json:"amount"`
-	Oi float64 `json:"oi"`
-	OiChg float64 `json:"oi_chg"`
-	DelvSettle float64 `json:"delv_settle"`
+	TsCode string `json:"ts_code"` // TS合约代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	PreClose float64 `json:"pre_close"` // 昨收盘价
+	PreSettle float64 `json:"pre_settle"` // 昨结算价
+	Open float64 `json:"open"` // 开盘价
+	High float64 `json:"high"` // 最高价
+	Low float64 `json:"low"` // 最低价
+	Close float64 `json:"close"` // 收盘价
+	Settle float64 `json:"settle"` // 结算价
+	Change1 float64 `json:"change1"` // 涨跌1 收盘价-昨结算价
+	Change2 float64 `json:"change2"` // 涨跌2 结算价-昨结算价
+	Vol float64 `json:"vol"` // 成交量(手)
+	Amount float64 `json:"amount"` // 成交金额(万元)
+	Oi float64 `json:"oi"` // 持仓量(手)
+	OiChg float64 `json:"oi_chg"` // 持仓量变化
+	DelvSettle float64 `json:"delv_settle"` // 交割结算价
 }
 
 // FutDaily 调用 日线行情 API

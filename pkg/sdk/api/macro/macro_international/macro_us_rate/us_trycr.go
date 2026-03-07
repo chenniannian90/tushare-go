@@ -11,20 +11,20 @@ import (
 
 // UsTrycrRequest 表示 国债实际收益率曲线利率 API 的请求
 type UsTrycrRequest struct {
-	Date string `json:"date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Fields string `json:"fields,omitempty"`
+	Date string `json:"date,omitempty"` // 日期 （YYYYMMDD格式，下同）
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	Fields string `json:"fields,omitempty"` // 指定输出字段
 }
 
 // UsTrycrItem 表示单个 国债实际收益率曲线利率 数据项
 type UsTrycrItem struct {
-	Date string `json:"date"`
-	Y5 float64 `json:"y5"`
-	Y7 float64 `json:"y7"`
-	Y10 float64 `json:"y10"`
-	Y20 float64 `json:"y20"`
-	Y30 float64 `json:"y30"`
+	Date string `json:"date"` // 日期
+	Y5 float64 `json:"y5"` // 5年期
+	Y7 float64 `json:"y7"` // 7年期
+	Y10 float64 `json:"y10"` // 10年期
+	Y20 float64 `json:"y20"` // 20年期
+	Y30 float64 `json:"y30"` // 30年期
 }
 
 // UsTrycr 调用 国债实际收益率曲线利率 API

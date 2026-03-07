@@ -11,18 +11,18 @@ import (
 
 // UsTltrRequest 表示 国债长期利率 API 的请求
 type UsTltrRequest struct {
-	Date string `json:"date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Fields string `json:"fields,omitempty"`
+	Date string `json:"date,omitempty"` // 日期
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	Fields string `json:"fields,omitempty"` // 指定字段
 }
 
 // UsTltrItem 表示单个 国债长期利率 数据项
 type UsTltrItem struct {
-	Date string `json:"date"`
-	Ltc float64 `json:"ltc"`
-	Cmt float64 `json:"cmt"`
-	EFactor float64 `json:"e_factor"`
+	Date string `json:"date"` // 日期
+	Ltc float64 `json:"ltc"` // 收益率 LT COMPOSITE (>10 Yrs)
+	Cmt float64 `json:"cmt"` // 20年期CMT利率(TREASURY 20-Yr CMT)
+	EFactor float64 `json:"e_factor"` // 外推因子EXTRAPOLATION FACTOR
 }
 
 // UsTltr 调用 国债长期利率 API

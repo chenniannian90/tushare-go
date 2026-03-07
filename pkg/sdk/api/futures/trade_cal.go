@@ -11,18 +11,18 @@ import (
 
 // TradeCalRequest 表示 交易日历 API 的请求
 type TradeCalRequest struct {
-	Exchange string `json:"exchange,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	IsOpen int `json:"is_open,omitempty"`
+	Exchange string `json:"exchange,omitempty"` // 交易所 SHFE 上期所 DCE 大商所 CFFEX中金所  CZCE郑商所 INE上海国际能源交易所
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	IsOpen int `json:"is_open,omitempty"` // 是否交易 0休市 1交易
 }
 
 // TradeCalItem 表示单个 交易日历 数据项
 type TradeCalItem struct {
-	Exchange string `json:"exchange"`
-	CalDate string `json:"cal_date"`
-	IsOpen int `json:"is_open"`
-	PretradeDate string `json:"pretrade_date"`
+	Exchange string `json:"exchange"` // 交易所 同参数部分描述
+	CalDate string `json:"cal_date"` // 日历日期
+	IsOpen int `json:"is_open"` // 是否交易 0休市 1交易
+	PretradeDate string `json:"pretrade_date"` // 上一个交易日
 }
 
 // TradeCal 调用 交易日历 API

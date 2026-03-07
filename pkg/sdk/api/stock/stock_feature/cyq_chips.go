@@ -11,18 +11,18 @@ import (
 
 // CyqChipsRequest 表示 每日筹码分布 API 的请求
 type CyqChipsRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（YYYYMMDD）
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // CyqChipsItem 表示单个 每日筹码分布 数据项
 type CyqChipsItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	Price float64 `json:"price"`
-	Percent float64 `json:"percent"`
+	TsCode string `json:"ts_code"` // 股票代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	Price float64 `json:"price"` // 成本价格
+	Percent float64 `json:"percent"` // 价格占比（%）
 }
 
 // CyqChips 调用 每日筹码分布 API

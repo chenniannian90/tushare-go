@@ -11,275 +11,275 @@ import (
 
 // StkFactorProRequest 表示 股票技术面因子(专业版） API 的请求
 type StkFactorProRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期(格式：yyyymmdd，下同)
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // StkFactorProItem 表示单个 股票技术面因子(专业版） 数据项
 type StkFactorProItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	Open float64 `json:"open"`
-	OpenHfq float64 `json:"open_hfq"`
-	OpenQfq float64 `json:"open_qfq"`
-	High float64 `json:"high"`
-	HighHfq float64 `json:"high_hfq"`
-	HighQfq float64 `json:"high_qfq"`
-	Low float64 `json:"low"`
-	LowHfq float64 `json:"low_hfq"`
-	LowQfq float64 `json:"low_qfq"`
-	Close float64 `json:"close"`
-	CloseHfq float64 `json:"close_hfq"`
-	CloseQfq float64 `json:"close_qfq"`
-	PreClose float64 `json:"pre_close"`
-	Change float64 `json:"change"`
-	PctChg float64 `json:"pct_chg"`
-	Vol float64 `json:"vol"`
-	Amount float64 `json:"amount"`
-	TurnoverRate float64 `json:"turnover_rate"`
-	TurnoverRateF float64 `json:"turnover_rate_f"`
-	VolumeRatio float64 `json:"volume_ratio"`
-	Pe float64 `json:"pe"`
-	PeTtm float64 `json:"pe_ttm"`
-	Pb float64 `json:"pb"`
-	Ps float64 `json:"ps"`
-	PsTtm float64 `json:"ps_ttm"`
-	DvRatio float64 `json:"dv_ratio"`
-	DvTtm float64 `json:"dv_ttm"`
-	TotalShare float64 `json:"total_share"`
-	FloatShare float64 `json:"float_share"`
-	FreeShare float64 `json:"free_share"`
-	TotalMv float64 `json:"total_mv"`
-	CircMv float64 `json:"circ_mv"`
-	AdjFactor float64 `json:"adj_factor"`
-	AsiBfq float64 `json:"asi_bfq"`
-	AsiHfq float64 `json:"asi_hfq"`
-	AsiQfq float64 `json:"asi_qfq"`
-	AsitBfq float64 `json:"asit_bfq"`
-	AsitHfq float64 `json:"asit_hfq"`
-	AsitQfq float64 `json:"asit_qfq"`
-	AtrBfq float64 `json:"atr_bfq"`
-	AtrHfq float64 `json:"atr_hfq"`
-	AtrQfq float64 `json:"atr_qfq"`
-	BbiBfq float64 `json:"bbi_bfq"`
-	BbiHfq float64 `json:"bbi_hfq"`
-	BbiQfq float64 `json:"bbi_qfq"`
-	Bias1Bfq float64 `json:"bias1_bfq"`
-	Bias1Hfq float64 `json:"bias1_hfq"`
-	Bias1Qfq float64 `json:"bias1_qfq"`
-	Bias2Bfq float64 `json:"bias2_bfq"`
-	Bias2Hfq float64 `json:"bias2_hfq"`
-	Bias2Qfq float64 `json:"bias2_qfq"`
-	Bias3Bfq float64 `json:"bias3_bfq"`
-	Bias3Hfq float64 `json:"bias3_hfq"`
-	Bias3Qfq float64 `json:"bias3_qfq"`
-	BollLowerBfq float64 `json:"boll_lower_bfq"`
-	BollLowerHfq float64 `json:"boll_lower_hfq"`
-	BollLowerQfq float64 `json:"boll_lower_qfq"`
-	BollMidBfq float64 `json:"boll_mid_bfq"`
-	BollMidHfq float64 `json:"boll_mid_hfq"`
-	BollMidQfq float64 `json:"boll_mid_qfq"`
-	BollUpperBfq float64 `json:"boll_upper_bfq"`
-	BollUpperHfq float64 `json:"boll_upper_hfq"`
-	BollUpperQfq float64 `json:"boll_upper_qfq"`
-	BrarArBfq float64 `json:"brar_ar_bfq"`
-	BrarArHfq float64 `json:"brar_ar_hfq"`
-	BrarArQfq float64 `json:"brar_ar_qfq"`
-	BrarBrBfq float64 `json:"brar_br_bfq"`
-	BrarBrHfq float64 `json:"brar_br_hfq"`
-	BrarBrQfq float64 `json:"brar_br_qfq"`
-	CciBfq float64 `json:"cci_bfq"`
-	CciHfq float64 `json:"cci_hfq"`
-	CciQfq float64 `json:"cci_qfq"`
-	CrBfq float64 `json:"cr_bfq"`
-	CrHfq float64 `json:"cr_hfq"`
-	CrQfq float64 `json:"cr_qfq"`
-	DfmaDifBfq float64 `json:"dfma_dif_bfq"`
-	DfmaDifHfq float64 `json:"dfma_dif_hfq"`
-	DfmaDifQfq float64 `json:"dfma_dif_qfq"`
-	DfmaDifmaBfq float64 `json:"dfma_difma_bfq"`
-	DfmaDifmaHfq float64 `json:"dfma_difma_hfq"`
-	DfmaDifmaQfq float64 `json:"dfma_difma_qfq"`
-	DmiAdxBfq float64 `json:"dmi_adx_bfq"`
-	DmiAdxHfq float64 `json:"dmi_adx_hfq"`
-	DmiAdxQfq float64 `json:"dmi_adx_qfq"`
-	DmiAdxrBfq float64 `json:"dmi_adxr_bfq"`
-	DmiAdxrHfq float64 `json:"dmi_adxr_hfq"`
-	DmiAdxrQfq float64 `json:"dmi_adxr_qfq"`
-	DmiMdiBfq float64 `json:"dmi_mdi_bfq"`
-	DmiMdiHfq float64 `json:"dmi_mdi_hfq"`
-	DmiMdiQfq float64 `json:"dmi_mdi_qfq"`
-	DmiPdiBfq float64 `json:"dmi_pdi_bfq"`
-	DmiPdiHfq float64 `json:"dmi_pdi_hfq"`
-	DmiPdiQfq float64 `json:"dmi_pdi_qfq"`
-	Downdays float64 `json:"downdays"`
-	Updays float64 `json:"updays"`
-	DpoBfq float64 `json:"dpo_bfq"`
-	DpoHfq float64 `json:"dpo_hfq"`
-	DpoQfq float64 `json:"dpo_qfq"`
-	MadpoBfq float64 `json:"madpo_bfq"`
-	MadpoHfq float64 `json:"madpo_hfq"`
-	MadpoQfq float64 `json:"madpo_qfq"`
-	EmaBfq10 float64 `json:"ema_bfq_10"`
-	EmaBfq20 float64 `json:"ema_bfq_20"`
-	EmaBfq250 float64 `json:"ema_bfq_250"`
-	EmaBfq30 float64 `json:"ema_bfq_30"`
-	EmaBfq5 float64 `json:"ema_bfq_5"`
-	EmaBfq60 float64 `json:"ema_bfq_60"`
-	EmaBfq90 float64 `json:"ema_bfq_90"`
-	EmaHfq10 float64 `json:"ema_hfq_10"`
-	EmaHfq20 float64 `json:"ema_hfq_20"`
-	EmaHfq250 float64 `json:"ema_hfq_250"`
-	EmaHfq30 float64 `json:"ema_hfq_30"`
-	EmaHfq5 float64 `json:"ema_hfq_5"`
-	EmaHfq60 float64 `json:"ema_hfq_60"`
-	EmaHfq90 float64 `json:"ema_hfq_90"`
-	EmaQfq10 float64 `json:"ema_qfq_10"`
-	EmaQfq20 float64 `json:"ema_qfq_20"`
-	EmaQfq250 float64 `json:"ema_qfq_250"`
-	EmaQfq30 float64 `json:"ema_qfq_30"`
-	EmaQfq5 float64 `json:"ema_qfq_5"`
-	EmaQfq60 float64 `json:"ema_qfq_60"`
-	EmaQfq90 float64 `json:"ema_qfq_90"`
-	EmvBfq float64 `json:"emv_bfq"`
-	EmvHfq float64 `json:"emv_hfq"`
-	EmvQfq float64 `json:"emv_qfq"`
-	MaemvBfq float64 `json:"maemv_bfq"`
-	MaemvHfq float64 `json:"maemv_hfq"`
-	MaemvQfq float64 `json:"maemv_qfq"`
-	Expma12Bfq float64 `json:"expma_12_bfq"`
-	Expma12Hfq float64 `json:"expma_12_hfq"`
-	Expma12Qfq float64 `json:"expma_12_qfq"`
-	Expma50Bfq float64 `json:"expma_50_bfq"`
-	Expma50Hfq float64 `json:"expma_50_hfq"`
-	Expma50Qfq float64 `json:"expma_50_qfq"`
-	KdjBfq float64 `json:"kdj_bfq"`
-	KdjHfq float64 `json:"kdj_hfq"`
-	KdjQfq float64 `json:"kdj_qfq"`
-	KdjDBfq float64 `json:"kdj_d_bfq"`
-	KdjDHfq float64 `json:"kdj_d_hfq"`
-	KdjDQfq float64 `json:"kdj_d_qfq"`
-	KdjKBfq float64 `json:"kdj_k_bfq"`
-	KdjKHfq float64 `json:"kdj_k_hfq"`
-	KdjKQfq float64 `json:"kdj_k_qfq"`
-	KtnDownBfq float64 `json:"ktn_down_bfq"`
-	KtnDownHfq float64 `json:"ktn_down_hfq"`
-	KtnDownQfq float64 `json:"ktn_down_qfq"`
-	KtnMidBfq float64 `json:"ktn_mid_bfq"`
-	KtnMidHfq float64 `json:"ktn_mid_hfq"`
-	KtnMidQfq float64 `json:"ktn_mid_qfq"`
-	KtnUpperBfq float64 `json:"ktn_upper_bfq"`
-	KtnUpperHfq float64 `json:"ktn_upper_hfq"`
-	KtnUpperQfq float64 `json:"ktn_upper_qfq"`
-	Lowdays float64 `json:"lowdays"`
-	Topdays float64 `json:"topdays"`
-	MaBfq10 float64 `json:"ma_bfq_10"`
-	MaBfq20 float64 `json:"ma_bfq_20"`
-	MaBfq250 float64 `json:"ma_bfq_250"`
-	MaBfq30 float64 `json:"ma_bfq_30"`
-	MaBfq5 float64 `json:"ma_bfq_5"`
-	MaBfq60 float64 `json:"ma_bfq_60"`
-	MaBfq90 float64 `json:"ma_bfq_90"`
-	MaHfq10 float64 `json:"ma_hfq_10"`
-	MaHfq20 float64 `json:"ma_hfq_20"`
-	MaHfq250 float64 `json:"ma_hfq_250"`
-	MaHfq30 float64 `json:"ma_hfq_30"`
-	MaHfq5 float64 `json:"ma_hfq_5"`
-	MaHfq60 float64 `json:"ma_hfq_60"`
-	MaHfq90 float64 `json:"ma_hfq_90"`
-	MaQfq10 float64 `json:"ma_qfq_10"`
-	MaQfq20 float64 `json:"ma_qfq_20"`
-	MaQfq250 float64 `json:"ma_qfq_250"`
-	MaQfq30 float64 `json:"ma_qfq_30"`
-	MaQfq5 float64 `json:"ma_qfq_5"`
-	MaQfq60 float64 `json:"ma_qfq_60"`
-	MaQfq90 float64 `json:"ma_qfq_90"`
-	MacdBfq float64 `json:"macd_bfq"`
-	MacdHfq float64 `json:"macd_hfq"`
-	MacdQfq float64 `json:"macd_qfq"`
-	MacdDeaBfq float64 `json:"macd_dea_bfq"`
-	MacdDeaHfq float64 `json:"macd_dea_hfq"`
-	MacdDeaQfq float64 `json:"macd_dea_qfq"`
-	MacdDifBfq float64 `json:"macd_dif_bfq"`
-	MacdDifHfq float64 `json:"macd_dif_hfq"`
-	MacdDifQfq float64 `json:"macd_dif_qfq"`
-	MassBfq float64 `json:"mass_bfq"`
-	MassHfq float64 `json:"mass_hfq"`
-	MassQfq float64 `json:"mass_qfq"`
-	MaMassBfq float64 `json:"ma_mass_bfq"`
-	MaMassHfq float64 `json:"ma_mass_hfq"`
-	MaMassQfq float64 `json:"ma_mass_qfq"`
-	MfiBfq float64 `json:"mfi_bfq"`
-	MfiHfq float64 `json:"mfi_hfq"`
-	MfiQfq float64 `json:"mfi_qfq"`
-	MtmBfq float64 `json:"mtm_bfq"`
-	MtmHfq float64 `json:"mtm_hfq"`
-	MtmQfq float64 `json:"mtm_qfq"`
-	MtmmaBfq float64 `json:"mtmma_bfq"`
-	MtmmaHfq float64 `json:"mtmma_hfq"`
-	MtmmaQfq float64 `json:"mtmma_qfq"`
-	ObvBfq float64 `json:"obv_bfq"`
-	ObvHfq float64 `json:"obv_hfq"`
-	ObvQfq float64 `json:"obv_qfq"`
-	PsyBfq float64 `json:"psy_bfq"`
-	PsyHfq float64 `json:"psy_hfq"`
-	PsyQfq float64 `json:"psy_qfq"`
-	PsymaBfq float64 `json:"psyma_bfq"`
-	PsymaHfq float64 `json:"psyma_hfq"`
-	PsymaQfq float64 `json:"psyma_qfq"`
-	RocBfq float64 `json:"roc_bfq"`
-	RocHfq float64 `json:"roc_hfq"`
-	RocQfq float64 `json:"roc_qfq"`
-	MarocBfq float64 `json:"maroc_bfq"`
-	MarocHfq float64 `json:"maroc_hfq"`
-	MarocQfq float64 `json:"maroc_qfq"`
-	RsiBfq12 float64 `json:"rsi_bfq_12"`
-	RsiBfq24 float64 `json:"rsi_bfq_24"`
-	RsiBfq6 float64 `json:"rsi_bfq_6"`
-	RsiHfq12 float64 `json:"rsi_hfq_12"`
-	RsiHfq24 float64 `json:"rsi_hfq_24"`
-	RsiHfq6 float64 `json:"rsi_hfq_6"`
-	RsiQfq12 float64 `json:"rsi_qfq_12"`
-	RsiQfq24 float64 `json:"rsi_qfq_24"`
-	RsiQfq6 float64 `json:"rsi_qfq_6"`
-	TaqDownBfq float64 `json:"taq_down_bfq"`
-	TaqDownHfq float64 `json:"taq_down_hfq"`
-	TaqDownQfq float64 `json:"taq_down_qfq"`
-	TaqMidBfq float64 `json:"taq_mid_bfq"`
-	TaqMidHfq float64 `json:"taq_mid_hfq"`
-	TaqMidQfq float64 `json:"taq_mid_qfq"`
-	TaqUpBfq float64 `json:"taq_up_bfq"`
-	TaqUpHfq float64 `json:"taq_up_hfq"`
-	TaqUpQfq float64 `json:"taq_up_qfq"`
-	TrixBfq float64 `json:"trix_bfq"`
-	TrixHfq float64 `json:"trix_hfq"`
-	TrixQfq float64 `json:"trix_qfq"`
-	TrmaBfq float64 `json:"trma_bfq"`
-	TrmaHfq float64 `json:"trma_hfq"`
-	TrmaQfq float64 `json:"trma_qfq"`
-	VrBfq float64 `json:"vr_bfq"`
-	VrHfq float64 `json:"vr_hfq"`
-	VrQfq float64 `json:"vr_qfq"`
-	WrBfq float64 `json:"wr_bfq"`
-	WrHfq float64 `json:"wr_hfq"`
-	WrQfq float64 `json:"wr_qfq"`
-	Wr1Bfq float64 `json:"wr1_bfq"`
-	Wr1Hfq float64 `json:"wr1_hfq"`
-	Wr1Qfq float64 `json:"wr1_qfq"`
-	XsiiTd1Bfq float64 `json:"xsii_td1_bfq"`
-	XsiiTd1Hfq float64 `json:"xsii_td1_hfq"`
-	XsiiTd1Qfq float64 `json:"xsii_td1_qfq"`
-	XsiiTd2Bfq float64 `json:"xsii_td2_bfq"`
-	XsiiTd2Hfq float64 `json:"xsii_td2_hfq"`
-	XsiiTd2Qfq float64 `json:"xsii_td2_qfq"`
-	XsiiTd3Bfq float64 `json:"xsii_td3_bfq"`
-	XsiiTd3Hfq float64 `json:"xsii_td3_hfq"`
-	XsiiTd3Qfq float64 `json:"xsii_td3_qfq"`
-	XsiiTd4Bfq float64 `json:"xsii_td4_bfq"`
-	XsiiTd4Hfq float64 `json:"xsii_td4_hfq"`
-	XsiiTd4Qfq float64 `json:"xsii_td4_qfq"`
+	TsCode string `json:"ts_code"` // 股票代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	Open float64 `json:"open"` // 开盘价
+	OpenHfq float64 `json:"open_hfq"` // 开盘价（后复权）
+	OpenQfq float64 `json:"open_qfq"` // 开盘价（前复权）
+	High float64 `json:"high"` // 最高价
+	HighHfq float64 `json:"high_hfq"` // 最高价（后复权）
+	HighQfq float64 `json:"high_qfq"` // 最高价（前复权）
+	Low float64 `json:"low"` // 最低价
+	LowHfq float64 `json:"low_hfq"` // 最低价（后复权）
+	LowQfq float64 `json:"low_qfq"` // 最低价（前复权）
+	Close float64 `json:"close"` // 收盘价
+	CloseHfq float64 `json:"close_hfq"` // 收盘价（后复权）
+	CloseQfq float64 `json:"close_qfq"` // 收盘价（前复权）
+	PreClose float64 `json:"pre_close"` // 昨收价(前复权)--为daily接口的pre_close,以当时复权因子计算值跟前一日close_qfq对不上，可不用
+	Change float64 `json:"change"` // 涨跌额
+	PctChg float64 `json:"pct_chg"` // 涨跌幅 （除权后的涨跌幅）
+	Vol float64 `json:"vol"` // 成交量 （手）
+	Amount float64 `json:"amount"` // 成交额 （千元）
+	TurnoverRate float64 `json:"turnover_rate"` // 换手率（%）
+	TurnoverRateF float64 `json:"turnover_rate_f"` // 换手率（自由流通股）
+	VolumeRatio float64 `json:"volume_ratio"` // 量比
+	Pe float64 `json:"pe"` // 市盈率（总市值/净利润， 亏损的PE为空）
+	PeTtm float64 `json:"pe_ttm"` // 市盈率（TTM，亏损的PE为空）
+	Pb float64 `json:"pb"` // 市净率（总市值/净资产）
+	Ps float64 `json:"ps"` // 市销率
+	PsTtm float64 `json:"ps_ttm"` // 市销率（TTM）
+	DvRatio float64 `json:"dv_ratio"` // 股息率 （%）
+	DvTtm float64 `json:"dv_ttm"` // 股息率（TTM）（%）
+	TotalShare float64 `json:"total_share"` // 总股本 （万股）
+	FloatShare float64 `json:"float_share"` // 流通股本 （万股）
+	FreeShare float64 `json:"free_share"` // 自由流通股本 （万）
+	TotalMv float64 `json:"total_mv"` // 总市值 （万元）
+	CircMv float64 `json:"circ_mv"` // 流通市值（万元）
+	AdjFactor float64 `json:"adj_factor"` // 复权因子
+	AsiBfq float64 `json:"asi_bfq"` // 振动升降指标-OPEN, CLOSE, HIGH, LOW, M1=26, M2=10
+	AsiHfq float64 `json:"asi_hfq"` // 振动升降指标-OPEN, CLOSE, HIGH, LOW, M1=26, M2=10
+	AsiQfq float64 `json:"asi_qfq"` // 振动升降指标-OPEN, CLOSE, HIGH, LOW, M1=26, M2=10
+	AsitBfq float64 `json:"asit_bfq"` // 振动升降指标-OPEN, CLOSE, HIGH, LOW, M1=26, M2=10
+	AsitHfq float64 `json:"asit_hfq"` // 振动升降指标-OPEN, CLOSE, HIGH, LOW, M1=26, M2=10
+	AsitQfq float64 `json:"asit_qfq"` // 振动升降指标-OPEN, CLOSE, HIGH, LOW, M1=26, M2=10
+	AtrBfq float64 `json:"atr_bfq"` // 真实波动N日平均值-CLOSE, HIGH, LOW, N=20
+	AtrHfq float64 `json:"atr_hfq"` // 真实波动N日平均值-CLOSE, HIGH, LOW, N=20
+	AtrQfq float64 `json:"atr_qfq"` // 真实波动N日平均值-CLOSE, HIGH, LOW, N=20
+	BbiBfq float64 `json:"bbi_bfq"` // BBI多空指标-CLOSE, M1=3, M2=6, M3=12, M4=20
+	BbiHfq float64 `json:"bbi_hfq"` // BBI多空指标-CLOSE, M1=3, M2=6, M3=12, M4=21
+	BbiQfq float64 `json:"bbi_qfq"` // BBI多空指标-CLOSE, M1=3, M2=6, M3=12, M4=22
+	Bias1Bfq float64 `json:"bias1_bfq"` // BIAS乖离率-CLOSE, L1=6, L2=12, L3=24
+	Bias1Hfq float64 `json:"bias1_hfq"` // BIAS乖离率-CLOSE, L1=6, L2=12, L3=24
+	Bias1Qfq float64 `json:"bias1_qfq"` // BIAS乖离率-CLOSE, L1=6, L2=12, L3=24
+	Bias2Bfq float64 `json:"bias2_bfq"` // BIAS乖离率-CLOSE, L1=6, L2=12, L3=24
+	Bias2Hfq float64 `json:"bias2_hfq"` // BIAS乖离率-CLOSE, L1=6, L2=12, L3=24
+	Bias2Qfq float64 `json:"bias2_qfq"` // BIAS乖离率-CLOSE, L1=6, L2=12, L3=24
+	Bias3Bfq float64 `json:"bias3_bfq"` // BIAS乖离率-CLOSE, L1=6, L2=12, L3=24
+	Bias3Hfq float64 `json:"bias3_hfq"` // BIAS乖离率-CLOSE, L1=6, L2=12, L3=24
+	Bias3Qfq float64 `json:"bias3_qfq"` // BIAS乖离率-CLOSE, L1=6, L2=12, L3=24
+	BollLowerBfq float64 `json:"boll_lower_bfq"` // BOLL指标，布林带-CLOSE, N=20, P=2
+	BollLowerHfq float64 `json:"boll_lower_hfq"` // BOLL指标，布林带-CLOSE, N=20, P=2
+	BollLowerQfq float64 `json:"boll_lower_qfq"` // BOLL指标，布林带-CLOSE, N=20, P=2
+	BollMidBfq float64 `json:"boll_mid_bfq"` // BOLL指标，布林带-CLOSE, N=20, P=2
+	BollMidHfq float64 `json:"boll_mid_hfq"` // BOLL指标，布林带-CLOSE, N=20, P=2
+	BollMidQfq float64 `json:"boll_mid_qfq"` // BOLL指标，布林带-CLOSE, N=20, P=2
+	BollUpperBfq float64 `json:"boll_upper_bfq"` // BOLL指标，布林带-CLOSE, N=20, P=2
+	BollUpperHfq float64 `json:"boll_upper_hfq"` // BOLL指标，布林带-CLOSE, N=20, P=2
+	BollUpperQfq float64 `json:"boll_upper_qfq"` // BOLL指标，布林带-CLOSE, N=20, P=2
+	BrarArBfq float64 `json:"brar_ar_bfq"` // BRAR情绪指标-OPEN, CLOSE, HIGH, LOW, M1=26
+	BrarArHfq float64 `json:"brar_ar_hfq"` // BRAR情绪指标-OPEN, CLOSE, HIGH, LOW, M1=26
+	BrarArQfq float64 `json:"brar_ar_qfq"` // BRAR情绪指标-OPEN, CLOSE, HIGH, LOW, M1=26
+	BrarBrBfq float64 `json:"brar_br_bfq"` // BRAR情绪指标-OPEN, CLOSE, HIGH, LOW, M1=26
+	BrarBrHfq float64 `json:"brar_br_hfq"` // BRAR情绪指标-OPEN, CLOSE, HIGH, LOW, M1=26
+	BrarBrQfq float64 `json:"brar_br_qfq"` // BRAR情绪指标-OPEN, CLOSE, HIGH, LOW, M1=26
+	CciBfq float64 `json:"cci_bfq"` // 顺势指标又叫CCI指标-CLOSE, HIGH, LOW, N=14
+	CciHfq float64 `json:"cci_hfq"` // 顺势指标又叫CCI指标-CLOSE, HIGH, LOW, N=14
+	CciQfq float64 `json:"cci_qfq"` // 顺势指标又叫CCI指标-CLOSE, HIGH, LOW, N=14
+	CrBfq float64 `json:"cr_bfq"` // CR价格动量指标-CLOSE, HIGH, LOW, N=20
+	CrHfq float64 `json:"cr_hfq"` // CR价格动量指标-CLOSE, HIGH, LOW, N=20
+	CrQfq float64 `json:"cr_qfq"` // CR价格动量指标-CLOSE, HIGH, LOW, N=20
+	DfmaDifBfq float64 `json:"dfma_dif_bfq"` // 平行线差指标-CLOSE, N1=10, N2=50, M=10
+	DfmaDifHfq float64 `json:"dfma_dif_hfq"` // 平行线差指标-CLOSE, N1=10, N2=50, M=10
+	DfmaDifQfq float64 `json:"dfma_dif_qfq"` // 平行线差指标-CLOSE, N1=10, N2=50, M=10
+	DfmaDifmaBfq float64 `json:"dfma_difma_bfq"` // 平行线差指标-CLOSE, N1=10, N2=50, M=10
+	DfmaDifmaHfq float64 `json:"dfma_difma_hfq"` // 平行线差指标-CLOSE, N1=10, N2=50, M=10
+	DfmaDifmaQfq float64 `json:"dfma_difma_qfq"` // 平行线差指标-CLOSE, N1=10, N2=50, M=10
+	DmiAdxBfq float64 `json:"dmi_adx_bfq"` // 动向指标-CLOSE, HIGH, LOW, M1=14, M2=6
+	DmiAdxHfq float64 `json:"dmi_adx_hfq"` // 动向指标-CLOSE, HIGH, LOW, M1=14, M2=6
+	DmiAdxQfq float64 `json:"dmi_adx_qfq"` // 动向指标-CLOSE, HIGH, LOW, M1=14, M2=6
+	DmiAdxrBfq float64 `json:"dmi_adxr_bfq"` // 动向指标-CLOSE, HIGH, LOW, M1=14, M2=6
+	DmiAdxrHfq float64 `json:"dmi_adxr_hfq"` // 动向指标-CLOSE, HIGH, LOW, M1=14, M2=6
+	DmiAdxrQfq float64 `json:"dmi_adxr_qfq"` // 动向指标-CLOSE, HIGH, LOW, M1=14, M2=6
+	DmiMdiBfq float64 `json:"dmi_mdi_bfq"` // 动向指标-CLOSE, HIGH, LOW, M1=14, M2=6
+	DmiMdiHfq float64 `json:"dmi_mdi_hfq"` // 动向指标-CLOSE, HIGH, LOW, M1=14, M2=6
+	DmiMdiQfq float64 `json:"dmi_mdi_qfq"` // 动向指标-CLOSE, HIGH, LOW, M1=14, M2=6
+	DmiPdiBfq float64 `json:"dmi_pdi_bfq"` // 动向指标-CLOSE, HIGH, LOW, M1=14, M2=6
+	DmiPdiHfq float64 `json:"dmi_pdi_hfq"` // 动向指标-CLOSE, HIGH, LOW, M1=14, M2=6
+	DmiPdiQfq float64 `json:"dmi_pdi_qfq"` // 动向指标-CLOSE, HIGH, LOW, M1=14, M2=6
+	Downdays float64 `json:"downdays"` // 连跌天数
+	Updays float64 `json:"updays"` // 连涨天数
+	DpoBfq float64 `json:"dpo_bfq"` // 区间震荡线-CLOSE, M1=20, M2=10, M3=6
+	DpoHfq float64 `json:"dpo_hfq"` // 区间震荡线-CLOSE, M1=20, M2=10, M3=6
+	DpoQfq float64 `json:"dpo_qfq"` // 区间震荡线-CLOSE, M1=20, M2=10, M3=6
+	MadpoBfq float64 `json:"madpo_bfq"` // 区间震荡线-CLOSE, M1=20, M2=10, M3=6
+	MadpoHfq float64 `json:"madpo_hfq"` // 区间震荡线-CLOSE, M1=20, M2=10, M3=6
+	MadpoQfq float64 `json:"madpo_qfq"` // 区间震荡线-CLOSE, M1=20, M2=10, M3=6
+	EmaBfq10 float64 `json:"ema_bfq_10"` // 指数移动平均-N=10
+	EmaBfq20 float64 `json:"ema_bfq_20"` // 指数移动平均-N=20
+	EmaBfq250 float64 `json:"ema_bfq_250"` // 指数移动平均-N=250
+	EmaBfq30 float64 `json:"ema_bfq_30"` // 指数移动平均-N=30
+	EmaBfq5 float64 `json:"ema_bfq_5"` // 指数移动平均-N=5
+	EmaBfq60 float64 `json:"ema_bfq_60"` // 指数移动平均-N=60
+	EmaBfq90 float64 `json:"ema_bfq_90"` // 指数移动平均-N=90
+	EmaHfq10 float64 `json:"ema_hfq_10"` // 指数移动平均-N=10
+	EmaHfq20 float64 `json:"ema_hfq_20"` // 指数移动平均-N=20
+	EmaHfq250 float64 `json:"ema_hfq_250"` // 指数移动平均-N=250
+	EmaHfq30 float64 `json:"ema_hfq_30"` // 指数移动平均-N=30
+	EmaHfq5 float64 `json:"ema_hfq_5"` // 指数移动平均-N=5
+	EmaHfq60 float64 `json:"ema_hfq_60"` // 指数移动平均-N=60
+	EmaHfq90 float64 `json:"ema_hfq_90"` // 指数移动平均-N=90
+	EmaQfq10 float64 `json:"ema_qfq_10"` // 指数移动平均-N=10
+	EmaQfq20 float64 `json:"ema_qfq_20"` // 指数移动平均-N=20
+	EmaQfq250 float64 `json:"ema_qfq_250"` // 指数移动平均-N=250
+	EmaQfq30 float64 `json:"ema_qfq_30"` // 指数移动平均-N=30
+	EmaQfq5 float64 `json:"ema_qfq_5"` // 指数移动平均-N=5
+	EmaQfq60 float64 `json:"ema_qfq_60"` // 指数移动平均-N=60
+	EmaQfq90 float64 `json:"ema_qfq_90"` // 指数移动平均-N=90
+	EmvBfq float64 `json:"emv_bfq"` // 简易波动指标-HIGH, LOW, VOL, N=14, M=9
+	EmvHfq float64 `json:"emv_hfq"` // 简易波动指标-HIGH, LOW, VOL, N=14, M=9
+	EmvQfq float64 `json:"emv_qfq"` // 简易波动指标-HIGH, LOW, VOL, N=14, M=9
+	MaemvBfq float64 `json:"maemv_bfq"` // 简易波动指标-HIGH, LOW, VOL, N=14, M=9
+	MaemvHfq float64 `json:"maemv_hfq"` // 简易波动指标-HIGH, LOW, VOL, N=14, M=9
+	MaemvQfq float64 `json:"maemv_qfq"` // 简易波动指标-HIGH, LOW, VOL, N=14, M=9
+	Expma12Bfq float64 `json:"expma_12_bfq"` // EMA指数平均数指标-CLOSE, N1=12, N2=50
+	Expma12Hfq float64 `json:"expma_12_hfq"` // EMA指数平均数指标-CLOSE, N1=12, N2=50
+	Expma12Qfq float64 `json:"expma_12_qfq"` // EMA指数平均数指标-CLOSE, N1=12, N2=50
+	Expma50Bfq float64 `json:"expma_50_bfq"` // EMA指数平均数指标-CLOSE, N1=12, N2=50
+	Expma50Hfq float64 `json:"expma_50_hfq"` // EMA指数平均数指标-CLOSE, N1=12, N2=50
+	Expma50Qfq float64 `json:"expma_50_qfq"` // EMA指数平均数指标-CLOSE, N1=12, N2=50
+	KdjBfq float64 `json:"kdj_bfq"` // KDJ指标-CLOSE, HIGH, LOW, N=9, M1=3, M2=3
+	KdjHfq float64 `json:"kdj_hfq"` // KDJ指标-CLOSE, HIGH, LOW, N=9, M1=3, M2=3
+	KdjQfq float64 `json:"kdj_qfq"` // KDJ指标-CLOSE, HIGH, LOW, N=9, M1=3, M2=3
+	KdjDBfq float64 `json:"kdj_d_bfq"` // KDJ指标-CLOSE, HIGH, LOW, N=9, M1=3, M2=3
+	KdjDHfq float64 `json:"kdj_d_hfq"` // KDJ指标-CLOSE, HIGH, LOW, N=9, M1=3, M2=3
+	KdjDQfq float64 `json:"kdj_d_qfq"` // KDJ指标-CLOSE, HIGH, LOW, N=9, M1=3, M2=3
+	KdjKBfq float64 `json:"kdj_k_bfq"` // KDJ指标-CLOSE, HIGH, LOW, N=9, M1=3, M2=3
+	KdjKHfq float64 `json:"kdj_k_hfq"` // KDJ指标-CLOSE, HIGH, LOW, N=9, M1=3, M2=3
+	KdjKQfq float64 `json:"kdj_k_qfq"` // KDJ指标-CLOSE, HIGH, LOW, N=9, M1=3, M2=3
+	KtnDownBfq float64 `json:"ktn_down_bfq"` // 肯特纳交易通道, N选20日，ATR选10日-CLOSE, HIGH, LOW, N=20, M=10
+	KtnDownHfq float64 `json:"ktn_down_hfq"` // 肯特纳交易通道, N选20日，ATR选10日-CLOSE, HIGH, LOW, N=20, M=10
+	KtnDownQfq float64 `json:"ktn_down_qfq"` // 肯特纳交易通道, N选20日，ATR选10日-CLOSE, HIGH, LOW, N=20, M=10
+	KtnMidBfq float64 `json:"ktn_mid_bfq"` // 肯特纳交易通道, N选20日，ATR选10日-CLOSE, HIGH, LOW, N=20, M=10
+	KtnMidHfq float64 `json:"ktn_mid_hfq"` // 肯特纳交易通道, N选20日，ATR选10日-CLOSE, HIGH, LOW, N=20, M=10
+	KtnMidQfq float64 `json:"ktn_mid_qfq"` // 肯特纳交易通道, N选20日，ATR选10日-CLOSE, HIGH, LOW, N=20, M=10
+	KtnUpperBfq float64 `json:"ktn_upper_bfq"` // 肯特纳交易通道, N选20日，ATR选10日-CLOSE, HIGH, LOW, N=20, M=10
+	KtnUpperHfq float64 `json:"ktn_upper_hfq"` // 肯特纳交易通道, N选20日，ATR选10日-CLOSE, HIGH, LOW, N=20, M=10
+	KtnUpperQfq float64 `json:"ktn_upper_qfq"` // 肯特纳交易通道, N选20日，ATR选10日-CLOSE, HIGH, LOW, N=20, M=10
+	Lowdays float64 `json:"lowdays"` // LOWRANGE(LOW)表示当前最低价是近多少周期内最低价的最小值
+	Topdays float64 `json:"topdays"` // TOPRANGE(HIGH)表示当前最高价是近多少周期内最高价的最大值
+	MaBfq10 float64 `json:"ma_bfq_10"` // 简单移动平均-N=10
+	MaBfq20 float64 `json:"ma_bfq_20"` // 简单移动平均-N=20
+	MaBfq250 float64 `json:"ma_bfq_250"` // 简单移动平均-N=250
+	MaBfq30 float64 `json:"ma_bfq_30"` // 简单移动平均-N=30
+	MaBfq5 float64 `json:"ma_bfq_5"` // 简单移动平均-N=5
+	MaBfq60 float64 `json:"ma_bfq_60"` // 简单移动平均-N=60
+	MaBfq90 float64 `json:"ma_bfq_90"` // 简单移动平均-N=90
+	MaHfq10 float64 `json:"ma_hfq_10"` // 简单移动平均-N=10
+	MaHfq20 float64 `json:"ma_hfq_20"` // 简单移动平均-N=20
+	MaHfq250 float64 `json:"ma_hfq_250"` // 简单移动平均-N=250
+	MaHfq30 float64 `json:"ma_hfq_30"` // 简单移动平均-N=30
+	MaHfq5 float64 `json:"ma_hfq_5"` // 简单移动平均-N=5
+	MaHfq60 float64 `json:"ma_hfq_60"` // 简单移动平均-N=60
+	MaHfq90 float64 `json:"ma_hfq_90"` // 简单移动平均-N=90
+	MaQfq10 float64 `json:"ma_qfq_10"` // 简单移动平均-N=10
+	MaQfq20 float64 `json:"ma_qfq_20"` // 简单移动平均-N=20
+	MaQfq250 float64 `json:"ma_qfq_250"` // 简单移动平均-N=250
+	MaQfq30 float64 `json:"ma_qfq_30"` // 简单移动平均-N=30
+	MaQfq5 float64 `json:"ma_qfq_5"` // 简单移动平均-N=5
+	MaQfq60 float64 `json:"ma_qfq_60"` // 简单移动平均-N=60
+	MaQfq90 float64 `json:"ma_qfq_90"` // 简单移动平均-N=90
+	MacdBfq float64 `json:"macd_bfq"` // MACD指标-CLOSE, SHORT=12, LONG=26, M=9
+	MacdHfq float64 `json:"macd_hfq"` // MACD指标-CLOSE, SHORT=12, LONG=26, M=9
+	MacdQfq float64 `json:"macd_qfq"` // MACD指标-CLOSE, SHORT=12, LONG=26, M=9
+	MacdDeaBfq float64 `json:"macd_dea_bfq"` // MACD指标-CLOSE, SHORT=12, LONG=26, M=9
+	MacdDeaHfq float64 `json:"macd_dea_hfq"` // MACD指标-CLOSE, SHORT=12, LONG=26, M=9
+	MacdDeaQfq float64 `json:"macd_dea_qfq"` // MACD指标-CLOSE, SHORT=12, LONG=26, M=9
+	MacdDifBfq float64 `json:"macd_dif_bfq"` // MACD指标-CLOSE, SHORT=12, LONG=26, M=9
+	MacdDifHfq float64 `json:"macd_dif_hfq"` // MACD指标-CLOSE, SHORT=12, LONG=26, M=9
+	MacdDifQfq float64 `json:"macd_dif_qfq"` // MACD指标-CLOSE, SHORT=12, LONG=26, M=9
+	MassBfq float64 `json:"mass_bfq"` // 梅斯线-HIGH, LOW, N1=9, N2=25, M=6
+	MassHfq float64 `json:"mass_hfq"` // 梅斯线-HIGH, LOW, N1=9, N2=25, M=6
+	MassQfq float64 `json:"mass_qfq"` // 梅斯线-HIGH, LOW, N1=9, N2=25, M=6
+	MaMassBfq float64 `json:"ma_mass_bfq"` // 梅斯线-HIGH, LOW, N1=9, N2=25, M=6
+	MaMassHfq float64 `json:"ma_mass_hfq"` // 梅斯线-HIGH, LOW, N1=9, N2=25, M=6
+	MaMassQfq float64 `json:"ma_mass_qfq"` // 梅斯线-HIGH, LOW, N1=9, N2=25, M=6
+	MfiBfq float64 `json:"mfi_bfq"` // MFI指标是成交量的RSI指标-CLOSE, HIGH, LOW, VOL, N=14
+	MfiHfq float64 `json:"mfi_hfq"` // MFI指标是成交量的RSI指标-CLOSE, HIGH, LOW, VOL, N=14
+	MfiQfq float64 `json:"mfi_qfq"` // MFI指标是成交量的RSI指标-CLOSE, HIGH, LOW, VOL, N=14
+	MtmBfq float64 `json:"mtm_bfq"` // 动量指标-CLOSE, N=12, M=6
+	MtmHfq float64 `json:"mtm_hfq"` // 动量指标-CLOSE, N=12, M=6
+	MtmQfq float64 `json:"mtm_qfq"` // 动量指标-CLOSE, N=12, M=6
+	MtmmaBfq float64 `json:"mtmma_bfq"` // 动量指标-CLOSE, N=12, M=6
+	MtmmaHfq float64 `json:"mtmma_hfq"` // 动量指标-CLOSE, N=12, M=6
+	MtmmaQfq float64 `json:"mtmma_qfq"` // 动量指标-CLOSE, N=12, M=6
+	ObvBfq float64 `json:"obv_bfq"` // 能量潮指标-CLOSE, VOL
+	ObvHfq float64 `json:"obv_hfq"` // 能量潮指标-CLOSE, VOL
+	ObvQfq float64 `json:"obv_qfq"` // 能量潮指标-CLOSE, VOL
+	PsyBfq float64 `json:"psy_bfq"` // 投资者对股市涨跌产生心理波动的情绪指标-CLOSE, N=12, M=6
+	PsyHfq float64 `json:"psy_hfq"` // 投资者对股市涨跌产生心理波动的情绪指标-CLOSE, N=12, M=6
+	PsyQfq float64 `json:"psy_qfq"` // 投资者对股市涨跌产生心理波动的情绪指标-CLOSE, N=12, M=6
+	PsymaBfq float64 `json:"psyma_bfq"` // 投资者对股市涨跌产生心理波动的情绪指标-CLOSE, N=12, M=6
+	PsymaHfq float64 `json:"psyma_hfq"` // 投资者对股市涨跌产生心理波动的情绪指标-CLOSE, N=12, M=6
+	PsymaQfq float64 `json:"psyma_qfq"` // 投资者对股市涨跌产生心理波动的情绪指标-CLOSE, N=12, M=6
+	RocBfq float64 `json:"roc_bfq"` // 变动率指标-CLOSE, N=12, M=6
+	RocHfq float64 `json:"roc_hfq"` // 变动率指标-CLOSE, N=12, M=6
+	RocQfq float64 `json:"roc_qfq"` // 变动率指标-CLOSE, N=12, M=6
+	MarocBfq float64 `json:"maroc_bfq"` // 变动率指标-CLOSE, N=12, M=6
+	MarocHfq float64 `json:"maroc_hfq"` // 变动率指标-CLOSE, N=12, M=6
+	MarocQfq float64 `json:"maroc_qfq"` // 变动率指标-CLOSE, N=12, M=6
+	RsiBfq12 float64 `json:"rsi_bfq_12"` // RSI指标-CLOSE, N=12
+	RsiBfq24 float64 `json:"rsi_bfq_24"` // RSI指标-CLOSE, N=24
+	RsiBfq6 float64 `json:"rsi_bfq_6"` // RSI指标-CLOSE, N=6
+	RsiHfq12 float64 `json:"rsi_hfq_12"` // RSI指标-CLOSE, N=12
+	RsiHfq24 float64 `json:"rsi_hfq_24"` // RSI指标-CLOSE, N=24
+	RsiHfq6 float64 `json:"rsi_hfq_6"` // RSI指标-CLOSE, N=6
+	RsiQfq12 float64 `json:"rsi_qfq_12"` // RSI指标-CLOSE, N=12
+	RsiQfq24 float64 `json:"rsi_qfq_24"` // RSI指标-CLOSE, N=24
+	RsiQfq6 float64 `json:"rsi_qfq_6"` // RSI指标-CLOSE, N=6
+	TaqDownBfq float64 `json:"taq_down_bfq"` // 唐安奇通道(海龟)交易指标-HIGH, LOW, 20
+	TaqDownHfq float64 `json:"taq_down_hfq"` // 唐安奇通道(海龟)交易指标-HIGH, LOW, 20
+	TaqDownQfq float64 `json:"taq_down_qfq"` // 唐安奇通道(海龟)交易指标-HIGH, LOW, 20
+	TaqMidBfq float64 `json:"taq_mid_bfq"` // 唐安奇通道(海龟)交易指标-HIGH, LOW, 20
+	TaqMidHfq float64 `json:"taq_mid_hfq"` // 唐安奇通道(海龟)交易指标-HIGH, LOW, 20
+	TaqMidQfq float64 `json:"taq_mid_qfq"` // 唐安奇通道(海龟)交易指标-HIGH, LOW, 20
+	TaqUpBfq float64 `json:"taq_up_bfq"` // 唐安奇通道(海龟)交易指标-HIGH, LOW, 20
+	TaqUpHfq float64 `json:"taq_up_hfq"` // 唐安奇通道(海龟)交易指标-HIGH, LOW, 20
+	TaqUpQfq float64 `json:"taq_up_qfq"` // 唐安奇通道(海龟)交易指标-HIGH, LOW, 20
+	TrixBfq float64 `json:"trix_bfq"` // 三重指数平滑平均线-CLOSE, M1=12, M2=20
+	TrixHfq float64 `json:"trix_hfq"` // 三重指数平滑平均线-CLOSE, M1=12, M2=20
+	TrixQfq float64 `json:"trix_qfq"` // 三重指数平滑平均线-CLOSE, M1=12, M2=20
+	TrmaBfq float64 `json:"trma_bfq"` // 三重指数平滑平均线-CLOSE, M1=12, M2=20
+	TrmaHfq float64 `json:"trma_hfq"` // 三重指数平滑平均线-CLOSE, M1=12, M2=20
+	TrmaQfq float64 `json:"trma_qfq"` // 三重指数平滑平均线-CLOSE, M1=12, M2=20
+	VrBfq float64 `json:"vr_bfq"` // VR容量比率-CLOSE, VOL, M1=26
+	VrHfq float64 `json:"vr_hfq"` // VR容量比率-CLOSE, VOL, M1=26
+	VrQfq float64 `json:"vr_qfq"` // VR容量比率-CLOSE, VOL, M1=26
+	WrBfq float64 `json:"wr_bfq"` // W&R 威廉指标-CLOSE, HIGH, LOW, N=10, N1=6
+	WrHfq float64 `json:"wr_hfq"` // W&R 威廉指标-CLOSE, HIGH, LOW, N=10, N1=6
+	WrQfq float64 `json:"wr_qfq"` // W&R 威廉指标-CLOSE, HIGH, LOW, N=10, N1=6
+	Wr1Bfq float64 `json:"wr1_bfq"` // W&R 威廉指标-CLOSE, HIGH, LOW, N=10, N1=6
+	Wr1Hfq float64 `json:"wr1_hfq"` // W&R 威廉指标-CLOSE, HIGH, LOW, N=10, N1=6
+	Wr1Qfq float64 `json:"wr1_qfq"` // W&R 威廉指标-CLOSE, HIGH, LOW, N=10, N1=6
+	XsiiTd1Bfq float64 `json:"xsii_td1_bfq"` // 薛斯通道II-CLOSE, HIGH, LOW, N=102, M=7
+	XsiiTd1Hfq float64 `json:"xsii_td1_hfq"` // 薛斯通道II-CLOSE, HIGH, LOW, N=102, M=7
+	XsiiTd1Qfq float64 `json:"xsii_td1_qfq"` // 薛斯通道II-CLOSE, HIGH, LOW, N=102, M=7
+	XsiiTd2Bfq float64 `json:"xsii_td2_bfq"` // 薛斯通道II-CLOSE, HIGH, LOW, N=102, M=7
+	XsiiTd2Hfq float64 `json:"xsii_td2_hfq"` // 薛斯通道II-CLOSE, HIGH, LOW, N=102, M=7
+	XsiiTd2Qfq float64 `json:"xsii_td2_qfq"` // 薛斯通道II-CLOSE, HIGH, LOW, N=102, M=7
+	XsiiTd3Bfq float64 `json:"xsii_td3_bfq"` // 薛斯通道II-CLOSE, HIGH, LOW, N=102, M=7
+	XsiiTd3Hfq float64 `json:"xsii_td3_hfq"` // 薛斯通道II-CLOSE, HIGH, LOW, N=102, M=7
+	XsiiTd3Qfq float64 `json:"xsii_td3_qfq"` // 薛斯通道II-CLOSE, HIGH, LOW, N=102, M=7
+	XsiiTd4Bfq float64 `json:"xsii_td4_bfq"` // 薛斯通道II-CLOSE, HIGH, LOW, N=102, M=7
+	XsiiTd4Hfq float64 `json:"xsii_td4_hfq"` // 薛斯通道II-CLOSE, HIGH, LOW, N=102, M=7
+	XsiiTd4Qfq float64 `json:"xsii_td4_qfq"` // 薛斯通道II-CLOSE, HIGH, LOW, N=102, M=7
 }
 
 // StkFactorPro 调用 股票技术面因子(专业版） API

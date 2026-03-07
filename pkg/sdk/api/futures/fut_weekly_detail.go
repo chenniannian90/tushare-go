@@ -11,33 +11,33 @@ import (
 
 // FutWeeklyDetailRequest 表示 期货主要品种交易周报 API 的请求
 type FutWeeklyDetailRequest struct {
-	Week string `json:"week,omitempty"`
-	Prd string `json:"prd,omitempty"`
-	StartWeek string `json:"start_week,omitempty"`
-	EndWeek string `json:"end_week,omitempty"`
-	Exchange string `json:"exchange,omitempty"`
-	Fields string `json:"fields,omitempty"`
+	Week string `json:"week,omitempty"` // 周期（每年第几周，e.g. 202001 表示2020第1周）
+	Prd string `json:"prd,omitempty"` // 期货品种（支持多品种输入，逗号分隔）
+	StartWeek string `json:"start_week,omitempty"` // 开始周期
+	EndWeek string `json:"end_week,omitempty"` // 结束周期
+	Exchange string `json:"exchange,omitempty"` // 交易所（请参考交易所说明）
+	Fields string `json:"fields,omitempty"` // 提取的字段，e.g. fields='prd,name,vol'
 }
 
 // FutWeeklyDetailItem 表示单个 期货主要品种交易周报 数据项
 type FutWeeklyDetailItem struct {
-	Exchange string `json:"exchange"`
-	Prd string `json:"prd"`
-	Name string `json:"name"`
-	Vol int `json:"vol"`
-	VolYoy float64 `json:"vol_yoy"`
-	Amount float64 `json:"amount"`
-	AmoutYoy float64 `json:"amout_yoy"`
-	Cumvol int `json:"cumvol"`
-	CumvolYoy float64 `json:"cumvol_yoy"`
-	Cumamt float64 `json:"cumamt"`
-	CumamtYoy float64 `json:"cumamt_yoy"`
-	OpenInterest int `json:"open_interest"`
-	InterestWow float64 `json:"interest_wow"`
-	McClose float64 `json:"mc_close"`
-	CloseWow float64 `json:"close_wow"`
-	Week string `json:"week"`
-	WeekDate string `json:"week_date"`
+	Exchange string `json:"exchange"` // 交易所代码
+	Prd string `json:"prd"` // 期货品种代码
+	Name string `json:"name"` // 品种名称
+	Vol int `json:"vol"` // 成交量（手）
+	VolYoy float64 `json:"vol_yoy"` // 同比增减（%）
+	Amount float64 `json:"amount"` // 成交金额（亿元）
+	AmoutYoy float64 `json:"amout_yoy"` // 同比增减（%）
+	Cumvol int `json:"cumvol"` // 年累计成交总量（手）
+	CumvolYoy float64 `json:"cumvol_yoy"` // 同比增减（%）
+	Cumamt float64 `json:"cumamt"` // 年累计成交金额（亿元）
+	CumamtYoy float64 `json:"cumamt_yoy"` // 同比增减（%）
+	OpenInterest int `json:"open_interest"` // 持仓量（手）
+	InterestWow float64 `json:"interest_wow"` // 环比增减（%）
+	McClose float64 `json:"mc_close"` // 本周主力合约收盘价
+	CloseWow float64 `json:"close_wow"` // 环比涨跌（%）
+	Week string `json:"week"` // 周期
+	WeekDate string `json:"week_date"` // 周日期
 }
 
 // FutWeeklyDetail 调用 期货主要品种交易周报 API

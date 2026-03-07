@@ -11,29 +11,29 @@ import (
 
 // SwDailyRequest 表示 申万行业指数日行情 API 的请求
 type SwDailyRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 行业代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // SwDailyItem 表示单个 申万行业指数日行情 数据项
 type SwDailyItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	Name string `json:"name"`
-	Open float64 `json:"open"`
-	Low float64 `json:"low"`
-	High float64 `json:"high"`
-	Close float64 `json:"close"`
-	Change float64 `json:"change"`
-	PctChange float64 `json:"pct_change"`
-	Vol float64 `json:"vol"`
-	Amount float64 `json:"amount"`
-	Pe float64 `json:"pe"`
-	Pb float64 `json:"pb"`
-	FloatMv float64 `json:"float_mv"`
-	TotalMv float64 `json:"total_mv"`
+	TsCode string `json:"ts_code"` // 指数代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	Name string `json:"name"` // 指数名称
+	Open float64 `json:"open"` // 开盘点位
+	Low float64 `json:"low"` // 最低点位
+	High float64 `json:"high"` // 最高点位
+	Close float64 `json:"close"` // 收盘点位
+	Change float64 `json:"change"` // 涨跌点位
+	PctChange float64 `json:"pct_change"` // 涨跌幅
+	Vol float64 `json:"vol"` // 成交量（万股）
+	Amount float64 `json:"amount"` // 成交额（万元）
+	Pe float64 `json:"pe"` // 市盈率
+	Pb float64 `json:"pb"` // 市净率
+	FloatMv float64 `json:"float_mv"` // 流通市值（万元）
+	TotalMv float64 `json:"total_mv"` // 总市值（万元）
 }
 
 // SwDaily 调用 申万行业指数日行情 API

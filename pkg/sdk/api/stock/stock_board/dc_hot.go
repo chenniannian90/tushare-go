@@ -11,23 +11,23 @@ import (
 
 // DcHotRequest 表示 东方财富App热榜 API 的请求
 type DcHotRequest struct {
-	TradeDate string `json:"trade_date,omitempty"`
-	TsCode string `json:"ts_code,omitempty"`
-	Market string `json:"market,omitempty"`
-	HotType string `json:"hot_type,omitempty"`
-	IsNew string `json:"is_new,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期
+	TsCode string `json:"ts_code,omitempty"` // TS代码
+	Market string `json:"market,omitempty"` // 类型(A股市场、ETF基金、港股市场、美股市场)
+	HotType string `json:"hot_type,omitempty"` // 热点类型(人气榜、飙升榜)
+	IsNew string `json:"is_new,omitempty"` // 是否最新（默认Y，如果为N则为盘中和盘后阶段采集，具体时间可参考rank_time字段，状态N每小时更新一次，状态Y更新时间为22：30）
 }
 
 // DcHotItem 表示单个 东方财富App热榜 数据项
 type DcHotItem struct {
-	TradeDate string `json:"trade_date"`
-	DataType string `json:"data_type"`
-	TsCode string `json:"ts_code"`
-	TsName string `json:"ts_name"`
-	Rank int `json:"rank"`
-	PctChange float64 `json:"pct_change"`
-	CurrentPrice float64 `json:"current_price"`
-	RankTime string `json:"rank_time"`
+	TradeDate string `json:"trade_date"` // 交易日期
+	DataType string `json:"data_type"` // 数据类型
+	TsCode string `json:"ts_code"` // 股票代码
+	TsName string `json:"ts_name"` // 股票名称
+	Rank int `json:"rank"` // 排行或者热度
+	PctChange float64 `json:"pct_change"` // 涨跌幅%
+	CurrentPrice float64 `json:"current_price"` // 当前价
+	RankTime string `json:"rank_time"` // 排行榜获取时间
 }
 
 // DcHot 调用 东方财富App热榜 API

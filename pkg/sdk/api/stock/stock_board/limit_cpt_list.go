@@ -11,23 +11,23 @@ import (
 
 // LimitCptListRequest 表示 涨停最强板块统计 API 的请求
 type LimitCptListRequest struct {
-	TradeDate string `json:"trade_date,omitempty"`
-	TsCode string `json:"ts_code,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（格式：YYYYMMDD，下同）
+	TsCode string `json:"ts_code,omitempty"` // 板块代码
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // LimitCptListItem 表示单个 涨停最强板块统计 数据项
 type LimitCptListItem struct {
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	TradeDate string `json:"trade_date"`
-	Days int `json:"days"`
-	UpStat string `json:"up_stat"`
-	ConsNums int `json:"cons_nums"`
-	UpNums int `json:"up_nums"`
-	PctChg float64 `json:"pct_chg"`
-	Rank string `json:"rank"`
+	TsCode string `json:"ts_code"` // 板块代码
+	Name string `json:"name"` // 板块名称
+	TradeDate string `json:"trade_date"` // 交易日期
+	Days int `json:"days"` // 上榜天数
+	UpStat string `json:"up_stat"` // 连板高度
+	ConsNums int `json:"cons_nums"` // 连板家数
+	UpNums int `json:"up_nums"` // 涨停家数
+	PctChg float64 `json:"pct_chg"` // 涨跌幅%
+	Rank string `json:"rank"` // 板块热点排名
 }
 
 // LimitCptList 调用 涨停最强板块统计 API

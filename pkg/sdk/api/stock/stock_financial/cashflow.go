@@ -11,116 +11,116 @@ import (
 
 // CashflowRequest 表示 现金流量表 API 的请求
 type CashflowRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	AnnDate string `json:"ann_date,omitempty"`
-	FAnnDate string `json:"f_ann_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Period string `json:"period,omitempty"`
-	ReportType string `json:"report_type,omitempty"`
-	CompType string `json:"comp_type,omitempty"`
-	IsCalc int `json:"is_calc,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	AnnDate string `json:"ann_date,omitempty"` // 公告日期（YYYYMMDD格式，下同）
+	FAnnDate string `json:"f_ann_date,omitempty"` // 实际公告日期
+	StartDate string `json:"start_date,omitempty"` // 公告日开始日期
+	EndDate string `json:"end_date,omitempty"` // 公告日结束日期
+	Period string `json:"period,omitempty"` // 报告期(每个季度最后一天的日期，比如20171231表示年报，20170630半年报，20170930三季报)
+	ReportType string `json:"report_type,omitempty"` // 报告类型：见下方详细说明
+	CompType string `json:"comp_type,omitempty"` // 公司类型：1一般工商业 2银行 3保险 4证券
+	IsCalc int `json:"is_calc,omitempty"` // 是否计算报表
 }
 
 // CashflowItem 表示单个 现金流量表 数据项
 type CashflowItem struct {
-	TsCode string `json:"ts_code"`
-	AnnDate string `json:"ann_date"`
-	FAnnDate string `json:"f_ann_date"`
-	EndDate string `json:"end_date"`
-	CompType string `json:"comp_type"`
-	ReportType string `json:"report_type"`
-	EndType string `json:"end_type"`
-	NetProfit float64 `json:"net_profit"`
-	FinanExp float64 `json:"finan_exp"`
-	CFrSaleSg float64 `json:"c_fr_sale_sg"`
-	RecpTaxRends float64 `json:"recp_tax_rends"`
-	NDeposIncrFi float64 `json:"n_depos_incr_fi"`
-	NIncrLoansCb float64 `json:"n_incr_loans_cb"`
-	NIncBorrOthFi float64 `json:"n_inc_borr_oth_fi"`
-	PremFrOrigContr float64 `json:"prem_fr_orig_contr"`
-	NIncrInsuredDep float64 `json:"n_incr_insured_dep"`
-	NReinsurPrem float64 `json:"n_reinsur_prem"`
-	NIncrDispTfa float64 `json:"n_incr_disp_tfa"`
-	IfcCashIncr float64 `json:"ifc_cash_incr"`
-	NIncrDispFaas float64 `json:"n_incr_disp_faas"`
-	NIncrLoansOthBank float64 `json:"n_incr_loans_oth_bank"`
-	NCapIncrRepur float64 `json:"n_cap_incr_repur"`
-	CFrOthOperateA float64 `json:"c_fr_oth_operate_a"`
-	CInfFrOperateA float64 `json:"c_inf_fr_operate_a"`
-	CPaidGoodsS float64 `json:"c_paid_goods_s"`
-	CPaidToForEmpl float64 `json:"c_paid_to_for_empl"`
-	CPaidForTaxes float64 `json:"c_paid_for_taxes"`
-	NIncrCltLoanAdv float64 `json:"n_incr_clt_loan_adv"`
-	NIncrDepCbob float64 `json:"n_incr_dep_cbob"`
-	CPayClaimsOrigInco float64 `json:"c_pay_claims_orig_inco"`
-	PayHandlingChrg float64 `json:"pay_handling_chrg"`
-	PayCommInsurPlcy float64 `json:"pay_comm_insur_plcy"`
-	OthCashPayOperAct float64 `json:"oth_cash_pay_oper_act"`
-	StCashOutAct float64 `json:"st_cash_out_act"`
-	NCashflowAct float64 `json:"n_cashflow_act"`
-	OthRecpRalInvAct float64 `json:"oth_recp_ral_inv_act"`
-	CDispWithdrwlInvest float64 `json:"c_disp_withdrwl_invest"`
-	CRecpReturnInvest float64 `json:"c_recp_return_invest"`
-	NRecpDispFiolta float64 `json:"n_recp_disp_fiolta"`
-	NRecpDispSobu float64 `json:"n_recp_disp_sobu"`
-	StotInflowsInvAct float64 `json:"stot_inflows_inv_act"`
-	CPayAcqConstFiolta float64 `json:"c_pay_acq_const_fiolta"`
-	CPaidInvest float64 `json:"c_paid_invest"`
-	NDispSubsOthBiz float64 `json:"n_disp_subs_oth_biz"`
-	OthPayRalInvAct float64 `json:"oth_pay_ral_inv_act"`
-	NIncrPledgeLoan float64 `json:"n_incr_pledge_loan"`
-	StotOutInvAct float64 `json:"stot_out_inv_act"`
-	NCashflowInvAct float64 `json:"n_cashflow_inv_act"`
-	CRecpBorrow float64 `json:"c_recp_borrow"`
-	ProcIssueBonds float64 `json:"proc_issue_bonds"`
-	OthCashRecpRalFncAct float64 `json:"oth_cash_recp_ral_fnc_act"`
-	StotCashInFncAct float64 `json:"stot_cash_in_fnc_act"`
-	FreeCashflow float64 `json:"free_cashflow"`
-	CPrepayAmtBorr float64 `json:"c_prepay_amt_borr"`
-	CPayDistDpcpIntExp float64 `json:"c_pay_dist_dpcp_int_exp"`
-	InclDvdProfitPaidScMs float64 `json:"incl_dvd_profit_paid_sc_ms"`
-	OthCashpayRalFncAct float64 `json:"oth_cashpay_ral_fnc_act"`
-	StotCashoutFncAct float64 `json:"stot_cashout_fnc_act"`
-	NCashFlowsFncAct float64 `json:"n_cash_flows_fnc_act"`
-	EffFxFluCash float64 `json:"eff_fx_flu_cash"`
-	NIncrCashCashEqu float64 `json:"n_incr_cash_cash_equ"`
-	CCashEquBegPeriod float64 `json:"c_cash_equ_beg_period"`
-	CCashEquEndPeriod float64 `json:"c_cash_equ_end_period"`
-	CRecpCapContrib float64 `json:"c_recp_cap_contrib"`
-	InclCashRecSaims float64 `json:"incl_cash_rec_saims"`
-	UnconInvestLoss float64 `json:"uncon_invest_loss"`
-	ProvDeprAssets float64 `json:"prov_depr_assets"`
-	DeprFaCogaDpba float64 `json:"depr_fa_coga_dpba"`
-	AmortIntangAssets float64 `json:"amort_intang_assets"`
-	LtAmortDeferredExp float64 `json:"lt_amort_deferred_exp"`
-	DecrDeferredExp float64 `json:"decr_deferred_exp"`
-	IncrAccExp float64 `json:"incr_acc_exp"`
-	LossDispFiolta float64 `json:"loss_disp_fiolta"`
-	LossScrFa float64 `json:"loss_scr_fa"`
-	LossFvChg float64 `json:"loss_fv_chg"`
-	InvestLoss float64 `json:"invest_loss"`
-	DecrDefIncTaxAssets float64 `json:"decr_def_inc_tax_assets"`
-	IncrDefIncTaxLiab float64 `json:"incr_def_inc_tax_liab"`
-	DecrInventories float64 `json:"decr_inventories"`
-	DecrOperPayable float64 `json:"decr_oper_payable"`
-	IncrOperPayable float64 `json:"incr_oper_payable"`
-	Others float64 `json:"others"`
-	ImNetCashflowOperAct float64 `json:"im_net_cashflow_oper_act"`
-	ConvDebtIntoCap float64 `json:"conv_debt_into_cap"`
-	ConvCopbondsDueWithin1y float64 `json:"conv_copbonds_due_within_1y"`
-	FaFncLeases float64 `json:"fa_fnc_leases"`
-	ImNIncrCashEqu float64 `json:"im_n_incr_cash_equ"`
-	NetDismCapitalAdd float64 `json:"net_dism_capital_add"`
-	NetCashReceSec float64 `json:"net_cash_rece_sec"`
-	CreditImpaLoss float64 `json:"credit_impa_loss"`
-	UseRightAssetDep float64 `json:"use_right_asset_dep"`
-	OthLossAsset float64 `json:"oth_loss_asset"`
-	EndBalCash float64 `json:"end_bal_cash"`
-	BegBalCash float64 `json:"beg_bal_cash"`
-	EndBalCashEqu float64 `json:"end_bal_cash_equ"`
-	BegBalCashEqu float64 `json:"beg_bal_cash_equ"`
-	UpdateFlag string `json:"update_flag"`
+	TsCode string `json:"ts_code"` // TS股票代码
+	AnnDate string `json:"ann_date"` // 公告日期
+	FAnnDate string `json:"f_ann_date"` // 实际公告日期
+	EndDate string `json:"end_date"` // 报告期
+	CompType string `json:"comp_type"` // 公司类型(1一般工商业2银行3保险4证券)
+	ReportType string `json:"report_type"` // 报表类型
+	EndType string `json:"end_type"` // 报告期类型
+	NetProfit float64 `json:"net_profit"` // 净利润
+	FinanExp float64 `json:"finan_exp"` // 财务费用
+	CFrSaleSg float64 `json:"c_fr_sale_sg"` // 销售商品、提供劳务收到的现金
+	RecpTaxRends float64 `json:"recp_tax_rends"` // 收到的税费返还
+	NDeposIncrFi float64 `json:"n_depos_incr_fi"` // 客户存款和同业存放款项净增加额
+	NIncrLoansCb float64 `json:"n_incr_loans_cb"` // 向中央银行借款净增加额
+	NIncBorrOthFi float64 `json:"n_inc_borr_oth_fi"` // 向其他金融机构拆入资金净增加额
+	PremFrOrigContr float64 `json:"prem_fr_orig_contr"` // 收到原保险合同保费取得的现金
+	NIncrInsuredDep float64 `json:"n_incr_insured_dep"` // 保户储金净增加额
+	NReinsurPrem float64 `json:"n_reinsur_prem"` // 收到再保业务现金净额
+	NIncrDispTfa float64 `json:"n_incr_disp_tfa"` // 处置交易性金融资产净增加额
+	IfcCashIncr float64 `json:"ifc_cash_incr"` // 收取利息和手续费净增加额
+	NIncrDispFaas float64 `json:"n_incr_disp_faas"` // 处置可供出售金融资产净增加额
+	NIncrLoansOthBank float64 `json:"n_incr_loans_oth_bank"` // 拆入资金净增加额
+	NCapIncrRepur float64 `json:"n_cap_incr_repur"` // 回购业务资金净增加额
+	CFrOthOperateA float64 `json:"c_fr_oth_operate_a"` // 收到其他与经营活动有关的现金
+	CInfFrOperateA float64 `json:"c_inf_fr_operate_a"` // 经营活动现金流入小计
+	CPaidGoodsS float64 `json:"c_paid_goods_s"` // 购买商品、接受劳务支付的现金
+	CPaidToForEmpl float64 `json:"c_paid_to_for_empl"` // 支付给职工以及为职工支付的现金
+	CPaidForTaxes float64 `json:"c_paid_for_taxes"` // 支付的各项税费
+	NIncrCltLoanAdv float64 `json:"n_incr_clt_loan_adv"` // 客户贷款及垫款净增加额
+	NIncrDepCbob float64 `json:"n_incr_dep_cbob"` // 存放央行和同业款项净增加额
+	CPayClaimsOrigInco float64 `json:"c_pay_claims_orig_inco"` // 支付原保险合同赔付款项的现金
+	PayHandlingChrg float64 `json:"pay_handling_chrg"` // 支付手续费的现金
+	PayCommInsurPlcy float64 `json:"pay_comm_insur_plcy"` // 支付保单红利的现金
+	OthCashPayOperAct float64 `json:"oth_cash_pay_oper_act"` // 支付其他与经营活动有关的现金
+	StCashOutAct float64 `json:"st_cash_out_act"` // 经营活动现金流出小计
+	NCashflowAct float64 `json:"n_cashflow_act"` // 经营活动产生的现金流量净额
+	OthRecpRalInvAct float64 `json:"oth_recp_ral_inv_act"` // 收到其他与投资活动有关的现金
+	CDispWithdrwlInvest float64 `json:"c_disp_withdrwl_invest"` // 收回投资收到的现金
+	CRecpReturnInvest float64 `json:"c_recp_return_invest"` // 取得投资收益收到的现金
+	NRecpDispFiolta float64 `json:"n_recp_disp_fiolta"` // 处置固定资产、无形资产和其他长期资产收回的现金净额
+	NRecpDispSobu float64 `json:"n_recp_disp_sobu"` // 处置子公司及其他营业单位收到的现金净额
+	StotInflowsInvAct float64 `json:"stot_inflows_inv_act"` // 投资活动现金流入小计
+	CPayAcqConstFiolta float64 `json:"c_pay_acq_const_fiolta"` // 购建固定资产、无形资产和其他长期资产支付的现金
+	CPaidInvest float64 `json:"c_paid_invest"` // 投资支付的现金
+	NDispSubsOthBiz float64 `json:"n_disp_subs_oth_biz"` // 取得子公司及其他营业单位支付的现金净额
+	OthPayRalInvAct float64 `json:"oth_pay_ral_inv_act"` // 支付其他与投资活动有关的现金
+	NIncrPledgeLoan float64 `json:"n_incr_pledge_loan"` // 质押贷款净增加额
+	StotOutInvAct float64 `json:"stot_out_inv_act"` // 投资活动现金流出小计
+	NCashflowInvAct float64 `json:"n_cashflow_inv_act"` // 投资活动产生的现金流量净额
+	CRecpBorrow float64 `json:"c_recp_borrow"` // 取得借款收到的现金
+	ProcIssueBonds float64 `json:"proc_issue_bonds"` // 发行债券收到的现金
+	OthCashRecpRalFncAct float64 `json:"oth_cash_recp_ral_fnc_act"` // 收到其他与筹资活动有关的现金
+	StotCashInFncAct float64 `json:"stot_cash_in_fnc_act"` // 筹资活动现金流入小计
+	FreeCashflow float64 `json:"free_cashflow"` // 企业自由现金流量
+	CPrepayAmtBorr float64 `json:"c_prepay_amt_borr"` // 偿还债务支付的现金
+	CPayDistDpcpIntExp float64 `json:"c_pay_dist_dpcp_int_exp"` // 分配股利、利润或偿付利息支付的现金
+	InclDvdProfitPaidScMs float64 `json:"incl_dvd_profit_paid_sc_ms"` // 其中:子公司支付给少数股东的股利、利润
+	OthCashpayRalFncAct float64 `json:"oth_cashpay_ral_fnc_act"` // 支付其他与筹资活动有关的现金
+	StotCashoutFncAct float64 `json:"stot_cashout_fnc_act"` // 筹资活动现金流出小计
+	NCashFlowsFncAct float64 `json:"n_cash_flows_fnc_act"` // 筹资活动产生的现金流量净额
+	EffFxFluCash float64 `json:"eff_fx_flu_cash"` // 汇率变动对现金的影响
+	NIncrCashCashEqu float64 `json:"n_incr_cash_cash_equ"` // 现金及现金等价物净增加额
+	CCashEquBegPeriod float64 `json:"c_cash_equ_beg_period"` // 期初现金及现金等价物余额
+	CCashEquEndPeriod float64 `json:"c_cash_equ_end_period"` // 期末现金及现金等价物余额
+	CRecpCapContrib float64 `json:"c_recp_cap_contrib"` // 吸收投资收到的现金
+	InclCashRecSaims float64 `json:"incl_cash_rec_saims"` // 其中:子公司吸收少数股东投资收到的现金
+	UnconInvestLoss float64 `json:"uncon_invest_loss"` // 未确认投资损失
+	ProvDeprAssets float64 `json:"prov_depr_assets"` // 加:资产减值准备
+	DeprFaCogaDpba float64 `json:"depr_fa_coga_dpba"` // 固定资产折旧、油气资产折耗、生产性生物资产折旧
+	AmortIntangAssets float64 `json:"amort_intang_assets"` // 无形资产摊销
+	LtAmortDeferredExp float64 `json:"lt_amort_deferred_exp"` // 长期待摊费用摊销
+	DecrDeferredExp float64 `json:"decr_deferred_exp"` // 待摊费用减少
+	IncrAccExp float64 `json:"incr_acc_exp"` // 预提费用增加
+	LossDispFiolta float64 `json:"loss_disp_fiolta"` // 处置固定、无形资产和其他长期资产的损失
+	LossScrFa float64 `json:"loss_scr_fa"` // 固定资产报废损失
+	LossFvChg float64 `json:"loss_fv_chg"` // 公允价值变动损失
+	InvestLoss float64 `json:"invest_loss"` // 投资损失
+	DecrDefIncTaxAssets float64 `json:"decr_def_inc_tax_assets"` // 递延所得税资产减少
+	IncrDefIncTaxLiab float64 `json:"incr_def_inc_tax_liab"` // 递延所得税负债增加
+	DecrInventories float64 `json:"decr_inventories"` // 存货的减少
+	DecrOperPayable float64 `json:"decr_oper_payable"` // 经营性应收项目的减少
+	IncrOperPayable float64 `json:"incr_oper_payable"` // 经营性应付项目的增加
+	Others float64 `json:"others"` // 其他
+	ImNetCashflowOperAct float64 `json:"im_net_cashflow_oper_act"` // 经营活动产生的现金流量净额(间接法)
+	ConvDebtIntoCap float64 `json:"conv_debt_into_cap"` // 债务转为资本
+	ConvCopbondsDueWithin1y float64 `json:"conv_copbonds_due_within_1y"` // 一年内到期的可转换公司债券
+	FaFncLeases float64 `json:"fa_fnc_leases"` // 融资租入固定资产
+	ImNIncrCashEqu float64 `json:"im_n_incr_cash_equ"` // 现金及现金等价物净增加额(间接法)
+	NetDismCapitalAdd float64 `json:"net_dism_capital_add"` // 拆出资金净增加额
+	NetCashReceSec float64 `json:"net_cash_rece_sec"` // 代理买卖证券收到的现金净额(元)
+	CreditImpaLoss float64 `json:"credit_impa_loss"` // 信用减值损失
+	UseRightAssetDep float64 `json:"use_right_asset_dep"` // 使用权资产折旧
+	OthLossAsset float64 `json:"oth_loss_asset"` // 其他资产减值损失
+	EndBalCash float64 `json:"end_bal_cash"` // 现金的期末余额
+	BegBalCash float64 `json:"beg_bal_cash"` // 减:现金的期初余额
+	EndBalCashEqu float64 `json:"end_bal_cash_equ"` // 加:现金等价物的期末余额
+	BegBalCashEqu float64 `json:"beg_bal_cash_equ"` // 减:现金等价物的期初余额
+	UpdateFlag string `json:"update_flag"` // 更新标志(1最新）
 }
 
 // Cashflow 调用 现金流量表 API

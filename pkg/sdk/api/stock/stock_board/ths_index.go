@@ -11,19 +11,19 @@ import (
 
 // ThsIndexRequest 表示 同花顺行业概念板块 API 的请求
 type ThsIndexRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	Exchange string `json:"exchange,omitempty"`
-	Type string `json:"type,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 指数代码
+	Exchange string `json:"exchange,omitempty"` // 市场类型A-a股 HK-港股 US-美股
+	Type string `json:"type,omitempty"` // 指数类型 N-概念指数 I-行业指数 R-地域指数 S-同花顺特色指数 ST-同花顺风格指数 TH-同花顺主题指数 BB-同花顺宽基指数
 }
 
 // ThsIndexItem 表示单个 同花顺行业概念板块 数据项
 type ThsIndexItem struct {
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	Count int `json:"count"`
-	Exchange string `json:"exchange"`
-	ListDate string `json:"list_date"`
-	Type string `json:"type"`
+	TsCode string `json:"ts_code"` // 代码
+	Name string `json:"name"` // 名称
+	Count int `json:"count"` // 成分个数
+	Exchange string `json:"exchange"` // 交易所
+	ListDate string `json:"list_date"` // 上市日期
+	Type string `json:"type"` // N概念指数S特色指数
 }
 
 // ThsIndex 调用 同花顺行业概念板块 API

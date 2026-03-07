@@ -11,49 +11,49 @@ import (
 
 // CbBasicRequest 表示 可转债基础信息 API 的请求
 type CbBasicRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	ListDate string `json:"list_date,omitempty"`
-	Exchange string `json:"exchange,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 转债代码
+	ListDate string `json:"list_date,omitempty"` // 上市日期
+	Exchange string `json:"exchange,omitempty"` // 上市交易所
 }
 
 // CbBasicItem 表示单个 可转债基础信息 数据项
 type CbBasicItem struct {
-	TsCode string `json:"ts_code"`
-	BondFullName string `json:"bond_full_name"`
-	BondShortName string `json:"bond_short_name"`
-	CbCode string `json:"cb_code"`
-	StkCode string `json:"stk_code"`
-	StkShortName string `json:"stk_short_name"`
-	Maturity float64 `json:"maturity"`
-	Par float64 `json:"par"`
-	IssuePrice float64 `json:"issue_price"`
-	IssueSize float64 `json:"issue_size"`
-	RemainSize float64 `json:"remain_size"`
-	ValueDate string `json:"value_date"`
-	MaturityDate string `json:"maturity_date"`
-	RateType string `json:"rate_type"`
-	CouponRate float64 `json:"coupon_rate"`
-	AddRate float64 `json:"add_rate"`
-	PayPerYear int `json:"pay_per_year"`
-	ListDate string `json:"list_date"`
-	DelistDate string `json:"delist_date"`
-	Exchange string `json:"exchange"`
-	ConvStartDate string `json:"conv_start_date"`
-	ConvEndDate string `json:"conv_end_date"`
-	ConvStopDate string `json:"conv_stop_date"`
-	FirstConvPrice float64 `json:"first_conv_price"`
-	ConvPrice float64 `json:"conv_price"`
-	RateClause string `json:"rate_clause"`
-	PutClause string `json:"put_clause"`
-	MaturityPutPrice string `json:"maturity_put_price"`
-	CallClause string `json:"call_clause"`
-	ResetClause string `json:"reset_clause"`
-	ConvClause string `json:"conv_clause"`
-	Guarantor string `json:"guarantor"`
-	GuaranteeType string `json:"guarantee_type"`
-	IssueRating string `json:"issue_rating"`
-	NewestRating string `json:"newest_rating"`
-	RatingComp string `json:"rating_comp"`
+	TsCode string `json:"ts_code"` // 转债代码
+	BondFullName string `json:"bond_full_name"` // 转债名称
+	BondShortName string `json:"bond_short_name"` // 转债简称
+	CbCode string `json:"cb_code"` // 转股申报代码
+	StkCode string `json:"stk_code"` // 正股代码
+	StkShortName string `json:"stk_short_name"` // 正股简称
+	Maturity float64 `json:"maturity"` // 发行期限（年）
+	Par float64 `json:"par"` // 面值
+	IssuePrice float64 `json:"issue_price"` // 发行价格
+	IssueSize float64 `json:"issue_size"` // 发行总额（元）
+	RemainSize float64 `json:"remain_size"` // 债券余额（元）
+	ValueDate string `json:"value_date"` // 起息日期
+	MaturityDate string `json:"maturity_date"` // 到期日期
+	RateType string `json:"rate_type"` // 利率类型
+	CouponRate float64 `json:"coupon_rate"` // 票面利率（%）
+	AddRate float64 `json:"add_rate"` // 补偿利率（%）
+	PayPerYear int `json:"pay_per_year"` // 年付息次数
+	ListDate string `json:"list_date"` // 上市日期
+	DelistDate string `json:"delist_date"` // 摘牌日
+	Exchange string `json:"exchange"` // 上市交易所
+	ConvStartDate string `json:"conv_start_date"` // 转股起始日
+	ConvEndDate string `json:"conv_end_date"` // 转股截止日
+	ConvStopDate string `json:"conv_stop_date"` // 停止转股日(提前到期)
+	FirstConvPrice float64 `json:"first_conv_price"` // 初始转股价
+	ConvPrice float64 `json:"conv_price"` // 最新转股价
+	RateClause string `json:"rate_clause"` // 利率说明
+	PutClause string `json:"put_clause"` // 赎回条款
+	MaturityPutPrice string `json:"maturity_put_price"` // 到期赎回价格(含税)
+	CallClause string `json:"call_clause"` // 回售条款
+	ResetClause string `json:"reset_clause"` // 特别向下修正条款
+	ConvClause string `json:"conv_clause"` // 转股条款
+	Guarantor string `json:"guarantor"` // 担保人
+	GuaranteeType string `json:"guarantee_type"` // 担保方式
+	IssueRating string `json:"issue_rating"` // 发行信用等级
+	NewestRating string `json:"newest_rating"` // 最新信用等级
+	RatingComp string `json:"rating_comp"` // 最新评级机构
 }
 
 // CbBasic 调用 可转债基础信息 API

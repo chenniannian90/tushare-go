@@ -11,19 +11,19 @@ import (
 
 // StkRewardsRequest 表示 管理层薪酬和持股 API 的请求
 type StkRewardsRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // TS股票代码，支持单个或多个代码输入
+	EndDate string `json:"end_date,omitempty"` // 报告期
 }
 
 // StkRewardsItem 表示单个 管理层薪酬和持股 数据项
 type StkRewardsItem struct {
-	TsCode string `json:"ts_code"`
-	AnnDate string `json:"ann_date"`
-	EndDate string `json:"end_date"`
-	Name string `json:"name"`
-	Title string `json:"title"`
-	Reward float64 `json:"reward"`
-	HoldVol float64 `json:"hold_vol"`
+	TsCode string `json:"ts_code"` // TS股票代码
+	AnnDate string `json:"ann_date"` // 公告日期
+	EndDate string `json:"end_date"` // 截止日期
+	Name string `json:"name"` // 姓名
+	Title string `json:"title"` // 职务
+	Reward float64 `json:"reward"` // 报酬
+	HoldVol float64 `json:"hold_vol"` // 持股数
 }
 
 // StkRewards 调用 管理层薪酬和持股 API

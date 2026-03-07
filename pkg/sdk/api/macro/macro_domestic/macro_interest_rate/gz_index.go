@@ -11,20 +11,20 @@ import (
 
 // GzIndexRequest 表示 广州民间借贷利率 API 的请求
 type GzIndexRequest struct {
-	Date string `json:"date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	Date string `json:"date,omitempty"` // 日期
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // GzIndexItem 表示单个 广州民间借贷利率 数据项
 type GzIndexItem struct {
-	Date string `json:"date"`
-	D10Rate float64 `json:"d10_rate"`
-	M1Rate float64 `json:"m1_rate"`
-	M3Rate float64 `json:"m3_rate"`
-	M6Rate float64 `json:"m6_rate"`
-	M12Rate float64 `json:"m12_rate"`
-	LongRate float64 `json:"long_rate"`
+	Date string `json:"date"` // 日期
+	D10Rate float64 `json:"d10_rate"` // 小额贷市场平均利率（十天） （单位：%，下同）
+	M1Rate float64 `json:"m1_rate"` // 小额贷市场平均利率（一月期）
+	M3Rate float64 `json:"m3_rate"` // 小额贷市场平均利率（三月期）
+	M6Rate float64 `json:"m6_rate"` // 小额贷市场平均利率（六月期）
+	M12Rate float64 `json:"m12_rate"` // 小额贷市场平均利率（一年期）
+	LongRate float64 `json:"long_rate"` // 小额贷市场平均利率（长期）
 }
 
 // GzIndex 调用 广州民间借贷利率 API

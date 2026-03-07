@@ -11,33 +11,33 @@ import (
 
 // OptBasicRequest 表示 期权合约信息 API 的请求
 type OptBasicRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	Exchange string `json:"exchange,omitempty"`
-	ListDate string `json:"list_date,omitempty"`
-	OptCode string `json:"opt_code,omitempty"`
-	CallPut string `json:"call_put,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // TS期权代码
+	Exchange string `json:"exchange,omitempty"` // 交易所代码 （包括上交所SSE等交易所）
+	ListDate string `json:"list_date,omitempty"` // 上市交易日
+	OptCode string `json:"opt_code,omitempty"` // 标准合约代码，OP+期货合约TS_CODE，如棕榈油2207合约，输入OPP2207.DCE
+	CallPut string `json:"call_put,omitempty"` // 期权类型
 }
 
 // OptBasicItem 表示单个 期权合约信息 数据项
 type OptBasicItem struct {
-	TsCode string `json:"ts_code"`
-	Exchange string `json:"exchange"`
-	Name string `json:"name"`
-	PerUnit string `json:"per_unit"`
-	OptCode string `json:"opt_code"`
-	OptType string `json:"opt_type"`
-	CallPut string `json:"call_put"`
-	ExerciseType string `json:"exercise_type"`
-	ExercisePrice float64 `json:"exercise_price"`
-	SMonth string `json:"s_month"`
-	MaturityDate string `json:"maturity_date"`
-	ListPrice float64 `json:"list_price"`
-	ListDate string `json:"list_date"`
-	DelistDate string `json:"delist_date"`
-	LastEdate string `json:"last_edate"`
-	LastDdate string `json:"last_ddate"`
-	QuoteUnit string `json:"quote_unit"`
-	MinPriceChg string `json:"min_price_chg"`
+	TsCode string `json:"ts_code"` // TS代码
+	Exchange string `json:"exchange"` // 交易市场
+	Name string `json:"name"` // 合约名称
+	PerUnit string `json:"per_unit"` // 合约单位
+	OptCode string `json:"opt_code"` // 标的合约代码
+	OptType string `json:"opt_type"` // 合约类型
+	CallPut string `json:"call_put"` // 期权类型
+	ExerciseType string `json:"exercise_type"` // 行权方式
+	ExercisePrice float64 `json:"exercise_price"` // 行权价格
+	SMonth string `json:"s_month"` // 结算月
+	MaturityDate string `json:"maturity_date"` // 到期日
+	ListPrice float64 `json:"list_price"` // 挂牌基准价
+	ListDate string `json:"list_date"` // 开始交易日期
+	DelistDate string `json:"delist_date"` // 最后交易日期
+	LastEdate string `json:"last_edate"` // 最后行权日期
+	LastDdate string `json:"last_ddate"` // 最后交割日期
+	QuoteUnit string `json:"quote_unit"` // 报价单位
+	MinPriceChg string `json:"min_price_chg"` // 最小价格波幅
 }
 
 // OptBasic 调用 期权合约信息 API

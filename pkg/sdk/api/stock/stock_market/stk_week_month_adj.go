@@ -11,36 +11,36 @@ import (
 
 // StkWeekMonthAdjRequest 表示 周/月线复权行情(每���更新) API 的请求
 type StkWeekMonthAdjRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Freq string `json:"freq,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // TS代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（格式：YYYYMMDD，每周或每月最后一天的日期）
+	StartDate string `json:"start_date,omitempty"` // 开始交易日期
+	EndDate string `json:"end_date,omitempty"` // 结束交易日期
+	Freq string `json:"freq,omitempty"` // 频率week周，month月
 }
 
 // StkWeekMonthAdjItem 表示单个 周/月线复权行情(每���更新) 数据项
 type StkWeekMonthAdjItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	EndDate string `json:"end_date"`
-	Freq string `json:"freq"`
-	Open float64 `json:"open"`
-	High float64 `json:"high"`
-	Low float64 `json:"low"`
-	Close float64 `json:"close"`
-	PreClose float64 `json:"pre_close"`
-	OpenQfq float64 `json:"open_qfq"`
-	HighQfq float64 `json:"high_qfq"`
-	LowQfq float64 `json:"low_qfq"`
-	CloseQfq float64 `json:"close_qfq"`
-	OpenHfq float64 `json:"open_hfq"`
-	HighHfq float64 `json:"high_hfq"`
-	LowHfq float64 `json:"low_hfq"`
-	CloseHfq float64 `json:"close_hfq"`
-	Vol float64 `json:"vol"`
-	Amount float64 `json:"amount"`
-	Change float64 `json:"change"`
-	PctChg float64 `json:"pct_chg"`
+	TsCode string `json:"ts_code"` // 股票代码
+	TradeDate string `json:"trade_date"` // 交易日期（每周五或者月末日期）
+	EndDate string `json:"end_date"` // 计算截至日期
+	Freq string `json:"freq"` // 频率(周week,月month)
+	Open float64 `json:"open"` // (周/月)开盘价
+	High float64 `json:"high"` // (周/月)最高价
+	Low float64 `json:"low"` // (周/月)最低价
+	Close float64 `json:"close"` // (周/月)收盘价
+	PreClose float64 `json:"pre_close"` // 上一(周/月)收盘价【除权价，前复权】
+	OpenQfq float64 `json:"open_qfq"` // 前复权(周/月)开盘价
+	HighQfq float64 `json:"high_qfq"` // 前复权(周/月)最高价
+	LowQfq float64 `json:"low_qfq"` // 前复权(周/月)最低价
+	CloseQfq float64 `json:"close_qfq"` // 前复权(周/月)收盘价
+	OpenHfq float64 `json:"open_hfq"` // 后复权(周/月)开盘价
+	HighHfq float64 `json:"high_hfq"` // 后复权(周/月)最高价
+	LowHfq float64 `json:"low_hfq"` // 后复权(周/月)最低价
+	CloseHfq float64 `json:"close_hfq"` // 后复权(周/月)收盘价
+	Vol float64 `json:"vol"` // (周/月)成交量
+	Amount float64 `json:"amount"` // (周/月)成交额
+	Change float64 `json:"change"` // (周/月)涨跌额
+	PctChg float64 `json:"pct_chg"` // (周/月)涨跌幅 【基于除权后的昨收计算的涨跌幅：（今收-除权昨收）/除权昨收 】
 }
 
 // StkWeekMonthAdj 调用 周/月线复权行情(每���更新) API

@@ -11,16 +11,16 @@ import (
 
 // TdxMemberRequest 表示 通达信板块成分 API 的请求
 type TdxMemberRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 板块代码：xxxxxx.TDX
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期：格式YYYYMMDD
 }
 
 // TdxMemberItem 表示单个 通达信板块成分 数据项
 type TdxMemberItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	ConCode string `json:"con_code"`
-	ConName string `json:"con_name"`
+	TsCode string `json:"ts_code"` // 板块代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	ConCode string `json:"con_code"` // 成分股票代码
+	ConName string `json:"con_name"` // 成分股票名称
 }
 
 // TdxMember 调用 通达信板块成分 API

@@ -11,24 +11,24 @@ import (
 
 // FundNavRequest 表示 基金净值 API 的请求
 type FundNavRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	NavDate string `json:"nav_date,omitempty"`
-	Market string `json:"market,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // TS基金代码 （二选一）
+	NavDate string `json:"nav_date,omitempty"` // 净值日期 （二选一）
+	Market string `json:"market,omitempty"` // E场内 O场外
+	StartDate string `json:"start_date,omitempty"` // 净值开始日期
+	EndDate string `json:"end_date,omitempty"` // 净值结束日期
 }
 
 // FundNavItem 表示单个 基金净值 数据项
 type FundNavItem struct {
-	TsCode string `json:"ts_code"`
-	AnnDate string `json:"ann_date"`
-	NavDate string `json:"nav_date"`
-	UnitNav float64 `json:"unit_nav"`
-	AccumNav float64 `json:"accum_nav"`
-	AccumDiv float64 `json:"accum_div"`
-	NetAsset float64 `json:"net_asset"`
-	TotalNetasset float64 `json:"total_netasset"`
-	AdjNav float64 `json:"adj_nav"`
+	TsCode string `json:"ts_code"` // TS代码
+	AnnDate string `json:"ann_date"` // 公告日期
+	NavDate string `json:"nav_date"` // 净值日期
+	UnitNav float64 `json:"unit_nav"` // 单位净值
+	AccumNav float64 `json:"accum_nav"` // 累计净值
+	AccumDiv float64 `json:"accum_div"` // 累计分红
+	NetAsset float64 `json:"net_asset"` // 资产净值
+	TotalNetasset float64 `json:"total_netasset"` // 合计资产净值
+	AdjNav float64 `json:"adj_nav"` // 复权单位净值
 }
 
 // FundNav 调用 基金净值 API

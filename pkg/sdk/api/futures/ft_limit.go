@@ -11,24 +11,24 @@ import (
 
 // FtLimitRequest 表示 期货合约涨跌停价格 API 的请求
 type FtLimitRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Cont string `json:"cont,omitempty"`
-	Exchange string `json:"exchange,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 合约代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（格式：YYYYMMDD）
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	Cont string `json:"cont,omitempty"` // 合约代码（例如：cont='CU')
+	Exchange string `json:"exchange,omitempty"` // 交易所代码 （例如：exchange='DCE')
 }
 
 // FtLimitItem 表示单个 期货合约涨跌停价格 数据项
 type FtLimitItem struct {
-	TradeDate string `json:"trade_date"`
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	UpLimit float64 `json:"up_limit"`
-	DownLimit float64 `json:"down_limit"`
-	MRatio float64 `json:"m_ratio"`
-	Cont string `json:"cont"`
-	Exchange string `json:"exchange"`
+	TradeDate string `json:"trade_date"` // 交易日期
+	TsCode string `json:"ts_code"` // TS股票代码
+	Name string `json:"name"` // 合约名称
+	UpLimit float64 `json:"up_limit"` // 涨停价
+	DownLimit float64 `json:"down_limit"` // 跌停价
+	MRatio float64 `json:"m_ratio"` // 最低交易保证金率（%）
+	Cont string `json:"cont"` // 合约代码
+	Exchange string `json:"exchange"` // 交易所代码
 }
 
 // FtLimit 调用 期货合约涨跌停价格 API

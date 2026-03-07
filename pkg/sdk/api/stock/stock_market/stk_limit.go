@@ -11,19 +11,19 @@ import (
 
 // StkLimitRequest 表示 每日涨跌停价格 API 的请求
 type StkLimitRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // StkLimitItem 表示单个 每日涨跌停价格 数据项
 type StkLimitItem struct {
-	TradeDate string `json:"trade_date"`
-	TsCode string `json:"ts_code"`
-	PreClose float64 `json:"pre_close"`
-	UpLimit float64 `json:"up_limit"`
-	DownLimit float64 `json:"down_limit"`
+	TradeDate string `json:"trade_date"` // 交易日期
+	TsCode string `json:"ts_code"` // TS股票代码
+	PreClose float64 `json:"pre_close"` // 昨日收盘价
+	UpLimit float64 `json:"up_limit"` // 涨停价
+	DownLimit float64 `json:"down_limit"` // 跌停价
 }
 
 // StkLimit 调用 每日涨跌停价格 API

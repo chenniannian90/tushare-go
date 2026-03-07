@@ -14,7 +14,7 @@ import (
 // {{Title .APICode}}Request 表示 {{.APIName}} API 的请求
 type {{Title .APICode}}Request struct {
 	{{- range $i, $p := .RequestParams}}
-	{{Title $p.Name}} {{goType $p.Type}} `json:"{{$p.Name}},omitempty"`
+	{{Title $p.Name}} {{goType $p.Type}} `json:"{{$p.Name}},omitempty"` // {{$p.Description}}
 	{{- end}}
 }
 
@@ -22,9 +22,9 @@ type {{Title .APICode}}Request struct {
 type {{Title .APICode}}Item struct {
 	{{- range $i, $f := .ResponseFields}}
 	{{- if isArray $f}}
-	{{Title $f.Name}} {{fullArrayType $f}} `json:"{{$f.Name}}"`
+	{{Title $f.Name}} {{fullArrayType $f}} `json:"{{$f.Name}}"` // {{$f.Description}}
 	{{- else}}
-	{{Title $f.Name}} {{goType $f.Type}} `json:"{{$f.Name}}"`
+	{{Title $f.Name}} {{goType $f.Type}} `json:"{{$f.Name}}"` // {{$f.Description}}
 	{{- end}}
 	{{- end}}
 }

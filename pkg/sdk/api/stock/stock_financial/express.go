@@ -10,11 +10,11 @@ import (
 
 // ExpressRequest 表示 业绩快报 API 的请求
 type ExpressRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	AnnDate string `json:"ann_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Period string `json:"period,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	AnnDate string `json:"ann_date,omitempty"` // 公告日期
+	StartDate string `json:"start_date,omitempty"` // 公告开始日期
+	EndDate string `json:"end_date,omitempty"` // 公告结束日期
+	Period string `json:"period,omitempty"` // 报告期(每个季度最后一天的日期,比如20171231表示年报，20170630半年报，20170930三季报)
 }
 
 // ExpressItem 表示单个 业绩快报 数据项

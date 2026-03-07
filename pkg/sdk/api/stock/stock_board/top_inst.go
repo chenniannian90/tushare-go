@@ -11,22 +11,22 @@ import (
 
 // TopInstRequest 表示 龙虎榜机构交易单 API 的请求
 type TopInstRequest struct {
-	TradeDate string `json:"trade_date,omitempty"`
-	TsCode string `json:"ts_code,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期
+	TsCode string `json:"ts_code,omitempty"` // TS代码
 }
 
 // TopInstItem 表示单个 龙虎榜机构交易单 数据项
 type TopInstItem struct {
-	TradeDate string `json:"trade_date"`
-	TsCode string `json:"ts_code"`
-	Exalter string `json:"exalter"`
-	Side string `json:"side"`
-	Buy float64 `json:"buy"`
-	BuyRate float64 `json:"buy_rate"`
-	Sell float64 `json:"sell"`
-	SellRate float64 `json:"sell_rate"`
-	NetBuy float64 `json:"net_buy"`
-	Reason string `json:"reason"`
+	TradeDate string `json:"trade_date"` // 交易日期
+	TsCode string `json:"ts_code"` // TS代码
+	Exalter string `json:"exalter"` // 营业部名称
+	Side string `json:"side"` // 买卖类型0：买入金额最大的前5名， 1：卖出金额最大的前5名
+	Buy float64 `json:"buy"` // 买入额（元）
+	BuyRate float64 `json:"buy_rate"` // 买入占总成交比例
+	Sell float64 `json:"sell"` // 卖出额（元）
+	SellRate float64 `json:"sell_rate"` // 卖出占总成交比例
+	NetBuy float64 `json:"net_buy"` // 净成交额（元）
+	Reason string `json:"reason"` // 上榜理由
 }
 
 // TopInst 调用 龙虎榜机构交易单 API

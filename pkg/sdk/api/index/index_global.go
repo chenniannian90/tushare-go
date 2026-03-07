@@ -11,26 +11,26 @@ import (
 
 // IndexGlobalRequest 表示 国际主要指数 API 的请求
 type IndexGlobalRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // TS指数代码，见下表
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期，YYYYMMDD格式，下同
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // IndexGlobalItem 表示单个 国际主要指数 数据项
 type IndexGlobalItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	Open float64 `json:"open"`
-	Close float64 `json:"close"`
-	High float64 `json:"high"`
-	Low float64 `json:"low"`
-	PreClose float64 `json:"pre_close"`
-	Change float64 `json:"change"`
-	PctChg float64 `json:"pct_chg"`
-	Swing float64 `json:"swing"`
-	Vol float64 `json:"vol"`
-	Amount float64 `json:"amount"`
+	TsCode string `json:"ts_code"` // TS指数代码
+	TradeDate string `json:"trade_date"` // 交易日
+	Open float64 `json:"open"` // 开盘点位
+	Close float64 `json:"close"` // 收盘点位
+	High float64 `json:"high"` // 最高点位
+	Low float64 `json:"low"` // 最低点位
+	PreClose float64 `json:"pre_close"` // 昨日收盘点
+	Change float64 `json:"change"` // 涨跌点位
+	PctChg float64 `json:"pct_chg"` // 涨跌幅
+	Swing float64 `json:"swing"` // 振幅
+	Vol float64 `json:"vol"` // 成交量 （大部分无此项数据）
+	Amount float64 `json:"amount"` // 成交额 （大部分无此项数据）
 }
 
 // IndexGlobal 调用 国际主要指数 API

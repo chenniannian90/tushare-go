@@ -11,18 +11,18 @@ import (
 
 // HkAdjfactorRequest 表示 港股复权因子 API 的请求
 type HkAdjfactorRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（格式：YYYYMMDD，下同）
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // HkAdjfactorItem 表示单个 港股复权因子 数据项
 type HkAdjfactorItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	CumAdjfactor float64 `json:"cum_adjfactor"`
-	ClosePrice float64 `json:"close_price"`
+	TsCode string `json:"ts_code"` // 股票代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	CumAdjfactor float64 `json:"cum_adjfactor"` // 累计复权因子
+	ClosePrice float64 `json:"close_price"` // 收盘价
 }
 
 // HkAdjfactor 调用 港股复权因子 API

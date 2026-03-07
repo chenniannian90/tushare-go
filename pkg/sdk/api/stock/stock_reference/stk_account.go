@@ -11,18 +11,18 @@ import (
 
 // StkAccountRequest 表示 股票开户数据（停） API 的请求
 type StkAccountRequest struct {
-	Date string `json:"date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	Date string `json:"date,omitempty"` // 日期
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // StkAccountItem 表示单个 股票开户数据（停） 数据项
 type StkAccountItem struct {
-	Date string `json:"date"`
-	WeeklyNew float64 `json:"weekly_new"`
-	Total float64 `json:"total"`
-	WeeklyHold float64 `json:"weekly_hold"`
-	WeeklyTrade float64 `json:"weekly_trade"`
+	Date string `json:"date"` // 统计周期
+	WeeklyNew float64 `json:"weekly_new"` // 本周新增（万）
+	Total float64 `json:"total"` // 期末总账户数（万）
+	WeeklyHold float64 `json:"weekly_hold"` // 本周持仓账户数（万）
+	WeeklyTrade float64 `json:"weekly_trade"` // 本周参与交易账户数（万）
 }
 
 // StkAccount 调用 股票开户数据（停） API

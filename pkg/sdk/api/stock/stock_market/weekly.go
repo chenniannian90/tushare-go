@@ -11,25 +11,25 @@ import (
 
 // WeeklyRequest 表示 周线行情 API 的请求
 type WeeklyRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // TS代码 （ts_code,trade_date两个参数任选一）
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期 （每周最后一个交易日期，YYYYMMDD格式）
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // WeeklyItem 表示单个 周线行情 数据项
 type WeeklyItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	Close float64 `json:"close"`
-	Open float64 `json:"open"`
-	High float64 `json:"high"`
-	Low float64 `json:"low"`
-	PreClose float64 `json:"pre_close"`
-	Change float64 `json:"change"`
-	PctChg float64 `json:"pct_chg"`
-	Vol float64 `json:"vol"`
-	Amount float64 `json:"amount"`
+	TsCode string `json:"ts_code"` // 股票代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	Close float64 `json:"close"` // 周收盘价
+	Open float64 `json:"open"` // 周开盘价
+	High float64 `json:"high"` // 周最高价
+	Low float64 `json:"low"` // 周最低价
+	PreClose float64 `json:"pre_close"` // 上一周收盘价
+	Change float64 `json:"change"` // 周涨跌额
+	PctChg float64 `json:"pct_chg"` // 周涨跌 （未复权，未100，如果是复权请用 通用行情接口，如需%单位请100 ）
+	Vol float64 `json:"vol"` // 周成交量
+	Amount float64 `json:"amount"` // 周成交额
 }
 
 // Weekly 调用 周线行情 API

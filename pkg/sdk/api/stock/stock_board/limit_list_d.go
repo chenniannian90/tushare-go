@@ -11,34 +11,34 @@ import (
 
 // LimitListDRequest 表示 涨跌停和炸板数据 API 的请求
 type LimitListDRequest struct {
-	TradeDate string `json:"trade_date,omitempty"`
-	TsCode string `json:"ts_code,omitempty"`
-	LimitType string `json:"limit_type,omitempty"`
-	Exchange string `json:"exchange,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	LimitType string `json:"limit_type,omitempty"` // 涨跌停类型（U涨停D跌停Z炸板）
+	Exchange string `json:"exchange,omitempty"` // 交易所（SH上交所SZ深交所BJ北交所）
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // LimitListDItem 表示单个 涨跌停和炸板数据 数据项
 type LimitListDItem struct {
-	TradeDate string `json:"trade_date"`
-	TsCode string `json:"ts_code"`
-	Industry string `json:"industry"`
-	Name string `json:"name"`
-	Close float64 `json:"close"`
-	PctChg float64 `json:"pct_chg"`
-	Amount float64 `json:"amount"`
-	LimitAmount float64 `json:"limit_amount"`
-	FloatMv float64 `json:"float_mv"`
-	TotalMv float64 `json:"total_mv"`
-	TurnoverRatio float64 `json:"turnover_ratio"`
-	FdAmount float64 `json:"fd_amount"`
-	FirstTime string `json:"first_time"`
-	LastTime string `json:"last_time"`
-	OpenTimes int `json:"open_times"`
-	UpStat string `json:"up_stat"`
-	LimitTimes int `json:"limit_times"`
-	Limit string `json:"limit"`
+	TradeDate string `json:"trade_date"` // 交易日期
+	TsCode string `json:"ts_code"` // 股票代码
+	Industry string `json:"industry"` // 所属行业
+	Name string `json:"name"` // 股票名称
+	Close float64 `json:"close"` // 收盘价
+	PctChg float64 `json:"pct_chg"` // 涨跌幅
+	Amount float64 `json:"amount"` // 成交额
+	LimitAmount float64 `json:"limit_amount"` // 板上成交金额(成交价格为该股票跌停价的所有成交额的总和，涨停无此数据)
+	FloatMv float64 `json:"float_mv"` // 流通市值
+	TotalMv float64 `json:"total_mv"` // 总市值
+	TurnoverRatio float64 `json:"turnover_ratio"` // 换手率
+	FdAmount float64 `json:"fd_amount"` // 封单金额（以涨停价买入挂单的资金总量）
+	FirstTime string `json:"first_time"` // 首次封板时间（跌停无此数据）
+	LastTime string `json:"last_time"` // 最后封板时间
+	OpenTimes int `json:"open_times"` // 炸板次数(跌停为开板次数)
+	UpStat string `json:"up_stat"` // 涨停统计（N/T T天有N次涨停）
+	LimitTimes int `json:"limit_times"` // 连板数（个股连续封板数量）
+	Limit string `json:"limit"` // D跌停U涨停Z炸板
 }
 
 // LimitListD 调用 涨跌停和炸板数据 API

@@ -11,19 +11,19 @@ import (
 
 // SuspendDRequest 表示 每日停复牌信息 API 的请求
 type SuspendDRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	SuspendType string `json:"suspend_type,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码(可输入多值)
+	TradeDate string `json:"trade_date,omitempty"` // 交易日日期
+	StartDate string `json:"start_date,omitempty"` // 停复牌查询开始日期
+	EndDate string `json:"end_date,omitempty"` // 停复牌查询结束日期
+	SuspendType string `json:"suspend_type,omitempty"` // 停复牌类型：S-停牌,R-复牌
 }
 
 // SuspendDItem 表示单个 每日停复牌信息 数据项
 type SuspendDItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	SuspendTiming string `json:"suspend_timing"`
-	SuspendType string `json:"suspend_type"`
+	TsCode string `json:"ts_code"` // TS代码
+	TradeDate string `json:"trade_date"` // 停复牌日期
+	SuspendTiming string `json:"suspend_timing"` // 日内停牌时间段
+	SuspendType string `json:"suspend_type"` // 停复牌类型：S-停牌，R-复牌
 }
 
 // SuspendD 调用 每日停复牌信息 API

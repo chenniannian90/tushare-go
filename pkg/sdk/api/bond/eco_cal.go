@@ -11,24 +11,24 @@ import (
 
 // EcoCalRequest 表示 全球财经事件 API 的请求
 type EcoCalRequest struct {
-	Date string `json:"date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Currency string `json:"currency,omitempty"`
-	Country string `json:"country,omitempty"`
-	Event string `json:"event,omitempty"`
+	Date string `json:"date,omitempty"` // 日期（YYYYMMDD格式）
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	Currency string `json:"currency,omitempty"` // 货币代码
+	Country string `json:"country,omitempty"` // 国家（比如：中国、美国）
+	Event string `json:"event,omitempty"` // 事件 （支持模糊匹配： *非农*）
 }
 
 // EcoCalItem 表示单个 全球财经事件 数据项
 type EcoCalItem struct {
-	Date string `json:"date"`
-	Time string `json:"time"`
-	Currency string `json:"currency"`
-	Country string `json:"country"`
-	Event string `json:"event"`
-	Value string `json:"value"`
-	PreValue string `json:"pre_value"`
-	ForeValue string `json:"fore_value"`
+	Date string `json:"date"` // 日期
+	Time string `json:"time"` // 时间
+	Currency string `json:"currency"` // 货币代码
+	Country string `json:"country"` // 国家
+	Event string `json:"event"` // 经济事件
+	Value string `json:"value"` // 今值
+	PreValue string `json:"pre_value"` // 前值
+	ForeValue string `json:"fore_value"` // 预测值
 }
 
 // EcoCal 调用 全球财经事件 API

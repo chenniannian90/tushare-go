@@ -11,16 +11,16 @@ import (
 
 // CbRateRequest 表示 可转债票面利率 API 的请求
 type CbRateRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 转债代码，支持多值输入
 }
 
 // CbRateItem 表示单个 可转债票面利率 数据项
 type CbRateItem struct {
-	TsCode string `json:"ts_code"`
-	RateFreq int `json:"rate_freq"`
-	RateStartDate string `json:"rate_start_date"`
-	RateEndDate string `json:"rate_end_date"`
-	CouponRate float64 `json:"coupon_rate"`
+	TsCode string `json:"ts_code"` // 转债代码
+	RateFreq int `json:"rate_freq"` // 付息频率(次/年)
+	RateStartDate string `json:"rate_start_date"` // 付息开始日期
+	RateEndDate string `json:"rate_end_date"` // 付息结束日期
+	CouponRate float64 `json:"coupon_rate"` // 票面利率(%)
 }
 
 // CbRate 调用 可转债票面利率 API

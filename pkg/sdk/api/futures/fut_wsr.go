@@ -11,32 +11,32 @@ import (
 
 // FutWsrRequest 表示 仓单日报 API 的请求
 type FutWsrRequest struct {
-	TradeDate string `json:"trade_date,omitempty"`
-	Symbol string `json:"symbol,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Exchange string `json:"exchange,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期
+	Symbol string `json:"symbol,omitempty"` // 产品代码
+	StartDate string `json:"start_date,omitempty"` // 开始日期(YYYYMMDD格式，下同)
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	Exchange string `json:"exchange,omitempty"` // 交易所代码
 }
 
 // FutWsrItem 表示单个 仓单日报 数据项
 type FutWsrItem struct {
-	TradeDate string `json:"trade_date"`
-	Symbol string `json:"symbol"`
-	FutName string `json:"fut_name"`
-	Warehouse string `json:"warehouse"`
-	WhId string `json:"wh_id"`
-	PreVol int `json:"pre_vol"`
-	Vol int `json:"vol"`
-	VolChg int `json:"vol_chg"`
-	Area string `json:"area"`
-	Year string `json:"year"`
-	Grade string `json:"grade"`
-	Brand string `json:"brand"`
-	Place string `json:"place"`
-	Pd int `json:"pd"`
-	IsCt string `json:"is_ct"`
-	Unit string `json:"unit"`
-	Exchange string `json:"exchange"`
+	TradeDate string `json:"trade_date"` // 交易日期
+	Symbol string `json:"symbol"` // 产品代码
+	FutName string `json:"fut_name"` // 产品名称
+	Warehouse string `json:"warehouse"` // 仓库名称
+	WhId string `json:"wh_id"` // 仓库编号
+	PreVol int `json:"pre_vol"` // 昨日仓单量
+	Vol int `json:"vol"` // 今日仓单量
+	VolChg int `json:"vol_chg"` // 增减量
+	Area string `json:"area"` // 地区
+	Year string `json:"year"` // 年度
+	Grade string `json:"grade"` // 等级
+	Brand string `json:"brand"` // 品牌
+	Place string `json:"place"` // 产地
+	Pd int `json:"pd"` // 升贴水
+	IsCt string `json:"is_ct"` // 是否折算仓单
+	Unit string `json:"unit"` // 单位
+	Exchange string `json:"exchange"` // 交易所
 }
 
 // FutWsr 调用 仓单日报 API

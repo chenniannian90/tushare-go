@@ -11,19 +11,19 @@ import (
 
 // FundSalesVolRequest 表示 销售机构公募基金销售保有规模 API 的请求
 type FundSalesVolRequest struct {
-	Year string `json:"year,omitempty"`
-	Quarter string `json:"quarter,omitempty"`
-	Name string `json:"name,omitempty"`
+	Year string `json:"year,omitempty"` // 年度
+	Quarter string `json:"quarter,omitempty"` // 季度
+	Name string `json:"name,omitempty"` // 机构名称
 }
 
 // FundSalesVolItem 表示单个 销售机构公募基金销售保有规模 数据项
 type FundSalesVolItem struct {
-	Year int `json:"year"`
-	Quarter string `json:"quarter"`
-	InstName string `json:"inst_name"`
-	FundScale float64 `json:"fund_scale"`
-	Scale float64 `json:"scale"`
-	Rank int `json:"rank"`
+	Year int `json:"year"` // 年度
+	Quarter string `json:"quarter"` // 季度
+	InstName string `json:"inst_name"` // 销售机构
+	FundScale float64 `json:"fund_scale"` // 股票+混合公募基金保有规模（亿元）
+	Scale float64 `json:"scale"` // 非货币市场公募基金保有规模（亿元）
+	Rank int `json:"rank"` // 排名
 }
 
 // FundSalesVol 调用 销售机构公募基金销售保有规模 API

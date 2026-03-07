@@ -11,28 +11,28 @@ import (
 
 // SgeDailyRequest 表示 上海黄金现货日行情 API 的请求
 type SgeDailyRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 合约代码，可通过基础信息获得
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // SgeDailyItem 表示单个 上海黄金现货日行情 数据项
 type SgeDailyItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	Close float64 `json:"close"`
-	Open float64 `json:"open"`
-	High float64 `json:"high"`
-	Low float64 `json:"low"`
-	PriceAvg float64 `json:"price_avg"`
-	Change float64 `json:"change"`
-	PctChange float64 `json:"pct_change"`
-	Vol float64 `json:"vol"`
-	Amount float64 `json:"amount"`
-	Oi float64 `json:"oi"`
-	SettleVol float64 `json:"settle_vol"`
-	SettleDire string `json:"settle_dire"`
+	TsCode string `json:"ts_code"` // 现货合约代码
+	TradeDate string `json:"trade_date"` // 交易日
+	Close float64 `json:"close"` // 收盘点(元/克)
+	Open float64 `json:"open"` // 开盘点(元/克)
+	High float64 `json:"high"` // 最高点(元/克)
+	Low float64 `json:"low"` // 最低点(元/克)
+	PriceAvg float64 `json:"price_avg"` // 加权平均价(元/克)
+	Change float64 `json:"change"` // 涨跌点位(元/克)
+	PctChange float64 `json:"pct_change"` // 涨跌幅
+	Vol float64 `json:"vol"` // 成交量(千克)
+	Amount float64 `json:"amount"` // 成交金额(元)
+	Oi float64 `json:"oi"` // 市场持仓
+	SettleVol float64 `json:"settle_vol"` // 交收量
+	SettleDire string `json:"settle_dire"` // 持仓方向
 }
 
 // SgeDaily 调用 上海黄金现货日行情 API

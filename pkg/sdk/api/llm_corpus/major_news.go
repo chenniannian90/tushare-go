@@ -11,17 +11,17 @@ import (
 
 // MajorNewsRequest 表示 新闻通讯（长篇） API 的请求
 type MajorNewsRequest struct {
-	Src string `json:"src,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	Src string `json:"src,omitempty"` // 新闻来源（新华网、凤凰财经、同花顺、新浪财经、华尔街见闻、中证网、财新网、第一财经、财联社）
+	StartDate string `json:"start_date,omitempty"` // 新闻发布开始时间，e.g. 2018-11-21 00:00:00
+	EndDate string `json:"end_date,omitempty"` // 新闻发布结束时间，e.g. 2018-11-22 00:00:00
 }
 
 // MajorNewsItem 表示单个 新闻通讯（长篇） 数据项
 type MajorNewsItem struct {
-	Title string `json:"title"`
-	Content string `json:"content"`
-	PubTime string `json:"pub_time"`
-	Src string `json:"src"`
+	Title string `json:"title"` // 标题
+	Content string `json:"content"` // 内容 (默认不显示，需要在fields里指定)
+	PubTime string `json:"pub_time"` // 发布时间
+	Src string `json:"src"` // 来源网站
 }
 
 // MajorNews 调用 新闻通讯（长篇） API

@@ -11,22 +11,22 @@ import (
 
 // RtSwKRequest 表示 申万实时行情 API 的请求
 type RtSwKRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 指数代码，如: 801005.SI；可以是逗号隔开的多个，如: 801005.SI,801001.SI
 }
 
 // RtSwKItem 表示单个 申万实时行情 数据项
 type RtSwKItem struct {
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	TradeTime string `json:"trade_time"`
-	Close float64 `json:"close"`
-	PreClose float64 `json:"pre_close"`
-	High float64 `json:"high"`
-	Open float64 `json:"open"`
-	Low float64 `json:"low"`
-	Vol float64 `json:"vol"`
-	Amount float64 `json:"amount"`
-	PctChange float64 `json:"pct_change"`
+	TsCode string `json:"ts_code"` // 指数代码
+	Name string `json:"name"` // 指数名称
+	TradeTime string `json:"trade_time"` // 交易时间
+	Close float64 `json:"close"` // 现价
+	PreClose float64 `json:"pre_close"` // 昨收
+	High float64 `json:"high"` // 最高价
+	Open float64 `json:"open"` // 开盘价
+	Low float64 `json:"low"` // 最低价
+	Vol float64 `json:"vol"` // 成交量（股）
+	Amount float64 `json:"amount"` // 成交金额（元）
+	PctChange float64 `json:"pct_change"` // 增长率
 }
 
 // RtSwK 调用 申万实时行情 API

@@ -10,9 +10,9 @@ import (
 
 // MoneyflowHsgtRequest 表示 沪深港通资金流向 API 的请求
 type MoneyflowHsgtRequest struct {
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期 (二选一)
+	StartDate string `json:"start_date,omitempty"` // 开始日期 (二选一)
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // MoneyflowHsgtItem 表示单个 沪深港通资金流向 数据项

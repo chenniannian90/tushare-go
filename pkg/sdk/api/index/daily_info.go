@@ -11,30 +11,30 @@ import (
 
 // DailyInfoRequest 表示 沪深市场每日交易统计 API 的请求
 type DailyInfoRequest struct {
-	TradeDate string `json:"trade_date,omitempty"`
-	TsCode string `json:"ts_code,omitempty"`
-	Exchange string `json:"exchange,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Fields string `json:"fields,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（YYYYMMDD格式，下同）
+	TsCode string `json:"ts_code,omitempty"` // 板块代码（请参阅下方列表）
+	Exchange string `json:"exchange,omitempty"` // 股票市场（SH上交所 SZ深交所）
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	Fields string `json:"fields,omitempty"` // 指定提取字段
 }
 
 // DailyInfoItem 表示单个 沪深市场每日交易统计 数据项
 type DailyInfoItem struct {
-	TradeDate string `json:"trade_date"`
-	TsCode string `json:"ts_code"`
-	TsName string `json:"ts_name"`
-	ComCount int `json:"com_count"`
-	TotalShare float64 `json:"total_share"`
-	FloatShare float64 `json:"float_share"`
-	TotalMv float64 `json:"total_mv"`
-	FloatMv float64 `json:"float_mv"`
-	Amount float64 `json:"amount"`
-	Vol float64 `json:"vol"`
-	TransCount int `json:"trans_count"`
-	Pe float64 `json:"pe"`
-	Tr float64 `json:"tr"`
-	Exchange string `json:"exchange"`
+	TradeDate string `json:"trade_date"` // 交易日期
+	TsCode string `json:"ts_code"` // 市场代码
+	TsName string `json:"ts_name"` // 市场名称
+	ComCount int `json:"com_count"` // 挂牌数
+	TotalShare float64 `json:"total_share"` // 总股本（亿股）
+	FloatShare float64 `json:"float_share"` // 流通股本（亿股）
+	TotalMv float64 `json:"total_mv"` // 总市值（亿元）
+	FloatMv float64 `json:"float_mv"` // 流通市值（亿元）
+	Amount float64 `json:"amount"` // 交易金额（亿元）
+	Vol float64 `json:"vol"` // 成交量（亿股）
+	TransCount int `json:"trans_count"` // 成交笔数（万笔）
+	Pe float64 `json:"pe"` // 平均市盈率
+	Tr float64 `json:"tr"` // 换手率（％），注：深交所暂无此列
+	Exchange string `json:"exchange"` // 交易所（SH上交所 SZ深交所）
 }
 
 // DailyInfo 调用 沪深市场每日交易统计 API

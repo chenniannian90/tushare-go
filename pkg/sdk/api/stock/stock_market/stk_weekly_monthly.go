@@ -11,28 +11,28 @@ import (
 
 // StkWeeklyMonthlyRequest 表示 周/月线行情(每日更新) API 的请求
 type StkWeeklyMonthlyRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Freq string `json:"freq,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // TS代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期(格式：YYYYMMDD，每周或每月最后一天的日期）
+	StartDate string `json:"start_date,omitempty"` // 开始交易日期
+	EndDate string `json:"end_date,omitempty"` // 结束交易日期
+	Freq string `json:"freq,omitempty"` // 频率week周，month月
 }
 
 // StkWeeklyMonthlyItem 表示单个 周/月线行情(每日更新) 数据项
 type StkWeeklyMonthlyItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	EndDate string `json:"end_date"`
-	Freq string `json:"freq"`
-	Open float64 `json:"open"`
-	High float64 `json:"high"`
-	Low float64 `json:"low"`
-	Close float64 `json:"close"`
-	PreClose float64 `json:"pre_close"`
-	Vol float64 `json:"vol"`
-	Amount float64 `json:"amount"`
-	Change float64 `json:"change"`
-	PctChg float64 `json:"pct_chg"`
+	TsCode string `json:"ts_code"` // 股票代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	EndDate string `json:"end_date"` // 计算截至日期
+	Freq string `json:"freq"` // 频率(周week,月month)
+	Open float64 `json:"open"` // (周/月)开盘价
+	High float64 `json:"high"` // (周/月)最高价
+	Low float64 `json:"low"` // (周/月)最低价
+	Close float64 `json:"close"` // (周/月)收盘价
+	PreClose float64 `json:"pre_close"` // 上一(周/月)收盘价
+	Vol float64 `json:"vol"` // (周/月)成交量
+	Amount float64 `json:"amount"` // (周/月)成交额
+	Change float64 `json:"change"` // (周/月)涨跌额
+	PctChg float64 `json:"pct_chg"` // (周/月)涨跌幅(未复权,如果是复权请用 通用行情接口)
 }
 
 // StkWeeklyMonthly 调用 周/月线行情(每日更新) API

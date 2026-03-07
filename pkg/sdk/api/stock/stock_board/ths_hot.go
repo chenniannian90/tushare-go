@@ -11,25 +11,25 @@ import (
 
 // ThsHotRequest 表示 同花顺App热榜数 API 的请求
 type ThsHotRequest struct {
-	TradeDate string `json:"trade_date,omitempty"`
-	TsCode string `json:"ts_code,omitempty"`
-	Market string `json:"market,omitempty"`
-	IsNew string `json:"is_new,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期
+	TsCode string `json:"ts_code,omitempty"` // TS代码
+	Market string `json:"market,omitempty"` // 热榜类型(热股、ETF、可转债、行业板块、概念板块、期货、港股、热基、美股)
+	IsNew string `json:"is_new,omitempty"` // 是否最新（默认Y，如果为N则为盘中和盘后阶段采集，具体时间可参考rank_time字段，状态N每小时更新一次，状态Y更新时间为22：30）
 }
 
 // ThsHotItem 表示单个 同花顺App热榜数 数据项
 type ThsHotItem struct {
-	TradeDate string `json:"trade_date"`
-	DataType string `json:"data_type"`
-	TsCode string `json:"ts_code"`
-	TsName string `json:"ts_name"`
-	Rank int `json:"rank"`
-	PctChange float64 `json:"pct_change"`
-	CurrentPrice float64 `json:"current_price"`
-	Concept string `json:"concept"`
-	RankReason string `json:"rank_reason"`
-	Hot float64 `json:"hot"`
-	RankTime string `json:"rank_time"`
+	TradeDate string `json:"trade_date"` // 交易日期
+	DataType string `json:"data_type"` // 数据类型
+	TsCode string `json:"ts_code"` // 股票代码
+	TsName string `json:"ts_name"` // 股票名称
+	Rank int `json:"rank"` // 排行
+	PctChange float64 `json:"pct_change"` // 涨跌幅%
+	CurrentPrice float64 `json:"current_price"` // 当前价格
+	Concept string `json:"concept"` // 标签
+	RankReason string `json:"rank_reason"` // 上榜解读
+	Hot float64 `json:"hot"` // 热度值
+	RankTime string `json:"rank_time"` // 排行榜获取时间
 }
 
 // ThsHot 调用 同花顺App热榜数 API

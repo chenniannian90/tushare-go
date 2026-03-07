@@ -11,25 +11,25 @@ import (
 
 // BcBestotcqtRequest 表示 柜台流通式债券最优报价 API 的请求
 type BcBestotcqtRequest struct {
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	TsCode string `json:"ts_code,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"` // 报价日期(YYYYMMDD格式，下同)
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	TsCode string `json:"ts_code,omitempty"` // TS代码
 }
 
 // BcBestotcqtItem 表示单个 柜台流通式债券最优报价 数据项
 type BcBestotcqtItem struct {
-	TradeDate string `json:"trade_date"`
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	RemainMaturity string `json:"remain_maturity"`
-	BondType string `json:"bond_type"`
-	BestBuyBank string `json:"best_buy_bank"`
-	BestBuyYield float64 `json:"best_buy_yield"`
-	BestBuyPrice float64 `json:"best_buy_price"`
-	BestSellBank string `json:"best_sell_bank"`
-	BestSellYield float64 `json:"best_sell_yield"`
-	BestSellPrice float64 `json:"best_sell_price"`
+	TradeDate string `json:"trade_date"` // 报价日期
+	TsCode string `json:"ts_code"` // 债券编码
+	Name string `json:"name"` // 债券简称
+	RemainMaturity string `json:"remain_maturity"` // 剩余期限
+	BondType string `json:"bond_type"` // 债券类型
+	BestBuyBank string `json:"best_buy_bank"` // 最优报买价方
+	BestBuyYield float64 `json:"best_buy_yield"` // 投资者最优买入价到期收益率（%）
+	BestBuyPrice float64 `json:"best_buy_price"` // 投资者最优买入全价
+	BestSellBank string `json:"best_sell_bank"` // 最优卖报价方
+	BestSellYield float64 `json:"best_sell_yield"` // 投资者最优卖出价到期收益率（%）
+	BestSellPrice float64 `json:"best_sell_price"` // 投资者最优卖出全价
 }
 
 // BcBestotcqt 调用 柜台流通式债券最优报价 API

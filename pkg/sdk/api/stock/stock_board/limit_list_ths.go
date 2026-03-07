@@ -11,40 +11,40 @@ import (
 
 // LimitListThsRequest 表示 同花顺涨跌停榜单 API 的请求
 type LimitListThsRequest struct {
-	TradeDate string `json:"trade_date,omitempty"`
-	TsCode string `json:"ts_code,omitempty"`
-	LimitType string `json:"limit_type,omitempty"`
-	Market string `json:"market,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	LimitType string `json:"limit_type,omitempty"` // 涨停池、连扳池、冲刺涨停、炸板池、跌停池，默认：涨停池
+	Market string `json:"market,omitempty"` // HS-沪深主板 GEM-创业板 STAR-科创板
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // LimitListThsItem 表示单个 同花顺涨跌停榜单 数据项
 type LimitListThsItem struct {
-	TradeDate string `json:"trade_date"`
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	Price float64 `json:"price"`
-	PctChg float64 `json:"pct_chg"`
-	OpenNum int `json:"open_num"`
-	LuDesc string `json:"lu_desc"`
-	LimitType string `json:"limit_type"`
-	Tag string `json:"tag"`
-	Status string `json:"status"`
-	FirstLuTime string `json:"first_lu_time"`
-	LastLuTime string `json:"last_lu_time"`
-	FirstLdTime string `json:"first_ld_time"`
-	LastLdTime string `json:"last_ld_time"`
-	LimitOrder float64 `json:"limit_order"`
-	LimitAmount float64 `json:"limit_amount"`
-	TurnoverRate float64 `json:"turnover_rate"`
-	FreeFloat float64 `json:"free_float"`
-	LuLimitOrder float64 `json:"lu_limit_order"`
-	LimitUpSucRate float64 `json:"limit_up_suc_rate"`
-	Turnover float64 `json:"turnover"`
-	RiseRate float64 `json:"rise_rate"`
-	SumFloat float64 `json:"sum_float"`
-	MarketType string `json:"market_type"`
+	TradeDate string `json:"trade_date"` // 交易日期
+	TsCode string `json:"ts_code"` // 股票代码
+	Name string `json:"name"` // 股票名称
+	Price float64 `json:"price"` // 收盘价(元)
+	PctChg float64 `json:"pct_chg"` // 涨跌幅%
+	OpenNum int `json:"open_num"` // 打开次数
+	LuDesc string `json:"lu_desc"` // 涨停原因
+	LimitType string `json:"limit_type"` // 板单类别
+	Tag string `json:"tag"` // 涨停标签
+	Status string `json:"status"` // 涨停状态（N连板、一字板）
+	FirstLuTime string `json:"first_lu_time"` // 首次涨停时间
+	LastLuTime string `json:"last_lu_time"` // 最后涨停时间
+	FirstLdTime string `json:"first_ld_time"` // 首次跌停时间
+	LastLdTime string `json:"last_ld_time"` // 最后跌停时间
+	LimitOrder float64 `json:"limit_order"` // 封单量(元
+	LimitAmount float64 `json:"limit_amount"` // 封单额(元
+	TurnoverRate float64 `json:"turnover_rate"` // 换手率%
+	FreeFloat float64 `json:"free_float"` // 实际流通(元
+	LuLimitOrder float64 `json:"lu_limit_order"` // 最大封单(元
+	LimitUpSucRate float64 `json:"limit_up_suc_rate"` // 近一年涨停封板率
+	Turnover float64 `json:"turnover"` // 成交额
+	RiseRate float64 `json:"rise_rate"` // 涨速
+	SumFloat float64 `json:"sum_float"` // 总市值（亿元）
+	MarketType string `json:"market_type"` // 股票类型：HS沪深主板、GEM创业板、STAR科创板
 }
 
 // LimitListThs 调用 同花顺涨跌停榜单 API

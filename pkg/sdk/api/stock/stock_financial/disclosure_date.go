@@ -11,21 +11,21 @@ import (
 
 // DisclosureDateRequest 表示 财报披露日期表 API 的请求
 type DisclosureDateRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	PreDate string `json:"pre_date,omitempty"`
-	AnnDate string `json:"ann_date,omitempty"`
-	ActualDate string `json:"actual_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // TS股票代码
+	EndDate string `json:"end_date,omitempty"` // 财报周期（每个季度最后一天的日期，比如20181231表示2018年年报，20180630表示中报)
+	PreDate string `json:"pre_date,omitempty"` // 计划披露日期
+	AnnDate string `json:"ann_date,omitempty"` // 最新披露公告日
+	ActualDate string `json:"actual_date,omitempty"` // 实际披露日期
 }
 
 // DisclosureDateItem 表示单个 财报披露日期表 数据项
 type DisclosureDateItem struct {
-	TsCode string `json:"ts_code"`
-	AnnDate string `json:"ann_date"`
-	EndDate string `json:"end_date"`
-	PreDate string `json:"pre_date"`
-	ActualDate string `json:"actual_date"`
-	ModifyDate string `json:"modify_date"`
+	TsCode string `json:"ts_code"` // TS代码
+	AnnDate string `json:"ann_date"` // 最新披露公告日
+	EndDate string `json:"end_date"` // 报告期
+	PreDate string `json:"pre_date"` // 预计披露日期
+	ActualDate string `json:"actual_date"` // 实际披露日期
+	ModifyDate string `json:"modify_date"` // 披露日期修正记录
 }
 
 // DisclosureDate 调用 财报披露日期表 API

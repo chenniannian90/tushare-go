@@ -11,28 +11,28 @@ import (
 
 // BcOtcqtRequest 表示 柜台流通式债券报价 API 的请求
 type BcOtcqtRequest struct {
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	TsCode string `json:"ts_code,omitempty"`
-	Bank string `json:"bank,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期(YYYYMMDD格式，下同)
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	TsCode string `json:"ts_code,omitempty"` // TS代码
+	Bank string `json:"bank,omitempty"` // 报价机构
 }
 
 // BcOtcqtItem 表示单个 柜台流通式债券报价 数据项
 type BcOtcqtItem struct {
-	TradeDate string `json:"trade_date"`
-	QtTime string `json:"qt_time"`
-	Bank string `json:"bank"`
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	Maturity string `json:"maturity"`
-	RemainMaturity string `json:"remain_maturity"`
-	BondType string `json:"bond_type"`
-	CouponRate float64 `json:"coupon_rate"`
-	BuyPrice float64 `json:"buy_price"`
-	SellPrice float64 `json:"sell_price"`
-	BuyYield float64 `json:"buy_yield"`
-	SellYield float64 `json:"sell_yield"`
+	TradeDate string `json:"trade_date"` // 报价日期
+	QtTime string `json:"qt_time"` // 报价时间
+	Bank string `json:"bank"` // 报价机构
+	TsCode string `json:"ts_code"` // 债券编码
+	Name string `json:"name"` // 债券简称
+	Maturity string `json:"maturity"` // 期限
+	RemainMaturity string `json:"remain_maturity"` // 剩余期限
+	BondType string `json:"bond_type"` // 债券类型
+	CouponRate float64 `json:"coupon_rate"` // 票面利率（%）
+	BuyPrice float64 `json:"buy_price"` // 投资者买入全价
+	SellPrice float64 `json:"sell_price"` // 投资者卖出全价
+	BuyYield float64 `json:"buy_yield"` // 投资者买入到期收益率（%）
+	SellYield float64 `json:"sell_yield"` // 投资者卖出到期收益率（%）
 }
 
 // BcOtcqt 调用 柜台流通式债券报价 API

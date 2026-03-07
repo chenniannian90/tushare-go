@@ -11,22 +11,22 @@ import (
 
 // FilmRecordRequest 表示 全国电影剧本备案数据 API 的请求
 type FilmRecordRequest struct {
-	AnnDate string `json:"ann_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	AnnDate string `json:"ann_date,omitempty"` // 公布日期 （至少输入一个参数，格式：YYYYMMDD，日期不连续，定期公布）
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // FilmRecordItem 表示单个 全国电影剧本备案数据 数据项
 type FilmRecordItem struct {
-	RecNo string `json:"rec_no"`
-	FilmName string `json:"film_name"`
-	RecOrg string `json:"rec_org"`
-	ScriptWriter string `json:"script_writer"`
-	RecResult string `json:"rec_result"`
-	RecArea string `json:"rec_area"`
-	Classified string `json:"classified"`
-	DateRange string `json:"date_range"`
-	AnnDate string `json:"ann_date"`
+	RecNo string `json:"rec_no"` // 备案号
+	FilmName string `json:"film_name"` // 影片名称
+	RecOrg string `json:"rec_org"` // 备案单位
+	ScriptWriter string `json:"script_writer"` // 编剧
+	RecResult string `json:"rec_result"` // 备案结果
+	RecArea string `json:"rec_area"` // 备案地（备案时间）
+	Classified string `json:"classified"` // 影片分类
+	DateRange string `json:"date_range"` // 备案日期区间
+	AnnDate string `json:"ann_date"` // 备案结果发布时间
 }
 
 // FilmRecord 调用 全国电影剧本备案数据 API

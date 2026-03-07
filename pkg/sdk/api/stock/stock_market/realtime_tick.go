@@ -10,8 +10,8 @@ import (
 
 // RealtimeTickRequest 表示 实时成交（爬虫） API 的请求
 type RealtimeTickRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	Src string `json:"src,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码，需按tushare股票代码标准输入，比如：000001.SZ表示平安银行，600000.SH表示浦发银行，单次只能输入一个股票
+	Src string `json:"src,omitempty"` // 数据源 （sina-新浪 dc-东方财富，默认sina）
 }
 
 // RealtimeTickItem 表示单个 实时成交（爬虫） 数据项

@@ -11,20 +11,20 @@ import (
 
 // BondBlkRequest 表示 大宗交易 API 的请求
 type BondBlkRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 债券代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（YYYYMMDD格式，下同）
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // BondBlkItem 表示单个 大宗交易 数据项
 type BondBlkItem struct {
-	TradeDate string `json:"trade_date"`
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	Price float64 `json:"price"`
-	Vol float64 `json:"vol"`
-	Amount float64 `json:"amount"`
+	TradeDate string `json:"trade_date"` // 交易日期
+	TsCode string `json:"ts_code"` // 债券代码
+	Name string `json:"name"` // 债券名称
+	Price float64 `json:"price"` // 成交价（元）
+	Vol float64 `json:"vol"` // 累计成交数量（万股/万份/万张/万手）
+	Amount float64 `json:"amount"` // 累计成交金额（万元）
 }
 
 // BondBlk 调用 大宗交易 API

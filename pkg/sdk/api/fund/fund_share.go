@@ -11,18 +11,18 @@ import (
 
 // FundShareRequest 表示 基金规模 API 的请求
 type FundShareRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Market string `json:"market,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // TS基金代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	Market string `json:"market,omitempty"` // 市场代码（SH上交所 ，SZ深交所）
 }
 
 // FundShareItem 表示单个 基金规模 数据项
 type FundShareItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	FdShare float64 `json:"fd_share"`
+	TsCode string `json:"ts_code"` // 基金代码，支持多只基金同时提取，用逗号分隔
+	TradeDate string `json:"trade_date"` // 交易（变动）日期，格式YYYYMMDD
+	FdShare float64 `json:"fd_share"` // 基金份额（万）
 }
 
 // FundShare 调用 基金规模 API

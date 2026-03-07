@@ -11,24 +11,24 @@ import (
 
 // FundPortfolioRequest 表示 基金持仓 API 的请求
 type FundPortfolioRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	Symbol string `json:"symbol,omitempty"`
-	AnnDate string `json:"ann_date,omitempty"`
-	Period string `json:"period,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 基金代码 (ts_code,ann_date,period至少输入一个参数)
+	Symbol string `json:"symbol,omitempty"` // 股票代码
+	AnnDate string `json:"ann_date,omitempty"` // 公告日期（YYYYMMDD格式）
+	Period string `json:"period,omitempty"` // 季度（每个季度最后一天的日期，比如20131231表示2013年年报）
+	StartDate string `json:"start_date,omitempty"` // 报告期开始日期（YYYYMMDD格式）
+	EndDate string `json:"end_date,omitempty"` // 报告期结束日期（YYYYMMDD格式）
 }
 
 // FundPortfolioItem 表示单个 基金持仓 数据项
 type FundPortfolioItem struct {
-	TsCode string `json:"ts_code"`
-	AnnDate string `json:"ann_date"`
-	EndDate string `json:"end_date"`
-	Symbol string `json:"symbol"`
-	Mkv float64 `json:"mkv"`
-	Amount float64 `json:"amount"`
-	StkMkvRatio float64 `json:"stk_mkv_ratio"`
-	StkFloatRatio float64 `json:"stk_float_ratio"`
+	TsCode string `json:"ts_code"` // TS基金代码
+	AnnDate string `json:"ann_date"` // 公告日期
+	EndDate string `json:"end_date"` // 截止日期
+	Symbol string `json:"symbol"` // 股票代码
+	Mkv float64 `json:"mkv"` // 持有股票市值(元)
+	Amount float64 `json:"amount"` // 持有股票数量（股）
+	StkMkvRatio float64 `json:"stk_mkv_ratio"` // 占股票市值比
+	StkFloatRatio float64 `json:"stk_float_ratio"` // 占流通股本比例
 }
 
 // FundPortfolio 调用 基金持仓 API

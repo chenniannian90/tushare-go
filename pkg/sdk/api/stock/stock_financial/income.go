@@ -11,112 +11,112 @@ import (
 
 // IncomeRequest 表示 利润表 API 的请求
 type IncomeRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	AnnDate string `json:"ann_date,omitempty"`
-	FAnnDate string `json:"f_ann_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Period string `json:"period,omitempty"`
-	ReportType string `json:"report_type,omitempty"`
-	CompType string `json:"comp_type,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	AnnDate string `json:"ann_date,omitempty"` // 公告日期（YYYYMMDD格式，下同）
+	FAnnDate string `json:"f_ann_date,omitempty"` // 实际公告日期
+	StartDate string `json:"start_date,omitempty"` // 公告日开始日期
+	EndDate string `json:"end_date,omitempty"` // 公告日结束日期
+	Period string `json:"period,omitempty"` // 报告期(每个季度最后一天的日期，比如20171231表示年报，20170630半年报，20170930三季报)
+	ReportType string `json:"report_type,omitempty"` // 报告类型，参考文档最下方说明
+	CompType string `json:"comp_type,omitempty"` // 公司类型（1一般工商业2银行3保险4证券）
 }
 
 // IncomeItem 表示单个 利润表 数据项
 type IncomeItem struct {
-	TsCode string `json:"ts_code"`
-	AnnDate string `json:"ann_date"`
-	FAnnDate string `json:"f_ann_date"`
-	EndDate string `json:"end_date"`
-	ReportType string `json:"report_type"`
-	CompType string `json:"comp_type"`
-	EndType string `json:"end_type"`
-	BasicEps float64 `json:"basic_eps"`
-	DilutedEps float64 `json:"diluted_eps"`
-	TotalRevenue float64 `json:"total_revenue"`
-	Revenue float64 `json:"revenue"`
-	IntIncome float64 `json:"int_income"`
-	PremEarned float64 `json:"prem_earned"`
-	CommIncome float64 `json:"comm_income"`
-	NCommisIncome float64 `json:"n_commis_income"`
-	NOthIncome float64 `json:"n_oth_income"`
-	NOthBIncome float64 `json:"n_oth_b_income"`
-	PremIncome float64 `json:"prem_income"`
-	OutPrem float64 `json:"out_prem"`
-	UnePremReser float64 `json:"une_prem_reser"`
-	ReinsIncome float64 `json:"reins_income"`
-	NSecTbIncome float64 `json:"n_sec_tb_income"`
-	NSecUwIncome float64 `json:"n_sec_uw_income"`
-	NAssetMgIncome float64 `json:"n_asset_mg_income"`
-	OthBIncome float64 `json:"oth_b_income"`
-	FvValueChgGain float64 `json:"fv_value_chg_gain"`
-	InvestIncome float64 `json:"invest_income"`
-	AssInvestIncome float64 `json:"ass_invest_income"`
-	ForexGain float64 `json:"forex_gain"`
-	TotalCogs float64 `json:"total_cogs"`
-	OperCost float64 `json:"oper_cost"`
-	IntExp float64 `json:"int_exp"`
-	CommExp float64 `json:"comm_exp"`
-	BizTaxSurchg float64 `json:"biz_tax_surchg"`
-	SellExp float64 `json:"sell_exp"`
-	AdminExp float64 `json:"admin_exp"`
-	FinExp float64 `json:"fin_exp"`
-	AssetsImpairLoss float64 `json:"assets_impair_loss"`
-	PremRefund float64 `json:"prem_refund"`
-	CompensPayout float64 `json:"compens_payout"`
-	ReserInsurLiab float64 `json:"reser_insur_liab"`
-	DivPayt float64 `json:"div_payt"`
-	ReinsExp float64 `json:"reins_exp"`
-	OperExp float64 `json:"oper_exp"`
-	CompensPayoutRefu float64 `json:"compens_payout_refu"`
-	InsurReserRefu float64 `json:"insur_reser_refu"`
-	ReinsCostRefund float64 `json:"reins_cost_refund"`
-	OtherBusCost float64 `json:"other_bus_cost"`
-	OperateProfit float64 `json:"operate_profit"`
-	NonOperIncome float64 `json:"non_oper_income"`
-	NonOperExp float64 `json:"non_oper_exp"`
-	NcaDisploss float64 `json:"nca_disploss"`
-	TotalProfit float64 `json:"total_profit"`
-	IncomeTax float64 `json:"income_tax"`
-	NIncome float64 `json:"n_income"`
-	NIncomeAttrP float64 `json:"n_income_attr_p"`
-	MinorityGain float64 `json:"minority_gain"`
-	OthComprIncome float64 `json:"oth_compr_income"`
-	TComprIncome float64 `json:"t_compr_income"`
-	ComprIncAttrP float64 `json:"compr_inc_attr_p"`
-	ComprIncAttrMS float64 `json:"compr_inc_attr_m_s"`
-	Ebit float64 `json:"ebit"`
-	Ebitda float64 `json:"ebitda"`
-	InsuranceExp float64 `json:"insurance_exp"`
-	UndistProfit float64 `json:"undist_profit"`
-	DistableProfit float64 `json:"distable_profit"`
-	RdExp float64 `json:"rd_exp"`
-	FinExpIntExp float64 `json:"fin_exp_int_exp"`
-	FinExpIntInc float64 `json:"fin_exp_int_inc"`
-	TransferSurplusRese float64 `json:"transfer_surplus_rese"`
-	TransferHousingImprest float64 `json:"transfer_housing_imprest"`
-	TransferOth float64 `json:"transfer_oth"`
-	AdjLossgain float64 `json:"adj_lossgain"`
-	WithdraLegalSurplus float64 `json:"withdra_legal_surplus"`
-	WithdraLegalPubfund float64 `json:"withdra_legal_pubfund"`
-	WithdraBizDevfund float64 `json:"withdra_biz_devfund"`
-	WithdraReseFund float64 `json:"withdra_rese_fund"`
-	WithdraOthErsu float64 `json:"withdra_oth_ersu"`
-	WorkersWelfare float64 `json:"workers_welfare"`
-	DistrProfitShrhder float64 `json:"distr_profit_shrhder"`
-	PrfsharePayableDvd float64 `json:"prfshare_payable_dvd"`
-	ComsharePayableDvd float64 `json:"comshare_payable_dvd"`
-	CapitComstockDiv float64 `json:"capit_comstock_div"`
-	NetAfterNrLpCorrect float64 `json:"net_after_nr_lp_correct"`
-	CreditImpaLoss float64 `json:"credit_impa_loss"`
-	NetExpoHedgingBenefits float64 `json:"net_expo_hedging_benefits"`
-	OthImpairLossAssets float64 `json:"oth_impair_loss_assets"`
-	TotalOpcost float64 `json:"total_opcost"`
-	AmodcostFinAssets float64 `json:"amodcost_fin_assets"`
-	OthIncome float64 `json:"oth_income"`
-	AssetDispIncome float64 `json:"asset_disp_income"`
-	ContinuedNetProfit float64 `json:"continued_net_profit"`
-	EndNetProfit float64 `json:"end_net_profit"`
-	UpdateFlag string `json:"update_flag"`
+	TsCode string `json:"ts_code"` // TS代码
+	AnnDate string `json:"ann_date"` // 公告日期
+	FAnnDate string `json:"f_ann_date"` // 实际公告日期
+	EndDate string `json:"end_date"` // 报告期
+	ReportType string `json:"report_type"` // 报告类型 见底部表
+	CompType string `json:"comp_type"` // 公司类型(1一般工商业2银行3保险4证券)
+	EndType string `json:"end_type"` // 报告期类型
+	BasicEps float64 `json:"basic_eps"` // 基本每股收益
+	DilutedEps float64 `json:"diluted_eps"` // 稀释每股收益
+	TotalRevenue float64 `json:"total_revenue"` // 营业总收入
+	Revenue float64 `json:"revenue"` // 营业收入
+	IntIncome float64 `json:"int_income"` // 利息收入
+	PremEarned float64 `json:"prem_earned"` // 已赚保费
+	CommIncome float64 `json:"comm_income"` // 手续费及佣金收入
+	NCommisIncome float64 `json:"n_commis_income"` // 手续费及佣金净收入
+	NOthIncome float64 `json:"n_oth_income"` // 其他经营净收益
+	NOthBIncome float64 `json:"n_oth_b_income"` // 加:其他业务净收益
+	PremIncome float64 `json:"prem_income"` // 保险业务收入
+	OutPrem float64 `json:"out_prem"` // 减:分出保费
+	UnePremReser float64 `json:"une_prem_reser"` // 提取未到期责任准备金
+	ReinsIncome float64 `json:"reins_income"` // 其中:分保费收入
+	NSecTbIncome float64 `json:"n_sec_tb_income"` // 代理买卖证券业务净收入
+	NSecUwIncome float64 `json:"n_sec_uw_income"` // 证券承销业务净收入
+	NAssetMgIncome float64 `json:"n_asset_mg_income"` // 受托客户资产管理业务净收入
+	OthBIncome float64 `json:"oth_b_income"` // 其他业务收入
+	FvValueChgGain float64 `json:"fv_value_chg_gain"` // 加:公允价值变动净收益
+	InvestIncome float64 `json:"invest_income"` // 加:投资净收益
+	AssInvestIncome float64 `json:"ass_invest_income"` // 其中:对联营企业和合营企业的投资收益
+	ForexGain float64 `json:"forex_gain"` // 加:汇兑净收益
+	TotalCogs float64 `json:"total_cogs"` // 营业总成本
+	OperCost float64 `json:"oper_cost"` // 减:营业成本
+	IntExp float64 `json:"int_exp"` // 减:利息支出
+	CommExp float64 `json:"comm_exp"` // 减:手续费及佣金支出
+	BizTaxSurchg float64 `json:"biz_tax_surchg"` // 减:营业税金及附加
+	SellExp float64 `json:"sell_exp"` // 减:销售费用
+	AdminExp float64 `json:"admin_exp"` // 减:管理费用
+	FinExp float64 `json:"fin_exp"` // 减:财务费用
+	AssetsImpairLoss float64 `json:"assets_impair_loss"` // 减:资产减值损失
+	PremRefund float64 `json:"prem_refund"` // 退保金
+	CompensPayout float64 `json:"compens_payout"` // 赔付总支出
+	ReserInsurLiab float64 `json:"reser_insur_liab"` // 提取保险责任准备金
+	DivPayt float64 `json:"div_payt"` // 保户红利支出
+	ReinsExp float64 `json:"reins_exp"` // 分保费用
+	OperExp float64 `json:"oper_exp"` // 营业支出
+	CompensPayoutRefu float64 `json:"compens_payout_refu"` // 减:摊回赔付支出
+	InsurReserRefu float64 `json:"insur_reser_refu"` // 减:摊回保险责任准备金
+	ReinsCostRefund float64 `json:"reins_cost_refund"` // 减:摊回分保费用
+	OtherBusCost float64 `json:"other_bus_cost"` // 其他业务成本
+	OperateProfit float64 `json:"operate_profit"` // 营业利润
+	NonOperIncome float64 `json:"non_oper_income"` // 加:营业外收入
+	NonOperExp float64 `json:"non_oper_exp"` // 减:营业外支出
+	NcaDisploss float64 `json:"nca_disploss"` // 其中:减:非流动资产处置净损失
+	TotalProfit float64 `json:"total_profit"` // 利润总额
+	IncomeTax float64 `json:"income_tax"` // 所得税费用
+	NIncome float64 `json:"n_income"` // 净利润(含少数股东损益)
+	NIncomeAttrP float64 `json:"n_income_attr_p"` // 净利润(不含少数股东损益)
+	MinorityGain float64 `json:"minority_gain"` // 少数股东损益
+	OthComprIncome float64 `json:"oth_compr_income"` // 其他综合收益
+	TComprIncome float64 `json:"t_compr_income"` // 综合收益总额
+	ComprIncAttrP float64 `json:"compr_inc_attr_p"` // 归属于母公司(或股东)的综合收益总额
+	ComprIncAttrMS float64 `json:"compr_inc_attr_m_s"` // 归属于少数股东的综合收益总额
+	Ebit float64 `json:"ebit"` // 息税前利润
+	Ebitda float64 `json:"ebitda"` // 息税折旧摊销前利润
+	InsuranceExp float64 `json:"insurance_exp"` // 保险业务支出
+	UndistProfit float64 `json:"undist_profit"` // 年初未分配利润
+	DistableProfit float64 `json:"distable_profit"` // 可分配利润
+	RdExp float64 `json:"rd_exp"` // 研发费用
+	FinExpIntExp float64 `json:"fin_exp_int_exp"` // 财务费用:利息费用
+	FinExpIntInc float64 `json:"fin_exp_int_inc"` // 财务费用:利息收入
+	TransferSurplusRese float64 `json:"transfer_surplus_rese"` // 盈余公积转入
+	TransferHousingImprest float64 `json:"transfer_housing_imprest"` // 住房周转金转入
+	TransferOth float64 `json:"transfer_oth"` // 其他转入
+	AdjLossgain float64 `json:"adj_lossgain"` // 调整以前年度损益
+	WithdraLegalSurplus float64 `json:"withdra_legal_surplus"` // 提取法定盈余公积
+	WithdraLegalPubfund float64 `json:"withdra_legal_pubfund"` // 提取法定公益金
+	WithdraBizDevfund float64 `json:"withdra_biz_devfund"` // 提取企业发展基金
+	WithdraReseFund float64 `json:"withdra_rese_fund"` // 提取储备基金
+	WithdraOthErsu float64 `json:"withdra_oth_ersu"` // 提取任意盈余公积金
+	WorkersWelfare float64 `json:"workers_welfare"` // 职工奖金福利
+	DistrProfitShrhder float64 `json:"distr_profit_shrhder"` // 可供股东分配的利润
+	PrfsharePayableDvd float64 `json:"prfshare_payable_dvd"` // 应付优先股股利
+	ComsharePayableDvd float64 `json:"comshare_payable_dvd"` // 应付普通股股利
+	CapitComstockDiv float64 `json:"capit_comstock_div"` // 转作股本的普通股股利
+	NetAfterNrLpCorrect float64 `json:"net_after_nr_lp_correct"` // 扣除非经常性损益后的净利润（更正前）
+	CreditImpaLoss float64 `json:"credit_impa_loss"` // 信用减值损失
+	NetExpoHedgingBenefits float64 `json:"net_expo_hedging_benefits"` // 净敞口套期收益
+	OthImpairLossAssets float64 `json:"oth_impair_loss_assets"` // 其他资产减值损失
+	TotalOpcost float64 `json:"total_opcost"` // 营业总成本（二）
+	AmodcostFinAssets float64 `json:"amodcost_fin_assets"` // 以摊余成本计量的金融资产终止确认收益
+	OthIncome float64 `json:"oth_income"` // 其他收益
+	AssetDispIncome float64 `json:"asset_disp_income"` // 资产处置收益
+	ContinuedNetProfit float64 `json:"continued_net_profit"` // 持续经营净利润
+	EndNetProfit float64 `json:"end_net_profit"` // 终止经营净利润
+	UpdateFlag string `json:"update_flag"` // 更新标识
 }
 
 // Income 调用 利润表 API

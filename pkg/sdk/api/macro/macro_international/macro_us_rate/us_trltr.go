@@ -11,16 +11,16 @@ import (
 
 // UsTrltrRequest 表示 国债长期利率平均值 API 的请求
 type UsTrltrRequest struct {
-	Date string `json:"date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Fields string `json:"fields,omitempty"`
+	Date string `json:"date,omitempty"` // 日期
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	Fields string `json:"fields,omitempty"` // 指定字段
 }
 
 // UsTrltrItem 表示单个 国债长期利率平均值 数据项
 type UsTrltrItem struct {
-	Date string `json:"date"`
-	LtrAvg float64 `json:"ltr_avg"`
+	Date string `json:"date"` // 日期
+	LtrAvg float64 `json:"ltr_avg"` // 实际平均利率LT Real Average (10> Yrs)
 }
 
 // UsTrltr 调用 国债长期利率平均值 API

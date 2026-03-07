@@ -10,10 +10,10 @@ import (
 
 // IndexWeightRequest 表示 指数成分和权重 API 的请求
 type IndexWeightRequest struct {
-	IndexCode string `json:"index_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	IndexCode string `json:"index_code,omitempty"` // 指数代码，来源指数基础信息接口
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（格式YYYYMMDD，下同）
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // IndexWeightItem 表示单个 指数成分和权重 数据项

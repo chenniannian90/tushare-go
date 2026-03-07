@@ -11,22 +11,22 @@ import (
 
 // RepurchaseRequest 表示 股票回购 API 的请求
 type RepurchaseRequest struct {
-	AnnDate string `json:"ann_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	AnnDate string `json:"ann_date,omitempty"` // 公告日期（任意填参数，如果都不填，单次默认返回2000条）
+	StartDate string `json:"start_date,omitempty"` // 公告开始日期
+	EndDate string `json:"end_date,omitempty"` // 公告结束日期
 }
 
 // RepurchaseItem 表示单个 股票回购 数据项
 type RepurchaseItem struct {
-	TsCode string `json:"ts_code"`
-	AnnDate string `json:"ann_date"`
-	EndDate string `json:"end_date"`
-	Proc string `json:"proc"`
-	ExpDate string `json:"exp_date"`
-	Vol float64 `json:"vol"`
-	Amount float64 `json:"amount"`
-	HighLimit float64 `json:"high_limit"`
-	LowLimit float64 `json:"low_limit"`
+	TsCode string `json:"ts_code"` // TS代码
+	AnnDate string `json:"ann_date"` // 公告日期
+	EndDate string `json:"end_date"` // 截止日期
+	Proc string `json:"proc"` // 进度
+	ExpDate string `json:"exp_date"` // 过期日期
+	Vol float64 `json:"vol"` // 回购数量
+	Amount float64 `json:"amount"` // 回购金额
+	HighLimit float64 `json:"high_limit"` // 回购最高价
+	LowLimit float64 `json:"low_limit"` // 回购最低价
 }
 
 // Repurchase 调用 股票回购 API

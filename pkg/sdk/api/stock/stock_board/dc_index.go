@@ -11,29 +11,29 @@ import (
 
 // DcIndexRequest 表示 东方财富概念板块 API 的请求
 type DcIndexRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	Name string `json:"name,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	IdxType string `json:"idx_type,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 指数代码（支持多个代码同时输入，用逗号分隔）
+	Name string `json:"name,omitempty"` // 板块名称（例如：人形机器人）
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（YYYYMMDD格式，下同）
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	IdxType string `json:"idx_type,omitempty"` // 板块类型(行业板块、概念板块、地域板块)
 }
 
 // DcIndexItem 表示单个 东方财富概念板块 数据项
 type DcIndexItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	Name string `json:"name"`
-	Leading string `json:"leading"`
-	LeadingCode string `json:"leading_code"`
-	PctChange float64 `json:"pct_change"`
-	LeadingPct float64 `json:"leading_pct"`
-	TotalMv float64 `json:"total_mv"`
-	TurnoverRate float64 `json:"turnover_rate"`
-	UpNum int `json:"up_num"`
-	DownNum int `json:"down_num"`
-	IdxType string `json:"idx_type"`
-	Level string `json:"level"`
+	TsCode string `json:"ts_code"` // 概念代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	Name string `json:"name"` // 概念名称
+	Leading string `json:"leading"` // 领涨股票名称
+	LeadingCode string `json:"leading_code"` // 领涨股票代码
+	PctChange float64 `json:"pct_change"` // 涨跌幅
+	LeadingPct float64 `json:"leading_pct"` // 领涨股票涨跌幅
+	TotalMv float64 `json:"total_mv"` // 总市值（万元）
+	TurnoverRate float64 `json:"turnover_rate"` // 换手率
+	UpNum int `json:"up_num"` // 上涨家数
+	DownNum int `json:"down_num"` // 下降家数
+	IdxType string `json:"idx_type"` // 板块类型(行业板块、概念板块、地域板块)
+	Level string `json:"level"` // 行业层级
 }
 
 // DcIndex 调用 东方财富概念板块 API

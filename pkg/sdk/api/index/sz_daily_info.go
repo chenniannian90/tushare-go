@@ -11,23 +11,23 @@ import (
 
 // SzDailyInfoRequest 表示 深圳市场每日交易情况 API 的请求
 type SzDailyInfoRequest struct {
-	TradeDate string `json:"trade_date,omitempty"`
-	TsCode string `json:"ts_code,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（YYYYMMDD格式，下同）
+	TsCode string `json:"ts_code,omitempty"` // 板块代码
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // SzDailyInfoItem 表示单个 深圳市场每日交易情况 数据项
 type SzDailyInfoItem struct {
-	TradeDate string `json:"trade_date"`
-	TsCode string `json:"ts_code"`
-	Count int `json:"count"`
-	Amount float64 `json:"amount"`
-	Vol string `json:"vol"`
-	TotalShare float64 `json:"total_share"`
-	TotalMv float64 `json:"total_mv"`
-	FloatShare float64 `json:"float_share"`
-	FloatMv float64 `json:"float_mv"`
+	TradeDate string `json:"trade_date"` // 
+	TsCode string `json:"ts_code"` // 市场类型
+	Count int `json:"count"` // 股票个数
+	Amount float64 `json:"amount"` // 成交金额
+	Vol string `json:"vol"` // 成交量
+	TotalShare float64 `json:"total_share"` // 总股本
+	TotalMv float64 `json:"total_mv"` // 总市值
+	FloatShare float64 `json:"float_share"` // 流通股票
+	FloatMv float64 `json:"float_mv"` // 流通市值
 }
 
 // SzDailyInfo 调用 深圳市场每日交易情况 API

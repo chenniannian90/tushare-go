@@ -11,26 +11,26 @@ import (
 
 // CiIndexMemberRequest 表示 中信行业成分 API 的请求
 type CiIndexMemberRequest struct {
-	L1Code string `json:"l1_code,omitempty"`
-	L2Code string `json:"l2_code,omitempty"`
-	L3Code string `json:"l3_code,omitempty"`
-	TsCode string `json:"ts_code,omitempty"`
-	IsNew string `json:"is_new,omitempty"`
+	L1Code string `json:"l1_code,omitempty"` // 一级行业代码
+	L2Code string `json:"l2_code,omitempty"` // 二级行业代码
+	L3Code string `json:"l3_code,omitempty"` // 三级行业代码
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	IsNew string `json:"is_new,omitempty"` // 是否最新（默认为“Y是”）
 }
 
 // CiIndexMemberItem 表示单个 中信行业成分 数据项
 type CiIndexMemberItem struct {
-	L1Code string `json:"l1_code"`
-	L1Name string `json:"l1_name"`
-	L2Code string `json:"l2_code"`
-	L2Name string `json:"l2_name"`
-	L3Code string `json:"l3_code"`
-	L3Name string `json:"l3_name"`
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	InDate string `json:"in_date"`
-	OutDate string `json:"out_date"`
-	IsNew string `json:"is_new"`
+	L1Code string `json:"l1_code"` // 一级行业代码
+	L1Name string `json:"l1_name"` // 一级行业名称
+	L2Code string `json:"l2_code"` // 二级行业代码
+	L2Name string `json:"l2_name"` // 二级行业名称
+	L3Code string `json:"l3_code"` // 三级行业代码
+	L3Name string `json:"l3_name"` // 三级行业名称
+	TsCode string `json:"ts_code"` // 成分股票代码
+	Name string `json:"name"` // 成分股票名称
+	InDate string `json:"in_date"` // 纳入日期
+	OutDate string `json:"out_date"` // 剔除日期
+	IsNew string `json:"is_new"` // 是否最新Y是N否
 }
 
 // CiIndexMember 调用 中信行业成分 API

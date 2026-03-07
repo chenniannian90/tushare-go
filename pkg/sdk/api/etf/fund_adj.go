@@ -11,19 +11,19 @@ import (
 
 // FundAdjRequest 表示 ETF复权因子 API 的请求
 type FundAdjRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Offset string `json:"offset,omitempty"`
-	Limit string `json:"limit,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // TS基金代码（支持多只基金输入）
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（格式：yyyymmdd，下同）
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	Offset string `json:"offset,omitempty"` // 开始行数
+	Limit string `json:"limit,omitempty"` // 最大行数
 }
 
 // FundAdjItem 表示单个 ETF复权因子 数据项
 type FundAdjItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	AdjFactor float64 `json:"adj_factor"`
+	TsCode string `json:"ts_code"` // ts基金代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	AdjFactor float64 `json:"adj_factor"` // 复权因子
 }
 
 // FundAdj 调用 ETF复权因子 API

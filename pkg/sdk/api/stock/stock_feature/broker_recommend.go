@@ -11,15 +11,15 @@ import (
 
 // BrokerRecommendRequest 表示 券商月度金股 API 的请求
 type BrokerRecommendRequest struct {
-	Month string `json:"month,omitempty"`
+	Month string `json:"month,omitempty"` // 月度（YYYYMM）
 }
 
 // BrokerRecommendItem 表示单个 券商月度金股 数据项
 type BrokerRecommendItem struct {
-	Month string `json:"month"`
-	Broker string `json:"broker"`
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
+	Month string `json:"month"` // 月度
+	Broker string `json:"broker"` // 券商
+	TsCode string `json:"ts_code"` // 股票代码
+	Name string `json:"name"` // 股票简称
 }
 
 // BrokerRecommend 调用 券商月度金股 API

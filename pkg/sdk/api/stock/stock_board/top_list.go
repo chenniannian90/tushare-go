@@ -11,27 +11,27 @@ import (
 
 // TopListRequest 表示 龙虎榜每日统计单 API 的请求
 type TopListRequest struct {
-	TradeDate string `json:"trade_date,omitempty"`
-	TsCode string `json:"ts_code,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
 }
 
 // TopListItem 表示单个 龙虎榜每日统计单 数据项
 type TopListItem struct {
-	TradeDate string `json:"trade_date"`
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	Close float64 `json:"close"`
-	PctChange float64 `json:"pct_change"`
-	TurnoverRate float64 `json:"turnover_rate"`
-	Amount float64 `json:"amount"`
-	LSell float64 `json:"l_sell"`
-	LBuy float64 `json:"l_buy"`
-	LAmount float64 `json:"l_amount"`
-	NetAmount float64 `json:"net_amount"`
-	NetRate float64 `json:"net_rate"`
-	AmountRate float64 `json:"amount_rate"`
-	FloatValues float64 `json:"float_values"`
-	Reason string `json:"reason"`
+	TradeDate string `json:"trade_date"` // 交易日期
+	TsCode string `json:"ts_code"` // TS代码
+	Name string `json:"name"` // 名称
+	Close float64 `json:"close"` // 收盘价
+	PctChange float64 `json:"pct_change"` // 涨跌幅
+	TurnoverRate float64 `json:"turnover_rate"` // 换手率
+	Amount float64 `json:"amount"` // 总成交额
+	LSell float64 `json:"l_sell"` // 龙虎榜卖出额
+	LBuy float64 `json:"l_buy"` // 龙虎榜买入额
+	LAmount float64 `json:"l_amount"` // 龙虎榜成交额
+	NetAmount float64 `json:"net_amount"` // 龙虎榜净买入额
+	NetRate float64 `json:"net_rate"` // 龙虎榜净买额占比
+	AmountRate float64 `json:"amount_rate"` // 龙虎榜成交额占比
+	FloatValues float64 `json:"float_values"` // 当日流通市值
+	Reason string `json:"reason"` // 上榜理由
 }
 
 // TopList 调用 龙虎榜每日统计单 API

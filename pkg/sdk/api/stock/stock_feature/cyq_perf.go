@@ -11,25 +11,25 @@ import (
 
 // CyqPerfRequest 表示 每日筹码及胜率 API 的请求
 type CyqPerfRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（YYYYMMDD）
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // CyqPerfItem 表示单个 每日筹码及胜率 数据项
 type CyqPerfItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	HisLow float64 `json:"his_low"`
-	HisHigh float64 `json:"his_high"`
-	Cost5pct float64 `json:"cost_5pct"`
-	Cost15pct float64 `json:"cost_15pct"`
-	Cost50pct float64 `json:"cost_50pct"`
-	Cost85pct float64 `json:"cost_85pct"`
-	Cost95pct float64 `json:"cost_95pct"`
-	WeightAvg float64 `json:"weight_avg"`
-	WinnerRate float64 `json:"winner_rate"`
+	TsCode string `json:"ts_code"` // 股票代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	HisLow float64 `json:"his_low"` // 历史最低价
+	HisHigh float64 `json:"his_high"` // 历史最高价
+	Cost5pct float64 `json:"cost_5pct"` // 5分位成本
+	Cost15pct float64 `json:"cost_15pct"` // 15分位成本
+	Cost50pct float64 `json:"cost_50pct"` // 50分位成本
+	Cost85pct float64 `json:"cost_85pct"` // 85分位成本
+	Cost95pct float64 `json:"cost_95pct"` // 95分位成本
+	WeightAvg float64 `json:"weight_avg"` // 加权平均成本
+	WinnerRate float64 `json:"winner_rate"` // 胜率
 }
 
 // CyqPerf 调用 每日筹码及胜率 API

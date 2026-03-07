@@ -11,24 +11,24 @@ import (
 
 // NewShareRequest 表示 IPO新股上市 API 的请求
 type NewShareRequest struct {
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	StartDate string `json:"start_date,omitempty"` // 上网发行开始日期
+	EndDate string `json:"end_date,omitempty"` // 上网发行结束日期
 }
 
 // NewShareItem 表示单个 IPO新股上市 数据项
 type NewShareItem struct {
-	TsCode string `json:"ts_code"`
-	SubCode string `json:"sub_code"`
-	Name string `json:"name"`
-	IpoDate string `json:"ipo_date"`
-	IssueDate string `json:"issue_date"`
-	Amount float64 `json:"amount"`
-	MarketAmount float64 `json:"market_amount"`
-	Price float64 `json:"price"`
-	Pe float64 `json:"pe"`
-	LimitAmount float64 `json:"limit_amount"`
-	Funds float64 `json:"funds"`
-	Ballot float64 `json:"ballot"`
+	TsCode string `json:"ts_code"` // TS股票代码
+	SubCode string `json:"sub_code"` // 申购代码
+	Name string `json:"name"` // 名称
+	IpoDate string `json:"ipo_date"` // 上网发行日期
+	IssueDate string `json:"issue_date"` // 上市日期
+	Amount float64 `json:"amount"` // 发行总量（万股）
+	MarketAmount float64 `json:"market_amount"` // 上网发行总量（万股）
+	Price float64 `json:"price"` // 发行价格
+	Pe float64 `json:"pe"` // 市盈率
+	LimitAmount float64 `json:"limit_amount"` // 个人申购上限（万股）
+	Funds float64 `json:"funds"` // 募集资金（亿元）
+	Ballot float64 `json:"ballot"` // 中签率
 }
 
 // NewShare 调用 IPO新股上市 API

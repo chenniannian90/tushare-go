@@ -11,16 +11,16 @@ import (
 
 // UsTradecalRequest 表示 美股交易日历 API 的请求
 type UsTradecalRequest struct {
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	IsOpen string `json:"is_open,omitempty"`
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	IsOpen string `json:"is_open,omitempty"` // 是否交易
 }
 
 // UsTradecalItem 表示单个 美股交易日历 数据项
 type UsTradecalItem struct {
-	CalDate string `json:"cal_date"`
-	IsOpen int `json:"is_open"`
-	PretradeDate string `json:"pretrade_date"`
+	CalDate string `json:"cal_date"` // 日历日期
+	IsOpen int `json:"is_open"` // 是否交易 '0'休市 '1'交易
+	PretradeDate string `json:"pretrade_date"` // 上一个交易日
 }
 
 // UsTradecal 调用 美股交易日历 API

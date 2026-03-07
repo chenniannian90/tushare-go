@@ -11,21 +11,21 @@ import (
 
 // RtIdxKRequest 表示 指数实时日线 API 的请求
 type RtIdxKRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 指数代码，支持通配符方式，e.g. 0*.SH、3*.SZ、000001.SH
 }
 
 // RtIdxKItem 表示单个 指数实时日线 数据项
 type RtIdxKItem struct {
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	TradeTime string `json:"trade_time"`
-	Close float64 `json:"close"`
-	PreClose float64 `json:"pre_close"`
-	High float64 `json:"high"`
-	Open float64 `json:"open"`
-	Low float64 `json:"low"`
-	Vol float64 `json:"vol"`
-	Amount float64 `json:"amount"`
+	TsCode string `json:"ts_code"` // 指数代码
+	Name string `json:"name"` // 指数名称
+	TradeTime string `json:"trade_time"` // 交易时间
+	Close float64 `json:"close"` // 现价
+	PreClose float64 `json:"pre_close"` // 昨收
+	High float64 `json:"high"` // 最高价
+	Open float64 `json:"open"` // 开盘价
+	Low float64 `json:"low"` // 最低价
+	Vol float64 `json:"vol"` // 成交量
+	Amount float64 `json:"amount"` // 成交金额（元）
 }
 
 // RtIdxK 调用 指数实时日线 API

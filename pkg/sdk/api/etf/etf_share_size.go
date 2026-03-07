@@ -11,23 +11,23 @@ import (
 
 // EtfShareSizeRequest 表示 ETF份额规模 API 的请求
 type EtfShareSizeRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Exchange string `json:"exchange,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 基金代码 （可从ETF基础信息接口提取）
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（YYYYMMDD格式，下同）
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	Exchange string `json:"exchange,omitempty"` // 交易所（SSE上交所 SZSE深交所）
 }
 
 // EtfShareSizeItem 表示单个 ETF份额规模 数据项
 type EtfShareSizeItem struct {
-	TradeDate string `json:"trade_date"`
-	TsCode string `json:"ts_code"`
-	EtfName string `json:"etf_name"`
-	TotalShare float64 `json:"total_share"`
-	TotalSize float64 `json:"total_size"`
-	Nav float64 `json:"nav"`
-	Close float64 `json:"close"`
-	Exchange string `json:"exchange"`
+	TradeDate string `json:"trade_date"` // 交易日期
+	TsCode string `json:"ts_code"` // ETF代码
+	EtfName string `json:"etf_name"` // 基金名称
+	TotalShare float64 `json:"total_share"` // 总份额（万份）
+	TotalSize float64 `json:"total_size"` // 总规模（万元）
+	Nav float64 `json:"nav"` // 基金份额净值(元)
+	Close float64 `json:"close"` // 收盘价（元）
+	Exchange string `json:"exchange"` // 交易所（SSE上交所 SZSE深交所 BSE北交所）
 }
 
 // EtfShareSize 调用 ETF份额规模 API

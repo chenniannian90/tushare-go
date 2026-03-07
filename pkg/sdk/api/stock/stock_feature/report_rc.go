@@ -11,37 +11,37 @@ import (
 
 // ReportRcRequest 表示 券商盈利预测数据 API 的请求
 type ReportRcRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	ReportDate string `json:"report_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	ReportDate string `json:"report_date,omitempty"` // 报告日期
+	StartDate string `json:"start_date,omitempty"` // 报告开始日期
+	EndDate string `json:"end_date,omitempty"` // 报告结束日期
 }
 
 // ReportRcItem 表示单个 券商盈利预测数据 数据项
 type ReportRcItem struct {
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	ReportDate string `json:"report_date"`
-	ReportTitle string `json:"report_title"`
-	ReportType string `json:"report_type"`
-	Classify string `json:"classify"`
-	OrgName string `json:"org_name"`
-	AuthorName string `json:"author_name"`
-	Quarter string `json:"quarter"`
-	OpRt float64 `json:"op_rt"`
-	OpPr float64 `json:"op_pr"`
-	Tp float64 `json:"tp"`
-	Np float64 `json:"np"`
-	Eps float64 `json:"eps"`
-	Pe float64 `json:"pe"`
-	Rd float64 `json:"rd"`
-	Roe float64 `json:"roe"`
-	EvEbitda float64 `json:"ev_ebitda"`
-	Rating string `json:"rating"`
-	MaxPrice float64 `json:"max_price"`
-	MinPrice float64 `json:"min_price"`
-	ImpDg string `json:"imp_dg"`
-	CreateTime string `json:"create_time"`
+	TsCode string `json:"ts_code"` // 股票代码
+	Name string `json:"name"` // 股票名称
+	ReportDate string `json:"report_date"` // 研报日期
+	ReportTitle string `json:"report_title"` // 报告标题
+	ReportType string `json:"report_type"` // 报告类型
+	Classify string `json:"classify"` // 报告分类
+	OrgName string `json:"org_name"` // 机构名称
+	AuthorName string `json:"author_name"` // 作者
+	Quarter string `json:"quarter"` // 预测报告期
+	OpRt float64 `json:"op_rt"` // 预测营业收入（万元）
+	OpPr float64 `json:"op_pr"` // 预测营业利润（万元）
+	Tp float64 `json:"tp"` // 预测利润总额（万元）
+	Np float64 `json:"np"` // 预测净利润（万元）
+	Eps float64 `json:"eps"` // 预测每股收益（元）
+	Pe float64 `json:"pe"` // 预测市盈率
+	Rd float64 `json:"rd"` // 预测股息率
+	Roe float64 `json:"roe"` // 预测净资产收益率
+	EvEbitda float64 `json:"ev_ebitda"` // 预测EV/EBITDA
+	Rating string `json:"rating"` // 卖方评级
+	MaxPrice float64 `json:"max_price"` // 预测最高目标价
+	MinPrice float64 `json:"min_price"` // 预测最低目标价
+	ImpDg string `json:"imp_dg"` // 机构关注度
+	CreateTime string `json:"create_time"` // TS数据更新时间
 }
 
 // ReportRc 调用 券商盈利预测数据 API

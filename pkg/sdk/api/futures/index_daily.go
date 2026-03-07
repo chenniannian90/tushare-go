@@ -10,10 +10,10 @@ import (
 
 // IndexDailyRequest 表示 南华期货指数行情 API 的请求
 type IndexDailyRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 指数代码（南华期货指数以 .NH 结尾，具体请参考本文最下方）
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期 （日期格式：YYYYMMDD，下同）
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // IndexDailyItem 表示单个 南华期货指数行情 数据项

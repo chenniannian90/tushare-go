@@ -10,7 +10,7 @@ import (
 
 // RealtimeListRequest 表示 实时排名（爬虫） API 的请求
 type RealtimeListRequest struct {
-	Src string `json:"src,omitempty"`
+	Src string `json:"src,omitempty"` // 数据源 （sina-新浪 dc-东方财富，默认dc）
 }
 
 // RealtimeListItem 表示单个 实时排名（爬虫） 数据项

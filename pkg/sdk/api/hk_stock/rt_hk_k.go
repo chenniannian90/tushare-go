@@ -11,19 +11,19 @@ import (
 
 // RtHkKRequest 表示 港股实时日线 API 的请求
 type RtHkKRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 支持通配符方式，e.g. 00001.HK、02*.HK
 }
 
 // RtHkKItem 表示单个 港股实时日线 数据项
 type RtHkKItem struct {
-	TsCode string `json:"ts_code"`
-	PreClose float64 `json:"pre_close"`
-	Close float64 `json:"close"`
-	High float64 `json:"high"`
-	Open float64 `json:"open"`
-	Low float64 `json:"low"`
-	Vol float64 `json:"vol"`
-	Amount float64 `json:"amount"`
+	TsCode string `json:"ts_code"` // 股票代码
+	PreClose float64 `json:"pre_close"` // 昨收价
+	Close float64 `json:"close"` // 收盘价
+	High float64 `json:"high"` // 最高价
+	Open float64 `json:"open"` // 开盘价
+	Low float64 `json:"low"` // 最低价
+	Vol float64 `json:"vol"` // 成交量（股）
+	Amount float64 `json:"amount"` // 成交额(元)
 }
 
 // RtHkK 调用 港股实时日线 API

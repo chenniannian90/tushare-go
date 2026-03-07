@@ -10,10 +10,10 @@ import (
 
 // MarginDetailRequest 表示 融资融券交易明细 API 的请求
 type MarginDetailRequest struct {
-	TradeDate string `json:"trade_date,omitempty"`
-	TsCode string `json:"ts_code,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（格式：YYYYMMDD，下同）
+	TsCode string `json:"ts_code,omitempty"` // TS代码
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // MarginDetailItem 表示单个 融资融券交易明细 数据项

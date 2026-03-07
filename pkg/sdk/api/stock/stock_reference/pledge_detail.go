@@ -11,25 +11,25 @@ import (
 
 // PledgeDetailRequest 表示 股权质押明细数据 API 的请求
 type PledgeDetailRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
 }
 
 // PledgeDetailItem 表示单个 股权质押明细数据 数据项
 type PledgeDetailItem struct {
-	TsCode string `json:"ts_code"`
-	AnnDate string `json:"ann_date"`
-	HolderName string `json:"holder_name"`
-	PledgeAmount float64 `json:"pledge_amount"`
-	StartDate string `json:"start_date"`
-	EndDate string `json:"end_date"`
-	IsRelease string `json:"is_release"`
-	ReleaseDate string `json:"release_date"`
-	Pledgor string `json:"pledgor"`
-	HoldingAmount float64 `json:"holding_amount"`
-	PledgedAmount float64 `json:"pledged_amount"`
-	PTotalRatio float64 `json:"p_total_ratio"`
-	HTotalRatio float64 `json:"h_total_ratio"`
-	IsBuyback string `json:"is_buyback"`
+	TsCode string `json:"ts_code"` // TS股票代码
+	AnnDate string `json:"ann_date"` // 公告日期
+	HolderName string `json:"holder_name"` // 股东名称
+	PledgeAmount float64 `json:"pledge_amount"` // 质押数量（万股）
+	StartDate string `json:"start_date"` // 质押开始日期
+	EndDate string `json:"end_date"` // 质押结束日期
+	IsRelease string `json:"is_release"` // 是否已解押
+	ReleaseDate string `json:"release_date"` // 解押日期
+	Pledgor string `json:"pledgor"` // 质押方
+	HoldingAmount float64 `json:"holding_amount"` // 持股总数（万股）
+	PledgedAmount float64 `json:"pledged_amount"` // 质押总数（万股）
+	PTotalRatio float64 `json:"p_total_ratio"` // 本次质押占总股本比例
+	HTotalRatio float64 `json:"h_total_ratio"` // 持股总数占总股本比例
+	IsBuyback string `json:"is_buyback"` // 是否回购（0否 1是）
 }
 
 // PledgeDetail 调用 股权质押明细数据 API

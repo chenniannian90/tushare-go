@@ -11,16 +11,16 @@ import (
 
 // ShiborLprRequest 表示 LPR贷款基础利率 API 的请求
 type ShiborLprRequest struct {
-	Date string `json:"date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	Date string `json:"date,omitempty"` // 日期  (日期输入格式：YYYYMMDD，下同)
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // ShiborLprItem 表示单个 LPR贷款基础利率 数据项
 type ShiborLprItem struct {
-	Date string `json:"date"`
-	1y float64 `json:"1y"`
-	5y float64 `json:"5y"`
+	Date string `json:"date"` // 日期
+	1y float64 `json:"1y"` // 1年贷款利率
+	5y float64 `json:"5y"` // 5年贷款利率
 }
 
 // ShiborLpr 调用 LPR贷款基础利率 API

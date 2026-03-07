@@ -11,19 +11,19 @@ import (
 
 // StkHoldernumberRequest 表示 股东人数 API 的请求
 type StkHoldernumberRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	AnnDate string `json:"ann_date,omitempty"`
-	Enddate string `json:"enddate,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // TS股票代码
+	AnnDate string `json:"ann_date,omitempty"` // 公告日期
+	Enddate string `json:"enddate,omitempty"` // 截止日期
+	StartDate string `json:"start_date,omitempty"` // 公告开始日期
+	EndDate string `json:"end_date,omitempty"` // 公告结束日期
 }
 
 // StkHoldernumberItem 表示单个 股东人数 数据项
 type StkHoldernumberItem struct {
-	TsCode string `json:"ts_code"`
-	AnnDate string `json:"ann_date"`
-	EndDate string `json:"end_date"`
-	HolderNum int `json:"holder_num"`
+	TsCode string `json:"ts_code"` // TS股票代码
+	AnnDate string `json:"ann_date"` // 公告日期
+	EndDate string `json:"end_date"` // 截止日期
+	HolderNum int `json:"holder_num"` // 股东户数
 }
 
 // StkHoldernumber 调用 股东人数 API

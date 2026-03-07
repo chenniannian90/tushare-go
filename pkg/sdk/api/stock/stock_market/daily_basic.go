@@ -10,10 +10,10 @@ import (
 
 // DailyBasicRequest 表示 每日指标 API 的请求
 type DailyBasicRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码（二选一）
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期 （二选一）
+	StartDate string `json:"start_date,omitempty"` // 开始日期(YYYYMMDD)
+	EndDate string `json:"end_date,omitempty"` // 结束日期(YYYYMMDD)
 }
 
 // DailyBasicItem 表示单个 每日指标 数据项

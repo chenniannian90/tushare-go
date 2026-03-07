@@ -11,23 +11,23 @@ import (
 
 // HkHoldRequest 表示 沪深股通持股明细 API 的请求
 type HkHoldRequest struct {
-	Code string `json:"code,omitempty"`
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Exchange string `json:"exchange,omitempty"`
+	Code string `json:"code,omitempty"` // 交易所代码
+	TsCode string `json:"ts_code,omitempty"` // TS股票代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	Exchange string `json:"exchange,omitempty"` // 类型：SH沪股通（北向）SZ深股通（北向）HK港股通（南向持股）
 }
 
 // HkHoldItem 表示单个 沪深股通持股明细 数据项
 type HkHoldItem struct {
-	Code string `json:"code"`
-	TradeDate string `json:"trade_date"`
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	Vol int `json:"vol"`
-	Ratio float64 `json:"ratio"`
-	Exchange string `json:"exchange"`
+	Code string `json:"code"` // 原始代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	TsCode string `json:"ts_code"` // TS代码
+	Name string `json:"name"` // 股票名称
+	Vol int `json:"vol"` // 持股数量(股)
+	Ratio float64 `json:"ratio"` // 持股占比（%），占已发行股份百分比
+	Exchange string `json:"exchange"` // 类型：SH沪股通SZ深股通HK港股通
 }
 
 // HkHold 调用 沪深股通持股明细 API

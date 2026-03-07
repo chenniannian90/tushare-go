@@ -11,27 +11,27 @@ import (
 
 // UsTbrRequest 表示 短期国债利率 API 的请求
 type UsTbrRequest struct {
-	Date string `json:"date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Fields string `json:"fields,omitempty"`
+	Date string `json:"date,omitempty"` // 日期
+	StartDate string `json:"start_date,omitempty"` // 开始日期(YYYYMMDD格式)
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	Fields string `json:"fields,omitempty"` // 指定输出字段(e.g. fields='w4_bd,w52_ce')
 }
 
 // UsTbrItem 表示单个 短期国债利率 数据项
 type UsTbrItem struct {
-	Date string `json:"date"`
-	W4Bd float64 `json:"w4_bd"`
-	W4Ce float64 `json:"w4_ce"`
-	W8Bd float64 `json:"w8_bd"`
-	W8Ce float64 `json:"w8_ce"`
-	W13Bd float64 `json:"w13_bd"`
-	W13Ce float64 `json:"w13_ce"`
-	W17Bd float64 `json:"w17_bd"`
-	W17Ce float64 `json:"w17_ce"`
-	W26Bd float64 `json:"w26_bd"`
-	W26Ce float64 `json:"w26_ce"`
-	W52Bd float64 `json:"w52_bd"`
-	W52Ce float64 `json:"w52_ce"`
+	Date string `json:"date"` // 日期
+	W4Bd float64 `json:"w4_bd"` // 4周银行折现收益率
+	W4Ce float64 `json:"w4_ce"` // 4周票面利率
+	W8Bd float64 `json:"w8_bd"` // 8周银行折现收益率
+	W8Ce float64 `json:"w8_ce"` // 8周票面利率
+	W13Bd float64 `json:"w13_bd"` // 13周银行折现收益率
+	W13Ce float64 `json:"w13_ce"` // 13周票面利率
+	W17Bd float64 `json:"w17_bd"` // 17周银行折现收益率（数据从20221019开始）
+	W17Ce float64 `json:"w17_ce"` // 17周票面利率（数据从20221019开始）
+	W26Bd float64 `json:"w26_bd"` // 26周银行折现收益率
+	W26Ce float64 `json:"w26_ce"` // 26周票面利率
+	W52Bd float64 `json:"w52_bd"` // 52周银行折现收益率
+	W52Ce float64 `json:"w52_ce"` // 52周票面利率
 }
 
 // UsTbr 调用 短期国债利率 API

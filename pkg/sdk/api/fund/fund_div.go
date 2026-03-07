@@ -11,30 +11,30 @@ import (
 
 // FundDivRequest 表示 基金分红 API 的请求
 type FundDivRequest struct {
-	AnnDate string `json:"ann_date,omitempty"`
-	ExDate string `json:"ex_date,omitempty"`
-	PayDate string `json:"pay_date,omitempty"`
-	TsCode string `json:"ts_code,omitempty"`
+	AnnDate string `json:"ann_date,omitempty"` // 公告日（以下参数四选一）
+	ExDate string `json:"ex_date,omitempty"` // 除息日
+	PayDate string `json:"pay_date,omitempty"` // 派息日
+	TsCode string `json:"ts_code,omitempty"` // 基金代码
 }
 
 // FundDivItem 表示单个 基金分红 数据项
 type FundDivItem struct {
-	TsCode string `json:"ts_code"`
-	AnnDate string `json:"ann_date"`
-	ImpAnndate string `json:"imp_anndate"`
-	BaseDate string `json:"base_date"`
-	DivProc string `json:"div_proc"`
-	RecordDate string `json:"record_date"`
-	ExDate string `json:"ex_date"`
-	PayDate string `json:"pay_date"`
-	EarpayDate string `json:"earpay_date"`
-	NetExDate string `json:"net_ex_date"`
-	DivCash float64 `json:"div_cash"`
-	BaseUnit float64 `json:"base_unit"`
-	EarDistr float64 `json:"ear_distr"`
-	EarAmount float64 `json:"ear_amount"`
-	AccountDate string `json:"account_date"`
-	BaseYear string `json:"base_year"`
+	TsCode string `json:"ts_code"` // TS代码
+	AnnDate string `json:"ann_date"` // 公告日期
+	ImpAnndate string `json:"imp_anndate"` // 分红实施公告日
+	BaseDate string `json:"base_date"` // 分配收益基准日
+	DivProc string `json:"div_proc"` // 方案进度
+	RecordDate string `json:"record_date"` // 权益登记日
+	ExDate string `json:"ex_date"` // 除息日
+	PayDate string `json:"pay_date"` // 派息日
+	EarpayDate string `json:"earpay_date"` // 收益支付日
+	NetExDate string `json:"net_ex_date"` // 净值除权日
+	DivCash float64 `json:"div_cash"` // 每股派息(元)
+	BaseUnit float64 `json:"base_unit"` // 基准基金份额(万份)
+	EarDistr float64 `json:"ear_distr"` // 可分配收益(元)
+	EarAmount float64 `json:"ear_amount"` // 收益分配金额(元)
+	AccountDate string `json:"account_date"` // 红利再投资到账日
+	BaseYear string `json:"base_year"` // 份额基准年度
 }
 
 // FundDiv 调用 基金分红 API

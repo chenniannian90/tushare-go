@@ -10,11 +10,11 @@ import (
 
 // FinaMainbzRequest 表示 主营业务构成 API 的请求
 type FinaMainbzRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	Period string `json:"period,omitempty"`
-	Type string `json:"type,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	Period string `json:"period,omitempty"` // 报告期(每个季度最后一天的日期,比如20171231表示年报)
+	Type string `json:"type,omitempty"` // 类型：P按产品 D按地区 I按行业（请输入大写字母P或者D）
+	StartDate string `json:"start_date,omitempty"` // 报告期开始日期
+	EndDate string `json:"end_date,omitempty"` // 报告期结束日期
 }
 
 // FinaMainbzItem 表示单个 主营业务构成 数据项

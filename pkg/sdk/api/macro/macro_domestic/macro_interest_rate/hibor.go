@@ -11,22 +11,22 @@ import (
 
 // HiborRequest 表示 Hibor利率 API 的请求
 type HiborRequest struct {
-	Date string `json:"date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	Date string `json:"date,omitempty"` // 日期  (日期输入格式：YYYYMMDD，下同)
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // HiborItem 表示单个 Hibor利率 数据项
 type HiborItem struct {
-	Date string `json:"date"`
-	On float64 `json:"on"`
-	1w float64 `json:"1w"`
-	2w float64 `json:"2w"`
-	1m float64 `json:"1m"`
-	2m float64 `json:"2m"`
-	3m float64 `json:"3m"`
-	6m float64 `json:"6m"`
-	12m float64 `json:"12m"`
+	Date string `json:"date"` // 日期
+	On float64 `json:"on"` // 隔夜
+	1w float64 `json:"1w"` // 1周
+	2w float64 `json:"2w"` // 2周
+	1m float64 `json:"1m"` // 1个月
+	2m float64 `json:"2m"` // 2个月
+	3m float64 `json:"3m"` // 3个月
+	6m float64 `json:"6m"` // 6个月
+	12m float64 `json:"12m"` // 12个月
 }
 
 // Hibor 调用 Hibor利率 API

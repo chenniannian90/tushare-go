@@ -11,20 +11,20 @@ import (
 
 // AnnsDRequest 表示 上市公司公告 API 的请求
 type AnnsDRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	AnnDate string `json:"ann_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	AnnDate string `json:"ann_date,omitempty"` // 公告日期（yyyymmdd格式，下同）
+	StartDate string `json:"start_date,omitempty"` // 公告开始日期
+	EndDate string `json:"end_date,omitempty"` // 公告结束日期
 }
 
 // AnnsDItem 表示单个 上市公司公告 数据项
 type AnnsDItem struct {
-	AnnDate string `json:"ann_date"`
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	Title string `json:"title"`
-	Url string `json:"url"`
-	RecTime string `json:"rec_time"`
+	AnnDate string `json:"ann_date"` // 公告日期
+	TsCode string `json:"ts_code"` // 股票代码
+	Name string `json:"name"` // 股票名称
+	Title string `json:"title"` // 标题
+	Url string `json:"url"` // URL，原文下载链接
+	RecTime string `json:"rec_time"` // 发布时间
 }
 
 // AnnsD 调用 上市公司公告 API

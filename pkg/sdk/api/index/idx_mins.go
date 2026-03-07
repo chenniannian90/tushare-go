@@ -11,22 +11,22 @@ import (
 
 // IdxMinsRequest 表示 指数历史分钟 API 的请求
 type IdxMinsRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	Freq string `json:"freq,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 指数代码，e.g. 000001.SH
+	Freq string `json:"freq,omitempty"` // 分钟频度（1min/5min/15min/30min/60min）
+	StartDate string `json:"start_date,omitempty"` // 开始日期 格式：2023-08-25 09:00:00
+	EndDate string `json:"end_date,omitempty"` // 结束时间 格式：2023-08-25 19:00:00
 }
 
 // IdxMinsItem 表示单个 指数历史分钟 数据项
 type IdxMinsItem struct {
-	TsCode string `json:"ts_code"`
-	TradeTime string `json:"trade_time"`
-	Open float64 `json:"open"`
-	Close float64 `json:"close"`
-	High float64 `json:"high"`
-	Low float64 `json:"low"`
-	Vol int `json:"vol"`
-	Amount float64 `json:"amount"`
+	TsCode string `json:"ts_code"` // 指数代码
+	TradeTime string `json:"trade_time"` // 交易时间
+	Open float64 `json:"open"` // 开盘价
+	Close float64 `json:"close"` // 收盘价
+	High float64 `json:"high"` // 最高价
+	Low float64 `json:"low"` // 最低价
+	Vol int `json:"vol"` // 成交量(股)
+	Amount float64 `json:"amount"` // 成交金额（元）
 }
 
 // IdxMins 调用 指数历史分钟 API

@@ -11,49 +11,49 @@ import (
 
 // CbIssueRequest 表示 可转债发行 API 的请求
 type CbIssueRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	AnnDate string `json:"ann_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // TS代码
+	AnnDate string `json:"ann_date,omitempty"` // 发行公告日
+	StartDate string `json:"start_date,omitempty"` // 公告开始日期
+	EndDate string `json:"end_date,omitempty"` // 公告结束日期
 }
 
 // CbIssueItem 表示单个 可转债发行 数据项
 type CbIssueItem struct {
-	TsCode string `json:"ts_code"`
-	AnnDate string `json:"ann_date"`
-	ResAnnDate string `json:"res_ann_date"`
-	PlanIssueSize float64 `json:"plan_issue_size"`
-	IssueSize float64 `json:"issue_size"`
-	IssuePrice float64 `json:"issue_price"`
-	IssueType string `json:"issue_type"`
-	IssueCost float64 `json:"issue_cost"`
-	OnlCode string `json:"onl_code"`
-	OnlName string `json:"onl_name"`
-	OnlDate string `json:"onl_date"`
-	OnlSize float64 `json:"onl_size"`
-	OnlPchVol float64 `json:"onl_pch_vol"`
-	OnlPchNum int `json:"onl_pch_num"`
-	OnlPchExcess float64 `json:"onl_pch_excess"`
-	OnlWinningRate float64 `json:"onl_winning_rate"`
-	ShdRationCode string `json:"shd_ration_code"`
-	ShdRationName string `json:"shd_ration_name"`
-	ShdRationDate string `json:"shd_ration_date"`
-	ShdRationRecordDate string `json:"shd_ration_record_date"`
-	ShdRationPayDate string `json:"shd_ration_pay_date"`
-	ShdRationPrice float64 `json:"shd_ration_price"`
-	ShdRationRatio float64 `json:"shd_ration_ratio"`
-	ShdRationSize float64 `json:"shd_ration_size"`
-	ShdRationVol float64 `json:"shd_ration_vol"`
-	ShdRationNum int `json:"shd_ration_num"`
-	ShdRationExcess float64 `json:"shd_ration_excess"`
-	OfflSize float64 `json:"offl_size"`
-	OfflDeposit float64 `json:"offl_deposit"`
-	OfflPchVol float64 `json:"offl_pch_vol"`
-	OfflPchNum int `json:"offl_pch_num"`
-	OfflPchExcess float64 `json:"offl_pch_excess"`
-	OfflWinningRate float64 `json:"offl_winning_rate"`
-	LeadUnderwriter string `json:"lead_underwriter"`
-	LeadUnderwriterVol float64 `json:"lead_underwriter_vol"`
+	TsCode string `json:"ts_code"` // 转债代码
+	AnnDate string `json:"ann_date"` // 发行公告日
+	ResAnnDate string `json:"res_ann_date"` // 发行结果公告日
+	PlanIssueSize float64 `json:"plan_issue_size"` // 计划发行总额（元）
+	IssueSize float64 `json:"issue_size"` // 发行总额（元）
+	IssuePrice float64 `json:"issue_price"` // 发行价格
+	IssueType string `json:"issue_type"` // 发行方式
+	IssueCost float64 `json:"issue_cost"` // 发行费用（元）
+	OnlCode string `json:"onl_code"` // 网上申购代码
+	OnlName string `json:"onl_name"` // 网上申购简称
+	OnlDate string `json:"onl_date"` // 网上发行日期
+	OnlSize float64 `json:"onl_size"` // 网上发行总额（张）
+	OnlPchVol float64 `json:"onl_pch_vol"` // 网上发行有效申购数量（张）
+	OnlPchNum int `json:"onl_pch_num"` // 网上发行有效申购户数
+	OnlPchExcess float64 `json:"onl_pch_excess"` // 网上发行超额认购倍数
+	OnlWinningRate float64 `json:"onl_winning_rate"` // 网上发行中签率（%）
+	ShdRationCode string `json:"shd_ration_code"` // 老股东配售代码
+	ShdRationName string `json:"shd_ration_name"` // 老股东配售简称
+	ShdRationDate string `json:"shd_ration_date"` // 老股东配售日
+	ShdRationRecordDate string `json:"shd_ration_record_date"` // 老股东配售股权登记日
+	ShdRationPayDate string `json:"shd_ration_pay_date"` // 老股东配售缴款日
+	ShdRationPrice float64 `json:"shd_ration_price"` // 老股东配售价格
+	ShdRationRatio float64 `json:"shd_ration_ratio"` // 老股东配售比例
+	ShdRationSize float64 `json:"shd_ration_size"` // 老股东配售数量（张）
+	ShdRationVol float64 `json:"shd_ration_vol"` // 老股东配售有效申购数量（张）
+	ShdRationNum int `json:"shd_ration_num"` // 老股东配售有效申购户数
+	ShdRationExcess float64 `json:"shd_ration_excess"` // 老股东配售超额认购倍数
+	OfflSize float64 `json:"offl_size"` // 网下发行总额（张）
+	OfflDeposit float64 `json:"offl_deposit"` // 网下发行定金比例（%）
+	OfflPchVol float64 `json:"offl_pch_vol"` // 网下发行有效申购数量（张）
+	OfflPchNum int `json:"offl_pch_num"` // 网下发行有效申购户数
+	OfflPchExcess float64 `json:"offl_pch_excess"` // 网下发行超额认购倍数
+	OfflWinningRate float64 `json:"offl_winning_rate"` // 网下发行中签率
+	LeadUnderwriter string `json:"lead_underwriter"` // 主承销商
+	LeadUnderwriterVol float64 `json:"lead_underwriter_vol"` // 主承销商包销数量（张）
 }
 
 // CbIssue 调用 可转债发行 API

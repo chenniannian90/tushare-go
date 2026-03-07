@@ -10,9 +10,9 @@ import (
 
 // NamechangeRequest 表示 股票曾用名 API 的请求
 type NamechangeRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // TS代码
+	StartDate string `json:"start_date,omitempty"` // 公告开始日期
+	EndDate string `json:"end_date,omitempty"` // 公告结束日期
 }
 
 // NamechangeItem 表示单个 股票曾用名 数据项

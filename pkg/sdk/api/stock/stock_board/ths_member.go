@@ -11,19 +11,19 @@ import (
 
 // ThsMemberRequest 表示 同花顺行业概念成分 API 的请求
 type ThsMemberRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	ConCode string `json:"con_code,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 板块指数代码
+	ConCode string `json:"con_code,omitempty"` // 股票代码
 }
 
 // ThsMemberItem 表示单个 同花顺行业概念成分 数据项
 type ThsMemberItem struct {
-	TsCode string `json:"ts_code"`
-	ConCode string `json:"con_code"`
-	ConName string `json:"con_name"`
-	Weight float64 `json:"weight"`
-	InDate string `json:"in_date"`
-	OutDate string `json:"out_date"`
-	IsNew string `json:"is_new"`
+	TsCode string `json:"ts_code"` // 指数代码
+	ConCode string `json:"con_code"` // 股票代码
+	ConName string `json:"con_name"` // 股票名称
+	Weight float64 `json:"weight"` // 权重(暂无)
+	InDate string `json:"in_date"` // 纳入日期(暂无)
+	OutDate string `json:"out_date"` // 剔除日期(暂无)
+	IsNew string `json:"is_new"` // 是否最新Y是N否
 }
 
 // ThsMember 调用 同花顺行业概念成分 API

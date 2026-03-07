@@ -11,28 +11,28 @@ import (
 
 // ThsDailyRequest 表示 同花顺概念和行业指数行情 API 的请求
 type ThsDailyRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 指数代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（YYYYMMDD格式，下同）
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // ThsDailyItem 表示单个 同花顺概念和行业指数行情 数据项
 type ThsDailyItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	Close float64 `json:"close"`
-	Open float64 `json:"open"`
-	High float64 `json:"high"`
-	Low float64 `json:"low"`
-	PreClose float64 `json:"pre_close"`
-	AvgPrice float64 `json:"avg_price"`
-	Change float64 `json:"change"`
-	PctChange float64 `json:"pct_change"`
-	Vol float64 `json:"vol"`
-	TurnoverRate float64 `json:"turnover_rate"`
-	TotalMv float64 `json:"total_mv"`
-	FloatMv float64 `json:"float_mv"`
+	TsCode string `json:"ts_code"` // TS指数代码
+	TradeDate string `json:"trade_date"` // 交易日
+	Close float64 `json:"close"` // 收盘点位
+	Open float64 `json:"open"` // 开盘点位
+	High float64 `json:"high"` // 最高点位
+	Low float64 `json:"low"` // 最低点位
+	PreClose float64 `json:"pre_close"` // 昨日收盘点
+	AvgPrice float64 `json:"avg_price"` // 平均价
+	Change float64 `json:"change"` // 涨跌点位
+	PctChange float64 `json:"pct_change"` // 涨跌幅
+	Vol float64 `json:"vol"` // 成交量
+	TurnoverRate float64 `json:"turnover_rate"` // 换手率
+	TotalMv float64 `json:"total_mv"` // 总市值
+	FloatMv float64 `json:"float_mv"` // 流通市值
 }
 
 // ThsDaily 调用 同花顺概念和行业指数行情 API

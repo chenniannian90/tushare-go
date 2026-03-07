@@ -11,32 +11,32 @@ import (
 
 // HkDailyAdjRequest 表示 港股复权行情 API 的请求
 type HkDailyAdjRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码（e.g. 00001.HK）
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（YYYYMMDD）
+	StartDate string `json:"start_date,omitempty"` // 开始日期（YYYYMMDD）
+	EndDate string `json:"end_date,omitempty"` // 结束日期（YYYYMMDD）
 }
 
 // HkDailyAdjItem 表示单个 港股复权行情 数据项
 type HkDailyAdjItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	Close float64 `json:"close"`
-	Open float64 `json:"open"`
-	High float64 `json:"high"`
-	Low float64 `json:"low"`
-	PreClose float64 `json:"pre_close"`
-	Change float64 `json:"change"`
-	PctChange float64 `json:"pct_change"`
-	Vol string `json:"vol"`
-	Amount float64 `json:"amount"`
-	Vwap float64 `json:"vwap"`
-	AdjFactor float64 `json:"adj_factor"`
-	TurnoverRatio float64 `json:"turnover_ratio"`
-	FreeShare string `json:"free_share"`
-	TotalShare string `json:"total_share"`
-	FreeMv float64 `json:"free_mv"`
-	TotalMv float64 `json:"total_mv"`
+	TsCode string `json:"ts_code"` // 股票代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	Close float64 `json:"close"` // 收盘价
+	Open float64 `json:"open"` // 开盘价
+	High float64 `json:"high"` // 最高价
+	Low float64 `json:"low"` // 最低价
+	PreClose float64 `json:"pre_close"` // 昨收价
+	Change float64 `json:"change"` // 涨跌额
+	PctChange float64 `json:"pct_change"` // 涨跌幅
+	Vol string `json:"vol"` // 成交量
+	Amount float64 `json:"amount"` // 成交额
+	Vwap float64 `json:"vwap"` // 平均价
+	AdjFactor float64 `json:"adj_factor"` // 复权因子
+	TurnoverRatio float64 `json:"turnover_ratio"` // 换手率(基于总股本)
+	FreeShare string `json:"free_share"` // 流通股本
+	TotalShare string `json:"total_share"` // 总股本
+	FreeMv float64 `json:"free_mv"` // 流通市值
+	TotalMv float64 `json:"total_mv"` // 总市值
 }
 
 // HkDailyAdj 调用 港股复权行情 API

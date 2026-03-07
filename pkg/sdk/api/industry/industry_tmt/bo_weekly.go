@@ -11,21 +11,21 @@ import (
 
 // BoWeeklyRequest 表示 电影周度票房 API 的请求
 type BoWeeklyRequest struct {
-	Date string `json:"date,omitempty"`
+	Date string `json:"date,omitempty"` // 日期（每周一日期，格式YYYYMMDD）
 }
 
 // BoWeeklyItem 表示单个 电影周度票房 数据项
 type BoWeeklyItem struct {
-	Date string `json:"date"`
-	Name string `json:"name"`
-	AvgPrice float64 `json:"avg_price"`
-	WeekAmount float64 `json:"week_amount"`
-	Total float64 `json:"total"`
-	ListDay int `json:"list_day"`
-	PPc int `json:"p_pc"`
-	WomIndex float64 `json:"wom_index"`
-	UpRatio float64 `json:"up_ratio"`
-	Rank int `json:"rank"`
+	Date string `json:"date"` // 日期
+	Name string `json:"name"` // 影片名称
+	AvgPrice float64 `json:"avg_price"` // 平均票价
+	WeekAmount float64 `json:"week_amount"` // 当周票房（万）
+	Total float64 `json:"total"` // 累计票房（万）
+	ListDay int `json:"list_day"` // 上映天数
+	PPc int `json:"p_pc"` // 场均人次
+	WomIndex float64 `json:"wom_index"` // 口碑指数
+	UpRatio float64 `json:"up_ratio"` // 环比变化 （%）
+	Rank int `json:"rank"` // 排名
 }
 
 // BoWeekly 调用 电影周度票房 API

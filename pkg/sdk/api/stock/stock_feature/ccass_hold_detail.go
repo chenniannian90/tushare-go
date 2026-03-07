@@ -11,22 +11,22 @@ import (
 
 // CcassHoldDetailRequest 表示 中央结算系统持股明细 API 的请求
 type CcassHoldDetailRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	HkCode string `json:"hk_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码 (e.g. 605009.SH)
+	HkCode string `json:"hk_code,omitempty"` // 港交所代码 （e.g. 95009）
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期(YYYYMMDD格式，下同)
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // CcassHoldDetailItem 表示单个 中央结算系统持股明细 数据项
 type CcassHoldDetailItem struct {
-	TradeDate string `json:"trade_date"`
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	ColParticipantId string `json:"col_participant_id"`
-	ColParticipantName string `json:"col_participant_name"`
-	ColShareholding string `json:"col_shareholding"`
-	ColShareholdingPercent string `json:"col_shareholding_percent"`
+	TradeDate string `json:"trade_date"` // 交易日期
+	TsCode string `json:"ts_code"` // 股票代号
+	Name string `json:"name"` // 股票名称
+	ColParticipantId string `json:"col_participant_id"` // 参与者编号
+	ColParticipantName string `json:"col_participant_name"` // 机构名称
+	ColShareholding string `json:"col_shareholding"` // 持股量(股)
+	ColShareholdingPercent string `json:"col_shareholding_percent"` // 占已发行股份/权证/单位百分比(%)
 }
 
 // CcassHoldDetail 调用 中央结算系统持股明细 API

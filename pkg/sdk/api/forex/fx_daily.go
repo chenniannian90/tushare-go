@@ -11,27 +11,27 @@ import (
 
 // FxDailyRequest 表示 外汇日线行情 API 的请求
 type FxDailyRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Exchange string `json:"exchange,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // TS代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（GMT，日期是格林尼治时间，比北京时间晚一天）
+	StartDate string `json:"start_date,omitempty"` // 开始日期（GMT）
+	EndDate string `json:"end_date,omitempty"` // 结束日期（GMT）
+	Exchange string `json:"exchange,omitempty"` // 交易商，目前只有FXCM
 }
 
 // FxDailyItem 表示单个 外汇日线行情 数据项
 type FxDailyItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	BidOpen float64 `json:"bid_open"`
-	BidClose float64 `json:"bid_close"`
-	BidHigh float64 `json:"bid_high"`
-	BidLow float64 `json:"bid_low"`
-	AskOpen float64 `json:"ask_open"`
-	AskClose float64 `json:"ask_close"`
-	AskHigh float64 `json:"ask_high"`
-	AskLow float64 `json:"ask_low"`
-	TickQty int `json:"tick_qty"`
-	Exchange string `json:"exchange"`
+	TsCode string `json:"ts_code"` // 外汇代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	BidOpen float64 `json:"bid_open"` // 买入开盘价
+	BidClose float64 `json:"bid_close"` // 买入收盘价
+	BidHigh float64 `json:"bid_high"` // 买入最高价
+	BidLow float64 `json:"bid_low"` // 买入最低价
+	AskOpen float64 `json:"ask_open"` // 卖出开盘价
+	AskClose float64 `json:"ask_close"` // 卖出收盘价
+	AskHigh float64 `json:"ask_high"` // 卖出最高价
+	AskLow float64 `json:"ask_low"` // 卖出最低价
+	TickQty int `json:"tick_qty"` // 报价笔数
+	Exchange string `json:"exchange"` // 交易商
 }
 
 // FxDaily 调用 外汇日线行情 API

@@ -11,36 +11,36 @@ import (
 
 // UsDailyAdjRequest 表示 美股复权行情 API 的请求
 type UsDailyAdjRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Exchange string `json:"exchange,omitempty"`
-	Offset int `json:"offset,omitempty"`
-	Limit int `json:"limit,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码（e.g. AAPL）
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（YYYYMMDD）
+	StartDate string `json:"start_date,omitempty"` // 开始日期（YYYYMMDD）
+	EndDate string `json:"end_date,omitempty"` // 结束日期（YYYYMMDD）
+	Exchange string `json:"exchange,omitempty"` // 交易所（NAS/NYS/OTC)
+	Offset int `json:"offset,omitempty"` // 开始行数
+	Limit int `json:"limit,omitempty"` // 每页行数行数
 }
 
 // UsDailyAdjItem 表示单个 美股复权行情 数据项
 type UsDailyAdjItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	Close float64 `json:"close"`
-	Open float64 `json:"open"`
-	High float64 `json:"high"`
-	Low float64 `json:"low"`
-	PreClose float64 `json:"pre_close"`
-	Change float64 `json:"change"`
-	PctChange float64 `json:"pct_change"`
-	Vol int `json:"vol"`
-	Amount float64 `json:"amount"`
-	Vwap float64 `json:"vwap"`
-	AdjFactor float64 `json:"adj_factor"`
-	TurnoverRatio float64 `json:"turnover_ratio"`
-	FreeShare int `json:"free_share"`
-	TotalShare int `json:"total_share"`
-	FreeMv float64 `json:"free_mv"`
-	TotalMv float64 `json:"total_mv"`
-	Exchange string `json:"exchange"`
+	TsCode string `json:"ts_code"` // 股票代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	Close float64 `json:"close"` // 收盘价
+	Open float64 `json:"open"` // 开盘价
+	High float64 `json:"high"` // 最高价
+	Low float64 `json:"low"` // 最低价
+	PreClose float64 `json:"pre_close"` // 昨收价
+	Change float64 `json:"change"` // 涨跌额
+	PctChange float64 `json:"pct_change"` // 涨跌幅
+	Vol int `json:"vol"` // 成交量
+	Amount float64 `json:"amount"` // 成交额
+	Vwap float64 `json:"vwap"` // 平均价
+	AdjFactor float64 `json:"adj_factor"` // 复权因子
+	TurnoverRatio float64 `json:"turnover_ratio"` // 换手率
+	FreeShare int `json:"free_share"` // 流通股本
+	TotalShare int `json:"total_share"` // 总股本
+	FreeMv float64 `json:"free_mv"` // 流通市值
+	TotalMv float64 `json:"total_mv"` // 总市值
+	Exchange string `json:"exchange"` // 交易所代码
 }
 
 // UsDailyAdj 调用 美股复权行情 API

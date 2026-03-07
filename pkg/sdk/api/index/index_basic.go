@@ -10,11 +10,11 @@ import (
 
 // IndexBasicRequest 表示 指数基本信息 API 的请求
 type IndexBasicRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	Name string `json:"name,omitempty"`
-	Market string `json:"market,omitempty"`
-	Publisher string `json:"publisher,omitempty"`
-	Category string `json:"category,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 指数代码
+	Name string `json:"name,omitempty"` // 指数简称
+	Market string `json:"market,omitempty"` // 交易所或服务商(默认SSE)
+	Publisher string `json:"publisher,omitempty"` // 发布商
+	Category string `json:"category,omitempty"` // 指数类别
 }
 
 // IndexBasicItem 表示单个 指数基本信息 数据项

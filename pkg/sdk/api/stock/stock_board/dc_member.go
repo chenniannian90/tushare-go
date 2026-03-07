@@ -11,17 +11,17 @@ import (
 
 // DcMemberRequest 表示 东方财富概念成分 API 的请求
 type DcMemberRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	ConCode string `json:"con_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 板块指数代码
+	ConCode string `json:"con_code,omitempty"` // 成分股票代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（YYYYMMDD格式）
 }
 
 // DcMemberItem 表示单个 东方财富概念成分 数据项
 type DcMemberItem struct {
-	TradeDate string `json:"trade_date"`
-	TsCode string `json:"ts_code"`
-	ConCode string `json:"con_code"`
-	Name string `json:"name"`
+	TradeDate string `json:"trade_date"` // 交易日期
+	TsCode string `json:"ts_code"` // 概念代码
+	ConCode string `json:"con_code"` // 成分代码
+	Name string `json:"name"` // 成分股名称
 }
 
 // DcMember 调用 东方财富概念成分 API

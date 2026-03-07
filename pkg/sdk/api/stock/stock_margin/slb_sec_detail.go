@@ -11,20 +11,20 @@ import (
 
 // SlbSecDetailRequest 表示 转融券交易明细(停） API 的请求
 type SlbSecDetailRequest struct {
-	TradeDate string `json:"trade_date,omitempty"`
-	TsCode string `json:"ts_code,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（YYYYMMDD格式，下同）
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // SlbSecDetailItem 表示单个 转融券交易明细(停） 数据项
 type SlbSecDetailItem struct {
-	TradeDate string `json:"trade_date"`
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	Tenor string `json:"tenor"`
-	FeeRate float64 `json:"fee_rate"`
-	LentQnt float64 `json:"lent_qnt"`
+	TradeDate string `json:"trade_date"` // 交易日期（YYYYMMDD）
+	TsCode string `json:"ts_code"` // 股票代码
+	Name string `json:"name"` // 股票名称
+	Tenor string `json:"tenor"` // 期 限(天)
+	FeeRate float64 `json:"fee_rate"` // 融出费率(%)
+	LentQnt float64 `json:"lent_qnt"` // 转融券融出数量(万股)
 }
 
 // SlbSecDetail 调用 转融券交易明细(停） API

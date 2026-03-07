@@ -11,182 +11,182 @@ import (
 
 // FinaIndicatorRequest 表示 财务指标数据 API 的请求
 type FinaIndicatorRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	AnnDate string `json:"ann_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Period string `json:"period,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // TS股票代码,e.g. 600001.SH/000001.SZ
+	AnnDate string `json:"ann_date,omitempty"` // 公告日期
+	StartDate string `json:"start_date,omitempty"` // 报告期开始日期
+	EndDate string `json:"end_date,omitempty"` // 报告期结束日期
+	Period string `json:"period,omitempty"` // 报告期(每个季度最后一天的日期,比如20171231表示年报)
 }
 
 // FinaIndicatorItem 表示单个 财务指标数据 数据项
 type FinaIndicatorItem struct {
-	TsCode string `json:"ts_code"`
-	AnnDate string `json:"ann_date"`
-	EndDate string `json:"end_date"`
-	Eps float64 `json:"eps"`
-	DtEps float64 `json:"dt_eps"`
-	TotalRevenuePs float64 `json:"total_revenue_ps"`
-	RevenuePs float64 `json:"revenue_ps"`
-	CapitalResePs float64 `json:"capital_rese_ps"`
-	SurplusResePs float64 `json:"surplus_rese_ps"`
-	UndistProfitPs float64 `json:"undist_profit_ps"`
-	ExtraItem float64 `json:"extra_item"`
-	ProfitDedt float64 `json:"profit_dedt"`
-	GrossMargin float64 `json:"gross_margin"`
-	CurrentRatio float64 `json:"current_ratio"`
-	QuickRatio float64 `json:"quick_ratio"`
-	CashRatio float64 `json:"cash_ratio"`
-	InvturnDays float64 `json:"invturn_days"`
-	ArturnDays float64 `json:"arturn_days"`
-	InvTurn float64 `json:"inv_turn"`
-	ArTurn float64 `json:"ar_turn"`
-	CaTurn float64 `json:"ca_turn"`
-	FaTurn float64 `json:"fa_turn"`
-	AssetsTurn float64 `json:"assets_turn"`
-	OpIncome float64 `json:"op_income"`
-	ValuechangeIncome float64 `json:"valuechange_income"`
-	InterstIncome float64 `json:"interst_income"`
-	Daa float64 `json:"daa"`
-	Ebit float64 `json:"ebit"`
-	Ebitda float64 `json:"ebitda"`
-	Fcff float64 `json:"fcff"`
-	Fcfe float64 `json:"fcfe"`
-	CurrentExint float64 `json:"current_exint"`
-	NoncurrentExint float64 `json:"noncurrent_exint"`
-	Interestdebt float64 `json:"interestdebt"`
-	Netdebt float64 `json:"netdebt"`
-	TangibleAsset float64 `json:"tangible_asset"`
-	WorkingCapital float64 `json:"working_capital"`
-	NetworkingCapital float64 `json:"networking_capital"`
-	InvestCapital float64 `json:"invest_capital"`
-	RetainedEarnings float64 `json:"retained_earnings"`
-	Diluted2Eps float64 `json:"diluted2_eps"`
-	Bps float64 `json:"bps"`
-	Ocfps float64 `json:"ocfps"`
-	Retainedps float64 `json:"retainedps"`
-	Cfps float64 `json:"cfps"`
-	EbitPs float64 `json:"ebit_ps"`
-	FcffPs float64 `json:"fcff_ps"`
-	FcfePs float64 `json:"fcfe_ps"`
-	NetprofitMargin float64 `json:"netprofit_margin"`
-	GrossprofitMargin float64 `json:"grossprofit_margin"`
-	CogsOfSales float64 `json:"cogs_of_sales"`
-	ExpenseOfSales float64 `json:"expense_of_sales"`
-	ProfitToGr float64 `json:"profit_to_gr"`
-	SaleexpToGr float64 `json:"saleexp_to_gr"`
-	AdminexpOfGr float64 `json:"adminexp_of_gr"`
-	FinaexpOfGr float64 `json:"finaexp_of_gr"`
-	ImpaiTtm float64 `json:"impai_ttm"`
-	GcOfGr float64 `json:"gc_of_gr"`
-	OpOfGr float64 `json:"op_of_gr"`
-	EbitOfGr float64 `json:"ebit_of_gr"`
-	Roe float64 `json:"roe"`
-	RoeWaa float64 `json:"roe_waa"`
-	RoeDt float64 `json:"roe_dt"`
-	Roa float64 `json:"roa"`
-	Npta float64 `json:"npta"`
-	Roic float64 `json:"roic"`
-	RoeYearly float64 `json:"roe_yearly"`
-	Roa2Yearly float64 `json:"roa2_yearly"`
-	RoeAvg float64 `json:"roe_avg"`
-	OpincomeOfEbt float64 `json:"opincome_of_ebt"`
-	InvestincomeOfEbt float64 `json:"investincome_of_ebt"`
-	NOpProfitOfEbt float64 `json:"n_op_profit_of_ebt"`
-	TaxToEbt float64 `json:"tax_to_ebt"`
-	DtprofitToProfit float64 `json:"dtprofit_to_profit"`
-	SalescashToOr float64 `json:"salescash_to_or"`
-	OcfToOr float64 `json:"ocf_to_or"`
-	OcfToOpincome float64 `json:"ocf_to_opincome"`
-	CapitalizedToDa float64 `json:"capitalized_to_da"`
-	DebtToAssets float64 `json:"debt_to_assets"`
-	AssetsToEqt float64 `json:"assets_to_eqt"`
-	DpAssetsToEqt float64 `json:"dp_assets_to_eqt"`
-	CaToAssets float64 `json:"ca_to_assets"`
-	NcaToAssets float64 `json:"nca_to_assets"`
-	TbassetsToTotalassets float64 `json:"tbassets_to_totalassets"`
-	IntToTalcap float64 `json:"int_to_talcap"`
-	EqtToTalcapital float64 `json:"eqt_to_talcapital"`
-	CurrentdebtToDebt float64 `json:"currentdebt_to_debt"`
-	LongdebToDebt float64 `json:"longdeb_to_debt"`
-	OcfToShortdebt float64 `json:"ocf_to_shortdebt"`
-	DebtToEqt float64 `json:"debt_to_eqt"`
-	EqtToDebt float64 `json:"eqt_to_debt"`
-	EqtToInterestdebt float64 `json:"eqt_to_interestdebt"`
-	TangibleassetToDebt float64 `json:"tangibleasset_to_debt"`
-	TangassetToIntdebt float64 `json:"tangasset_to_intdebt"`
-	TangibleassetToNetdebt float64 `json:"tangibleasset_to_netdebt"`
-	OcfToDebt float64 `json:"ocf_to_debt"`
-	OcfToInterestdebt float64 `json:"ocf_to_interestdebt"`
-	OcfToNetdebt float64 `json:"ocf_to_netdebt"`
-	EbitToInterest float64 `json:"ebit_to_interest"`
-	LongdebtToWorkingcapital float64 `json:"longdebt_to_workingcapital"`
-	EbitdaToDebt float64 `json:"ebitda_to_debt"`
-	TurnDays float64 `json:"turn_days"`
-	RoaYearly float64 `json:"roa_yearly"`
-	RoaDp float64 `json:"roa_dp"`
-	FixedAssets float64 `json:"fixed_assets"`
-	ProfitPrefinExp float64 `json:"profit_prefin_exp"`
-	NonOpProfit float64 `json:"non_op_profit"`
-	OpToEbt float64 `json:"op_to_ebt"`
-	NopToEbt float64 `json:"nop_to_ebt"`
-	OcfToProfit float64 `json:"ocf_to_profit"`
-	CashToLiqdebt float64 `json:"cash_to_liqdebt"`
-	CashToLiqdebtWithinterest float64 `json:"cash_to_liqdebt_withinterest"`
-	OpToLiqdebt float64 `json:"op_to_liqdebt"`
-	OpToDebt float64 `json:"op_to_debt"`
-	RoicYearly float64 `json:"roic_yearly"`
-	TotalFaTrun float64 `json:"total_fa_trun"`
-	ProfitToOp float64 `json:"profit_to_op"`
-	QOpincome float64 `json:"q_opincome"`
-	QInvestincome float64 `json:"q_investincome"`
-	QDtprofit float64 `json:"q_dtprofit"`
-	QEps float64 `json:"q_eps"`
-	QNetprofitMargin float64 `json:"q_netprofit_margin"`
-	QGsprofitMargin float64 `json:"q_gsprofit_margin"`
-	QExpToSales float64 `json:"q_exp_to_sales"`
-	QProfitToGr float64 `json:"q_profit_to_gr"`
-	QSaleexpToGr float64 `json:"q_saleexp_to_gr"`
-	QAdminexpToGr float64 `json:"q_adminexp_to_gr"`
-	QFinaexpToGr float64 `json:"q_finaexp_to_gr"`
-	QImpairToGrTtm float64 `json:"q_impair_to_gr_ttm"`
-	QGcToGr float64 `json:"q_gc_to_gr"`
-	QOpToGr float64 `json:"q_op_to_gr"`
-	QRoe float64 `json:"q_roe"`
-	QDtRoe float64 `json:"q_dt_roe"`
-	QNpta float64 `json:"q_npta"`
-	QOpincomeToEbt float64 `json:"q_opincome_to_ebt"`
-	QInvestincomeToEbt float64 `json:"q_investincome_to_ebt"`
-	QDtprofitToProfit float64 `json:"q_dtprofit_to_profit"`
-	QSalescashToOr float64 `json:"q_salescash_to_or"`
-	QOcfToSales float64 `json:"q_ocf_to_sales"`
-	QOcfToOr float64 `json:"q_ocf_to_or"`
-	BasicEpsYoy float64 `json:"basic_eps_yoy"`
-	DtEpsYoy float64 `json:"dt_eps_yoy"`
-	CfpsYoy float64 `json:"cfps_yoy"`
-	OpYoy float64 `json:"op_yoy"`
-	EbtYoy float64 `json:"ebt_yoy"`
-	NetprofitYoy float64 `json:"netprofit_yoy"`
-	DtNetprofitYoy float64 `json:"dt_netprofit_yoy"`
-	OcfYoy float64 `json:"ocf_yoy"`
-	RoeYoy float64 `json:"roe_yoy"`
-	BpsYoy float64 `json:"bps_yoy"`
-	AssetsYoy float64 `json:"assets_yoy"`
-	EqtYoy float64 `json:"eqt_yoy"`
-	TrYoy float64 `json:"tr_yoy"`
-	OrYoy float64 `json:"or_yoy"`
-	QGrYoy float64 `json:"q_gr_yoy"`
-	QGrQoq float64 `json:"q_gr_qoq"`
-	QSalesYoy float64 `json:"q_sales_yoy"`
-	QSalesQoq float64 `json:"q_sales_qoq"`
-	QOpYoy float64 `json:"q_op_yoy"`
-	QOpQoq float64 `json:"q_op_qoq"`
-	QProfitYoy float64 `json:"q_profit_yoy"`
-	QProfitQoq float64 `json:"q_profit_qoq"`
-	QNetprofitYoy float64 `json:"q_netprofit_yoy"`
-	QNetprofitQoq float64 `json:"q_netprofit_qoq"`
-	EquityYoy float64 `json:"equity_yoy"`
-	RdExp float64 `json:"rd_exp"`
-	UpdateFlag string `json:"update_flag"`
+	TsCode string `json:"ts_code"` // TS代码
+	AnnDate string `json:"ann_date"` // 公告日期
+	EndDate string `json:"end_date"` // 报告期
+	Eps float64 `json:"eps"` // 基本每股收益
+	DtEps float64 `json:"dt_eps"` // 稀释每股收益
+	TotalRevenuePs float64 `json:"total_revenue_ps"` // 每股营业总收入
+	RevenuePs float64 `json:"revenue_ps"` // 每股营业收入
+	CapitalResePs float64 `json:"capital_rese_ps"` // 每股资本公积
+	SurplusResePs float64 `json:"surplus_rese_ps"` // 每股盈余公积
+	UndistProfitPs float64 `json:"undist_profit_ps"` // 每股未分配利润
+	ExtraItem float64 `json:"extra_item"` // 非经常性损益
+	ProfitDedt float64 `json:"profit_dedt"` // 扣除非经常性损益后的净利润（扣非净利润）
+	GrossMargin float64 `json:"gross_margin"` // 毛利
+	CurrentRatio float64 `json:"current_ratio"` // 流动比率
+	QuickRatio float64 `json:"quick_ratio"` // 速动比率
+	CashRatio float64 `json:"cash_ratio"` // 保守速动比率
+	InvturnDays float64 `json:"invturn_days"` // 存货周转天数
+	ArturnDays float64 `json:"arturn_days"` // 应收账款周转天数
+	InvTurn float64 `json:"inv_turn"` // 存货周转率
+	ArTurn float64 `json:"ar_turn"` // 应收账款周转率
+	CaTurn float64 `json:"ca_turn"` // 流动资产周转率
+	FaTurn float64 `json:"fa_turn"` // 固定资产周转率
+	AssetsTurn float64 `json:"assets_turn"` // 总资产周转率
+	OpIncome float64 `json:"op_income"` // 经营活动净收益
+	ValuechangeIncome float64 `json:"valuechange_income"` // 价值变动净收益
+	InterstIncome float64 `json:"interst_income"` // 利息费用
+	Daa float64 `json:"daa"` // 折旧与摊销
+	Ebit float64 `json:"ebit"` // 息税前利润
+	Ebitda float64 `json:"ebitda"` // 息税折旧摊销前利润
+	Fcff float64 `json:"fcff"` // 企业自由现金流量
+	Fcfe float64 `json:"fcfe"` // 股权自由现金流量
+	CurrentExint float64 `json:"current_exint"` // 无息流动负债
+	NoncurrentExint float64 `json:"noncurrent_exint"` // 无息非流动负债
+	Interestdebt float64 `json:"interestdebt"` // 带息债务
+	Netdebt float64 `json:"netdebt"` // 净债务
+	TangibleAsset float64 `json:"tangible_asset"` // 有形资产
+	WorkingCapital float64 `json:"working_capital"` // 营运资金
+	NetworkingCapital float64 `json:"networking_capital"` // 营运流动资本
+	InvestCapital float64 `json:"invest_capital"` // 全部投入资本
+	RetainedEarnings float64 `json:"retained_earnings"` // 留存收益
+	Diluted2Eps float64 `json:"diluted2_eps"` // 期末摊薄每股收益
+	Bps float64 `json:"bps"` // 每股净资产
+	Ocfps float64 `json:"ocfps"` // 每股经营活动产生的现金流量净额
+	Retainedps float64 `json:"retainedps"` // 每股留存收益
+	Cfps float64 `json:"cfps"` // 每股现金流量净额
+	EbitPs float64 `json:"ebit_ps"` // 每股息税前利润
+	FcffPs float64 `json:"fcff_ps"` // 每股企业自由现金流量
+	FcfePs float64 `json:"fcfe_ps"` // 每股股东自由现金流量
+	NetprofitMargin float64 `json:"netprofit_margin"` // 销售净利率
+	GrossprofitMargin float64 `json:"grossprofit_margin"` // 销售毛利率
+	CogsOfSales float64 `json:"cogs_of_sales"` // 销售成本率
+	ExpenseOfSales float64 `json:"expense_of_sales"` // 销售期间费用率
+	ProfitToGr float64 `json:"profit_to_gr"` // 净利润/营业总收入
+	SaleexpToGr float64 `json:"saleexp_to_gr"` // 销售费用/营业总收入
+	AdminexpOfGr float64 `json:"adminexp_of_gr"` // 管理费用/营业总收入
+	FinaexpOfGr float64 `json:"finaexp_of_gr"` // 财务费用/营业总收入
+	ImpaiTtm float64 `json:"impai_ttm"` // 资产减值损失/营业总收入
+	GcOfGr float64 `json:"gc_of_gr"` // 营业总成本/营业总收入
+	OpOfGr float64 `json:"op_of_gr"` // 营业利润/营业总收入
+	EbitOfGr float64 `json:"ebit_of_gr"` // 息税前利润/营业总收入
+	Roe float64 `json:"roe"` // 净资产收益率
+	RoeWaa float64 `json:"roe_waa"` // 加权平均净资产收益率
+	RoeDt float64 `json:"roe_dt"` // 净资产收益率(扣除非经常损益)
+	Roa float64 `json:"roa"` // 总资产报酬率
+	Npta float64 `json:"npta"` // 总资产净利润
+	Roic float64 `json:"roic"` // 投入资本回报率
+	RoeYearly float64 `json:"roe_yearly"` // 年化净资产收益率
+	Roa2Yearly float64 `json:"roa2_yearly"` // 年化总资产报酬率
+	RoeAvg float64 `json:"roe_avg"` // 平均净资产收益率(增发条件)
+	OpincomeOfEbt float64 `json:"opincome_of_ebt"` // 经营活动净收益/利润总额
+	InvestincomeOfEbt float64 `json:"investincome_of_ebt"` // 价值变动净收益/利润总额
+	NOpProfitOfEbt float64 `json:"n_op_profit_of_ebt"` // 营业外收支净额/利润总额
+	TaxToEbt float64 `json:"tax_to_ebt"` // 所得税/利润总额
+	DtprofitToProfit float64 `json:"dtprofit_to_profit"` // 扣除非经常损益后的净利润/净利润
+	SalescashToOr float64 `json:"salescash_to_or"` // 销售商品提供劳务收到的现金/营业收入
+	OcfToOr float64 `json:"ocf_to_or"` // 经营活动产生的现金流量净额/营业收入
+	OcfToOpincome float64 `json:"ocf_to_opincome"` // 经营活动产生的现金流量净额/经营活动净收益
+	CapitalizedToDa float64 `json:"capitalized_to_da"` // 资本支出/折旧和摊销
+	DebtToAssets float64 `json:"debt_to_assets"` // 资产负债率
+	AssetsToEqt float64 `json:"assets_to_eqt"` // 权益乘数
+	DpAssetsToEqt float64 `json:"dp_assets_to_eqt"` // 权益乘数(杜邦分析)
+	CaToAssets float64 `json:"ca_to_assets"` // 流动资产/总资产
+	NcaToAssets float64 `json:"nca_to_assets"` // 非流动资产/总资产
+	TbassetsToTotalassets float64 `json:"tbassets_to_totalassets"` // 有形资产/总资产
+	IntToTalcap float64 `json:"int_to_talcap"` // 带息债务/全部投入资本
+	EqtToTalcapital float64 `json:"eqt_to_talcapital"` // 归属于母公司的股东权益/全部投入资本
+	CurrentdebtToDebt float64 `json:"currentdebt_to_debt"` // 流动负债/负债合计
+	LongdebToDebt float64 `json:"longdeb_to_debt"` // 非流动负债/负债合计
+	OcfToShortdebt float64 `json:"ocf_to_shortdebt"` // 经营活动产生的现金流量净额/流动负债
+	DebtToEqt float64 `json:"debt_to_eqt"` // 产权比率
+	EqtToDebt float64 `json:"eqt_to_debt"` // 归属于母公司的股东权益/负债合计
+	EqtToInterestdebt float64 `json:"eqt_to_interestdebt"` // 归属于母公司的股东权益/带息债务
+	TangibleassetToDebt float64 `json:"tangibleasset_to_debt"` // 有形资产/负债合计
+	TangassetToIntdebt float64 `json:"tangasset_to_intdebt"` // 有形资产/带息债务
+	TangibleassetToNetdebt float64 `json:"tangibleasset_to_netdebt"` // 有形资产/净债务
+	OcfToDebt float64 `json:"ocf_to_debt"` // 经营活动产生的现金流量净额/负债合计
+	OcfToInterestdebt float64 `json:"ocf_to_interestdebt"` // 经营活动产生的现金流量净额/带息债务
+	OcfToNetdebt float64 `json:"ocf_to_netdebt"` // 经营活动产生的现金流量净额/净债务
+	EbitToInterest float64 `json:"ebit_to_interest"` // 已获利息倍数(EBIT/利息费用)
+	LongdebtToWorkingcapital float64 `json:"longdebt_to_workingcapital"` // 长期债务与营运资金比率
+	EbitdaToDebt float64 `json:"ebitda_to_debt"` // 息税折旧摊销前利润/负债合计
+	TurnDays float64 `json:"turn_days"` // 营业周期
+	RoaYearly float64 `json:"roa_yearly"` // 年化总资产净利率
+	RoaDp float64 `json:"roa_dp"` // 总资产净利率(杜邦分析)
+	FixedAssets float64 `json:"fixed_assets"` // 固定资产合计
+	ProfitPrefinExp float64 `json:"profit_prefin_exp"` // 扣除财务费用前营业利润
+	NonOpProfit float64 `json:"non_op_profit"` // 非营业利润
+	OpToEbt float64 `json:"op_to_ebt"` // 营业利润／利润总额
+	NopToEbt float64 `json:"nop_to_ebt"` // 非营业利润／利润总额
+	OcfToProfit float64 `json:"ocf_to_profit"` // 经营活动产生的现金流量净额／营业利润
+	CashToLiqdebt float64 `json:"cash_to_liqdebt"` // 货币资金／流动负债
+	CashToLiqdebtWithinterest float64 `json:"cash_to_liqdebt_withinterest"` // 货币资金／带息流动负债
+	OpToLiqdebt float64 `json:"op_to_liqdebt"` // 营业利润／流动负债
+	OpToDebt float64 `json:"op_to_debt"` // 营业利润／负债合计
+	RoicYearly float64 `json:"roic_yearly"` // 年化投入资本回报率
+	TotalFaTrun float64 `json:"total_fa_trun"` // 固定资产合计周转率
+	ProfitToOp float64 `json:"profit_to_op"` // 利润总额／营业收入
+	QOpincome float64 `json:"q_opincome"` // 经营活动单季度净收益
+	QInvestincome float64 `json:"q_investincome"` // 价值变动单季度净收益
+	QDtprofit float64 `json:"q_dtprofit"` // 扣除非经常损益后的单季度净利润
+	QEps float64 `json:"q_eps"` // 每股收益(单季度)
+	QNetprofitMargin float64 `json:"q_netprofit_margin"` // 销售净利率(单季度)
+	QGsprofitMargin float64 `json:"q_gsprofit_margin"` // 销售毛利率(单季度)
+	QExpToSales float64 `json:"q_exp_to_sales"` // 销售期间费用率(单季度)
+	QProfitToGr float64 `json:"q_profit_to_gr"` // 净利润／营业总收入(单季度)
+	QSaleexpToGr float64 `json:"q_saleexp_to_gr"` // 销售费用／营业总收入 (单季度)
+	QAdminexpToGr float64 `json:"q_adminexp_to_gr"` // 管理费用／营业总收入 (单季度)
+	QFinaexpToGr float64 `json:"q_finaexp_to_gr"` // 财务费用／营业总收入 (单季度)
+	QImpairToGrTtm float64 `json:"q_impair_to_gr_ttm"` // 资产减值损失／营业总收入(单季度)
+	QGcToGr float64 `json:"q_gc_to_gr"` // 营业总成本／营业总收入 (单季度)
+	QOpToGr float64 `json:"q_op_to_gr"` // 营业利润／营业总收入(单季度)
+	QRoe float64 `json:"q_roe"` // 净资产收益率(单季度)
+	QDtRoe float64 `json:"q_dt_roe"` // 净资产单季度收益率(扣除非经常损益)
+	QNpta float64 `json:"q_npta"` // 总资产净利润(单季度)
+	QOpincomeToEbt float64 `json:"q_opincome_to_ebt"` // 经营活动净收益／利润总额(单季度)
+	QInvestincomeToEbt float64 `json:"q_investincome_to_ebt"` // 价值变动净收益／利润总额(单季度)
+	QDtprofitToProfit float64 `json:"q_dtprofit_to_profit"` // 扣除非经常损益后的净利润／净利润(单季度)
+	QSalescashToOr float64 `json:"q_salescash_to_or"` // 销售商品提供劳务收到的现金／营业收入(单季度)
+	QOcfToSales float64 `json:"q_ocf_to_sales"` // 经营活动产生的现金流量净额／营业收入(单季度)
+	QOcfToOr float64 `json:"q_ocf_to_or"` // 经营活动产生的现金流量净额／经营活动净收益(单季度)
+	BasicEpsYoy float64 `json:"basic_eps_yoy"` // 基本每股收益同比增长率(%)
+	DtEpsYoy float64 `json:"dt_eps_yoy"` // 稀释每股收益同比增长率(%)
+	CfpsYoy float64 `json:"cfps_yoy"` // 每股经营活动产生的现金流量净额同比增长率(%)
+	OpYoy float64 `json:"op_yoy"` // 营业利润同比增长率(%)
+	EbtYoy float64 `json:"ebt_yoy"` // 利润总额同比增长率(%)
+	NetprofitYoy float64 `json:"netprofit_yoy"` // 归属母公司股东的净利润同比增长率(%)
+	DtNetprofitYoy float64 `json:"dt_netprofit_yoy"` // 归属母公司股东的净利润-扣除非经常损益同比增长率(%)
+	OcfYoy float64 `json:"ocf_yoy"` // 经营活动产生的现金流量净额同比增长率(%)
+	RoeYoy float64 `json:"roe_yoy"` // 净资产收益率(摊薄)同比增长率(%)
+	BpsYoy float64 `json:"bps_yoy"` // 每股净资产相对年初增长率(%)
+	AssetsYoy float64 `json:"assets_yoy"` // 资产总计相对年初增长率(%)
+	EqtYoy float64 `json:"eqt_yoy"` // 归属母公司的股东权益相对年初增长率(%)
+	TrYoy float64 `json:"tr_yoy"` // 营业总收入同比增长率(%)
+	OrYoy float64 `json:"or_yoy"` // 营业收入同比增长率(%)
+	QGrYoy float64 `json:"q_gr_yoy"` // 营业总收入同比增长率(%)(单季度)
+	QGrQoq float64 `json:"q_gr_qoq"` // 营业总收入环比增长率(%)(单季度)
+	QSalesYoy float64 `json:"q_sales_yoy"` // 营业收入同比增长率(%)(单季度)
+	QSalesQoq float64 `json:"q_sales_qoq"` // 营业收入环比增长率(%)(单季度)
+	QOpYoy float64 `json:"q_op_yoy"` // 营业利润同比增长率(%)(单季度)
+	QOpQoq float64 `json:"q_op_qoq"` // 营业利润环比增长率(%)(单季度)
+	QProfitYoy float64 `json:"q_profit_yoy"` // 净利润同比增长率(%)(单季度)
+	QProfitQoq float64 `json:"q_profit_qoq"` // 净利润环比增长率(%)(单季度)
+	QNetprofitYoy float64 `json:"q_netprofit_yoy"` // 归属母公司股东的净利润同比增长率(%)(单季度)
+	QNetprofitQoq float64 `json:"q_netprofit_qoq"` // 归属母公司股东的净利润环比增长率(%)(单季度)
+	EquityYoy float64 `json:"equity_yoy"` // 净资产同比增长率
+	RdExp float64 `json:"rd_exp"` // 研发费用
+	UpdateFlag string `json:"update_flag"` // 更新标识
 }
 
 // FinaIndicator 调用 财务指标数据 API

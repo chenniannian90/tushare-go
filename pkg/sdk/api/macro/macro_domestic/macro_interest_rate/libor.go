@@ -11,23 +11,23 @@ import (
 
 // LiborRequest 表示 Libor利率 API 的请求
 type LiborRequest struct {
-	Date string `json:"date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	CurrType string `json:"curr_type,omitempty"`
+	Date string `json:"date,omitempty"` // 日期 (日期输入格式：YYYYMMDD，下同)
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	CurrType string `json:"curr_type,omitempty"` // 货币代码  (USD美元  EUR欧元  JPY日元  GBP英镑  CHF瑞郎，默认是USD)
 }
 
 // LiborItem 表示单个 Libor利率 数据项
 type LiborItem struct {
-	Date string `json:"date"`
-	CurrType string `json:"curr_type"`
-	On float64 `json:"on"`
-	1w float64 `json:"1w"`
-	1m float64 `json:"1m"`
-	2m float64 `json:"2m"`
-	3m float64 `json:"3m"`
-	6m float64 `json:"6m"`
-	12m float64 `json:"12m"`
+	Date string `json:"date"` // 日期
+	CurrType string `json:"curr_type"` // 货币
+	On float64 `json:"on"` // 隔夜
+	1w float64 `json:"1w"` // 1周
+	1m float64 `json:"1m"` // 1个月
+	2m float64 `json:"2m"` // 2个月
+	3m float64 `json:"3m"` // 3个月
+	6m float64 `json:"6m"` // 6个月
+	12m float64 `json:"12m"` // 12个月
 }
 
 // Libor 调用 Libor利率 API

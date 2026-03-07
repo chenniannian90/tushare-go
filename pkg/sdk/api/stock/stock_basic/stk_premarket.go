@@ -11,21 +11,21 @@ import (
 
 // StkPremarketRequest 表示 每日股本（盘前） API 的请求
 type StkPremarketRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期(YYYYMMDD格式，下同)
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // StkPremarketItem 表示单个 每日股本（盘前） 数据项
 type StkPremarketItem struct {
-	TradeDate string `json:"trade_date"`
-	TsCode string `json:"ts_code"`
-	TotalShare float64 `json:"total_share"`
-	FloatShare float64 `json:"float_share"`
-	PreClose float64 `json:"pre_close"`
-	UpLimit float64 `json:"up_limit"`
-	DownLimit float64 `json:"down_limit"`
+	TradeDate string `json:"trade_date"` // 交易日期
+	TsCode string `json:"ts_code"` // TS股票代码
+	TotalShare float64 `json:"total_share"` // 总股本（万股）
+	FloatShare float64 `json:"float_share"` // 流通股本（万股）
+	PreClose float64 `json:"pre_close"` // 昨日收盘价
+	UpLimit float64 `json:"up_limit"` // 今日涨停价
+	DownLimit float64 `json:"down_limit"` // 今日跌停价
 }
 
 // StkPremarket 调用 每日股本（盘前） API

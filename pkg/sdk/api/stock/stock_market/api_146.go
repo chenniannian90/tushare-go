@@ -10,13 +10,13 @@ import (
 
 // Api146Request 表示 复权行情 API 的请求
 type Api146Request struct {
-	TsCode string `json:"ts_code,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Asset string `json:"asset,omitempty"`
-	Adj string `json:"adj,omitempty"`
-	Freq string `json:"freq,omitempty"`
-	Ma string `json:"ma,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 证券代码
+	StartDate string `json:"start_date,omitempty"` // 开始日期 (格式：YYYYMMDD)
+	EndDate string `json:"end_date,omitempty"` // 结束日期 (格式：YYYYMMDD)
+	Asset string `json:"asset,omitempty"` // 资产类别：E股票 I沪深指数 C数字货币 FT期货 FD基金 O期权，默认E
+	Adj string `json:"adj,omitempty"` // 复权类型(只针对股票)：None未复权 qfq前复权 hfq后复权 , 默认None
+	Freq string `json:"freq,omitempty"` // 数据频度 ：1MIN表示1分钟（1/5/15/30/60分钟） D日线 ，默认D
+	Ma string `json:"ma,omitempty"` // 均线，支持任意周期的均价和均量，输入任意合理int数值
 }
 
 // Api146Item 表示单个 复权行情 数据项

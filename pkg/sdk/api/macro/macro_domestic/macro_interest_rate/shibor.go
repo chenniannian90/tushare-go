@@ -11,22 +11,22 @@ import (
 
 // ShiborRequest 表示 Shibor利率 API 的请求
 type ShiborRequest struct {
-	Date string `json:"date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	Date string `json:"date,omitempty"` // 日期 (日期输入格式：YYYYMMDD，下同)
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // ShiborItem 表示单个 Shibor利率 数据项
 type ShiborItem struct {
-	Date string `json:"date"`
-	On float64 `json:"on"`
-	1w float64 `json:"1w"`
-	2w float64 `json:"2w"`
-	1m float64 `json:"1m"`
-	3m float64 `json:"3m"`
-	6m float64 `json:"6m"`
-	9m float64 `json:"9m"`
-	1y float64 `json:"1y"`
+	Date string `json:"date"` // 日期
+	On float64 `json:"on"` // 隔夜
+	1w float64 `json:"1w"` // 1周
+	2w float64 `json:"2w"` // 2周
+	1m float64 `json:"1m"` // 1个月
+	3m float64 `json:"3m"` // 3个月
+	6m float64 `json:"6m"` // 6个月
+	9m float64 `json:"9m"` // 9个月
+	1y float64 `json:"1y"` // 1年
 }
 
 // Shibor 调用 Shibor利率 API

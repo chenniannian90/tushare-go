@@ -11,26 +11,26 @@ import (
 
 // StkManagersRequest 表示 上市公司管理层 API 的请求
 type StkManagersRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	AnnDate string `json:"ann_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码，支持单个或多个股票输入
+	AnnDate string `json:"ann_date,omitempty"` // 公告日期（YYYYMMDD格式，下同）
+	StartDate string `json:"start_date,omitempty"` // 公告开始日期
+	EndDate string `json:"end_date,omitempty"` // 公告结束日期
 }
 
 // StkManagersItem 表示单个 上市公司管理层 数据项
 type StkManagersItem struct {
-	TsCode string `json:"ts_code"`
-	AnnDate string `json:"ann_date"`
-	Name string `json:"name"`
-	Gender string `json:"gender"`
-	Lev string `json:"lev"`
-	Title string `json:"title"`
-	Edu string `json:"edu"`
-	National string `json:"national"`
-	Birthday string `json:"birthday"`
-	BeginDate string `json:"begin_date"`
-	EndDate string `json:"end_date"`
-	Resume string `json:"resume"`
+	TsCode string `json:"ts_code"` // TS股票代码
+	AnnDate string `json:"ann_date"` // 公告日期
+	Name string `json:"name"` // 姓名
+	Gender string `json:"gender"` // 性别
+	Lev string `json:"lev"` // 岗位类别
+	Title string `json:"title"` // 岗位
+	Edu string `json:"edu"` // 学历
+	National string `json:"national"` // 国籍
+	Birthday string `json:"birthday"` // 出生年月
+	BeginDate string `json:"begin_date"` // 上任日期
+	EndDate string `json:"end_date"` // 离任日期
+	Resume string `json:"resume"` // 个人简历
 }
 
 // StkManagers 调用 上市公司管理层 API

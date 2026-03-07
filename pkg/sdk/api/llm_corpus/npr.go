@@ -11,21 +11,21 @@ import (
 
 // NprRequest 表示 国家政策库 API 的请求
 type NprRequest struct {
-	Org string `json:"org,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Ptype string `json:"ptype,omitempty"`
+	Org string `json:"org,omitempty"` // 发布机构
+	StartDate string `json:"start_date,omitempty"` // 发布开始时间
+	EndDate string `json:"end_date,omitempty"` // 发布结束时间
+	Ptype string `json:"ptype,omitempty"` // 类型
 }
 
 // NprItem 表示单个 国家政策库 数据项
 type NprItem struct {
-	Pubtime string `json:"pubtime"`
-	Title string `json:"title"`
-	Url string `json:"url"`
-	ContentHtml string `json:"content_html"`
-	Pcode string `json:"pcode"`
-	Puborg string `json:"puborg"`
-	Ptype string `json:"ptype"`
+	Pubtime string `json:"pubtime"` // 发布时间
+	Title string `json:"title"` // 标题
+	Url string `json:"url"` // 政策文件url
+	ContentHtml string `json:"content_html"` // 正文内容
+	Pcode string `json:"pcode"` // 发文字号
+	Puborg string `json:"puborg"` // 发文机关
+	Ptype string `json:"ptype"` // 主题分类
 }
 
 // Npr 调用 国家政策库 API

@@ -11,36 +11,36 @@ import (
 
 // BakBasicRequest 表示 股票历史列表 API 的请求
 type BakBasicRequest struct {
-	TradeDate string `json:"trade_date,omitempty"`
-	TsCode string `json:"ts_code,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
 }
 
 // BakBasicItem 表示单个 股票历史列表 数据项
 type BakBasicItem struct {
-	TradeDate string `json:"trade_date"`
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	Industry string `json:"industry"`
-	Area string `json:"area"`
-	Pe float64 `json:"pe"`
-	FloatShare float64 `json:"float_share"`
-	TotalShare float64 `json:"total_share"`
-	TotalAssets float64 `json:"total_assets"`
-	LiquidAssets float64 `json:"liquid_assets"`
-	FixedAssets float64 `json:"fixed_assets"`
-	Reserved float64 `json:"reserved"`
-	ReservedPershare float64 `json:"reserved_pershare"`
-	Eps float64 `json:"eps"`
-	Bvps float64 `json:"bvps"`
-	Pb float64 `json:"pb"`
-	ListDate string `json:"list_date"`
-	Undp float64 `json:"undp"`
-	PerUndp float64 `json:"per_undp"`
-	RevYoy float64 `json:"rev_yoy"`
-	ProfitYoy float64 `json:"profit_yoy"`
-	Gpr float64 `json:"gpr"`
-	Npr float64 `json:"npr"`
-	HolderNum int `json:"holder_num"`
+	TradeDate string `json:"trade_date"` // 交易日期
+	TsCode string `json:"ts_code"` // TS股票代码
+	Name string `json:"name"` // 股票名称
+	Industry string `json:"industry"` // 行业
+	Area string `json:"area"` // 地域
+	Pe float64 `json:"pe"` // 市盈率（动）
+	FloatShare float64 `json:"float_share"` // 流通股本（亿）
+	TotalShare float64 `json:"total_share"` // 总股本（亿）
+	TotalAssets float64 `json:"total_assets"` // 总资产（亿）
+	LiquidAssets float64 `json:"liquid_assets"` // 流动资产（亿）
+	FixedAssets float64 `json:"fixed_assets"` // 固定资产（亿）
+	Reserved float64 `json:"reserved"` // 公积金
+	ReservedPershare float64 `json:"reserved_pershare"` // 每股公积金
+	Eps float64 `json:"eps"` // 每股收益
+	Bvps float64 `json:"bvps"` // 每股净资产
+	Pb float64 `json:"pb"` // 市净率
+	ListDate string `json:"list_date"` // 上市日期
+	Undp float64 `json:"undp"` // 未分配利润
+	PerUndp float64 `json:"per_undp"` // 每股未分配利润
+	RevYoy float64 `json:"rev_yoy"` // 收入同比（%）
+	ProfitYoy float64 `json:"profit_yoy"` // 利润同比（%）
+	Gpr float64 `json:"gpr"` // 毛利率（%）
+	Npr float64 `json:"npr"` // 净利润率（%）
+	HolderNum int `json:"holder_num"` // 股东人数
 }
 
 // BakBasic 调用 股票历史列表 API

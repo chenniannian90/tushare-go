@@ -11,27 +11,27 @@ import (
 
 // DcDailyRequest 表示 东财概念和行业指数行情 API 的请求
 type DcDailyRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	IdxType string `json:"idx_type,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 板块代码（格式：xxxxx.DC)
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期(格式：YYYYMMDD下同）
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	IdxType string `json:"idx_type,omitempty"` // 板块类型： 概念板块、行业板块、地域板块
 }
 
 // DcDailyItem 表示单个 东财概念和行业指数行情 数据项
 type DcDailyItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	Close float64 `json:"close"`
-	Open float64 `json:"open"`
-	High float64 `json:"high"`
-	Low float64 `json:"low"`
-	Change float64 `json:"change"`
-	PctChange float64 `json:"pct_change"`
-	Vol float64 `json:"vol"`
-	Amount float64 `json:"amount"`
-	Swing float64 `json:"swing"`
-	TurnoverRate float64 `json:"turnover_rate"`
+	TsCode string `json:"ts_code"` // 板块代码
+	TradeDate string `json:"trade_date"` // 交易日
+	Close float64 `json:"close"` // 收盘点位
+	Open float64 `json:"open"` // 开盘点位
+	High float64 `json:"high"` // 最高点位
+	Low float64 `json:"low"` // 最低点位
+	Change float64 `json:"change"` // 涨跌点位
+	PctChange float64 `json:"pct_change"` // 涨跌幅
+	Vol float64 `json:"vol"` // 成交量(股)
+	Amount float64 `json:"amount"` // 成交额(元)
+	Swing float64 `json:"swing"` // 振幅
+	TurnoverRate float64 `json:"turnover_rate"` // 换手率
 }
 
 // DcDaily 调用 东财概念和行业指数行情 API

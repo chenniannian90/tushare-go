@@ -11,24 +11,24 @@ import (
 
 // CnMRequest 表示 货币供应量（月） API 的请求
 type CnMRequest struct {
-	M string `json:"m,omitempty"`
-	StartM string `json:"start_m,omitempty"`
-	EndM string `json:"end_m,omitempty"`
-	Fields string `json:"fields,omitempty"`
+	M string `json:"m,omitempty"` // 月度（202001表示，2020年1月）
+	StartM string `json:"start_m,omitempty"` // 开始月度
+	EndM string `json:"end_m,omitempty"` // 结束月度
+	Fields string `json:"fields,omitempty"` // 指定输出字段（e.g. fields='month,m0,m1,m2'）
 }
 
 // CnMItem 表示单个 货币供应量（月） 数据项
 type CnMItem struct {
-	Month string `json:"month"`
-	M0 float64 `json:"m0"`
-	M0Yoy float64 `json:"m0_yoy"`
-	M0Mom float64 `json:"m0_mom"`
-	M1 float64 `json:"m1"`
-	M1Yoy float64 `json:"m1_yoy"`
-	M1Mom float64 `json:"m1_mom"`
-	M2 float64 `json:"m2"`
-	M2Yoy float64 `json:"m2_yoy"`
-	M2Mom float64 `json:"m2_mom"`
+	Month string `json:"month"` // 月份YYYYMM
+	M0 float64 `json:"m0"` // M0（亿元）
+	M0Yoy float64 `json:"m0_yoy"` // M0同比（%）
+	M0Mom float64 `json:"m0_mom"` // M0环比（%）
+	M1 float64 `json:"m1"` // M1（亿元）
+	M1Yoy float64 `json:"m1_yoy"` // M1同比（%）
+	M1Mom float64 `json:"m1_mom"` // M1环比（%）
+	M2 float64 `json:"m2"` // M2（亿元）
+	M2Yoy float64 `json:"m2_yoy"` // M2同比（%）
+	M2Mom float64 `json:"m2_mom"` // M2环比（%）
 }
 
 // CnM 调用 货币供应量（月） API

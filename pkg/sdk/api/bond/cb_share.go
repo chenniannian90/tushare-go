@@ -11,29 +11,29 @@ import (
 
 // CbShareRequest 表示 可转债转股结果 API 的请求
 type CbShareRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	AnnDate string `json:"ann_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 转债代码，支持多值输入
+	AnnDate string `json:"ann_date,omitempty"` // 公告日期（YYYYMMDD格式，下同）
+	StartDate string `json:"start_date,omitempty"` // 公告开始日期
+	EndDate string `json:"end_date,omitempty"` // 公告结束日期
 }
 
 // CbShareItem 表示单个 可转债转股结果 数据项
 type CbShareItem struct {
-	TsCode string `json:"ts_code"`
-	BondShortName string `json:"bond_short_name"`
-	PublishDate string `json:"publish_date"`
-	EndDate string `json:"end_date"`
-	IssueSize float64 `json:"issue_size"`
-	ConvertPriceInitial float64 `json:"convert_price_initial"`
-	ConvertPrice float64 `json:"convert_price"`
-	ConvertVal float64 `json:"convert_val"`
-	ConvertVol float64 `json:"convert_vol"`
-	ConvertRatio float64 `json:"convert_ratio"`
-	AccConvertVal float64 `json:"acc_convert_val"`
-	AccConvertVol float64 `json:"acc_convert_vol"`
-	AccConvertRatio float64 `json:"acc_convert_ratio"`
-	RemainSize float64 `json:"remain_size"`
-	TotalShares float64 `json:"total_shares"`
+	TsCode string `json:"ts_code"` // 债券代码
+	BondShortName string `json:"bond_short_name"` // 债券简称
+	PublishDate string `json:"publish_date"` // 公告日期
+	EndDate string `json:"end_date"` // 统计截止日期
+	IssueSize float64 `json:"issue_size"` // 可转债发行总额
+	ConvertPriceInitial float64 `json:"convert_price_initial"` // 初始转换价格
+	ConvertPrice float64 `json:"convert_price"` // 本次转换价格
+	ConvertVal float64 `json:"convert_val"` // 本次转股金额
+	ConvertVol float64 `json:"convert_vol"` // 本次转股数量
+	ConvertRatio float64 `json:"convert_ratio"` // 本次转股比例
+	AccConvertVal float64 `json:"acc_convert_val"` // 累计转股金额
+	AccConvertVol float64 `json:"acc_convert_vol"` // 累计转股数量
+	AccConvertRatio float64 `json:"acc_convert_ratio"` // 累计转股比例
+	RemainSize float64 `json:"remain_size"` // 可转债剩余金额
+	TotalShares float64 `json:"total_shares"` // 转股后总股本
 }
 
 // CbShare 调用 可转债转股结果 API

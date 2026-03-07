@@ -11,28 +11,28 @@ import (
 
 // OptDailyRequest 表示 期权日线行情 API 的请求
 type OptDailyRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Exchange string `json:"exchange,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // TS合约代码（输入代码或时间至少任意一个参数）
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	Exchange string `json:"exchange,omitempty"` // 交易所(SSE/SZSE/CFFEX/DCE/SHFE/CZCE）
 }
 
 // OptDailyItem 表示单个 期权日线行情 数据项
 type OptDailyItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	Exchange string `json:"exchange"`
-	PreSettle float64 `json:"pre_settle"`
-	PreClose float64 `json:"pre_close"`
-	Open float64 `json:"open"`
-	High float64 `json:"high"`
-	Low float64 `json:"low"`
-	Close float64 `json:"close"`
-	Settle float64 `json:"settle"`
-	Vol float64 `json:"vol"`
-	Amount float64 `json:"amount"`
-	Oi float64 `json:"oi"`
+	TsCode string `json:"ts_code"` // TS代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	Exchange string `json:"exchange"` // 交易市场
+	PreSettle float64 `json:"pre_settle"` // 昨结算价
+	PreClose float64 `json:"pre_close"` // 前收盘价
+	Open float64 `json:"open"` // 开盘价
+	High float64 `json:"high"` // 最高价
+	Low float64 `json:"low"` // 最低价
+	Close float64 `json:"close"` // 收盘价
+	Settle float64 `json:"settle"` // 结算价
+	Vol float64 `json:"vol"` // 成交量(手)
+	Amount float64 `json:"amount"` // 成交金额(万元)
+	Oi float64 `json:"oi"` // 持仓量(手)
 }
 
 // OptDaily 调用 期权日线行情 API

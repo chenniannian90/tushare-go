@@ -11,84 +11,84 @@ import (
 
 // UsFinaIndicatorRequest 表示 美股财务指标数据 API 的请求
 type UsFinaIndicatorRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	Period string `json:"period,omitempty"`
-	ReportType string `json:"report_type,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	Period string `json:"period,omitempty"` // 报告期（格式：YYYYMMDD，每个季度最后一天的日期，如20241231)
+	ReportType string `json:"report_type,omitempty"` // 报告期类型(Q1一季报Q2半年报Q3三季报Q4年报)
+	StartDate string `json:"start_date,omitempty"` // 报告期开始时间（格式：YYYYMMDD）
+	EndDate string `json:"end_date,omitempty"` // 报告结束始时间（格式：YYYYMMDD）
 }
 
 // UsFinaIndicatorItem 表示单个 美股财务指标数据 数据项
 type UsFinaIndicatorItem struct {
-	TsCode string `json:"ts_code"`
-	EndDate string `json:"end_date"`
-	IndType string `json:"ind_type"`
-	SecurityNameAbbr string `json:"security_name_abbr"`
-	AccountingStandards string `json:"accounting_standards"`
-	NoticeDate string `json:"notice_date"`
-	StartDate string `json:"start_date"`
-	StdReportDate string `json:"std_report_date"`
-	FinancialDate string `json:"financial_date"`
-	Currency string `json:"currency"`
-	DateType string `json:"date_type"`
-	ReportType string `json:"report_type"`
-	OperateIncome float64 `json:"operate_income"`
-	OperateIncomeYoy float64 `json:"operate_income_yoy"`
-	GrossProfit float64 `json:"gross_profit"`
-	GrossProfitYoy float64 `json:"gross_profit_yoy"`
-	ParentHolderNetprofit float64 `json:"parent_holder_netprofit"`
-	ParentHolderNetprofitYoy float64 `json:"parent_holder_netprofit_yoy"`
-	BasicEps float64 `json:"basic_eps"`
-	DilutedEps float64 `json:"diluted_eps"`
-	GrossProfitRatio float64 `json:"gross_profit_ratio"`
-	NetProfitRatio float64 `json:"net_profit_ratio"`
-	AccountsReceTr float64 `json:"accounts_rece_tr"`
-	InventoryTr float64 `json:"inventory_tr"`
-	TotalAssetsTr float64 `json:"total_assets_tr"`
-	AccountsReceTdays float64 `json:"accounts_rece_tdays"`
-	InventoryTdays float64 `json:"inventory_tdays"`
-	TotalAssetsTdays float64 `json:"total_assets_tdays"`
-	RoeAvg float64 `json:"roe_avg"`
-	Roa float64 `json:"roa"`
-	CurrentRatio float64 `json:"current_ratio"`
-	SpeedRatio float64 `json:"speed_ratio"`
-	OcfLiqdebt float64 `json:"ocf_liqdebt"`
-	DebtAssetRatio float64 `json:"debt_asset_ratio"`
-	EquityRatio float64 `json:"equity_ratio"`
-	BasicEpsYoy float64 `json:"basic_eps_yoy"`
-	GrossProfitRatioYoy float64 `json:"gross_profit_ratio_yoy"`
-	NetProfitRatioYoy float64 `json:"net_profit_ratio_yoy"`
-	RoeAvgYoy float64 `json:"roe_avg_yoy"`
-	RoaYoy float64 `json:"roa_yoy"`
-	DebtAssetRatioYoy float64 `json:"debt_asset_ratio_yoy"`
-	CurrentRatioYoy float64 `json:"current_ratio_yoy"`
-	SpeedRatioYoy float64 `json:"speed_ratio_yoy"`
-	CurrencyAbbr string `json:"currency_abbr"`
-	TotalIncome float64 `json:"total_income"`
-	TotalIncomeYoy float64 `json:"total_income_yoy"`
-	PremiumIncome float64 `json:"premium_income"`
-	PremiumIncomeYoy float64 `json:"premium_income_yoy"`
-	BasicEpsCs float64 `json:"basic_eps_cs"`
-	BasicEpsCsYoy float64 `json:"basic_eps_cs_yoy"`
-	DilutedEpsCs float64 `json:"diluted_eps_cs"`
-	PayoutRatio float64 `json:"payout_ratio"`
-	CapitialRatio float64 `json:"capitial_ratio"`
-	Roe float64 `json:"roe"`
-	RoeYoy float64 `json:"roe_yoy"`
-	DebtRatio float64 `json:"debt_ratio"`
-	DebtRatioYoy float64 `json:"debt_ratio_yoy"`
-	NetInterestIncome float64 `json:"net_interest_income"`
-	NetInterestIncomeYoy float64 `json:"net_interest_income_yoy"`
-	DilutedEpsCsYoy float64 `json:"diluted_eps_cs_yoy"`
-	LoanLossProvision float64 `json:"loan_loss_provision"`
-	LoanLossProvisionYoy float64 `json:"loan_loss_provision_yoy"`
-	LoanDeposit float64 `json:"loan_deposit"`
-	LoanEquity float64 `json:"loan_equity"`
-	LoanAssets float64 `json:"loan_assets"`
-	DepositEquity float64 `json:"deposit_equity"`
-	DepositAssets float64 `json:"deposit_assets"`
-	Rol float64 `json:"rol"`
-	Rod float64 `json:"rod"`
+	TsCode string `json:"ts_code"` // 股票代码
+	EndDate string `json:"end_date"` // 报告期
+	IndType string `json:"ind_type"` // 报告类型,Q1一季报,Q2中报,Q3三季报,Q4年报
+	SecurityNameAbbr string `json:"security_name_abbr"` // 股票名称
+	AccountingStandards string `json:"accounting_standards"` // 会计准则
+	NoticeDate string `json:"notice_date"` // 公告日期
+	StartDate string `json:"start_date"` // 报告期开始时间
+	StdReportDate string `json:"std_report_date"` // 标准报告期
+	FinancialDate string `json:"financial_date"` // 年结日
+	Currency string `json:"currency"` // 币种
+	DateType string `json:"date_type"` // 报告期类型
+	ReportType string `json:"report_type"` // 报告类型
+	OperateIncome float64 `json:"operate_income"` // 收入
+	OperateIncomeYoy float64 `json:"operate_income_yoy"` // 收入增长
+	GrossProfit float64 `json:"gross_profit"` // 毛利
+	GrossProfitYoy float64 `json:"gross_profit_yoy"` // 毛利增长
+	ParentHolderNetprofit float64 `json:"parent_holder_netprofit"` // 归母净利润
+	ParentHolderNetprofitYoy float64 `json:"parent_holder_netprofit_yoy"` // 归母净利润增长
+	BasicEps float64 `json:"basic_eps"` // 基本每股收益
+	DilutedEps float64 `json:"diluted_eps"` // 稀释每股收益
+	GrossProfitRatio float64 `json:"gross_profit_ratio"` // 销售毛利率
+	NetProfitRatio float64 `json:"net_profit_ratio"` // 销售净利率
+	AccountsReceTr float64 `json:"accounts_rece_tr"` // 应收账款周转率(次)
+	InventoryTr float64 `json:"inventory_tr"` // 存货周转率(次)
+	TotalAssetsTr float64 `json:"total_assets_tr"` // 总资产周转率(次)
+	AccountsReceTdays float64 `json:"accounts_rece_tdays"` // 应收账款周转天数
+	InventoryTdays float64 `json:"inventory_tdays"` // 存货周转天数
+	TotalAssetsTdays float64 `json:"total_assets_tdays"` // 总资产周转天数
+	RoeAvg float64 `json:"roe_avg"` // 净资产收益率
+	Roa float64 `json:"roa"` // 总资产净利率
+	CurrentRatio float64 `json:"current_ratio"` // 流动比率(倍)
+	SpeedRatio float64 `json:"speed_ratio"` // 速动比率(倍)
+	OcfLiqdebt float64 `json:"ocf_liqdebt"` // 经营业务现金净额/流动负债
+	DebtAssetRatio float64 `json:"debt_asset_ratio"` // 资产负债率
+	EquityRatio float64 `json:"equity_ratio"` // 产权比率
+	BasicEpsYoy float64 `json:"basic_eps_yoy"` // 基本每股收益同比增长
+	GrossProfitRatioYoy float64 `json:"gross_profit_ratio_yoy"` // 毛利率同比增长(%)
+	NetProfitRatioYoy float64 `json:"net_profit_ratio_yoy"` // 净利率同比增长(%)
+	RoeAvgYoy float64 `json:"roe_avg_yoy"` // 平均净资产收益率同比增长(%)
+	RoaYoy float64 `json:"roa_yoy"` // 净资产收益率同比增长(%)
+	DebtAssetRatioYoy float64 `json:"debt_asset_ratio_yoy"` // 资产负债率同比增长(%)
+	CurrentRatioYoy float64 `json:"current_ratio_yoy"` // 流动比率同比增长(%)
+	SpeedRatioYoy float64 `json:"speed_ratio_yoy"` // 速动比率同比增长(%)
+	CurrencyAbbr string `json:"currency_abbr"` // 币种
+	TotalIncome float64 `json:"total_income"` // 收入总额
+	TotalIncomeYoy float64 `json:"total_income_yoy"` // 收入总额同比增长
+	PremiumIncome float64 `json:"premium_income"` // 保费收入
+	PremiumIncomeYoy float64 `json:"premium_income_yoy"` // 保费收入同比
+	BasicEpsCs float64 `json:"basic_eps_cs"` // 基本每股收益
+	BasicEpsCsYoy float64 `json:"basic_eps_cs_yoy"` // 基本每股收益同比增长
+	DilutedEpsCs float64 `json:"diluted_eps_cs"` // 稀释每股收益
+	PayoutRatio float64 `json:"payout_ratio"` // 保费收入/赔付支出
+	CapitialRatio float64 `json:"capitial_ratio"` // 总资产周转率
+	Roe float64 `json:"roe"` // 净资产收益率
+	RoeYoy float64 `json:"roe_yoy"` // 净资产收益率同比增长
+	DebtRatio float64 `json:"debt_ratio"` // 资产负债率
+	DebtRatioYoy float64 `json:"debt_ratio_yoy"` // 资产负债率同比增长
+	NetInterestIncome float64 `json:"net_interest_income"` // 净利息收入
+	NetInterestIncomeYoy float64 `json:"net_interest_income_yoy"` // 净利息收入增长
+	DilutedEpsCsYoy float64 `json:"diluted_eps_cs_yoy"` // 稀释每股收益增长
+	LoanLossProvision float64 `json:"loan_loss_provision"` // 贷款损失准备
+	LoanLossProvisionYoy float64 `json:"loan_loss_provision_yoy"` // 贷款损失准备增长
+	LoanDeposit float64 `json:"loan_deposit"` // 贷款/存款
+	LoanEquity float64 `json:"loan_equity"` // 贷款/股东权益(倍)
+	LoanAssets float64 `json:"loan_assets"` // 贷款/总资产
+	DepositEquity float64 `json:"deposit_equity"` // 存款/股东权益(倍)
+	DepositAssets float64 `json:"deposit_assets"` // 存款/总资产
+	Rol float64 `json:"rol"` // 贷款回报率
+	Rod float64 `json:"rod"` // 存款回报率
 }
 
 // UsFinaIndicator 调用 美股财务指标数据 API

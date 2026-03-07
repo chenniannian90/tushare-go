@@ -11,18 +11,18 @@ import (
 
 // CbPriceChgRequest 表示 可转债转股价变动 API 的请求
 type CbPriceChgRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 转债代码，支持多值输入
 }
 
 // CbPriceChgItem 表示单个 可转债转股价变动 数据项
 type CbPriceChgItem struct {
-	TsCode string `json:"ts_code"`
-	BondShortName string `json:"bond_short_name"`
-	PublishDate string `json:"publish_date"`
-	ChangeDate string `json:"change_date"`
-	ConvertPriceInitial float64 `json:"convert_price_initial"`
-	ConvertpriceBef float64 `json:"convertprice_bef"`
-	ConvertpriceAft float64 `json:"convertprice_aft"`
+	TsCode string `json:"ts_code"` // 转债代码
+	BondShortName string `json:"bond_short_name"` // 转债简称
+	PublishDate string `json:"publish_date"` // 公告日期
+	ChangeDate string `json:"change_date"` // 变动日期
+	ConvertPriceInitial float64 `json:"convert_price_initial"` // 初始转股价格
+	ConvertpriceBef float64 `json:"convertprice_bef"` // 修正前转股价格
+	ConvertpriceAft float64 `json:"convertprice_aft"` // 修正后转股价格
 }
 
 // CbPriceChg 调用 可转债转股价变动 API

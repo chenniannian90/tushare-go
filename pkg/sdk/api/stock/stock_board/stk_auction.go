@@ -11,23 +11,23 @@ import (
 
 // StkAuctionRequest 表示 开盘竞价成交（当日） API 的请求
 type StkAuctionRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（YYYYMMDD格式，下同)
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // StkAuctionItem 表示单个 开盘竞价成交（当日） 数据项
 type StkAuctionItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	Vol int `json:"vol"`
-	Price int `json:"price"`
-	Amount float64 `json:"amount"`
-	PreClose float64 `json:"pre_close"`
-	TurnoverRate float64 `json:"turnover_rate"`
-	VolumeRatio float64 `json:"volume_ratio"`
-	FloatShare float64 `json:"float_share"`
+	TsCode string `json:"ts_code"` // 股票代码
+	TradeDate string `json:"trade_date"` // 数据日期
+	Vol int `json:"vol"` // 成交量（股）
+	Price int `json:"price"` // 成交均价（元）
+	Amount float64 `json:"amount"` // 成交金额（元）
+	PreClose float64 `json:"pre_close"` // 昨收价（元）
+	TurnoverRate float64 `json:"turnover_rate"` // 换手率（%）
+	VolumeRatio float64 `json:"volume_ratio"` // 量比
+	FloatShare float64 `json:"float_share"` // 流通股本（万股）
 }
 
 // StkAuction 调用 开盘竞价成交（当日） API

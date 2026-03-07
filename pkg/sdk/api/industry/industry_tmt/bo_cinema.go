@@ -11,20 +11,20 @@ import (
 
 // BoCinemaRequest 表示 影院日度票房 API 的请求
 type BoCinemaRequest struct {
-	Date string `json:"date,omitempty"`
+	Date string `json:"date,omitempty"` // 日期(格式:YYYYMMDD)
 }
 
 // BoCinemaItem 表示单个 影院日度票房 数据项
 type BoCinemaItem struct {
-	Date string `json:"date"`
-	CName string `json:"c_name"`
-	AudCount int `json:"aud_count"`
-	AttRatio float64 `json:"att_ratio"`
-	DayAmount float64 `json:"day_amount"`
-	DayShowcount float64 `json:"day_showcount"`
-	AvgPrice float64 `json:"avg_price"`
-	PPc float64 `json:"p_pc"`
-	Rank int `json:"rank"`
+	Date string `json:"date"` // 日期
+	CName string `json:"c_name"` // 影院名称
+	AudCount int `json:"aud_count"` // 观众人数
+	AttRatio float64 `json:"att_ratio"` // 上座率
+	DayAmount float64 `json:"day_amount"` // 当日票房
+	DayShowcount float64 `json:"day_showcount"` // 当日场次
+	AvgPrice float64 `json:"avg_price"` // 场均票价（元）
+	PPc float64 `json:"p_pc"` // 场均人次
+	Rank int `json:"rank"` // 排名
 }
 
 // BoCinema 调用 影院日度票房 API

@@ -11,27 +11,27 @@ import (
 
 // ResearchReportRequest 表示 券商研究报告 API 的请求
 type ResearchReportRequest struct {
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	ReportType string `json:"report_type,omitempty"`
-	TsCode string `json:"ts_code,omitempty"`
-	InstCsname string `json:"inst_csname,omitempty"`
-	IndName string `json:"ind_name,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"` // 研报日期（格式：YYYYMMDD，下同）
+	StartDate string `json:"start_date,omitempty"` // 研报开始日期
+	EndDate string `json:"end_date,omitempty"` // 研报结束日期
+	ReportType string `json:"report_type,omitempty"` // 研报类别：个股研报/行业研报
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	InstCsname string `json:"inst_csname,omitempty"` // 券商名称
+	IndName string `json:"ind_name,omitempty"` // 行业名称
 }
 
 // ResearchReportItem 表示单个 券商研究报告 数据项
 type ResearchReportItem struct {
-	TradeDate string `json:"trade_date"`
-	Abstr string `json:"abstr"`
-	Title string `json:"title"`
-	ReportType string `json:"report_type"`
-	Author string `json:"author"`
-	Name string `json:"name"`
-	TsCode string `json:"ts_code"`
-	InstCsname string `json:"inst_csname"`
-	IndName string `json:"ind_name"`
-	Url string `json:"url"`
+	TradeDate string `json:"trade_date"` // 研报发布时间
+	Abstr string `json:"abstr"` // 研报摘要
+	Title string `json:"title"` // 研报标题
+	ReportType string `json:"report_type"` // 研报类别
+	Author string `json:"author"` // 作者
+	Name string `json:"name"` // 股票名称
+	TsCode string `json:"ts_code"` // 股票代码
+	InstCsname string `json:"inst_csname"` // 机构简称
+	IndName string `json:"ind_name"` // 行业名称
+	Url string `json:"url"` // 下载链接
 }
 
 // ResearchReport 调用 券商研究报告 API

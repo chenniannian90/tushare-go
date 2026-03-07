@@ -11,25 +11,25 @@ import (
 
 // FutHoldingRequest 表示 每日持仓排名 API 的请求
 type FutHoldingRequest struct {
-	TradeDate string `json:"trade_date,omitempty"`
-	Symbol string `json:"symbol,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Exchange string `json:"exchange,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期 （trade_date/symbol至少输入一个参数）
+	Symbol string `json:"symbol,omitempty"` // 合约或产品代码
+	StartDate string `json:"start_date,omitempty"` // 开始日期(YYYYMMDD格式，下同)
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	Exchange string `json:"exchange,omitempty"` // 交易所代码
 }
 
 // FutHoldingItem 表示单个 每日持仓排名 数据项
 type FutHoldingItem struct {
-	TradeDate string `json:"trade_date"`
-	Symbol string `json:"symbol"`
-	Broker string `json:"broker"`
-	Vol int `json:"vol"`
-	VolChg int `json:"vol_chg"`
-	LongHld int `json:"long_hld"`
-	LongChg int `json:"long_chg"`
-	ShortHld int `json:"short_hld"`
-	ShortChg int `json:"short_chg"`
-	Exchange string `json:"exchange"`
+	TradeDate string `json:"trade_date"` // 交易日期
+	Symbol string `json:"symbol"` // 合约代码或类型
+	Broker string `json:"broker"` // 期货公司会员简称
+	Vol int `json:"vol"` // 成交量
+	VolChg int `json:"vol_chg"` // 成交量变化
+	LongHld int `json:"long_hld"` // 持买仓量
+	LongChg int `json:"long_chg"` // 持买仓量变化
+	ShortHld int `json:"short_hld"` // 持卖仓量
+	ShortChg int `json:"short_chg"` // 持卖仓量变化
+	Exchange string `json:"exchange"` // 交易所
 }
 
 // FutHolding 调用 每日持仓排名 API

@@ -11,25 +11,25 @@ import (
 
 // FxObasicRequest 表示 外汇基础信息（海外） API 的请求
 type FxObasicRequest struct {
-	Exchange string `json:"exchange,omitempty"`
-	Classify string `json:"classify,omitempty"`
-	TsCode string `json:"ts_code,omitempty"`
+	Exchange string `json:"exchange,omitempty"` // 交易商
+	Classify string `json:"classify,omitempty"` // 分类
+	TsCode string `json:"ts_code,omitempty"` // TS代码
 }
 
 // FxObasicItem 表示单个 外汇基础信息（海外） 数据项
 type FxObasicItem struct {
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	Classify string `json:"classify"`
-	Exchange string `json:"exchange"`
-	MinUnit float64 `json:"min_unit"`
-	MaxUnit float64 `json:"max_unit"`
-	Pip float64 `json:"pip"`
-	PipCost float64 `json:"pip_cost"`
-	TragetSpread float64 `json:"traget_spread"`
-	MinStopDistance float64 `json:"min_stop_distance"`
-	TradingHours string `json:"trading_hours"`
-	BreakTime string `json:"break_time"`
+	TsCode string `json:"ts_code"` // 外汇代码
+	Name string `json:"name"` // 名称
+	Classify string `json:"classify"` // 分类
+	Exchange string `json:"exchange"` // 交易商
+	MinUnit float64 `json:"min_unit"` // 最小交易单位
+	MaxUnit float64 `json:"max_unit"` // 最大交易单位
+	Pip float64 `json:"pip"` // 点
+	PipCost float64 `json:"pip_cost"` // 点值
+	TragetSpread float64 `json:"traget_spread"` // 目标差价
+	MinStopDistance float64 `json:"min_stop_distance"` // 最小止损距离（点子）
+	TradingHours string `json:"trading_hours"` // 交易时间
+	BreakTime string `json:"break_time"` // 休市时间
 }
 
 // FxObasic 调用 外汇基础信息（海外） API

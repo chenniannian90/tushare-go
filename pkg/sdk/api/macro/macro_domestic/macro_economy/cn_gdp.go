@@ -11,23 +11,23 @@ import (
 
 // CnGdpRequest 表示 国内生产总值（GDP） API 的请求
 type CnGdpRequest struct {
-	Q string `json:"q,omitempty"`
-	StartQ string `json:"start_q,omitempty"`
-	EndQ string `json:"end_q,omitempty"`
-	Fields string `json:"fields,omitempty"`
+	Q string `json:"q,omitempty"` // 季度（2019Q1表示，2019年第一季度）
+	StartQ string `json:"start_q,omitempty"` // 开始季度
+	EndQ string `json:"end_q,omitempty"` // 结束季度
+	Fields string `json:"fields,omitempty"` // 指定输出字段（e.g. fields='quarter,gdp,gdp_yoy'）
 }
 
 // CnGdpItem 表示单个 国内生产总值（GDP） 数据项
 type CnGdpItem struct {
-	Quarter string `json:"quarter"`
-	Gdp float64 `json:"gdp"`
-	GdpYoy float64 `json:"gdp_yoy"`
-	Pi float64 `json:"pi"`
-	PiYoy float64 `json:"pi_yoy"`
-	Si float64 `json:"si"`
-	SiYoy float64 `json:"si_yoy"`
-	Ti float64 `json:"ti"`
-	TiYoy float64 `json:"ti_yoy"`
+	Quarter string `json:"quarter"` // 季度
+	Gdp float64 `json:"gdp"` // GDP累计值（亿元）
+	GdpYoy float64 `json:"gdp_yoy"` // 当季同比增速（%）
+	Pi float64 `json:"pi"` // 第一产业累计值（亿元）
+	PiYoy float64 `json:"pi_yoy"` // 第一产业同比增速（%）
+	Si float64 `json:"si"` // 第二产业累计值（亿元）
+	SiYoy float64 `json:"si_yoy"` // 第二产业同比增速（%）
+	Ti float64 `json:"ti"` // 第三产业累计值（亿元）
+	TiYoy float64 `json:"ti_yoy"` // 第三产业同比增速（%）
 }
 
 // CnGdp 调用 国内生产总值（GDP） API

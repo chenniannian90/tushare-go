@@ -11,25 +11,25 @@ import (
 
 // FundManagerRequest 表示 基金经理 API 的请求
 type FundManagerRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	AnnDate string `json:"ann_date,omitempty"`
-	Name string `json:"name,omitempty"`
-	Offset string `json:"offset,omitempty"`
-	Limit int `json:"limit,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 基金代码，支持多只基金，逗号分隔
+	AnnDate string `json:"ann_date,omitempty"` // 公告日期，格式：YYYYMMDD
+	Name string `json:"name,omitempty"` // 基金经理姓名
+	Offset string `json:"offset,omitempty"` // 开始行数
+	Limit int `json:"limit,omitempty"` // 每页行数
 }
 
 // FundManagerItem 表示单个 基金经理 数据项
 type FundManagerItem struct {
-	TsCode string `json:"ts_code"`
-	AnnDate string `json:"ann_date"`
-	Name string `json:"name"`
-	Gender string `json:"gender"`
-	BirthYear string `json:"birth_year"`
-	Edu string `json:"edu"`
-	Nationality string `json:"nationality"`
-	BeginDate string `json:"begin_date"`
-	EndDate string `json:"end_date"`
-	Resume string `json:"resume"`
+	TsCode string `json:"ts_code"` // 基金代码
+	AnnDate string `json:"ann_date"` // 公告日期
+	Name string `json:"name"` // 基金经理姓名
+	Gender string `json:"gender"` // 性别
+	BirthYear string `json:"birth_year"` // 出生年份
+	Edu string `json:"edu"` // 学历
+	Nationality string `json:"nationality"` // 国籍
+	BeginDate string `json:"begin_date"` // 任职日期
+	EndDate string `json:"end_date"` // 离任日期
+	Resume string `json:"resume"` // 简历
 }
 
 // FundManager 调用 基金经理 API

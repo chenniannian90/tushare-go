@@ -11,29 +11,29 @@ import (
 
 // StkHoldertradeRequest 表示 股东增减持 API 的请求
 type StkHoldertradeRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	AnnDate string `json:"ann_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	TradeType string `json:"trade_type,omitempty"`
-	HolderType string `json:"holder_type,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // TS股票代码
+	AnnDate string `json:"ann_date,omitempty"` // 公告日期
+	StartDate string `json:"start_date,omitempty"` // 公告开始日期
+	EndDate string `json:"end_date,omitempty"` // 公告结束日期
+	TradeType string `json:"trade_type,omitempty"` // 交易类型IN增持DE减持
+	HolderType string `json:"holder_type,omitempty"` // 股东类型C公司P个人G高管
 }
 
 // StkHoldertradeItem 表示单个 股东增减持 数据项
 type StkHoldertradeItem struct {
-	TsCode string `json:"ts_code"`
-	AnnDate string `json:"ann_date"`
-	HolderName string `json:"holder_name"`
-	HolderType string `json:"holder_type"`
-	InDe string `json:"in_de"`
-	ChangeVol float64 `json:"change_vol"`
-	ChangeRatio float64 `json:"change_ratio"`
-	AfterShare float64 `json:"after_share"`
-	AfterRatio float64 `json:"after_ratio"`
-	AvgPrice float64 `json:"avg_price"`
-	TotalShare float64 `json:"total_share"`
-	BeginDate string `json:"begin_date"`
-	CloseDate string `json:"close_date"`
+	TsCode string `json:"ts_code"` // TS代码
+	AnnDate string `json:"ann_date"` // 公告日期
+	HolderName string `json:"holder_name"` // 股东名称
+	HolderType string `json:"holder_type"` // 股东类型G高管P个人C公司
+	InDe string `json:"in_de"` // 类型IN增持DE减持
+	ChangeVol float64 `json:"change_vol"` // 变动数量
+	ChangeRatio float64 `json:"change_ratio"` // 占流通比例（%）
+	AfterShare float64 `json:"after_share"` // 变动后持股
+	AfterRatio float64 `json:"after_ratio"` // 变动后占流通比例（%）
+	AvgPrice float64 `json:"avg_price"` // 平均价格
+	TotalShare float64 `json:"total_share"` // 持股总数
+	BeginDate string `json:"begin_date"` // 增减持开始日期
+	CloseDate string `json:"close_date"` // 增减持结束日期
 }
 
 // StkHoldertrade 调用 股东增减持 API

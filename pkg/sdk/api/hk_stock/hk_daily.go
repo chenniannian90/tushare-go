@@ -11,25 +11,25 @@ import (
 
 // HkDailyRequest 表示 港股日线行情 API 的请求
 type HkDailyRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // HkDailyItem 表示单个 港股日线行情 数据项
 type HkDailyItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	Open float64 `json:"open"`
-	High float64 `json:"high"`
-	Low float64 `json:"low"`
-	Close float64 `json:"close"`
-	PreClose float64 `json:"pre_close"`
-	Change float64 `json:"change"`
-	PctChg float64 `json:"pct_chg"`
-	Vol float64 `json:"vol"`
-	Amount float64 `json:"amount"`
+	TsCode string `json:"ts_code"` // 股票代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	Open float64 `json:"open"` // 开盘价
+	High float64 `json:"high"` // 最高价
+	Low float64 `json:"low"` // 最低价
+	Close float64 `json:"close"` // 收盘价
+	PreClose float64 `json:"pre_close"` // 昨收价
+	Change float64 `json:"change"` // 涨跌额
+	PctChg float64 `json:"pct_chg"` // 涨跌幅(%)
+	Vol float64 `json:"vol"` // 成交量(股)
+	Amount float64 `json:"amount"` // 成交额(元)
 }
 
 // HkDaily 调用 港股日线行情 API

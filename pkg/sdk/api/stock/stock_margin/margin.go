@@ -10,10 +10,10 @@ import (
 
 // MarginRequest 表示 融资融券交易汇总 API 的请求
 type MarginRequest struct {
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	ExchangeId string `json:"exchange_id,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（格式：YYYYMMDD，下同）
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	ExchangeId string `json:"exchange_id,omitempty"` // 交易所代码（SSE上交所SZSE深交所BSE北交所）
 }
 
 // MarginItem 表示单个 融资融券交易汇总 数据项

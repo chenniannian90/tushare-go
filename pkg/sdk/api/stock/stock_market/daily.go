@@ -10,10 +10,10 @@ import (
 
 // DailyRequest 表示 历史日线 API 的请求
 type DailyRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码（支持多个股票同时提取，逗号分隔）
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（YYYYMMDD）
+	StartDate string `json:"start_date,omitempty"` // 开始日期(YYYYMMDD)
+	EndDate string `json:"end_date,omitempty"` // 结束日期(YYYYMMDD)
 }
 
 // DailyItem 表示单个 历史日线 数据项

@@ -11,14 +11,14 @@ import (
 
 // CctvNewsRequest 表示 新闻联播文字稿 API 的请求
 type CctvNewsRequest struct {
-	Date string `json:"date,omitempty"`
+	Date string `json:"date,omitempty"` // 日期（输入格式：YYYYMMDD 比如：20181211）
 }
 
 // CctvNewsItem 表示单个 新闻联播文字稿 数据项
 type CctvNewsItem struct {
-	Date string `json:"date"`
-	Title string `json:"title"`
-	Content string `json:"content"`
+	Date string `json:"date"` // 日期
+	Title string `json:"title"` // 标题
+	Content string `json:"content"` // 内容
 }
 
 // CctvNews 调用 新闻联播文字稿 API

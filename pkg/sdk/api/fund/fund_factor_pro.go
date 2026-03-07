@@ -11,104 +11,104 @@ import (
 
 // FundFactorProRequest 表示 基金技术面因子(专业版) API 的请求
 type FundFactorProRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 基金代码
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期
 }
 
 // FundFactorProItem 表示单个 基金技术面因子(专业版) 数据项
 type FundFactorProItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	TradeDateDoris string `json:"trade_date_doris"`
-	Open float64 `json:"open"`
-	High float64 `json:"high"`
-	Low float64 `json:"low"`
-	Close float64 `json:"close"`
-	PreClose float64 `json:"pre_close"`
-	Change float64 `json:"change"`
-	PctChange float64 `json:"pct_change"`
-	Vol float64 `json:"vol"`
-	Amount float64 `json:"amount"`
-	AsiBfq float64 `json:"asi_bfq"`
-	AsitBfq float64 `json:"asit_bfq"`
-	AtrBfq float64 `json:"atr_bfq"`
-	BbiBfq float64 `json:"bbi_bfq"`
-	Bias1Bfq float64 `json:"bias1_bfq"`
-	Bias2Bfq float64 `json:"bias2_bfq"`
-	Bias3Bfq float64 `json:"bias3_bfq"`
-	BollLowerBfq float64 `json:"boll_lower_bfq"`
-	BollMidBfq float64 `json:"boll_mid_bfq"`
-	BollUpperBfq float64 `json:"boll_upper_bfq"`
-	BrarArBfq float64 `json:"brar_ar_bfq"`
-	BrarBrBfq float64 `json:"brar_br_bfq"`
-	CciBfq float64 `json:"cci_bfq"`
-	CrBfq float64 `json:"cr_bfq"`
-	DfmaDifBfq float64 `json:"dfma_dif_bfq"`
-	DfmaDifmaBfq float64 `json:"dfma_difma_bfq"`
-	DmiAdxBfq float64 `json:"dmi_adx_bfq"`
-	DmiAdxrBfq float64 `json:"dmi_adxr_bfq"`
-	DmiMdiBfq float64 `json:"dmi_mdi_bfq"`
-	DmiPdiBfq float64 `json:"dmi_pdi_bfq"`
-	Downdays float64 `json:"downdays"`
-	Updays float64 `json:"updays"`
-	DpoBfq float64 `json:"dpo_bfq"`
-	MadpoBfq float64 `json:"madpo_bfq"`
-	EmaBfq10 float64 `json:"ema_bfq_10"`
-	EmaBfq20 float64 `json:"ema_bfq_20"`
-	EmaBfq250 float64 `json:"ema_bfq_250"`
-	EmaBfq30 float64 `json:"ema_bfq_30"`
-	EmaBfq5 float64 `json:"ema_bfq_5"`
-	EmaBfq60 float64 `json:"ema_bfq_60"`
-	EmaBfq90 float64 `json:"ema_bfq_90"`
-	EmvBfq float64 `json:"emv_bfq"`
-	MaemvBfq float64 `json:"maemv_bfq"`
-	Expma12Bfq float64 `json:"expma_12_bfq"`
-	Expma50Bfq float64 `json:"expma_50_bfq"`
-	KdjBfq float64 `json:"kdj_bfq"`
-	KdjDBfq float64 `json:"kdj_d_bfq"`
-	KdjKBfq float64 `json:"kdj_k_bfq"`
-	KtnDownBfq float64 `json:"ktn_down_bfq"`
-	KtnMidBfq float64 `json:"ktn_mid_bfq"`
-	KtnUpperBfq float64 `json:"ktn_upper_bfq"`
-	Lowdays float64 `json:"lowdays"`
-	Topdays float64 `json:"topdays"`
-	MaBfq10 float64 `json:"ma_bfq_10"`
-	MaBfq20 float64 `json:"ma_bfq_20"`
-	MaBfq250 float64 `json:"ma_bfq_250"`
-	MaBfq30 float64 `json:"ma_bfq_30"`
-	MaBfq5 float64 `json:"ma_bfq_5"`
-	MaBfq60 float64 `json:"ma_bfq_60"`
-	MaBfq90 float64 `json:"ma_bfq_90"`
-	MacdBfq float64 `json:"macd_bfq"`
-	MacdDeaBfq float64 `json:"macd_dea_bfq"`
-	MacdDifBfq float64 `json:"macd_dif_bfq"`
-	MassBfq float64 `json:"mass_bfq"`
-	MaMassBfq float64 `json:"ma_mass_bfq"`
-	MfiBfq float64 `json:"mfi_bfq"`
-	MtmBfq float64 `json:"mtm_bfq"`
-	MtmmaBfq float64 `json:"mtmma_bfq"`
-	ObvBfq float64 `json:"obv_bfq"`
-	PsyBfq float64 `json:"psy_bfq"`
-	PsymaBfq float64 `json:"psyma_bfq"`
-	RocBfq float64 `json:"roc_bfq"`
-	MarocBfq float64 `json:"maroc_bfq"`
-	RsiBfq12 float64 `json:"rsi_bfq_12"`
-	RsiBfq24 float64 `json:"rsi_bfq_24"`
-	RsiBfq6 float64 `json:"rsi_bfq_6"`
-	TaqDownBfq float64 `json:"taq_down_bfq"`
-	TaqMidBfq float64 `json:"taq_mid_bfq"`
-	TaqUpBfq float64 `json:"taq_up_bfq"`
-	TrixBfq float64 `json:"trix_bfq"`
-	TrmaBfq float64 `json:"trma_bfq"`
-	VrBfq float64 `json:"vr_bfq"`
-	WrBfq float64 `json:"wr_bfq"`
-	Wr1Bfq float64 `json:"wr1_bfq"`
-	XsiiTd1Bfq float64 `json:"xsii_td1_bfq"`
-	XsiiTd2Bfq float64 `json:"xsii_td2_bfq"`
-	XsiiTd3Bfq float64 `json:"xsii_td3_bfq"`
-	XsiiTd4Bfq float64 `json:"xsii_td4_bfq"`
+	TsCode string `json:"ts_code"` // 基金代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	TradeDateDoris string `json:"trade_date_doris"` // 日期
+	Open float64 `json:"open"` // 开盘价
+	High float64 `json:"high"` // 最高价
+	Low float64 `json:"low"` // 最低价
+	Close float64 `json:"close"` // 收盘价
+	PreClose float64 `json:"pre_close"` // 昨收价
+	Change float64 `json:"change"` // 涨跌额
+	PctChange float64 `json:"pct_change"` // 涨跌幅 （未复权，如果是复权请用 通用行情接口 ）
+	Vol float64 `json:"vol"` // 成交量 （手）
+	Amount float64 `json:"amount"` // 成交额 （千元）
+	AsiBfq float64 `json:"asi_bfq"` // 振动升降指标-OPEN, CLOSE, HIGH, LOW, M1=26, M2=10
+	AsitBfq float64 `json:"asit_bfq"` // 振动升降指标-OPEN, CLOSE, HIGH, LOW, M1=26, M2=10
+	AtrBfq float64 `json:"atr_bfq"` // 真实波动N日平均值-CLOSE, HIGH, LOW, N=20
+	BbiBfq float64 `json:"bbi_bfq"` // BBI多空指标-CLOSE, M1=3, M2=6, M3=12, M4=20
+	Bias1Bfq float64 `json:"bias1_bfq"` // BIAS乖离率-CLOSE, L1=6, L2=12, L3=24
+	Bias2Bfq float64 `json:"bias2_bfq"` // BIAS乖离率-CLOSE, L1=6, L2=12, L3=24
+	Bias3Bfq float64 `json:"bias3_bfq"` // BIAS乖离率-CLOSE, L1=6, L2=12, L3=24
+	BollLowerBfq float64 `json:"boll_lower_bfq"` // BOLL指标，布林带-CLOSE, N=20, P=2
+	BollMidBfq float64 `json:"boll_mid_bfq"` // BOLL指标，布林带-CLOSE, N=20, P=2
+	BollUpperBfq float64 `json:"boll_upper_bfq"` // BOLL指标，布林带-CLOSE, N=20, P=2
+	BrarArBfq float64 `json:"brar_ar_bfq"` // BRAR情绪指标-OPEN, CLOSE, HIGH, LOW, M1=26
+	BrarBrBfq float64 `json:"brar_br_bfq"` // BRAR情绪指标-OPEN, CLOSE, HIGH, LOW, M1=26
+	CciBfq float64 `json:"cci_bfq"` // 顺势指标又叫CCI指标-CLOSE, HIGH, LOW, N=14
+	CrBfq float64 `json:"cr_bfq"` // CR价格动量指标-CLOSE, HIGH, LOW, N=20
+	DfmaDifBfq float64 `json:"dfma_dif_bfq"` // 平行线差指标-CLOSE, N1=10, N2=50, M=10
+	DfmaDifmaBfq float64 `json:"dfma_difma_bfq"` // 平行线差指标-CLOSE, N1=10, N2=50, M=10
+	DmiAdxBfq float64 `json:"dmi_adx_bfq"` // 动向指标-CLOSE, HIGH, LOW, M1=14, M2=6
+	DmiAdxrBfq float64 `json:"dmi_adxr_bfq"` // 动向指标-CLOSE, HIGH, LOW, M1=14, M2=6
+	DmiMdiBfq float64 `json:"dmi_mdi_bfq"` // 动向指标-CLOSE, HIGH, LOW, M1=14, M2=6
+	DmiPdiBfq float64 `json:"dmi_pdi_bfq"` // 动向指标-CLOSE, HIGH, LOW, M1=14, M2=6
+	Downdays float64 `json:"downdays"` // 连跌天数
+	Updays float64 `json:"updays"` // 连涨天数
+	DpoBfq float64 `json:"dpo_bfq"` // 区间震荡线-CLOSE, M1=20, M2=10, M3=6
+	MadpoBfq float64 `json:"madpo_bfq"` // 区间震荡线-CLOSE, M1=20, M2=10, M3=6
+	EmaBfq10 float64 `json:"ema_bfq_10"` // 指数移动平均-N=10
+	EmaBfq20 float64 `json:"ema_bfq_20"` // 指数移动平均-N=20
+	EmaBfq250 float64 `json:"ema_bfq_250"` // 指数移动平均-N=250
+	EmaBfq30 float64 `json:"ema_bfq_30"` // 指数移动平均-N=30
+	EmaBfq5 float64 `json:"ema_bfq_5"` // 指数移动平均-N=5
+	EmaBfq60 float64 `json:"ema_bfq_60"` // 指数移动平均-N=60
+	EmaBfq90 float64 `json:"ema_bfq_90"` // 指数移动平均-N=90
+	EmvBfq float64 `json:"emv_bfq"` // 简易波动指标-HIGH, LOW, VOL, N=14, M=9
+	MaemvBfq float64 `json:"maemv_bfq"` // 简易波动指标-HIGH, LOW, VOL, N=14, M=9
+	Expma12Bfq float64 `json:"expma_12_bfq"` // EMA指数平均数指标-CLOSE, N1=12, N2=50
+	Expma50Bfq float64 `json:"expma_50_bfq"` // EMA指数平均数指标-CLOSE, N1=12, N2=50
+	KdjBfq float64 `json:"kdj_bfq"` // KDJ指标-CLOSE, HIGH, LOW, N=9, M1=3, M2=3
+	KdjDBfq float64 `json:"kdj_d_bfq"` // KDJ指标-CLOSE, HIGH, LOW, N=9, M1=3, M2=3
+	KdjKBfq float64 `json:"kdj_k_bfq"` // KDJ指标-CLOSE, HIGH, LOW, N=9, M1=3, M2=3
+	KtnDownBfq float64 `json:"ktn_down_bfq"` // 肯特纳交易通道, N选20日，ATR选10日-CLOSE, HIGH, LOW, N=20, M=10
+	KtnMidBfq float64 `json:"ktn_mid_bfq"` // 肯特纳交易通道, N选20日，ATR选10日-CLOSE, HIGH, LOW, N=20, M=10
+	KtnUpperBfq float64 `json:"ktn_upper_bfq"` // 肯特纳交易通道, N选20日，ATR选10日-CLOSE, HIGH, LOW, N=20, M=10
+	Lowdays float64 `json:"lowdays"` // LOWRANGE(LOW)表示当前最低价是近多少周期内最低价的最小值
+	Topdays float64 `json:"topdays"` // TOPRANGE(HIGH)表示当前最高价是近多少周期内最高价的最大值
+	MaBfq10 float64 `json:"ma_bfq_10"` // 简单移动平均-N=10
+	MaBfq20 float64 `json:"ma_bfq_20"` // 简单移动平均-N=20
+	MaBfq250 float64 `json:"ma_bfq_250"` // 简单移动平均-N=250
+	MaBfq30 float64 `json:"ma_bfq_30"` // 简单移动平均-N=30
+	MaBfq5 float64 `json:"ma_bfq_5"` // 简单移动平均-N=5
+	MaBfq60 float64 `json:"ma_bfq_60"` // 简单移动平均-N=60
+	MaBfq90 float64 `json:"ma_bfq_90"` // 简单移动平均-N=90
+	MacdBfq float64 `json:"macd_bfq"` // MACD指标-CLOSE, SHORT=12, LONG=26, M=9
+	MacdDeaBfq float64 `json:"macd_dea_bfq"` // MACD指标-CLOSE, SHORT=12, LONG=26, M=9
+	MacdDifBfq float64 `json:"macd_dif_bfq"` // MACD指标-CLOSE, SHORT=12, LONG=26, M=9
+	MassBfq float64 `json:"mass_bfq"` // 梅斯线-HIGH, LOW, N1=9, N2=25, M=6
+	MaMassBfq float64 `json:"ma_mass_bfq"` // 梅斯线-HIGH, LOW, N1=9, N2=25, M=6
+	MfiBfq float64 `json:"mfi_bfq"` // MFI指标是成交量的RSI指标-CLOSE, HIGH, LOW, VOL, N=14
+	MtmBfq float64 `json:"mtm_bfq"` // 动量指标-CLOSE, N=12, M=6
+	MtmmaBfq float64 `json:"mtmma_bfq"` // 动量指标-CLOSE, N=12, M=6
+	ObvBfq float64 `json:"obv_bfq"` // 能量潮指标-CLOSE, VOL
+	PsyBfq float64 `json:"psy_bfq"` // 投资者对股市涨跌产生心理波动的情绪指标-CLOSE, N=12, M=6
+	PsymaBfq float64 `json:"psyma_bfq"` // 投资者对股市涨跌产生心理波动的情绪指标-CLOSE, N=12, M=6
+	RocBfq float64 `json:"roc_bfq"` // 变动率指标-CLOSE, N=12, M=6
+	MarocBfq float64 `json:"maroc_bfq"` // 变动率指标-CLOSE, N=12, M=6
+	RsiBfq12 float64 `json:"rsi_bfq_12"` // RSI指标-CLOSE, N=12
+	RsiBfq24 float64 `json:"rsi_bfq_24"` // RSI指标-CLOSE, N=24
+	RsiBfq6 float64 `json:"rsi_bfq_6"` // RSI指标-CLOSE, N=6
+	TaqDownBfq float64 `json:"taq_down_bfq"` // 唐安奇通道(海龟)交易指标-HIGH, LOW, 20
+	TaqMidBfq float64 `json:"taq_mid_bfq"` // 唐安奇通道(海龟)交易指标-HIGH, LOW, 20
+	TaqUpBfq float64 `json:"taq_up_bfq"` // 唐安奇通道(海龟)交易指标-HIGH, LOW, 20
+	TrixBfq float64 `json:"trix_bfq"` // 三重指数平滑平均线-CLOSE, M1=12, M2=20
+	TrmaBfq float64 `json:"trma_bfq"` // 三重指数平滑平均线-CLOSE, M1=12, M2=20
+	VrBfq float64 `json:"vr_bfq"` // VR容量比率-CLOSE, VOL, M1=26
+	WrBfq float64 `json:"wr_bfq"` // W&R 威廉指标-CLOSE, HIGH, LOW, N=10, N1=6
+	Wr1Bfq float64 `json:"wr1_bfq"` // W&R 威廉指标-CLOSE, HIGH, LOW, N=10, N1=6
+	XsiiTd1Bfq float64 `json:"xsii_td1_bfq"` // 薛斯通道II-CLOSE, HIGH, LOW, N=102, M=7
+	XsiiTd2Bfq float64 `json:"xsii_td2_bfq"` // 薛斯通道II-CLOSE, HIGH, LOW, N=102, M=7
+	XsiiTd3Bfq float64 `json:"xsii_td3_bfq"` // 薛斯通道II-CLOSE, HIGH, LOW, N=102, M=7
+	XsiiTd4Bfq float64 `json:"xsii_td4_bfq"` // 薛斯通道II-CLOSE, HIGH, LOW, N=102, M=7
 }
 
 // FundFactorPro 调用 基金技术面因子(专业版) API

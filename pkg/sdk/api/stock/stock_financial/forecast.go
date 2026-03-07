@@ -10,12 +10,12 @@ import (
 
 // ForecastRequest 表示 业绩预告 API 的请求
 type ForecastRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	AnnDate string `json:"ann_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Period string `json:"period,omitempty"`
-	Type string `json:"type,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码(二选一)
+	AnnDate string `json:"ann_date,omitempty"` // 公告日期 (二选一)
+	StartDate string `json:"start_date,omitempty"` // 公告开始日期
+	EndDate string `json:"end_date,omitempty"` // 公告结束日期
+	Period string `json:"period,omitempty"` // 报告期(每个季度最后一天的日期，比如20171231表示年报，20170630半年报，20170930三季报)
+	Type string `json:"type,omitempty"` // 预告类型(预增/预减/扭亏/首亏/续亏/续盈/略增/略减)
 }
 
 // ForecastItem 表示单个 业绩预告 数据项

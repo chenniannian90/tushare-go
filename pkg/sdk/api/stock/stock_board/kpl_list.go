@@ -11,39 +11,39 @@ import (
 
 // KplListRequest 表示 榜单数据（开盘啦） API 的请求
 type KplListRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	Tag string `json:"tag,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期
+	Tag string `json:"tag,omitempty"` // 板单类型（涨停/炸板/跌停/自然涨停/竞价，默认为涨停)
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // KplListItem 表示单个 榜单数据（开盘啦） 数据项
 type KplListItem struct {
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	TradeDate string `json:"trade_date"`
-	LuTime string `json:"lu_time"`
-	LdTime string `json:"ld_time"`
-	OpenTime string `json:"open_time"`
-	LastTime string `json:"last_time"`
-	LuDesc string `json:"lu_desc"`
-	Tag string `json:"tag"`
-	Theme string `json:"theme"`
-	NetChange float64 `json:"net_change"`
-	BidAmount float64 `json:"bid_amount"`
-	Status string `json:"status"`
-	BidChange float64 `json:"bid_change"`
-	BidTurnover float64 `json:"bid_turnover"`
-	LuBidVol float64 `json:"lu_bid_vol"`
-	PctChg float64 `json:"pct_chg"`
-	BidPctChg float64 `json:"bid_pct_chg"`
-	RtPctChg float64 `json:"rt_pct_chg"`
-	LimitOrder float64 `json:"limit_order"`
-	Amount float64 `json:"amount"`
-	TurnoverRate float64 `json:"turnover_rate"`
-	FreeFloat float64 `json:"free_float"`
-	LuLimitOrder float64 `json:"lu_limit_order"`
+	TsCode string `json:"ts_code"` // 代码
+	Name string `json:"name"` // 名称
+	TradeDate string `json:"trade_date"` // 交易时间
+	LuTime string `json:"lu_time"` // 涨停时间
+	LdTime string `json:"ld_time"` // 跌停时间
+	OpenTime string `json:"open_time"` // 开板时间
+	LastTime string `json:"last_time"` // 最后涨停时间
+	LuDesc string `json:"lu_desc"` // 涨停原因
+	Tag string `json:"tag"` // 标签
+	Theme string `json:"theme"` // 板块
+	NetChange float64 `json:"net_change"` // 主力净额(元)
+	BidAmount float64 `json:"bid_amount"` // 竞价成交额(元)
+	Status string `json:"status"` // 状态（N连板）
+	BidChange float64 `json:"bid_change"` // 竞价净额
+	BidTurnover float64 `json:"bid_turnover"` // 竞价换手%
+	LuBidVol float64 `json:"lu_bid_vol"` // 涨停委买额
+	PctChg float64 `json:"pct_chg"` // 涨跌幅%
+	BidPctChg float64 `json:"bid_pct_chg"` // 竞价涨幅%
+	RtPctChg float64 `json:"rt_pct_chg"` // 实时涨幅%
+	LimitOrder float64 `json:"limit_order"` // 封单
+	Amount float64 `json:"amount"` // 成交额
+	TurnoverRate float64 `json:"turnover_rate"` // 换手率%
+	FreeFloat float64 `json:"free_float"` // 实际流通
+	LuLimitOrder float64 `json:"lu_limit_order"` // 最大封单
 }
 
 // KplList 调用 榜单数据（开盘啦） API

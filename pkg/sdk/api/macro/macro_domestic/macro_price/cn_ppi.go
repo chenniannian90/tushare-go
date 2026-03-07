@@ -11,44 +11,44 @@ import (
 
 // CnPpiRequest 表示 工业生产者出厂价格指数（PPI） API 的请求
 type CnPpiRequest struct {
-	M string `json:"m,omitempty"`
-	StartM string `json:"start_m,omitempty"`
-	EndM string `json:"end_m,omitempty"`
+	M string `json:"m,omitempty"` // 月份（YYYYMM，下同），支持多个月份同时输入，逗号分隔
+	StartM string `json:"start_m,omitempty"` // 开始月份
+	EndM string `json:"end_m,omitempty"` // 结束月份
 }
 
 // CnPpiItem 表示单个 工业生产者出厂价格指数（PPI） 数据项
 type CnPpiItem struct {
-	Month string `json:"month"`
-	PpiYoy float64 `json:"ppi_yoy"`
-	PpiMpYoy float64 `json:"ppi_mp_yoy"`
-	PpiMpQmYoy float64 `json:"ppi_mp_qm_yoy"`
-	PpiMpRmYoy float64 `json:"ppi_mp_rm_yoy"`
-	PpiMpPYoy float64 `json:"ppi_mp_p_yoy"`
-	PpiCgYoy float64 `json:"ppi_cg_yoy"`
-	PpiCgFYoy float64 `json:"ppi_cg_f_yoy"`
-	PpiCgCYoy float64 `json:"ppi_cg_c_yoy"`
-	PpiCgAduYoy float64 `json:"ppi_cg_adu_yoy"`
-	PpiCgDcgYoy float64 `json:"ppi_cg_dcg_yoy"`
-	PpiMom float64 `json:"ppi_mom"`
-	PpiMpMom float64 `json:"ppi_mp_mom"`
-	PpiMpQmMom float64 `json:"ppi_mp_qm_mom"`
-	PpiMpRmMom float64 `json:"ppi_mp_rm_mom"`
-	PpiMpPMom float64 `json:"ppi_mp_p_mom"`
-	PpiCgMom float64 `json:"ppi_cg_mom"`
-	PpiCgFMom float64 `json:"ppi_cg_f_mom"`
-	PpiCgCMom float64 `json:"ppi_cg_c_mom"`
-	PpiCgAduMom float64 `json:"ppi_cg_adu_mom"`
-	PpiCgDcgMom float64 `json:"ppi_cg_dcg_mom"`
-	PpiAccu float64 `json:"ppi_accu"`
-	PpiMpAccu float64 `json:"ppi_mp_accu"`
-	PpiMpQmAccu float64 `json:"ppi_mp_qm_accu"`
-	PpiMpRmAccu float64 `json:"ppi_mp_rm_accu"`
-	PpiMpPAccu float64 `json:"ppi_mp_p_accu"`
-	PpiCgAccu float64 `json:"ppi_cg_accu"`
-	PpiCgFAccu float64 `json:"ppi_cg_f_accu"`
-	PpiCgCAccu float64 `json:"ppi_cg_c_accu"`
-	PpiCgAduAccu float64 `json:"ppi_cg_adu_accu"`
-	PpiCgDcgAccu float64 `json:"ppi_cg_dcg_accu"`
+	Month string `json:"month"` // 月份YYYYMM
+	PpiYoy float64 `json:"ppi_yoy"` // PPI：全部工业品：当月同比
+	PpiMpYoy float64 `json:"ppi_mp_yoy"` // PPI：生产资料：当月同比
+	PpiMpQmYoy float64 `json:"ppi_mp_qm_yoy"` // PPI：生产资料：采掘业：当月同比
+	PpiMpRmYoy float64 `json:"ppi_mp_rm_yoy"` // PPI：生产资料：原料业：当月同比
+	PpiMpPYoy float64 `json:"ppi_mp_p_yoy"` // PPI：生产资料：加工业：当月同比
+	PpiCgYoy float64 `json:"ppi_cg_yoy"` // PPI：生活资料：当月同比
+	PpiCgFYoy float64 `json:"ppi_cg_f_yoy"` // PPI：生活资料：食品类：当月同比
+	PpiCgCYoy float64 `json:"ppi_cg_c_yoy"` // PPI：生活资料：衣着类：当月同比
+	PpiCgAduYoy float64 `json:"ppi_cg_adu_yoy"` // PPI：生活资料：一般日用品类：当月同比
+	PpiCgDcgYoy float64 `json:"ppi_cg_dcg_yoy"` // PPI：生活资料：耐用消费品类：当月同比
+	PpiMom float64 `json:"ppi_mom"` // PPI：全部工业品：环比
+	PpiMpMom float64 `json:"ppi_mp_mom"` // PPI：生产资料：环比
+	PpiMpQmMom float64 `json:"ppi_mp_qm_mom"` // PPI：生产资料：采掘业：环比
+	PpiMpRmMom float64 `json:"ppi_mp_rm_mom"` // PPI：生产资料：原料业：环比
+	PpiMpPMom float64 `json:"ppi_mp_p_mom"` // PPI：生产资料：加工业：环比
+	PpiCgMom float64 `json:"ppi_cg_mom"` // PPI：生活资料：环比
+	PpiCgFMom float64 `json:"ppi_cg_f_mom"` // PPI：生活资料：食品类：环比
+	PpiCgCMom float64 `json:"ppi_cg_c_mom"` // PPI：生活资料：衣着类：环比
+	PpiCgAduMom float64 `json:"ppi_cg_adu_mom"` // PPI：生活资料：一般日用品类：环比
+	PpiCgDcgMom float64 `json:"ppi_cg_dcg_mom"` // PPI：生活资料：耐用消费品类：环比
+	PpiAccu float64 `json:"ppi_accu"` // PPI：全部工业品：累计同比
+	PpiMpAccu float64 `json:"ppi_mp_accu"` // PPI：生产资料：累计同比
+	PpiMpQmAccu float64 `json:"ppi_mp_qm_accu"` // PPI：生产资料：采掘业：累计同比
+	PpiMpRmAccu float64 `json:"ppi_mp_rm_accu"` // PPI：生产资料：原料业：累计同比
+	PpiMpPAccu float64 `json:"ppi_mp_p_accu"` // PPI：生产资料：加工业：累计同比
+	PpiCgAccu float64 `json:"ppi_cg_accu"` // PPI：生活资料：累计同比
+	PpiCgFAccu float64 `json:"ppi_cg_f_accu"` // PPI：生活资料：食品类：累计同比
+	PpiCgCAccu float64 `json:"ppi_cg_c_accu"` // PPI：生活资料：衣着类：累计同比
+	PpiCgAduAccu float64 `json:"ppi_cg_adu_accu"` // PPI：生活资料：一般日用品类：累计同比
+	PpiCgDcgAccu float64 `json:"ppi_cg_dcg_accu"` // PPI：生活资料：耐用消费品类：累计同比
 }
 
 // CnPpi 调用 工业生产者出厂价格指数（PPI） API

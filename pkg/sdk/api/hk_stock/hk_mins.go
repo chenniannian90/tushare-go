@@ -11,22 +11,22 @@ import (
 
 // HkMinsRequest 表示 港股分钟行情 API 的请求
 type HkMinsRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	Freq string `json:"freq,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码，e.g.00001.HK
+	Freq string `json:"freq,omitempty"` // 分钟频度（1min/5min/15min/30min/60min）
+	StartDate string `json:"start_date,omitempty"` // 开始日期 格式：2023-03-13 09:00:00
+	EndDate string `json:"end_date,omitempty"` // 结束时间 格式：2023-03-13 19:00:00
 }
 
 // HkMinsItem 表示单个 港股分钟行情 数据项
 type HkMinsItem struct {
-	TsCode string `json:"ts_code"`
-	TradeTime string `json:"trade_time"`
-	Open float64 `json:"open"`
-	Close float64 `json:"close"`
-	High float64 `json:"high"`
-	Low float64 `json:"low"`
-	Vol int `json:"vol"`
-	Amount float64 `json:"amount"`
+	TsCode string `json:"ts_code"` // 股票代码
+	TradeTime string `json:"trade_time"` // 交易时间
+	Open float64 `json:"open"` // 开盘价
+	Close float64 `json:"close"` // 收盘价
+	High float64 `json:"high"` // 最高价
+	Low float64 `json:"low"` // 最低价
+	Vol int `json:"vol"` // 成交量
+	Amount float64 `json:"amount"` // 成交金额
 }
 
 // HkMins 调用 港股分钟行情 API

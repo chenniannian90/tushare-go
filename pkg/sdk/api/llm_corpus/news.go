@@ -11,17 +11,17 @@ import (
 
 // NewsRequest 表示 新闻快讯（短讯） API 的请求
 type NewsRequest struct {
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Src string `json:"src,omitempty"`
+	StartDate string `json:"start_date,omitempty"` // 开始日期(格式：2018-11-20 09:00:00）
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	Src string `json:"src,omitempty"` // 新闻来源 见下表
 }
 
 // NewsItem 表示单个 新闻快讯（短讯） 数据项
 type NewsItem struct {
-	Datetime string `json:"datetime"`
-	Content string `json:"content"`
-	Title string `json:"title"`
-	Channels string `json:"channels"`
+	Datetime string `json:"datetime"` // 新闻时间
+	Content string `json:"content"` // 内容
+	Title string `json:"title"` // 标题
+	Channels string `json:"channels"` // 分类
 }
 
 // News 调用 新闻快讯（短讯） API

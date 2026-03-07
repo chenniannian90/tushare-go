@@ -11,52 +11,52 @@ import (
 
 // TdxDailyRequest 表示 通达信板块行情 API 的请求
 type TdxDailyRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 板块代码：xxxxxx.TDX
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期，格式YYYYMMDD,下同
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // TdxDailyItem 表示单个 通达信板块行情 数据项
 type TdxDailyItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	Close float64 `json:"close"`
-	Open float64 `json:"open"`
-	High float64 `json:"high"`
-	Low float64 `json:"low"`
-	PreClose float64 `json:"pre_close"`
-	Change float64 `json:"change"`
-	PctChange float64 `json:"pct_change"`
-	Vol float64 `json:"vol"`
-	Amount float64 `json:"amount"`
-	Rise string `json:"rise"`
-	VolRatio float64 `json:"vol_ratio"`
-	TurnoverRate float64 `json:"turnover_rate"`
-	Swing float64 `json:"swing"`
-	UpNum int `json:"up_num"`
-	DownNum int `json:"down_num"`
-	LimitUpNum int `json:"limit_up_num"`
-	LimitDownNum int `json:"limit_down_num"`
-	LuDays int `json:"lu_days"`
-	3day float64 `json:"3day"`
-	5day float64 `json:"5day"`
-	10day float64 `json:"10day"`
-	20day float64 `json:"20day"`
-	60day float64 `json:"60day"`
-	Mtd float64 `json:"mtd"`
-	Ytd float64 `json:"ytd"`
-	1year float64 `json:"1year"`
-	Pe string `json:"pe"`
-	Pb string `json:"pb"`
-	FloatMv float64 `json:"float_mv"`
-	AbTotalMv float64 `json:"ab_total_mv"`
-	FloatShare float64 `json:"float_share"`
-	TotalShare float64 `json:"total_share"`
-	BmBuyNet float64 `json:"bm_buy_net"`
-	BmBuyRatio float64 `json:"bm_buy_ratio"`
-	BmNet float64 `json:"bm_net"`
-	BmRatio float64 `json:"bm_ratio"`
+	TsCode string `json:"ts_code"` // 板块代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	Close float64 `json:"close"` // 收盘点位
+	Open float64 `json:"open"` // 开盘点位
+	High float64 `json:"high"` // 最高点位
+	Low float64 `json:"low"` // 最低点位
+	PreClose float64 `json:"pre_close"` // 昨日收盘点
+	Change float64 `json:"change"` // 涨跌点位
+	PctChange float64 `json:"pct_change"` // 涨跌幅%
+	Vol float64 `json:"vol"` // 成交量（手）
+	Amount float64 `json:"amount"` // 成交额（万元）, 对于期货指数，该字段存储持仓量
+	Rise string `json:"rise"` // 收盘涨速%
+	VolRatio float64 `json:"vol_ratio"` // 量比
+	TurnoverRate float64 `json:"turnover_rate"` // 换手%
+	Swing float64 `json:"swing"` // 振幅%
+	UpNum int `json:"up_num"` // 上涨家数
+	DownNum int `json:"down_num"` // 下跌家数
+	LimitUpNum int `json:"limit_up_num"` // 涨停家数
+	LimitDownNum int `json:"limit_down_num"` // 跌停家数
+	LuDays int `json:"lu_days"` // 连涨天数
+	3day float64 `json:"3day"` // 3日涨幅%
+	5day float64 `json:"5day"` // 5日涨幅%
+	10day float64 `json:"10day"` // 10日涨幅%
+	20day float64 `json:"20day"` // 20日涨幅%
+	60day float64 `json:"60day"` // 60日涨幅%
+	Mtd float64 `json:"mtd"` // 月初至今%
+	Ytd float64 `json:"ytd"` // 年初至今%
+	1year float64 `json:"1year"` // 一年涨幅%
+	Pe string `json:"pe"` // 市盈率
+	Pb string `json:"pb"` // 市净率
+	FloatMv float64 `json:"float_mv"` // 流通市值(亿)
+	AbTotalMv float64 `json:"ab_total_mv"` // AB股总市值（亿）
+	FloatShare float64 `json:"float_share"` // 流通股(亿)
+	TotalShare float64 `json:"total_share"` // 总股本(亿)
+	BmBuyNet float64 `json:"bm_buy_net"` // 主买净额(元)
+	BmBuyRatio float64 `json:"bm_buy_ratio"` // 主买占比%
+	BmNet float64 `json:"bm_net"` // 主力净额
+	BmRatio float64 `json:"bm_ratio"` // 主力占比%
 }
 
 // TdxDaily 调用 通达信板块行情 API

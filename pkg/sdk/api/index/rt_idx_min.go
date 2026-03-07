@@ -11,20 +11,20 @@ import (
 
 // RtIdxMinRequest 表示 指数实时分钟 API 的请求
 type RtIdxMinRequest struct {
-	Freq string `json:"freq,omitempty"`
-	TsCode string `json:"ts_code,omitempty"`
+	Freq string `json:"freq,omitempty"` // 1MIN,5MIN,15MIN,30MIN,60MIN （大写）
+	TsCode string `json:"ts_code,omitempty"` // 支持单个和多个：000001.SH 或者 000001.SH,399300.SZ
 }
 
 // RtIdxMinItem 表示单个 指数实时分钟 数据项
 type RtIdxMinItem struct {
-	TsCode string `json:"ts_code"`
-	Time string `json:"time"`
-	Open float64 `json:"open"`
-	Close float64 `json:"close"`
-	High float64 `json:"high"`
-	Low float64 `json:"low"`
-	Vol float64 `json:"vol"`
-	Amount float64 `json:"amount"`
+	TsCode string `json:"ts_code"` // 股票代码
+	Time string `json:"time"` // 交易时间
+	Open float64 `json:"open"` // 开盘价
+	Close float64 `json:"close"` // 收盘价
+	High float64 `json:"high"` // 最高价
+	Low float64 `json:"low"` // 最低价
+	Vol float64 `json:"vol"` // 成交量(股）
+	Amount float64 `json:"amount"` // 成交额（元）
 }
 
 // RtIdxMin 调用 指数实时分钟 API

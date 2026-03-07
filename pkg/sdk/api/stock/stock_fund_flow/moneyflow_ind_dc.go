@@ -11,33 +11,33 @@ import (
 
 // MoneyflowIndDcRequest 表示 板块资金流向（DC） API 的请求
 type MoneyflowIndDcRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	ContentType string `json:"content_type,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（YYYYMMDD格式，下同）
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	ContentType string `json:"content_type,omitempty"` // 资金类型(行业、概念、地域)
 }
 
 // MoneyflowIndDcItem 表示单个 板块资金流向（DC） 数据项
 type MoneyflowIndDcItem struct {
-	TradeDate string `json:"trade_date"`
-	ContentType string `json:"content_type"`
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	PctChange float64 `json:"pct_change"`
-	Close float64 `json:"close"`
-	NetAmount float64 `json:"net_amount"`
-	NetAmountRate float64 `json:"net_amount_rate"`
-	BuyElgAmount float64 `json:"buy_elg_amount"`
-	BuyElgAmountRate float64 `json:"buy_elg_amount_rate"`
-	BuyLgAmount float64 `json:"buy_lg_amount"`
-	BuyLgAmountRate float64 `json:"buy_lg_amount_rate"`
-	BuyMdAmount float64 `json:"buy_md_amount"`
-	BuyMdAmountRate float64 `json:"buy_md_amount_rate"`
-	BuySmAmount float64 `json:"buy_sm_amount"`
-	BuySmAmountRate float64 `json:"buy_sm_amount_rate"`
-	BuySmAmountStock string `json:"buy_sm_amount_stock"`
-	Rank int `json:"rank"`
+	TradeDate string `json:"trade_date"` // 交易日期
+	ContentType string `json:"content_type"` // 数据类型
+	TsCode string `json:"ts_code"` // DC板块代码（行业、概念、地域）
+	Name string `json:"name"` // 板块名称
+	PctChange float64 `json:"pct_change"` // 板块涨跌幅（%）
+	Close float64 `json:"close"` // 板块最新指数
+	NetAmount float64 `json:"net_amount"` // 今日主力净流入 净额（元）
+	NetAmountRate float64 `json:"net_amount_rate"` // 今日主力净流入净占比%
+	BuyElgAmount float64 `json:"buy_elg_amount"` // 今日超大单净流入 净额（元）
+	BuyElgAmountRate float64 `json:"buy_elg_amount_rate"` // 今日超大单净流入 净占比%
+	BuyLgAmount float64 `json:"buy_lg_amount"` // 今日大单净流入 净额（元）
+	BuyLgAmountRate float64 `json:"buy_lg_amount_rate"` // 今日大单净流入 净占比%
+	BuyMdAmount float64 `json:"buy_md_amount"` // 今日中单净流入 净额（元）
+	BuyMdAmountRate float64 `json:"buy_md_amount_rate"` // 今日中单净流入 净占比%
+	BuySmAmount float64 `json:"buy_sm_amount"` // 今日小单净流入 净额（元）
+	BuySmAmountRate float64 `json:"buy_sm_amount_rate"` // 今日小单净流入 净占比%
+	BuySmAmountStock string `json:"buy_sm_amount_stock"` // 今日主力净流入最大股
+	Rank int `json:"rank"` // 序号
 }
 
 // MoneyflowIndDc 调用 板块资金流向（DC） API

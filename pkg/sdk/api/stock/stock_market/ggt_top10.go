@@ -10,11 +10,11 @@ import (
 
 // GgtTop10Request 表示 港股通十大成交股 API 的请求
 type GgtTop10Request struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	MarketType string `json:"market_type,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码（二选一）
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（二选一）
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	MarketType string `json:"market_type,omitempty"` // 市场类型 2：港股通（沪） 4：港股通（深）
 }
 
 // GgtTop10Item 表示单个 港股通十大成交股 数据项

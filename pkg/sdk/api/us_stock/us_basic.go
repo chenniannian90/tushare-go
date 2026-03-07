@@ -11,20 +11,20 @@ import (
 
 // UsBasicRequest 表示 美股基础信息 API 的请求
 type UsBasicRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	Classify string `json:"classify,omitempty"`
-	Offset string `json:"offset,omitempty"`
-	Limit string `json:"limit,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	Classify string `json:"classify,omitempty"` // 股票分类
+	Offset string `json:"offset,omitempty"` // 开始行数
+	Limit string `json:"limit,omitempty"` // 每页最大行数
 }
 
 // UsBasicItem 表示单个 美股基础信息 数据项
 type UsBasicItem struct {
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	Enname string `json:"enname"`
-	Classify string `json:"classify"`
-	ListDate string `json:"list_date"`
-	DelistDate string `json:"delist_date"`
+	TsCode string `json:"ts_code"` // 美股代码
+	Name string `json:"name"` // 中文名称
+	Enname string `json:"enname"` // 英文名称
+	Classify string `json:"classify"` // 分类ADR/GDR/EQ
+	ListDate string `json:"list_date"` // 上市日期
+	DelistDate string `json:"delist_date"` // 退市日期
 }
 
 // UsBasic 调用 美股基础信息 API

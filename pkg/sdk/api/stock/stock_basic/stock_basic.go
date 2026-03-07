@@ -11,33 +11,33 @@ import (
 
 // StockBasicRequest 表示 股票列表 API 的请求
 type StockBasicRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	Name string `json:"name,omitempty"`
-	Market string `json:"market,omitempty"`
-	ListStatus string `json:"list_status,omitempty"`
-	Exchange string `json:"exchange,omitempty"`
-	IsHs string `json:"is_hs,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // TS股票代码(格式说明)
+	Name string `json:"name,omitempty"` // 名称
+	Market string `json:"market,omitempty"` // 市场类别 （主板/创业板/科创板/CDR/北交所）
+	ListStatus string `json:"list_status,omitempty"` // 上市状态 L上市 D退市 P暂停上市 G过会未交易，默认是L
+	Exchange string `json:"exchange,omitempty"` // 交易所 SSE上交所 SZSE深交所 BSE北交所
+	IsHs string `json:"is_hs,omitempty"` // 是否沪深港通标的，N否 H沪股通 S深股通
 }
 
 // StockBasicItem 表示单个 股票列表 数据项
 type StockBasicItem struct {
-	TsCode string `json:"ts_code"`
-	Symbol string `json:"symbol"`
-	Name string `json:"name"`
-	Area string `json:"area"`
-	Industry string `json:"industry"`
-	Fullname string `json:"fullname"`
-	Enname string `json:"enname"`
-	Cnspell string `json:"cnspell"`
-	Market string `json:"market"`
-	Exchange string `json:"exchange"`
-	CurrType string `json:"curr_type"`
-	ListStatus string `json:"list_status"`
-	ListDate string `json:"list_date"`
-	DelistDate string `json:"delist_date"`
-	IsHs string `json:"is_hs"`
-	ActName string `json:"act_name"`
-	ActEntType string `json:"act_ent_type"`
+	TsCode string `json:"ts_code"` // TS代码
+	Symbol string `json:"symbol"` // 股票代码
+	Name string `json:"name"` // 股票名称
+	Area string `json:"area"` // 地域
+	Industry string `json:"industry"` // 所属行业
+	Fullname string `json:"fullname"` // 股票全称
+	Enname string `json:"enname"` // 英文全称
+	Cnspell string `json:"cnspell"` // 拼音缩写
+	Market string `json:"market"` // 市场类型（主板/创业板/科创板/CDR）
+	Exchange string `json:"exchange"` // 交易所代码
+	CurrType string `json:"curr_type"` // 交易货币
+	ListStatus string `json:"list_status"` // 上市状态 L上市 D退市 G过会未交易 P暂停上市
+	ListDate string `json:"list_date"` // 上市日期
+	DelistDate string `json:"delist_date"` // 退市日期
+	IsHs string `json:"is_hs"` // 是否沪深港通标的，N否 H沪股通 S深股通
+	ActName string `json:"act_name"` // 实控人名称
+	ActEntType string `json:"act_ent_type"` // 实控人企业性质
 }
 
 // StockBasic 调用 股票列表 API

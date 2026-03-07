@@ -11,28 +11,28 @@ import (
 
 // StkNineturnRequest 表示 神奇九转指标 API 的请求
 type StkNineturnRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	Freq string `json:"freq,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期 （格式：YYYY-MM-DD HH:MM:SS)
+	Freq string `json:"freq,omitempty"` // 频率(日daily)
+	StartDate string `json:"start_date,omitempty"` // 开始时间
+	EndDate string `json:"end_date,omitempty"` // 结束时间
 }
 
 // StkNineturnItem 表示单个 神奇九转指标 数据项
 type StkNineturnItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	Freq string `json:"freq"`
-	Open float64 `json:"open"`
-	High float64 `json:"high"`
-	Low float64 `json:"low"`
-	Close float64 `json:"close"`
-	Vol float64 `json:"vol"`
-	Amount float64 `json:"amount"`
-	UpCount float64 `json:"up_count"`
-	DownCount float64 `json:"down_count"`
-	NineUpTurn string `json:"nine_up_turn"`
-	NineDownTurn string `json:"nine_down_turn"`
+	TsCode string `json:"ts_code"` // 股票代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	Freq string `json:"freq"` // 频率(日daily)
+	Open float64 `json:"open"` // 开盘价
+	High float64 `json:"high"` // 最高价
+	Low float64 `json:"low"` // 最低价
+	Close float64 `json:"close"` // 收盘价
+	Vol float64 `json:"vol"` // 成交量
+	Amount float64 `json:"amount"` // 成交额
+	UpCount float64 `json:"up_count"` // 上九转计数
+	DownCount float64 `json:"down_count"` // 下九转计数
+	NineUpTurn string `json:"nine_up_turn"` // 是否上九转)+9表示上九转
+	NineDownTurn string `json:"nine_down_turn"` // 是否下九转-9表示下九转
 }
 
 // StkNineturn 调用 神奇九转指标 API

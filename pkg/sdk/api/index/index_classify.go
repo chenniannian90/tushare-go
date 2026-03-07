@@ -11,21 +11,21 @@ import (
 
 // IndexClassifyRequest 表示 申万行业分类 API 的请求
 type IndexClassifyRequest struct {
-	IndexCode string `json:"index_code,omitempty"`
-	Level string `json:"level,omitempty"`
-	ParentCode string `json:"parent_code,omitempty"`
-	Src string `json:"src,omitempty"`
+	IndexCode string `json:"index_code,omitempty"` // 指数代码
+	Level string `json:"level,omitempty"` // 行业分级（L1/L2/L3）
+	ParentCode string `json:"parent_code,omitempty"` // 父级代码（一级为0）
+	Src string `json:"src,omitempty"` // 指数来源（SW2014：申万2014年版本，SW2021：申万2021年版本）
 }
 
 // IndexClassifyItem 表示单个 申万行业分类 数据项
 type IndexClassifyItem struct {
-	IndexCode string `json:"index_code"`
-	IndustryName string `json:"industry_name"`
-	ParentCode string `json:"parent_code"`
-	Level string `json:"level"`
-	IndustryCode string `json:"industry_code"`
-	IsPub string `json:"is_pub"`
-	Src string `json:"src"`
+	IndexCode string `json:"index_code"` // 指数代码
+	IndustryName string `json:"industry_name"` // 行业名称
+	ParentCode string `json:"parent_code"` // 父级代码
+	Level string `json:"level"` // 行业层级
+	IndustryCode string `json:"industry_code"` // 行业代码
+	IsPub string `json:"is_pub"` // 是否发布了指数
+	Src string `json:"src"` // 行业分类（SW申万）
 }
 
 // IndexClassify 调用 申万行业分类 API

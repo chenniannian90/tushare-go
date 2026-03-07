@@ -11,30 +11,30 @@ import (
 
 // FutBasicRequest 表示 合约信息 API 的请求
 type FutBasicRequest struct {
-	Exchange string `json:"exchange,omitempty"`
-	FutType string `json:"fut_type,omitempty"`
-	FutCode string `json:"fut_code,omitempty"`
-	ListDate string `json:"list_date,omitempty"`
+	Exchange string `json:"exchange,omitempty"` // 交易所代码 CFFEX-中金所 DCE-大商所 CZCE-郑商所 SHFE-上期所 INE-上海国际能源交易中心 GFEX-广州期货交易所
+	FutType string `json:"fut_type,omitempty"` // 合约类型 (1 普通合约 2主力与连续合约 默认取全部)
+	FutCode string `json:"fut_code,omitempty"` // 标准合约代码，如白银AG、AP鲜苹果等
+	ListDate string `json:"list_date,omitempty"` // 上市开始日期(格式YYYYMMDD，从某日开始以来所有合约）
 }
 
 // FutBasicItem 表示单个 合约信息 数据项
 type FutBasicItem struct {
-	TsCode string `json:"ts_code"`
-	Symbol string `json:"symbol"`
-	Exchange string `json:"exchange"`
-	Name string `json:"name"`
-	FutCode string `json:"fut_code"`
-	Multiplier float64 `json:"multiplier"`
-	TradeUnit string `json:"trade_unit"`
-	PerUnit float64 `json:"per_unit"`
-	QuoteUnit string `json:"quote_unit"`
-	QuoteUnitDesc string `json:"quote_unit_desc"`
-	DModeDesc string `json:"d_mode_desc"`
-	ListDate string `json:"list_date"`
-	DelistDate string `json:"delist_date"`
-	DMonth string `json:"d_month"`
-	LastDdate string `json:"last_ddate"`
-	TradeTimeDesc string `json:"trade_time_desc"`
+	TsCode string `json:"ts_code"` // 合约代码
+	Symbol string `json:"symbol"` // 交易标识
+	Exchange string `json:"exchange"` // 交易市场
+	Name string `json:"name"` // 中文简称
+	FutCode string `json:"fut_code"` // 合约产品代码
+	Multiplier float64 `json:"multiplier"` // 合约乘数(只适用于国债期货、指数期货)
+	TradeUnit string `json:"trade_unit"` // 交易计量单位
+	PerUnit float64 `json:"per_unit"` // 交易单位(每手)
+	QuoteUnit string `json:"quote_unit"` // 报价单位
+	QuoteUnitDesc string `json:"quote_unit_desc"` // 最小报价单位说明
+	DModeDesc string `json:"d_mode_desc"` // 交割方式说明
+	ListDate string `json:"list_date"` // 上市日期
+	DelistDate string `json:"delist_date"` // 最后交易日期
+	DMonth string `json:"d_month"` // 交割月份
+	LastDdate string `json:"last_ddate"` // 最后交割日
+	TradeTimeDesc string `json:"trade_time_desc"` // 交易时间说明
 }
 
 // FutBasic 调用 合约信息 API

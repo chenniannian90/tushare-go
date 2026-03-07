@@ -10,12 +10,12 @@ import (
 
 // TmtTwincomedetailRequest 表示 台湾电子产业月营收明细 API 的请求
 type TmtTwincomedetailRequest struct {
-	Date string `json:"date,omitempty"`
-	Item string `json:"item,omitempty"`
-	Symbol string `json:"symbol,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Source string `json:"source,omitempty"`
+	Date string `json:"date,omitempty"` // 报告期
+	Item string `json:"item,omitempty"` // 产品代码
+	Symbol string `json:"symbol,omitempty"` // 公司代码
+	StartDate string `json:"start_date,omitempty"` // 报告期开始日期
+	EndDate string `json:"end_date,omitempty"` // 报告期结束日期
+	Source string `json:"source,omitempty"` // None
 }
 
 // TmtTwincomedetailItem 表示单个 台湾电子产业月营收明细 数据项

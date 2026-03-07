@@ -11,16 +11,16 @@ import (
 
 // BseMappingRequest 表示 北交所新旧代码对照 API 的请求
 type BseMappingRequest struct {
-	OCode string `json:"o_code,omitempty"`
-	NCode string `json:"n_code,omitempty"`
+	OCode string `json:"o_code,omitempty"` // 旧代码
+	NCode string `json:"n_code,omitempty"` // 新代码
 }
 
 // BseMappingItem 表示单个 北交所新旧代码对照 数据项
 type BseMappingItem struct {
-	Name string `json:"name"`
-	OCode string `json:"o_code"`
-	NCode string `json:"n_code"`
-	ListDate string `json:"list_date"`
+	Name string `json:"name"` // 股票名称
+	OCode string `json:"o_code"` // 原代码
+	NCode string `json:"n_code"` // 新代码
+	ListDate string `json:"list_date"` // 上市日期
 }
 
 // BseMapping 调用 北交所新旧代码对照 API

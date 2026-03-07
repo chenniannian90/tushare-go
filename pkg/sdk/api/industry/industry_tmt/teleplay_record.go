@@ -11,28 +11,28 @@ import (
 
 // TeleplayRecordRequest 表示 全国电视剧备案公示数据 API 的请求
 type TeleplayRecordRequest struct {
-	ReportDate string `json:"report_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Org string `json:"org,omitempty"`
-	Name string `json:"name,omitempty"`
+	ReportDate string `json:"report_date,omitempty"` // 备案月份（YYYYMM）
+	StartDate string `json:"start_date,omitempty"` // 备案开始月份（YYYYMM）
+	EndDate string `json:"end_date,omitempty"` // 备案结束月份（YYYYMM）
+	Org string `json:"org,omitempty"` // 备案机构
+	Name string `json:"name,omitempty"` // 电视剧名称
 }
 
 // TeleplayRecordItem 表示单个 全国电视剧备案公示数据 数据项
 type TeleplayRecordItem struct {
-	Name string `json:"name"`
-	Classify string `json:"classify"`
-	Types string `json:"types"`
-	Org string `json:"org"`
-	ReportDate string `json:"report_date"`
-	LicenseKey string `json:"license_key"`
-	Episodes string `json:"episodes"`
-	ShootingDate string `json:"shooting_date"`
-	ProdCycle string `json:"prod_cycle"`
-	Content string `json:"content"`
-	ProOpi string `json:"pro_opi"`
-	DeptOpi string `json:"dept_opi"`
-	Remarks string `json:"remarks"`
+	Name string `json:"name"` // 电视剧名称
+	Classify string `json:"classify"` // 题材
+	Types string `json:"types"` // 体裁
+	Org string `json:"org"` // 报备机构
+	ReportDate string `json:"report_date"` // 报备时间
+	LicenseKey string `json:"license_key"` // 许可证号
+	Episodes string `json:"episodes"` // 集数
+	ShootingDate string `json:"shooting_date"` // 拍摄时间
+	ProdCycle string `json:"prod_cycle"` // 制作周期
+	Content string `json:"content"` // 内容提要
+	ProOpi string `json:"pro_opi"` // 省级管理部门备案意见
+	DeptOpi string `json:"dept_opi"` // 相关部门意见
+	Remarks string `json:"remarks"` // 备注
 }
 
 // TeleplayRecord 调用 全国电视剧备案公示数据 API

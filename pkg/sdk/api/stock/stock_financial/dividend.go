@@ -11,31 +11,31 @@ import (
 
 // DividendRequest 表示 分红送股数据 API 的请求
 type DividendRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	AnnDate string `json:"ann_date,omitempty"`
-	RecordDate string `json:"record_date,omitempty"`
-	ExDate string `json:"ex_date,omitempty"`
-	ImpAnnDate string `json:"imp_ann_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // TS代码
+	AnnDate string `json:"ann_date,omitempty"` // 公告日
+	RecordDate string `json:"record_date,omitempty"` // 股权登记日期
+	ExDate string `json:"ex_date,omitempty"` // 除权除息日
+	ImpAnnDate string `json:"imp_ann_date,omitempty"` // 实施公告日
 }
 
 // DividendItem 表示单个 分红送股数据 数据项
 type DividendItem struct {
-	TsCode string `json:"ts_code"`
-	EndDate string `json:"end_date"`
-	AnnDate string `json:"ann_date"`
-	DivProc string `json:"div_proc"`
-	StkDiv float64 `json:"stk_div"`
-	StkBoRate float64 `json:"stk_bo_rate"`
-	StkCoRate float64 `json:"stk_co_rate"`
-	CashDiv float64 `json:"cash_div"`
-	CashDivTax float64 `json:"cash_div_tax"`
-	RecordDate string `json:"record_date"`
-	ExDate string `json:"ex_date"`
-	PayDate string `json:"pay_date"`
-	DivListdate string `json:"div_listdate"`
-	ImpAnnDate string `json:"imp_ann_date"`
-	BaseDate string `json:"base_date"`
-	BaseShare float64 `json:"base_share"`
+	TsCode string `json:"ts_code"` // TS代码
+	EndDate string `json:"end_date"` // 分红年度
+	AnnDate string `json:"ann_date"` // 预案公告日
+	DivProc string `json:"div_proc"` // 实施进度
+	StkDiv float64 `json:"stk_div"` // 每股送转
+	StkBoRate float64 `json:"stk_bo_rate"` // 每股送股比例
+	StkCoRate float64 `json:"stk_co_rate"` // 每股转增比例
+	CashDiv float64 `json:"cash_div"` // 每股分红（税后）
+	CashDivTax float64 `json:"cash_div_tax"` // 每股分红（税前）
+	RecordDate string `json:"record_date"` // 股权登记日
+	ExDate string `json:"ex_date"` // 除权除息日
+	PayDate string `json:"pay_date"` // 派息日
+	DivListdate string `json:"div_listdate"` // 红股上市日
+	ImpAnnDate string `json:"imp_ann_date"` // 实施公告日
+	BaseDate string `json:"base_date"` // 基准日
+	BaseShare float64 `json:"base_share"` // 基准股本（万）
 }
 
 // Dividend 调用 分红送股数据 API

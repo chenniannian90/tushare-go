@@ -11,20 +11,20 @@ import (
 
 // KplConceptConsRequest 表示 题材成分（开盘啦） API 的请求
 type KplConceptConsRequest struct {
-	TradeDate string `json:"trade_date,omitempty"`
-	TsCode string `json:"ts_code,omitempty"`
-	ConCode string `json:"con_code,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（YYYYMMDD格式）
+	TsCode string `json:"ts_code,omitempty"` // 题材代码（xxxxxx.KP格式）
+	ConCode string `json:"con_code,omitempty"` // 成分代码（xxxxxx.SH格式）
 }
 
 // KplConceptConsItem 表示单个 题材成分（开盘啦） 数据项
 type KplConceptConsItem struct {
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	ConName string `json:"con_name"`
-	ConCode string `json:"con_code"`
-	TradeDate string `json:"trade_date"`
-	Desc string `json:"desc"`
-	HotNum int `json:"hot_num"`
+	TsCode string `json:"ts_code"` // 题材ID
+	Name string `json:"name"` // 题材名称
+	ConName string `json:"con_name"` // 股票名称
+	ConCode string `json:"con_code"` // 股票代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	Desc string `json:"desc"` // 描述
+	HotNum int `json:"hot_num"` // 人气值
 }
 
 // KplConceptCons 调用 题材成分（开盘啦） API

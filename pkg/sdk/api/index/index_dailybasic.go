@@ -11,26 +11,26 @@ import (
 
 // IndexDailybasicRequest 表示 大盘指数每日指标 API 的请求
 type IndexDailybasicRequest struct {
-	TradeDate string `json:"trade_date,omitempty"`
-	TsCode string `json:"ts_code,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期 （格式：YYYYMMDD，比如20181018，下同）
+	TsCode string `json:"ts_code,omitempty"` // TS代码
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // IndexDailybasicItem 表示单个 大盘指数每日指标 数据项
 type IndexDailybasicItem struct {
-	TsCode string `json:"ts_code"`
-	TradeDate string `json:"trade_date"`
-	TotalMv float64 `json:"total_mv"`
-	FloatMv float64 `json:"float_mv"`
-	TotalShare float64 `json:"total_share"`
-	FloatShare float64 `json:"float_share"`
-	FreeShare float64 `json:"free_share"`
-	TurnoverRate float64 `json:"turnover_rate"`
-	TurnoverRateF float64 `json:"turnover_rate_f"`
-	Pe float64 `json:"pe"`
-	PeTtm float64 `json:"pe_ttm"`
-	Pb float64 `json:"pb"`
+	TsCode string `json:"ts_code"` // TS代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	TotalMv float64 `json:"total_mv"` // 当日总市值（元）
+	FloatMv float64 `json:"float_mv"` // 当日流通市值（元）
+	TotalShare float64 `json:"total_share"` // 当日总股本（股）
+	FloatShare float64 `json:"float_share"` // 当日流通股本（股）
+	FreeShare float64 `json:"free_share"` // 当日自由流通股本（股）
+	TurnoverRate float64 `json:"turnover_rate"` // 换手率
+	TurnoverRateF float64 `json:"turnover_rate_f"` // 换手率(基于自由流通股本)
+	Pe float64 `json:"pe"` // 市盈率
+	PeTtm float64 `json:"pe_ttm"` // 市盈率TTM
+	Pb float64 `json:"pb"` // 市净率
 }
 
 // IndexDailybasic 调用 大盘指数每日指标 API

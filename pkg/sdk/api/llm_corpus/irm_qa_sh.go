@@ -11,22 +11,22 @@ import (
 
 // IrmQaShRequest 表示 上证e互动问答 API 的请求
 type IrmQaShRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	PubDate string `json:"pub_date,omitempty"`
-	PubDate string `json:"pub_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（格式YYYYMMDD，下同）
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	PubDate string `json:"pub_date,omitempty"` // 发布开始日期(格式：2025-06-03 16:43:03)
+	PubDate string `json:"pub_date,omitempty"` // 发布结束日期(格式：2025-06-03 18:43:23)
 }
 
 // IrmQaShItem 表示单个 上证e互动问答 数据项
 type IrmQaShItem struct {
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	TradeDate string `json:"trade_date"`
-	Q string `json:"q"`
-	A string `json:"a"`
-	PubTime string `json:"pub_time"`
+	TsCode string `json:"ts_code"` // 股票代码
+	Name string `json:"name"` // 公司名称
+	TradeDate string `json:"trade_date"` // 日期
+	Q string `json:"q"` // 问题
+	A string `json:"a"` // 回复
+	PubTime string `json:"pub_time"` // 回复时间
 }
 
 // IrmQaSh 调用 上证e互动问答 API

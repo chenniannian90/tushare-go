@@ -11,24 +11,24 @@ import (
 
 // HmDetailRequest 表示 游资交易每日明细 API 的请求
 type HmDetailRequest struct {
-	TradeDate string `json:"trade_date,omitempty"`
-	TsCode string `json:"ts_code,omitempty"`
-	HmName string `json:"hm_name,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期(YYYYMMDD)
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	HmName string `json:"hm_name,omitempty"` // 游资名称
+	StartDate string `json:"start_date,omitempty"` // 开始日期(YYYYMMDD)
+	EndDate string `json:"end_date,omitempty"` // 结束日期(YYYYMMDD)
 }
 
 // HmDetailItem 表示单个 游资交易每日明细 数据项
 type HmDetailItem struct {
-	TradeDate string `json:"trade_date"`
-	TsCode string `json:"ts_code"`
-	TsName string `json:"ts_name"`
-	BuyAmount float64 `json:"buy_amount"`
-	SellAmount float64 `json:"sell_amount"`
-	NetAmount float64 `json:"net_amount"`
-	HmName string `json:"hm_name"`
-	HmOrgs string `json:"hm_orgs"`
-	Tag string `json:"tag"`
+	TradeDate string `json:"trade_date"` // 交易日期
+	TsCode string `json:"ts_code"` // 股票代码
+	TsName string `json:"ts_name"` // 股票名称
+	BuyAmount float64 `json:"buy_amount"` // 买入金额（元）
+	SellAmount float64 `json:"sell_amount"` // 卖出金额（元）
+	NetAmount float64 `json:"net_amount"` // 净买卖（元）
+	HmName string `json:"hm_name"` // 游资名称
+	HmOrgs string `json:"hm_orgs"` // 关联机构（一般为营业部或机构专用）
+	Tag string `json:"tag"` // 标签
 }
 
 // HmDetail 调用 游资交易每日明细 API

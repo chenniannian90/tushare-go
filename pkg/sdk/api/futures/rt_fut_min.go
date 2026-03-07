@@ -11,23 +11,23 @@ import (
 
 // RtFutMinRequest 表示 实时分钟行情 API 的请求
 type RtFutMinRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	Freq string `json:"freq,omitempty"`
-	DateStr string `json:"date_str,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码，e.g.CU2310.SHF，仅支持一次一个合约的回放
+	Freq string `json:"freq,omitempty"` // 分钟频度（1MIN/5MIN/15MIN/30MIN/60MIN）
+	DateStr string `json:"date_str,omitempty"` // 回放日期（格式：YYYY-MM-DD，默认为交易当日，支持回溯一天）
 }
 
 // RtFutMinItem 表示单个 实时分钟行情 数据项
 type RtFutMinItem struct {
-	Code string `json:"code"`
-	Freq string `json:"freq"`
-	Time string `json:"time"`
-	Open float64 `json:"open"`
-	Close float64 `json:"close"`
-	High float64 `json:"high"`
-	Low float64 `json:"low"`
-	Vol int `json:"vol"`
-	Amount float64 `json:"amount"`
-	Oi float64 `json:"oi"`
+	Code string `json:"code"` // 股票代码
+	Freq string `json:"freq"` // 频度
+	Time string `json:"time"` // 交易时间
+	Open float64 `json:"open"` // 开盘价
+	Close float64 `json:"close"` // 收盘价
+	High float64 `json:"high"` // 最高价
+	Low float64 `json:"low"` // 最低价
+	Vol int `json:"vol"` // 成交量
+	Amount float64 `json:"amount"` // 成交金额
+	Oi float64 `json:"oi"` // 持仓量
 }
 
 // RtFutMin 调用 实时分钟行情 API

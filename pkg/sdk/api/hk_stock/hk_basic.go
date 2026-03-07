@@ -11,24 +11,24 @@ import (
 
 // HkBasicRequest 表示 港股基础信息 API 的请求
 type HkBasicRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	ListStatus string `json:"list_status,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // TS代码
+	ListStatus string `json:"list_status,omitempty"` // 上市状态 L上市 D退市 P暂停上市 ，默认L
 }
 
 // HkBasicItem 表示单个 港股基础信息 数据项
 type HkBasicItem struct {
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	Fullname string `json:"fullname"`
-	Enname string `json:"enname"`
-	CnSpell string `json:"cn_spell"`
-	Market string `json:"market"`
-	ListStatus string `json:"list_status"`
-	ListDate string `json:"list_date"`
-	DelistDate string `json:"delist_date"`
-	TradeUnit float64 `json:"trade_unit"`
-	Isin string `json:"isin"`
-	CurrType string `json:"curr_type"`
+	TsCode string `json:"ts_code"` // 
+	Name string `json:"name"` // 股票简称
+	Fullname string `json:"fullname"` // 公司全称
+	Enname string `json:"enname"` // 英文名称
+	CnSpell string `json:"cn_spell"` // 拼音
+	Market string `json:"market"` // 市场类别
+	ListStatus string `json:"list_status"` // 上市状态
+	ListDate string `json:"list_date"` // 上市日期
+	DelistDate string `json:"delist_date"` // 退市日期
+	TradeUnit float64 `json:"trade_unit"` // 交易单位
+	Isin string `json:"isin"` // ISIN代码
+	CurrType string `json:"curr_type"` // 货币代码
 }
 
 // HkBasic 调用 港股基础信息 API

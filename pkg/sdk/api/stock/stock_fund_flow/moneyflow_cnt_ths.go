@@ -11,26 +11,26 @@ import (
 
 // MoneyflowCntThsRequest 表示 板块资金流向（THS) API 的请求
 type MoneyflowCntThsRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	TradeDate string `json:"trade_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 代码
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期(格式：YYYYMMDD，下同)
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
 }
 
 // MoneyflowCntThsItem 表示单个 板块资金流向（THS) 数据项
 type MoneyflowCntThsItem struct {
-	TradeDate string `json:"trade_date"`
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	LeadStock string `json:"lead_stock"`
-	ClosePrice float64 `json:"close_price"`
-	PctChange float64 `json:"pct_change"`
-	IndustryIndex float64 `json:"industry_index"`
-	CompanyNum int `json:"company_num"`
-	PctChangeStock float64 `json:"pct_change_stock"`
-	NetBuyAmount float64 `json:"net_buy_amount"`
-	NetSellAmount float64 `json:"net_sell_amount"`
-	NetAmount float64 `json:"net_amount"`
+	TradeDate string `json:"trade_date"` // 交易日期
+	TsCode string `json:"ts_code"` // 板块代码
+	Name string `json:"name"` // 板块名称
+	LeadStock string `json:"lead_stock"` // 领涨股票名称
+	ClosePrice float64 `json:"close_price"` // 最新价
+	PctChange float64 `json:"pct_change"` // 行业涨跌幅
+	IndustryIndex float64 `json:"industry_index"` // 板块指数
+	CompanyNum int `json:"company_num"` // 公司数量
+	PctChangeStock float64 `json:"pct_change_stock"` // 领涨股涨跌幅
+	NetBuyAmount float64 `json:"net_buy_amount"` // 流入资金(亿元)
+	NetSellAmount float64 `json:"net_sell_amount"` // 流出资金(亿元)
+	NetAmount float64 `json:"net_amount"` // 净额(亿元)
 }
 
 // MoneyflowCntThs 调用 板块资金流向（THS) API

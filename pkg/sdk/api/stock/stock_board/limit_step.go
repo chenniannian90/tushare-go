@@ -11,19 +11,19 @@ import (
 
 // LimitStepRequest 表示 涨停股票连板天梯 API 的请求
 type LimitStepRequest struct {
-	TradeDate string `json:"trade_date,omitempty"`
-	TsCode string `json:"ts_code,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Nums string `json:"nums,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"` // 交易日期（格式：YYYYMMDD，下同）
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	StartDate string `json:"start_date,omitempty"` // 开始日期
+	EndDate string `json:"end_date,omitempty"` // 结束日期
+	Nums string `json:"nums,omitempty"` // 连板次数，支持多个输入，例如nums='2,3'
 }
 
 // LimitStepItem 表示单个 涨停股票连板天梯 数据项
 type LimitStepItem struct {
-	TsCode string `json:"ts_code"`
-	Name string `json:"name"`
-	TradeDate string `json:"trade_date"`
-	Nums string `json:"nums"`
+	TsCode string `json:"ts_code"` // 代码
+	Name string `json:"name"` // 名称
+	TradeDate string `json:"trade_date"` // 交易日期
+	Nums string `json:"nums"` // 连板次数
 }
 
 // LimitStep 调用 涨停股票连板天梯 API

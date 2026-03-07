@@ -11,175 +11,175 @@ import (
 
 // BalancesheetRequest 表示 资产负债表 API 的请求
 type BalancesheetRequest struct {
-	TsCode string `json:"ts_code,omitempty"`
-	AnnDate string `json:"ann_date,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	EndDate string `json:"end_date,omitempty"`
-	Period string `json:"period,omitempty"`
-	ReportType string `json:"report_type,omitempty"`
-	CompType string `json:"comp_type,omitempty"`
+	TsCode string `json:"ts_code,omitempty"` // 股票代码
+	AnnDate string `json:"ann_date,omitempty"` // 公告日期(YYYYMMDD格式，下同)
+	StartDate string `json:"start_date,omitempty"` // 公告日开始日期
+	EndDate string `json:"end_date,omitempty"` // 公告日结束日期
+	Period string `json:"period,omitempty"` // 报告期(每个季度最后一天的日期，比如20171231表示年报，20170630半年报，20170930三季报)
+	ReportType string `json:"report_type,omitempty"` // 报告类型：见下方详细说明
+	CompType string `json:"comp_type,omitempty"` // 公司类型：1一般工商业 2银行 3保险 4证券
 }
 
 // BalancesheetItem 表示单个 资产负债表 数据项
 type BalancesheetItem struct {
-	TsCode string `json:"ts_code"`
-	AnnDate string `json:"ann_date"`
-	FAnnDate string `json:"f_ann_date"`
-	EndDate string `json:"end_date"`
-	ReportType string `json:"report_type"`
-	CompType string `json:"comp_type"`
-	EndType string `json:"end_type"`
-	TotalShare float64 `json:"total_share"`
-	CapRese float64 `json:"cap_rese"`
-	UndistrPorfit float64 `json:"undistr_porfit"`
-	SurplusRese float64 `json:"surplus_rese"`
-	SpecialRese float64 `json:"special_rese"`
-	MoneyCap float64 `json:"money_cap"`
-	TradAsset float64 `json:"trad_asset"`
-	NotesReceiv float64 `json:"notes_receiv"`
-	AccountsReceiv float64 `json:"accounts_receiv"`
-	OthReceiv float64 `json:"oth_receiv"`
-	Prepayment float64 `json:"prepayment"`
-	DivReceiv float64 `json:"div_receiv"`
-	IntReceiv float64 `json:"int_receiv"`
-	Inventories float64 `json:"inventories"`
-	AmorExp float64 `json:"amor_exp"`
-	NcaWithin1y float64 `json:"nca_within_1y"`
-	SettRsrv float64 `json:"sett_rsrv"`
-	LoantoOthBankFi float64 `json:"loanto_oth_bank_fi"`
-	PremiumReceiv float64 `json:"premium_receiv"`
-	ReinsurReceiv float64 `json:"reinsur_receiv"`
-	ReinsurResReceiv float64 `json:"reinsur_res_receiv"`
-	PurResaleFa float64 `json:"pur_resale_fa"`
-	OthCurAssets float64 `json:"oth_cur_assets"`
-	TotalCurAssets float64 `json:"total_cur_assets"`
-	FaAvailForSale float64 `json:"fa_avail_for_sale"`
-	HtmInvest float64 `json:"htm_invest"`
-	LtEqtInvest float64 `json:"lt_eqt_invest"`
-	InvestRealEstate float64 `json:"invest_real_estate"`
-	TimeDeposits float64 `json:"time_deposits"`
-	OthAssets float64 `json:"oth_assets"`
-	LtRec float64 `json:"lt_rec"`
-	FixAssets float64 `json:"fix_assets"`
-	Cip float64 `json:"cip"`
-	ConstMaterials float64 `json:"const_materials"`
-	FixedAssetsDisp float64 `json:"fixed_assets_disp"`
-	ProducBioAssets float64 `json:"produc_bio_assets"`
-	OilAndGasAssets float64 `json:"oil_and_gas_assets"`
-	IntanAssets float64 `json:"intan_assets"`
-	RAndD float64 `json:"r_and_d"`
-	Goodwill float64 `json:"goodwill"`
-	LtAmorExp float64 `json:"lt_amor_exp"`
-	DeferTaxAssets float64 `json:"defer_tax_assets"`
-	DecrInDisbur float64 `json:"decr_in_disbur"`
-	OthNca float64 `json:"oth_nca"`
-	TotalNca float64 `json:"total_nca"`
-	CashReserCb float64 `json:"cash_reser_cb"`
-	DeposInOthBfi float64 `json:"depos_in_oth_bfi"`
-	PrecMetals float64 `json:"prec_metals"`
-	DerivAssets float64 `json:"deriv_assets"`
-	RrReinsUnePrem float64 `json:"rr_reins_une_prem"`
-	RrReinsOutstdCla float64 `json:"rr_reins_outstd_cla"`
-	RrReinsLinsLiab float64 `json:"rr_reins_lins_liab"`
-	RrReinsLthinsLiab float64 `json:"rr_reins_lthins_liab"`
-	RefundDepos float64 `json:"refund_depos"`
-	PhPledgeLoans float64 `json:"ph_pledge_loans"`
-	RefundCapDepos float64 `json:"refund_cap_depos"`
-	IndepAcctAssets float64 `json:"indep_acct_assets"`
-	ClientDepos float64 `json:"client_depos"`
-	ClientProv float64 `json:"client_prov"`
-	TransacSeatFee float64 `json:"transac_seat_fee"`
-	InvestAsReceiv float64 `json:"invest_as_receiv"`
-	TotalAssets float64 `json:"total_assets"`
-	LtBorr float64 `json:"lt_borr"`
-	StBorr float64 `json:"st_borr"`
-	CbBorr float64 `json:"cb_borr"`
-	DeposIbDeposits float64 `json:"depos_ib_deposits"`
-	LoanOthBank float64 `json:"loan_oth_bank"`
-	TradingFl float64 `json:"trading_fl"`
-	NotesPayable float64 `json:"notes_payable"`
-	AcctPayable float64 `json:"acct_payable"`
-	AdvReceipts float64 `json:"adv_receipts"`
-	SoldForRepurFa float64 `json:"sold_for_repur_fa"`
-	CommPayable float64 `json:"comm_payable"`
-	PayrollPayable float64 `json:"payroll_payable"`
-	TaxesPayable float64 `json:"taxes_payable"`
-	IntPayable float64 `json:"int_payable"`
-	DivPayable float64 `json:"div_payable"`
-	OthPayable float64 `json:"oth_payable"`
-	AccExp float64 `json:"acc_exp"`
-	DeferredInc float64 `json:"deferred_inc"`
-	StBondsPayable float64 `json:"st_bonds_payable"`
-	PayableToReinsurer float64 `json:"payable_to_reinsurer"`
-	RsrvInsurCont float64 `json:"rsrv_insur_cont"`
-	ActingTradingSec float64 `json:"acting_trading_sec"`
-	ActingUwSec float64 `json:"acting_uw_sec"`
-	NonCurLiabDue1y float64 `json:"non_cur_liab_due_1y"`
-	OthCurLiab float64 `json:"oth_cur_liab"`
-	TotalCurLiab float64 `json:"total_cur_liab"`
-	BondPayable float64 `json:"bond_payable"`
-	LtPayable float64 `json:"lt_payable"`
-	SpecificPayables float64 `json:"specific_payables"`
-	EstimatedLiab float64 `json:"estimated_liab"`
-	DeferTaxLiab float64 `json:"defer_tax_liab"`
-	DeferIncNonCurLiab float64 `json:"defer_inc_non_cur_liab"`
-	OthNcl float64 `json:"oth_ncl"`
-	TotalNcl float64 `json:"total_ncl"`
-	DeposOthBfi float64 `json:"depos_oth_bfi"`
-	DerivLiab float64 `json:"deriv_liab"`
-	Depos float64 `json:"depos"`
-	AgencyBusLiab float64 `json:"agency_bus_liab"`
-	OthLiab float64 `json:"oth_liab"`
-	PremReceivAdva float64 `json:"prem_receiv_adva"`
-	DeposReceived float64 `json:"depos_received"`
-	PhInvest float64 `json:"ph_invest"`
-	ReserUnePrem float64 `json:"reser_une_prem"`
-	ReserOutstdClaims float64 `json:"reser_outstd_claims"`
-	ReserLinsLiab float64 `json:"reser_lins_liab"`
-	ReserLthinsLiab float64 `json:"reser_lthins_liab"`
-	IndeptAccLiab float64 `json:"indept_acc_liab"`
-	PledgeBorr float64 `json:"pledge_borr"`
-	IndemPayable float64 `json:"indem_payable"`
-	PolicyDivPayable float64 `json:"policy_div_payable"`
-	TotalLiab float64 `json:"total_liab"`
-	TreasuryShare float64 `json:"treasury_share"`
-	OrdinRiskReser float64 `json:"ordin_risk_reser"`
-	ForexDiffer float64 `json:"forex_differ"`
-	InvestLossUnconf float64 `json:"invest_loss_unconf"`
-	MinorityInt float64 `json:"minority_int"`
-	TotalHldrEqyExcMinInt float64 `json:"total_hldr_eqy_exc_min_int"`
-	TotalHldrEqyIncMinInt float64 `json:"total_hldr_eqy_inc_min_int"`
-	TotalLiabHldrEqy float64 `json:"total_liab_hldr_eqy"`
-	LtPayrollPayable float64 `json:"lt_payroll_payable"`
-	OthCompIncome float64 `json:"oth_comp_income"`
-	OthEqtTools float64 `json:"oth_eqt_tools"`
-	OthEqtToolsPShr float64 `json:"oth_eqt_tools_p_shr"`
-	LendingFunds float64 `json:"lending_funds"`
-	AccReceivable float64 `json:"acc_receivable"`
-	StFinPayable float64 `json:"st_fin_payable"`
-	Payables float64 `json:"payables"`
-	HfsAssets float64 `json:"hfs_assets"`
-	HfsSales float64 `json:"hfs_sales"`
-	CostFinAssets float64 `json:"cost_fin_assets"`
-	FairValueFinAssets float64 `json:"fair_value_fin_assets"`
-	CipTotal float64 `json:"cip_total"`
-	OthPayTotal float64 `json:"oth_pay_total"`
-	LongPayTotal float64 `json:"long_pay_total"`
-	DebtInvest float64 `json:"debt_invest"`
-	OthDebtInvest float64 `json:"oth_debt_invest"`
-	OthEqInvest float64 `json:"oth_eq_invest"`
-	OthIlliqFinAssets float64 `json:"oth_illiq_fin_assets"`
-	OthEqPpbond float64 `json:"oth_eq_ppbond"`
-	ReceivFinancing float64 `json:"receiv_financing"`
-	UseRightAssets float64 `json:"use_right_assets"`
-	LeaseLiab float64 `json:"lease_liab"`
-	ContractAssets float64 `json:"contract_assets"`
-	ContractLiab float64 `json:"contract_liab"`
-	AccountsReceivBill float64 `json:"accounts_receiv_bill"`
-	AccountsPay float64 `json:"accounts_pay"`
-	OthRcvTotal float64 `json:"oth_rcv_total"`
-	FixAssetsTotal float64 `json:"fix_assets_total"`
-	UpdateFlag string `json:"update_flag"`
+	TsCode string `json:"ts_code"` // TS股票代码
+	AnnDate string `json:"ann_date"` // 公告日期
+	FAnnDate string `json:"f_ann_date"` // 实际公告日期
+	EndDate string `json:"end_date"` // 报告期
+	ReportType string `json:"report_type"` // 报表类型
+	CompType string `json:"comp_type"` // 公司类型(1一般工商业2银行3保险4证券)
+	EndType string `json:"end_type"` // 报告期类型
+	TotalShare float64 `json:"total_share"` // 期末总股本
+	CapRese float64 `json:"cap_rese"` // 资本公积金
+	UndistrPorfit float64 `json:"undistr_porfit"` // 未分配利润
+	SurplusRese float64 `json:"surplus_rese"` // 盈余公积金
+	SpecialRese float64 `json:"special_rese"` // 专项储备
+	MoneyCap float64 `json:"money_cap"` // 货币资金
+	TradAsset float64 `json:"trad_asset"` // 交易性金融资产
+	NotesReceiv float64 `json:"notes_receiv"` // 应收票据
+	AccountsReceiv float64 `json:"accounts_receiv"` // 应收账款
+	OthReceiv float64 `json:"oth_receiv"` // 其他应收款
+	Prepayment float64 `json:"prepayment"` // 预付款项
+	DivReceiv float64 `json:"div_receiv"` // 应收股利
+	IntReceiv float64 `json:"int_receiv"` // 应收利息
+	Inventories float64 `json:"inventories"` // 存货
+	AmorExp float64 `json:"amor_exp"` // 待摊费用
+	NcaWithin1y float64 `json:"nca_within_1y"` // 一年内到期的非流动资产
+	SettRsrv float64 `json:"sett_rsrv"` // 结算备付金
+	LoantoOthBankFi float64 `json:"loanto_oth_bank_fi"` // 拆出资金
+	PremiumReceiv float64 `json:"premium_receiv"` // 应收保费
+	ReinsurReceiv float64 `json:"reinsur_receiv"` // 应收分保账款
+	ReinsurResReceiv float64 `json:"reinsur_res_receiv"` // 应收分保合同准备金
+	PurResaleFa float64 `json:"pur_resale_fa"` // 买入返售金融资产
+	OthCurAssets float64 `json:"oth_cur_assets"` // 其他流动资产
+	TotalCurAssets float64 `json:"total_cur_assets"` // 流动资产合计
+	FaAvailForSale float64 `json:"fa_avail_for_sale"` // 可供出售金融资产
+	HtmInvest float64 `json:"htm_invest"` // 持有至到期投资
+	LtEqtInvest float64 `json:"lt_eqt_invest"` // 长期股权投资
+	InvestRealEstate float64 `json:"invest_real_estate"` // 投资性房地产
+	TimeDeposits float64 `json:"time_deposits"` // 定期存款
+	OthAssets float64 `json:"oth_assets"` // 其他资产
+	LtRec float64 `json:"lt_rec"` // 长期应收款
+	FixAssets float64 `json:"fix_assets"` // 固定资产
+	Cip float64 `json:"cip"` // 在建工程
+	ConstMaterials float64 `json:"const_materials"` // 工程物资
+	FixedAssetsDisp float64 `json:"fixed_assets_disp"` // 固定资产清理
+	ProducBioAssets float64 `json:"produc_bio_assets"` // 生产性生物资产
+	OilAndGasAssets float64 `json:"oil_and_gas_assets"` // 油气资产
+	IntanAssets float64 `json:"intan_assets"` // 无形资产
+	RAndD float64 `json:"r_and_d"` // 研发支出
+	Goodwill float64 `json:"goodwill"` // 商誉
+	LtAmorExp float64 `json:"lt_amor_exp"` // 长期待摊费用
+	DeferTaxAssets float64 `json:"defer_tax_assets"` // 递延所得税资产
+	DecrInDisbur float64 `json:"decr_in_disbur"` // 发放贷款及垫款
+	OthNca float64 `json:"oth_nca"` // 其他非流动资产
+	TotalNca float64 `json:"total_nca"` // 非流动资产合计
+	CashReserCb float64 `json:"cash_reser_cb"` // 现金及存放中央银行款项
+	DeposInOthBfi float64 `json:"depos_in_oth_bfi"` // 存放同业和其它金融机构款项
+	PrecMetals float64 `json:"prec_metals"` // 贵金属
+	DerivAssets float64 `json:"deriv_assets"` // 衍生金融资产
+	RrReinsUnePrem float64 `json:"rr_reins_une_prem"` // 应收分保未到期责任准备金
+	RrReinsOutstdCla float64 `json:"rr_reins_outstd_cla"` // 应收分保未决赔款准备金
+	RrReinsLinsLiab float64 `json:"rr_reins_lins_liab"` // 应收分保寿险责任准备金
+	RrReinsLthinsLiab float64 `json:"rr_reins_lthins_liab"` // 应收分保长期健康险责任准备金
+	RefundDepos float64 `json:"refund_depos"` // 存出保证金
+	PhPledgeLoans float64 `json:"ph_pledge_loans"` // 保户质押贷款
+	RefundCapDepos float64 `json:"refund_cap_depos"` // 存出资本保证金
+	IndepAcctAssets float64 `json:"indep_acct_assets"` // 独立账户资产
+	ClientDepos float64 `json:"client_depos"` // 其中：客户资金存款
+	ClientProv float64 `json:"client_prov"` // 其中：客户备付金
+	TransacSeatFee float64 `json:"transac_seat_fee"` // 其中:交易席位费
+	InvestAsReceiv float64 `json:"invest_as_receiv"` // 应收款项类投资
+	TotalAssets float64 `json:"total_assets"` // 资产总计
+	LtBorr float64 `json:"lt_borr"` // 长期借款
+	StBorr float64 `json:"st_borr"` // 短期借款
+	CbBorr float64 `json:"cb_borr"` // 向中央银行借款
+	DeposIbDeposits float64 `json:"depos_ib_deposits"` // 吸收存款及同业存放
+	LoanOthBank float64 `json:"loan_oth_bank"` // 拆入资金
+	TradingFl float64 `json:"trading_fl"` // 交易性金融负债
+	NotesPayable float64 `json:"notes_payable"` // 应付票据
+	AcctPayable float64 `json:"acct_payable"` // 应付账款
+	AdvReceipts float64 `json:"adv_receipts"` // 预收款项
+	SoldForRepurFa float64 `json:"sold_for_repur_fa"` // 卖出回购金融资产款
+	CommPayable float64 `json:"comm_payable"` // 应付手续费及佣金
+	PayrollPayable float64 `json:"payroll_payable"` // 应付职工薪酬
+	TaxesPayable float64 `json:"taxes_payable"` // 应交税费
+	IntPayable float64 `json:"int_payable"` // 应付利息
+	DivPayable float64 `json:"div_payable"` // 应付股利
+	OthPayable float64 `json:"oth_payable"` // 其他应付款
+	AccExp float64 `json:"acc_exp"` // 预提费用
+	DeferredInc float64 `json:"deferred_inc"` // 递延收益
+	StBondsPayable float64 `json:"st_bonds_payable"` // 应付短期债券
+	PayableToReinsurer float64 `json:"payable_to_reinsurer"` // 应付分保账款
+	RsrvInsurCont float64 `json:"rsrv_insur_cont"` // 保险合同准备金
+	ActingTradingSec float64 `json:"acting_trading_sec"` // 代理买卖证券款
+	ActingUwSec float64 `json:"acting_uw_sec"` // 代理承销证券款
+	NonCurLiabDue1y float64 `json:"non_cur_liab_due_1y"` // 一年内到期的非流动负债
+	OthCurLiab float64 `json:"oth_cur_liab"` // 其他流动负债
+	TotalCurLiab float64 `json:"total_cur_liab"` // 流动负债合计
+	BondPayable float64 `json:"bond_payable"` // 应付债券
+	LtPayable float64 `json:"lt_payable"` // 长期应付款
+	SpecificPayables float64 `json:"specific_payables"` // 专项应付款
+	EstimatedLiab float64 `json:"estimated_liab"` // 预计负债
+	DeferTaxLiab float64 `json:"defer_tax_liab"` // 递延所得税负债
+	DeferIncNonCurLiab float64 `json:"defer_inc_non_cur_liab"` // 递延收益-非流动负债
+	OthNcl float64 `json:"oth_ncl"` // 其他非流动负债
+	TotalNcl float64 `json:"total_ncl"` // 非流动负债合计
+	DeposOthBfi float64 `json:"depos_oth_bfi"` // 同业和其它金融机构存放款项
+	DerivLiab float64 `json:"deriv_liab"` // 衍生金融负债
+	Depos float64 `json:"depos"` // 吸收存款
+	AgencyBusLiab float64 `json:"agency_bus_liab"` // 代理业务负债
+	OthLiab float64 `json:"oth_liab"` // 其他负债
+	PremReceivAdva float64 `json:"prem_receiv_adva"` // 预收保费
+	DeposReceived float64 `json:"depos_received"` // 存入保证金
+	PhInvest float64 `json:"ph_invest"` // 保户储金及投资款
+	ReserUnePrem float64 `json:"reser_une_prem"` // 未到期责任准备金
+	ReserOutstdClaims float64 `json:"reser_outstd_claims"` // 未决赔款准备金
+	ReserLinsLiab float64 `json:"reser_lins_liab"` // 寿险责任准备金
+	ReserLthinsLiab float64 `json:"reser_lthins_liab"` // 长期健康险责任准备金
+	IndeptAccLiab float64 `json:"indept_acc_liab"` // 独立账户负债
+	PledgeBorr float64 `json:"pledge_borr"` // 其中:质押借款
+	IndemPayable float64 `json:"indem_payable"` // 应付赔付款
+	PolicyDivPayable float64 `json:"policy_div_payable"` // 应付保单红利
+	TotalLiab float64 `json:"total_liab"` // 负债合计
+	TreasuryShare float64 `json:"treasury_share"` // 减:库存股
+	OrdinRiskReser float64 `json:"ordin_risk_reser"` // 一般风险准备
+	ForexDiffer float64 `json:"forex_differ"` // 外币报表折算差额
+	InvestLossUnconf float64 `json:"invest_loss_unconf"` // 未确认的投资损失
+	MinorityInt float64 `json:"minority_int"` // 少数股东权益
+	TotalHldrEqyExcMinInt float64 `json:"total_hldr_eqy_exc_min_int"` // 股东权益合计(不含少数股东权益)
+	TotalHldrEqyIncMinInt float64 `json:"total_hldr_eqy_inc_min_int"` // 股东权益合计(含少数股东权益)
+	TotalLiabHldrEqy float64 `json:"total_liab_hldr_eqy"` // 负债及股东权益总计
+	LtPayrollPayable float64 `json:"lt_payroll_payable"` // 长期应付职工薪酬
+	OthCompIncome float64 `json:"oth_comp_income"` // 其他综合收益
+	OthEqtTools float64 `json:"oth_eqt_tools"` // 其他权益工具
+	OthEqtToolsPShr float64 `json:"oth_eqt_tools_p_shr"` // 其他权益工具(优先股)
+	LendingFunds float64 `json:"lending_funds"` // 融出资金
+	AccReceivable float64 `json:"acc_receivable"` // 应收款项
+	StFinPayable float64 `json:"st_fin_payable"` // 应付短期融资款
+	Payables float64 `json:"payables"` // 应付款项
+	HfsAssets float64 `json:"hfs_assets"` // 持有待售的资产
+	HfsSales float64 `json:"hfs_sales"` // 持有待售的负债
+	CostFinAssets float64 `json:"cost_fin_assets"` // 以摊余成本计量的金融资产
+	FairValueFinAssets float64 `json:"fair_value_fin_assets"` // 以公允价值计量且其变动计入其他综合收益的金融资产
+	CipTotal float64 `json:"cip_total"` // 在建工程(合计)(元)
+	OthPayTotal float64 `json:"oth_pay_total"` // 其他应付款(合计)(元)
+	LongPayTotal float64 `json:"long_pay_total"` // 长期应付款(合计)(元)
+	DebtInvest float64 `json:"debt_invest"` // 债权投资(元)
+	OthDebtInvest float64 `json:"oth_debt_invest"` // 其他债权投资(元)
+	OthEqInvest float64 `json:"oth_eq_invest"` // 其他权益工具投资(元)
+	OthIlliqFinAssets float64 `json:"oth_illiq_fin_assets"` // 其他非流动金融资产(元)
+	OthEqPpbond float64 `json:"oth_eq_ppbond"` // 其他权益工具:永续债(元)
+	ReceivFinancing float64 `json:"receiv_financing"` // 应收款项融资
+	UseRightAssets float64 `json:"use_right_assets"` // 使用权资产
+	LeaseLiab float64 `json:"lease_liab"` // 租赁负债
+	ContractAssets float64 `json:"contract_assets"` // 合同资产
+	ContractLiab float64 `json:"contract_liab"` // 合同负债
+	AccountsReceivBill float64 `json:"accounts_receiv_bill"` // 应收票据及应收账款
+	AccountsPay float64 `json:"accounts_pay"` // 应付票据及应付账款
+	OthRcvTotal float64 `json:"oth_rcv_total"` // 其他应收款(合计)（元）
+	FixAssetsTotal float64 `json:"fix_assets_total"` // 固定资产(合计)(元)
+	UpdateFlag string `json:"update_flag"` // 更新标识
 }
 
 // Balancesheet 调用 资产负债表 API
