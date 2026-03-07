@@ -25,86 +25,92 @@ func main() {
 	client := sdk.NewClient(config)
 
 	fmt.Println("========================================")
-	fmt.Println("SDK 链式调用实际使用示例")
+	fmt.Println("SDK API 调用方式对比")
 	fmt.Println("========================================")
 
-	// 方式 1: 使用 apis 包的类型化方法（推荐）
-	fmt.Println("\n✅ 方式 1: apis 包 - 类型安全，推荐使用")
+	// 方式 1: 直接调用
+	fmt.Println("\n✅ 方式 1: 直接调用（原有方式）")
 	fmt.Println("\n调用示例：")
-	fmt.Println("  apis.TopList(ctx, client, req)")
-	fmt.Println("  apis.Daily(ctx, client, req)")
-	fmt.Println("  apis.TradeCal(ctx, client, req)")
+	fmt.Println("  import stockboard \".../pkg/sdk/api/stock/stock_board\"")
+	fmt.Println("  stockboard.TopList(ctx, client, req)")
 
-	// 实际调用
+	_, err = stockboard.TopList(context.Background(), client, &stockboard.TopListRequest{})
+	if err != nil {
+		log.Printf("Note: Expected error (empty response_fields): %v", err)
+	}
+
+	// 方式 2: apis 包
+	fmt.Println("\n✅ 方式 2: apis 包（推荐）")
+	fmt.Println("\n调用示例：")
+	fmt.Println("  import sdkapis \".../pkg/sdk/apis\"")
+	fmt.Println("  sdkapis.TopList(ctx, client, req)")
+
 	_, err = sdkapis.TopList(context.Background(), client, &stockboard.TopListRequest{})
 	if err != nil {
 		log.Printf("Note: Expected error (empty response_fields): %v", err)
 	}
 
-	// 方式 2: 使用 SDK 内置的链式调用 + CallAPI
-	fmt.Println("\n✅ 方式 2: SDK 链式调用 - 通用方法")
-	fmt.Println("\n调用示例：")
-	fmt.Println("  client.StockBoard().CallAPI(ctx, \"top_list\", params, fields, &result)")
-	fmt.Println("  client.StockMarket().CallAPI(ctx, \"daily\", params, fields, &result)")
-	fmt.Println("  client.Index().CallAPI(ctx, \"index_basic\", params, fields, &result)")
-
-	var result struct {
-		Fields []string                 `json:"fields"`
-		Items  []map[string]interface{} `json:"items"`
-	}
-	err = client.StockBoard().CallAPI(
-		context.Background(),
-		"top_list",
-		map[string]interface{}{},
-		[]string{},
-		&result,
-	)
-	if err != nil {
-		log.Printf("Note: Expected error (empty response_fields): %v", err)
-	}
-
 	fmt.Println("\n========================================")
-	fmt.Println("对比总结")
+	fmt.Println("两种调用方式对比")
 	fmt.Println("========================================")
 
-	fmt.Println("\n📝 方式 1 (apis 包):")
-	fmt.Println("   ✅ 类型安全")
-	fmt.Println("   ✅ IDE 自动提示")
-	fmt.Println("   ✅ 无需手动解析结果")
-	fmt.Println("   ⚠️  需要导入 apis 包")
+	fmt.Println("\n📝 方式 1: 直接调用")
+	fmt.Println("   优点: 简单直接，无需额外包装")
+	fmt.Println("   缺点: 需要导入具体 API 包")
+	fmt.Println("   适合: 快速脚本，API 调用较少")
+	fmt.Println("\n   示例:")
+	fmt.Println("   import stockboard \".../pkg/sdk/api/stock/stock_board\"")
+	fmt.Println("   import stockmarket \".../pkg/sdk/api/stock/stock_market\"")
+	fmt.Println("   stockboard.TopList(ctx, client, req)")
+	fmt.Println("   stockmarket.Daily(ctx, client, req)")
 
-	fmt.Println("\n📝 方式 2 (CallAPI):")
-	fmt.Println("   ✅ 无需导入具体 API 包")
-	fmt.Println("   ✅ 灵活调用任何 API")
-	fmt.Println("   ⚠️  需要手动定义结果结构")
-	fmt.Println("   ⚠️  需要手动解析字段")
-
-	fmt.Println("\n💡 推荐:")
-	fmt.Println("   日常使用：apis 包（方式 1）")
-	fmt.Println("   特殊 API：CallAPI（方式 2）")
+	fmt.Println("\n📦 方式 2: apis 包（推荐）")
+	fmt.Println("   优点: 类型安全，IDE 提示友好，统一导入")
+	fmt.Println("   缺点: 需要导入 apis 包")
+	fmt.Println("   适合: 大型项目，需要类型安全")
+	fmt.Println("\n   示例:")
+	fmt.Println("   import sdkapis \".../pkg/sdk/apis\"")
+	fmt.Println("   sdkapis.TopList(ctx, client, req)")
+	fmt.Println("   sdkapis.Daily(ctx, client, req)")
+	fmt.Println("   sdkapis.TradeCal(ctx, client, req)")
 
 	fmt.Println("\n========================================")
-	fmt.Println("可用的 API 分类")
+	fmt.Println("推荐用法")
 	fmt.Println("========================================")
 
-	fmt.Println("\n📊 所有可用分类:")
-	apis := []string{
-		"StockBoard", "StockMarket", "StockBasic", "StockFinancial",
-		"Index", "Futures", "Fund", "HKStock", "Bond", "ETF",
-		"Forex", "Options", "Spot", "USStock", "Wealth",
-		"Industry", "LLMCorpus", "Macro",
-	}
-	for _, api := range apis {
-		fmt.Printf("   • client.%s()\n", api)
-	}
+	fmt.Println("\n🎯 推荐: apis 包")
+	fmt.Println("\n在项目中统一使用 apis 包：")
+	fmt.Println(`
+	// 统一导入
+	import sdkapis "github.com/chenniannian90/tushare-go/pkg/sdk/apis"
+
+	// 使用
+	data, err := sdkapis.TopList(ctx, client, req)
+	daily, err := sdkapis.Daily(ctx, client, req)
+	cal, err := sdkapis.TradeCal(ctx, client, req)
+	`)
+
+	fmt.Println("\n💡 优势:")
+	fmt.Println("   • 类型安全")
+	fmt.Println("   • IDE 自动提示")
+	fmt.Println("   • 无需手动解析结果")
+	fmt.Println("   • 统一的 API 接口")
+	fmt.Println("   • 更少的 import 语句")
+
+	fmt.Println("\n========================================")
+	fmt.Println("可用方法")
+	fmt.Println("========================================")
 
 	fmt.Println("\n📦 apis 包提供的方法:")
 	methods := []string{
-		"TopList", "LimitList", "Daily", "DailyBasic",
-		"TradeCal", "Income", "Balancesheet", "FinaIndicator", "Dividend",
+		"TopList", "LimitList", "DragonList", "TopInst",
+		"ThsConcept", "EmHot", // 板块
+		"Daily", "DailyBasic", "Weekly", "Monthly", // 市场
+		"TradeCal", "StockBasicInfo", // 基础
+		"Income", "Balancesheet", "FinaIndicator", "Dividend", // 财务
 	}
 	for _, method := range methods {
-		fmt.Printf("   • apis.%s()\n", method)
+		fmt.Printf("   • sdkapis.%s()\n", method)
 	}
 
 	fmt.Println("\n🎯 快速开始:")
@@ -121,9 +127,11 @@ func main() {
 	// 3. 使用 apis 包调用（推荐）
 	data, err := sdkapis.TopList(ctx, client, req)
 
-	// 4. 或使用通用 CallAPI 方法
-	var result struct{...}
-	client.StockBoard().CallAPI(ctx, "api_name", params, fields, &result)
+	// 4. 处理数据
+	if err != nil {
+	    log.Fatal(err)
+	}
+	// 使用 data...
 	`)
 
 	fmt.Println("\n注意：当前 API spec 的 response_fields 为空，")

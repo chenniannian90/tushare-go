@@ -34,7 +34,6 @@ build-examples:
 	go build -o bin/fund_example ./cmd/examples/fund
 	go build -o bin/hk_stock_example ./cmd/examples/hk_stock
 	go build -o bin/boards_example ./cmd/examples/boards
-	go build -o bin/chain_call_example ./cmd/examples/chain_call
 	go build -o bin/sdk_usage_example ./cmd/examples/sdk_usage
 	@echo "✅ Examples built successfully!"
 
