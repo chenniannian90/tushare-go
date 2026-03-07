@@ -1,0 +1,68 @@
+{
+  "api_name": "转融资交易汇总",
+  "api_code": "slb_len",
+  "description": "转融通融资汇总",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=331",
+    "name": "转融资交易汇总",
+    "category": "两融及转融通___stock_margin"
+  },
+  "request_params": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期（YYYYMMDD格式，下同）",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "ob",
+      "type": "float",
+      "description": "期初余额(亿元)",
+      "default_display": true
+    },
+    {
+      "name": "auc_amount",
+      "type": "float",
+      "description": "竞价成交金额(亿元)",
+      "default_display": true
+    },
+    {
+      "name": "repo_amount",
+      "type": "float",
+      "description": "再借成交金额(亿元)",
+      "default_display": true
+    },
+    {
+      "name": "repay_amount",
+      "type": "float",
+      "description": "偿还金额(亿元)",
+      "default_display": true
+    },
+    {
+      "name": "cb",
+      "type": "float",
+      "description": "期末余额(亿元)",
+      "default_display": true
+    }
+  ]
+}

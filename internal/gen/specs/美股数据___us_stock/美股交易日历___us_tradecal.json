@@ -1,0 +1,50 @@
+{
+  "api_name": "美股交易日历",
+  "api_code": "us_tradecal",
+  "description": "获取美股交易日历信息",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=253",
+    "name": "美股交易日历",
+    "category": "美股数据___us_stock"
+  },
+  "request_params": [
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    },
+    {
+      "name": "is_open",
+      "type": "str",
+      "description": "是否交易",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "cal_date",
+      "type": "str",
+      "description": "日历日期",
+      "default_display": true
+    },
+    {
+      "name": "is_open",
+      "type": "int",
+      "description": "是否交易 '0'休市 '1'交易",
+      "default_display": true
+    },
+    {
+      "name": "pretrade_date",
+      "type": "str",
+      "description": "上一个交易日",
+      "default_display": true
+    }
+  ]
+}

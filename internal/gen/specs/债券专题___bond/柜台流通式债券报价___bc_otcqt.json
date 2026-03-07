@@ -1,0 +1,122 @@
+{
+  "api_name": "柜台流通式债券报价",
+  "api_code": "bc_otcqt",
+  "description": "柜台流通式债券报价",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=322",
+    "name": "柜台流通式债券报价",
+    "category": "债券专题___bond"
+  },
+  "request_params": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期(YYYYMMDD格式，下同)",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码",
+      "required": false
+    },
+    {
+      "name": "bank",
+      "type": "str",
+      "description": "报价机构",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "报价日期",
+      "default_display": false
+    },
+    {
+      "name": "qt_time",
+      "type": "str",
+      "description": "报价时间",
+      "default_display": false
+    },
+    {
+      "name": "bank",
+      "type": "str",
+      "description": "报价机构",
+      "default_display": false
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "债券编码",
+      "default_display": false
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "债券简称",
+      "default_display": false
+    },
+    {
+      "name": "maturity",
+      "type": "str",
+      "description": "期限",
+      "default_display": false
+    },
+    {
+      "name": "remain_maturity",
+      "type": "str",
+      "description": "剩余期限",
+      "default_display": false
+    },
+    {
+      "name": "bond_type",
+      "type": "str",
+      "description": "债券类型",
+      "default_display": false
+    },
+    {
+      "name": "coupon_rate",
+      "type": "float",
+      "description": "票面利率（%）",
+      "default_display": false
+    },
+    {
+      "name": "buy_price",
+      "type": "float",
+      "description": "投资者买入全价",
+      "default_display": false
+    },
+    {
+      "name": "sell_price",
+      "type": "float",
+      "description": "投资者卖出全价",
+      "default_display": false
+    },
+    {
+      "name": "buy_yield",
+      "type": "float",
+      "description": "投资者买入到期收益率（%）",
+      "default_display": false
+    },
+    {
+      "name": "sell_yield",
+      "type": "float",
+      "description": "投资者卖出到期收益率（%）",
+      "default_display": false
+    }
+  ]
+}

@@ -1,12 +1,43 @@
 {
-  "api_name": "index_basic",
+  "api_name": "指数基本信息",
   "api_code": "index_basic",
-  "description": "指数基本信息",
+  "description": "获取指数基础信息。",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=94",
     "name": "指数基本信息",
     "category": "指数专题___index"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "指数代码",
+      "required": false
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "指数简称",
+      "required": false
+    },
+    {
+      "name": "market",
+      "type": "str",
+      "description": "交易所或服务商(默认SSE)",
+      "required": false
+    },
+    {
+      "name": "publisher",
+      "type": "str",
+      "description": "发布商",
+      "required": false
+    },
+    {
+      "name": "category",
+      "type": "str",
+      "description": "指数类别",
+      "required": false
+    }
+  ],
+  "response_fields": null
 }

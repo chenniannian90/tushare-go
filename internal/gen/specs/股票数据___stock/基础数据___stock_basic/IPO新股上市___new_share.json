@@ -1,12 +1,98 @@
 {
-  "api_name": "new_share",
+  "api_name": "IPO新股上市",
   "api_code": "new_share",
-  "description": "IPO新股上市",
+  "description": "获取新股上市列表数据",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=123",
     "name": "IPO新股上市",
     "category": "基础数据___stock_basic"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "上网发行开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "上网发行结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS股票代码",
+      "default_display": true
+    },
+    {
+      "name": "sub_code",
+      "type": "str",
+      "description": "申购代码",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "名称",
+      "default_display": true
+    },
+    {
+      "name": "ipo_date",
+      "type": "str",
+      "description": "上网发行日期",
+      "default_display": true
+    },
+    {
+      "name": "issue_date",
+      "type": "str",
+      "description": "上市日期",
+      "default_display": true
+    },
+    {
+      "name": "amount",
+      "type": "float",
+      "description": "发行总量（万股）",
+      "default_display": true
+    },
+    {
+      "name": "market_amount",
+      "type": "float",
+      "description": "上网发行总量（万股）",
+      "default_display": true
+    },
+    {
+      "name": "price",
+      "type": "float",
+      "description": "发行价格",
+      "default_display": true
+    },
+    {
+      "name": "pe",
+      "type": "float",
+      "description": "市盈率",
+      "default_display": true
+    },
+    {
+      "name": "limit_amount",
+      "type": "float",
+      "description": "个人申购上限（万股）",
+      "default_display": true
+    },
+    {
+      "name": "funds",
+      "type": "float",
+      "description": "募集资金（亿元）",
+      "default_display": true
+    },
+    {
+      "name": "ballot",
+      "type": "float",
+      "description": "中签率",
+      "default_display": true
+    }
+  ]
 }

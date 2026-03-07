@@ -1,0 +1,86 @@
+{
+  "api_name": "全国电影剧本备案数据",
+  "api_code": "film_record",
+  "description": "获取全国电影剧本备案的公示数据",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=156",
+    "name": "全国电影剧本备案数据",
+    "category": "TMT行业___industry_tmt"
+  },
+  "request_params": [
+    {
+      "name": "ann_date",
+      "type": "str",
+      "description": "公布日期 （至少输入一个参数，格式：YYYYMMDD，日期不连续，定期公布）",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "rec_no",
+      "type": "str",
+      "description": "备案号",
+      "default_display": true
+    },
+    {
+      "name": "film_name",
+      "type": "str",
+      "description": "影片名称",
+      "default_display": true
+    },
+    {
+      "name": "rec_org",
+      "type": "str",
+      "description": "备案单位",
+      "default_display": true
+    },
+    {
+      "name": "script_writer",
+      "type": "str",
+      "description": "编剧",
+      "default_display": true
+    },
+    {
+      "name": "rec_result",
+      "type": "str",
+      "description": "备案结果",
+      "default_display": true
+    },
+    {
+      "name": "rec_area",
+      "type": "str",
+      "description": "备案地（备案时间）",
+      "default_display": true
+    },
+    {
+      "name": "classified",
+      "type": "str",
+      "description": "影片分类",
+      "default_display": true
+    },
+    {
+      "name": "date_range",
+      "type": "str",
+      "description": "备案日期区间",
+      "default_display": true
+    },
+    {
+      "name": "ann_date",
+      "type": "str",
+      "description": "备案结果发布时间",
+      "default_display": true
+    }
+  ]
+}

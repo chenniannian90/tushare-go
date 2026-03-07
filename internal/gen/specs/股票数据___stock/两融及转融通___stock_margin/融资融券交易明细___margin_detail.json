@@ -1,12 +1,37 @@
 {
-  "api_name": "margin_detail",
+  "api_name": "融资融券交易明细",
   "api_code": "margin_detail",
-  "description": "融资融券交易明细",
+  "description": "获取沪深两市每日融资融券明细",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=59",
     "name": "融资融券交易明细",
     "category": "两融及转融通___stock_margin"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期（格式：YYYYMMDD，下同）",
+      "required": false
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": null
 }

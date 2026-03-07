@@ -1,0 +1,110 @@
+{
+  "api_name": "大盘指数每日指标",
+  "api_code": "index_dailybasic",
+  "description": "目前只提供上证综指，深证成指，上证50，中证500，中小板指，创业板指的每日指标数据数据来源：Tushare社区统计计算数据历史：从2004年1月开始提供数据",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=128",
+    "name": "大盘指数每日指标",
+    "category": "指数专题___index"
+  },
+  "request_params": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期 （格式：YYYYMMDD，比如20181018，下同）",
+      "required": false
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码",
+      "default_display": true
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "total_mv",
+      "type": "float",
+      "description": "当日总市值（元）",
+      "default_display": true
+    },
+    {
+      "name": "float_mv",
+      "type": "float",
+      "description": "当日流通市值（元）",
+      "default_display": true
+    },
+    {
+      "name": "total_share",
+      "type": "float",
+      "description": "当日总股本（股）",
+      "default_display": true
+    },
+    {
+      "name": "float_share",
+      "type": "float",
+      "description": "当日流通股本（股）",
+      "default_display": true
+    },
+    {
+      "name": "free_share",
+      "type": "float",
+      "description": "当日自由流通股本（股）",
+      "default_display": true
+    },
+    {
+      "name": "turnover_rate",
+      "type": "float",
+      "description": "换手率",
+      "default_display": true
+    },
+    {
+      "name": "turnover_rate_f",
+      "type": "float",
+      "description": "换手率(基于自由流通股本)",
+      "default_display": true
+    },
+    {
+      "name": "pe",
+      "type": "float",
+      "description": "市盈率",
+      "default_display": true
+    },
+    {
+      "name": "pe_ttm",
+      "type": "float",
+      "description": "市盈率TTM",
+      "default_display": true
+    },
+    {
+      "name": "pb",
+      "type": "float",
+      "description": "市净率",
+      "default_display": true
+    }
+  ]
+}

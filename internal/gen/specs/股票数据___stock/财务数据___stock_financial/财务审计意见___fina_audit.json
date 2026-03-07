@@ -1,12 +1,43 @@
 {
-  "api_name": "fina_audit",
+  "api_name": "财务审计意见",
   "api_code": "fina_audit",
-  "description": "财务审计意见",
+  "description": "获取上市公司定期财务审计意见数据",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=80",
     "name": "财务审计意见",
     "category": "财务数据___stock_financial"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "required": true
+    },
+    {
+      "name": "ann_date",
+      "type": "str",
+      "description": "公告日期",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "公告开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "公告结束日期",
+      "required": false
+    },
+    {
+      "name": "period",
+      "type": "str",
+      "description": "报告期(每个季度最后一天的日期,比如20171231表示年报)",
+      "required": false
+    }
+  ],
+  "response_fields": null
 }

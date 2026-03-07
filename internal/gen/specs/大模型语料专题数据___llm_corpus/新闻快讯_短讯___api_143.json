@@ -1,7 +1,7 @@
 {
-  "api_name": "api_143",
-  "api_code": "api_143",
-  "description": "新闻快讯（短讯）",
+  "api_name": "news描述",
+  "api_code": "news描述",
+  "description": "获取主流新闻网站的快讯新闻数据,提供超过6年以上历史新闻。",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=143",
     "name": "新闻快讯（短讯）",

@@ -1,0 +1,146 @@
+{
+  "api_name": "仓单日报",
+  "api_code": "fut_wsr",
+  "description": "获取仓单日报数据，了解各仓库/厂库的仓单变化",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=140",
+    "name": "仓单日报",
+    "category": "期货数据___futures"
+  },
+  "request_params": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "required": false
+    },
+    {
+      "name": "symbol",
+      "type": "str",
+      "description": "产品代码",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期(YYYYMMDD格式，下同)",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易所代码",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "symbol",
+      "type": "str",
+      "description": "产品代码",
+      "default_display": true
+    },
+    {
+      "name": "fut_name",
+      "type": "str",
+      "description": "产品名称",
+      "default_display": true
+    },
+    {
+      "name": "warehouse",
+      "type": "str",
+      "description": "仓库名称",
+      "default_display": true
+    },
+    {
+      "name": "wh_id",
+      "type": "str",
+      "description": "仓库编号",
+      "default_display": false
+    },
+    {
+      "name": "pre_vol",
+      "type": "int",
+      "description": "昨日仓单量",
+      "default_display": true
+    },
+    {
+      "name": "vol",
+      "type": "int",
+      "description": "今日仓单量",
+      "default_display": true
+    },
+    {
+      "name": "vol_chg",
+      "type": "int",
+      "description": "增减量",
+      "default_display": true
+    },
+    {
+      "name": "area",
+      "type": "str",
+      "description": "地区",
+      "default_display": false
+    },
+    {
+      "name": "year",
+      "type": "str",
+      "description": "年度",
+      "default_display": false
+    },
+    {
+      "name": "grade",
+      "type": "str",
+      "description": "等级",
+      "default_display": false
+    },
+    {
+      "name": "brand",
+      "type": "str",
+      "description": "品牌",
+      "default_display": false
+    },
+    {
+      "name": "place",
+      "type": "str",
+      "description": "产地",
+      "default_display": false
+    },
+    {
+      "name": "pd",
+      "type": "int",
+      "description": "升贴水",
+      "default_display": false
+    },
+    {
+      "name": "is_ct",
+      "type": "str",
+      "description": "是否折算仓单",
+      "default_display": false
+    },
+    {
+      "name": "unit",
+      "type": "str",
+      "description": "单位",
+      "default_display": true
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易所",
+      "default_display": false
+    }
+  ]
+}

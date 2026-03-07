@@ -1,0 +1,68 @@
+{
+  "api_name": "港股实时日线",
+  "api_code": "rt_hk_k",
+  "description": "获取港股实时日k线行情，支持按股票代码及股票代码通配符一次性提取全部股票实时日k线行情",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=383",
+    "name": "港股实时日线",
+    "category": "港股数据___hk_stock"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "支持通配符方式，e.g. 00001.HK、02*.HK",
+      "required": true
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "default_display": true
+    },
+    {
+      "name": "pre_close",
+      "type": "float",
+      "description": "昨收价",
+      "default_display": true
+    },
+    {
+      "name": "close",
+      "type": "float",
+      "description": "收盘价",
+      "default_display": true
+    },
+    {
+      "name": "high",
+      "type": "float",
+      "description": "最高价",
+      "default_display": true
+    },
+    {
+      "name": "open",
+      "type": "float",
+      "description": "开盘价",
+      "default_display": true
+    },
+    {
+      "name": "low",
+      "type": "float",
+      "description": "最低价",
+      "default_display": true
+    },
+    {
+      "name": "vol",
+      "type": "float",
+      "description": "成交量（股）",
+      "default_display": true
+    },
+    {
+      "name": "amount",
+      "type": "float",
+      "description": "成交额(元)",
+      "default_display": true
+    }
+  ]
+}

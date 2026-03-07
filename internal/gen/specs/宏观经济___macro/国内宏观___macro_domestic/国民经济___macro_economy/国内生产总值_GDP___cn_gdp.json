@@ -1,0 +1,92 @@
+{
+  "api_name": "国内生产总值（GDP）",
+  "api_code": "cn_gdp",
+  "description": "获取国民经济之GDP数据",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=227",
+    "name": "国内生产总值（GDP）",
+    "category": "国民经济___macro_economy"
+  },
+  "request_params": [
+    {
+      "name": "q",
+      "type": "str",
+      "description": "季度（2019Q1表示，2019年第一季度）",
+      "required": false
+    },
+    {
+      "name": "start_q",
+      "type": "str",
+      "description": "开始季度",
+      "required": false
+    },
+    {
+      "name": "end_q",
+      "type": "str",
+      "description": "结束季度",
+      "required": false
+    },
+    {
+      "name": "fields",
+      "type": "str",
+      "description": "指定输出字段（e.g. fields='quarter,gdp,gdp_yoy'）",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "quarter",
+      "type": "str",
+      "description": "季度",
+      "default_display": true
+    },
+    {
+      "name": "gdp",
+      "type": "float",
+      "description": "GDP累计值（亿元）",
+      "default_display": true
+    },
+    {
+      "name": "gdp_yoy",
+      "type": "float",
+      "description": "当季同比增速（%）",
+      "default_display": true
+    },
+    {
+      "name": "pi",
+      "type": "float",
+      "description": "第一产业累计值（亿元）",
+      "default_display": true
+    },
+    {
+      "name": "pi_yoy",
+      "type": "float",
+      "description": "第一产业同比增速（%）",
+      "default_display": true
+    },
+    {
+      "name": "si",
+      "type": "float",
+      "description": "第二产业累计值（亿元）",
+      "default_display": true
+    },
+    {
+      "name": "si_yoy",
+      "type": "float",
+      "description": "第二产业同比增速（%）",
+      "default_display": true
+    },
+    {
+      "name": "ti",
+      "type": "float",
+      "description": "第三产业累计值（亿元）",
+      "default_display": true
+    },
+    {
+      "name": "ti_yoy",
+      "type": "float",
+      "description": "第三产业同比增速（%）",
+      "default_display": true
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "api_name": "股票开户数据（停）",
+  "api_code": "stk_account",
+  "description": "获取股票账户开户数据，统计周期为一周",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=164",
+    "name": "股票开户数据（停）",
+    "category": "参考数据___stock_reference"
+  },
+  "request_params": [
+    {
+      "name": "date",
+      "type": "str",
+      "description": "日期",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "date",
+      "type": "str",
+      "description": "统计周期",
+      "default_display": true
+    },
+    {
+      "name": "weekly_new",
+      "type": "float",
+      "description": "本周新增（万）",
+      "default_display": true
+    },
+    {
+      "name": "total",
+      "type": "float",
+      "description": "期末总账户数（万）",
+      "default_display": true
+    },
+    {
+      "name": "weekly_hold",
+      "type": "float",
+      "description": "本周持仓账户数（万）",
+      "default_display": true
+    },
+    {
+      "name": "weekly_trade",
+      "type": "float",
+      "description": "本周参与交易账户数（万）",
+      "default_display": true
+    }
+  ]
+}

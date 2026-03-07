@@ -1,0 +1,92 @@
+{
+  "api_name": "期权分钟行情",
+  "api_code": "opt_mins",
+  "description": "获取全市场期权合约分钟数据，支持1min/5min/15min/30min/60min行情，提供Python SDK和 http Restful API两种方式。",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=341",
+    "name": "期权分钟行情",
+    "category": "期权数据___options"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码，e.g：10007976.SH",
+      "required": true
+    },
+    {
+      "name": "freq",
+      "type": "str",
+      "description": "分钟频度（1min/5min/15min/30min/60min）",
+      "required": true
+    },
+    {
+      "name": "start_date",
+      "type": "datetime",
+      "description": "开始日期 格式：2024-08-25 09:00:00",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "datetime",
+      "description": "结束时间 格式：2024-08-25 19:00:00",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "default_display": true
+    },
+    {
+      "name": "trade_time",
+      "type": "str",
+      "description": "交易时间",
+      "default_display": true
+    },
+    {
+      "name": "open",
+      "type": "float",
+      "description": "开盘价",
+      "default_display": true
+    },
+    {
+      "name": "close",
+      "type": "float",
+      "description": "收盘价",
+      "default_display": true
+    },
+    {
+      "name": "high",
+      "type": "float",
+      "description": "最高价",
+      "default_display": true
+    },
+    {
+      "name": "low",
+      "type": "float",
+      "description": "最低价",
+      "default_display": true
+    },
+    {
+      "name": "vol",
+      "type": "int",
+      "description": "成交量",
+      "default_display": true
+    },
+    {
+      "name": "amount",
+      "type": "float",
+      "description": "成交金额",
+      "default_display": true
+    },
+    {
+      "name": "oi",
+      "type": "float",
+      "description": "持仓量",
+      "default_display": true
+    }
+  ]
+}

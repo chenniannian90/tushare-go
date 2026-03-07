@@ -1,12 +1,566 @@
 {
-  "api_name": "hk_fina_indicator",
+  "api_name": "港股财务指标数据",
   "api_code": "hk_fina_indicator",
-  "description": "港股财务指标数据",
+  "description": "",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=388",
     "name": "港股财务指标数据",
     "category": "港股数据___hk_stock"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "required": true
+    },
+    {
+      "name": "period",
+      "type": "str",
+      "description": "报告期(格式：YYYYMMDD）",
+      "required": false
+    },
+    {
+      "name": "report_type",
+      "type": "str",
+      "description": "报告期类型（Q1一季报Q2半年报Q3三季报Q4年报）",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "报告期开始日期(格式：YYYYMMDD）",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "报告结束日期(格式：YYYYMMDD）",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "股票名称",
+      "default_display": true
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "报告期",
+      "default_display": true
+    },
+    {
+      "name": "ind_type",
+      "type": "str",
+      "description": "报告类型,Q-按报告期(季度),Y-按年度",
+      "default_display": true
+    },
+    {
+      "name": "report_type",
+      "type": "str",
+      "description": "报告期类型",
+      "default_display": true
+    },
+    {
+      "name": "std_report_date",
+      "type": "str",
+      "description": "标准报告期",
+      "default_display": true
+    },
+    {
+      "name": "per_netcash_operate",
+      "type": "float",
+      "description": "每股经营现金流(元)",
+      "default_display": true
+    },
+    {
+      "name": "per_oi",
+      "type": "float",
+      "description": "每股营业收入(元)",
+      "default_display": true
+    },
+    {
+      "name": "bps",
+      "type": "float",
+      "description": "每股净资产(元)",
+      "default_display": true
+    },
+    {
+      "name": "basic_eps",
+      "type": "float",
+      "description": "基本每股收益(元)",
+      "default_display": true
+    },
+    {
+      "name": "diluted_eps",
+      "type": "float",
+      "description": "稀释每股收益(元)",
+      "default_display": true
+    },
+    {
+      "name": "operate_income",
+      "type": "float",
+      "description": "营业总收入(元)",
+      "default_display": true
+    },
+    {
+      "name": "operate_income_yoy",
+      "type": "float",
+      "description": "营业总收入同比增长(%)",
+      "default_display": true
+    },
+    {
+      "name": "gross_profit",
+      "type": "float",
+      "description": "毛利润(元)",
+      "default_display": true
+    },
+    {
+      "name": "gross_profit_yoy",
+      "type": "float",
+      "description": "毛利润同比增长(%)",
+      "default_display": true
+    },
+    {
+      "name": "holder_profit",
+      "type": "float",
+      "description": "归母净利润(元)",
+      "default_display": true
+    },
+    {
+      "name": "holder_profit_yoy",
+      "type": "float",
+      "description": "归母净利润同比增长(%)",
+      "default_display": true
+    },
+    {
+      "name": "gross_profit_ratio",
+      "type": "float",
+      "description": "毛利率(%)",
+      "default_display": true
+    },
+    {
+      "name": "eps_ttm",
+      "type": "float",
+      "description": "ttm每股收益(元)",
+      "default_display": true
+    },
+    {
+      "name": "operate_income_qoq",
+      "type": "float",
+      "description": "营业总收入滚动环比增长(%)",
+      "default_display": true
+    },
+    {
+      "name": "net_profit_ratio",
+      "type": "float",
+      "description": "净利率(%)",
+      "default_display": true
+    },
+    {
+      "name": "roe_avg",
+      "type": "float",
+      "description": "平均净资产收益率(%)",
+      "default_display": true
+    },
+    {
+      "name": "gross_profit_qoq",
+      "type": "float",
+      "description": "毛利润滚动环比增长(%)",
+      "default_display": true
+    },
+    {
+      "name": "roa",
+      "type": "float",
+      "description": "总资产净利率(%)",
+      "default_display": true
+    },
+    {
+      "name": "holder_profit_qoq",
+      "type": "float",
+      "description": "归母净利润滚动环比增长(%)",
+      "default_display": true
+    },
+    {
+      "name": "roe_yearly",
+      "type": "float",
+      "description": "年化净资产收益率(%)",
+      "default_display": true
+    },
+    {
+      "name": "roic_yearly",
+      "type": "float",
+      "description": "年化投资回报率(%)",
+      "default_display": true
+    },
+    {
+      "name": "total_assets",
+      "type": "float",
+      "description": "资产总额",
+      "default_display": true
+    },
+    {
+      "name": "total_liabilities",
+      "type": "float",
+      "description": "负债总额",
+      "default_display": true
+    },
+    {
+      "name": "tax_ebt",
+      "type": "float",
+      "description": "所得税/利润总额(%)",
+      "default_display": true
+    },
+    {
+      "name": "ocf_sales",
+      "type": "float",
+      "description": "经营现金流/营业收入(%)",
+      "default_display": true
+    },
+    {
+      "name": "total_parent_equity",
+      "type": "float",
+      "description": "本公司权益持有人应占权益",
+      "default_display": true
+    },
+    {
+      "name": "debt_asset_ratio",
+      "type": "float",
+      "description": "资产负债率(%)",
+      "default_display": true
+    },
+    {
+      "name": "operate_profit",
+      "type": "float",
+      "description": "经营盈利",
+      "default_display": true
+    },
+    {
+      "name": "pretax_profit",
+      "type": "float",
+      "description": "除税前盈利",
+      "default_display": true
+    },
+    {
+      "name": "netcash_operate",
+      "type": "float",
+      "description": "经营活动所得现金流量净额",
+      "default_display": true
+    },
+    {
+      "name": "netcash_invest",
+      "type": "float",
+      "description": "投资活动耗用现金流量净额",
+      "default_display": true
+    },
+    {
+      "name": "netcash_finance",
+      "type": "float",
+      "description": "融资活动耗用现金流量净额",
+      "default_display": true
+    },
+    {
+      "name": "end_cash",
+      "type": "float",
+      "description": "期末的现金及现金等价物",
+      "default_display": true
+    },
+    {
+      "name": "divi_ratio",
+      "type": "float",
+      "description": "分红比例",
+      "default_display": true
+    },
+    {
+      "name": "dividend_rate",
+      "type": "float",
+      "description": "股息率",
+      "default_display": true
+    },
+    {
+      "name": "current_ratio",
+      "type": "float",
+      "description": "流动比率(倍)",
+      "default_display": true
+    },
+    {
+      "name": "common_acs",
+      "type": "float",
+      "description": "普通股应计股息",
+      "default_display": true
+    },
+    {
+      "name": "currentdebt_debt",
+      "type": "float",
+      "description": "流动负债/总负债(%)",
+      "default_display": true
+    },
+    {
+      "name": "issued_common_shares",
+      "type": "float",
+      "description": "已发行普通股",
+      "default_display": true
+    },
+    {
+      "name": "hk_common_shares",
+      "type": "float",
+      "description": "港股本(不建议使用数据源有误)",
+      "default_display": true
+    },
+    {
+      "name": "per_shares",
+      "type": "float",
+      "description": "每手股数",
+      "default_display": true
+    },
+    {
+      "name": "total_market_cap",
+      "type": "float",
+      "description": "总市值",
+      "default_display": true
+    },
+    {
+      "name": "hksk_market_cap",
+      "type": "float",
+      "description": "港股市值",
+      "default_display": true
+    },
+    {
+      "name": "pe_ttm",
+      "type": "float",
+      "description": "滚动市盈率",
+      "default_display": true
+    },
+    {
+      "name": "pb_ttm",
+      "type": "float",
+      "description": "滚动市净率",
+      "default_display": true
+    },
+    {
+      "name": "report_date_sq",
+      "type": "str",
+      "description": "季报日期",
+      "default_display": true
+    },
+    {
+      "name": "report_type_sq",
+      "type": "str",
+      "description": "报告类型",
+      "default_display": true
+    },
+    {
+      "name": "operate_income_sq",
+      "type": "float",
+      "description": "营业收入",
+      "default_display": true
+    },
+    {
+      "name": "dps_hkd",
+      "type": "float",
+      "description": "每股股息（港元）",
+      "default_display": true
+    },
+    {
+      "name": "operate_income_qoq_sq",
+      "type": "float",
+      "description": "营业收入环比",
+      "default_display": true
+    },
+    {
+      "name": "net_profit_ratio_sq",
+      "type": "float",
+      "description": "净利润率",
+      "default_display": true
+    },
+    {
+      "name": "holder_profit_sq",
+      "type": "float",
+      "description": "归属于股东净利润",
+      "default_display": true
+    },
+    {
+      "name": "holder_profit_qoq_sq",
+      "type": "float",
+      "description": "归母净利润环比",
+      "default_display": true
+    },
+    {
+      "name": "roe_avg_sq",
+      "type": "float",
+      "description": "平均净资产收益率",
+      "default_display": true
+    },
+    {
+      "name": "pe_ttm_sq",
+      "type": "float",
+      "description": "季报滚动市盈率",
+      "default_display": true
+    },
+    {
+      "name": "pb_ttm_sq",
+      "type": "float",
+      "description": "季报滚动市净率",
+      "default_display": true
+    },
+    {
+      "name": "roa_sq",
+      "type": "float",
+      "description": "总资产收益率",
+      "default_display": true
+    },
+    {
+      "name": "start_date",
+      "type": "float",
+      "description": "会计年度起始日",
+      "default_display": true
+    },
+    {
+      "name": "fiscal_year",
+      "type": "float",
+      "description": "会计年度截止日",
+      "default_display": true
+    },
+    {
+      "name": "currency",
+      "type": "str",
+      "description": "币种 港元（hkd）",
+      "default_display": true
+    },
+    {
+      "name": "is_cny_code",
+      "type": "float",
+      "description": "是否人民币代码",
+      "default_display": true
+    },
+    {
+      "name": "dps_hkd_ly",
+      "type": "float",
+      "description": "上一年每股股息",
+      "default_display": true
+    },
+    {
+      "name": "org_type",
+      "type": "str",
+      "description": "企业类型",
+      "default_display": true
+    },
+    {
+      "name": "premium_income",
+      "type": "float",
+      "description": "保费收入",
+      "default_display": true
+    },
+    {
+      "name": "premium_income_yoy",
+      "type": "float",
+      "description": "保费收入同比",
+      "default_display": true
+    },
+    {
+      "name": "net_interest_income",
+      "type": "float",
+      "description": "净利息收入",
+      "default_display": true
+    },
+    {
+      "name": "net_interest_income_yoy",
+      "type": "float",
+      "description": "净利息收入同比",
+      "default_display": true
+    },
+    {
+      "name": "fee_commission_income",
+      "type": "float",
+      "description": "手续费及佣金收入",
+      "default_display": true
+    },
+    {
+      "name": "fee_commission_income_yoy",
+      "type": "float",
+      "description": "手续费及佣金收入同比",
+      "default_display": true
+    },
+    {
+      "name": "accounts_rece_tdays",
+      "type": "float",
+      "description": "应收账款周转率(次)",
+      "default_display": true
+    },
+    {
+      "name": "inventory_tdays",
+      "type": "float",
+      "description": "存货周转率(次)",
+      "default_display": true
+    },
+    {
+      "name": "current_assets_tdays",
+      "type": "float",
+      "description": "流动资产周转率(次)",
+      "default_display": true
+    },
+    {
+      "name": "total_assets_tdays",
+      "type": "float",
+      "description": "总资产周转率(次)",
+      "default_display": true
+    },
+    {
+      "name": "premium_expense",
+      "type": "float",
+      "description": "保险赔付支出",
+      "default_display": true
+    },
+    {
+      "name": "loan_deposit",
+      "type": "float",
+      "description": "贷款/存款",
+      "default_display": true
+    },
+    {
+      "name": "loan_equity",
+      "type": "float",
+      "description": "贷款/股东权益",
+      "default_display": true
+    },
+    {
+      "name": "loan_assets",
+      "type": "float",
+      "description": "贷款/总资产",
+      "default_display": true
+    },
+    {
+      "name": "deposit_equity",
+      "type": "float",
+      "description": "存款/股东权益",
+      "default_display": true
+    },
+    {
+      "name": "deposit_assets",
+      "type": "float",
+      "description": "存款/总资产",
+      "default_display": true
+    },
+    {
+      "name": "equity_multiplier",
+      "type": "float",
+      "description": "权益乘数",
+      "default_display": true
+    },
+    {
+      "name": "equity_ratio",
+      "type": "float",
+      "description": "产权比率",
+      "default_display": true
+    }
+  ]
 }

@@ -1,0 +1,37 @@
+{
+  "api_name": "台湾电子产业月营收",
+  "api_code": "tmt_twincome",
+  "description": "获取台湾TMT电子产业领域各类产品月度营收数据。",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=88",
+    "name": "台湾电子产业月营收",
+    "category": "TMT行业___industry_tmt"
+  },
+  "request_params": [
+    {
+      "name": "date",
+      "type": "str",
+      "description": "报告期",
+      "required": false
+    },
+    {
+      "name": "item",
+      "type": "str",
+      "description": "产品代码",
+      "required": true
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "报告期开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "报告期结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": null
+}

@@ -1,12 +1,104 @@
 {
-  "api_name": "fund_manager",
+  "api_name": "基金经理",
   "api_code": "fund_manager",
-  "description": "基金经理",
+  "description": "获取公募基金经理数据，包括基金经理简历等数据",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=208",
     "name": "基金经理",
     "category": "公募基金___fund"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "基金代码，支持多只基金，逗号分隔",
+      "required": false
+    },
+    {
+      "name": "ann_date",
+      "type": "str",
+      "description": "公告日期，格式：YYYYMMDD",
+      "required": false
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "基金经理姓名",
+      "required": false
+    },
+    {
+      "name": "offset",
+      "type": "intint",
+      "description": "开始行数",
+      "required": false
+    },
+    {
+      "name": "limit",
+      "type": "int",
+      "description": "每页行数",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "基金代码",
+      "default_display": true
+    },
+    {
+      "name": "ann_date",
+      "type": "str",
+      "description": "公告日期",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "基金经理姓名",
+      "default_display": true
+    },
+    {
+      "name": "gender",
+      "type": "str",
+      "description": "性别",
+      "default_display": true
+    },
+    {
+      "name": "birth_year",
+      "type": "str",
+      "description": "出生年份",
+      "default_display": true
+    },
+    {
+      "name": "edu",
+      "type": "str",
+      "description": "学历",
+      "default_display": true
+    },
+    {
+      "name": "nationality",
+      "type": "str",
+      "description": "国籍",
+      "default_display": true
+    },
+    {
+      "name": "begin_date",
+      "type": "str",
+      "description": "任职日期",
+      "default_display": true
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "离任日期",
+      "default_display": true
+    },
+    {
+      "name": "resume",
+      "type": "str",
+      "description": "简历",
+      "default_display": true
+    }
+  ]
 }

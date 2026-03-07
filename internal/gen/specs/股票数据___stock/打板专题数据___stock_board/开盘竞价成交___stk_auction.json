@@ -1,0 +1,92 @@
+{
+  "api_name": "开盘竞价成交（当日）",
+  "api_code": "stk_auction",
+  "description": "获取当日个股和ETF的集合竞价成交情况，每天9点25~29分之间可以获取当日的集合竞价成交数据",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=369",
+    "name": "开盘竞价成交（当日）",
+    "category": "打板专题数据___stock_board"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期（YYYYMMDD格式，下同)",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "default_display": true
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "数据日期",
+      "default_display": true
+    },
+    {
+      "name": "vol",
+      "type": "int",
+      "description": "成交量（股）",
+      "default_display": true
+    },
+    {
+      "name": "price",
+      "type": "int",
+      "description": "成交均价（元）",
+      "default_display": true
+    },
+    {
+      "name": "amount",
+      "type": "float",
+      "description": "成交金额（元）",
+      "default_display": true
+    },
+    {
+      "name": "pre_close",
+      "type": "float",
+      "description": "昨收价（元）",
+      "default_display": true
+    },
+    {
+      "name": "turnover_rate",
+      "type": "float",
+      "description": "换手率（%）",
+      "default_display": true
+    },
+    {
+      "name": "volume_ratio",
+      "type": "float",
+      "description": "量比",
+      "default_display": true
+    },
+    {
+      "name": "float_share",
+      "type": "float",
+      "description": "流通股本（万股）",
+      "default_display": true
+    }
+  ]
+}

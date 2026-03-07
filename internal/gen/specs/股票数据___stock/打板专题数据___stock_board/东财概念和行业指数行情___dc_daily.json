@@ -1,0 +1,116 @@
+{
+  "api_name": "东财概念和行业指数行情",
+  "api_code": "dc_daily",
+  "description": "",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=382",
+    "name": "东财概念和行业指数行情",
+    "category": "打板专题数据___stock_board"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "板块代码（格式：xxxxx.DC)",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期(格式：YYYYMMDD下同）",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    },
+    {
+      "name": "idx_type",
+      "type": "str",
+      "description": "板块类型： 概念板块、行业板块、地域板块",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "板块代码",
+      "default_display": true
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日",
+      "default_display": true
+    },
+    {
+      "name": "close",
+      "type": "float",
+      "description": "收盘点位",
+      "default_display": true
+    },
+    {
+      "name": "open",
+      "type": "float",
+      "description": "开盘点位",
+      "default_display": true
+    },
+    {
+      "name": "high",
+      "type": "float",
+      "description": "最高点位",
+      "default_display": true
+    },
+    {
+      "name": "low",
+      "type": "float",
+      "description": "最低点位",
+      "default_display": true
+    },
+    {
+      "name": "change",
+      "type": "float",
+      "description": "涨跌点位",
+      "default_display": true
+    },
+    {
+      "name": "pct_change",
+      "type": "float",
+      "description": "涨跌幅",
+      "default_display": true
+    },
+    {
+      "name": "vol",
+      "type": "float",
+      "description": "成交量(股)",
+      "default_display": true
+    },
+    {
+      "name": "amount",
+      "type": "float",
+      "description": "成交额(元)",
+      "default_display": true
+    },
+    {
+      "name": "swing",
+      "type": "float",
+      "description": "振幅",
+      "default_display": true
+    },
+    {
+      "name": "turnover_rate",
+      "type": "float",
+      "description": "换手率",
+      "default_display": true
+    }
+  ]
+}

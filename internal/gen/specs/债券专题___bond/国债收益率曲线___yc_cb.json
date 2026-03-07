@@ -1,0 +1,86 @@
+{
+  "api_name": "国债收益率曲线",
+  "api_code": "yc_cb",
+  "description": "获取中债收益率曲线，目前可获取中债国债收益率曲线即期和到期收益率曲线数据",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=201",
+    "name": "国债收益率曲线",
+    "category": "债券专题___bond"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "收益率曲线编码：1001.CB-国债收益率曲线",
+      "required": false
+    },
+    {
+      "name": "curve_type",
+      "type": "str",
+      "description": "曲线类型：0-到期，1-即期",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "查询起始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "查询结束日期",
+      "required": false
+    },
+    {
+      "name": "curve_term",
+      "type": "float",
+      "description": "期限",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "曲线编码",
+      "default_display": true
+    },
+    {
+      "name": "curve_name",
+      "type": "str",
+      "description": "曲线名称",
+      "default_display": true
+    },
+    {
+      "name": "curve_type",
+      "type": "str",
+      "description": "曲线类型：0-到期，1-即期",
+      "default_display": true
+    },
+    {
+      "name": "curve_term",
+      "type": "float",
+      "description": "期限(年)",
+      "default_display": true
+    },
+    {
+      "name": "yield",
+      "type": "float",
+      "description": "收益率(%)",
+      "default_display": true
+    }
+  ]
+}

@@ -1,12 +1,80 @@
 {
-  "api_name": "policy",
-  "api_code": "policy",
-  "description": "国家政策库",
+  "api_name": "npr",
+  "api_code": "npr",
+  "description": "获取国家行政机关公开披露的各类法规、条例政策、批复、通知等文本数据。",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=406",
     "name": "国家政策库",
     "category": "大模型语料专题数据___llm_corpus"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "org",
+      "type": "str",
+      "description": "发布机构",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "datetime",
+      "description": "发布开始时间",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "datetime",
+      "description": "发布结束时间",
+      "required": false
+    },
+    {
+      "name": "ptype",
+      "type": "str",
+      "description": "类型",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "pubtime",
+      "type": "datetime",
+      "description": "发布时间",
+      "default_display": true
+    },
+    {
+      "name": "title",
+      "type": "str",
+      "description": "标题",
+      "default_display": true
+    },
+    {
+      "name": "url",
+      "type": "str",
+      "description": "政策文件url",
+      "default_display": false
+    },
+    {
+      "name": "content_html",
+      "type": "str",
+      "description": "正文内容",
+      "default_display": false
+    },
+    {
+      "name": "pcode",
+      "type": "str",
+      "description": "发文字号",
+      "default_display": true
+    },
+    {
+      "name": "puborg",
+      "type": "str",
+      "description": "发文机关",
+      "default_display": true
+    },
+    {
+      "name": "ptype",
+      "type": "str",
+      "description": "主题分类",
+      "default_display": true
+    }
+  ]
 }

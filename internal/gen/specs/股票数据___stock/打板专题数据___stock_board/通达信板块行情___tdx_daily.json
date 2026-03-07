@@ -1,0 +1,266 @@
+{
+  "api_name": "通达信板块行情",
+  "api_code": "tdx_daily",
+  "description": "",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=378",
+    "name": "通达信板块行情",
+    "category": "打板专题数据___stock_board"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "板块代码：xxxxxx.TDX",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期，格式YYYYMMDD,下同",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "板块代码",
+      "default_display": true
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "close",
+      "type": "float",
+      "description": "收盘点位",
+      "default_display": true
+    },
+    {
+      "name": "open",
+      "type": "float",
+      "description": "开盘点位",
+      "default_display": true
+    },
+    {
+      "name": "high",
+      "type": "float",
+      "description": "最高点位",
+      "default_display": true
+    },
+    {
+      "name": "low",
+      "type": "float",
+      "description": "最低点位",
+      "default_display": true
+    },
+    {
+      "name": "pre_close",
+      "type": "float",
+      "description": "昨日收盘点",
+      "default_display": true
+    },
+    {
+      "name": "change",
+      "type": "float",
+      "description": "涨跌点位",
+      "default_display": true
+    },
+    {
+      "name": "pct_change",
+      "type": "float",
+      "description": "涨跌幅%",
+      "default_display": true
+    },
+    {
+      "name": "vol",
+      "type": "float",
+      "description": "成交量（手）",
+      "default_display": true
+    },
+    {
+      "name": "amount",
+      "type": "float",
+      "description": "成交额（万元）, 对于期货指数，该字段存储持仓量",
+      "default_display": true
+    },
+    {
+      "name": "rise",
+      "type": "str",
+      "description": "收盘涨速%",
+      "default_display": true
+    },
+    {
+      "name": "vol_ratio",
+      "type": "float",
+      "description": "量比",
+      "default_display": true
+    },
+    {
+      "name": "turnover_rate",
+      "type": "float",
+      "description": "换手%",
+      "default_display": true
+    },
+    {
+      "name": "swing",
+      "type": "float",
+      "description": "振幅%",
+      "default_display": true
+    },
+    {
+      "name": "up_num",
+      "type": "int",
+      "description": "上涨家数",
+      "default_display": true
+    },
+    {
+      "name": "down_num",
+      "type": "int",
+      "description": "下跌家数",
+      "default_display": true
+    },
+    {
+      "name": "limit_up_num",
+      "type": "int",
+      "description": "涨停家数",
+      "default_display": true
+    },
+    {
+      "name": "limit_down_num",
+      "type": "int",
+      "description": "跌停家数",
+      "default_display": true
+    },
+    {
+      "name": "lu_days",
+      "type": "int",
+      "description": "连涨天数",
+      "default_display": true
+    },
+    {
+      "name": "3day",
+      "type": "float",
+      "description": "3日涨幅%",
+      "default_display": true
+    },
+    {
+      "name": "5day",
+      "type": "float",
+      "description": "5日涨幅%",
+      "default_display": true
+    },
+    {
+      "name": "10day",
+      "type": "float",
+      "description": "10日涨幅%",
+      "default_display": true
+    },
+    {
+      "name": "20day",
+      "type": "float",
+      "description": "20日涨幅%",
+      "default_display": true
+    },
+    {
+      "name": "60day",
+      "type": "float",
+      "description": "60日涨幅%",
+      "default_display": true
+    },
+    {
+      "name": "mtd",
+      "type": "float",
+      "description": "月初至今%",
+      "default_display": true
+    },
+    {
+      "name": "ytd",
+      "type": "float",
+      "description": "年初至今%",
+      "default_display": true
+    },
+    {
+      "name": "1year",
+      "type": "float",
+      "description": "一年涨幅%",
+      "default_display": true
+    },
+    {
+      "name": "pe",
+      "type": "str",
+      "description": "市盈率",
+      "default_display": true
+    },
+    {
+      "name": "pb",
+      "type": "str",
+      "description": "市净率",
+      "default_display": true
+    },
+    {
+      "name": "float_mv",
+      "type": "float",
+      "description": "流通市值(亿)",
+      "default_display": true
+    },
+    {
+      "name": "ab_total_mv",
+      "type": "float",
+      "description": "AB股总市值（亿）",
+      "default_display": true
+    },
+    {
+      "name": "float_share",
+      "type": "float",
+      "description": "流通股(亿)",
+      "default_display": true
+    },
+    {
+      "name": "total_share",
+      "type": "float",
+      "description": "总股本(亿)",
+      "default_display": true
+    },
+    {
+      "name": "bm_buy_net",
+      "type": "float",
+      "description": "主买净额(元)",
+      "default_display": true
+    },
+    {
+      "name": "bm_buy_ratio",
+      "type": "float",
+      "description": "主买占比%",
+      "default_display": true
+    },
+    {
+      "name": "bm_net",
+      "type": "float",
+      "description": "主力净额",
+      "default_display": true
+    },
+    {
+      "name": "bm_ratio",
+      "type": "float",
+      "description": "主力占比%",
+      "default_display": true
+    }
+  ]
+}

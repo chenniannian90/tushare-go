@@ -1,12 +1,68 @@
 {
-  "api_name": "stk_holdernumber",
+  "api_name": "股东人数",
   "api_code": "stk_holdernumber",
-  "description": "股东人数",
+  "description": "获取上市公司股东户数数据，数据不定期公布",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=166",
     "name": "股东人数",
     "category": "参考数据___stock_reference"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS股票代码",
+      "required": false
+    },
+    {
+      "name": "ann_date",
+      "type": "str",
+      "description": "公告日期",
+      "required": false
+    },
+    {
+      "name": "enddate",
+      "type": "str",
+      "description": "截止日期",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "公告开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "公告结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS股票代码",
+      "default_display": true
+    },
+    {
+      "name": "ann_date",
+      "type": "str",
+      "description": "公告日期",
+      "default_display": true
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "截止日期",
+      "default_display": true
+    },
+    {
+      "name": "holder_num",
+      "type": "int",
+      "description": "股东户数",
+      "default_display": true
+    }
+  ]
 }

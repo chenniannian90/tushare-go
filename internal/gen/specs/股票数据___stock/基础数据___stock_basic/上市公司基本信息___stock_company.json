@@ -1,12 +1,121 @@
 {
-  "api_name": "stock_company",
+  "api_name": "上市公司基本信息",
   "api_code": "stock_company",
-  "description": "上市公司基本信息",
+  "description": "获取上市公司基础信息，单次提取4500条，可以根据交易所分批提取",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=112",
     "name": "上市公司基本信息",
     "category": "基础数据___stock_basic"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": null,
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "default_display": true
+    },
+    {
+      "name": "com_name",
+      "type": "str",
+      "description": "公司全称",
+      "default_display": true
+    },
+    {
+      "name": "com_id",
+      "type": "str",
+      "description": "统一社会信用代码",
+      "default_display": true
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易所代码",
+      "default_display": true
+    },
+    {
+      "name": "chairman",
+      "type": "str",
+      "description": "法人代表",
+      "default_display": true
+    },
+    {
+      "name": "manager",
+      "type": "str",
+      "description": "总经理",
+      "default_display": true
+    },
+    {
+      "name": "secretary",
+      "type": "str",
+      "description": "董秘",
+      "default_display": true
+    },
+    {
+      "name": "reg_capital",
+      "type": "float",
+      "description": "注册资本(万元)",
+      "default_display": true
+    },
+    {
+      "name": "setup_date",
+      "type": "str",
+      "description": "注册日期",
+      "default_display": true
+    },
+    {
+      "name": "province",
+      "type": "str",
+      "description": "所在省份",
+      "default_display": true
+    },
+    {
+      "name": "city",
+      "type": "str",
+      "description": "所在城市",
+      "default_display": true
+    },
+    {
+      "name": "introduction",
+      "type": "str",
+      "description": "公司介绍",
+      "default_display": false
+    },
+    {
+      "name": "website",
+      "type": "str",
+      "description": "公司主页",
+      "default_display": true
+    },
+    {
+      "name": "email",
+      "type": "str",
+      "description": "电子邮件",
+      "default_display": true
+    },
+    {
+      "name": "office",
+      "type": "str",
+      "description": "办公室",
+      "default_display": false
+    },
+    {
+      "name": "employees",
+      "type": "int",
+      "description": "员工人数",
+      "default_display": true
+    },
+    {
+      "name": "main_business",
+      "type": "str",
+      "description": "主要业务及产品",
+      "default_display": false
+    },
+    {
+      "name": "business_scope",
+      "type": "str",
+      "description": "经营范围",
+      "default_display": false
+    }
+  ]
 }

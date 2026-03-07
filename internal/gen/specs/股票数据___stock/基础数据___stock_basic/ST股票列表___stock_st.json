@@ -1,0 +1,68 @@
+{
+  "api_name": "ST股票列表",
+  "api_code": "stock_st",
+  "description": "获取ST股票列表，可根据交易日期获取历史上每天的ST列表",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=397",
+    "name": "ST股票列表",
+    "category": "基础数据___stock_basic"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期（格式：YYYYMMDD下同）",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始时间",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束时间",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "股票名称",
+      "default_display": true
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "type",
+      "type": "str",
+      "description": "类型",
+      "default_display": true
+    },
+    {
+      "name": "type_name",
+      "type": "str",
+      "description": "类型名称",
+      "default_display": true
+    }
+  ]
+}

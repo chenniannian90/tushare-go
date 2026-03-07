@@ -1,7 +1,7 @@
 {
-  "api_name": "announcement",
-  "api_code": "announcement",
-  "description": "上市公司公告",
+  "api_name": "anns_d描述",
+  "api_code": "anns_d描述",
+  "description": "获取全量公告数据，提供pdf下载URL",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=176",
     "name": "上市公司公告",

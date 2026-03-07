@@ -1,0 +1,188 @@
+{
+  "api_name": "榜单数据（开盘啦）",
+  "api_code": "kpl_list",
+  "description": "",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=347",
+    "name": "榜单数据（开盘啦）",
+    "category": "打板专题数据___stock_board"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "required": false
+    },
+    {
+      "name": "tag",
+      "type": "str",
+      "description": "板单类型（涨停/炸板/跌停/自然涨停/竞价，默认为涨停)",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "代码",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "名称",
+      "default_display": true
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易时间",
+      "default_display": true
+    },
+    {
+      "name": "lu_time",
+      "type": "str",
+      "description": "涨停时间",
+      "default_display": true
+    },
+    {
+      "name": "ld_time",
+      "type": "str",
+      "description": "跌停时间",
+      "default_display": true
+    },
+    {
+      "name": "open_time",
+      "type": "str",
+      "description": "开板时间",
+      "default_display": true
+    },
+    {
+      "name": "last_time",
+      "type": "str",
+      "description": "最后涨停时间",
+      "default_display": true
+    },
+    {
+      "name": "lu_desc",
+      "type": "str",
+      "description": "涨停原因",
+      "default_display": true
+    },
+    {
+      "name": "tag",
+      "type": "str",
+      "description": "标签",
+      "default_display": true
+    },
+    {
+      "name": "theme",
+      "type": "str",
+      "description": "板块",
+      "default_display": true
+    },
+    {
+      "name": "net_change",
+      "type": "float",
+      "description": "主力净额(元)",
+      "default_display": true
+    },
+    {
+      "name": "bid_amount",
+      "type": "float",
+      "description": "竞价成交额(元)",
+      "default_display": true
+    },
+    {
+      "name": "status",
+      "type": "str",
+      "description": "状态（N连板）",
+      "default_display": true
+    },
+    {
+      "name": "bid_change",
+      "type": "float",
+      "description": "竞价净额",
+      "default_display": true
+    },
+    {
+      "name": "bid_turnover",
+      "type": "float",
+      "description": "竞价换手%",
+      "default_display": true
+    },
+    {
+      "name": "lu_bid_vol",
+      "type": "float",
+      "description": "涨停委买额",
+      "default_display": true
+    },
+    {
+      "name": "pct_chg",
+      "type": "float",
+      "description": "涨跌幅%",
+      "default_display": true
+    },
+    {
+      "name": "bid_pct_chg",
+      "type": "float",
+      "description": "竞价涨幅%",
+      "default_display": true
+    },
+    {
+      "name": "rt_pct_chg",
+      "type": "float",
+      "description": "实时涨幅%",
+      "default_display": true
+    },
+    {
+      "name": "limit_order",
+      "type": "float",
+      "description": "封单",
+      "default_display": true
+    },
+    {
+      "name": "amount",
+      "type": "float",
+      "description": "成交额",
+      "default_display": true
+    },
+    {
+      "name": "turnover_rate",
+      "type": "float",
+      "description": "换手率%",
+      "default_display": true
+    },
+    {
+      "name": "free_float",
+      "type": "float",
+      "description": "实际流通",
+      "default_display": true
+    },
+    {
+      "name": "lu_limit_order",
+      "type": "float",
+      "description": "最大封单",
+      "default_display": true
+    }
+  ]
+}

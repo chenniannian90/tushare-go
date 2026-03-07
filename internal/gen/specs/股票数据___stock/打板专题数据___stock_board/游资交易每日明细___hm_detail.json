@@ -1,0 +1,98 @@
+{
+  "api_name": "游资交易每日明细",
+  "api_code": "hm_detail",
+  "description": "获取每日游资交易明细，数据开始于2022年8。游资分类名录，请点击游资名录",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=312",
+    "name": "游资交易每日明细",
+    "category": "打板专题数据___stock_board"
+  },
+  "request_params": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期(YYYYMMDD)",
+      "required": false
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "required": false
+    },
+    {
+      "name": "hm_name",
+      "type": "str",
+      "description": "游资名称",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期(YYYYMMDD)",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期(YYYYMMDD)",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "default_display": true
+    },
+    {
+      "name": "ts_name",
+      "type": "str",
+      "description": "股票名称",
+      "default_display": true
+    },
+    {
+      "name": "buy_amount",
+      "type": "float",
+      "description": "买入金额（元）",
+      "default_display": true
+    },
+    {
+      "name": "sell_amount",
+      "type": "float",
+      "description": "卖出金额（元）",
+      "default_display": true
+    },
+    {
+      "name": "net_amount",
+      "type": "float",
+      "description": "净买卖（元）",
+      "default_display": true
+    },
+    {
+      "name": "hm_name",
+      "type": "str",
+      "description": "游资名称",
+      "default_display": true
+    },
+    {
+      "name": "hm_orgs",
+      "type": "str",
+      "description": "关联机构（一般为营业部或机构专用）",
+      "default_display": true
+    },
+    {
+      "name": "tag",
+      "type": "str",
+      "description": "标签",
+      "default_display": false
+    }
+  ]
+}

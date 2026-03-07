@@ -1,12 +1,104 @@
 {
-  "api_name": "weekly",
+  "api_name": "周线行情",
   "api_code": "weekly",
-  "description": "周线行情",
+  "description": "获取A股周线行情，本接口每周最后一个交易日更新，如需要使用每天更新的周线数据，请使用日度更新的周线行情接口。",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=144",
     "name": "周线行情",
     "category": "行情数据___stock_market"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码 （ts_code,trade_date两个参数任选一）",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期 （每周最后一个交易日期，YYYYMMDD格式）",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "default_display": true
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "close",
+      "type": "float",
+      "description": "周收盘价",
+      "default_display": true
+    },
+    {
+      "name": "open",
+      "type": "float",
+      "description": "周开盘价",
+      "default_display": true
+    },
+    {
+      "name": "high",
+      "type": "float",
+      "description": "周最高价",
+      "default_display": true
+    },
+    {
+      "name": "low",
+      "type": "float",
+      "description": "周最低价",
+      "default_display": true
+    },
+    {
+      "name": "pre_close",
+      "type": "float",
+      "description": "上一周收盘价",
+      "default_display": true
+    },
+    {
+      "name": "change",
+      "type": "float",
+      "description": "周涨跌额",
+      "default_display": true
+    },
+    {
+      "name": "pct_chg",
+      "type": "float",
+      "description": "周涨跌 （未复权，未100，如果是复权请用 通用行情接口，如需%单位请100 ）",
+      "default_display": true
+    },
+    {
+      "name": "vol",
+      "type": "float",
+      "description": "周成交量",
+      "default_display": true
+    },
+    {
+      "name": "amount",
+      "type": "float",
+      "description": "周成交额",
+      "default_display": true
+    }
+  ]
 }

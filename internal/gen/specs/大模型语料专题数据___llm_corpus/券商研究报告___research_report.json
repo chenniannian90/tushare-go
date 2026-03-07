@@ -1,12 +1,116 @@
 {
-  "api_name": "research_report",
+  "api_name": "券商研究报告",
   "api_code": "research_report",
-  "description": "券商研究报告",
+  "description": "",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=415",
     "name": "券商研究报告",
     "category": "大模型语料专题数据___llm_corpus"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "研报日期（格式：YYYYMMDD，下同）",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "研报开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "研报结束日期",
+      "required": false
+    },
+    {
+      "name": "report_type",
+      "type": "str",
+      "description": "研报类别：个股研报/行业研报",
+      "required": false
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "required": false
+    },
+    {
+      "name": "inst_csname",
+      "type": "str",
+      "description": "券商名称",
+      "required": false
+    },
+    {
+      "name": "ind_name",
+      "type": "str",
+      "description": "行业名称",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "研报发布时间",
+      "default_display": true
+    },
+    {
+      "name": "abstr",
+      "type": "str",
+      "description": "研报摘要",
+      "default_display": true
+    },
+    {
+      "name": "title",
+      "type": "str",
+      "description": "研报标题",
+      "default_display": true
+    },
+    {
+      "name": "report_type",
+      "type": "str",
+      "description": "研报类别",
+      "default_display": true
+    },
+    {
+      "name": "author",
+      "type": "str",
+      "description": "作者",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "股票名称",
+      "default_display": true
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "default_display": true
+    },
+    {
+      "name": "inst_csname",
+      "type": "str",
+      "description": "机构简称",
+      "default_display": true
+    },
+    {
+      "name": "ind_name",
+      "type": "str",
+      "description": "行业名称",
+      "default_display": true
+    },
+    {
+      "name": "url",
+      "type": "str",
+      "description": "下载链接",
+      "default_display": true
+    }
+  ]
 }

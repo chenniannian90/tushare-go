@@ -1,7 +1,7 @@
 {
-  "api_name": "forex_daily",
-  "api_code": "forex_daily",
-  "description": "外汇日线行情",
+  "api_name": "fx_daily描述",
+  "api_code": "fx_daily描述",
+  "description": "获取外汇日线行情",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=179",
     "name": "外汇日线行情",

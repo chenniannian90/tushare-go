@@ -1,12 +1,92 @@
 {
-  "api_name": "hk_hold",
+  "api_name": "沪深股通持股明细",
   "api_code": "hk_hold",
-  "description": "沪深股通持股明细",
+  "description": "",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=188",
     "name": "沪深股通持股明细",
     "category": "特色数据___stock_feature"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "code",
+      "type": "str",
+      "description": "交易所代码",
+      "required": false
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS股票代码",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "类型：SH沪股通（北向）SZ深股通（北向）HK港股通（南向持股）",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "code",
+      "type": "str",
+      "description": "原始代码",
+      "default_display": true
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "股票名称",
+      "default_display": true
+    },
+    {
+      "name": "vol",
+      "type": "int",
+      "description": "持股数量(股)",
+      "default_display": true
+    },
+    {
+      "name": "ratio",
+      "type": "float",
+      "description": "持股占比（%），占已发行股份百分比",
+      "default_display": true
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "类型：SH沪股通SZ深股通HK港股通",
+      "default_display": true
+    }
+  ]
 }

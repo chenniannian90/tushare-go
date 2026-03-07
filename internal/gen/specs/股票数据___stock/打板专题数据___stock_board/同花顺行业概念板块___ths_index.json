@@ -1,0 +1,68 @@
+{
+  "api_name": "同花顺行业概念板块",
+  "api_code": "ths_index",
+  "description": "获取同花顺板块指数。注：数据版权归属同花顺，如做商业用途，请主动联系同花顺，如需帮助请联系微信：waditu_a",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=259",
+    "name": "同花顺行业概念板块",
+    "category": "打板专题数据___stock_board"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "指数代码",
+      "required": false
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "市场类型A-a股 HK-港股 US-美股",
+      "required": false
+    },
+    {
+      "name": "type",
+      "type": "str",
+      "description": "指数类型 N-概念指数 I-行业指数 R-地域指数 S-同花顺特色指数 ST-同花顺风格指数 TH-同花顺主题指数 BB-同花顺宽基指数",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "代码",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "名称",
+      "default_display": true
+    },
+    {
+      "name": "count",
+      "type": "int",
+      "description": "成分个数",
+      "default_display": true
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易所",
+      "default_display": true
+    },
+    {
+      "name": "list_date",
+      "type": "str",
+      "description": "上市日期",
+      "default_display": true
+    },
+    {
+      "name": "type",
+      "type": "str",
+      "description": "N概念指数S特色指数",
+      "default_display": true
+    }
+  ]
+}

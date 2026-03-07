@@ -1,0 +1,62 @@
+{
+  "api_name": "港股通每日成交统计",
+  "api_code": "ggt_daily",
+  "description": "获取港股通每日成交信息，数据从2014年开始",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=196",
+    "name": "港股通每日成交统计",
+    "category": "行情数据___stock_market"
+  },
+  "request_params": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期 （格式YYYYMMDD，下同。支持单日和多日输入）",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "buy_amount",
+      "type": "float",
+      "description": "买入成交金额（亿元）",
+      "default_display": true
+    },
+    {
+      "name": "buy_volume",
+      "type": "float",
+      "description": "买入成交笔数（万笔）",
+      "default_display": true
+    },
+    {
+      "name": "sell_amount",
+      "type": "float",
+      "description": "卖出成交金额（亿元）",
+      "default_display": true
+    },
+    {
+      "name": "sell_volume",
+      "type": "float",
+      "description": "卖出成交笔数（万笔）",
+      "default_display": true
+    }
+  ]
+}

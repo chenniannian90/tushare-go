@@ -1,7 +1,7 @@
 {
-  "api_name": "fut_limit",
-  "api_code": "fut_limit",
-  "description": "期货合约涨跌停价格",
+  "api_name": "ft_limit描述",
+  "api_code": "ft_limit描述",
+  "description": "获取所有期货合约每天的涨跌停价格及最低保证金率，数据开始于2005年。",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=368",
     "name": "期货合约涨跌停价格",

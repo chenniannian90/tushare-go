@@ -1,0 +1,116 @@
+{
+  "api_name": "外汇日线行情",
+  "api_code": "fx_daily",
+  "description": "获取外汇日线行情",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=179",
+    "name": "外汇日线行情",
+    "category": "外汇数据___forex"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期（GMT，日期是格林尼治时间，比北京时间晚一天）",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期（GMT）",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期（GMT）",
+      "required": false
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易商，目前只有FXCM",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "外汇代码",
+      "default_display": true
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "bid_open",
+      "type": "float",
+      "description": "买入开盘价",
+      "default_display": true
+    },
+    {
+      "name": "bid_close",
+      "type": "float",
+      "description": "买入收盘价",
+      "default_display": true
+    },
+    {
+      "name": "bid_high",
+      "type": "float",
+      "description": "买入最高价",
+      "default_display": true
+    },
+    {
+      "name": "bid_low",
+      "type": "float",
+      "description": "买入最低价",
+      "default_display": true
+    },
+    {
+      "name": "ask_open",
+      "type": "float",
+      "description": "卖出开盘价",
+      "default_display": true
+    },
+    {
+      "name": "ask_close",
+      "type": "float",
+      "description": "卖出收盘价",
+      "default_display": true
+    },
+    {
+      "name": "ask_high",
+      "type": "float",
+      "description": "卖出最高价",
+      "default_display": true
+    },
+    {
+      "name": "ask_low",
+      "type": "float",
+      "description": "卖出最低价",
+      "default_display": true
+    },
+    {
+      "name": "tick_qty",
+      "type": "int",
+      "description": "报价笔数",
+      "default_display": true
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易商",
+      "default_display": false
+    }
+  ]
+}

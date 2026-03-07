@@ -1,0 +1,128 @@
+{
+  "api_name": "股东增减持",
+  "api_code": "stk_holdertrade",
+  "description": "获取上市公司增减持数据，了解重要股东近期及历史上的股份增减变化",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=175",
+    "name": "股东增减持",
+    "category": "参考数据___stock_reference"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS股票代码",
+      "required": false
+    },
+    {
+      "name": "ann_date",
+      "type": "str",
+      "description": "公告日期",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "公告开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "公告结束日期",
+      "required": false
+    },
+    {
+      "name": "trade_type",
+      "type": "str",
+      "description": "交易类型IN增持DE减持",
+      "required": false
+    },
+    {
+      "name": "holder_type",
+      "type": "str",
+      "description": "股东类型C公司P个人G高管",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码",
+      "default_display": true
+    },
+    {
+      "name": "ann_date",
+      "type": "str",
+      "description": "公告日期",
+      "default_display": true
+    },
+    {
+      "name": "holder_name",
+      "type": "str",
+      "description": "股东名称",
+      "default_display": true
+    },
+    {
+      "name": "holder_type",
+      "type": "str",
+      "description": "股东类型G高管P个人C公司",
+      "default_display": true
+    },
+    {
+      "name": "in_de",
+      "type": "str",
+      "description": "类型IN增持DE减持",
+      "default_display": true
+    },
+    {
+      "name": "change_vol",
+      "type": "float",
+      "description": "变动数量",
+      "default_display": true
+    },
+    {
+      "name": "change_ratio",
+      "type": "float",
+      "description": "占流通比例（%）",
+      "default_display": true
+    },
+    {
+      "name": "after_share",
+      "type": "float",
+      "description": "变动后持股",
+      "default_display": true
+    },
+    {
+      "name": "after_ratio",
+      "type": "float",
+      "description": "变动后占流通比例（%）",
+      "default_display": true
+    },
+    {
+      "name": "avg_price",
+      "type": "float",
+      "description": "平均价格",
+      "default_display": true
+    },
+    {
+      "name": "total_share",
+      "type": "float",
+      "description": "持股总数",
+      "default_display": true
+    },
+    {
+      "name": "begin_date",
+      "type": "str",
+      "description": "增减持开始日期",
+      "default_display": false
+    },
+    {
+      "name": "close_date",
+      "type": "str",
+      "description": "增减持结束日期",
+      "default_display": false
+    }
+  ]
+}

@@ -1,12 +1,49 @@
 {
-  "api_name": "forecast",
+  "api_name": "业绩预告",
   "api_code": "forecast",
-  "description": "业绩预告",
+  "description": "获取业绩预告数据",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=45",
     "name": "业绩预告",
     "category": "财务数据___stock_financial"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码(二选一)",
+      "required": false
+    },
+    {
+      "name": "ann_date",
+      "type": "str",
+      "description": "公告日期 (二选一)",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "公告开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "公告结束日期",
+      "required": false
+    },
+    {
+      "name": "period",
+      "type": "str",
+      "description": "报告期(每个季度最后一天的日期，比如20171231表示年报，20170630半年报，20170930三季报)",
+      "required": false
+    },
+    {
+      "name": "type",
+      "type": "str",
+      "description": "预告类型(预增/预减/扭亏/首亏/续亏/续盈/略增/略减)",
+      "required": false
+    }
+  ],
+  "response_fields": null
 }

@@ -1,7 +1,7 @@
 {
-  "api_name": "fut_settlement",
-  "api_code": "fut_settlement",
-  "description": "每日结算参数",
+  "api_name": "fut_settle描述",
+  "api_code": "fut_settle描述",
+  "description": "获取每日结算参数数据，包括交易和交割费率等",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=141",
     "name": "每日结算参数",

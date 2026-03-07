@@ -1,12 +1,104 @@
 {
-  "api_name": "pledge_detail",
+  "api_name": "股权质押明细数据",
   "api_code": "pledge_detail",
-  "description": "股权质押明细数据",
+  "description": "",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=111",
     "name": "股权质押明细数据",
     "category": "参考数据___stock_reference"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "required": true
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS股票代码",
+      "default_display": true
+    },
+    {
+      "name": "ann_date",
+      "type": "str",
+      "description": "公告日期",
+      "default_display": true
+    },
+    {
+      "name": "holder_name",
+      "type": "str",
+      "description": "股东名称",
+      "default_display": true
+    },
+    {
+      "name": "pledge_amount",
+      "type": "float",
+      "description": "质押数量（万股）",
+      "default_display": true
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "质押开始日期",
+      "default_display": true
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "质押结束日期",
+      "default_display": true
+    },
+    {
+      "name": "is_release",
+      "type": "str",
+      "description": "是否已解押",
+      "default_display": true
+    },
+    {
+      "name": "release_date",
+      "type": "str",
+      "description": "解押日期",
+      "default_display": true
+    },
+    {
+      "name": "pledgor",
+      "type": "str",
+      "description": "质押方",
+      "default_display": true
+    },
+    {
+      "name": "holding_amount",
+      "type": "float",
+      "description": "持股总数（万股）",
+      "default_display": true
+    },
+    {
+      "name": "pledged_amount",
+      "type": "float",
+      "description": "质押总数（万股）",
+      "default_display": true
+    },
+    {
+      "name": "p_total_ratio",
+      "type": "float",
+      "description": "本次质押占总股本比例",
+      "default_display": true
+    },
+    {
+      "name": "h_total_ratio",
+      "type": "float",
+      "description": "持股总数占总股本比例",
+      "default_display": true
+    },
+    {
+      "name": "is_buyback",
+      "type": "str",
+      "description": "是否回购（0否 1是）",
+      "default_display": true
+    }
+  ]
 }

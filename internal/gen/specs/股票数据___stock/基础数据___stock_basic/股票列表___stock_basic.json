@@ -1,12 +1,152 @@
 {
-  "api_name": "stock_basic",
+  "api_name": "股票列表",
   "api_code": "stock_basic",
-  "description": "股票列表",
+  "description": "",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=25",
     "name": "股票列表",
     "category": "基础数据___stock_basic"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS股票代码(格式说明)",
+      "required": false
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "名称",
+      "required": false
+    },
+    {
+      "name": "market",
+      "type": "str",
+      "description": "市场类别 （主板/创业板/科创板/CDR/北交所）",
+      "required": false
+    },
+    {
+      "name": "list_status",
+      "type": "str",
+      "description": "上市状态 L上市 D退市 P暂停上市 G过会未交易，默认是L",
+      "required": false
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易所 SSE上交所 SZSE深交所 BSE北交所",
+      "required": false
+    },
+    {
+      "name": "is_hs",
+      "type": "str",
+      "description": "是否沪深港通标的，N否 H沪股通 S深股通",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码",
+      "default_display": true
+    },
+    {
+      "name": "symbol",
+      "type": "str",
+      "description": "股票代码",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "股票名称",
+      "default_display": true
+    },
+    {
+      "name": "area",
+      "type": "str",
+      "description": "地域",
+      "default_display": true
+    },
+    {
+      "name": "industry",
+      "type": "str",
+      "description": "所属行业",
+      "default_display": true
+    },
+    {
+      "name": "fullname",
+      "type": "str",
+      "description": "股票全称",
+      "default_display": false
+    },
+    {
+      "name": "enname",
+      "type": "str",
+      "description": "英文全称",
+      "default_display": false
+    },
+    {
+      "name": "cnspell",
+      "type": "str",
+      "description": "拼音缩写",
+      "default_display": true
+    },
+    {
+      "name": "market",
+      "type": "str",
+      "description": "市场类型（主板/创业板/科创板/CDR）",
+      "default_display": true
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易所代码",
+      "default_display": false
+    },
+    {
+      "name": "curr_type",
+      "type": "str",
+      "description": "交易货币",
+      "default_display": false
+    },
+    {
+      "name": "list_status",
+      "type": "str",
+      "description": "上市状态 L上市 D退市 G过会未交易 P暂停上市",
+      "default_display": false
+    },
+    {
+      "name": "list_date",
+      "type": "str",
+      "description": "上市日期",
+      "default_display": true
+    },
+    {
+      "name": "delist_date",
+      "type": "str",
+      "description": "退市日期",
+      "default_display": false
+    },
+    {
+      "name": "is_hs",
+      "type": "str",
+      "description": "是否沪深港通标的，N否 H沪股通 S深股通",
+      "default_display": false
+    },
+    {
+      "name": "act_name",
+      "type": "str",
+      "description": "实控人名称",
+      "default_display": true
+    },
+    {
+      "name": "act_ent_type",
+      "type": "str",
+      "description": "实控人企业性质",
+      "default_display": true
+    }
+  ]
 }

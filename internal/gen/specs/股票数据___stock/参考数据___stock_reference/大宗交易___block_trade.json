@@ -1,5 +1,5 @@
 {
-  "api_name": "block_trade",
+  "api_name": "大宗交易",
   "api_code": "block_trade",
   "description": "大宗交易",
   "__describe__": {
@@ -7,6 +7,74 @@
     "name": "大宗交易",
     "category": "参考数据___stock_reference"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码（股票代码和日期至少输入一个参数）",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期（格式：YYYYMMDD，下同）",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码",
+      "default_display": true
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日历",
+      "default_display": true
+    },
+    {
+      "name": "price",
+      "type": "float",
+      "description": "成交价",
+      "default_display": true
+    },
+    {
+      "name": "vol",
+      "type": "float",
+      "description": "成交量（万股）",
+      "default_display": true
+    },
+    {
+      "name": "amount",
+      "type": "float",
+      "description": "成交金额",
+      "default_display": true
+    },
+    {
+      "name": "buyer",
+      "type": "str",
+      "description": "买方营业部",
+      "default_display": true
+    },
+    {
+      "name": "seller",
+      "type": "str",
+      "description": "卖方营业部",
+      "default_display": true
+    }
+  ]
 }

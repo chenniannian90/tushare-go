@@ -1,0 +1,121 @@
+{
+  "api_name": "基金管理人",
+  "api_code": "fund_company",
+  "description": "获取公募基金管理人列表",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=118",
+    "name": "基金管理人",
+    "category": "公募基金___fund"
+  },
+  "request_params": null,
+  "response_fields": [
+    {
+      "name": "name",
+      "type": "str",
+      "description": "基金公司名称",
+      "default_display": true
+    },
+    {
+      "name": "shortname",
+      "type": "str",
+      "description": "简称",
+      "default_display": true
+    },
+    {
+      "name": "short_enname",
+      "type": "str",
+      "description": "英文缩写",
+      "default_display": false
+    },
+    {
+      "name": "province",
+      "type": "str",
+      "description": "省份",
+      "default_display": true
+    },
+    {
+      "name": "city",
+      "type": "str",
+      "description": "城市",
+      "default_display": true
+    },
+    {
+      "name": "address",
+      "type": "str",
+      "description": "注册地址",
+      "default_display": true
+    },
+    {
+      "name": "phone",
+      "type": "str",
+      "description": "电话",
+      "default_display": true
+    },
+    {
+      "name": "office",
+      "type": "str",
+      "description": "办公地址",
+      "default_display": true
+    },
+    {
+      "name": "website",
+      "type": "str",
+      "description": "公司网址",
+      "default_display": true
+    },
+    {
+      "name": "chairman",
+      "type": "str",
+      "description": "法人代表",
+      "default_display": true
+    },
+    {
+      "name": "manager",
+      "type": "str",
+      "description": "总经理",
+      "default_display": true
+    },
+    {
+      "name": "reg_capital",
+      "type": "float",
+      "description": "注册资本",
+      "default_display": true
+    },
+    {
+      "name": "setup_date",
+      "type": "str",
+      "description": "成立日期",
+      "default_display": true
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "公司终止日期",
+      "default_display": true
+    },
+    {
+      "name": "employees",
+      "type": "float",
+      "description": "员工总数",
+      "default_display": true
+    },
+    {
+      "name": "main_business",
+      "type": "str",
+      "description": "主要产品及业务",
+      "default_display": true
+    },
+    {
+      "name": "org_code",
+      "type": "str",
+      "description": "组织机构代码",
+      "default_display": true
+    },
+    {
+      "name": "credit_code",
+      "type": "str",
+      "description": "统一社会信用代码",
+      "default_display": true
+    }
+  ]
+}

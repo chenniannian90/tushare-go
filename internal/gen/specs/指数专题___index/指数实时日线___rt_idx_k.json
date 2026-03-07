@@ -1,0 +1,80 @@
+{
+  "api_name": "指数实时日线",
+  "api_code": "rt_idx_k",
+  "description": "",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=403",
+    "name": "指数实时日线",
+    "category": "指数专题___index"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "指数代码，支持通配符方式，e.g. 0*.SH、3*.SZ、000001.SH",
+      "required": true
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "指数代码",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "指数名称",
+      "default_display": true
+    },
+    {
+      "name": "trade_time",
+      "type": "str",
+      "description": "交易时间",
+      "default_display": true
+    },
+    {
+      "name": "close",
+      "type": "float",
+      "description": "现价",
+      "default_display": true
+    },
+    {
+      "name": "pre_close",
+      "type": "float",
+      "description": "昨收",
+      "default_display": true
+    },
+    {
+      "name": "high",
+      "type": "float",
+      "description": "最高价",
+      "default_display": true
+    },
+    {
+      "name": "open",
+      "type": "float",
+      "description": "开盘价",
+      "default_display": true
+    },
+    {
+      "name": "low",
+      "type": "float",
+      "description": "最低价",
+      "default_display": true
+    },
+    {
+      "name": "vol",
+      "type": "float",
+      "description": "成交量",
+      "default_display": true
+    },
+    {
+      "name": "amount",
+      "type": "float",
+      "description": "成交金额（元）",
+      "default_display": true
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "api_name": "期货合约涨跌停价格",
+  "api_code": "ft_limit",
+  "description": "获取所有期货合约每天的涨跌停价格及最低保证金率，数据开始于2005年。",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=368",
+    "name": "期货合约涨跌停价格",
+    "category": "期货数据___futures"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "合约代码",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期（格式：YYYYMMDD）",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    },
+    {
+      "name": "cont",
+      "type": "str",
+      "description": "合约代码（例如：cont='CU')",
+      "required": false
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易所代码 （例如：exchange='DCE')",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS股票代码",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "合约名称",
+      "default_display": true
+    },
+    {
+      "name": "up_limit",
+      "type": "float",
+      "description": "涨停价",
+      "default_display": true
+    },
+    {
+      "name": "down_limit",
+      "type": "float",
+      "description": "跌停价",
+      "default_display": true
+    },
+    {
+      "name": "m_ratio",
+      "type": "float",
+      "description": "最低交易保证金率（%）",
+      "default_display": true
+    },
+    {
+      "name": "cont",
+      "type": "str",
+      "description": "合约代码",
+      "default_display": true
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易所代码",
+      "default_display": true
+    }
+  ]
+}

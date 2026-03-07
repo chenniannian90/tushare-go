@@ -1,0 +1,74 @@
+{
+  "api_name": "指数实时分钟",
+  "api_code": "rt_idx_min",
+  "description": "",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=420",
+    "name": "指数实时分钟",
+    "category": "指数专题___index"
+  },
+  "request_params": [
+    {
+      "name": "freq",
+      "type": "str",
+      "description": "1MIN,5MIN,15MIN,30MIN,60MIN （大写）",
+      "required": true
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "支持单个和多个：000001.SH 或者 000001.SH,399300.SZ",
+      "required": true
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "default_display": true
+    },
+    {
+      "name": "time",
+      "type": "None",
+      "description": "交易时间",
+      "default_display": true
+    },
+    {
+      "name": "open",
+      "type": "float",
+      "description": "开盘价",
+      "default_display": true
+    },
+    {
+      "name": "close",
+      "type": "float",
+      "description": "收盘价",
+      "default_display": true
+    },
+    {
+      "name": "high",
+      "type": "float",
+      "description": "最高价",
+      "default_display": true
+    },
+    {
+      "name": "low",
+      "type": "float",
+      "description": "最低价",
+      "default_display": true
+    },
+    {
+      "name": "vol",
+      "type": "float",
+      "description": "成交量(股）",
+      "default_display": true
+    },
+    {
+      "name": "amount",
+      "type": "float",
+      "description": "成交额（元）",
+      "default_display": true
+    }
+  ]
+}

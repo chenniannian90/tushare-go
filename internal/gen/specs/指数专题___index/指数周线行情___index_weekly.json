@@ -1,12 +1,104 @@
 {
-  "api_name": "index_weekly",
+  "api_name": "指数周线行情",
   "api_code": "index_weekly",
-  "description": "指数周线行情",
+  "description": "获取指数周线行情",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=171",
     "name": "指数周线行情",
     "category": "指数专题___index"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS指数代码",
+      "default_display": true
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日",
+      "default_display": true
+    },
+    {
+      "name": "close",
+      "type": "float",
+      "description": "收盘点位",
+      "default_display": true
+    },
+    {
+      "name": "open",
+      "type": "float",
+      "description": "开盘点位",
+      "default_display": true
+    },
+    {
+      "name": "high",
+      "type": "float",
+      "description": "最高点位",
+      "default_display": true
+    },
+    {
+      "name": "low",
+      "type": "float",
+      "description": "最低点位",
+      "default_display": true
+    },
+    {
+      "name": "pre_close",
+      "type": "float",
+      "description": "昨日收盘点",
+      "default_display": true
+    },
+    {
+      "name": "change",
+      "type": "float",
+      "description": "涨跌点位",
+      "default_display": true
+    },
+    {
+      "name": "pct_chg",
+      "type": "float",
+      "description": "涨跌幅",
+      "default_display": true
+    },
+    {
+      "name": "vol",
+      "type": "float",
+      "description": "成交量（手）",
+      "default_display": true
+    },
+    {
+      "name": "amount",
+      "type": "float",
+      "description": "成交额（千元）",
+      "default_display": true
+    }
+  ]
 }

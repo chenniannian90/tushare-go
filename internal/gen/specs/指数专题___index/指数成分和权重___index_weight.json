@@ -1,12 +1,37 @@
 {
-  "api_name": "index_weight",
+  "api_name": "指数成分和权重",
   "api_code": "index_weight",
-  "description": "指数成分和权重",
+  "description": "获取各类指数成分和权重，月度数据 ，建议输入参数里开始日期和结束日分别输入当月第一天和最后一天的日期。来源：指数公司网站公开数据",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=96",
     "name": "指数成分和权重",
     "category": "指数专题___index"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "index_code",
+      "type": "str",
+      "description": "指数代码，来源指数基础信息接口",
+      "required": true
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期（格式YYYYMMDD，下同）",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "None",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": null
 }

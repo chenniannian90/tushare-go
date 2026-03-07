@@ -1,7 +1,7 @@
 {
-  "api_name": "hk_min",
-  "api_code": "hk_min",
-  "description": "港股分钟行情",
+  "api_name": "hk_mins描述",
+  "api_code": "hk_mins描述",
+  "description": "港股分钟数据，支持1min/5min/15min/30min/60min行情，提供Python SDK和 http Restful API两种方式",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=304",
     "name": "港股分钟行情",

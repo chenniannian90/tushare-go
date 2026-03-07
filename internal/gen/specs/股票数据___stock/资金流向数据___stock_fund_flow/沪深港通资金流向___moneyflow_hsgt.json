@@ -1,12 +1,31 @@
 {
-  "api_name": "moneyflow_hsgt",
+  "api_name": "沪深港通资金流向",
   "api_code": "moneyflow_hsgt",
-  "description": "沪深港通资金流向",
+  "description": "",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=47",
     "name": "沪深港通资金流向",
     "category": "资金流向数据___stock_fund_flow"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期 (二选一)",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期 (二选一)",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": null
 }

@@ -1,12 +1,92 @@
 {
-  "api_name": "api_408",
-  "api_code": "api_408",
-  "description": "ETF份额规模",
+  "api_name": "etf_share_size",
+  "api_code": "etf_share_size",
+  "description": "获取沪深ETF每日份额和规模数据",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=408",
     "name": "ETF份额规模",
     "category": "ETF专题___etf"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "required": false,
+      "description": "基金代码（可从ETF基础信息接口提取）"
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "required": false,
+      "description": "交易日期（YYYYMMDD格式）"
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "required": false,
+      "description": "开始日期"
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "required": false,
+      "description": "结束日期"
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "required": false,
+      "description": "交易所（SSE上交所 SZSE深交所）"
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "default_display": true,
+      "description": "交易日期"
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "default_display": true,
+      "description": "ETF代码"
+    },
+    {
+      "name": "etf_name",
+      "type": "str",
+      "default_display": true,
+      "description": "基金名称"
+    },
+    {
+      "name": "total_share",
+      "type": "float",
+      "default_display": true,
+      "description": "总份额（万份）"
+    },
+    {
+      "name": "total_size",
+      "type": "float",
+      "default_display": true,
+      "description": "总规模（万元）"
+    },
+    {
+      "name": "nav",
+      "type": "float",
+      "default_display": false,
+      "description": "基金份额净值(元)"
+    },
+    {
+      "name": "close",
+      "type": "float",
+      "default_display": false,
+      "description": "收盘价（元）"
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "default_display": true,
+      "description": "交易所（SSE上交所 SZSE深交所 BSE北交所）"
+    }
+  ]
 }

@@ -1,0 +1,86 @@
+{
+  "api_name": "ETF历史分钟",
+  "api_code": "stk_mins",
+  "description": "",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=387",
+    "name": "ETF历史分钟",
+    "category": "ETF专题___etf"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "ETF代码，e.g. 159001.SZ",
+      "required": true
+    },
+    {
+      "name": "freq",
+      "type": "str",
+      "description": "分钟频度（1min/5min/15min/30min/60min）",
+      "required": true
+    },
+    {
+      "name": "start_date",
+      "type": "datetime",
+      "description": "开始日期 格式：2025-06-01 09:00:00",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "datetime",
+      "description": "结束时间 格式：2025-06-20 19:00:00",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "ETF代码",
+      "default_display": true
+    },
+    {
+      "name": "trade_time",
+      "type": "str",
+      "description": "交易时间",
+      "default_display": true
+    },
+    {
+      "name": "open",
+      "type": "float",
+      "description": "开盘价",
+      "default_display": true
+    },
+    {
+      "name": "close",
+      "type": "float",
+      "description": "收盘价",
+      "default_display": true
+    },
+    {
+      "name": "high",
+      "type": "float",
+      "description": "最高价",
+      "default_display": true
+    },
+    {
+      "name": "low",
+      "type": "float",
+      "description": "最低价",
+      "default_display": true
+    },
+    {
+      "name": "vol",
+      "type": "int",
+      "description": "成交量（股）",
+      "default_display": true
+    },
+    {
+      "name": "amount",
+      "type": "float",
+      "description": "成交金额（元）",
+      "default_display": true
+    }
+  ]
+}

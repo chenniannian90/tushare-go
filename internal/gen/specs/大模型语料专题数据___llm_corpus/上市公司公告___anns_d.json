@@ -1,0 +1,74 @@
+{
+  "api_name": "上市公司公告",
+  "api_code": "anns_d",
+  "description": "获取全量公告数据，提供pdf下载URL",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=176",
+    "name": "上市公司公告",
+    "category": "大模型语料专题数据___llm_corpus"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "required": false
+    },
+    {
+      "name": "ann_date",
+      "type": "str",
+      "description": "公告日期（yyyymmdd格式，下同）",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "公告开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "公告结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ann_date",
+      "type": "str",
+      "description": "公告日期",
+      "default_display": true
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "股票名称",
+      "default_display": true
+    },
+    {
+      "name": "title",
+      "type": "str",
+      "description": "标题",
+      "default_display": true
+    },
+    {
+      "name": "url",
+      "type": "str",
+      "description": "URL，原文下载链接",
+      "default_display": true
+    },
+    {
+      "name": "rec_time",
+      "type": "datetime",
+      "description": "发布时间",
+      "default_display": false
+    }
+  ]
+}

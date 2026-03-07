@@ -1,0 +1,116 @@
+{
+  "api_name": "短期国债利率",
+  "api_code": "us_tbr",
+  "description": "获取美国短期国债利率数据",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=221",
+    "name": "短期国债利率",
+    "category": "美国利率___macro_us_rate"
+  },
+  "request_params": [
+    {
+      "name": "date",
+      "type": "str",
+      "description": "日期",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期(YYYYMMDD格式)",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    },
+    {
+      "name": "fields",
+      "type": "str",
+      "description": "指定输出字段(e.g. fields='w4_bd,w52_ce')",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "date",
+      "type": "str",
+      "description": "日期",
+      "default_display": true
+    },
+    {
+      "name": "w4_bd",
+      "type": "float",
+      "description": "4周银行折现收益率",
+      "default_display": true
+    },
+    {
+      "name": "w4_ce",
+      "type": "float",
+      "description": "4周票面利率",
+      "default_display": true
+    },
+    {
+      "name": "w8_bd",
+      "type": "float",
+      "description": "8周银行折现收益率",
+      "default_display": true
+    },
+    {
+      "name": "w8_ce",
+      "type": "float",
+      "description": "8周票面利率",
+      "default_display": true
+    },
+    {
+      "name": "w13_bd",
+      "type": "float",
+      "description": "13周银行折现收益率",
+      "default_display": true
+    },
+    {
+      "name": "w13_ce",
+      "type": "float",
+      "description": "13周票面利率",
+      "default_display": true
+    },
+    {
+      "name": "w17_bd",
+      "type": "float",
+      "description": "17周银行折现收益率（数据从20221019开始）",
+      "default_display": true
+    },
+    {
+      "name": "w17_ce",
+      "type": "float",
+      "description": "17周票面利率（数据从20221019开始）",
+      "default_display": true
+    },
+    {
+      "name": "w26_bd",
+      "type": "float",
+      "description": "26周银行折现收益率",
+      "default_display": true
+    },
+    {
+      "name": "w26_ce",
+      "type": "float",
+      "description": "26周票面利率",
+      "default_display": true
+    },
+    {
+      "name": "w52_bd",
+      "type": "float",
+      "description": "52周银行折现收益率",
+      "default_display": true
+    },
+    {
+      "name": "w52_ce",
+      "type": "float",
+      "description": "52周票面利率",
+      "default_display": true
+    }
+  ]
+}

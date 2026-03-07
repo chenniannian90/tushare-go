@@ -1,7 +1,7 @@
 {
-  "api_name": "fut_holdings",
-  "api_code": "fut_holdings",
-  "description": "仓单日报",
+  "api_name": "fut_wsr描述",
+  "api_code": "fut_wsr描述",
+  "description": "获取仓单日报数据，了解各仓库/厂库的仓单变化",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=140",
     "name": "仓单日报",

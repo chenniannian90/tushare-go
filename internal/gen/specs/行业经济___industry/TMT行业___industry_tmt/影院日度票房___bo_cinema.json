@@ -1,0 +1,74 @@
+{
+  "api_name": "影院日度票房",
+  "api_code": "bo_cinema",
+  "description": "获取每日各影院的票房数据数据历史： 数据从2018年9月开始，更多历史数据正在补充数据",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=116",
+    "name": "影院日度票房",
+    "category": "TMT行业___industry_tmt"
+  },
+  "request_params": [
+    {
+      "name": "date",
+      "type": "str",
+      "description": "日期(格式:YYYYMMDD)",
+      "required": true
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "date",
+      "type": "str",
+      "description": "日期",
+      "default_display": true
+    },
+    {
+      "name": "c_name",
+      "type": "str",
+      "description": "影院名称",
+      "default_display": true
+    },
+    {
+      "name": "aud_count",
+      "type": "int",
+      "description": "观众人数",
+      "default_display": true
+    },
+    {
+      "name": "att_ratio",
+      "type": "float",
+      "description": "上座率",
+      "default_display": true
+    },
+    {
+      "name": "day_amount",
+      "type": "float",
+      "description": "当日票房",
+      "default_display": true
+    },
+    {
+      "name": "day_showcount",
+      "type": "float",
+      "description": "当日场次",
+      "default_display": true
+    },
+    {
+      "name": "avg_price",
+      "type": "float",
+      "description": "场均票价（元）",
+      "default_display": true
+    },
+    {
+      "name": "p_pc",
+      "type": "float",
+      "description": "场均人次",
+      "default_display": true
+    },
+    {
+      "name": "rank",
+      "type": "int",
+      "description": "排名",
+      "default_display": true
+    }
+  ]
+}

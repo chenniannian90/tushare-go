@@ -1,0 +1,98 @@
+{
+  "api_name": "机构调研数据",
+  "api_code": "stk_surv",
+  "description": "获取上市公司机构调研记录数据",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=275",
+    "name": "机构调研数据",
+    "category": "特色数据___stock_feature"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "调研日期",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "调研开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "调研结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "股票名称",
+      "default_display": true
+    },
+    {
+      "name": "surv_date",
+      "type": "str",
+      "description": "调研日期",
+      "default_display": true
+    },
+    {
+      "name": "fund_visitors",
+      "type": "str",
+      "description": "机构参与人员",
+      "default_display": true
+    },
+    {
+      "name": "rece_place",
+      "type": "str",
+      "description": "接待地点",
+      "default_display": true
+    },
+    {
+      "name": "rece_mode",
+      "type": "str",
+      "description": "接待方式",
+      "default_display": true
+    },
+    {
+      "name": "rece_org",
+      "type": "str",
+      "description": "接待的公司",
+      "default_display": true
+    },
+    {
+      "name": "org_type",
+      "type": "str",
+      "description": "接待公司类型",
+      "default_display": true
+    },
+    {
+      "name": "comp_rece",
+      "type": "str",
+      "description": "上市公司接待人员",
+      "default_display": true
+    },
+    {
+      "name": "content",
+      "type": "None",
+      "description": "调研内容",
+      "default_display": false
+    }
+  ]
+}

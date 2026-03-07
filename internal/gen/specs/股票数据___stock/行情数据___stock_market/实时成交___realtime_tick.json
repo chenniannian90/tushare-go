@@ -1,0 +1,25 @@
+{
+  "api_name": "实时成交（爬虫）",
+  "api_code": "realtime_tick",
+  "description": "本接口是tushare org版实时接口的顺延，数据来自网络，且不进入tushare服务器，属于爬虫接口，数据包括该股票当日开盘以来的所有分笔成交数据。",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=316",
+    "name": "实时成交（爬虫）",
+    "category": "行情数据___stock_market"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码，需按tushare股票代码标准输入，比如：000001.SZ表示平安银行，600000.SH表示浦发银行，单次只能输入一个股票",
+      "required": false
+    },
+    {
+      "name": "src",
+      "type": "str",
+      "description": "数据源 （sina-新浪 dc-东方财富，默认sina）",
+      "required": false
+    }
+  ],
+  "response_fields": null
+}

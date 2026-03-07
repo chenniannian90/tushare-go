@@ -1,0 +1,92 @@
+{
+  "api_name": "ETF份额规模",
+  "api_code": "etf_share_size",
+  "description": "",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=408",
+    "name": "ETF份额规模",
+    "category": "ETF专题___etf"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "基金代码 （可从ETF基础信息接口提取）",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期（YYYYMMDD格式，下同）",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易所（SSE上交所 SZSE深交所）",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "ETF代码",
+      "default_display": true
+    },
+    {
+      "name": "etf_name",
+      "type": "str",
+      "description": "基金名称",
+      "default_display": true
+    },
+    {
+      "name": "total_share",
+      "type": "float",
+      "description": "总份额（万份）",
+      "default_display": true
+    },
+    {
+      "name": "total_size",
+      "type": "float",
+      "description": "总规模（万元）",
+      "default_display": true
+    },
+    {
+      "name": "nav",
+      "type": "float",
+      "description": "基金份额净值(元)",
+      "default_display": false
+    },
+    {
+      "name": "close",
+      "type": "float",
+      "description": "收盘价（元）",
+      "default_display": false
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易所（SSE上交所 SZSE深交所 BSE北交所）",
+      "default_display": true
+    }
+  ]
+}

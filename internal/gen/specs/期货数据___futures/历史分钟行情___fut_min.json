@@ -1,7 +1,7 @@
 {
-  "api_name": "fut_min",
-  "api_code": "fut_min",
-  "description": "历史分钟行情",
+  "api_name": "ft_mins描述",
+  "api_code": "ft_mins描述",
+  "description": "获取全市场期货合约分钟数据，支持1min/5min/15min/30min/60min行情，提供Python SDK和 http Restful API两种方式，如果需要主力合约分钟，请先通过主力mapping接口获取对应的合约代码后提取分钟。",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=313",
     "name": "历史分钟行情",

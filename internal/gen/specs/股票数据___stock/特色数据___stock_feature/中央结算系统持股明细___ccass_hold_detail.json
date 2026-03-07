@@ -1,0 +1,86 @@
+{
+  "api_name": "中央结算系统持股明细",
+  "api_code": "ccass_hold_detail",
+  "description": "获取中央结算系统机构席位持股明细，数据覆盖全历史，根据交易所披露时间，当日数据在下一交易日早上9点前完成",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=274",
+    "name": "中央结算系统持股明细",
+    "category": "特色数据___stock_feature"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码 (e.g. 605009.SH)",
+      "required": false
+    },
+    {
+      "name": "hk_code",
+      "type": "str",
+      "description": "港交所代码 （e.g. 95009）",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期(YYYYMMDD格式，下同)",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代号",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "股票名称",
+      "default_display": true
+    },
+    {
+      "name": "col_participant_id",
+      "type": "str",
+      "description": "参与者编号",
+      "default_display": true
+    },
+    {
+      "name": "col_participant_name",
+      "type": "str",
+      "description": "机构名称",
+      "default_display": true
+    },
+    {
+      "name": "col_shareholding",
+      "type": "str",
+      "description": "持股量(股)",
+      "default_display": true
+    },
+    {
+      "name": "col_shareholding_percent",
+      "type": "str",
+      "description": "占已发行股份/权证/单位百分比(%)",
+      "default_display": true
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "api_name": "深圳市场每日交易情况",
+  "api_code": "sz_daily_info",
+  "description": "获取深圳市场每日交易概况",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=268",
+    "name": "深圳市场每日交易情况",
+    "category": "指数专题___index"
+  },
+  "request_params": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期（YYYYMMDD格式，下同）",
+      "required": false
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "板块代码",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "",
+      "default_display": true
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "市场类型",
+      "default_display": true
+    },
+    {
+      "name": "count",
+      "type": "int",
+      "description": "股票个数",
+      "default_display": true
+    },
+    {
+      "name": "amount",
+      "type": "float",
+      "description": "成交金额",
+      "default_display": true
+    },
+    {
+      "name": "vol",
+      "type": "None",
+      "description": "成交量",
+      "default_display": true
+    },
+    {
+      "name": "total_share",
+      "type": "float",
+      "description": "总股本",
+      "default_display": true
+    },
+    {
+      "name": "total_mv",
+      "type": "float",
+      "description": "总市值",
+      "default_display": true
+    },
+    {
+      "name": "float_share",
+      "type": "float",
+      "description": "流通股票",
+      "default_display": true
+    },
+    {
+      "name": "float_mv",
+      "type": "float",
+      "description": "流通市值",
+      "default_display": true
+    }
+  ]
+}

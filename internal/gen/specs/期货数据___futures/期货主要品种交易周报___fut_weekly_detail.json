@@ -1,0 +1,152 @@
+{
+  "api_name": "期货主要品种交易周报",
+  "api_code": "fut_weekly_detail",
+  "description": "获取期货交易所主要品种每周交易统计信息，数据从2010年3月开始",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=216",
+    "name": "期货主要品种交易周报",
+    "category": "期货数据___futures"
+  },
+  "request_params": [
+    {
+      "name": "week",
+      "type": "str",
+      "description": "周期（每年第几周，e.g. 202001 表示2020第1周）",
+      "required": false
+    },
+    {
+      "name": "prd",
+      "type": "str",
+      "description": "期货品种（支持多品种输入，逗号分隔）",
+      "required": false
+    },
+    {
+      "name": "start_week",
+      "type": "str",
+      "description": "开始周期",
+      "required": false
+    },
+    {
+      "name": "end_week",
+      "type": "str",
+      "description": "结束周期",
+      "required": false
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易所（请参考交易所说明）",
+      "required": false
+    },
+    {
+      "name": "fields",
+      "type": "str",
+      "description": "提取的字段，e.g. fields='prd,name,vol'",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易所代码",
+      "default_display": true
+    },
+    {
+      "name": "prd",
+      "type": "str",
+      "description": "期货品种代码",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "品种名称",
+      "default_display": true
+    },
+    {
+      "name": "vol",
+      "type": "int",
+      "description": "成交量（手）",
+      "default_display": true
+    },
+    {
+      "name": "vol_yoy",
+      "type": "float",
+      "description": "同比增减（%）",
+      "default_display": true
+    },
+    {
+      "name": "amount",
+      "type": "float",
+      "description": "成交金额（亿元）",
+      "default_display": true
+    },
+    {
+      "name": "amout_yoy",
+      "type": "float",
+      "description": "同比增减（%）",
+      "default_display": true
+    },
+    {
+      "name": "cumvol",
+      "type": "int",
+      "description": "年累计成交总量（手）",
+      "default_display": true
+    },
+    {
+      "name": "cumvol_yoy",
+      "type": "float",
+      "description": "同比增减（%）",
+      "default_display": true
+    },
+    {
+      "name": "cumamt",
+      "type": "float",
+      "description": "年累计成交金额（亿元）",
+      "default_display": true
+    },
+    {
+      "name": "cumamt_yoy",
+      "type": "float",
+      "description": "同比增减（%）",
+      "default_display": true
+    },
+    {
+      "name": "open_interest",
+      "type": "int",
+      "description": "持仓量（手）",
+      "default_display": true
+    },
+    {
+      "name": "interest_wow",
+      "type": "float",
+      "description": "环比增减（%）",
+      "default_display": true
+    },
+    {
+      "name": "mc_close",
+      "type": "float",
+      "description": "本周主力合约收盘价",
+      "default_display": true
+    },
+    {
+      "name": "close_wow",
+      "type": "float",
+      "description": "环比涨跌（%）",
+      "default_display": true
+    },
+    {
+      "name": "week",
+      "type": "str",
+      "description": "周期",
+      "default_display": true
+    },
+    {
+      "name": "week_date",
+      "type": "str",
+      "description": "周日期",
+      "default_display": true
+    }
+  ]
+}

@@ -1,12 +1,248 @@
 {
-  "api_name": "cb_basic",
+  "api_name": "可转债基础信息",
   "api_code": "cb_basic",
-  "description": "可转债基础信息",
+  "description": "",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=185",
     "name": "可转债基础信息",
     "category": "债券专题___bond"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "转债代码",
+      "required": false
+    },
+    {
+      "name": "list_date",
+      "type": "str",
+      "description": "上市日期",
+      "required": false
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "上市交易所",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "转债代码",
+      "default_display": true
+    },
+    {
+      "name": "bond_full_name",
+      "type": "str",
+      "description": "转债名称",
+      "default_display": true
+    },
+    {
+      "name": "bond_short_name",
+      "type": "str",
+      "description": "转债简称",
+      "default_display": true
+    },
+    {
+      "name": "cb_code",
+      "type": "str",
+      "description": "转股申报代码",
+      "default_display": true
+    },
+    {
+      "name": "stk_code",
+      "type": "str",
+      "description": "正股代码",
+      "default_display": true
+    },
+    {
+      "name": "stk_short_name",
+      "type": "str",
+      "description": "正股简称",
+      "default_display": true
+    },
+    {
+      "name": "maturity",
+      "type": "float",
+      "description": "发行期限（年）",
+      "default_display": true
+    },
+    {
+      "name": "par",
+      "type": "float",
+      "description": "面值",
+      "default_display": true
+    },
+    {
+      "name": "issue_price",
+      "type": "float",
+      "description": "发行价格",
+      "default_display": true
+    },
+    {
+      "name": "issue_size",
+      "type": "float",
+      "description": "发行总额（元）",
+      "default_display": true
+    },
+    {
+      "name": "remain_size",
+      "type": "float",
+      "description": "债券余额（元）",
+      "default_display": true
+    },
+    {
+      "name": "value_date",
+      "type": "str",
+      "description": "起息日期",
+      "default_display": true
+    },
+    {
+      "name": "maturity_date",
+      "type": "str",
+      "description": "到期日期",
+      "default_display": true
+    },
+    {
+      "name": "rate_type",
+      "type": "str",
+      "description": "利率类型",
+      "default_display": true
+    },
+    {
+      "name": "coupon_rate",
+      "type": "float",
+      "description": "票面利率（%）",
+      "default_display": true
+    },
+    {
+      "name": "add_rate",
+      "type": "float",
+      "description": "补偿利率（%）",
+      "default_display": true
+    },
+    {
+      "name": "pay_per_year",
+      "type": "int",
+      "description": "年付息次数",
+      "default_display": true
+    },
+    {
+      "name": "list_date",
+      "type": "str",
+      "description": "上市日期",
+      "default_display": true
+    },
+    {
+      "name": "delist_date",
+      "type": "str",
+      "description": "摘牌日",
+      "default_display": true
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "上市交易所",
+      "default_display": true
+    },
+    {
+      "name": "conv_start_date",
+      "type": "str",
+      "description": "转股起始日",
+      "default_display": true
+    },
+    {
+      "name": "conv_end_date",
+      "type": "str",
+      "description": "转股截止日",
+      "default_display": true
+    },
+    {
+      "name": "conv_stop_date",
+      "type": "str",
+      "description": "停止转股日(提前到期)",
+      "default_display": true
+    },
+    {
+      "name": "first_conv_price",
+      "type": "float",
+      "description": "初始转股价",
+      "default_display": true
+    },
+    {
+      "name": "conv_price",
+      "type": "float",
+      "description": "最新转股价",
+      "default_display": true
+    },
+    {
+      "name": "rate_clause",
+      "type": "str",
+      "description": "利率说明",
+      "default_display": true
+    },
+    {
+      "name": "put_clause",
+      "type": "str",
+      "description": "赎回条款",
+      "default_display": false
+    },
+    {
+      "name": "maturity_put_price",
+      "type": "str",
+      "description": "到期赎回价格(含税)",
+      "default_display": false
+    },
+    {
+      "name": "call_clause",
+      "type": "str",
+      "description": "回售条款",
+      "default_display": false
+    },
+    {
+      "name": "reset_clause",
+      "type": "str",
+      "description": "特别向下修正条款",
+      "default_display": false
+    },
+    {
+      "name": "conv_clause",
+      "type": "str",
+      "description": "转股条款",
+      "default_display": false
+    },
+    {
+      "name": "guarantor",
+      "type": "str",
+      "description": "担保人",
+      "default_display": false
+    },
+    {
+      "name": "guarantee_type",
+      "type": "str",
+      "description": "担保方式",
+      "default_display": false
+    },
+    {
+      "name": "issue_rating",
+      "type": "str",
+      "description": "发行信用等级",
+      "default_display": false
+    },
+    {
+      "name": "newest_rating",
+      "type": "str",
+      "description": "最新信用等级",
+      "default_display": false
+    },
+    {
+      "name": "rating_comp",
+      "type": "str",
+      "description": "最新评级机构",
+      "default_display": false
+    }
+  ]
 }

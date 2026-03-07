@@ -1,0 +1,50 @@
+{
+  "api_name": "可转债票面利率",
+  "api_code": "cb_rate",
+  "description": "获取可转债票面利率",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=305",
+    "name": "可转债票面利率",
+    "category": "债券专题___bond"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "转债代码，支持多值输入",
+      "required": true
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "转债代码",
+      "default_display": true
+    },
+    {
+      "name": "rate_freq",
+      "type": "int",
+      "description": "付息频率(次/年)",
+      "default_display": false
+    },
+    {
+      "name": "rate_start_date",
+      "type": "str",
+      "description": "付息开始日期",
+      "default_display": false
+    },
+    {
+      "name": "rate_end_date",
+      "type": "str",
+      "description": "付息结束日期",
+      "default_display": false
+    },
+    {
+      "name": "coupon_rate",
+      "type": "float",
+      "description": "票面利率(%)",
+      "default_display": false
+    }
+  ]
+}

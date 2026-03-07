@@ -1,0 +1,62 @@
+{
+  "api_name": "国债长期利率",
+  "api_code": "us_tltr",
+  "description": "国债长期利率",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=222",
+    "name": "国债长期利率",
+    "category": "美国利率___macro_us_rate"
+  },
+  "request_params": [
+    {
+      "name": "date",
+      "type": "str",
+      "description": "日期",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    },
+    {
+      "name": "fields",
+      "type": "str",
+      "description": "指定字段",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "date",
+      "type": "str",
+      "description": "日期",
+      "default_display": true
+    },
+    {
+      "name": "ltc",
+      "type": "float",
+      "description": "收益率 LT COMPOSITE (\u003e10 Yrs)",
+      "default_display": true
+    },
+    {
+      "name": "cmt",
+      "type": "float",
+      "description": "20年期CMT利率(TREASURY 20-Yr CMT)",
+      "default_display": true
+    },
+    {
+      "name": "e_factor",
+      "type": "float",
+      "description": "外推因子EXTRAPOLATION FACTOR",
+      "default_display": true
+    }
+  ]
+}

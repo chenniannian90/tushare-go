@@ -1,7 +1,7 @@
 {
-  "api_name": "hk_daily",
-  "api_code": "hk_daily",
-  "description": "港股复权行情",
+  "api_name": "hk_daily_adj",
+  "api_code": "hk_daily_adj",
+  "description": "获取港股复权行情，提供股票股本、市值和成交及换手多个数据指标",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=339",
     "name": "港股复权行情",

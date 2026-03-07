@@ -1,0 +1,134 @@
+{
+  "api_name": "ETF基本信息",
+  "api_code": "etf_basic",
+  "description": "获取国内ETF基础信息，包括了QDII。数据来源与沪深交易所公开披露信息。",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=385",
+    "name": "ETF基本信息",
+    "category": "ETF专题___etf"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "ETF代码（带.SZ/.SH后缀的6位数字，如：159526.SZ）",
+      "required": false
+    },
+    {
+      "name": "index_code",
+      "type": "str",
+      "description": "跟踪指数代码",
+      "required": false
+    },
+    {
+      "name": "list_date",
+      "type": "str",
+      "description": "上市日期（格式：YYYYMMDD）",
+      "required": false
+    },
+    {
+      "name": "list_status",
+      "type": "str",
+      "description": "上市状态（L上市 D退市 P待上市）",
+      "required": false
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易所（SH上交所 SZ深交所）",
+      "required": false
+    },
+    {
+      "name": "mgr",
+      "type": "str",
+      "description": "管理人（简称，e.g.华夏基金)",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "基金交易代码",
+      "default_display": true
+    },
+    {
+      "name": "csname",
+      "type": "str",
+      "description": "ETF中文简称",
+      "default_display": true
+    },
+    {
+      "name": "extname",
+      "type": "str",
+      "description": "ETF扩位简称(对应交易所简称)",
+      "default_display": true
+    },
+    {
+      "name": "cname",
+      "type": "str",
+      "description": "基金中文全称",
+      "default_display": true
+    },
+    {
+      "name": "index_code",
+      "type": "str",
+      "description": "ETF基准指数代码",
+      "default_display": true
+    },
+    {
+      "name": "index_name",
+      "type": "str",
+      "description": "ETF基准指数中文全称",
+      "default_display": true
+    },
+    {
+      "name": "setup_date",
+      "type": "str",
+      "description": "设立日期（格式：YYYYMMDD）",
+      "default_display": true
+    },
+    {
+      "name": "list_date",
+      "type": "str",
+      "description": "上市日期（格式：YYYYMMDD）",
+      "default_display": true
+    },
+    {
+      "name": "list_status",
+      "type": "str",
+      "description": "存续状态（L上市 D退市 P待上市）",
+      "default_display": true
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易所（上交所SH 深交所SZ）",
+      "default_display": true
+    },
+    {
+      "name": "mgr_name",
+      "type": "str",
+      "description": "基金管理人简称",
+      "default_display": true
+    },
+    {
+      "name": "custod_name",
+      "type": "str",
+      "description": "基金托管人名称",
+      "default_display": true
+    },
+    {
+      "name": "mgt_fee",
+      "type": "float",
+      "description": "基金管理人收取的费用",
+      "default_display": true
+    },
+    {
+      "name": "etf_type",
+      "type": "str",
+      "description": "基金投资通道类型（境内、QDII）",
+      "default_display": true
+    }
+  ]
+}

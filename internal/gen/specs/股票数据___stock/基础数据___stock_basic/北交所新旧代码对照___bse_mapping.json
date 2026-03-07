@@ -1,0 +1,50 @@
+{
+  "api_name": "北交所新旧代码对照",
+  "api_code": "bse_mapping",
+  "description": "获取北交所股票代码变更后新旧代码映射表数据",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=375",
+    "name": "北交所新旧代码对照",
+    "category": "基础数据___stock_basic"
+  },
+  "request_params": [
+    {
+      "name": "o_code",
+      "type": "str",
+      "description": "旧代码",
+      "required": false
+    },
+    {
+      "name": "n_code",
+      "type": "str",
+      "description": "新代码",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "name",
+      "type": "str",
+      "description": "股票名称",
+      "default_display": true
+    },
+    {
+      "name": "o_code",
+      "type": "str",
+      "description": "原代码",
+      "default_display": true
+    },
+    {
+      "name": "n_code",
+      "type": "str",
+      "description": "新代码",
+      "default_display": true
+    },
+    {
+      "name": "list_date",
+      "type": "str",
+      "description": "上市日期",
+      "default_display": true
+    }
+  ]
+}

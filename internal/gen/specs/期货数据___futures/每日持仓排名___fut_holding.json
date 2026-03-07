@@ -1,0 +1,104 @@
+{
+  "api_name": "每日持仓排名",
+  "api_code": "fut_holding",
+  "description": "获取每日成交持仓排名数据",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=139",
+    "name": "每日持仓排名",
+    "category": "期货数据___futures"
+  },
+  "request_params": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期 （trade_date/symbol至少输入一个参数）",
+      "required": false
+    },
+    {
+      "name": "symbol",
+      "type": "str",
+      "description": "合约或产品代码",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期(YYYYMMDD格式，下同)",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易所代码",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "symbol",
+      "type": "str",
+      "description": "合约代码或类型",
+      "default_display": true
+    },
+    {
+      "name": "broker",
+      "type": "str",
+      "description": "期货公司会员简称",
+      "default_display": true
+    },
+    {
+      "name": "vol",
+      "type": "int",
+      "description": "成交量",
+      "default_display": true
+    },
+    {
+      "name": "vol_chg",
+      "type": "int",
+      "description": "成交量变化",
+      "default_display": true
+    },
+    {
+      "name": "long_hld",
+      "type": "int",
+      "description": "持买仓量",
+      "default_display": true
+    },
+    {
+      "name": "long_chg",
+      "type": "int",
+      "description": "持买仓量变化",
+      "default_display": true
+    },
+    {
+      "name": "short_hld",
+      "type": "int",
+      "description": "持卖仓量",
+      "default_display": true
+    },
+    {
+      "name": "short_chg",
+      "type": "int",
+      "description": "持卖仓量变化",
+      "default_display": true
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易所",
+      "default_display": false
+    }
+  ]
+}

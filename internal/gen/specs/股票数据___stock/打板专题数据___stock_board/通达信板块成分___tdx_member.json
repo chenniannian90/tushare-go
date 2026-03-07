@@ -1,12 +1,50 @@
 {
-  "api_name": "tdx_member",
+  "api_name": "通达信板块成分",
   "api_code": "tdx_member",
-  "description": "通达信板块成分",
+  "description": "获取通达信各板块成分股信息",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=377",
     "name": "通达信板块成分",
     "category": "打板专题数据___stock_board"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "板块代码：xxxxxx.TDX",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期：格式YYYYMMDD",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "板块代码",
+      "default_display": true
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "con_code",
+      "type": "str",
+      "description": "成分股票代码",
+      "default_display": true
+    },
+    {
+      "name": "con_name",
+      "type": "str",
+      "description": "成分股票名称",
+      "default_display": true
+    }
+  ]
 }

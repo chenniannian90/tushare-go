@@ -1,0 +1,122 @@
+{
+  "api_name": "国债收益率曲线利率",
+  "api_code": "us_tycr",
+  "description": "获取美国每日国债收益率曲线利率",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=219",
+    "name": "国债收益率曲线利率",
+    "category": "美国利率___macro_us_rate"
+  },
+  "request_params": [
+    {
+      "name": "date",
+      "type": "str",
+      "description": "日期 （YYYYMMDD格式，下同）",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    },
+    {
+      "name": "fields",
+      "type": "str",
+      "description": "指定输出字段（e.g. fields='m1,y1'）",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "date",
+      "type": "str",
+      "description": "日期",
+      "default_display": true
+    },
+    {
+      "name": "m1",
+      "type": "float",
+      "description": "1月期",
+      "default_display": true
+    },
+    {
+      "name": "m2",
+      "type": "float",
+      "description": "2月期",
+      "default_display": true
+    },
+    {
+      "name": "m3",
+      "type": "float",
+      "description": "3月期",
+      "default_display": true
+    },
+    {
+      "name": "m4",
+      "type": "float",
+      "description": "4月期（数据从20221019开始）",
+      "default_display": true
+    },
+    {
+      "name": "m6",
+      "type": "float",
+      "description": "6月期",
+      "default_display": true
+    },
+    {
+      "name": "y1",
+      "type": "float",
+      "description": "1年期",
+      "default_display": true
+    },
+    {
+      "name": "y2",
+      "type": "float",
+      "description": "2年期",
+      "default_display": true
+    },
+    {
+      "name": "y3",
+      "type": "float",
+      "description": "3年期",
+      "default_display": true
+    },
+    {
+      "name": "y5",
+      "type": "float",
+      "description": "5年期",
+      "default_display": true
+    },
+    {
+      "name": "y7",
+      "type": "float",
+      "description": "7年期",
+      "default_display": true
+    },
+    {
+      "name": "y10",
+      "type": "float",
+      "description": "10年期",
+      "default_display": true
+    },
+    {
+      "name": "y20",
+      "type": "float",
+      "description": "20年期",
+      "default_display": true
+    },
+    {
+      "name": "y30",
+      "type": "float",
+      "description": "30年期",
+      "default_display": true
+    }
+  ]
+}

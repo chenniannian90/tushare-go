@@ -1,12 +1,134 @@
 {
-  "api_name": "us_daily",
+  "api_name": "美股日线行情",
   "api_code": "us_daily",
-  "description": "美股日线行情",
+  "description": "获取美股行情（未复权），包括全部股票全历史行情，以及重要的市场和估值指标",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=254",
     "name": "美股日线行情",
     "category": "美股数据___us_stock"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码（e.g. AAPL）",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期（YYYYMMDD）",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期（YYYYMMDD）",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期（YYYYMMDD）",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "default_display": true
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "close",
+      "type": "float",
+      "description": "收盘价",
+      "default_display": true
+    },
+    {
+      "name": "open",
+      "type": "float",
+      "description": "开盘价",
+      "default_display": true
+    },
+    {
+      "name": "high",
+      "type": "float",
+      "description": "最高价",
+      "default_display": true
+    },
+    {
+      "name": "low",
+      "type": "float",
+      "description": "最低价",
+      "default_display": true
+    },
+    {
+      "name": "pre_close",
+      "type": "float",
+      "description": "昨收价",
+      "default_display": true
+    },
+    {
+      "name": "change",
+      "type": "float",
+      "description": "涨跌额",
+      "default_display": false
+    },
+    {
+      "name": "pct_change",
+      "type": "float",
+      "description": "涨跌幅",
+      "default_display": true
+    },
+    {
+      "name": "vol",
+      "type": "float",
+      "description": "成交量",
+      "default_display": true
+    },
+    {
+      "name": "amount",
+      "type": "float",
+      "description": "成交额",
+      "default_display": true
+    },
+    {
+      "name": "vwap",
+      "type": "float",
+      "description": "平均价",
+      "default_display": true
+    },
+    {
+      "name": "turnover_ratio",
+      "type": "float",
+      "description": "换手率",
+      "default_display": false
+    },
+    {
+      "name": "total_mv",
+      "type": "float",
+      "description": "总市值",
+      "default_display": false
+    },
+    {
+      "name": "pe",
+      "type": "float",
+      "description": "PE",
+      "default_display": false
+    },
+    {
+      "name": "pb",
+      "type": "float",
+      "description": "PB",
+      "default_display": false
+    }
+  ]
 }

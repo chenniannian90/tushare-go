@@ -1,0 +1,92 @@
+{
+  "api_name": "东方财富App热榜",
+  "api_code": "dc_hot",
+  "description": "获取东方财富App热榜数据，包括A股市场、ETF基金、港股市场、美股市场等等，每日盘中提取4次，收盘后4次，最晚22点提取一次。",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=321",
+    "name": "东方财富App热榜",
+    "category": "打板专题数据___stock_board"
+  },
+  "request_params": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "required": false
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码",
+      "required": false
+    },
+    {
+      "name": "market",
+      "type": "str",
+      "description": "类型(A股市场、ETF基金、港股市场、美股市场)",
+      "required": false
+    },
+    {
+      "name": "hot_type",
+      "type": "str",
+      "description": "热点类型(人气榜、飙升榜)",
+      "required": false
+    },
+    {
+      "name": "is_new",
+      "type": "str",
+      "description": "是否最新（默认Y，如果为N则为盘中和盘后阶段采集，具体时间可参考rank_time字段，状态N每小时更新一次，状态Y更新时间为22：30）",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "data_type",
+      "type": "str",
+      "description": "数据类型",
+      "default_display": true
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "default_display": true
+    },
+    {
+      "name": "ts_name",
+      "type": "str",
+      "description": "股票名称",
+      "default_display": true
+    },
+    {
+      "name": "rank",
+      "type": "int",
+      "description": "排行或者热度",
+      "default_display": true
+    },
+    {
+      "name": "pct_change",
+      "type": "float",
+      "description": "涨跌幅%",
+      "default_display": true
+    },
+    {
+      "name": "current_price",
+      "type": "float",
+      "description": "当前价",
+      "default_display": true
+    },
+    {
+      "name": "rank_time",
+      "type": "str",
+      "description": "排行榜获取时间",
+      "default_display": true
+    }
+  ]
+}

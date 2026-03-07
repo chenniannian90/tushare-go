@@ -1,7 +1,7 @@
 {
-  "api_name": "hk_daily",
-  "api_code": "hk_daily",
-  "description": "港股实时日线",
+  "api_name": "rt_hk_k描述",
+  "api_code": "rt_hk_k描述",
+  "description": "获取港股实时日k线行情，支持按股票代码及股票代码通配符一次性提取全部股票实时日k线行情",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=383",
     "name": "港股实时日线",

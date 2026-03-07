@@ -1,0 +1,80 @@
+{
+  "api_name": "电影月度票房",
+  "api_code": "bo_monthly",
+  "description": "获取电影月度票房数据数据更新：本月更新上一月数据数据历史： 数据从2008年1月1日开始，超过10年历史数据。数据",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=113",
+    "name": "电影月度票房",
+    "category": "TMT行业___industry_tmt"
+  },
+  "request_params": [
+    {
+      "name": "date",
+      "type": "str",
+      "description": "日期（每月1号，格式YYYYMMDD）",
+      "required": true
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "date",
+      "type": "str",
+      "description": "日期",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "影片名称",
+      "default_display": true
+    },
+    {
+      "name": "list_date",
+      "type": "str",
+      "description": "上映日期",
+      "default_display": true
+    },
+    {
+      "name": "avg_price",
+      "type": "float",
+      "description": "平均票价",
+      "default_display": true
+    },
+    {
+      "name": "month_amount",
+      "type": "float",
+      "description": "当月票房（万）",
+      "default_display": true
+    },
+    {
+      "name": "list_day",
+      "type": "int",
+      "description": "月内天数",
+      "default_display": true
+    },
+    {
+      "name": "p_pc",
+      "type": "int",
+      "description": "场均人次",
+      "default_display": true
+    },
+    {
+      "name": "wom_index",
+      "type": "float",
+      "description": "口碑指数",
+      "default_display": true
+    },
+    {
+      "name": "m_ratio",
+      "type": "float",
+      "description": "月度占比（%）",
+      "default_display": true
+    },
+    {
+      "name": "rank",
+      "type": "int",
+      "description": "排名",
+      "default_display": true
+    }
+  ]
+}

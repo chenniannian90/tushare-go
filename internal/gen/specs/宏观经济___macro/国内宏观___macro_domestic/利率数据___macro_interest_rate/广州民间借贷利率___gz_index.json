@@ -1,0 +1,74 @@
+{
+  "api_name": "广州民间借贷利率",
+  "api_code": "gz_index",
+  "description": "广州民间借贷利率",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=174",
+    "name": "广州民间借贷利率",
+    "category": "利率数据___macro_interest_rate"
+  },
+  "request_params": [
+    {
+      "name": "date",
+      "type": "str",
+      "description": "日期",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "date",
+      "type": "str",
+      "description": "日期",
+      "default_display": true
+    },
+    {
+      "name": "d10_rate",
+      "type": "float",
+      "description": "小额贷市场平均利率（十天） （单位：%，下同）",
+      "default_display": true
+    },
+    {
+      "name": "m1_rate",
+      "type": "float",
+      "description": "小额贷市场平均利率（一月期）",
+      "default_display": true
+    },
+    {
+      "name": "m3_rate",
+      "type": "float",
+      "description": "小额贷市场平均利率（三月期）",
+      "default_display": true
+    },
+    {
+      "name": "m6_rate",
+      "type": "float",
+      "description": "小额贷市场平均利率（六月期）",
+      "default_display": true
+    },
+    {
+      "name": "m12_rate",
+      "type": "float",
+      "description": "小额贷市场平均利率（一年期）",
+      "default_display": true
+    },
+    {
+      "name": "long_rate",
+      "type": "float",
+      "description": "小额贷市场平均利率（长期）",
+      "default_display": true
+    }
+  ]
+}

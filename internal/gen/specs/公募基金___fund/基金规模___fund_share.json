@@ -1,0 +1,62 @@
+{
+  "api_name": "基金规模",
+  "api_code": "fund_share",
+  "description": "获取基金规模数据，包含上海和深圳ETF基金",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=207",
+    "name": "基金规模",
+    "category": "公募基金___fund"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS基金代码",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    },
+    {
+      "name": "market",
+      "type": "str",
+      "description": "市场代码（SH上交所 ，SZ深交所）",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "基金代码，支持多只基金同时提取，用逗号分隔",
+      "default_display": true
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易（变动）日期，格式YYYYMMDD",
+      "default_display": true
+    },
+    {
+      "name": "fd_share",
+      "type": "float",
+      "description": "基金份额（万）",
+      "default_display": true
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "api_name": "中信行业成分",
+  "api_code": "ci_index_member",
+  "description": "按三级分类提取中信行业成分，可提供某个分类的所有成分，也可按股票代码提取所属分类，参数灵活",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=373",
+    "name": "中信行业成分",
+    "category": "指数专题___index"
+  },
+  "request_params": [
+    {
+      "name": "l1_code",
+      "type": "str",
+      "description": "一级行业代码",
+      "required": false
+    },
+    {
+      "name": "l2_code",
+      "type": "str",
+      "description": "二级行业代码",
+      "required": false
+    },
+    {
+      "name": "l3_code",
+      "type": "str",
+      "description": "三级行业代码",
+      "required": false
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "required": false
+    },
+    {
+      "name": "is_new",
+      "type": "str",
+      "description": "是否最新（默认为“Y是”）",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "l1_code",
+      "type": "str",
+      "description": "一级行业代码",
+      "default_display": true
+    },
+    {
+      "name": "l1_name",
+      "type": "str",
+      "description": "一级行业名称",
+      "default_display": true
+    },
+    {
+      "name": "l2_code",
+      "type": "str",
+      "description": "二级行业代码",
+      "default_display": true
+    },
+    {
+      "name": "l2_name",
+      "type": "str",
+      "description": "二级行业名称",
+      "default_display": true
+    },
+    {
+      "name": "l3_code",
+      "type": "str",
+      "description": "三级行业代码",
+      "default_display": true
+    },
+    {
+      "name": "l3_name",
+      "type": "str",
+      "description": "三级行业名称",
+      "default_display": true
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "成分股票代码",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "成分股票名称",
+      "default_display": true
+    },
+    {
+      "name": "in_date",
+      "type": "str",
+      "description": "纳入日期",
+      "default_display": true
+    },
+    {
+      "name": "out_date",
+      "type": "str",
+      "description": "剔除日期",
+      "default_display": true
+    },
+    {
+      "name": "is_new",
+      "type": "str",
+      "description": "是否最新Y是N否",
+      "default_display": true
+    }
+  ]
+}

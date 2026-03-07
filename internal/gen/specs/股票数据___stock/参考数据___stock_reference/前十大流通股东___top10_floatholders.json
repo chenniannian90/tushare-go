@@ -1,12 +1,43 @@
 {
-  "api_name": "top10_floatholders",
+  "api_name": "前十大流通股东",
   "api_code": "top10_floatholders",
-  "description": "前十大流通股东",
+  "description": "获取上市公司前十大流通股东数据",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=62",
     "name": "前十大流通股东",
     "category": "参考数据___stock_reference"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码",
+      "required": true
+    },
+    {
+      "name": "period",
+      "type": "str",
+      "description": "报告期（YYYYMMDD格式，一般为每个季度最后一天）",
+      "required": false
+    },
+    {
+      "name": "ann_date",
+      "type": "str",
+      "description": "公告日期",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "报告期开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "报告期结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": null
 }

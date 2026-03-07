@@ -1,12 +1,116 @@
 {
-  "api_name": "top_list",
+  "api_name": "龙虎榜每日统计单",
   "api_code": "top_list",
-  "description": "龙虎榜每日统计单",
+  "description": "龙虎榜每日交易明细数据历史： 2005年至今",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=106",
     "name": "龙虎榜每日统计单",
     "category": "打板专题数据___stock_board"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "required": true
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "名称",
+      "default_display": true
+    },
+    {
+      "name": "close",
+      "type": "float",
+      "description": "收盘价",
+      "default_display": true
+    },
+    {
+      "name": "pct_change",
+      "type": "float",
+      "description": "涨跌幅",
+      "default_display": true
+    },
+    {
+      "name": "turnover_rate",
+      "type": "float",
+      "description": "换手率",
+      "default_display": true
+    },
+    {
+      "name": "amount",
+      "type": "float",
+      "description": "总成交额",
+      "default_display": true
+    },
+    {
+      "name": "l_sell",
+      "type": "float",
+      "description": "龙虎榜卖出额",
+      "default_display": true
+    },
+    {
+      "name": "l_buy",
+      "type": "float",
+      "description": "龙虎榜买入额",
+      "default_display": true
+    },
+    {
+      "name": "l_amount",
+      "type": "float",
+      "description": "龙虎榜成交额",
+      "default_display": true
+    },
+    {
+      "name": "net_amount",
+      "type": "float",
+      "description": "龙虎榜净买入额",
+      "default_display": true
+    },
+    {
+      "name": "net_rate",
+      "type": "float",
+      "description": "龙虎榜净买额占比",
+      "default_display": true
+    },
+    {
+      "name": "amount_rate",
+      "type": "float",
+      "description": "龙虎榜成交额占比",
+      "default_display": true
+    },
+    {
+      "name": "float_values",
+      "type": "float",
+      "description": "当日流通市值",
+      "default_display": true
+    },
+    {
+      "name": "reason",
+      "type": "str",
+      "description": "上榜理由",
+      "default_display": true
+    }
+  ]
 }

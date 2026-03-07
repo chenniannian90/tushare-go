@@ -1,0 +1,68 @@
+{
+  "api_name": "融资融券标的（盘前）",
+  "api_code": "margin_secs",
+  "description": "获取沪深京三大交易所融资融券标的（包括ETF），每天盘前更新",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=326",
+    "name": "融资融券标的（盘前）",
+    "category": "两融及转融通___stock_margin"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "标的代码",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日",
+      "required": false
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易所（SSE上交所 SZSE深交所 BSE北交所）",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "标的代码",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "标的名称",
+      "default_display": true
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易所",
+      "default_display": true
+    }
+  ]
+}

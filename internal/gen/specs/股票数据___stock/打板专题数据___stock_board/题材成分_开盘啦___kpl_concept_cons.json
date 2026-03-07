@@ -1,0 +1,74 @@
+{
+  "api_name": "题材成分（开盘啦）",
+  "api_code": "kpl_concept_cons",
+  "description": "",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=351",
+    "name": "题材成分（开盘啦）",
+    "category": "打板专题数据___stock_board"
+  },
+  "request_params": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期（YYYYMMDD格式）",
+      "required": false
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "题材代码（xxxxxx.KP格式）",
+      "required": false
+    },
+    {
+      "name": "con_code",
+      "type": "str",
+      "description": "成分代码（xxxxxx.SH格式）",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "题材ID",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "题材名称",
+      "default_display": true
+    },
+    {
+      "name": "con_name",
+      "type": "str",
+      "description": "股票名称",
+      "default_display": true
+    },
+    {
+      "name": "con_code",
+      "type": "str",
+      "description": "股票代码",
+      "default_display": true
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "desc",
+      "type": "str",
+      "description": "描述",
+      "default_display": true
+    },
+    {
+      "name": "hot_num",
+      "type": "int",
+      "description": "人气值",
+      "default_display": true
+    }
+  ]
+}

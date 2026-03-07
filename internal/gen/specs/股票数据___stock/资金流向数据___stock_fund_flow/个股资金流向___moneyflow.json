@@ -1,12 +1,158 @@
 {
-  "api_name": "moneyflow",
+  "api_name": "个股资金流向",
   "api_code": "moneyflow",
-  "description": "个股资金流向",
+  "description": "获取沪深A股票资金流向数据，分析大单小单成交情况，用于判别资金动向，数据开始于2010年。",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=170",
     "name": "个股资金流向",
     "category": "资金流向数据___stock_fund_flow"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码 （股票和时间参数至少输入一个）",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码",
+      "default_display": true
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "buy_sm_vol",
+      "type": "int",
+      "description": "小单买入量（手）",
+      "default_display": true
+    },
+    {
+      "name": "buy_sm_amount",
+      "type": "float",
+      "description": "小单买入金额（万元）",
+      "default_display": true
+    },
+    {
+      "name": "sell_sm_vol",
+      "type": "int",
+      "description": "小单卖出量（手）",
+      "default_display": true
+    },
+    {
+      "name": "sell_sm_amount",
+      "type": "float",
+      "description": "小单卖出金额（万元）",
+      "default_display": true
+    },
+    {
+      "name": "buy_md_vol",
+      "type": "int",
+      "description": "中单买入量（手）",
+      "default_display": true
+    },
+    {
+      "name": "buy_md_amount",
+      "type": "float",
+      "description": "中单买入金额（万元）",
+      "default_display": true
+    },
+    {
+      "name": "sell_md_vol",
+      "type": "int",
+      "description": "中单卖出量（手）",
+      "default_display": true
+    },
+    {
+      "name": "sell_md_amount",
+      "type": "float",
+      "description": "中单卖出金额（万元）",
+      "default_display": true
+    },
+    {
+      "name": "buy_lg_vol",
+      "type": "int",
+      "description": "大单买入量（手）",
+      "default_display": true
+    },
+    {
+      "name": "buy_lg_amount",
+      "type": "float",
+      "description": "大单买入金额（万元）",
+      "default_display": true
+    },
+    {
+      "name": "sell_lg_vol",
+      "type": "int",
+      "description": "大单卖出量（手）",
+      "default_display": true
+    },
+    {
+      "name": "sell_lg_amount",
+      "type": "float",
+      "description": "大单卖出金额（万元）",
+      "default_display": true
+    },
+    {
+      "name": "buy_elg_vol",
+      "type": "int",
+      "description": "特大单买入量（手）",
+      "default_display": true
+    },
+    {
+      "name": "buy_elg_amount",
+      "type": "float",
+      "description": "特大单买入金额（万元）",
+      "default_display": true
+    },
+    {
+      "name": "sell_elg_vol",
+      "type": "int",
+      "description": "特大单卖出量（手）",
+      "default_display": true
+    },
+    {
+      "name": "sell_elg_amount",
+      "type": "float",
+      "description": "特大单卖出金额（万元）",
+      "default_display": true
+    },
+    {
+      "name": "net_mf_vol",
+      "type": "int",
+      "description": "净流入量（手）",
+      "default_display": true
+    },
+    {
+      "name": "net_mf_amount",
+      "type": "float",
+      "description": "净流入额（万元）",
+      "default_display": true
+    }
+  ]
 }

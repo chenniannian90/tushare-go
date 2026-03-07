@@ -1,0 +1,38 @@
+{
+  "api_name": "新闻联播文字稿",
+  "api_code": "cctv_news",
+  "description": "",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=154",
+    "name": "新闻联播文字稿",
+    "category": "大模型语料专题数据___llm_corpus"
+  },
+  "request_params": [
+    {
+      "name": "date",
+      "type": "str",
+      "description": "日期（输入格式：YYYYMMDD 比如：20181211）",
+      "required": true
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "date",
+      "type": "str",
+      "description": "日期",
+      "default_display": true
+    },
+    {
+      "name": "title",
+      "type": "str",
+      "description": "标题",
+      "default_display": true
+    },
+    {
+      "name": "content",
+      "type": "str",
+      "description": "内容",
+      "default_display": true
+    }
+  ]
+}

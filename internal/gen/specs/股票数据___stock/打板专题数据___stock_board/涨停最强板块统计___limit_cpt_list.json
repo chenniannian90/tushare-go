@@ -1,0 +1,92 @@
+{
+  "api_name": "涨停最强板块统计",
+  "api_code": "limit_cpt_list",
+  "description": "",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=357",
+    "name": "涨停最强板块统计",
+    "category": "打板专题数据___stock_board"
+  },
+  "request_params": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期（格式：YYYYMMDD，下同）",
+      "required": false
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "板块代码",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "板块代码",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "板块名称",
+      "default_display": true
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "days",
+      "type": "int",
+      "description": "上榜天数",
+      "default_display": true
+    },
+    {
+      "name": "up_stat",
+      "type": "str",
+      "description": "连板高度",
+      "default_display": true
+    },
+    {
+      "name": "cons_nums",
+      "type": "int",
+      "description": "连板家数",
+      "default_display": true
+    },
+    {
+      "name": "up_nums",
+      "type": "int",
+      "description": "涨停家数",
+      "default_display": true
+    },
+    {
+      "name": "pct_chg",
+      "type": "float",
+      "description": "涨跌幅%",
+      "default_display": true
+    },
+    {
+      "name": "rank",
+      "type": "str",
+      "description": "板块热点排名",
+      "default_display": true
+    }
+  ]
+}

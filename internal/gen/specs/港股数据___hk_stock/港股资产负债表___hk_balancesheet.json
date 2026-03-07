@@ -1,12 +1,74 @@
 {
-  "api_name": "hk_balancesheet",
+  "api_name": "港股资产负债表",
   "api_code": "hk_balancesheet",
-  "description": "港股资产负债表",
+  "description": "获取港股上市公司资产负债表",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=390",
     "name": "港股资产负债表",
     "category": "港股数据___hk_stock"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "required": true
+    },
+    {
+      "name": "period",
+      "type": "str",
+      "description": "报告期(格式：YYYYMMDD）",
+      "required": false
+    },
+    {
+      "name": "ind_name",
+      "type": "str",
+      "description": "指标名（如：应收帐款）",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "报告期开始日期（格式：YYYYMMDD）",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "报告结束始日期（格式：YYYYMMDD）",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "股票名称",
+      "default_display": true
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "报告期",
+      "default_display": true
+    },
+    {
+      "name": "ind_name",
+      "type": "str",
+      "description": "财务科目名称",
+      "default_display": true
+    },
+    {
+      "name": "ind_value",
+      "type": "float",
+      "description": "财务科目值",
+      "default_display": true
+    }
+  ]
 }

@@ -1,0 +1,158 @@
+{
+  "api_name": "期货周/月线行情(每日更新)",
+  "api_code": "fut_weekly_monthly",
+  "description": "期货周/月线行情(每日更新)",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=337",
+    "name": "期货周/月线行情(每日更新)",
+    "category": "期货数据___futures"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始交易日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束交易日期",
+      "required": false
+    },
+    {
+      "name": "freq",
+      "type": "str",
+      "description": "频率week周，month月",
+      "required": true
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易所",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "期货代码",
+      "default_display": true
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期（每周五或者月末日期）",
+      "default_display": true
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "计算截至日期",
+      "default_display": true
+    },
+    {
+      "name": "freq",
+      "type": "str",
+      "description": "频率(周week,月month)",
+      "default_display": true
+    },
+    {
+      "name": "open",
+      "type": "float",
+      "description": "(周/月)开盘价",
+      "default_display": true
+    },
+    {
+      "name": "high",
+      "type": "float",
+      "description": "(周/月)最高价",
+      "default_display": true
+    },
+    {
+      "name": "low",
+      "type": "float",
+      "description": "(周/月)最低价",
+      "default_display": true
+    },
+    {
+      "name": "close",
+      "type": "float",
+      "description": "(周/月)收盘价",
+      "default_display": true
+    },
+    {
+      "name": "pre_close",
+      "type": "float",
+      "description": "前一(周/月)收盘价",
+      "default_display": true
+    },
+    {
+      "name": "settle",
+      "type": "float",
+      "description": "(周/月)结算价",
+      "default_display": true
+    },
+    {
+      "name": "pre_settle",
+      "type": "float",
+      "description": "前一(周/月)结算价",
+      "default_display": true
+    },
+    {
+      "name": "vol",
+      "type": "float",
+      "description": "(周/月)成交量(手)",
+      "default_display": true
+    },
+    {
+      "name": "amount",
+      "type": "float",
+      "description": "(周/月)成交金额(万元)",
+      "default_display": true
+    },
+    {
+      "name": "oi",
+      "type": "float",
+      "description": "(周/月)持仓量(手)",
+      "default_display": true
+    },
+    {
+      "name": "oi_chg",
+      "type": "float",
+      "description": "(周/月)持仓量变化",
+      "default_display": true
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易所",
+      "default_display": true
+    },
+    {
+      "name": "change1",
+      "type": "float",
+      "description": "(周/月)涨跌1 收盘价-昨结算价",
+      "default_display": true
+    },
+    {
+      "name": "change2",
+      "type": "float",
+      "description": "(周/月)涨跌2 结算价-昨结算价",
+      "default_display": true
+    }
+  ]
+}

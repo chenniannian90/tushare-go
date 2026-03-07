@@ -1,0 +1,104 @@
+{
+  "api_name": "柜台流通式债券最优报价",
+  "api_code": "bc_bestotcqt",
+  "description": "柜台流通式债券最优报价",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=323",
+    "name": "柜台流通式债券最优报价",
+    "category": "债券专题___bond"
+  },
+  "request_params": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "报价日期(YYYYMMDD格式，下同)",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "报价日期",
+      "default_display": false
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "债券编码",
+      "default_display": false
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "债券简称",
+      "default_display": false
+    },
+    {
+      "name": "remain_maturity",
+      "type": "str",
+      "description": "剩余期限",
+      "default_display": false
+    },
+    {
+      "name": "bond_type",
+      "type": "str",
+      "description": "债券类型",
+      "default_display": false
+    },
+    {
+      "name": "best_buy_bank",
+      "type": "str",
+      "description": "最优报买价方",
+      "default_display": false
+    },
+    {
+      "name": "best_buy_yield",
+      "type": "float",
+      "description": "投资者最优买入价到期收益率（%）",
+      "default_display": false
+    },
+    {
+      "name": "best_buy_price",
+      "type": "float",
+      "description": "投资者最优买入全价",
+      "default_display": false
+    },
+    {
+      "name": "best_sell_bank",
+      "type": "str",
+      "description": "最优卖报价方",
+      "default_display": false
+    },
+    {
+      "name": "best_sell_yield",
+      "type": "float",
+      "description": "投资者最优卖出价到期收益率（%）",
+      "default_display": false
+    },
+    {
+      "name": "best_sell_price",
+      "type": "float",
+      "description": "投资者最优卖出全价",
+      "default_display": false
+    }
+  ]
+}

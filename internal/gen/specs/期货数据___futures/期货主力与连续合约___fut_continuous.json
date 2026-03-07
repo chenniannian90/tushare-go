@@ -1,7 +1,7 @@
 {
-  "api_name": "fut_continuous",
-  "api_code": "fut_continuous",
-  "description": "期货主力与连续合约",
+  "api_name": "fut_mapping描述",
+  "api_code": "fut_mapping描述",
+  "description": "获取期货主力（或连续）合约与月合约映射数据",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=189",
     "name": "期货主力与连续合约",

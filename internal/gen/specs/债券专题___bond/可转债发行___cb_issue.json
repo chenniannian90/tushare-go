@@ -1,12 +1,248 @@
 {
-  "api_name": "cb_issue",
+  "api_name": "可转债发行",
   "api_code": "cb_issue",
-  "description": "可转债发行",
+  "description": "获取可转债发行数据",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=186",
     "name": "可转债发行",
     "category": "债券专题___bond"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码",
+      "required": false
+    },
+    {
+      "name": "ann_date",
+      "type": "str",
+      "description": "发行公告日",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "公告开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "公告结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "转债代码",
+      "default_display": true
+    },
+    {
+      "name": "ann_date",
+      "type": "str",
+      "description": "发行公告日",
+      "default_display": true
+    },
+    {
+      "name": "res_ann_date",
+      "type": "str",
+      "description": "发行结果公告日",
+      "default_display": true
+    },
+    {
+      "name": "plan_issue_size",
+      "type": "float",
+      "description": "计划发行总额（元）",
+      "default_display": true
+    },
+    {
+      "name": "issue_size",
+      "type": "float",
+      "description": "发行总额（元）",
+      "default_display": true
+    },
+    {
+      "name": "issue_price",
+      "type": "float",
+      "description": "发行价格",
+      "default_display": true
+    },
+    {
+      "name": "issue_type",
+      "type": "str",
+      "description": "发行方式",
+      "default_display": true
+    },
+    {
+      "name": "issue_cost",
+      "type": "float",
+      "description": "发行费用（元）",
+      "default_display": false
+    },
+    {
+      "name": "onl_code",
+      "type": "str",
+      "description": "网上申购代码",
+      "default_display": true
+    },
+    {
+      "name": "onl_name",
+      "type": "str",
+      "description": "网上申购简称",
+      "default_display": true
+    },
+    {
+      "name": "onl_date",
+      "type": "str",
+      "description": "网上发行日期",
+      "default_display": true
+    },
+    {
+      "name": "onl_size",
+      "type": "float",
+      "description": "网上发行总额（张）",
+      "default_display": true
+    },
+    {
+      "name": "onl_pch_vol",
+      "type": "float",
+      "description": "网上发行有效申购数量（张）",
+      "default_display": true
+    },
+    {
+      "name": "onl_pch_num",
+      "type": "int",
+      "description": "网上发行有效申购户数",
+      "default_display": true
+    },
+    {
+      "name": "onl_pch_excess",
+      "type": "float",
+      "description": "网上发行超额认购倍数",
+      "default_display": true
+    },
+    {
+      "name": "onl_winning_rate",
+      "type": "float",
+      "description": "网上发行中签率（%）",
+      "default_display": false
+    },
+    {
+      "name": "shd_ration_code",
+      "type": "str",
+      "description": "老股东配售代码",
+      "default_display": true
+    },
+    {
+      "name": "shd_ration_name",
+      "type": "str",
+      "description": "老股东配售简称",
+      "default_display": true
+    },
+    {
+      "name": "shd_ration_date",
+      "type": "str",
+      "description": "老股东配售日",
+      "default_display": true
+    },
+    {
+      "name": "shd_ration_record_date",
+      "type": "str",
+      "description": "老股东配售股权登记日",
+      "default_display": true
+    },
+    {
+      "name": "shd_ration_pay_date",
+      "type": "str",
+      "description": "老股东配售缴款日",
+      "default_display": true
+    },
+    {
+      "name": "shd_ration_price",
+      "type": "float",
+      "description": "老股东配售价格",
+      "default_display": true
+    },
+    {
+      "name": "shd_ration_ratio",
+      "type": "float",
+      "description": "老股东配售比例",
+      "default_display": true
+    },
+    {
+      "name": "shd_ration_size",
+      "type": "float",
+      "description": "老股东配售数量（张）",
+      "default_display": true
+    },
+    {
+      "name": "shd_ration_vol",
+      "type": "float",
+      "description": "老股东配售有效申购数量（张）",
+      "default_display": false
+    },
+    {
+      "name": "shd_ration_num",
+      "type": "int",
+      "description": "老股东配售有效申购户数",
+      "default_display": false
+    },
+    {
+      "name": "shd_ration_excess",
+      "type": "float",
+      "description": "老股东配售超额认购倍数",
+      "default_display": false
+    },
+    {
+      "name": "offl_size",
+      "type": "float",
+      "description": "网下发行总额（张）",
+      "default_display": true
+    },
+    {
+      "name": "offl_deposit",
+      "type": "float",
+      "description": "网下发行定金比例（%）",
+      "default_display": false
+    },
+    {
+      "name": "offl_pch_vol",
+      "type": "float",
+      "description": "网下发行有效申购数量（张）",
+      "default_display": false
+    },
+    {
+      "name": "offl_pch_num",
+      "type": "int",
+      "description": "网下发行有效申购户数",
+      "default_display": false
+    },
+    {
+      "name": "offl_pch_excess",
+      "type": "float",
+      "description": "网下发行超额认购倍数",
+      "default_display": false
+    },
+    {
+      "name": "offl_winning_rate",
+      "type": "float",
+      "description": "网下发行中签率",
+      "default_display": false
+    },
+    {
+      "name": "lead_underwriter",
+      "type": "str",
+      "description": "主承销商",
+      "default_display": false
+    },
+    {
+      "name": "lead_underwriter_vol",
+      "type": "float",
+      "description": "主承销商包销数量（张）",
+      "default_display": false
+    }
+  ]
 }

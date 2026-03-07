@@ -1,0 +1,62 @@
+{
+  "api_name": "可转债转股价变动",
+  "api_code": "cb_price_chg",
+  "description": "获取可转债转股价变动",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=246",
+    "name": "可转债转股价变动",
+    "category": "债券专题___bond"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "转债代码，支持多值输入",
+      "required": true
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "转债代码",
+      "default_display": true
+    },
+    {
+      "name": "bond_short_name",
+      "type": "str",
+      "description": "转债简称",
+      "default_display": true
+    },
+    {
+      "name": "publish_date",
+      "type": "str",
+      "description": "公告日期",
+      "default_display": true
+    },
+    {
+      "name": "change_date",
+      "type": "str",
+      "description": "变动日期",
+      "default_display": true
+    },
+    {
+      "name": "convert_price_initial",
+      "type": "float",
+      "description": "初始转股价格",
+      "default_display": true
+    },
+    {
+      "name": "convertprice_bef",
+      "type": "float",
+      "description": "修正前转股价格",
+      "default_display": true
+    },
+    {
+      "name": "convertprice_aft",
+      "type": "float",
+      "description": "修正后转股价格",
+      "default_display": true
+    }
+  ]
+}

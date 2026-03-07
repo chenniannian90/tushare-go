@@ -1,12 +1,128 @@
 {
-  "api_name": "cb_daily",
+  "api_name": "可转债行情",
   "api_code": "cb_daily",
-  "description": "可转债行情",
+  "description": "获取可转债行情",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=187",
     "name": "可转债行情",
     "category": "债券专题___bond"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期(YYYYMMDD格式，下同)",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "转债代码",
+      "default_display": true
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "pre_close",
+      "type": "float",
+      "description": "昨收盘价(元)",
+      "default_display": true
+    },
+    {
+      "name": "open",
+      "type": "float",
+      "description": "开盘价(元)",
+      "default_display": true
+    },
+    {
+      "name": "high",
+      "type": "float",
+      "description": "最高价(元)",
+      "default_display": true
+    },
+    {
+      "name": "low",
+      "type": "float",
+      "description": "最低价(元)",
+      "default_display": true
+    },
+    {
+      "name": "close",
+      "type": "float",
+      "description": "收盘价(元)",
+      "default_display": true
+    },
+    {
+      "name": "change",
+      "type": "float",
+      "description": "涨跌(元)",
+      "default_display": true
+    },
+    {
+      "name": "pct_chg",
+      "type": "float",
+      "description": "涨跌幅(%)",
+      "default_display": true
+    },
+    {
+      "name": "vol",
+      "type": "float",
+      "description": "成交量(手)",
+      "default_display": true
+    },
+    {
+      "name": "amount",
+      "type": "float",
+      "description": "成交金额(万元)",
+      "default_display": true
+    },
+    {
+      "name": "bond_value",
+      "type": "float",
+      "description": "纯债价值",
+      "default_display": false
+    },
+    {
+      "name": "bond_over_rate",
+      "type": "float",
+      "description": "纯债溢价率(%)",
+      "default_display": false
+    },
+    {
+      "name": "cb_value",
+      "type": "float",
+      "description": "转股价值",
+      "default_display": false
+    },
+    {
+      "name": "cb_over_rate",
+      "type": "float",
+      "description": "转股溢价率(%)",
+      "default_display": false
+    }
+  ]
 }

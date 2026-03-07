@@ -1,12 +1,104 @@
 {
-  "api_name": "monthly",
+  "api_name": "月线行情",
   "api_code": "monthly",
-  "description": "月线行情",
+  "description": "获取A股月线数据",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=145",
     "name": "月线行情",
     "category": "行情数据___stock_market"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码 （ts_code,trade_date两个参数任选一）",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期 （每月最后一个交易日日期，YYYYMMDD格式）",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "default_display": true
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "close",
+      "type": "float",
+      "description": "月收盘价",
+      "default_display": true
+    },
+    {
+      "name": "open",
+      "type": "float",
+      "description": "月开盘价",
+      "default_display": true
+    },
+    {
+      "name": "high",
+      "type": "float",
+      "description": "月最高价",
+      "default_display": true
+    },
+    {
+      "name": "low",
+      "type": "float",
+      "description": "月最低价",
+      "default_display": true
+    },
+    {
+      "name": "pre_close",
+      "type": "float",
+      "description": "上月收盘价",
+      "default_display": true
+    },
+    {
+      "name": "change",
+      "type": "float",
+      "description": "月涨跌额",
+      "default_display": true
+    },
+    {
+      "name": "pct_chg",
+      "type": "float",
+      "description": "月涨跌幅 （未复权，如果是复权请用 通用行情接口 ）",
+      "default_display": true
+    },
+    {
+      "name": "vol",
+      "type": "float",
+      "description": "月成交量",
+      "default_display": true
+    },
+    {
+      "name": "amount",
+      "type": "float",
+      "description": "月成交额",
+      "default_display": true
+    }
+  ]
 }

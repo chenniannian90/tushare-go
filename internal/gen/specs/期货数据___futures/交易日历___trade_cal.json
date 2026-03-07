@@ -1,12 +1,62 @@
 {
-  "api_name": "trade_cal",
+  "api_name": "交易日历",
   "api_code": "trade_cal",
-  "description": "交易日历",
+  "description": "获取各大期货交易所交易日历数据",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=137",
     "name": "交易日历",
     "category": "期货数据___futures"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易所 SHFE 上期所 DCE 大商所 CFFEX中金所  CZCE郑商所 INE上海国际能源交易所",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    },
+    {
+      "name": "is_open",
+      "type": "int",
+      "description": "是否交易 0休市 1交易",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易所 同参数部分描述",
+      "default_display": true
+    },
+    {
+      "name": "cal_date",
+      "type": "str",
+      "description": "日历日期",
+      "default_display": true
+    },
+    {
+      "name": "is_open",
+      "type": "int",
+      "description": "是否交易 0休市 1交易",
+      "default_display": true
+    },
+    {
+      "name": "pretrade_date",
+      "type": "str",
+      "description": "上一个交易日",
+      "default_display": false
+    }
+  ]
 }

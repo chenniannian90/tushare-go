@@ -1,0 +1,116 @@
+{
+  "api_name": "个股资金流向（THS）",
+  "api_code": "moneyflow_ths",
+  "description": "",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=348",
+    "name": "个股资金流向（THS）",
+    "category": "资金流向数据___stock_fund_flow"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期（YYYYMMDD格式，下同）",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "股票名称",
+      "default_display": true
+    },
+    {
+      "name": "pct_change",
+      "type": "float",
+      "description": "涨跌幅",
+      "default_display": true
+    },
+    {
+      "name": "latest",
+      "type": "float",
+      "description": "最新价",
+      "default_display": true
+    },
+    {
+      "name": "net_amount",
+      "type": "float",
+      "description": "资金净流入(万元)",
+      "default_display": true
+    },
+    {
+      "name": "net_d5_amount",
+      "type": "float",
+      "description": "5日主力净额(万元)",
+      "default_display": true
+    },
+    {
+      "name": "buy_lg_amount",
+      "type": "float",
+      "description": "今日大单净流入额(万元)",
+      "default_display": true
+    },
+    {
+      "name": "buy_lg_amount_rate",
+      "type": "float",
+      "description": "今日大单净流入占比(%)",
+      "default_display": true
+    },
+    {
+      "name": "buy_md_amount",
+      "type": "float",
+      "description": "今日中单净流入额(万元)",
+      "default_display": true
+    },
+    {
+      "name": "buy_md_amount_rate",
+      "type": "float",
+      "description": "今日中单净流入占比(%)",
+      "default_display": true
+    },
+    {
+      "name": "buy_sm_amount",
+      "type": "float",
+      "description": "今日小单净流入额(万元)",
+      "default_display": true
+    },
+    {
+      "name": "buy_sm_amount_rate",
+      "type": "float",
+      "description": "今日小单净流入占比(%)",
+      "default_display": true
+    }
+  ]
+}

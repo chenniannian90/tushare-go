@@ -1,12 +1,31 @@
 {
-  "api_name": "namechange",
+  "api_name": "股票曾用名",
   "api_code": "namechange",
-  "description": "股票曾用名",
+  "description": "历史名称变更记录",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=100",
     "name": "股票曾用名",
     "category": "基础数据___stock_basic"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "公告开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "公告结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": null
 }

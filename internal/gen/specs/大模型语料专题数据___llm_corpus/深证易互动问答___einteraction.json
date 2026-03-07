@@ -1,7 +1,7 @@
 {
-  "api_name": "einteraction",
-  "api_code": "einteraction",
-  "description": "深证易互动问答",
+  "api_name": "irm_qa_sz",
+  "api_code": "irm_qa_sz",
+  "description": "互动易是由深交所官方推出,供投资者与上市公司直接沟通的平台,一站式公司资讯汇集,提供第一手的互动问答、投资者关系信息、公司声音等内容。",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=367",
     "name": "深证易互动问答",

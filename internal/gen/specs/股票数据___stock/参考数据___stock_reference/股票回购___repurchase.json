@@ -1,12 +1,86 @@
 {
-  "api_name": "repurchase",
+  "api_name": "股票回购",
   "api_code": "repurchase",
-  "description": "股票回购",
+  "description": "获取上市公司回购股票数据",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=124",
     "name": "股票回购",
     "category": "参考数据___stock_reference"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ann_date",
+      "type": "str",
+      "description": "公告日期（任意填参数，如果都不填，单次默认返回2000条）",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "公告开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "公告结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码",
+      "default_display": true
+    },
+    {
+      "name": "ann_date",
+      "type": "str",
+      "description": "公告日期",
+      "default_display": true
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "截止日期",
+      "default_display": true
+    },
+    {
+      "name": "proc",
+      "type": "str",
+      "description": "进度",
+      "default_display": true
+    },
+    {
+      "name": "exp_date",
+      "type": "str",
+      "description": "过期日期",
+      "default_display": true
+    },
+    {
+      "name": "vol",
+      "type": "float",
+      "description": "回购数量",
+      "default_display": true
+    },
+    {
+      "name": "amount",
+      "type": "float",
+      "description": "回购金额",
+      "default_display": true
+    },
+    {
+      "name": "high_limit",
+      "type": "float",
+      "description": "回购最高价",
+      "default_display": true
+    },
+    {
+      "name": "low_limit",
+      "type": "float",
+      "description": "回购最低价",
+      "default_display": true
+    }
+  ]
 }

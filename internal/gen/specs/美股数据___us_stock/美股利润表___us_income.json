@@ -1,12 +1,92 @@
 {
-  "api_name": "us_income",
+  "api_name": "美股利润表",
   "api_code": "us_income",
-  "description": "美股利润表",
+  "description": "获取美股上市公司财务利润表数据（目前只覆盖主要美股和中概股）",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=394",
     "name": "美股利润表",
     "category": "美股数据___us_stock"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "required": true
+    },
+    {
+      "name": "period",
+      "type": "str",
+      "description": "报告期（格式：YYYYMMDD，每个季度最后一天的日期，如20241231)",
+      "required": false
+    },
+    {
+      "name": "ind_name",
+      "type": "str",
+      "description": "指标名(如：新增借款）",
+      "required": false
+    },
+    {
+      "name": "report_type",
+      "type": "str",
+      "description": "报告期类型(Q1一季报Q2半年报Q3三季报Q4年报)",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "报告期开始时间（格式：YYYYMMDD）",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "报告结束始时间（格式：YYYYMMDD）",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "default_display": true
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "报告期",
+      "default_display": true
+    },
+    {
+      "name": "ind_type",
+      "type": "str",
+      "description": "报告期类型(Q1一季报Q2半年报Q3三季报Q4年报)",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "股票名称",
+      "default_display": true
+    },
+    {
+      "name": "ind_name",
+      "type": "str",
+      "description": "财务科目名称",
+      "default_display": true
+    },
+    {
+      "name": "ind_value",
+      "type": "float",
+      "description": "财务科目值",
+      "default_display": true
+    },
+    {
+      "name": "report_type",
+      "type": "str",
+      "description": "报告类型",
+      "default_display": true
+    }
+  ]
 }

@@ -1,0 +1,110 @@
+{
+  "api_name": "行业资金流向（THS）",
+  "api_code": "moneyflow_ind_ths",
+  "description": "",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=343",
+    "name": "行业资金流向（THS）",
+    "category": "资金流向数据___stock_fund_flow"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "代码",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期(YYYYMMDD格式，下同)",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "板块代码",
+      "default_display": true
+    },
+    {
+      "name": "industry",
+      "type": "str",
+      "description": "板块名称",
+      "default_display": true
+    },
+    {
+      "name": "lead_stock",
+      "type": "str",
+      "description": "领涨股票名称",
+      "default_display": true
+    },
+    {
+      "name": "close",
+      "type": "float",
+      "description": "收盘指数",
+      "default_display": true
+    },
+    {
+      "name": "pct_change",
+      "type": "float",
+      "description": "指数涨跌幅",
+      "default_display": true
+    },
+    {
+      "name": "company_num",
+      "type": "int",
+      "description": "公司数量",
+      "default_display": true
+    },
+    {
+      "name": "pct_change_stock",
+      "type": "float",
+      "description": "领涨股涨跌幅",
+      "default_display": true
+    },
+    {
+      "name": "close_price",
+      "type": "float",
+      "description": "领涨股最新价",
+      "default_display": true
+    },
+    {
+      "name": "net_buy_amount",
+      "type": "float",
+      "description": "流入资金(亿元)",
+      "default_display": true
+    },
+    {
+      "name": "net_sell_amount",
+      "type": "float",
+      "description": "流出资金(亿元)",
+      "default_display": true
+    },
+    {
+      "name": "net_amount",
+      "type": "float",
+      "description": "净额(亿元)",
+      "default_display": true
+    }
+  ]
+}

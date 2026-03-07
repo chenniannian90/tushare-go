@@ -1,12 +1,86 @@
 {
-  "api_name": "top_inst",
+  "api_name": "龙虎榜机构交易单",
   "api_code": "top_inst",
-  "description": "龙虎榜机构交易单",
+  "description": "",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=107",
     "name": "龙虎榜机构交易单",
     "category": "打板专题数据___stock_board"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "required": true
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码",
+      "default_display": true
+    },
+    {
+      "name": "exalter",
+      "type": "str",
+      "description": "营业部名称",
+      "default_display": true
+    },
+    {
+      "name": "side",
+      "type": "str",
+      "description": "买卖类型0：买入金额最大的前5名， 1：卖出金额最大的前5名",
+      "default_display": true
+    },
+    {
+      "name": "buy",
+      "type": "float",
+      "description": "买入额（元）",
+      "default_display": true
+    },
+    {
+      "name": "buy_rate",
+      "type": "float",
+      "description": "买入占总成交比例",
+      "default_display": true
+    },
+    {
+      "name": "sell",
+      "type": "float",
+      "description": "卖出额（元）",
+      "default_display": true
+    },
+    {
+      "name": "sell_rate",
+      "type": "float",
+      "description": "卖出占总成交比例",
+      "default_display": true
+    },
+    {
+      "name": "net_buy",
+      "type": "float",
+      "description": "净成交额（元）",
+      "default_display": true
+    },
+    {
+      "name": "reason",
+      "type": "str",
+      "description": "上榜理由",
+      "default_display": true
+    }
+  ]
 }

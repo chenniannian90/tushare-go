@@ -3,9 +3,14 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"net/http"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
+	"time"
+
+	"github.com/PuerkitoBio/goquery"
 )
 
 // Category represents a top-level category in the API directory
@@ -61,12 +66,14 @@ type DescribeInfo struct {
 
 // ParamField represents a parameter or field definition
 type ParamField struct {
-	Name        string       `json:"name"`
-	Type        string       `json:"type"`
-	Description string       `json:"description"`
-	Properties  []ParamField `json:"properties,omitempty"`
-	Items       *ParamField  `json:"items,omitempty"`
-	Enum        []string     `json:"enum,omitempty"`
+	Name           string        `json:"name"`
+	Type           string        `json:"type"`
+	Description    string        `json:"description"`
+	Required       *bool         `json:"required,omitempty"` // Pointer to allow omitting for output fields
+	DefaultDisplay *bool         `json:"default_display,omitempty"` // Pointer to allow omitting for input fields
+	Properties     []ParamField  `json:"properties,omitempty"`
+	Items          *ParamField   `json:"items,omitempty"`
+	Enum           []string      `json:"enum,omitempty"`
 }
 
 func main() {
@@ -178,22 +185,36 @@ func generateAPISpec(api API, categoryPath string, baseURL string, outputDir str
 		return fmt.Errorf("failed to create output directory: %w", err)
 	}
 
-	// Create spec - use API code as api_name, Chinese name as description
+	// Fetch API details from Tushare documentation
+	docURL := fmt.Sprintf("%s%d", baseURL, api.DocID)
+	apiDetails, err := fetchAPIDetails(docURL)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "  ⚠️  Warning: could not fetch details for %s (doc_id: %d): %v\n", api.Name, api.DocID, err)
+		// Use basic info if fetch fails
+		apiDetails = &APIDetails{
+			APIName:        apiCode,
+			Description:    api.Name,
+			RequestParams:  []ParamField{},
+			ResponseFields: []ParamField{},
+		}
+	}
+
+	// Create spec - use Chinese name as api_name, API code as api_code
 	spec := APISpec{
-		APIName:     apiCode,
-		APICode:     apiCode, // Add api_code field for reference
-		Description: api.Name,
+		APIName:     api.Name,      // Use Chinese descriptive name as api_name
+		APICode:     apiDetails.APIName, // Use actual API code as api_code
+		Description: apiDetails.Description,
 		Describe: &DescribeInfo{
-			URL:      fmt.Sprintf("%s%d", baseURL, api.DocID),
+			URL:      docURL,
 			Name:     api.Name,
 			Category: getCategoryName(categoryPath),
 		},
-		RequestParams:  []ParamField{}, // Empty for now - will be filled manually
-		ResponseFields: []ParamField{}, // Empty for now - will be filled manually
+		RequestParams:  apiDetails.RequestParams,
+		ResponseFields: apiDetails.ResponseFields,
 	}
 
 	// Write spec to file with format: 中文名___api_code.json
-	outputFile := filepath.Join(outputSubdir, fileName+"___"+apiCode+".json")
+	outputFile := filepath.Join(outputSubdir, fileName+"___"+apiDetails.APIName+".json")
 	data, err := json.MarshalIndent(spec, "", "  ")
 	if err != nil {
 		return fmt.Errorf("failed to marshal spec: %w", err)
@@ -204,6 +225,136 @@ func generateAPISpec(api API, categoryPath string, baseURL string, outputDir str
 	}
 
 	return nil
+}
+
+// APIDetails holds API information fetched from documentation
+type APIDetails struct {
+	APIName        string      `json:"api_name"`
+	Description    string      `json:"description"`
+	RequestParams  []ParamField `json:"request_params"`
+	ResponseFields []ParamField `json:"response_fields"`
+}
+
+// fetchAPIDetails fetches API details from Tushare documentation URL
+func fetchAPIDetails(url string) (*APIDetails, error) {
+	client := &http.Client{
+		Timeout: 30 * time.Second,
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, fmt.Errorf("failed to create request: %w", err)
+	}
+
+	req.Header.Set("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("failed to fetch URL: %w", err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("HTTP status: %d", resp.StatusCode)
+	}
+
+	doc, err := goquery.NewDocumentFromReader(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse HTML: %w", err)
+	}
+
+	details := &APIDetails{}
+
+	// Extract API name and description from the same paragraph
+	doc.Find("p").Each(func(i int, s *goquery.Selection) {
+		text := s.Text()
+		if strings.Contains(text, "接口：") {
+			re := regexp.MustCompile(`接口：\s*(\w+)`)
+			matches := re.FindStringSubmatch(text)
+			if len(matches) > 1 {
+				details.APIName = matches[1]
+			}
+		}
+		if strings.Contains(text, "描述：") && details.Description == "" {
+			re := regexp.MustCompile(`描述：(.+?)(?:权限：|限量：|积分：|接口：|$)`)
+			matches := re.FindStringSubmatch(text)
+			if len(matches) > 1 {
+				details.Description = strings.TrimSpace(matches[1])
+			}
+		}
+	})
+
+	// Extract all tables and classify them by headers
+	var inputTable, outputTable *goquery.Selection
+	doc.Find("table").Each(func(i int, table *goquery.Selection) {
+		// Check table header to determine type
+		headerText := table.Find("tr").First().Text()
+		if strings.Contains(headerText, "必选") {
+			// This is input parameters table
+			inputTable = table
+		} else if strings.Contains(headerText, "默认显示") {
+			// This is output parameters table
+			outputTable = table
+		}
+	})
+
+	if inputTable != nil {
+		details.RequestParams = extractTableParams(inputTable, true)
+	}
+	if outputTable != nil {
+		details.ResponseFields = extractTableParams(outputTable, false)
+	}
+
+	// If API name not found, generate from URL as fallback
+	if details.APIName == "" {
+		re := regexp.MustCompile(`doc_id=(\d+)`)
+		matches := re.FindStringSubmatch(url)
+		if len(matches) > 1 {
+			details.APIName = fmt.Sprintf("api_%s", matches[1])
+		}
+	}
+
+	return details, nil
+}
+
+// extractTableParams extracts parameters from an HTML table
+func extractTableParams(table *goquery.Selection, isInput bool) []ParamField {
+	var params []ParamField
+
+	table.Find("tr").Each(func(i int, row *goquery.Selection) {
+		// Skip header row
+		if i == 0 {
+			return
+		}
+
+		cells := row.Find("td")
+		if cells.Length() < 3 {
+			return
+		}
+
+		param := ParamField{
+			Name:        strings.TrimSpace(cells.Eq(0).Text()),
+			Type:        strings.TrimSpace(cells.Eq(1).Text()),
+			Description: strings.TrimSpace(cells.Eq(3).Text()),
+		}
+
+		if isInput {
+			required := strings.TrimSpace(cells.Eq(2).Text())
+			reqVal := required == "Y" || strings.ToLower(required) == "true"
+			param.Required = &reqVal
+		} else {
+			// Output parameters have default display column
+			defaultDisplay := strings.TrimSpace(cells.Eq(2).Text())
+			defDispVal := defaultDisplay == "Y" || strings.ToLower(defaultDisplay) == "true"
+			param.DefaultDisplay = &defDispVal
+		}
+
+		if param.Name != "" {
+			params = append(params, param)
+		}
+	})
+
+	return params
 }
 
 // getAPICode returns the actual API code name for a given Chinese API name

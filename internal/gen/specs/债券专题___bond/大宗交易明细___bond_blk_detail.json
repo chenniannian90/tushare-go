@@ -1,0 +1,86 @@
+{
+  "api_name": "大宗交易明细",
+  "api_code": "bond_blk_detail",
+  "description": "获取沪深交易所债券大宗交易数据，可以通过数据工具调试和查看数据。",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=272",
+    "name": "大宗交易明细",
+    "category": "债券专题___bond"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "债券代码",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期（YYYYMMDD格式，下同）",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "债券代码",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "债券名称",
+      "default_display": true
+    },
+    {
+      "name": "price",
+      "type": "float",
+      "description": "成交价（元）",
+      "default_display": true
+    },
+    {
+      "name": "vol",
+      "type": "float",
+      "description": "成交数量（万股/万份/万张/万手）",
+      "default_display": true
+    },
+    {
+      "name": "amount",
+      "type": "float",
+      "description": "成交金额（万元）",
+      "default_display": true
+    },
+    {
+      "name": "buy_dp",
+      "type": "str",
+      "description": "买方营业部",
+      "default_display": true
+    },
+    {
+      "name": "sell_dp",
+      "type": "str",
+      "description": "卖方营业部",
+      "default_display": true
+    }
+  ]
+}

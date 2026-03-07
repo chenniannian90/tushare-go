@@ -1,12 +1,62 @@
 {
-  "api_name": "trade_cal",
+  "api_name": "交易日历",
   "api_code": "trade_cal",
-  "description": "交易日历",
+  "description": "获取各大交易所交易日历数据,默认提取的是上交所",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=26",
     "name": "交易日历",
     "category": "基础数据___stock_basic"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易所 SSE上交所,SZSE深交所,CFFEX 中金所,SHFE 上期所,CZCE 郑商所,DCE 大商所,INE 上能源",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期 （格式：YYYYMMDD 下同）",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    },
+    {
+      "name": "is_open",
+      "type": "str",
+      "description": "是否交易 '0'休市 '1'交易",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易所 SSE上交所 SZSE深交所",
+      "default_display": true
+    },
+    {
+      "name": "cal_date",
+      "type": "str",
+      "description": "日历日期",
+      "default_display": true
+    },
+    {
+      "name": "is_open",
+      "type": "str",
+      "description": "是否交易 0休市 1交易",
+      "default_display": true
+    },
+    {
+      "name": "pretrade_date",
+      "type": "str",
+      "description": "上一个交易日",
+      "default_display": true
+    }
+  ]
 }

@@ -1,0 +1,158 @@
+{
+  "api_name": "涨跌停和炸板数据",
+  "api_code": "limit_list_d",
+  "description": "获取A股每日涨跌停、炸板数据情况，数据从2020年开始（不提供ST股票的统计）",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=298",
+    "name": "涨跌停和炸板数据",
+    "category": "打板专题数据___stock_board"
+  },
+  "request_params": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "required": false
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "required": false
+    },
+    {
+      "name": "limit_type",
+      "type": "str",
+      "description": "涨跌停类型（U涨停D跌停Z炸板）",
+      "required": false
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易所（SH上交所SZ深交所BJ北交所）",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "default_display": true
+    },
+    {
+      "name": "industry",
+      "type": "str",
+      "description": "所属行业",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "股票名称",
+      "default_display": true
+    },
+    {
+      "name": "close",
+      "type": "float",
+      "description": "收盘价",
+      "default_display": true
+    },
+    {
+      "name": "pct_chg",
+      "type": "float",
+      "description": "涨跌幅",
+      "default_display": true
+    },
+    {
+      "name": "amount",
+      "type": "float",
+      "description": "成交额",
+      "default_display": true
+    },
+    {
+      "name": "limit_amount",
+      "type": "float",
+      "description": "板上成交金额(成交价格为该股票跌停价的所有成交额的总和，涨停无此数据)",
+      "default_display": true
+    },
+    {
+      "name": "float_mv",
+      "type": "float",
+      "description": "流通市值",
+      "default_display": true
+    },
+    {
+      "name": "total_mv",
+      "type": "float",
+      "description": "总市值",
+      "default_display": true
+    },
+    {
+      "name": "turnover_ratio",
+      "type": "float",
+      "description": "换手率",
+      "default_display": true
+    },
+    {
+      "name": "fd_amount",
+      "type": "float",
+      "description": "封单金额（以涨停价买入挂单的资金总量）",
+      "default_display": true
+    },
+    {
+      "name": "first_time",
+      "type": "str",
+      "description": "首次封板时间（跌停无此数据）",
+      "default_display": true
+    },
+    {
+      "name": "last_time",
+      "type": "str",
+      "description": "最后封板时间",
+      "default_display": true
+    },
+    {
+      "name": "open_times",
+      "type": "int",
+      "description": "炸板次数(跌停为开板次数)",
+      "default_display": true
+    },
+    {
+      "name": "up_stat",
+      "type": "str",
+      "description": "涨停统计（N/T T天有N次涨停）",
+      "default_display": true
+    },
+    {
+      "name": "limit_times",
+      "type": "int",
+      "description": "连板数（个股连续封板数量）",
+      "default_display": true
+    },
+    {
+      "name": "limit",
+      "type": "str",
+      "description": "D跌停U涨停Z炸板",
+      "default_display": true
+    }
+  ]
+}

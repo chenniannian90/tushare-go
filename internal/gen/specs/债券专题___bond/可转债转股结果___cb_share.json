@@ -1,0 +1,128 @@
+{
+  "api_name": "可转债转股结果",
+  "api_code": "cb_share",
+  "description": "获取可转债转股结果",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=247",
+    "name": "可转债转股结果",
+    "category": "债券专题___bond"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "转债代码，支持多值输入",
+      "required": true
+    },
+    {
+      "name": "ann_date",
+      "type": "str",
+      "description": "公告日期（YYYYMMDD格式，下同）",
+      "required": true
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "公告开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "公告结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "债券代码",
+      "default_display": true
+    },
+    {
+      "name": "bond_short_name",
+      "type": "str",
+      "description": "债券简称",
+      "default_display": true
+    },
+    {
+      "name": "publish_date",
+      "type": "str",
+      "description": "公告日期",
+      "default_display": true
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "统计截止日期",
+      "default_display": true
+    },
+    {
+      "name": "issue_size",
+      "type": "float",
+      "description": "可转债发行总额",
+      "default_display": true
+    },
+    {
+      "name": "convert_price_initial",
+      "type": "float",
+      "description": "初始转换价格",
+      "default_display": true
+    },
+    {
+      "name": "convert_price",
+      "type": "float",
+      "description": "本次转换价格",
+      "default_display": true
+    },
+    {
+      "name": "convert_val",
+      "type": "float",
+      "description": "本次转股金额",
+      "default_display": true
+    },
+    {
+      "name": "convert_vol",
+      "type": "float",
+      "description": "本次转股数量",
+      "default_display": true
+    },
+    {
+      "name": "convert_ratio",
+      "type": "float",
+      "description": "本次转股比例",
+      "default_display": true
+    },
+    {
+      "name": "acc_convert_val",
+      "type": "float",
+      "description": "累计转股金额",
+      "default_display": true
+    },
+    {
+      "name": "acc_convert_vol",
+      "type": "float",
+      "description": "累计转股数量",
+      "default_display": true
+    },
+    {
+      "name": "acc_convert_ratio",
+      "type": "float",
+      "description": "累计转股比例",
+      "default_display": true
+    },
+    {
+      "name": "remain_size",
+      "type": "float",
+      "description": "可转债剩余金额",
+      "default_display": true
+    },
+    {
+      "name": "total_shares",
+      "type": "float",
+      "description": "转股后总股本",
+      "default_display": true
+    }
+  ]
+}

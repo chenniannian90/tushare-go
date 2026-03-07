@@ -1,0 +1,68 @@
+{
+  "api_name": "ETF复权因子",
+  "api_code": "fund_adj",
+  "description": "",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=199",
+    "name": "ETF复权因子",
+    "category": "ETF专题___etf"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS基金代码（支持多只基金输入）",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期（格式：yyyymmdd，下同）",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    },
+    {
+      "name": "offset",
+      "type": "str",
+      "description": "开始行数",
+      "required": false
+    },
+    {
+      "name": "limit",
+      "type": "str",
+      "description": "最大行数",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "ts基金代码",
+      "default_display": true
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "adj_factor",
+      "type": "float",
+      "description": "复权因子",
+      "default_display": true
+    }
+  ]
+}

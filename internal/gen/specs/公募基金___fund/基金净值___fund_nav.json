@@ -1,12 +1,98 @@
 {
-  "api_name": "fund_nav",
+  "api_name": "基金净值",
   "api_code": "fund_nav",
-  "description": "基金净值",
+  "description": "获取公募基金净值数据",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=119",
     "name": "基金净值",
     "category": "公募基金___fund"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS基金代码 （二选一）",
+      "required": false
+    },
+    {
+      "name": "nav_date",
+      "type": "str",
+      "description": "净值日期 （二选一）",
+      "required": false
+    },
+    {
+      "name": "market",
+      "type": "str",
+      "description": "E场内 O场外",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "净值开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "净值结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码",
+      "default_display": true
+    },
+    {
+      "name": "ann_date",
+      "type": "str",
+      "description": "公告日期",
+      "default_display": true
+    },
+    {
+      "name": "nav_date",
+      "type": "str",
+      "description": "净值日期",
+      "default_display": true
+    },
+    {
+      "name": "unit_nav",
+      "type": "float",
+      "description": "单位净值",
+      "default_display": true
+    },
+    {
+      "name": "accum_nav",
+      "type": "float",
+      "description": "累计净值",
+      "default_display": true
+    },
+    {
+      "name": "accum_div",
+      "type": "float",
+      "description": "累计分红",
+      "default_display": true
+    },
+    {
+      "name": "net_asset",
+      "type": "float",
+      "description": "资产净值",
+      "default_display": true
+    },
+    {
+      "name": "total_netasset",
+      "type": "float",
+      "description": "合计资产净值",
+      "default_display": true
+    },
+    {
+      "name": "adj_nav",
+      "type": "float",
+      "description": "复权单位净值",
+      "default_display": true
+    }
+  ]
 }

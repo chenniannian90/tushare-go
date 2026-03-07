@@ -1,0 +1,74 @@
+{
+  "api_name": "转融券交易明细(停）",
+  "api_code": "slb_sec_detail",
+  "description": "转融券交易明细",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=333",
+    "name": "转融券交易明细(停）",
+    "category": "两融及转融通___stock_margin"
+  },
+  "request_params": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期（YYYYMMDD格式，下同）",
+      "required": false
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期（YYYYMMDD）",
+      "default_display": true
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "股票名称",
+      "default_display": true
+    },
+    {
+      "name": "tenor",
+      "type": "str",
+      "description": "期 限(天)",
+      "default_display": true
+    },
+    {
+      "name": "fee_rate",
+      "type": "float",
+      "description": "融出费率(%)",
+      "default_display": true
+    },
+    {
+      "name": "lent_qnt",
+      "type": "float",
+      "description": "转融券融出数量(万股)",
+      "default_display": true
+    }
+  ]
+}

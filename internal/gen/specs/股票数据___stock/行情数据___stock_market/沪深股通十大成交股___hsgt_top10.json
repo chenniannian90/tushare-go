@@ -1,0 +1,43 @@
+{
+  "api_name": "沪深股通十大成交股",
+  "api_code": "hsgt_top10",
+  "description": "获取沪股通、深股通每日前十大成交详细数据，每天18~20点之间完成当日更新",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=48",
+    "name": "沪深股通十大成交股",
+    "category": "行情数据___stock_market"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码（二选一）",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期（二选一）",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    },
+    {
+      "name": "market_type",
+      "type": "str",
+      "description": "市场类型（1：沪市 3：深市）",
+      "required": false
+    }
+  ],
+  "response_fields": null
+}

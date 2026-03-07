@@ -1,0 +1,98 @@
+{
+  "api_name": "货币供应量（月）",
+  "api_code": "cn_m",
+  "description": "获取货币供应量之月度数据",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=242",
+    "name": "货币供应量（月）",
+    "category": "货币供应量___macro_money_supply"
+  },
+  "request_params": [
+    {
+      "name": "m",
+      "type": "str",
+      "description": "月度（202001表示，2020年1月）",
+      "required": false
+    },
+    {
+      "name": "start_m",
+      "type": "str",
+      "description": "开始月度",
+      "required": false
+    },
+    {
+      "name": "end_m",
+      "type": "str",
+      "description": "结束月度",
+      "required": false
+    },
+    {
+      "name": "fields",
+      "type": "str",
+      "description": "指定输出字段（e.g. fields='month,m0,m1,m2'）",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "month",
+      "type": "str",
+      "description": "月份YYYYMM",
+      "default_display": true
+    },
+    {
+      "name": "m0",
+      "type": "float",
+      "description": "M0（亿元）",
+      "default_display": true
+    },
+    {
+      "name": "m0_yoy",
+      "type": "float",
+      "description": "M0同比（%）",
+      "default_display": true
+    },
+    {
+      "name": "m0_mom",
+      "type": "float",
+      "description": "M0环比（%）",
+      "default_display": true
+    },
+    {
+      "name": "m1",
+      "type": "float",
+      "description": "M1（亿元）",
+      "default_display": true
+    },
+    {
+      "name": "m1_yoy",
+      "type": "float",
+      "description": "M1同比（%）",
+      "default_display": true
+    },
+    {
+      "name": "m1_mom",
+      "type": "float",
+      "description": "M1环比（%）",
+      "default_display": true
+    },
+    {
+      "name": "m2",
+      "type": "float",
+      "description": "M2（亿元）",
+      "default_display": true
+    },
+    {
+      "name": "m2_yoy",
+      "type": "float",
+      "description": "M2同比（%）",
+      "default_display": true
+    },
+    {
+      "name": "m2_mom",
+      "type": "float",
+      "description": "M2环比（%）",
+      "default_display": true
+    }
+  ]
+}

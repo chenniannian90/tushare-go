@@ -1,12 +1,104 @@
 {
-  "api_name": "ths_hot",
+  "api_name": "同花顺App热榜数",
   "api_code": "ths_hot",
-  "description": "同花顺App热榜数",
+  "description": "",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=320",
     "name": "同花顺App热榜数",
     "category": "打板专题数据___stock_board"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "required": false
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码",
+      "required": false
+    },
+    {
+      "name": "market",
+      "type": "str",
+      "description": "热榜类型(热股、ETF、可转债、行业板块、概念板块、期货、港股、热基、美股)",
+      "required": false
+    },
+    {
+      "name": "is_new",
+      "type": "str",
+      "description": "是否最新（默认Y，如果为N则为盘中和盘后阶段采集，具体时间可参考rank_time字段，状态N每小时更新一次，状态Y更新时间为22：30）",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "data_type",
+      "type": "str",
+      "description": "数据类型",
+      "default_display": true
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "default_display": true
+    },
+    {
+      "name": "ts_name",
+      "type": "str",
+      "description": "股票名称",
+      "default_display": true
+    },
+    {
+      "name": "rank",
+      "type": "int",
+      "description": "排行",
+      "default_display": true
+    },
+    {
+      "name": "pct_change",
+      "type": "float",
+      "description": "涨跌幅%",
+      "default_display": true
+    },
+    {
+      "name": "current_price",
+      "type": "float",
+      "description": "当前价格",
+      "default_display": true
+    },
+    {
+      "name": "concept",
+      "type": "str",
+      "description": "标签",
+      "default_display": true
+    },
+    {
+      "name": "rank_reason",
+      "type": "str",
+      "description": "上榜解读",
+      "default_display": true
+    },
+    {
+      "name": "hot",
+      "type": "float",
+      "description": "热度值",
+      "default_display": true
+    },
+    {
+      "name": "rank_time",
+      "type": "str",
+      "description": "排行榜获取时间",
+      "default_display": true
+    }
+  ]
 }

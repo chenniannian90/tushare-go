@@ -1,12 +1,182 @@
 {
-  "api_name": "fund_basic",
+  "api_name": "基金列表",
   "api_code": "fund_basic",
-  "description": "基金列表",
+  "description": "获取公募基金数据列表，包括场内和场外基金",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=19",
     "name": "基金列表",
     "category": "公募基金___fund"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "基金代码",
+      "required": false
+    },
+    {
+      "name": "market",
+      "type": "str",
+      "description": "交易市场: E场内 O场外（默认E）",
+      "required": false
+    },
+    {
+      "name": "status",
+      "type": "str",
+      "description": "存续状态 D摘牌 I发行 L上市中",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "基金代码",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "简称",
+      "default_display": true
+    },
+    {
+      "name": "management",
+      "type": "str",
+      "description": "管理人",
+      "default_display": true
+    },
+    {
+      "name": "custodian",
+      "type": "str",
+      "description": "托管人",
+      "default_display": true
+    },
+    {
+      "name": "fund_type",
+      "type": "str",
+      "description": "投资类型",
+      "default_display": true
+    },
+    {
+      "name": "found_date",
+      "type": "str",
+      "description": "成立日期",
+      "default_display": true
+    },
+    {
+      "name": "due_date",
+      "type": "str",
+      "description": "到期日期",
+      "default_display": true
+    },
+    {
+      "name": "list_date",
+      "type": "str",
+      "description": "上市时间",
+      "default_display": true
+    },
+    {
+      "name": "issue_date",
+      "type": "str",
+      "description": "发行日期",
+      "default_display": true
+    },
+    {
+      "name": "delist_date",
+      "type": "str",
+      "description": "退市日期",
+      "default_display": true
+    },
+    {
+      "name": "issue_amount",
+      "type": "float",
+      "description": "发行份额(亿)",
+      "default_display": true
+    },
+    {
+      "name": "m_fee",
+      "type": "float",
+      "description": "管理费",
+      "default_display": true
+    },
+    {
+      "name": "c_fee",
+      "type": "float",
+      "description": "托管费",
+      "default_display": true
+    },
+    {
+      "name": "duration_year",
+      "type": "float",
+      "description": "存续期",
+      "default_display": true
+    },
+    {
+      "name": "p_value",
+      "type": "float",
+      "description": "面值",
+      "default_display": true
+    },
+    {
+      "name": "min_amount",
+      "type": "float",
+      "description": "起点金额(万元)",
+      "default_display": true
+    },
+    {
+      "name": "exp_return",
+      "type": "float",
+      "description": "预期收益率",
+      "default_display": true
+    },
+    {
+      "name": "benchmark",
+      "type": "str",
+      "description": "业绩比较基准",
+      "default_display": true
+    },
+    {
+      "name": "status",
+      "type": "str",
+      "description": "存续状态D摘牌 I发行 L已上市",
+      "default_display": true
+    },
+    {
+      "name": "invest_type",
+      "type": "str",
+      "description": "投资风格",
+      "default_display": true
+    },
+    {
+      "name": "type",
+      "type": "str",
+      "description": "基金类型",
+      "default_display": true
+    },
+    {
+      "name": "trustee",
+      "type": "str",
+      "description": "受托人",
+      "default_display": true
+    },
+    {
+      "name": "purc_startdate",
+      "type": "str",
+      "description": "日常申购起始日",
+      "default_display": true
+    },
+    {
+      "name": "redm_startdate",
+      "type": "str",
+      "description": "日常赎回起始日",
+      "default_display": true
+    },
+    {
+      "name": "market",
+      "type": "str",
+      "description": "E场内O场外",
+      "default_display": true
+    }
+  ]
 }

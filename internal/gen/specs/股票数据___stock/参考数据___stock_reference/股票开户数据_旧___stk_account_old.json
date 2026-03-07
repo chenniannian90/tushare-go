@@ -1,0 +1,80 @@
+{
+  "api_name": "股票开户数据（旧）",
+  "api_code": "stk_account_old",
+  "description": "获取股票账户开户数据旧版格式数据，数据从2008年1月开始，到2015年5月29，新数据请通过股票开户数据获取。",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=165",
+    "name": "股票开户数据（旧）",
+    "category": "参考数据___stock_reference"
+  },
+  "request_params": [
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "date",
+      "type": "str",
+      "description": "统计周期",
+      "default_display": true
+    },
+    {
+      "name": "new_sh",
+      "type": "int",
+      "description": "本周新增（上海，户）",
+      "default_display": true
+    },
+    {
+      "name": "new_sz",
+      "type": "int",
+      "description": "本周新增（深圳，户）",
+      "default_display": true
+    },
+    {
+      "name": "active_sh",
+      "type": "float",
+      "description": "期末有效账户（上海，万户）",
+      "default_display": true
+    },
+    {
+      "name": "active_sz",
+      "type": "float",
+      "description": "期末有效账户（深圳，万户）",
+      "default_display": true
+    },
+    {
+      "name": "total_sh",
+      "type": "float",
+      "description": "期末账户数（上海，万户）",
+      "default_display": true
+    },
+    {
+      "name": "total_sz",
+      "type": "float",
+      "description": "期末账户数（深圳，万户）",
+      "default_display": true
+    },
+    {
+      "name": "trade_sh",
+      "type": "float",
+      "description": "参与交易账户数（上海，万户）",
+      "default_display": true
+    },
+    {
+      "name": "trade_sz",
+      "type": "float",
+      "description": "参与交易账户数（深圳，万户）",
+      "default_display": true
+    }
+  ]
+}

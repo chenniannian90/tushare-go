@@ -1,12 +1,43 @@
 {
-  "api_name": "express",
+  "api_name": "业绩快报",
   "api_code": "express",
-  "description": "业绩快报",
+  "description": "获取上市公司业绩快报",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=46",
     "name": "业绩快报",
     "category": "财务数据___stock_financial"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "required": true
+    },
+    {
+      "name": "ann_date",
+      "type": "str",
+      "description": "公告日期",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "公告开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "公告结束日期",
+      "required": false
+    },
+    {
+      "name": "period",
+      "type": "str",
+      "description": "报告期(每个季度最后一天的日期,比如20171231表示年报，20170630半年报，20170930三季报)",
+      "required": false
+    }
+  ],
+  "response_fields": null
 }

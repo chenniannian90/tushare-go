@@ -1,12 +1,37 @@
 {
-  "api_name": "index_daily",
+  "api_name": "指数日线行情",
   "api_code": "index_daily",
-  "description": "指数日线行情",
+  "description": "获取指数每日行情，还可以通过bar接口获取。由于服务器压力，目前规则是单次调取最多取8000行记录，可以设置start和end日期补全。指数行情也可以通过通用行情接口获取数据．",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=95",
     "name": "指数日线行情",
     "category": "指数专题___index"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "指数代码，来源指数基础信息接口",
+      "required": true
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期 （日期格式：YYYYMMDD，下同）",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": null
 }

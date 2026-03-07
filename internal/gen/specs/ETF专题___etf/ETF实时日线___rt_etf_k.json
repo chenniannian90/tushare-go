@@ -1,0 +1,104 @@
+{
+  "api_name": "ETF实时日线",
+  "api_code": "rt_etf_k",
+  "description": "",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=400",
+    "name": "ETF实时日线",
+    "category": "ETF专题___etf"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "支持通配符方式，e.g. 5*.SH、15*.SZ、159101.SZ",
+      "required": true
+    },
+    {
+      "name": "topic",
+      "type": "str",
+      "description": "分类参数，取上海ETF时，需要输入'HQ_FND_TICK'，参考下面例子",
+      "required": true
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "ETF代码",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "None",
+      "description": "ETF名称",
+      "default_display": true
+    },
+    {
+      "name": "pre_close",
+      "type": "float",
+      "description": "昨收价",
+      "default_display": true
+    },
+    {
+      "name": "high",
+      "type": "float",
+      "description": "最高价",
+      "default_display": true
+    },
+    {
+      "name": "open",
+      "type": "float",
+      "description": "开盘价",
+      "default_display": true
+    },
+    {
+      "name": "low",
+      "type": "float",
+      "description": "最低价",
+      "default_display": true
+    },
+    {
+      "name": "close",
+      "type": "float",
+      "description": "收盘价（最新价）",
+      "default_display": true
+    },
+    {
+      "name": "vol",
+      "type": "int",
+      "description": "成交量（股）",
+      "default_display": true
+    },
+    {
+      "name": "amount",
+      "type": "int",
+      "description": "成交金额（元）",
+      "default_display": true
+    },
+    {
+      "name": "num",
+      "type": "int",
+      "description": "开盘以来成交笔数",
+      "default_display": true
+    },
+    {
+      "name": "ask_volume1",
+      "type": "int",
+      "description": "委托卖盘（股）",
+      "default_display": false
+    },
+    {
+      "name": "bid_volume1",
+      "type": "int",
+      "description": "委托买盘（股）",
+      "default_display": false
+    },
+    {
+      "name": "trade_time",
+      "type": "str",
+      "description": "交易时间",
+      "default_display": false
+    }
+  ]
+}

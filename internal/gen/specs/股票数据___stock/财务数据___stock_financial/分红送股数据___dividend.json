@@ -1,5 +1,5 @@
 {
-  "api_name": "dividend",
+  "api_name": "分红送股数据",
   "api_code": "dividend",
   "description": "分红送股数据",
   "__describe__": {
@@ -7,6 +7,134 @@
     "name": "分红送股数据",
     "category": "财务数据___stock_financial"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码",
+      "required": false
+    },
+    {
+      "name": "ann_date",
+      "type": "str",
+      "description": "公告日",
+      "required": false
+    },
+    {
+      "name": "record_date",
+      "type": "str",
+      "description": "股权登记日期",
+      "required": false
+    },
+    {
+      "name": "ex_date",
+      "type": "str",
+      "description": "除权除息日",
+      "required": false
+    },
+    {
+      "name": "imp_ann_date",
+      "type": "str",
+      "description": "实施公告日",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码",
+      "default_display": true
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "分红年度",
+      "default_display": true
+    },
+    {
+      "name": "ann_date",
+      "type": "str",
+      "description": "预案公告日",
+      "default_display": true
+    },
+    {
+      "name": "div_proc",
+      "type": "str",
+      "description": "实施进度",
+      "default_display": true
+    },
+    {
+      "name": "stk_div",
+      "type": "float",
+      "description": "每股送转",
+      "default_display": true
+    },
+    {
+      "name": "stk_bo_rate",
+      "type": "float",
+      "description": "每股送股比例",
+      "default_display": true
+    },
+    {
+      "name": "stk_co_rate",
+      "type": "float",
+      "description": "每股转增比例",
+      "default_display": true
+    },
+    {
+      "name": "cash_div",
+      "type": "float",
+      "description": "每股分红（税后）",
+      "default_display": true
+    },
+    {
+      "name": "cash_div_tax",
+      "type": "float",
+      "description": "每股分红（税前）",
+      "default_display": true
+    },
+    {
+      "name": "record_date",
+      "type": "str",
+      "description": "股权登记日",
+      "default_display": true
+    },
+    {
+      "name": "ex_date",
+      "type": "str",
+      "description": "除权除息日",
+      "default_display": true
+    },
+    {
+      "name": "pay_date",
+      "type": "str",
+      "description": "派息日",
+      "default_display": true
+    },
+    {
+      "name": "div_listdate",
+      "type": "str",
+      "description": "红股上市日",
+      "default_display": true
+    },
+    {
+      "name": "imp_ann_date",
+      "type": "str",
+      "description": "实施公告日",
+      "default_display": true
+    },
+    {
+      "name": "base_date",
+      "type": "str",
+      "description": "基准日",
+      "default_display": false
+    },
+    {
+      "name": "base_share",
+      "type": "float",
+      "description": "基准股本（万）",
+      "default_display": false
+    }
+  ]
 }

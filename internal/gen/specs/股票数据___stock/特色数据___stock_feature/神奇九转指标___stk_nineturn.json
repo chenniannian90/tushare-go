@@ -1,0 +1,122 @@
+{
+  "api_name": "神奇九转指标",
+  "api_code": "stk_nineturn",
+  "description": "神奇九转（又称“九转序列”）是一种基于技术分析的股票趋势反转指标，其思想来源于技术分析大师汤姆·迪马克（Tom DeMark）的TD序列。该指标的核心功能是通过识别股价在上涨或下跌过程中连续9天的特定走势，来判断股价的潜在反转点，从而帮助投资者提高抄底和逃顶的成功率，日线级别配合60min的九转效果更好，数据从20230101开始。",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=364",
+    "name": "神奇九转指标",
+    "category": "特色数据___stock_feature"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期 （格式：YYYY-MM-DD HH:MM:SS)",
+      "required": false
+    },
+    {
+      "name": "freq",
+      "type": "str",
+      "description": "频率(日daily)",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始时间",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束时间",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "default_display": true
+    },
+    {
+      "name": "trade_date",
+      "type": "datetime",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "freq",
+      "type": "str",
+      "description": "频率(日daily)",
+      "default_display": true
+    },
+    {
+      "name": "open",
+      "type": "float",
+      "description": "开盘价",
+      "default_display": true
+    },
+    {
+      "name": "high",
+      "type": "float",
+      "description": "最高价",
+      "default_display": true
+    },
+    {
+      "name": "low",
+      "type": "float",
+      "description": "最低价",
+      "default_display": true
+    },
+    {
+      "name": "close",
+      "type": "float",
+      "description": "收盘价",
+      "default_display": true
+    },
+    {
+      "name": "vol",
+      "type": "float",
+      "description": "成交量",
+      "default_display": true
+    },
+    {
+      "name": "amount",
+      "type": "float",
+      "description": "成交额",
+      "default_display": true
+    },
+    {
+      "name": "up_count",
+      "type": "float",
+      "description": "上九转计数",
+      "default_display": true
+    },
+    {
+      "name": "down_count",
+      "type": "float",
+      "description": "下九转计数",
+      "default_display": true
+    },
+    {
+      "name": "nine_up_turn",
+      "type": "str",
+      "description": "是否上九转)+9表示上九转",
+      "default_display": true
+    },
+    {
+      "name": "nine_down_turn",
+      "type": "str",
+      "description": "是否下九转-9表示下九转",
+      "default_display": true
+    }
+  ]
+}

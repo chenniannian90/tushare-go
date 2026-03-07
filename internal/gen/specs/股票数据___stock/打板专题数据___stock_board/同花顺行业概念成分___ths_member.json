@@ -1,12 +1,68 @@
 {
-  "api_name": "ths_member",
+  "api_name": "同花顺行业概念成分",
   "api_code": "ths_member",
-  "description": "同花顺行业概念成分",
+  "description": "",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=261",
     "name": "同花顺行业概念成分",
     "category": "打板专题数据___stock_board"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "板块指数代码",
+      "required": false
+    },
+    {
+      "name": "con_code",
+      "type": "str",
+      "description": "股票代码",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "指数代码",
+      "default_display": true
+    },
+    {
+      "name": "con_code",
+      "type": "str",
+      "description": "股票代码",
+      "default_display": true
+    },
+    {
+      "name": "con_name",
+      "type": "str",
+      "description": "股票名称",
+      "default_display": true
+    },
+    {
+      "name": "weight",
+      "type": "float",
+      "description": "权重(暂无)",
+      "default_display": false
+    },
+    {
+      "name": "in_date",
+      "type": "str",
+      "description": "纳入日期(暂无)",
+      "default_display": false
+    },
+    {
+      "name": "out_date",
+      "type": "str",
+      "description": "剔除日期(暂无)",
+      "default_display": false
+    },
+    {
+      "name": "is_new",
+      "type": "str",
+      "description": "是否最新Y是N否",
+      "default_display": false
+    }
+  ]
 }

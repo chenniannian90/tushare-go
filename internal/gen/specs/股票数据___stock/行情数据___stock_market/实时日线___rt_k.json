@@ -1,0 +1,110 @@
+{
+  "api_name": "实时日线",
+  "api_code": "rt_k",
+  "description": "",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=372",
+    "name": "实时日线",
+    "category": "行情数据___stock_market"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "支持通配符方式，e.g. 所有上交所股票：6*.SH、所有创业板股票3*.SZ、所有科创板股票688*.SH，或单个股票600000.SH",
+      "required": true
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "None",
+      "description": "股票名称",
+      "default_display": true
+    },
+    {
+      "name": "pre_close",
+      "type": "float",
+      "description": "昨收价",
+      "default_display": true
+    },
+    {
+      "name": "high",
+      "type": "float",
+      "description": "最高价",
+      "default_display": true
+    },
+    {
+      "name": "open",
+      "type": "float",
+      "description": "开盘价",
+      "default_display": true
+    },
+    {
+      "name": "low",
+      "type": "float",
+      "description": "最低价",
+      "default_display": true
+    },
+    {
+      "name": "close",
+      "type": "float",
+      "description": "收盘价（最新价）",
+      "default_display": true
+    },
+    {
+      "name": "vol",
+      "type": "int",
+      "description": "成交量（股）",
+      "default_display": true
+    },
+    {
+      "name": "amount",
+      "type": "int",
+      "description": "成交金额（元）",
+      "default_display": true
+    },
+    {
+      "name": "num",
+      "type": "int",
+      "description": "开盘以来成交笔数",
+      "default_display": true
+    },
+    {
+      "name": "ask_price1",
+      "type": "float",
+      "description": "委托卖盘（元）",
+      "default_display": false
+    },
+    {
+      "name": "ask_volume1",
+      "type": "int",
+      "description": "委托卖盘（股）",
+      "default_display": false
+    },
+    {
+      "name": "bid_price1",
+      "type": "float",
+      "description": "委托买盘（元）",
+      "default_display": false
+    },
+    {
+      "name": "bid_volume1",
+      "type": "int",
+      "description": "委托买盘（股）",
+      "default_display": false
+    },
+    {
+      "name": "trade_time",
+      "type": "str",
+      "description": "交易时间",
+      "default_display": false
+    }
+  ]
+}

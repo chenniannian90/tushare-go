@@ -1,12 +1,37 @@
 {
-  "api_name": "daily_basic",
+  "api_name": "每日指标",
   "api_code": "daily_basic",
-  "description": "每日指标",
+  "description": "获取全部股票每日重要的基本面指标，可用于选股分析、报表展示等。单次请求最大返回6000条数据，可按日线循环提取全部历史。",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=32",
     "name": "每日指标",
     "category": "行情数据___stock_market"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码（二选一）",
+      "required": true
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期 （二选一）",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期(YYYYMMDD)",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期(YYYYMMDD)",
+      "required": false
+    }
+  ],
+  "response_fields": null
 }

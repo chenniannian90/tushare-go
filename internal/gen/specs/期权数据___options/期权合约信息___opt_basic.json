@@ -1,12 +1,152 @@
 {
-  "api_name": "opt_basic",
+  "api_name": "期权合约信息",
   "api_code": "opt_basic",
-  "description": "期权合约信息",
+  "description": "",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=158",
     "name": "期权合约信息",
     "category": "期权数据___options"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS期权代码",
+      "required": false
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易所代码 （包括上交所SSE等交易所）",
+      "required": false
+    },
+    {
+      "name": "list_date",
+      "type": "str",
+      "description": "上市交易日",
+      "required": false
+    },
+    {
+      "name": "opt_code",
+      "type": "str",
+      "description": "标准合约代码，OP+期货合约TS_CODE，如棕榈油2207合约，输入OPP2207.DCE",
+      "required": false
+    },
+    {
+      "name": "call_put",
+      "type": "str",
+      "description": "期权类型",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码",
+      "default_display": true
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易市场",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "合约名称",
+      "default_display": true
+    },
+    {
+      "name": "per_unit",
+      "type": "str",
+      "description": "合约单位",
+      "default_display": true
+    },
+    {
+      "name": "opt_code",
+      "type": "str",
+      "description": "标的合约代码",
+      "default_display": true
+    },
+    {
+      "name": "opt_type",
+      "type": "str",
+      "description": "合约类型",
+      "default_display": true
+    },
+    {
+      "name": "call_put",
+      "type": "str",
+      "description": "期权类型",
+      "default_display": true
+    },
+    {
+      "name": "exercise_type",
+      "type": "str",
+      "description": "行权方式",
+      "default_display": true
+    },
+    {
+      "name": "exercise_price",
+      "type": "float",
+      "description": "行权价格",
+      "default_display": true
+    },
+    {
+      "name": "s_month",
+      "type": "str",
+      "description": "结算月",
+      "default_display": true
+    },
+    {
+      "name": "maturity_date",
+      "type": "str",
+      "description": "到期日",
+      "default_display": true
+    },
+    {
+      "name": "list_price",
+      "type": "float",
+      "description": "挂牌基准价",
+      "default_display": true
+    },
+    {
+      "name": "list_date",
+      "type": "str",
+      "description": "开始交易日期",
+      "default_display": true
+    },
+    {
+      "name": "delist_date",
+      "type": "str",
+      "description": "最后交易日期",
+      "default_display": true
+    },
+    {
+      "name": "last_edate",
+      "type": "str",
+      "description": "最后行权日期",
+      "default_display": true
+    },
+    {
+      "name": "last_ddate",
+      "type": "str",
+      "description": "最后交割日期",
+      "default_display": true
+    },
+    {
+      "name": "quote_unit",
+      "type": "str",
+      "description": "报价单位",
+      "default_display": true
+    },
+    {
+      "name": "min_price_chg",
+      "type": "str",
+      "description": "最小价格波幅",
+      "default_display": true
+    }
+  ]
 }

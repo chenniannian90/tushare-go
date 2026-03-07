@@ -1,7 +1,7 @@
 {
-  "api_name": "api_359",
-  "api_code": "api_359",
-  "description": "基金技术面因子(专业版)",
+  "api_name": "fund_factor_pro描述",
+  "api_code": "fund_factor_pro描述",
+  "description": "获取场内基金每日技术面因子数据，用于跟踪场内基金当前走势情况，数据由Tushare社区自产，覆盖全历史；输出参数_bfq表示不复权，描述中说明了因子的默认传参，如需要特殊参数或者更多因子可以联系管理员评估",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=359",
     "name": "基金技术面因子(专业版)",

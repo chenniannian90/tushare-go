@@ -1,0 +1,68 @@
+{
+  "api_name": "每日涨跌停价格",
+  "api_code": "stk_limit",
+  "description": "获取全市场（包含A/B股和基金）每日涨跌停价格，包括涨停价格，跌停价格等，每个交易日8点40左右更新当日股票涨跌停价格。",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=183",
+    "name": "每日涨跌停价格",
+    "category": "行情数据___stock_market"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS股票代码",
+      "default_display": true
+    },
+    {
+      "name": "pre_close",
+      "type": "float",
+      "description": "昨日收盘价",
+      "default_display": false
+    },
+    {
+      "name": "up_limit",
+      "type": "float",
+      "description": "涨停价",
+      "default_display": true
+    },
+    {
+      "name": "down_limit",
+      "type": "float",
+      "description": "跌停价",
+      "default_display": true
+    }
+  ]
+}

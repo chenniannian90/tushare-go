@@ -1,12 +1,37 @@
 {
-  "api_name": "daily",
+  "api_name": "历史日线",
   "api_code": "daily",
-  "description": "历史日线",
+  "description": "获取股票行情数据，或通过通用行情接口获取数据，包含了前后复权数据",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=27",
     "name": "历史日线",
     "category": "行情数据___stock_market"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码（支持多个股票同时提取，逗号分隔）",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期（YYYYMMDD）",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期(YYYYMMDD)",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期(YYYYMMDD)",
+      "required": false
+    }
+  ],
+  "response_fields": null
 }

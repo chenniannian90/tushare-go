@@ -1,0 +1,80 @@
+{
+  "api_name": "做市借券交易汇总(停）",
+  "api_code": "slb_len_mm",
+  "description": "做市借券交易汇总",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=334",
+    "name": "做市借券交易汇总(停）",
+    "category": "两融及转融通___stock_margin"
+  },
+  "request_params": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期（YYYYMMDD格式，下同）",
+      "required": false
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期（YYYYMMDD）",
+      "default_display": true
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "default_display": true
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "股票名称",
+      "default_display": true
+    },
+    {
+      "name": "ope_inv",
+      "type": "float",
+      "description": "期初余量(万股)",
+      "default_display": true
+    },
+    {
+      "name": "lent_qnt",
+      "type": "float",
+      "description": "融出数量(万股)",
+      "default_display": true
+    },
+    {
+      "name": "cls_inv",
+      "type": "float",
+      "description": "期末余量(万股)",
+      "default_display": true
+    },
+    {
+      "name": "end_bal",
+      "type": "float",
+      "description": "期末余额(万元)",
+      "default_display": true
+    }
+  ]
+}

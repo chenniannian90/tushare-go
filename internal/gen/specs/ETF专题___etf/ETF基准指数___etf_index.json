@@ -1,0 +1,80 @@
+{
+  "api_name": "ETF基准指数",
+  "api_code": "etf_index",
+  "description": "获取ETF基准指数列表信息",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=386",
+    "name": "ETF基准指数",
+    "category": "ETF专题___etf"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "指数代码",
+      "required": false
+    },
+    {
+      "name": "pub_date",
+      "type": "str",
+      "description": "发布日期（格式：YYYYMMDD）",
+      "required": false
+    },
+    {
+      "name": "base_date",
+      "type": "str",
+      "description": "指数基期（格式：YYYYMMDD）",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "指数代码",
+      "default_display": true
+    },
+    {
+      "name": "indx_name",
+      "type": "str",
+      "description": "指数全称",
+      "default_display": true
+    },
+    {
+      "name": "indx_csname",
+      "type": "str",
+      "description": "指数简称",
+      "default_display": true
+    },
+    {
+      "name": "pub_party_name",
+      "type": "str",
+      "description": "指数发布机构",
+      "default_display": true
+    },
+    {
+      "name": "pub_date",
+      "type": "str",
+      "description": "指数发布日期",
+      "default_display": true
+    },
+    {
+      "name": "base_date",
+      "type": "str",
+      "description": "指数基日",
+      "default_display": true
+    },
+    {
+      "name": "bp",
+      "type": "float",
+      "description": "指数基点(点)",
+      "default_display": true
+    },
+    {
+      "name": "adj_circle",
+      "type": "str",
+      "description": "指数成份证券调整周期",
+      "default_display": true
+    }
+  ]
+}

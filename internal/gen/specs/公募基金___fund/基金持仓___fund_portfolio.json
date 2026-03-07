@@ -1,12 +1,98 @@
 {
-  "api_name": "fund_portfolio",
+  "api_name": "基金持仓",
   "api_code": "fund_portfolio",
-  "description": "基金持仓",
+  "description": "获取公募基金持仓数据，季度更新",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=121",
     "name": "基金持仓",
     "category": "公募基金___fund"
   },
-  "request_params": [],
-  "response_fields": []
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "基金代码 (ts_code,ann_date,period至少输入一个参数)",
+      "required": false
+    },
+    {
+      "name": "symbol",
+      "type": "str",
+      "description": "股票代码",
+      "required": false
+    },
+    {
+      "name": "ann_date",
+      "type": "str",
+      "description": "公告日期（YYYYMMDD格式）",
+      "required": false
+    },
+    {
+      "name": "period",
+      "type": "str",
+      "description": "季度（每个季度最后一天的日期，比如20131231表示2013年年报）",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "报告期开始日期（YYYYMMDD格式）",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "报告期结束日期（YYYYMMDD格式）",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS基金代码",
+      "default_display": true
+    },
+    {
+      "name": "ann_date",
+      "type": "str",
+      "description": "公告日期",
+      "default_display": true
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "截止日期",
+      "default_display": true
+    },
+    {
+      "name": "symbol",
+      "type": "str",
+      "description": "股票代码",
+      "default_display": true
+    },
+    {
+      "name": "mkv",
+      "type": "float",
+      "description": "持有股票市值(元)",
+      "default_display": true
+    },
+    {
+      "name": "amount",
+      "type": "float",
+      "description": "持有股票数量（股）",
+      "default_display": true
+    },
+    {
+      "name": "stk_mkv_ratio",
+      "type": "float",
+      "description": "占股票市值比",
+      "default_display": true
+    },
+    {
+      "name": "stk_float_ratio",
+      "type": "float",
+      "description": "占流通股本比例",
+      "default_display": true
+    }
+  ]
 }

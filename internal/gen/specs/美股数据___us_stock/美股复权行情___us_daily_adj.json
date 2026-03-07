@@ -1,0 +1,170 @@
+{
+  "api_name": "美股复权行情",
+  "api_code": "us_daily_adj",
+  "description": "获取美股复权行情，支持美股全市场股票，提供股本、市值、复权因子和成交信息等多个数据指标",
+  "__describe__": {
+    "url": "https://tushare.pro/document/2?doc_id=338",
+    "name": "美股复权行情",
+    "category": "美股数据___us_stock"
+  },
+  "request_params": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码（e.g. AAPL）",
+      "required": false
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期（YYYYMMDD）",
+      "required": false
+    },
+    {
+      "name": "start_date",
+      "type": "str",
+      "description": "开始日期（YYYYMMDD）",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "str",
+      "description": "结束日期（YYYYMMDD）",
+      "required": false
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易所（NAS/NYS/OTC)",
+      "required": false
+    },
+    {
+      "name": "offset",
+      "type": "int",
+      "description": "开始行数",
+      "required": false
+    },
+    {
+      "name": "limit",
+      "type": "int",
+      "description": "每页行数行数",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码",
+      "default_display": true
+    },
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期",
+      "default_display": true
+    },
+    {
+      "name": "close",
+      "type": "float",
+      "description": "收盘价",
+      "default_display": true
+    },
+    {
+      "name": "open",
+      "type": "float",
+      "description": "开盘价",
+      "default_display": true
+    },
+    {
+      "name": "high",
+      "type": "float",
+      "description": "最高价",
+      "default_display": true
+    },
+    {
+      "name": "low",
+      "type": "float",
+      "description": "最低价",
+      "default_display": true
+    },
+    {
+      "name": "pre_close",
+      "type": "float",
+      "description": "昨收价",
+      "default_display": true
+    },
+    {
+      "name": "change",
+      "type": "float",
+      "description": "涨跌额",
+      "default_display": true
+    },
+    {
+      "name": "pct_change",
+      "type": "float",
+      "description": "涨跌幅",
+      "default_display": true
+    },
+    {
+      "name": "vol",
+      "type": "int",
+      "description": "成交量",
+      "default_display": true
+    },
+    {
+      "name": "amount",
+      "type": "float",
+      "description": "成交额",
+      "default_display": true
+    },
+    {
+      "name": "vwap",
+      "type": "float",
+      "description": "平均价",
+      "default_display": true
+    },
+    {
+      "name": "adj_factor",
+      "type": "float",
+      "description": "复权因子",
+      "default_display": true
+    },
+    {
+      "name": "turnover_ratio",
+      "type": "float",
+      "description": "换手率",
+      "default_display": true
+    },
+    {
+      "name": "free_share",
+      "type": "int",
+      "description": "流通股本",
+      "default_display": true
+    },
+    {
+      "name": "total_share",
+      "type": "int",
+      "description": "总股本",
+      "default_display": true
+    },
+    {
+      "name": "free_mv",
+      "type": "float",
+      "description": "流通市值",
+      "default_display": true
+    },
+    {
+      "name": "total_mv",
+      "type": "float",
+      "description": "总市值",
+      "default_display": true
+    },
+    {
+      "name": "exchange",
+      "type": "str",
+      "description": "交易所代码",
+      "default_display": true
+    }
+  ]
+}
