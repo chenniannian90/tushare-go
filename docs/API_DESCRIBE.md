@@ -87,12 +87,46 @@ $ tushare-cli info daily
 文档: https://tushare.pro/document/2?doc_id=109
 ```
 
+## API 规范文件组织结构
+
+API 规范文件按照 `category` 字段分类存放在不同的子目录中：
+
+```
+internal/gen/specs/
+├── market_data/          # 行情数据
+│   ├── daily.json
+│   ├── weekly.json
+│   ├── monthly.json
+│   ├── pro_bar.json
+│   ├── daily_basic.json
+│   ├── moneyflow.json
+│   └── limit_list.json
+├── stock_info/           # 股票信息
+│   ├── stock_basic.json
+│   ├── top10_holders.json
+│   └── holder_number.json
+├── financial_data/       # 财务数据
+│   ├── income.json
+│   ├── balancesheet.json
+│   └── fina_indicator.json
+├── index_data/           # 指数数据
+│   ├── index_basic.json
+│   ├── index_daily.json
+│   ├── concept.json
+│   └── concept_detail.json
+├── trading_calendar/     # 交易日历
+│   └── trade_cal.json
+├── equity_data/          # 权益数据
+│   └── dividend.json
+└── complex_types_example.json  # 复杂类型示例
+```
+
 ## 已添加 `__describe__` 的 API
 
 目前以下 API 规范文件已添加 `__describe__` 字段：
 
 ### 行情数据
-| API 名称 | 接口名称 | ��类 | 文档 ID |
+| API 名称 | 接口名称 | 分类 | 文档 ID |
 |---------|---------|------|---------|
 | `daily` | 日线行情 | 行情数据 | doc_id=109 |
 | `weekly` | 周线行情 | 行情数据 | doc_id=109 |

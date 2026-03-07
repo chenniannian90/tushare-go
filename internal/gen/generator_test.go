@@ -16,7 +16,7 @@ func TestLoadSpec(t *testing.T) {
 	}{
 		{
 			name:    "load stock_basic spec",
-			specFile: "specs/stock_basic.json",
+			specFile: "specs/stock_info/stock_basic.json",
 			wantErr: false,
 			checkSpec: func(spec *APISpec) bool {
 				return spec.APIName == "stock_basic" &&
@@ -57,7 +57,7 @@ func TestGenerate(t *testing.T) {
 	}{
 		{
 			name:     "generate stock_basic wrapper",
-			specFile: "specs/stock_basic.json",
+			specFile: "specs/stock_info/stock_basic.json",
 			wantFile: "stock_basic.go",
 			checkFile: func(content string) bool {
 				// Check for key elements in generated code
@@ -105,7 +105,7 @@ func TestGenerate(t *testing.T) {
 }
 
 func TestGenerate_InvalidPath(t *testing.T) {
-	spec, err := LoadSpec("specs/stock_basic.json")
+	spec, err := LoadSpec("specs/stock_info/stock_basic.json")
 	if err != nil {
 		t.Fatalf("failed to load spec: %v", err)
 	}

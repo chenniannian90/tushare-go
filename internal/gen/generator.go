@@ -138,26 +138,29 @@ func Generate(spec *APISpec, outputPath string) error {
 	return nil
 }
 
-// ListSpecs returns a list of all spec file paths
+// ListSpecs returns a list of all spec file paths (including subdirectories)
 func ListSpecs() ([]string, error) {
 	_, currentFile, _, _ := runtime.Caller(0)
 	currentDir := filepath.Dir(currentFile)
 	specsDir := filepath.Join(currentDir, "specs")
 
-	entries, err := os.ReadDir(specsDir)
-	if err != nil {
-		return nil, fmt.Errorf("failed to read specs directory: %w", err)
-	}
-
 	var specs []string
-	for _, entry := range entries {
-		if entry.IsDir() {
-			continue
+	err := filepath.Walk(specsDir, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
 		}
-		if filepath.Ext(entry.Name()) != ".json" {
-			continue
+		if info.IsDir() {
+			return nil // 继续遍历子目录
 		}
-		specs = append(specs, filepath.Join(specsDir, entry.Name()))
+		if filepath.Ext(path) != ".json" {
+			return nil // 跳过非 JSON 文件
+		}
+		specs = append(specs, path)
+		return nil
+	})
+
+	if err != nil {
+		return nil, fmt.Errorf("failed to walk specs directory: %w", err)
 	}
 
 	return specs, nil
