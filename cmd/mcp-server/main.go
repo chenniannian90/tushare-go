@@ -41,7 +41,7 @@ func main() {
 		log.Printf("Loaded configuration from: %s", *configPath)
 	} else {
 		// Use default configuration with command-line overrides
-		serverConfig = createDefaultServerConfig(*transport, *addr)
+		serverConfig = config.DefaultConfig(*transport, *addr)
 	}
 
 	// Create server

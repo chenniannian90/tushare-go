@@ -6,7 +6,7 @@ import (
 	"tushare-go/pkg/sdk"
 	mcpsdk "github.com/modelcontextprotocol/go-sdk/mcp"
 
-	// Import all tool modules
+	// Import all tool modules for registration
 	bondtools "tushare-go/pkg/mcp/tools/bond"
 	etftools "tushare-go/pkg/mcp/tools/etf"
 	forextools "tushare-go/pkg/mcp/tools/forex"
@@ -34,6 +34,38 @@ import (
 	wealth_fund_salestools "tushare-go/pkg/mcp/tools/wealth_fund_sales"
 )
 
+// toolRegistrar defines the interface for tool registration
+type toolRegistrar func(server *mcpsdk.Server, client *sdk.Client)
+
+// toolRegistry maps category names to their registration functions
+var toolRegistry = map[string]toolRegistrar{
+	"bond":               func(s *mcpsdk.Server, c *sdk.Client) { bondtools.NewBondTools(s, c).RegisterAll() },
+	"etf":                func(s *mcpsdk.Server, c *sdk.Client) { etftools.NewEtfTools(s, c).RegisterAll() },
+	"forex":              func(s *mcpsdk.Server, c *sdk.Client) { forextools.NewForexTools(s, c).RegisterAll() },
+	"fund":               func(s *mcpsdk.Server, c *sdk.Client) { fundtools.NewFundTools(s, c).RegisterAll() },
+	"futures":            func(s *mcpsdk.Server, c *sdk.Client) { futurestools.NewFuturesTools(s, c).RegisterAll() },
+	"hk_stock":           func(s *mcpsdk.Server, c *sdk.Client) { hk_stocktools.NewHk_stockTools(s, c).RegisterAll() },
+	"index":              func(s *mcpsdk.Server, c *sdk.Client) { indextools.NewIndexTools(s, c).RegisterAll() },
+	"industry_tmt":       func(s *mcpsdk.Server, c *sdk.Client) { industry_tmttools.NewIndustry_tmtTools(s, c).RegisterAll() },
+	"llm_corpus":         func(s *mcpsdk.Server, c *sdk.Client) { llm_corpustools.NewLlm_corpusTools(s, c).RegisterAll() },
+	"macro_business":     func(s *mcpsdk.Server, c *sdk.Client) { macro_businesstools.NewMacro_businessTools(s, c).RegisterAll() },
+	"macro_economy":      func(s *mcpsdk.Server, c *sdk.Client) { macro_economytools.NewMacro_economyTools(s, c).RegisterAll() },
+	"macro_interest_rate": func(s *mcpsdk.Server, c *sdk.Client) { macro_interest_ratetools.NewMacro_interest_rateTools(s, c).RegisterAll() },
+	"macro_price":        func(s *mcpsdk.Server, c *sdk.Client) { macro_pricetools.NewMacro_priceTools(s, c).RegisterAll() },
+	"options":            func(s *mcpsdk.Server, c *sdk.Client) { optionstools.NewOptionsTools(s, c).RegisterAll() },
+	"spot":               func(s *mcpsdk.Server, c *sdk.Client) { spottools.NewSpotTools(s, c).RegisterAll() },
+	"stock_basic":        func(s *mcpsdk.Server, c *sdk.Client) { stock_basictools.NewStock_basicTools(s, c).RegisterAll() },
+	"stock_board":        func(s *mcpsdk.Server, c *sdk.Client) { stock_boardtools.NewStock_boardTools(s, c).RegisterAll() },
+	"stock_feature":      func(s *mcpsdk.Server, c *sdk.Client) { stock_featuretools.NewStock_featureTools(s, c).RegisterAll() },
+	"stock_financial":    func(s *mcpsdk.Server, c *sdk.Client) { stock_financialtools.NewStock_financialTools(s, c).RegisterAll() },
+	"stock_fund_flow":    func(s *mcpsdk.Server, c *sdk.Client) { stock_fund_flowtools.NewStock_fund_flowTools(s, c).RegisterAll() },
+	"stock_margin":       func(s *mcpsdk.Server, c *sdk.Client) { stock_margintools.NewStock_marginTools(s, c).RegisterAll() },
+	"stock_market":       func(s *mcpsdk.Server, c *sdk.Client) { stock_markettools.NewStock_marketTools(s, c).RegisterAll() },
+	"stock_reference":    func(s *mcpsdk.Server, c *sdk.Client) { stock_referencetools.NewStock_referenceTools(s, c).RegisterAll() },
+	"us_stock":           func(s *mcpsdk.Server, c *sdk.Client) { us_stocktools.NewUs_stockTools(s, c).RegisterAll() },
+	"wealth_fund_sales":  func(s *mcpsdk.Server, c *sdk.Client) { wealth_fund_salestools.NewWealth_fund_salesTools(s, c).RegisterAll() },
+}
+
 // registerToolsForService registers tools for a specific service based on categories
 func registerToolsForService(server *mcpsdk.Server, categories []string, client *sdk.Client) error {
 	// If no categories specified, register all tools
@@ -43,94 +75,11 @@ func registerToolsForService(server *mcpsdk.Server, categories []string, client 
 
 	// Register tools based on categories
 	for _, category := range categories {
-		if err := registerToolCategory(server, category, client); err != nil {
-			return fmt.Errorf("failed to register %s tools: %w", category, err)
+		registrar, ok := toolRegistry[category]
+		if !ok {
+			return fmt.Errorf("unknown tool category: %s", category)
 		}
-	}
-
-	return nil
-}
-
-// registerToolCategory registers all tools for a specific category
-func registerToolCategory(server *mcpsdk.Server, category string, client *sdk.Client) error {
-	switch category {
-	case "bond":
-		tools := bondtools.NewBondTools(server, client)
-		tools.RegisterAll()
-	case "etf":
-		tools := etftools.NewEtfTools(server, client)
-		tools.RegisterAll()
-	case "forex":
-		tools := forextools.NewForexTools(server, client)
-		tools.RegisterAll()
-	case "fund":
-		tools := fundtools.NewFundTools(server, client)
-		tools.RegisterAll()
-	case "futures":
-		tools := futurestools.NewFuturesTools(server, client)
-		tools.RegisterAll()
-	case "hk_stock":
-		tools := hk_stocktools.NewHk_stockTools(server, client)
-		tools.RegisterAll()
-	case "index":
-		tools := indextools.NewIndexTools(server, client)
-		tools.RegisterAll()
-	case "industry_tmt":
-		tools := industry_tmttools.NewIndustry_tmtTools(server, client)
-		tools.RegisterAll()
-	case "llm_corpus":
-		tools := llm_corpustools.NewLlm_corpusTools(server, client)
-		tools.RegisterAll()
-	case "macro_business":
-		tools := macro_businesstools.NewMacro_businessTools(server, client)
-		tools.RegisterAll()
-	case "macro_economy":
-		tools := macro_economytools.NewMacro_economyTools(server, client)
-		tools.RegisterAll()
-	case "macro_interest_rate":
-		tools := macro_interest_ratetools.NewMacro_interest_rateTools(server, client)
-		tools.RegisterAll()
-	case "macro_price":
-		tools := macro_pricetools.NewMacro_priceTools(server, client)
-		tools.RegisterAll()
-	case "options":
-		tools := optionstools.NewOptionsTools(server, client)
-		tools.RegisterAll()
-	case "spot":
-		tools := spottools.NewSpotTools(server, client)
-		tools.RegisterAll()
-	case "stock_basic":
-		tools := stock_basictools.NewStock_basicTools(server, client)
-		tools.RegisterAll()
-	case "stock_board":
-		tools := stock_boardtools.NewStock_boardTools(server, client)
-		tools.RegisterAll()
-	case "stock_feature":
-		tools := stock_featuretools.NewStock_featureTools(server, client)
-		tools.RegisterAll()
-	case "stock_financial":
-		tools := stock_financialtools.NewStock_financialTools(server, client)
-		tools.RegisterAll()
-	case "stock_fund_flow":
-		tools := stock_fund_flowtools.NewStock_fund_flowTools(server, client)
-		tools.RegisterAll()
-	case "stock_margin":
-		tools := stock_margintools.NewStock_marginTools(server, client)
-		tools.RegisterAll()
-	case "stock_market":
-		tools := stock_markettools.NewStock_marketTools(server, client)
-		tools.RegisterAll()
-	case "stock_reference":
-		tools := stock_referencetools.NewStock_referenceTools(server, client)
-		tools.RegisterAll()
-	case "us_stock":
-		tools := us_stocktools.NewUs_stockTools(server, client)
-		tools.RegisterAll()
-	case "wealth_fund_sales":
-		tools := wealth_fund_salestools.NewWealth_fund_salesTools(server, client)
-		tools.RegisterAll()
-	default:
-		return fmt.Errorf("unknown category: %s", category)
+		registrar(server, client)
 	}
 
 	return nil
@@ -138,32 +87,8 @@ func registerToolCategory(server *mcpsdk.Server, category string, client *sdk.Cl
 
 // registerAllTools registers all available tools
 func registerAllTools(server *mcpsdk.Server, client *sdk.Client) error {
-	// Register all tool modules
-	bondtools.NewBondTools(server, client).RegisterAll()
-	etftools.NewEtfTools(server, client).RegisterAll()
-	forextools.NewForexTools(server, client).RegisterAll()
-	fundtools.NewFundTools(server, client).RegisterAll()
-	futurestools.NewFuturesTools(server, client).RegisterAll()
-	hk_stocktools.NewHk_stockTools(server, client).RegisterAll()
-	indextools.NewIndexTools(server, client).RegisterAll()
-	industry_tmttools.NewIndustry_tmtTools(server, client).RegisterAll()
-	llm_corpustools.NewLlm_corpusTools(server, client).RegisterAll()
-	macro_businesstools.NewMacro_businessTools(server, client).RegisterAll()
-	macro_economytools.NewMacro_economyTools(server, client).RegisterAll()
-	macro_interest_ratetools.NewMacro_interest_rateTools(server, client).RegisterAll()
-	macro_pricetools.NewMacro_priceTools(server, client).RegisterAll()
-	optionstools.NewOptionsTools(server, client).RegisterAll()
-	spottools.NewSpotTools(server, client).RegisterAll()
-	stock_basictools.NewStock_basicTools(server, client).RegisterAll()
-	stock_boardtools.NewStock_boardTools(server, client).RegisterAll()
-	stock_featuretools.NewStock_featureTools(server, client).RegisterAll()
-	stock_financialtools.NewStock_financialTools(server, client).RegisterAll()
-	stock_fund_flowtools.NewStock_fund_flowTools(server, client).RegisterAll()
-	stock_margintools.NewStock_marginTools(server, client).RegisterAll()
-	stock_markettools.NewStock_marketTools(server, client).RegisterAll()
-	stock_referencetools.NewStock_referenceTools(server, client).RegisterAll()
-	us_stocktools.NewUs_stockTools(server, client).RegisterAll()
-	wealth_fund_salestools.NewWealth_fund_salesTools(server, client).RegisterAll()
-
+	for _, registrar := range toolRegistry {
+		registrar(server, client)
+	}
 	return nil
 }
