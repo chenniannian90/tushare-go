@@ -7,39 +7,67 @@ import "github.com/chenniannian90/tushare-go/pkg/sdk"
 // TushareClient 提供链式调用客户端，集成所有 API 接口
 type TushareClient struct {
 	client *sdk.Client
-	Stock
-	Bond
-	ETF
-	Fund
-	Futures
-	Forex
-	HKStock
-	Index
-	Industry
-	LLMCorpus
-	Options
-	Spot
-	USStock
-	Wealth
+	Forex Forex
+	Fund Fund
+	Futures Futures
+	HkStock HkStock
+	Index Index
+	IndustryTmt IndustryTmt
+	LlmCorpus LlmCorpus
+	MacroEconomy MacroEconomy
+	Bond Bond
+	MacroSocialFinancing MacroSocialFinancing
+	MacroPrice MacroPrice
+	MacroUsRate MacroUsRate
+	Options Options
+	Spot Spot
+	StockFundFlow StockFundFlow
+	StockReference StockReference
+	MacroBusiness MacroBusiness
+	MacroMoneySupply MacroMoneySupply
+	MacroInterestRate MacroInterestRate
+	StockBasic StockBasic
+	StockBoard StockBoard
+	StockFinancial StockFinancial
+	WealthFundSales WealthFundSales
+	Etf Etf
+	StockFeature StockFeature
+	StockMargin StockMargin
+	StockMarket StockMarket
+	UsStock UsStock
 }
 
 // NewTushareClient 创建一个新的链式调用客户端
 func NewTushareClient(client *sdk.Client) *TushareClient {
 	return &TushareClient{
-		client:     client,
-		Stock:      newStockImpl(client),
-		Bond:       newBondImpl(client),
-		ETF:        newEtfImpl(client),
-		Fund:       newFundImpl(client),
-		Futures:    newFuturesImpl(client),
-		Forex:      newForexImpl(client),
-		HKStock:    newHkStockImpl(client),
-		Index:      newIndexImpl(client),
-		Industry:   newIndustryImpl(client),
-		LLMCorpus:  newLLMCorpusImpl(client),
-		Options:    newOptionsImpl(client),
-		Spot:       newSpotImpl(client),
-		USStock:    newUsStockImpl(client),
-		Wealth:     newWealthImpl(client),
+		client: client,
+		Forex: newforexImpl(client),
+		Fund: newfundImpl(client),
+		Futures: newfuturesImpl(client),
+		HkStock: newhkStockImpl(client),
+		Index: newindexImpl(client),
+		IndustryTmt: newindustryTmtImpl(client),
+		LlmCorpus: newllmCorpusImpl(client),
+		MacroEconomy: newmacroEconomyImpl(client),
+		Bond: newbondImpl(client),
+		MacroSocialFinancing: newmacroSocialFinancingImpl(client),
+		MacroPrice: newmacroPriceImpl(client),
+		MacroUsRate: newmacroUsRateImpl(client),
+		Options: newoptionsImpl(client),
+		Spot: newspotImpl(client),
+		StockFundFlow: newstockFundFlowImpl(client),
+		StockReference: newstockReferenceImpl(client),
+		MacroBusiness: newmacroBusinessImpl(client),
+		MacroMoneySupply: newmacroMoneySupplyImpl(client),
+		MacroInterestRate: newmacroInterestRateImpl(client),
+		StockBasic: newstockBasicImpl(client),
+		StockBoard: newstockBoardImpl(client),
+		StockFinancial: newstockFinancialImpl(client),
+		WealthFundSales: newwealthFundSalesImpl(client),
+		Etf: newetfImpl(client),
+		StockFeature: newstockFeatureImpl(client),
+		StockMargin: newstockMarginImpl(client),
+		StockMarket: newstockMarketImpl(client),
+		UsStock: newusStockImpl(client),
 	}
 }
