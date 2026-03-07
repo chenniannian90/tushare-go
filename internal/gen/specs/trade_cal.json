@@ -1,0 +1,15 @@
+{
+  "api_name": "trade_cal",
+  "description": "交易日历数据",
+  "request_params": [
+    {"name": "exchange", "type": "string", "description": "交易所代码"},
+    {"name": "start_date", "type": "string", "description": "开始日期"},
+    {"name": "end_date", "type": "string", "description": "结束日期"},
+    {"name": "is_open", "type": "string", "description": "是否开市"}
+  ],
+  "response_fields": [
+    {"name": "exchange", "type": "string", "description": "交易所代码"},
+    {"name": "cal_date", "type": "string", "description": "日历日期"},
+    {"name": "is_open", "type": "string", "description": "是否开市"}
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "api_name": "limit_list",
+  "description": "涨跌停列表数据",
+  "request_params": [
+    {"name": "trade_date", "type": "string", "description": "交易日期"},
+    {"name": "ts_code", "type": "string", "description": "股票代码"},
+    {"name": "limit_type", "type": "string", "description": "涨跌停类型"}
+  ],
+  "response_fields": [
+    {"name": "ts_code", "type": "string", "description": "TS代码"},
+    {"name": "trade_date", "type": "string", "description": "交易日期"},
+    {"name": "name", "type": "string", "description": "股票名称"},
+    {"name": "close", "type": "float", "description": "收盘价"},
+    {"name": "pct_chg", "type": "float", "description": "涨跌幅"},
+    {"name": "amplitude", "type": "float", "description": "振幅"},
+    {"name": "limit_amount", "type": "float", "description": "涨跌停成交额"}
+  ]
+}

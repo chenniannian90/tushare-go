@@ -1,0 +1,146 @@
+# 二进制文件和可执行文件
+/bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+bin/
+obj/
+test_*    # 测试二进制文件
+
+# Go编译产物
+*.o
+*.a
+*.test
+*.out
+coverage.out
+coverage.html
+coverage.xml
+
+# Go工作区文件
+go.work
+go.work.sum
+
+# 依赖管理
+vendor/
+
+# 测试覆盖率文件
+*.out
+coverage*.html
+coverage*.xml
+*.coverprofile
+profile.out
+
+# IDE和编辑器配置
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.iml
+.project
+.classpath
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# Vim临时文件
+*.swp
+*.swo
+*.swn
+*.bak
+*.tmp
+
+# Emacs临时文件
+*~
+\#*\#
+.\#*
+
+# 操作系统文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# 日志文件
+*.log
+logs/
+*.log.*
+
+# 环境变量和敏感信息
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.crt
+!config/*.example
+config/secrets/
+
+# 临时文件和缓存
+tmp/
+temp/
+*.tmp
+*.temp
+*.cache
+.cache/
+
+# 构建输出
+dist/
+build/
+out/
+target/
+
+# 文档生成
+docs/_build/
+site/
+
+# MCP相关
+.mcp/
+*mcp-cache*
+
+# Tushare相关
+tushare_token.txt
+token.txt
+credentials.json
+
+# 压缩文件
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# 数据文件
+*.csv
+*.xlsx
+*.xls
+*.json.bak
+
+# 备份文件
+*.bak
+*.backup
+*~
+
+# 调试文件
+debug
+debug.test
+__debug_bin
+
+# 性能分析文件
+*.prof
+*.pprof
+cpu.prof
+mem.prof
+
+# 其他工具生成的文件
+a.out
+
+.claude
+
+

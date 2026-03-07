@@ -1,0 +1,25 @@
+{
+  "api_name": "fina_indicator",
+  "description": "财务指标数据",
+  "request_params": [
+    {"name": "ts_code", "type": "string", "description": "TS代码"},
+    {"name": "ann_date", "type": "string", "description": "公告日期"},
+    {"name": "start_date", "type": "string", "description": "报告期开始日期"},
+    {"name": "end_date", "type": "string", "description": "报告期结束日期"},
+    {"name": "period", "type": "string", "description": "报告期"}
+  ],
+  "response_fields": [
+    {"name": "ts_code", "type": "string", "description": "TS代码"},
+    {"name": "ann_date", "type": "string", "description": "公告日期"},
+    {"name": "end_date", "type": "string", "description": "报告期"},
+    {"name": "roe", "type": "float", "description": "净资产收益率"},
+    {"name": "roe_waa", "type": "float", "description": "净资产收益率(加权)"},
+    {"name": "roe_dt", "type": "float", "description": "净资产收益率(摊薄)"},
+    {"name": "roa", "type": "float", "description": "总资产净利率"},
+    {"name": "npta", "type": "float", "description": "总资产净利润率"},
+    {"name": "grossprofit_margin", "type": "float", "description": "销售毛利率"},
+    {"name": "current_ratio", "type": "float", "description": "流动比率"},
+    {"name": "quick_ratio", "type": "float", "description": "速动比率"},
+    {"name": "cash_ratio", "type": "float", "description": "现金比率"}
+  ]
+}

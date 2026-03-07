@@ -1,0 +1,18 @@
+{
+  "api_name": "holder_number",
+  "description": "股东人数数据",
+  "request_params": [
+    {"name": "ts_code", "type": "string", "description": "TS代码"},
+    {"name": "ann_date", "type": "string", "description": "公告日期"},
+    {"name": "start_date", "type": "string", "description": "报告期开始日期"},
+    {"name": "end_date", "type": "string", "description": "报告期结束日期"},
+    {"name": "period", "type": "string", "description": "报告期"}
+  ],
+  "response_fields": [
+    {"name": "ts_code", "type": "string", "description": "TS代码"},
+    {"name": "ann_date", "type": "string", "description": "公告日期"},
+    {"name": "end_date", "type": "string", "description": "报告期"},
+    {"name": "holder_number", "type": "int", "description": "股东人数"},
+    {"name": "holder_number_chg", "type": "float", "description": "股东人数变化"}
+  ]
+}

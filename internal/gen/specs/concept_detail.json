@@ -1,0 +1,16 @@
+{
+  "api_name": "concept_detail",
+  "description": "获取概念板块成分股",
+  "request_params": [
+    {"name": "id", "type": "string", "description": "概念ID"},
+    {"name": "ts_code", "type": "string", "description": "股票代码"}
+  ],
+  "response_fields": [
+    {"name": "id", "type": "string", "description": "概念ID"},
+    {"name": "concept_name", "type": "string", "description": "概念名称"},
+    {"name": "ts_code", "type": "string", "description": "股票代码"},
+    {"name": "name", "type": "string", "description": "股票名称"},
+    {"name": "in_date", "type": "string", "description": "纳入日期"},
+    {"name": "out_date", "type": "string", "description": "剔除日期"}
+  ]
+}

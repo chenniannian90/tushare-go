@@ -1,0 +1,23 @@
+{
+  "api_name": "balancesheet",
+  "description": "资产负债表数据",
+  "request_params": [
+    {"name": "ts_code", "type": "string", "description": "TS代码"},
+    {"name": "ann_date", "type": "string", "description": "公告日期"},
+    {"name": "f_ann_date", "type": "string", "description": "首次公告日期"},
+    {"name": "start_date", "type": "string", "description": "报告期开始日期"},
+    {"name": "end_date", "type": "string", "description": "报告期结束日期"},
+    {"name": "period", "type": "string", "description": "报告期"},
+    {"name": "report_type", "type": "string", "description": "报告类型"}
+  ],
+  "response_fields": [
+    {"name": "ts_code", "type": "string", "description": "TS代码"},
+    {"name": "ann_date", "type": "string", "description": "公告日期"},
+    {"name": "f_ann_date", "type": "string", "description": "首次公告日期"},
+    {"name": "end_date", "type": "string", "description": "报告期结束日期"},
+    {"name": "report_type", "type": "string", "description": "报告类型"},
+    {"name": "total_assets", "type": "float", "description": "资产总计"},
+    {"name": "total_hldr_eqy_exc_min_int", "type": "float", "description": "负债合计"},
+    {"name": "total_liab", "type": "float", "description": "所有者权益合计"}
+  ]
+}

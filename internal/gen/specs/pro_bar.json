@@ -1,0 +1,22 @@
+{
+  "api_name": "pro_bar",
+  "description": "综合行情接口，兼容多种周期和类型",
+  "request_params": [
+    {"name": "ts_code", "type": "string", "description": "证券代码"},
+    {"name": "start_date", "type": "string", "description": "开始日期"},
+    {"name": "end_date", "type": "string", "description": "结束日期"},
+    {"name": "freq", "type": "string", "description": "支持分钟/日/周/月"},
+    {"name": "asset", "type": "string", "description": "资产类型：E股票 I指数C期货"},
+    {"name": "adj", "type": "string", "description": "复权类型"}
+  ],
+  "response_fields": [
+    {"name": "ts_code", "type": "string", "description": "证券代码"},
+    {"name": "trade_date", "type": "string", "description": "交易日期"},
+    {"name": "open", "type": "float", "description": "开盘价"},
+    {"name": "high", "type": "float", "description": "最高价"},
+    {"name": "low", "type": "float", "description": "最低价"},
+    {"name": "close", "type": "float", "description": "收盘价"},
+    {"name": "vol", "type": "float", "description": "成交量"},
+    {"name": "amount", "type": "float", "description": "成交额"}
+  ]
+}

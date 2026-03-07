@@ -1,0 +1,16 @@
+{
+  "api_name": "stock_basic",
+  "description": "获取股票列表",
+  "request_params": [
+    {"name": "ts_code", "type": "string", "description": "股票代码"},
+    {"name": "list_status", "type": "string", "description": "上市状态"},
+    {"name": "exchange", "type": "string", "description": "交易所"}
+  ],
+  "response_fields": [
+    {"name": "ts_code", "type": "string", "description": "TS代码"},
+    {"name": "symbol", "type": "string", "description": "股票代码"},
+    {"name": "name", "type": "string", "description": "股票名称"},
+    {"name": "area", "type": "string", "description": "地域"},
+    {"name": "industry", "type": "string", "description": "所属行业"}
+  ]
+}

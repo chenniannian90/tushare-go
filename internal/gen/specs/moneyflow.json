@@ -1,0 +1,23 @@
+{
+  "api_name": "moneyflow",
+  "description": "个股资金流向数据",
+  "request_params": [
+    {"name": "ts_code", "type": "string", "description": "TS代码"},
+    {"name": "trade_date", "type": "string", "description": "交易日期"},
+    {"name": "start_date", "type": "string", "description": "开始日期"},
+    {"name": "end_date", "type": "string", "description": "结束日期"}
+  ],
+  "response_fields": [
+    {"name": "ts_code", "type": "string", "description": "TS代码"},
+    {"name": "trade_date", "type": "string", "description": "交易日期"},
+    {"name": "buy_elg_vol", "type": "float", "description": "买入特大单量"},
+    {"name": "buy_elg_amt", "type": "float", "description": "买入特大单金额"},
+    {"name": "sell_elg_vol", "type": "float", "description": "卖出特大单量"},
+    {"name": "sell_elg_amt", "type": "float", "description": "卖出特大单金额"},
+    {"name": "buy_lg_vol", "type": "float", "description": "买入大单量"},
+    {"name": "buy_lg_amt", "type": "float", "description": "买入大单金额"},
+    {"name": "sell_lg_vol", "type": "float", "description": "卖出大单量"},
+    {"name": "sell_lg_amt", "type": "float", "description": "卖出大单金额"},
+    {"name": "net_mf_vol", "type": "float", "description": "资金流量净额"}
+  ]
+}
