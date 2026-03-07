@@ -9,8 +9,16 @@ import (
 type APISpec struct {
 	APIName        string        `json:"api_name"`
 	Description    string        `json:"description"`
+	Describe       *DescribeInfo `json:"__describe__,omitempty"`
 	RequestParams  []ParamField  `json:"request_params"`
 	ResponseFields []ParamField  `json:"response_fields"`
+}
+
+// DescribeInfo contains metadata about the API
+type DescribeInfo struct {
+	URL      string `json:"url"`
+	Name     string `json:"name"`
+	Category string `json:"category"`
 }
 
 // ParamField represents a parameter or field definition

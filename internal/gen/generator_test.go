@@ -132,19 +132,19 @@ func TestGenerateAll(t *testing.T) {
 		t.Errorf("GenerateAll() generated %d files, want at least 10", count)
 	}
 
-	// Verify some files exist and compile
-	expectedFiles := []string{
-		"stock_basic.go",
-		"daily.go",
-		"pro_bar.go",
-		"trade_cal.go",
-		"daily_basic.go",
+	// Verify some files exist in correct subdirectories
+	expectedFiles := map[string]string{
+		"stock_info/stock_basic.go":     "股票信息目录",
+		"market_data/daily.go":          "行情数据目录",
+		"market_data/pro_bar.go":        "行情数据目录",
+		"trading_calendar/trade_cal.go": "交易日历目录",
+		"market_data/daily_basic.go":    "行情数据目录",
 	}
 
-	for _, filename := range expectedFiles {
-		path := filepath.Join(tmpDir, filename)
+	for relPath, description := range expectedFiles {
+		path := filepath.Join(tmpDir, relPath)
 		if _, err := os.Stat(path); os.IsNotExist(err) {
-			t.Errorf("expected file %s was not generated", filename)
+			t.Errorf("expected file %s in %s was not generated", relPath, description)
 		}
 	}
 }

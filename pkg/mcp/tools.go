@@ -6,7 +6,12 @@ import (
 	"reflect"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/sdk/api"
+	marketdata "github.com/chenniannian90/tushare-go/pkg/sdk/api/market_data"
+	stockinfo "github.com/chenniannian90/tushare-go/pkg/sdk/api/stock_info"
+	financialdata "github.com/chenniannian90/tushare-go/pkg/sdk/api/financial_data"
+	indexdata "github.com/chenniannian90/tushare-go/pkg/sdk/api/index_data"
+	tradingcalendar "github.com/chenniannian90/tushare-go/pkg/sdk/api/trading_calendar"
+	equitydata "github.com/chenniannian90/tushare-go/pkg/sdk/api/equity_data"
 )
 
 // ToolRegistry manages all available tools
@@ -132,7 +137,7 @@ func (r *ToolRegistry) CallTool(ctx context.Context, client *sdk.Client, toolNam
 
 // callStockBasic handles stock_basic tool calls
 func (r *ToolRegistry) callStockBasic(ctx context.Context, client *sdk.Client, args map[string]interface{}) (*ToolResult, error) {
-	req := &api.StockBasicRequest{}
+	req := &stockinfo.StockBasicRequest{}
 	if tsCode, ok := args["ts_code"].(string); ok {
 		req.TsCode = tsCode
 	}
@@ -143,7 +148,7 @@ func (r *ToolRegistry) callStockBasic(ctx context.Context, client *sdk.Client, a
 		req.Exchange = exchange
 	}
 
-	items, err := api.StockBasic(ctx, client, req)
+	items, err := stockinfo.StockBasic(ctx, client, req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to call stock_basic API: %w", err)
 	}
@@ -157,7 +162,7 @@ func (r *ToolRegistry) callStockBasic(ctx context.Context, client *sdk.Client, a
 
 // callDaily handles daily tool calls
 func (r *ToolRegistry) callDaily(ctx context.Context, client *sdk.Client, args map[string]interface{}) (*ToolResult, error) {
-	req := &api.DailyRequest{}
+	req := &marketdata.DailyRequest{}
 	if tsCode, ok := args["ts_code"].(string); ok {
 		req.TsCode = tsCode
 	}
@@ -171,7 +176,7 @@ func (r *ToolRegistry) callDaily(ctx context.Context, client *sdk.Client, args m
 		req.EndDate = endDate
 	}
 
-	items, err := api.Daily(ctx, client, req)
+	items, err := marketdata.Daily(ctx, client, req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to call daily API: %w", err)
 	}
@@ -185,7 +190,7 @@ func (r *ToolRegistry) callDaily(ctx context.Context, client *sdk.Client, args m
 
 // callDailyBasic handles daily_basic tool calls
 func (r *ToolRegistry) callDailyBasic(ctx context.Context, client *sdk.Client, args map[string]interface{}) (*ToolResult, error) {
-	req := &api.DailyBasicRequest{}
+	req := &marketdata.DailyBasicRequest{}
 	if tsCode, ok := args["ts_code"].(string); ok {
 		req.TsCode = tsCode
 	}
@@ -199,7 +204,7 @@ func (r *ToolRegistry) callDailyBasic(ctx context.Context, client *sdk.Client, a
 		req.EndDate = endDate
 	}
 
-	items, err := api.DailyBasic(ctx, client, req)
+	items, err := marketdata.DailyBasic(ctx, client, req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to call daily_basic API: %w", err)
 	}
@@ -213,7 +218,7 @@ func (r *ToolRegistry) callDailyBasic(ctx context.Context, client *sdk.Client, a
 
 // callTradeCal handles trade_cal tool calls
 func (r *ToolRegistry) callTradeCal(ctx context.Context, client *sdk.Client, args map[string]interface{}) (*ToolResult, error) {
-	req := &api.TradeCalRequest{}
+	req := &tradingcalendar.TradeCalRequest{}
 	if exchange, ok := args["exchange"].(string); ok {
 		req.Exchange = exchange
 	}
@@ -224,7 +229,7 @@ func (r *ToolRegistry) callTradeCal(ctx context.Context, client *sdk.Client, arg
 		req.EndDate = endDate
 	}
 
-	items, err := api.TradeCal(ctx, client, req)
+	items, err := tradingcalendar.TradeCal(ctx, client, req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to call trade_cal API: %w", err)
 	}
@@ -238,7 +243,7 @@ func (r *ToolRegistry) callTradeCal(ctx context.Context, client *sdk.Client, arg
 
 // callIndexBasic handles index_basic tool calls
 func (r *ToolRegistry) callIndexBasic(ctx context.Context, client *sdk.Client, args map[string]interface{}) (*ToolResult, error) {
-	req := &api.IndexBasicRequest{}
+	req := &indexdata.IndexBasicRequest{}
 	if tsCode, ok := args["ts_code"].(string); ok {
 		req.TsCode = tsCode
 	}
@@ -249,7 +254,7 @@ func (r *ToolRegistry) callIndexBasic(ctx context.Context, client *sdk.Client, a
 		req.Market = market
 	}
 
-	items, err := api.IndexBasic(ctx, client, req)
+	items, err := indexdata.IndexBasic(ctx, client, req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to call index_basic API: %w", err)
 	}
@@ -263,7 +268,7 @@ func (r *ToolRegistry) callIndexBasic(ctx context.Context, client *sdk.Client, a
 
 // callIndexDaily handles index_daily tool calls
 func (r *ToolRegistry) callIndexDaily(ctx context.Context, client *sdk.Client, args map[string]interface{}) (*ToolResult, error) {
-	req := &api.IndexDailyRequest{}
+	req := &indexdata.IndexDailyRequest{}
 	if tsCode, ok := args["ts_code"].(string); ok {
 		req.TsCode = tsCode
 	}
@@ -277,7 +282,7 @@ func (r *ToolRegistry) callIndexDaily(ctx context.Context, client *sdk.Client, a
 		req.EndDate = endDate
 	}
 
-	items, err := api.IndexDaily(ctx, client, req)
+	items, err := indexdata.IndexDaily(ctx, client, req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to call index_daily API: %w", err)
 	}
@@ -291,7 +296,7 @@ func (r *ToolRegistry) callIndexDaily(ctx context.Context, client *sdk.Client, a
 
 // callConcept handles concept tool calls
 func (r *ToolRegistry) callConcept(ctx context.Context, client *sdk.Client, args map[string]interface{}) (*ToolResult, error) {
-	req := &api.ConceptRequest{}
+	req := &indexdata.ConceptRequest{}
 	if tsCode, ok := args["ts_code"].(string); ok {
 		req.TsCode = tsCode
 	}
@@ -299,7 +304,7 @@ func (r *ToolRegistry) callConcept(ctx context.Context, client *sdk.Client, args
 		req.Name = name
 	}
 
-	items, err := api.Concept(ctx, client, req)
+	items, err := indexdata.Concept(ctx, client, req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to call concept API: %w", err)
 	}
@@ -410,7 +415,7 @@ func joinStrings(items []string, separator string) string {
 
 // callWeekly handles weekly tool calls
 func (r *ToolRegistry) callWeekly(ctx context.Context, client *sdk.Client, args map[string]interface{}) (*ToolResult, error) {
-	req := &api.WeeklyRequest{}
+	req := &marketdata.WeeklyRequest{}
 	if tsCode, ok := args["ts_code"].(string); ok {
 		req.TsCode = tsCode
 	}
@@ -421,7 +426,7 @@ func (r *ToolRegistry) callWeekly(ctx context.Context, client *sdk.Client, args 
 		req.EndDate = endDate
 	}
 
-	items, err := api.Weekly(ctx, client, req)
+	items, err := marketdata.Weekly(ctx, client, req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to call weekly API: %w", err)
 	}
@@ -435,7 +440,7 @@ func (r *ToolRegistry) callWeekly(ctx context.Context, client *sdk.Client, args 
 
 // callMonthly handles monthly tool calls
 func (r *ToolRegistry) callMonthly(ctx context.Context, client *sdk.Client, args map[string]interface{}) (*ToolResult, error) {
-	req := &api.MonthlyRequest{}
+	req := &marketdata.MonthlyRequest{}
 	if tsCode, ok := args["ts_code"].(string); ok {
 		req.TsCode = tsCode
 	}
@@ -446,7 +451,7 @@ func (r *ToolRegistry) callMonthly(ctx context.Context, client *sdk.Client, args
 		req.EndDate = endDate
 	}
 
-	items, err := api.Monthly(ctx, client, req)
+	items, err := marketdata.Monthly(ctx, client, req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to call monthly API: %w", err)
 	}
@@ -460,7 +465,7 @@ func (r *ToolRegistry) callMonthly(ctx context.Context, client *sdk.Client, args
 
 // callProBar handles pro_bar tool calls
 func (r *ToolRegistry) callProBar(ctx context.Context, client *sdk.Client, args map[string]interface{}) (*ToolResult, error) {
-	req := &api.ProBarRequest{}
+	req := &marketdata.ProBarRequest{}
 	if tsCode, ok := args["ts_code"].(string); ok {
 		req.TsCode = tsCode
 	}
@@ -480,7 +485,7 @@ func (r *ToolRegistry) callProBar(ctx context.Context, client *sdk.Client, args 
 		req.Adj = adj
 	}
 
-	items, err := api.ProBar(ctx, client, req)
+	items, err := marketdata.ProBar(ctx, client, req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to call pro_bar API: %w", err)
 	}
@@ -494,7 +499,7 @@ func (r *ToolRegistry) callProBar(ctx context.Context, client *sdk.Client, args 
 
 // callIncome handles income tool calls
 func (r *ToolRegistry) callIncome(ctx context.Context, client *sdk.Client, args map[string]interface{}) (*ToolResult, error) {
-	req := &api.IncomeRequest{}
+	req := &financialdata.IncomeRequest{}
 	if tsCode, ok := args["ts_code"].(string); ok {
 		req.TsCode = tsCode
 	}
@@ -508,7 +513,7 @@ func (r *ToolRegistry) callIncome(ctx context.Context, client *sdk.Client, args 
 		req.EndDate = endDate
 	}
 
-	items, err := api.Income(ctx, client, req)
+	items, err := financialdata.Income(ctx, client, req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to call income API: %w", err)
 	}
@@ -522,7 +527,7 @@ func (r *ToolRegistry) callIncome(ctx context.Context, client *sdk.Client, args 
 
 // callBalancesheet handles balancesheet tool calls
 func (r *ToolRegistry) callBalancesheet(ctx context.Context, client *sdk.Client, args map[string]interface{}) (*ToolResult, error) {
-	req := &api.BalancesheetRequest{}
+	req := &financialdata.BalancesheetRequest{}
 	if tsCode, ok := args["ts_code"].(string); ok {
 		req.TsCode = tsCode
 	}
@@ -536,7 +541,7 @@ func (r *ToolRegistry) callBalancesheet(ctx context.Context, client *sdk.Client,
 		req.EndDate = endDate
 	}
 
-	items, err := api.Balancesheet(ctx, client, req)
+	items, err := financialdata.Balancesheet(ctx, client, req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to call balancesheet API: %w", err)
 	}
@@ -550,7 +555,7 @@ func (r *ToolRegistry) callBalancesheet(ctx context.Context, client *sdk.Client,
 
 // callFinaIndicator handles fina_indicator tool calls
 func (r *ToolRegistry) callFinaIndicator(ctx context.Context, client *sdk.Client, args map[string]interface{}) (*ToolResult, error) {
-	req := &api.FinaIndicatorRequest{}
+	req := &financialdata.FinaIndicatorRequest{}
 	if tsCode, ok := args["ts_code"].(string); ok {
 		req.TsCode = tsCode
 	}
@@ -564,7 +569,7 @@ func (r *ToolRegistry) callFinaIndicator(ctx context.Context, client *sdk.Client
 		req.EndDate = endDate
 	}
 
-	items, err := api.FinaIndicator(ctx, client, req)
+	items, err := financialdata.FinaIndicator(ctx, client, req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to call fina_indicator API: %w", err)
 	}
@@ -578,7 +583,7 @@ func (r *ToolRegistry) callFinaIndicator(ctx context.Context, client *sdk.Client
 
 // callMoneyflow handles moneyflow tool calls
 func (r *ToolRegistry) callMoneyflow(ctx context.Context, client *sdk.Client, args map[string]interface{}) (*ToolResult, error) {
-	req := &api.MoneyflowRequest{}
+	req := &marketdata.MoneyflowRequest{}
 	if tsCode, ok := args["ts_code"].(string); ok {
 		req.TsCode = tsCode
 	}
@@ -592,7 +597,7 @@ func (r *ToolRegistry) callMoneyflow(ctx context.Context, client *sdk.Client, ar
 		req.EndDate = endDate
 	}
 
-	items, err := api.Moneyflow(ctx, client, req)
+	items, err := marketdata.Moneyflow(ctx, client, req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to call moneyflow API: %w", err)
 	}
@@ -606,7 +611,7 @@ func (r *ToolRegistry) callMoneyflow(ctx context.Context, client *sdk.Client, ar
 
 // callDividend handles dividend tool calls
 func (r *ToolRegistry) callDividend(ctx context.Context, client *sdk.Client, args map[string]interface{}) (*ToolResult, error) {
-	req := &api.DividendRequest{}
+	req := &equitydata.DividendRequest{}
 	if tsCode, ok := args["ts_code"].(string); ok {
 		req.TsCode = tsCode
 	}
@@ -620,7 +625,7 @@ func (r *ToolRegistry) callDividend(ctx context.Context, client *sdk.Client, arg
 		req.ExDate = exDate
 	}
 
-	items, err := api.Dividend(ctx, client, req)
+	items, err := equitydata.Dividend(ctx, client, req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to call dividend API: %w", err)
 	}
@@ -634,7 +639,7 @@ func (r *ToolRegistry) callDividend(ctx context.Context, client *sdk.Client, arg
 
 // callTop10Holders handles top10_holders tool calls
 func (r *ToolRegistry) callTop10Holders(ctx context.Context, client *sdk.Client, args map[string]interface{}) (*ToolResult, error) {
-	req := &api.Top10HoldersRequest{}
+	req := &stockinfo.Top10HoldersRequest{}
 	if tsCode, ok := args["ts_code"].(string); ok {
 		req.TsCode = tsCode
 	}
@@ -642,7 +647,7 @@ func (r *ToolRegistry) callTop10Holders(ctx context.Context, client *sdk.Client,
 		req.Period = period
 	}
 
-	items, err := api.Top10Holders(ctx, client, req)
+	items, err := stockinfo.Top10Holders(ctx, client, req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to call top10_holders API: %w", err)
 	}
@@ -656,7 +661,7 @@ func (r *ToolRegistry) callTop10Holders(ctx context.Context, client *sdk.Client,
 
 // callHolderNumber handles holder_number tool calls
 func (r *ToolRegistry) callHolderNumber(ctx context.Context, client *sdk.Client, args map[string]interface{}) (*ToolResult, error) {
-	req := &api.HolderNumberRequest{}
+	req := &stockinfo.HolderNumberRequest{}
 	if tsCode, ok := args["ts_code"].(string); ok {
 		req.TsCode = tsCode
 	}
@@ -664,7 +669,7 @@ func (r *ToolRegistry) callHolderNumber(ctx context.Context, client *sdk.Client,
 		req.Period = period
 	}
 
-	items, err := api.HolderNumber(ctx, client, req)
+	items, err := stockinfo.HolderNumber(ctx, client, req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to call holder_number API: %w", err)
 	}
@@ -678,7 +683,7 @@ func (r *ToolRegistry) callHolderNumber(ctx context.Context, client *sdk.Client,
 
 // callLimitList handles limit_list tool calls
 func (r *ToolRegistry) callLimitList(ctx context.Context, client *sdk.Client, args map[string]interface{}) (*ToolResult, error) {
-	req := &api.LimitListRequest{}
+	req := &marketdata.LimitListRequest{}
 	if tradeDate, ok := args["trade_date"].(string); ok {
 		req.TradeDate = tradeDate
 	}
@@ -689,7 +694,7 @@ func (r *ToolRegistry) callLimitList(ctx context.Context, client *sdk.Client, ar
 		req.LimitType = limitType
 	}
 
-	items, err := api.LimitList(ctx, client, req)
+	items, err := marketdata.LimitList(ctx, client, req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to call limit_list API: %w", err)
 	}

@@ -7,7 +7,7 @@ import (
 	"os"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/sdk/api"
+	marketdata "github.com/chenniannian90/tushare-go/pkg/sdk/api/market_data"
 )
 
 func main() {
@@ -27,7 +27,7 @@ func main() {
 
 	// Example: Get daily basic metrics
 	fmt.Println("=== Daily Basic Metrics Example ===")
-	basicData, err := api.DailyBasic(context.Background(), client, &api.DailyBasicRequest{
+	basicData, err := marketdata.DailyBasic(context.Background(), client, &marketdata.DailyBasicRequest{
 		TsCode:    "000001.SZ",
 		StartDate: "20240101",
 		EndDate:   "20240110",

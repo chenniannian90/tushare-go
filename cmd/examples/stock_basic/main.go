@@ -7,7 +7,7 @@ import (
 	"os"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/sdk/api"
+	stockinfo "github.com/chenniannian90/tushare-go/pkg/sdk/api/stock_info"
 )
 
 func main() {
@@ -27,7 +27,7 @@ func main() {
 
 	// Example 1: Get all stocks
 	fmt.Println("=== Example 1: Get all stocks ===")
-	allStocks, err := api.StockBasic(context.Background(), client, &api.StockBasicRequest{})
+	allStocks, err := stockinfo.StockBasic(context.Background(), client, &stockinfo.StockBasicRequest{})
 	if err != nil {
 		log.Fatalf("Failed to get stocks: %v", err)
 	}
@@ -35,7 +35,7 @@ func main() {
 
 	// Example 2: Get specific stock by code
 	fmt.Println("\n=== Example 2: Get stock by code ===")
-	stock, err := api.StockBasic(context.Background(), client, &api.StockBasicRequest{
+	stock, err := stockinfo.StockBasic(context.Background(), client, &stockinfo.StockBasicRequest{
 		TsCode: "000001.SZ",
 	})
 	if err != nil {
@@ -48,7 +48,7 @@ func main() {
 
 	// Example 3: Get stocks by exchange
 	fmt.Println("\n=== Example 3: Get SSE stocks ===")
-	sseStocks, err := api.StockBasic(context.Background(), client, &api.StockBasicRequest{
+	sseStocks, err := stockinfo.StockBasic(context.Background(), client, &stockinfo.StockBasicRequest{
 		Exchange: "SSE",
 	})
 	if err != nil {
@@ -67,7 +67,7 @@ func main() {
 
 	// Example 4: Get listed stocks only
 	fmt.Println("\n=== Example 4: Get listed stocks only ===")
-	listedStocks, err := api.StockBasic(context.Background(), client, &api.StockBasicRequest{
+	listedStocks, err := stockinfo.StockBasic(context.Background(), client, &stockinfo.StockBasicRequest{
 		ListStatus: "L",
 	})
 	if err != nil {

@@ -7,7 +7,7 @@ import (
 	"os"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/sdk/api"
+	marketdata "github.com/chenniannian90/tushare-go/pkg/sdk/api/market_data"
 )
 
 func main() {
@@ -27,7 +27,7 @@ func main() {
 
 	// Example 1: Get daily data for a specific stock
 	fmt.Println("=== Example 1: Get daily data for stock ===")
-	dailyData, err := api.Daily(context.Background(), client, &api.DailyRequest{
+	dailyData, err := marketdata.Daily(context.Background(), client, &marketdata.DailyRequest{
 		TsCode:    "000001.SZ",
 		StartDate: "20240101",
 		EndDate:   "20240131",
@@ -47,7 +47,7 @@ func main() {
 
 	// Example 2: Get daily data for specific date
 	fmt.Println("\n=== Example 2: Get daily data for specific date ===")
-	dateData, err := api.Daily(context.Background(), client, &api.DailyRequest{
+	dateData, err := marketdata.Daily(context.Background(), client, &marketdata.DailyRequest{
 		TradeDate: "20240115",
 	})
 	if err != nil {

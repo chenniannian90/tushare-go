@@ -181,8 +181,16 @@ func GenerateAll(outputDir string) (int, error) {
 			return count, fmt.Errorf("failed to load spec %s: %w", specPath, err)
 		}
 
-		// Generate output filename
-		outputFile := filepath.Join(outputDir, toSnakeCase(spec.APIName)+".go")
+		// 确定输出子目录
+		var subDir string
+		if spec.Describe != nil && spec.Describe.Category != "" {
+			subDir = categoryToDir(spec.Describe.Category)
+		} else {
+			subDir = "other"
+		}
+
+		// Generate output filename with subdirectory
+		outputFile := filepath.Join(outputDir, subDir, toSnakeCase(spec.APIName)+".go")
 
 		// Generate code
 		if err := Generate(spec, outputFile); err != nil {
@@ -193,6 +201,24 @@ func GenerateAll(outputDir string) (int, error) {
 	}
 
 	return count, nil
+}
+
+// categoryToDir maps Chinese category names to English directory names
+func categoryToDir(category string) string {
+	categoryMap := map[string]string{
+		"行情数据": "market_data",
+		"股票信息": "stock_info",
+		"财务数据": "financial_data",
+		"指数数据": "index_data",
+		"交易日历": "trading_calendar",
+		"权益数据": "equity_data",
+	}
+
+	if dir, ok := categoryMap[category]; ok {
+		return dir
+	}
+	// 默认返回 "other" 如果没有匹配的分类
+	return "other"
 }
 
 // toSnakeCase converts PascalCase to snake_case

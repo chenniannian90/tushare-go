@@ -7,7 +7,7 @@ import (
 	"os"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/sdk/api"
+	tradingcalendar "github.com/chenniannian90/tushare-go/pkg/sdk/api/trading_calendar"
 )
 
 func main() {
@@ -27,7 +27,7 @@ func main() {
 
 	// Example: Get trading calendar
 	fmt.Println("=== Trading Calendar Example ===")
-	calData, err := api.TradeCal(context.Background(), client, &api.TradeCalRequest{
+	calData, err := tradingcalendar.TradeCal(context.Background(), client, &tradingcalendar.TradeCalRequest{
 		Exchange:  "SSE",
 		StartDate: "20240101",
 		EndDate:   "20240131",
