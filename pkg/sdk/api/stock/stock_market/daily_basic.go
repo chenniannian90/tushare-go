@@ -8,17 +8,33 @@ import (
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// DailyBasicRequest 表示 daily_basic API 的请求
+// DailyBasicRequest 表示 每日指标 API 的请求
 type DailyBasicRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// DailyBasicItem 表示单个 daily_basic 数据项
+// DailyBasicItem 表示单个 每日指标 数据项
 type DailyBasicItem struct {
 }
 
-// DailyBasic 调用 daily_basic API
+// DailyBasic 调用 每日指标 API
 func DailyBasic(ctx context.Context, client *sdk.Client, req *DailyBasicRequest) ([]DailyBasicItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.TradeDate != "" {
+		params["trade_date"] = req.TradeDate
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
 	fields := []string{}
 

@@ -4,23 +4,49 @@ package hk_stock
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// HkBalancesheetRequest 表示 hk_balancesheet API 的请求
+// HkBalancesheetRequest 表示 港股资产负债表 API 的请求
 type HkBalancesheetRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	Period string `json:"period,omitempty"`
+	IndName string `json:"ind_name,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// HkBalancesheetItem 表示单个 hk_balancesheet 数据项
+// HkBalancesheetItem 表示单个 港股资产负债表 数据项
 type HkBalancesheetItem struct {
+	TsCode string `json:"ts_code"`
+	Name string `json:"name"`
+	EndDate string `json:"end_date"`
+	IndName string `json:"ind_name"`
+	IndValue float64 `json:"ind_value"`
 }
 
-// HkBalancesheet 调用 hk_balancesheet API
+// HkBalancesheet 调用 港股资产负债表 API
 func HkBalancesheet(ctx context.Context, client *sdk.Client, req *HkBalancesheetRequest) ([]HkBalancesheetItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.Period != "" {
+		params["period"] = req.Period
+	}
+	if req.IndName != "" {
+		params["ind_name"] = req.IndName
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "name", "end_date", "ind_name", "ind_value"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +56,41 @@ func HkBalancesheet(ctx context.Context, client *sdk.Client, req *HkBalancesheet
 	if err := client.CallAPI(ctx, "hk_balancesheet", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []HkBalancesheetItem{}, nil
+	items := make([]HkBalancesheetItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 name 的简单类型
+		name, ok := item["name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 name 类型")
+		}
+		// 处理 end_date 的简单类型
+		endDate, ok := item["end_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 end_date 类型")
+		}
+		// 处理 ind_name 的简单类型
+		indName, ok := item["ind_name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ind_name 类型")
+		}
+		// 处理 ind_value 的简单类型
+		indValue, ok := item["ind_value"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ind_value 类型")
+		}
+		items[i] = HkBalancesheetItem{
+			TsCode: tsCode,
+			Name: name,
+			EndDate: endDate,
+			IndName: indName,
+			IndValue: indValue,
+		}
+	}
+
+	return items, nil
 }

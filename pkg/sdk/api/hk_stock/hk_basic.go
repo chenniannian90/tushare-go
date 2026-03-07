@@ -4,23 +4,44 @@ package hk_stock
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// HkBasicRequest 表示 hk_basic API 的请求
+// HkBasicRequest 表示 港股基础信息 API 的请求
 type HkBasicRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	ListStatus string `json:"list_status,omitempty"`
 }
 
-// HkBasicItem 表示单个 hk_basic 数据项
+// HkBasicItem 表示单个 港股基础信息 数据项
 type HkBasicItem struct {
+	TsCode string `json:"ts_code"`
+	Name string `json:"name"`
+	Fullname string `json:"fullname"`
+	Enname string `json:"enname"`
+	CnSpell string `json:"cn_spell"`
+	Market string `json:"market"`
+	ListStatus string `json:"list_status"`
+	ListDate string `json:"list_date"`
+	DelistDate string `json:"delist_date"`
+	TradeUnit float64 `json:"trade_unit"`
+	Isin string `json:"isin"`
+	CurrType string `json:"curr_type"`
 }
 
-// HkBasic 调用 hk_basic API
+// HkBasic 调用 港股基础信息 API
 func HkBasic(ctx context.Context, client *sdk.Client, req *HkBasicRequest) ([]HkBasicItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.ListStatus != "" {
+		params["list_status"] = req.ListStatus
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "name", "fullname", "enname", "cn_spell", "market", "list_status", "list_date", "delist_date", "trade_unit", "isin", "curr_type"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +51,83 @@ func HkBasic(ctx context.Context, client *sdk.Client, req *HkBasicRequest) ([]Hk
 	if err := client.CallAPI(ctx, "hk_basic", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []HkBasicItem{}, nil
+	items := make([]HkBasicItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 name 的简单类型
+		name, ok := item["name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 name 类型")
+		}
+		// 处理 fullname 的简单类型
+		fullname, ok := item["fullname"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 fullname 类型")
+		}
+		// 处理 enname 的简单类型
+		enname, ok := item["enname"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 enname 类型")
+		}
+		// 处理 cn_spell 的简单类型
+		cnSpell, ok := item["cn_spell"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 cn_spell 类型")
+		}
+		// 处理 market 的简单类型
+		market, ok := item["market"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 market 类型")
+		}
+		// 处理 list_status 的简单类型
+		listStatus, ok := item["list_status"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 list_status 类型")
+		}
+		// 处理 list_date 的简单类型
+		listDate, ok := item["list_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 list_date 类型")
+		}
+		// 处理 delist_date 的简单类型
+		delistDate, ok := item["delist_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 delist_date 类型")
+		}
+		// 处理 trade_unit 的简单类型
+		tradeUnit, ok := item["trade_unit"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 trade_unit 类型")
+		}
+		// 处理 isin 的简单类型
+		isin, ok := item["isin"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 isin 类型")
+		}
+		// 处理 curr_type 的简单类型
+		currType, ok := item["curr_type"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 curr_type 类型")
+		}
+		items[i] = HkBasicItem{
+			TsCode: tsCode,
+			Name: name,
+			Fullname: fullname,
+			Enname: enname,
+			CnSpell: cnSpell,
+			Market: market,
+			ListStatus: listStatus,
+			ListDate: listDate,
+			DelistDate: delistDate,
+			TradeUnit: tradeUnit,
+			Isin: isin,
+			CurrType: currType,
+		}
+	}
+
+	return items, nil
 }

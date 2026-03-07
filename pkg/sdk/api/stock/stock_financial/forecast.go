@@ -8,17 +8,41 @@ import (
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// ForecastRequest 表示 forecast API 的请求
+// ForecastRequest 表示 业绩预告 API 的请求
 type ForecastRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	AnnDate string `json:"ann_date,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
+	Period string `json:"period,omitempty"`
+	Type string `json:"type,omitempty"`
 }
 
-// ForecastItem 表示单个 forecast 数据项
+// ForecastItem 表示单个 业绩预告 数据项
 type ForecastItem struct {
 }
 
-// Forecast 调用 forecast API
+// Forecast 调用 业绩预告 API
 func Forecast(ctx context.Context, client *sdk.Client, req *ForecastRequest) ([]ForecastItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.AnnDate != "" {
+		params["ann_date"] = req.AnnDate
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
+	if req.Period != "" {
+		params["period"] = req.Period
+	}
+	if req.Type != "" {
+		params["type"] = req.Type
+	}
 
 	fields := []string{}
 

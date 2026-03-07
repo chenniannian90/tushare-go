@@ -4,23 +4,45 @@ package macro_interest_rate
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// ShiborRequest 表示 shibor API 的请求
+// ShiborRequest 表示 Shibor利率 API 的请求
 type ShiborRequest struct {
+	Date string `json:"date,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// ShiborItem 表示单个 shibor 数据项
+// ShiborItem 表示单个 Shibor利率 数据项
 type ShiborItem struct {
+	Date string `json:"date"`
+	On float64 `json:"on"`
+	1w float64 `json:"1w"`
+	2w float64 `json:"2w"`
+	1m float64 `json:"1m"`
+	3m float64 `json:"3m"`
+	6m float64 `json:"6m"`
+	9m float64 `json:"9m"`
+	1y float64 `json:"1y"`
 }
 
-// Shibor 调用 shibor API
+// Shibor 调用 Shibor利率 API
 func Shibor(ctx context.Context, client *sdk.Client, req *ShiborRequest) ([]ShiborItem, error) {
 	params := map[string]interface{}{}
+	if req.Date != "" {
+		params["date"] = req.Date
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
-	fields := []string{}
+	fields := []string{"date", "on", "1w", "2w", "1m", "3m", "6m", "9m", "1y"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +52,65 @@ func Shibor(ctx context.Context, client *sdk.Client, req *ShiborRequest) ([]Shib
 	if err := client.CallAPI(ctx, "shibor", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []ShiborItem{}, nil
+	items := make([]ShiborItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 date 的简单类型
+		date, ok := item["date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 date 类型")
+		}
+		// 处理 on 的简单类型
+		on, ok := item["on"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 on 类型")
+		}
+		// 处理 1w 的简单类型
+		1w, ok := item["1w"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 1w 类型")
+		}
+		// 处理 2w 的简单类型
+		2w, ok := item["2w"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 2w 类型")
+		}
+		// 处理 1m 的简单类型
+		1m, ok := item["1m"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 1m 类型")
+		}
+		// 处理 3m 的简单类型
+		3m, ok := item["3m"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 3m 类型")
+		}
+		// 处理 6m 的简单类型
+		6m, ok := item["6m"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 6m 类型")
+		}
+		// 处理 9m 的简单类型
+		9m, ok := item["9m"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 9m 类型")
+		}
+		// 处理 1y 的简单类型
+		1y, ok := item["1y"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 1y 类型")
+		}
+		items[i] = ShiborItem{
+			Date: date,
+			On: on,
+			1w: 1w,
+			2w: 2w,
+			1m: 1m,
+			3m: 3m,
+			6m: 6m,
+			9m: 9m,
+			1y: 1y,
+		}
+	}
+
+	return items, nil
 }

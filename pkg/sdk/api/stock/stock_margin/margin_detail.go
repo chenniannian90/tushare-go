@@ -8,17 +8,33 @@ import (
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// MarginDetailRequest 表示 margin_detail API 的请求
+// MarginDetailRequest 表示 融资融券交易明细 API 的请求
 type MarginDetailRequest struct {
+	TradeDate string `json:"trade_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// MarginDetailItem 表示单个 margin_detail 数据项
+// MarginDetailItem 表示单个 融资融券交易明细 数据项
 type MarginDetailItem struct {
 }
 
-// MarginDetail 调用 margin_detail API
+// MarginDetail 调用 融资融券交易明细 API
 func MarginDetail(ctx context.Context, client *sdk.Client, req *MarginDetailRequest) ([]MarginDetailItem, error) {
 	params := map[string]interface{}{}
+	if req.TradeDate != "" {
+		params["trade_date"] = req.TradeDate
+	}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
 	fields := []string{}
 

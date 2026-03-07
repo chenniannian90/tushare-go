@@ -8,17 +8,37 @@ import (
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// IndexBasicRequest 表示 index_basic API 的请求
+// IndexBasicRequest 表示 指数基本信息 API 的请求
 type IndexBasicRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	Name string `json:"name,omitempty"`
+	Market string `json:"market,omitempty"`
+	Publisher string `json:"publisher,omitempty"`
+	Category string `json:"category,omitempty"`
 }
 
-// IndexBasicItem 表示单个 index_basic 数据项
+// IndexBasicItem 表示单个 指数基本信息 数据项
 type IndexBasicItem struct {
 }
 
-// IndexBasic 调用 index_basic API
+// IndexBasic 调用 指数基本信息 API
 func IndexBasic(ctx context.Context, client *sdk.Client, req *IndexBasicRequest) ([]IndexBasicItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.Name != "" {
+		params["name"] = req.Name
+	}
+	if req.Market != "" {
+		params["market"] = req.Market
+	}
+	if req.Publisher != "" {
+		params["publisher"] = req.Publisher
+	}
+	if req.Category != "" {
+		params["category"] = req.Category
+	}
 
 	fields := []string{}
 

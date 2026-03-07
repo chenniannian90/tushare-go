@@ -4,23 +4,62 @@ package llm_corpus
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// ResearchReportRequest 表示 research_report API 的请求
+// ResearchReportRequest 表示 券商研究报告 API 的请求
 type ResearchReportRequest struct {
+	TradeDate string `json:"trade_date,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
+	ReportType string `json:"report_type,omitempty"`
+	TsCode string `json:"ts_code,omitempty"`
+	InstCsname string `json:"inst_csname,omitempty"`
+	IndName string `json:"ind_name,omitempty"`
 }
 
-// ResearchReportItem 表示单个 research_report 数据项
+// ResearchReportItem 表示单个 券商研究报告 数据项
 type ResearchReportItem struct {
+	TradeDate string `json:"trade_date"`
+	Abstr string `json:"abstr"`
+	Title string `json:"title"`
+	ReportType string `json:"report_type"`
+	Author string `json:"author"`
+	Name string `json:"name"`
+	TsCode string `json:"ts_code"`
+	InstCsname string `json:"inst_csname"`
+	IndName string `json:"ind_name"`
+	Url string `json:"url"`
 }
 
-// ResearchReport 调用 research_report API
+// ResearchReport 调用 券商研究报告 API
 func ResearchReport(ctx context.Context, client *sdk.Client, req *ResearchReportRequest) ([]ResearchReportItem, error) {
 	params := map[string]interface{}{}
+	if req.TradeDate != "" {
+		params["trade_date"] = req.TradeDate
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
+	if req.ReportType != "" {
+		params["report_type"] = req.ReportType
+	}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.InstCsname != "" {
+		params["inst_csname"] = req.InstCsname
+	}
+	if req.IndName != "" {
+		params["ind_name"] = req.IndName
+	}
 
-	fields := []string{}
+	fields := []string{"trade_date", "abstr", "title", "report_type", "author", "name", "ts_code", "inst_csname", "ind_name", "url"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +69,71 @@ func ResearchReport(ctx context.Context, client *sdk.Client, req *ResearchReport
 	if err := client.CallAPI(ctx, "research_report", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []ResearchReportItem{}, nil
+	items := make([]ResearchReportItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 trade_date 的简单类型
+		tradeDate, ok := item["trade_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 trade_date 类型")
+		}
+		// 处理 abstr 的简单类型
+		abstr, ok := item["abstr"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 abstr 类型")
+		}
+		// 处理 title 的简单类型
+		title, ok := item["title"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 title 类型")
+		}
+		// 处理 report_type 的简单类型
+		reportType, ok := item["report_type"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 report_type 类型")
+		}
+		// 处理 author 的简单类型
+		author, ok := item["author"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 author 类型")
+		}
+		// 处理 name 的简单类型
+		name, ok := item["name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 name 类型")
+		}
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 inst_csname 的简单类型
+		instCsname, ok := item["inst_csname"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 inst_csname 类型")
+		}
+		// 处理 ind_name 的简单类型
+		indName, ok := item["ind_name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ind_name 类型")
+		}
+		// 处理 url 的简单类型
+		url, ok := item["url"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 url 类型")
+		}
+		items[i] = ResearchReportItem{
+			TradeDate: tradeDate,
+			Abstr: abstr,
+			Title: title,
+			ReportType: reportType,
+			Author: author,
+			Name: name,
+			TsCode: tsCode,
+			InstCsname: instCsname,
+			IndName: indName,
+			Url: url,
+		}
+	}
+
+	return items, nil
 }

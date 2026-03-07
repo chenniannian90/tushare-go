@@ -4,23 +4,39 @@ package stock_board
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// ThsMemberRequest 表示 ths_member API 的请求
+// ThsMemberRequest 表示 同花顺行业概念成分 API 的请求
 type ThsMemberRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	ConCode string `json:"con_code,omitempty"`
 }
 
-// ThsMemberItem 表示单个 ths_member 数据项
+// ThsMemberItem 表示单个 同花顺行业概念成分 数据项
 type ThsMemberItem struct {
+	TsCode string `json:"ts_code"`
+	ConCode string `json:"con_code"`
+	ConName string `json:"con_name"`
+	Weight float64 `json:"weight"`
+	InDate string `json:"in_date"`
+	OutDate string `json:"out_date"`
+	IsNew string `json:"is_new"`
 }
 
-// ThsMember 调用 ths_member API
+// ThsMember 调用 同花顺行业概念成分 API
 func ThsMember(ctx context.Context, client *sdk.Client, req *ThsMemberRequest) ([]ThsMemberItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.ConCode != "" {
+		params["con_code"] = req.ConCode
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "con_code", "con_name", "weight", "in_date", "out_date", "is_new"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +46,53 @@ func ThsMember(ctx context.Context, client *sdk.Client, req *ThsMemberRequest) (
 	if err := client.CallAPI(ctx, "ths_member", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []ThsMemberItem{}, nil
+	items := make([]ThsMemberItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 con_code 的简单类型
+		conCode, ok := item["con_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 con_code 类型")
+		}
+		// 处理 con_name 的简单类型
+		conName, ok := item["con_name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 con_name 类型")
+		}
+		// 处理 weight 的简单类型
+		weight, ok := item["weight"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 weight 类型")
+		}
+		// 处理 in_date 的简单类型
+		inDate, ok := item["in_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 in_date 类型")
+		}
+		// 处理 out_date 的简单类型
+		outDate, ok := item["out_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 out_date 类型")
+		}
+		// 处理 is_new 的简单类型
+		isNew, ok := item["is_new"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 is_new 类型")
+		}
+		items[i] = ThsMemberItem{
+			TsCode: tsCode,
+			ConCode: conCode,
+			ConName: conName,
+			Weight: weight,
+			InDate: inDate,
+			OutDate: outDate,
+			IsNew: isNew,
+		}
+	}
+
+	return items, nil
 }

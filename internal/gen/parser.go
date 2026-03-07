@@ -8,6 +8,7 @@ import (
 // APISpec represents the API specification loaded from JSON
 type APISpec struct {
 	APIName        string        `json:"api_name"`
+	APICode        string        `json:"api_code"`
 	Description    string        `json:"description"`
 	Describe       *DescribeInfo `json:"__describe__,omitempty"`
 	RequestParams  []ParamField  `json:"request_params"`

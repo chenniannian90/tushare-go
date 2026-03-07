@@ -4,23 +4,48 @@ package stock_reference
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// StkHoldernumberRequest 表示 stk_holdernumber API 的请求
+// StkHoldernumberRequest 表示 股东人数 API 的请求
 type StkHoldernumberRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	AnnDate string `json:"ann_date,omitempty"`
+	Enddate string `json:"enddate,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// StkHoldernumberItem 表示单个 stk_holdernumber 数据项
+// StkHoldernumberItem 表示单个 股东人数 数据项
 type StkHoldernumberItem struct {
+	TsCode string `json:"ts_code"`
+	AnnDate string `json:"ann_date"`
+	EndDate string `json:"end_date"`
+	HolderNum int `json:"holder_num"`
 }
 
-// StkHoldernumber 调用 stk_holdernumber API
+// StkHoldernumber 调用 股东人数 API
 func StkHoldernumber(ctx context.Context, client *sdk.Client, req *StkHoldernumberRequest) ([]StkHoldernumberItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.AnnDate != "" {
+		params["ann_date"] = req.AnnDate
+	}
+	if req.Enddate != "" {
+		params["enddate"] = req.Enddate
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "ann_date", "end_date", "holder_num"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +55,35 @@ func StkHoldernumber(ctx context.Context, client *sdk.Client, req *StkHoldernumb
 	if err := client.CallAPI(ctx, "stk_holdernumber", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []StkHoldernumberItem{}, nil
+	items := make([]StkHoldernumberItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 ann_date 的简单类型
+		annDate, ok := item["ann_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ann_date 类型")
+		}
+		// 处理 end_date 的简单类型
+		endDate, ok := item["end_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 end_date 类型")
+		}
+		// 处理 holder_num 的简单类型
+		holderNum, ok := item["holder_num"].(int)
+		if !ok {
+			return nil, fmt.Errorf("无效的 holder_num 类型")
+		}
+		items[i] = StkHoldernumberItem{
+			TsCode: tsCode,
+			AnnDate: annDate,
+			EndDate: endDate,
+			HolderNum: holderNum,
+		}
+	}
+
+	return items, nil
 }

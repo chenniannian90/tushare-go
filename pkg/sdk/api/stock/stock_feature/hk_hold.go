@@ -4,23 +4,55 @@ package stock_feature
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// HkHoldRequest 表示 hk_hold API 的请求
+// HkHoldRequest 表示 沪深股通持股明细 API 的请求
 type HkHoldRequest struct {
+	Code string `json:"code,omitempty"`
+	TsCode string `json:"ts_code,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
+	Exchange string `json:"exchange,omitempty"`
 }
 
-// HkHoldItem 表示单个 hk_hold 数据项
+// HkHoldItem 表示单个 沪深股通持股明细 数据项
 type HkHoldItem struct {
+	Code string `json:"code"`
+	TradeDate string `json:"trade_date"`
+	TsCode string `json:"ts_code"`
+	Name string `json:"name"`
+	Vol int `json:"vol"`
+	Ratio float64 `json:"ratio"`
+	Exchange string `json:"exchange"`
 }
 
-// HkHold 调用 hk_hold API
+// HkHold 调用 沪深股通持股明细 API
 func HkHold(ctx context.Context, client *sdk.Client, req *HkHoldRequest) ([]HkHoldItem, error) {
 	params := map[string]interface{}{}
+	if req.Code != "" {
+		params["code"] = req.Code
+	}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.TradeDate != "" {
+		params["trade_date"] = req.TradeDate
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
+	if req.Exchange != "" {
+		params["exchange"] = req.Exchange
+	}
 
-	fields := []string{}
+	fields := []string{"code", "trade_date", "ts_code", "name", "vol", "ratio", "exchange"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +62,53 @@ func HkHold(ctx context.Context, client *sdk.Client, req *HkHoldRequest) ([]HkHo
 	if err := client.CallAPI(ctx, "hk_hold", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []HkHoldItem{}, nil
+	items := make([]HkHoldItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 code 的简单类型
+		code, ok := item["code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 code 类型")
+		}
+		// 处理 trade_date 的简单类型
+		tradeDate, ok := item["trade_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 trade_date 类型")
+		}
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 name 的简单类型
+		name, ok := item["name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 name 类型")
+		}
+		// 处理 vol 的简单类型
+		vol, ok := item["vol"].(int)
+		if !ok {
+			return nil, fmt.Errorf("无效的 vol 类型")
+		}
+		// 处理 ratio 的简单类型
+		ratio, ok := item["ratio"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ratio 类型")
+		}
+		// 处理 exchange 的简单类型
+		exchange, ok := item["exchange"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 exchange 类型")
+		}
+		items[i] = HkHoldItem{
+			Code: code,
+			TradeDate: tradeDate,
+			TsCode: tsCode,
+			Name: name,
+			Vol: vol,
+			Ratio: ratio,
+			Exchange: exchange,
+		}
+	}
+
+	return items, nil
 }

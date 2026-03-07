@@ -8,17 +8,37 @@ import (
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// FinaAuditRequest 表示 fina_audit API 的请求
+// FinaAuditRequest 表示 财务审计意见 API 的请求
 type FinaAuditRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	AnnDate string `json:"ann_date,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
+	Period string `json:"period,omitempty"`
 }
 
-// FinaAuditItem 表示单个 fina_audit 数据项
+// FinaAuditItem 表示单个 财务审计意见 数据项
 type FinaAuditItem struct {
 }
 
-// FinaAudit 调用 fina_audit API
+// FinaAudit 调用 财务审计意见 API
 func FinaAudit(ctx context.Context, client *sdk.Client, req *FinaAuditRequest) ([]FinaAuditItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.AnnDate != "" {
+		params["ann_date"] = req.AnnDate
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
+	if req.Period != "" {
+		params["period"] = req.Period
+	}
 
 	fields := []string{}
 

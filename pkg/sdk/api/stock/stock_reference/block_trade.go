@@ -4,23 +4,47 @@ package stock_reference
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// BlockTradeRequest 表示 block_trade API 的请求
+// BlockTradeRequest 表示 大宗交易 API 的请求
 type BlockTradeRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// BlockTradeItem 表示单个 block_trade 数据项
+// BlockTradeItem 表示单个 大宗交易 数据项
 type BlockTradeItem struct {
+	TsCode string `json:"ts_code"`
+	TradeDate string `json:"trade_date"`
+	Price float64 `json:"price"`
+	Vol float64 `json:"vol"`
+	Amount float64 `json:"amount"`
+	Buyer string `json:"buyer"`
+	Seller string `json:"seller"`
 }
 
-// BlockTrade 调用 block_trade API
+// BlockTrade 调用 大宗交易 API
 func BlockTrade(ctx context.Context, client *sdk.Client, req *BlockTradeRequest) ([]BlockTradeItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.TradeDate != "" {
+		params["trade_date"] = req.TradeDate
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "trade_date", "price", "vol", "amount", "buyer", "seller"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +54,53 @@ func BlockTrade(ctx context.Context, client *sdk.Client, req *BlockTradeRequest)
 	if err := client.CallAPI(ctx, "block_trade", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []BlockTradeItem{}, nil
+	items := make([]BlockTradeItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 trade_date 的简单类型
+		tradeDate, ok := item["trade_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 trade_date 类型")
+		}
+		// 处理 price 的简单类型
+		price, ok := item["price"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 price 类型")
+		}
+		// 处理 vol 的简单类型
+		vol, ok := item["vol"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 vol 类型")
+		}
+		// 处理 amount 的简单类型
+		amount, ok := item["amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 amount 类型")
+		}
+		// 处理 buyer 的简单类型
+		buyer, ok := item["buyer"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 buyer 类型")
+		}
+		// 处理 seller 的简单类型
+		seller, ok := item["seller"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 seller 类型")
+		}
+		items[i] = BlockTradeItem{
+			TsCode: tsCode,
+			TradeDate: tradeDate,
+			Price: price,
+			Vol: vol,
+			Amount: amount,
+			Buyer: buyer,
+			Seller: seller,
+		}
+	}
+
+	return items, nil
 }

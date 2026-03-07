@@ -4,23 +4,210 @@ package stock_financial
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// BalancesheetRequest 表示 balancesheet API 的请求
+// BalancesheetRequest 表示 资产负债表 API 的请求
 type BalancesheetRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	AnnDate string `json:"ann_date,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
+	Period string `json:"period,omitempty"`
+	ReportType string `json:"report_type,omitempty"`
+	CompType string `json:"comp_type,omitempty"`
 }
 
-// BalancesheetItem 表示单个 balancesheet 数据项
+// BalancesheetItem 表示单个 资产负债表 数据项
 type BalancesheetItem struct {
+	TsCode string `json:"ts_code"`
+	AnnDate string `json:"ann_date"`
+	FAnnDate string `json:"f_ann_date"`
+	EndDate string `json:"end_date"`
+	ReportType string `json:"report_type"`
+	CompType string `json:"comp_type"`
+	EndType string `json:"end_type"`
+	TotalShare float64 `json:"total_share"`
+	CapRese float64 `json:"cap_rese"`
+	UndistrPorfit float64 `json:"undistr_porfit"`
+	SurplusRese float64 `json:"surplus_rese"`
+	SpecialRese float64 `json:"special_rese"`
+	MoneyCap float64 `json:"money_cap"`
+	TradAsset float64 `json:"trad_asset"`
+	NotesReceiv float64 `json:"notes_receiv"`
+	AccountsReceiv float64 `json:"accounts_receiv"`
+	OthReceiv float64 `json:"oth_receiv"`
+	Prepayment float64 `json:"prepayment"`
+	DivReceiv float64 `json:"div_receiv"`
+	IntReceiv float64 `json:"int_receiv"`
+	Inventories float64 `json:"inventories"`
+	AmorExp float64 `json:"amor_exp"`
+	NcaWithin1y float64 `json:"nca_within_1y"`
+	SettRsrv float64 `json:"sett_rsrv"`
+	LoantoOthBankFi float64 `json:"loanto_oth_bank_fi"`
+	PremiumReceiv float64 `json:"premium_receiv"`
+	ReinsurReceiv float64 `json:"reinsur_receiv"`
+	ReinsurResReceiv float64 `json:"reinsur_res_receiv"`
+	PurResaleFa float64 `json:"pur_resale_fa"`
+	OthCurAssets float64 `json:"oth_cur_assets"`
+	TotalCurAssets float64 `json:"total_cur_assets"`
+	FaAvailForSale float64 `json:"fa_avail_for_sale"`
+	HtmInvest float64 `json:"htm_invest"`
+	LtEqtInvest float64 `json:"lt_eqt_invest"`
+	InvestRealEstate float64 `json:"invest_real_estate"`
+	TimeDeposits float64 `json:"time_deposits"`
+	OthAssets float64 `json:"oth_assets"`
+	LtRec float64 `json:"lt_rec"`
+	FixAssets float64 `json:"fix_assets"`
+	Cip float64 `json:"cip"`
+	ConstMaterials float64 `json:"const_materials"`
+	FixedAssetsDisp float64 `json:"fixed_assets_disp"`
+	ProducBioAssets float64 `json:"produc_bio_assets"`
+	OilAndGasAssets float64 `json:"oil_and_gas_assets"`
+	IntanAssets float64 `json:"intan_assets"`
+	RAndD float64 `json:"r_and_d"`
+	Goodwill float64 `json:"goodwill"`
+	LtAmorExp float64 `json:"lt_amor_exp"`
+	DeferTaxAssets float64 `json:"defer_tax_assets"`
+	DecrInDisbur float64 `json:"decr_in_disbur"`
+	OthNca float64 `json:"oth_nca"`
+	TotalNca float64 `json:"total_nca"`
+	CashReserCb float64 `json:"cash_reser_cb"`
+	DeposInOthBfi float64 `json:"depos_in_oth_bfi"`
+	PrecMetals float64 `json:"prec_metals"`
+	DerivAssets float64 `json:"deriv_assets"`
+	RrReinsUnePrem float64 `json:"rr_reins_une_prem"`
+	RrReinsOutstdCla float64 `json:"rr_reins_outstd_cla"`
+	RrReinsLinsLiab float64 `json:"rr_reins_lins_liab"`
+	RrReinsLthinsLiab float64 `json:"rr_reins_lthins_liab"`
+	RefundDepos float64 `json:"refund_depos"`
+	PhPledgeLoans float64 `json:"ph_pledge_loans"`
+	RefundCapDepos float64 `json:"refund_cap_depos"`
+	IndepAcctAssets float64 `json:"indep_acct_assets"`
+	ClientDepos float64 `json:"client_depos"`
+	ClientProv float64 `json:"client_prov"`
+	TransacSeatFee float64 `json:"transac_seat_fee"`
+	InvestAsReceiv float64 `json:"invest_as_receiv"`
+	TotalAssets float64 `json:"total_assets"`
+	LtBorr float64 `json:"lt_borr"`
+	StBorr float64 `json:"st_borr"`
+	CbBorr float64 `json:"cb_borr"`
+	DeposIbDeposits float64 `json:"depos_ib_deposits"`
+	LoanOthBank float64 `json:"loan_oth_bank"`
+	TradingFl float64 `json:"trading_fl"`
+	NotesPayable float64 `json:"notes_payable"`
+	AcctPayable float64 `json:"acct_payable"`
+	AdvReceipts float64 `json:"adv_receipts"`
+	SoldForRepurFa float64 `json:"sold_for_repur_fa"`
+	CommPayable float64 `json:"comm_payable"`
+	PayrollPayable float64 `json:"payroll_payable"`
+	TaxesPayable float64 `json:"taxes_payable"`
+	IntPayable float64 `json:"int_payable"`
+	DivPayable float64 `json:"div_payable"`
+	OthPayable float64 `json:"oth_payable"`
+	AccExp float64 `json:"acc_exp"`
+	DeferredInc float64 `json:"deferred_inc"`
+	StBondsPayable float64 `json:"st_bonds_payable"`
+	PayableToReinsurer float64 `json:"payable_to_reinsurer"`
+	RsrvInsurCont float64 `json:"rsrv_insur_cont"`
+	ActingTradingSec float64 `json:"acting_trading_sec"`
+	ActingUwSec float64 `json:"acting_uw_sec"`
+	NonCurLiabDue1y float64 `json:"non_cur_liab_due_1y"`
+	OthCurLiab float64 `json:"oth_cur_liab"`
+	TotalCurLiab float64 `json:"total_cur_liab"`
+	BondPayable float64 `json:"bond_payable"`
+	LtPayable float64 `json:"lt_payable"`
+	SpecificPayables float64 `json:"specific_payables"`
+	EstimatedLiab float64 `json:"estimated_liab"`
+	DeferTaxLiab float64 `json:"defer_tax_liab"`
+	DeferIncNonCurLiab float64 `json:"defer_inc_non_cur_liab"`
+	OthNcl float64 `json:"oth_ncl"`
+	TotalNcl float64 `json:"total_ncl"`
+	DeposOthBfi float64 `json:"depos_oth_bfi"`
+	DerivLiab float64 `json:"deriv_liab"`
+	Depos float64 `json:"depos"`
+	AgencyBusLiab float64 `json:"agency_bus_liab"`
+	OthLiab float64 `json:"oth_liab"`
+	PremReceivAdva float64 `json:"prem_receiv_adva"`
+	DeposReceived float64 `json:"depos_received"`
+	PhInvest float64 `json:"ph_invest"`
+	ReserUnePrem float64 `json:"reser_une_prem"`
+	ReserOutstdClaims float64 `json:"reser_outstd_claims"`
+	ReserLinsLiab float64 `json:"reser_lins_liab"`
+	ReserLthinsLiab float64 `json:"reser_lthins_liab"`
+	IndeptAccLiab float64 `json:"indept_acc_liab"`
+	PledgeBorr float64 `json:"pledge_borr"`
+	IndemPayable float64 `json:"indem_payable"`
+	PolicyDivPayable float64 `json:"policy_div_payable"`
+	TotalLiab float64 `json:"total_liab"`
+	TreasuryShare float64 `json:"treasury_share"`
+	OrdinRiskReser float64 `json:"ordin_risk_reser"`
+	ForexDiffer float64 `json:"forex_differ"`
+	InvestLossUnconf float64 `json:"invest_loss_unconf"`
+	MinorityInt float64 `json:"minority_int"`
+	TotalHldrEqyExcMinInt float64 `json:"total_hldr_eqy_exc_min_int"`
+	TotalHldrEqyIncMinInt float64 `json:"total_hldr_eqy_inc_min_int"`
+	TotalLiabHldrEqy float64 `json:"total_liab_hldr_eqy"`
+	LtPayrollPayable float64 `json:"lt_payroll_payable"`
+	OthCompIncome float64 `json:"oth_comp_income"`
+	OthEqtTools float64 `json:"oth_eqt_tools"`
+	OthEqtToolsPShr float64 `json:"oth_eqt_tools_p_shr"`
+	LendingFunds float64 `json:"lending_funds"`
+	AccReceivable float64 `json:"acc_receivable"`
+	StFinPayable float64 `json:"st_fin_payable"`
+	Payables float64 `json:"payables"`
+	HfsAssets float64 `json:"hfs_assets"`
+	HfsSales float64 `json:"hfs_sales"`
+	CostFinAssets float64 `json:"cost_fin_assets"`
+	FairValueFinAssets float64 `json:"fair_value_fin_assets"`
+	CipTotal float64 `json:"cip_total"`
+	OthPayTotal float64 `json:"oth_pay_total"`
+	LongPayTotal float64 `json:"long_pay_total"`
+	DebtInvest float64 `json:"debt_invest"`
+	OthDebtInvest float64 `json:"oth_debt_invest"`
+	OthEqInvest float64 `json:"oth_eq_invest"`
+	OthIlliqFinAssets float64 `json:"oth_illiq_fin_assets"`
+	OthEqPpbond float64 `json:"oth_eq_ppbond"`
+	ReceivFinancing float64 `json:"receiv_financing"`
+	UseRightAssets float64 `json:"use_right_assets"`
+	LeaseLiab float64 `json:"lease_liab"`
+	ContractAssets float64 `json:"contract_assets"`
+	ContractLiab float64 `json:"contract_liab"`
+	AccountsReceivBill float64 `json:"accounts_receiv_bill"`
+	AccountsPay float64 `json:"accounts_pay"`
+	OthRcvTotal float64 `json:"oth_rcv_total"`
+	FixAssetsTotal float64 `json:"fix_assets_total"`
+	UpdateFlag string `json:"update_flag"`
 }
 
-// Balancesheet 调用 balancesheet API
+// Balancesheet 调用 资产负债表 API
 func Balancesheet(ctx context.Context, client *sdk.Client, req *BalancesheetRequest) ([]BalancesheetItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.AnnDate != "" {
+		params["ann_date"] = req.AnnDate
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
+	if req.Period != "" {
+		params["period"] = req.Period
+	}
+	if req.ReportType != "" {
+		params["report_type"] = req.ReportType
+	}
+	if req.CompType != "" {
+		params["comp_type"] = req.CompType
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "ann_date", "f_ann_date", "end_date", "report_type", "comp_type", "end_type", "total_share", "cap_rese", "undistr_porfit", "surplus_rese", "special_rese", "money_cap", "trad_asset", "notes_receiv", "accounts_receiv", "oth_receiv", "prepayment", "div_receiv", "int_receiv", "inventories", "amor_exp", "nca_within_1y", "sett_rsrv", "loanto_oth_bank_fi", "premium_receiv", "reinsur_receiv", "reinsur_res_receiv", "pur_resale_fa", "oth_cur_assets", "total_cur_assets", "fa_avail_for_sale", "htm_invest", "lt_eqt_invest", "invest_real_estate", "time_deposits", "oth_assets", "lt_rec", "fix_assets", "cip", "const_materials", "fixed_assets_disp", "produc_bio_assets", "oil_and_gas_assets", "intan_assets", "r_and_d", "goodwill", "lt_amor_exp", "defer_tax_assets", "decr_in_disbur", "oth_nca", "total_nca", "cash_reser_cb", "depos_in_oth_bfi", "prec_metals", "deriv_assets", "rr_reins_une_prem", "rr_reins_outstd_cla", "rr_reins_lins_liab", "rr_reins_lthins_liab", "refund_depos", "ph_pledge_loans", "refund_cap_depos", "indep_acct_assets", "client_depos", "client_prov", "transac_seat_fee", "invest_as_receiv", "total_assets", "lt_borr", "st_borr", "cb_borr", "depos_ib_deposits", "loan_oth_bank", "trading_fl", "notes_payable", "acct_payable", "adv_receipts", "sold_for_repur_fa", "comm_payable", "payroll_payable", "taxes_payable", "int_payable", "div_payable", "oth_payable", "acc_exp", "deferred_inc", "st_bonds_payable", "payable_to_reinsurer", "rsrv_insur_cont", "acting_trading_sec", "acting_uw_sec", "non_cur_liab_due_1y", "oth_cur_liab", "total_cur_liab", "bond_payable", "lt_payable", "specific_payables", "estimated_liab", "defer_tax_liab", "defer_inc_non_cur_liab", "oth_ncl", "total_ncl", "depos_oth_bfi", "deriv_liab", "depos", "agency_bus_liab", "oth_liab", "prem_receiv_adva", "depos_received", "ph_invest", "reser_une_prem", "reser_outstd_claims", "reser_lins_liab", "reser_lthins_liab", "indept_acc_liab", "pledge_borr", "indem_payable", "policy_div_payable", "total_liab", "treasury_share", "ordin_risk_reser", "forex_differ", "invest_loss_unconf", "minority_int", "total_hldr_eqy_exc_min_int", "total_hldr_eqy_inc_min_int", "total_liab_hldr_eqy", "lt_payroll_payable", "oth_comp_income", "oth_eqt_tools", "oth_eqt_tools_p_shr", "lending_funds", "acc_receivable", "st_fin_payable", "payables", "hfs_assets", "hfs_sales", "cost_fin_assets", "fair_value_fin_assets", "cip_total", "oth_pay_total", "long_pay_total", "debt_invest", "oth_debt_invest", "oth_eq_invest", "oth_illiq_fin_assets", "oth_eq_ppbond", "receiv_financing", "use_right_assets", "lease_liab", "contract_assets", "contract_liab", "accounts_receiv_bill", "accounts_pay", "oth_rcv_total", "fix_assets_total", "update_flag"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +217,959 @@ func Balancesheet(ctx context.Context, client *sdk.Client, req *BalancesheetRequ
 	if err := client.CallAPI(ctx, "balancesheet", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []BalancesheetItem{}, nil
+	items := make([]BalancesheetItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 ann_date 的简单类型
+		annDate, ok := item["ann_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ann_date 类型")
+		}
+		// 处理 f_ann_date 的简单类型
+		fAnnDate, ok := item["f_ann_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 f_ann_date 类型")
+		}
+		// 处理 end_date 的简单类型
+		endDate, ok := item["end_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 end_date 类型")
+		}
+		// 处理 report_type 的简单类型
+		reportType, ok := item["report_type"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 report_type 类型")
+		}
+		// 处理 comp_type 的简单类型
+		compType, ok := item["comp_type"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 comp_type 类型")
+		}
+		// 处理 end_type 的简单类型
+		endType, ok := item["end_type"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 end_type 类型")
+		}
+		// 处理 total_share 的简单类型
+		totalShare, ok := item["total_share"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 total_share 类型")
+		}
+		// 处理 cap_rese 的简单类型
+		capRese, ok := item["cap_rese"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 cap_rese 类型")
+		}
+		// 处理 undistr_porfit 的简单类型
+		undistrPorfit, ok := item["undistr_porfit"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 undistr_porfit 类型")
+		}
+		// 处理 surplus_rese 的简单类型
+		surplusRese, ok := item["surplus_rese"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 surplus_rese 类型")
+		}
+		// 处理 special_rese 的简单类型
+		specialRese, ok := item["special_rese"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 special_rese 类型")
+		}
+		// 处理 money_cap 的简单类型
+		moneyCap, ok := item["money_cap"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 money_cap 类型")
+		}
+		// 处理 trad_asset 的简单类型
+		tradAsset, ok := item["trad_asset"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 trad_asset 类型")
+		}
+		// 处理 notes_receiv 的简单类型
+		notesReceiv, ok := item["notes_receiv"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 notes_receiv 类型")
+		}
+		// 处理 accounts_receiv 的简单类型
+		accountsReceiv, ok := item["accounts_receiv"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 accounts_receiv 类型")
+		}
+		// 处理 oth_receiv 的简单类型
+		othReceiv, ok := item["oth_receiv"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 oth_receiv 类型")
+		}
+		// 处理 prepayment 的简单类型
+		prepayment, ok := item["prepayment"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 prepayment 类型")
+		}
+		// 处理 div_receiv 的简单类型
+		divReceiv, ok := item["div_receiv"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 div_receiv 类型")
+		}
+		// 处理 int_receiv 的简单类型
+		intReceiv, ok := item["int_receiv"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 int_receiv 类型")
+		}
+		// 处理 inventories 的简单类型
+		inventories, ok := item["inventories"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 inventories 类型")
+		}
+		// 处理 amor_exp 的简单类型
+		amorExp, ok := item["amor_exp"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 amor_exp 类型")
+		}
+		// 处理 nca_within_1y 的简单类型
+		ncaWithin1y, ok := item["nca_within_1y"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 nca_within_1y 类型")
+		}
+		// 处理 sett_rsrv 的简单类型
+		settRsrv, ok := item["sett_rsrv"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 sett_rsrv 类型")
+		}
+		// 处理 loanto_oth_bank_fi 的简单类型
+		loantoOthBankFi, ok := item["loanto_oth_bank_fi"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 loanto_oth_bank_fi 类型")
+		}
+		// 处理 premium_receiv 的简单类型
+		premiumReceiv, ok := item["premium_receiv"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 premium_receiv 类型")
+		}
+		// 处理 reinsur_receiv 的简单类型
+		reinsurReceiv, ok := item["reinsur_receiv"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 reinsur_receiv 类型")
+		}
+		// 处理 reinsur_res_receiv 的简单类型
+		reinsurResReceiv, ok := item["reinsur_res_receiv"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 reinsur_res_receiv 类型")
+		}
+		// 处理 pur_resale_fa 的简单类型
+		purResaleFa, ok := item["pur_resale_fa"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 pur_resale_fa 类型")
+		}
+		// 处理 oth_cur_assets 的简单类型
+		othCurAssets, ok := item["oth_cur_assets"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 oth_cur_assets 类型")
+		}
+		// 处理 total_cur_assets 的简单类型
+		totalCurAssets, ok := item["total_cur_assets"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 total_cur_assets 类型")
+		}
+		// 处理 fa_avail_for_sale 的简单类型
+		faAvailForSale, ok := item["fa_avail_for_sale"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 fa_avail_for_sale 类型")
+		}
+		// 处理 htm_invest 的简单类型
+		htmInvest, ok := item["htm_invest"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 htm_invest 类型")
+		}
+		// 处理 lt_eqt_invest 的简单类型
+		ltEqtInvest, ok := item["lt_eqt_invest"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 lt_eqt_invest 类型")
+		}
+		// 处理 invest_real_estate 的简单类型
+		investRealEstate, ok := item["invest_real_estate"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 invest_real_estate 类型")
+		}
+		// 处理 time_deposits 的简单类型
+		timeDeposits, ok := item["time_deposits"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 time_deposits 类型")
+		}
+		// 处理 oth_assets 的简单类型
+		othAssets, ok := item["oth_assets"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 oth_assets 类型")
+		}
+		// 处理 lt_rec 的简单类型
+		ltRec, ok := item["lt_rec"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 lt_rec 类型")
+		}
+		// 处理 fix_assets 的简单类型
+		fixAssets, ok := item["fix_assets"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 fix_assets 类型")
+		}
+		// 处理 cip 的简单类型
+		cip, ok := item["cip"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 cip 类型")
+		}
+		// 处理 const_materials 的简单类型
+		constMaterials, ok := item["const_materials"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 const_materials 类型")
+		}
+		// 处理 fixed_assets_disp 的简单类型
+		fixedAssetsDisp, ok := item["fixed_assets_disp"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 fixed_assets_disp 类型")
+		}
+		// 处理 produc_bio_assets 的简单类型
+		producBioAssets, ok := item["produc_bio_assets"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 produc_bio_assets 类型")
+		}
+		// 处理 oil_and_gas_assets 的简单类型
+		oilAndGasAssets, ok := item["oil_and_gas_assets"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 oil_and_gas_assets 类型")
+		}
+		// 处理 intan_assets 的简单类型
+		intanAssets, ok := item["intan_assets"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 intan_assets 类型")
+		}
+		// 处理 r_and_d 的简单类型
+		rAndD, ok := item["r_and_d"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 r_and_d 类型")
+		}
+		// 处理 goodwill 的简单类型
+		goodwill, ok := item["goodwill"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 goodwill 类型")
+		}
+		// 处理 lt_amor_exp 的简单类型
+		ltAmorExp, ok := item["lt_amor_exp"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 lt_amor_exp 类型")
+		}
+		// 处理 defer_tax_assets 的简单类型
+		deferTaxAssets, ok := item["defer_tax_assets"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 defer_tax_assets 类型")
+		}
+		// 处理 decr_in_disbur 的简单类型
+		decrInDisbur, ok := item["decr_in_disbur"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 decr_in_disbur 类型")
+		}
+		// 处理 oth_nca 的简单类型
+		othNca, ok := item["oth_nca"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 oth_nca 类型")
+		}
+		// 处理 total_nca 的简单类型
+		totalNca, ok := item["total_nca"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 total_nca 类型")
+		}
+		// 处理 cash_reser_cb 的简单类型
+		cashReserCb, ok := item["cash_reser_cb"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 cash_reser_cb 类型")
+		}
+		// 处理 depos_in_oth_bfi 的简单类型
+		deposInOthBfi, ok := item["depos_in_oth_bfi"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 depos_in_oth_bfi 类型")
+		}
+		// 处理 prec_metals 的简单类型
+		precMetals, ok := item["prec_metals"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 prec_metals 类型")
+		}
+		// 处理 deriv_assets 的简单类型
+		derivAssets, ok := item["deriv_assets"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 deriv_assets 类型")
+		}
+		// 处理 rr_reins_une_prem 的简单类型
+		rrReinsUnePrem, ok := item["rr_reins_une_prem"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 rr_reins_une_prem 类型")
+		}
+		// 处理 rr_reins_outstd_cla 的简单类型
+		rrReinsOutstdCla, ok := item["rr_reins_outstd_cla"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 rr_reins_outstd_cla 类型")
+		}
+		// 处理 rr_reins_lins_liab 的简单类型
+		rrReinsLinsLiab, ok := item["rr_reins_lins_liab"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 rr_reins_lins_liab 类型")
+		}
+		// 处理 rr_reins_lthins_liab 的简单类型
+		rrReinsLthinsLiab, ok := item["rr_reins_lthins_liab"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 rr_reins_lthins_liab 类型")
+		}
+		// 处理 refund_depos 的简单类型
+		refundDepos, ok := item["refund_depos"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 refund_depos 类型")
+		}
+		// 处理 ph_pledge_loans 的简单类型
+		phPledgeLoans, ok := item["ph_pledge_loans"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ph_pledge_loans 类型")
+		}
+		// 处理 refund_cap_depos 的简单类型
+		refundCapDepos, ok := item["refund_cap_depos"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 refund_cap_depos 类型")
+		}
+		// 处理 indep_acct_assets 的简单类型
+		indepAcctAssets, ok := item["indep_acct_assets"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 indep_acct_assets 类型")
+		}
+		// 处理 client_depos 的简单类型
+		clientDepos, ok := item["client_depos"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 client_depos 类型")
+		}
+		// 处理 client_prov 的简单类型
+		clientProv, ok := item["client_prov"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 client_prov 类型")
+		}
+		// 处理 transac_seat_fee 的简单类型
+		transacSeatFee, ok := item["transac_seat_fee"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 transac_seat_fee 类型")
+		}
+		// 处理 invest_as_receiv 的简单类型
+		investAsReceiv, ok := item["invest_as_receiv"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 invest_as_receiv 类型")
+		}
+		// 处理 total_assets 的简单类型
+		totalAssets, ok := item["total_assets"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 total_assets 类型")
+		}
+		// 处理 lt_borr 的简单类型
+		ltBorr, ok := item["lt_borr"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 lt_borr 类型")
+		}
+		// 处理 st_borr 的简单类型
+		stBorr, ok := item["st_borr"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 st_borr 类型")
+		}
+		// 处理 cb_borr 的简单类型
+		cbBorr, ok := item["cb_borr"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 cb_borr 类型")
+		}
+		// 处理 depos_ib_deposits 的简单类型
+		deposIbDeposits, ok := item["depos_ib_deposits"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 depos_ib_deposits 类型")
+		}
+		// 处理 loan_oth_bank 的简单类型
+		loanOthBank, ok := item["loan_oth_bank"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 loan_oth_bank 类型")
+		}
+		// 处理 trading_fl 的简单类型
+		tradingFl, ok := item["trading_fl"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 trading_fl 类型")
+		}
+		// 处理 notes_payable 的简单类型
+		notesPayable, ok := item["notes_payable"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 notes_payable 类型")
+		}
+		// 处理 acct_payable 的简单类型
+		acctPayable, ok := item["acct_payable"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 acct_payable 类型")
+		}
+		// 处理 adv_receipts 的简单类型
+		advReceipts, ok := item["adv_receipts"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 adv_receipts 类型")
+		}
+		// 处理 sold_for_repur_fa 的简单类型
+		soldForRepurFa, ok := item["sold_for_repur_fa"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 sold_for_repur_fa 类型")
+		}
+		// 处理 comm_payable 的简单类型
+		commPayable, ok := item["comm_payable"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 comm_payable 类型")
+		}
+		// 处理 payroll_payable 的简单类型
+		payrollPayable, ok := item["payroll_payable"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 payroll_payable 类型")
+		}
+		// 处理 taxes_payable 的简单类型
+		taxesPayable, ok := item["taxes_payable"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 taxes_payable 类型")
+		}
+		// 处理 int_payable 的简单类型
+		intPayable, ok := item["int_payable"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 int_payable 类型")
+		}
+		// 处理 div_payable 的简单类型
+		divPayable, ok := item["div_payable"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 div_payable 类型")
+		}
+		// 处理 oth_payable 的简单类型
+		othPayable, ok := item["oth_payable"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 oth_payable 类型")
+		}
+		// 处理 acc_exp 的简单类型
+		accExp, ok := item["acc_exp"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 acc_exp 类型")
+		}
+		// 处理 deferred_inc 的简单类型
+		deferredInc, ok := item["deferred_inc"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 deferred_inc 类型")
+		}
+		// 处理 st_bonds_payable 的简单类型
+		stBondsPayable, ok := item["st_bonds_payable"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 st_bonds_payable 类型")
+		}
+		// 处理 payable_to_reinsurer 的简单类型
+		payableToReinsurer, ok := item["payable_to_reinsurer"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 payable_to_reinsurer 类型")
+		}
+		// 处理 rsrv_insur_cont 的简单类型
+		rsrvInsurCont, ok := item["rsrv_insur_cont"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 rsrv_insur_cont 类型")
+		}
+		// 处理 acting_trading_sec 的简单类型
+		actingTradingSec, ok := item["acting_trading_sec"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 acting_trading_sec 类型")
+		}
+		// 处理 acting_uw_sec 的简单类型
+		actingUwSec, ok := item["acting_uw_sec"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 acting_uw_sec 类型")
+		}
+		// 处理 non_cur_liab_due_1y 的简单类型
+		nonCurLiabDue1y, ok := item["non_cur_liab_due_1y"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 non_cur_liab_due_1y 类型")
+		}
+		// 处理 oth_cur_liab 的简单类型
+		othCurLiab, ok := item["oth_cur_liab"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 oth_cur_liab 类型")
+		}
+		// 处理 total_cur_liab 的简单类型
+		totalCurLiab, ok := item["total_cur_liab"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 total_cur_liab 类型")
+		}
+		// 处理 bond_payable 的简单类型
+		bondPayable, ok := item["bond_payable"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 bond_payable 类型")
+		}
+		// 处理 lt_payable 的简单类型
+		ltPayable, ok := item["lt_payable"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 lt_payable 类型")
+		}
+		// 处理 specific_payables 的简单类型
+		specificPayables, ok := item["specific_payables"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 specific_payables 类型")
+		}
+		// 处理 estimated_liab 的简单类型
+		estimatedLiab, ok := item["estimated_liab"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 estimated_liab 类型")
+		}
+		// 处理 defer_tax_liab 的简单类型
+		deferTaxLiab, ok := item["defer_tax_liab"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 defer_tax_liab 类型")
+		}
+		// 处理 defer_inc_non_cur_liab 的简单类型
+		deferIncNonCurLiab, ok := item["defer_inc_non_cur_liab"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 defer_inc_non_cur_liab 类型")
+		}
+		// 处理 oth_ncl 的简单类型
+		othNcl, ok := item["oth_ncl"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 oth_ncl 类型")
+		}
+		// 处理 total_ncl 的简单类型
+		totalNcl, ok := item["total_ncl"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 total_ncl 类型")
+		}
+		// 处理 depos_oth_bfi 的简单类型
+		deposOthBfi, ok := item["depos_oth_bfi"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 depos_oth_bfi 类型")
+		}
+		// 处理 deriv_liab 的简单类型
+		derivLiab, ok := item["deriv_liab"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 deriv_liab 类型")
+		}
+		// 处理 depos 的简单类型
+		depos, ok := item["depos"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 depos 类型")
+		}
+		// 处理 agency_bus_liab 的简单类型
+		agencyBusLiab, ok := item["agency_bus_liab"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 agency_bus_liab 类型")
+		}
+		// 处理 oth_liab 的简单类型
+		othLiab, ok := item["oth_liab"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 oth_liab 类型")
+		}
+		// 处理 prem_receiv_adva 的简单类型
+		premReceivAdva, ok := item["prem_receiv_adva"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 prem_receiv_adva 类型")
+		}
+		// 处理 depos_received 的简单类型
+		deposReceived, ok := item["depos_received"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 depos_received 类型")
+		}
+		// 处理 ph_invest 的简单类型
+		phInvest, ok := item["ph_invest"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ph_invest 类型")
+		}
+		// 处理 reser_une_prem 的简单类型
+		reserUnePrem, ok := item["reser_une_prem"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 reser_une_prem 类型")
+		}
+		// 处理 reser_outstd_claims 的简单类型
+		reserOutstdClaims, ok := item["reser_outstd_claims"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 reser_outstd_claims 类型")
+		}
+		// 处理 reser_lins_liab 的简单类型
+		reserLinsLiab, ok := item["reser_lins_liab"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 reser_lins_liab 类型")
+		}
+		// 处理 reser_lthins_liab 的简单类型
+		reserLthinsLiab, ok := item["reser_lthins_liab"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 reser_lthins_liab 类型")
+		}
+		// 处理 indept_acc_liab 的简单类型
+		indeptAccLiab, ok := item["indept_acc_liab"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 indept_acc_liab 类型")
+		}
+		// 处理 pledge_borr 的简单类型
+		pledgeBorr, ok := item["pledge_borr"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 pledge_borr 类型")
+		}
+		// 处理 indem_payable 的简单类型
+		indemPayable, ok := item["indem_payable"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 indem_payable 类型")
+		}
+		// 处理 policy_div_payable 的简单类型
+		policyDivPayable, ok := item["policy_div_payable"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 policy_div_payable 类型")
+		}
+		// 处理 total_liab 的简单类型
+		totalLiab, ok := item["total_liab"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 total_liab 类型")
+		}
+		// 处理 treasury_share 的简单类型
+		treasuryShare, ok := item["treasury_share"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 treasury_share 类型")
+		}
+		// 处理 ordin_risk_reser 的简单类型
+		ordinRiskReser, ok := item["ordin_risk_reser"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ordin_risk_reser 类型")
+		}
+		// 处理 forex_differ 的简单类型
+		forexDiffer, ok := item["forex_differ"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 forex_differ 类型")
+		}
+		// 处理 invest_loss_unconf 的简单类型
+		investLossUnconf, ok := item["invest_loss_unconf"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 invest_loss_unconf 类型")
+		}
+		// 处理 minority_int 的简单类型
+		minorityInt, ok := item["minority_int"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 minority_int 类型")
+		}
+		// 处理 total_hldr_eqy_exc_min_int 的简单类型
+		totalHldrEqyExcMinInt, ok := item["total_hldr_eqy_exc_min_int"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 total_hldr_eqy_exc_min_int 类型")
+		}
+		// 处理 total_hldr_eqy_inc_min_int 的简单类型
+		totalHldrEqyIncMinInt, ok := item["total_hldr_eqy_inc_min_int"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 total_hldr_eqy_inc_min_int 类型")
+		}
+		// 处理 total_liab_hldr_eqy 的简单类型
+		totalLiabHldrEqy, ok := item["total_liab_hldr_eqy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 total_liab_hldr_eqy 类型")
+		}
+		// 处理 lt_payroll_payable 的简单类型
+		ltPayrollPayable, ok := item["lt_payroll_payable"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 lt_payroll_payable 类型")
+		}
+		// 处理 oth_comp_income 的简单类型
+		othCompIncome, ok := item["oth_comp_income"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 oth_comp_income 类型")
+		}
+		// 处理 oth_eqt_tools 的简单类型
+		othEqtTools, ok := item["oth_eqt_tools"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 oth_eqt_tools 类型")
+		}
+		// 处理 oth_eqt_tools_p_shr 的简单类型
+		othEqtToolsPShr, ok := item["oth_eqt_tools_p_shr"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 oth_eqt_tools_p_shr 类型")
+		}
+		// 处理 lending_funds 的简单类型
+		lendingFunds, ok := item["lending_funds"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 lending_funds 类型")
+		}
+		// 处理 acc_receivable 的简单类型
+		accReceivable, ok := item["acc_receivable"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 acc_receivable 类型")
+		}
+		// 处理 st_fin_payable 的简单类型
+		stFinPayable, ok := item["st_fin_payable"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 st_fin_payable 类型")
+		}
+		// 处理 payables 的简单类型
+		payables, ok := item["payables"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 payables 类型")
+		}
+		// 处理 hfs_assets 的简单类型
+		hfsAssets, ok := item["hfs_assets"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 hfs_assets 类型")
+		}
+		// 处理 hfs_sales 的简单类型
+		hfsSales, ok := item["hfs_sales"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 hfs_sales 类型")
+		}
+		// 处理 cost_fin_assets 的简单类型
+		costFinAssets, ok := item["cost_fin_assets"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 cost_fin_assets 类型")
+		}
+		// 处理 fair_value_fin_assets 的简单类型
+		fairValueFinAssets, ok := item["fair_value_fin_assets"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 fair_value_fin_assets 类型")
+		}
+		// 处理 cip_total 的简单类型
+		cipTotal, ok := item["cip_total"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 cip_total 类型")
+		}
+		// 处理 oth_pay_total 的简单类型
+		othPayTotal, ok := item["oth_pay_total"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 oth_pay_total 类型")
+		}
+		// 处理 long_pay_total 的简单类型
+		longPayTotal, ok := item["long_pay_total"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 long_pay_total 类型")
+		}
+		// 处理 debt_invest 的简单类型
+		debtInvest, ok := item["debt_invest"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 debt_invest 类型")
+		}
+		// 处理 oth_debt_invest 的简单类型
+		othDebtInvest, ok := item["oth_debt_invest"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 oth_debt_invest 类型")
+		}
+		// 处理 oth_eq_invest 的简单类型
+		othEqInvest, ok := item["oth_eq_invest"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 oth_eq_invest 类型")
+		}
+		// 处理 oth_illiq_fin_assets 的简单类型
+		othIlliqFinAssets, ok := item["oth_illiq_fin_assets"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 oth_illiq_fin_assets 类型")
+		}
+		// 处理 oth_eq_ppbond 的简单类型
+		othEqPpbond, ok := item["oth_eq_ppbond"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 oth_eq_ppbond 类型")
+		}
+		// 处理 receiv_financing 的简单类型
+		receivFinancing, ok := item["receiv_financing"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 receiv_financing 类型")
+		}
+		// 处理 use_right_assets 的简单类型
+		useRightAssets, ok := item["use_right_assets"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 use_right_assets 类型")
+		}
+		// 处理 lease_liab 的简单类型
+		leaseLiab, ok := item["lease_liab"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 lease_liab 类型")
+		}
+		// 处理 contract_assets 的简单类型
+		contractAssets, ok := item["contract_assets"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 contract_assets 类型")
+		}
+		// 处理 contract_liab 的简单类型
+		contractLiab, ok := item["contract_liab"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 contract_liab 类型")
+		}
+		// 处理 accounts_receiv_bill 的简单类型
+		accountsReceivBill, ok := item["accounts_receiv_bill"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 accounts_receiv_bill 类型")
+		}
+		// 处理 accounts_pay 的简单类型
+		accountsPay, ok := item["accounts_pay"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 accounts_pay 类型")
+		}
+		// 处理 oth_rcv_total 的简单类型
+		othRcvTotal, ok := item["oth_rcv_total"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 oth_rcv_total 类型")
+		}
+		// 处理 fix_assets_total 的简单类型
+		fixAssetsTotal, ok := item["fix_assets_total"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 fix_assets_total 类型")
+		}
+		// 处理 update_flag 的简单类型
+		updateFlag, ok := item["update_flag"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 update_flag 类型")
+		}
+		items[i] = BalancesheetItem{
+			TsCode: tsCode,
+			AnnDate: annDate,
+			FAnnDate: fAnnDate,
+			EndDate: endDate,
+			ReportType: reportType,
+			CompType: compType,
+			EndType: endType,
+			TotalShare: totalShare,
+			CapRese: capRese,
+			UndistrPorfit: undistrPorfit,
+			SurplusRese: surplusRese,
+			SpecialRese: specialRese,
+			MoneyCap: moneyCap,
+			TradAsset: tradAsset,
+			NotesReceiv: notesReceiv,
+			AccountsReceiv: accountsReceiv,
+			OthReceiv: othReceiv,
+			Prepayment: prepayment,
+			DivReceiv: divReceiv,
+			IntReceiv: intReceiv,
+			Inventories: inventories,
+			AmorExp: amorExp,
+			NcaWithin1y: ncaWithin1y,
+			SettRsrv: settRsrv,
+			LoantoOthBankFi: loantoOthBankFi,
+			PremiumReceiv: premiumReceiv,
+			ReinsurReceiv: reinsurReceiv,
+			ReinsurResReceiv: reinsurResReceiv,
+			PurResaleFa: purResaleFa,
+			OthCurAssets: othCurAssets,
+			TotalCurAssets: totalCurAssets,
+			FaAvailForSale: faAvailForSale,
+			HtmInvest: htmInvest,
+			LtEqtInvest: ltEqtInvest,
+			InvestRealEstate: investRealEstate,
+			TimeDeposits: timeDeposits,
+			OthAssets: othAssets,
+			LtRec: ltRec,
+			FixAssets: fixAssets,
+			Cip: cip,
+			ConstMaterials: constMaterials,
+			FixedAssetsDisp: fixedAssetsDisp,
+			ProducBioAssets: producBioAssets,
+			OilAndGasAssets: oilAndGasAssets,
+			IntanAssets: intanAssets,
+			RAndD: rAndD,
+			Goodwill: goodwill,
+			LtAmorExp: ltAmorExp,
+			DeferTaxAssets: deferTaxAssets,
+			DecrInDisbur: decrInDisbur,
+			OthNca: othNca,
+			TotalNca: totalNca,
+			CashReserCb: cashReserCb,
+			DeposInOthBfi: deposInOthBfi,
+			PrecMetals: precMetals,
+			DerivAssets: derivAssets,
+			RrReinsUnePrem: rrReinsUnePrem,
+			RrReinsOutstdCla: rrReinsOutstdCla,
+			RrReinsLinsLiab: rrReinsLinsLiab,
+			RrReinsLthinsLiab: rrReinsLthinsLiab,
+			RefundDepos: refundDepos,
+			PhPledgeLoans: phPledgeLoans,
+			RefundCapDepos: refundCapDepos,
+			IndepAcctAssets: indepAcctAssets,
+			ClientDepos: clientDepos,
+			ClientProv: clientProv,
+			TransacSeatFee: transacSeatFee,
+			InvestAsReceiv: investAsReceiv,
+			TotalAssets: totalAssets,
+			LtBorr: ltBorr,
+			StBorr: stBorr,
+			CbBorr: cbBorr,
+			DeposIbDeposits: deposIbDeposits,
+			LoanOthBank: loanOthBank,
+			TradingFl: tradingFl,
+			NotesPayable: notesPayable,
+			AcctPayable: acctPayable,
+			AdvReceipts: advReceipts,
+			SoldForRepurFa: soldForRepurFa,
+			CommPayable: commPayable,
+			PayrollPayable: payrollPayable,
+			TaxesPayable: taxesPayable,
+			IntPayable: intPayable,
+			DivPayable: divPayable,
+			OthPayable: othPayable,
+			AccExp: accExp,
+			DeferredInc: deferredInc,
+			StBondsPayable: stBondsPayable,
+			PayableToReinsurer: payableToReinsurer,
+			RsrvInsurCont: rsrvInsurCont,
+			ActingTradingSec: actingTradingSec,
+			ActingUwSec: actingUwSec,
+			NonCurLiabDue1y: nonCurLiabDue1y,
+			OthCurLiab: othCurLiab,
+			TotalCurLiab: totalCurLiab,
+			BondPayable: bondPayable,
+			LtPayable: ltPayable,
+			SpecificPayables: specificPayables,
+			EstimatedLiab: estimatedLiab,
+			DeferTaxLiab: deferTaxLiab,
+			DeferIncNonCurLiab: deferIncNonCurLiab,
+			OthNcl: othNcl,
+			TotalNcl: totalNcl,
+			DeposOthBfi: deposOthBfi,
+			DerivLiab: derivLiab,
+			Depos: depos,
+			AgencyBusLiab: agencyBusLiab,
+			OthLiab: othLiab,
+			PremReceivAdva: premReceivAdva,
+			DeposReceived: deposReceived,
+			PhInvest: phInvest,
+			ReserUnePrem: reserUnePrem,
+			ReserOutstdClaims: reserOutstdClaims,
+			ReserLinsLiab: reserLinsLiab,
+			ReserLthinsLiab: reserLthinsLiab,
+			IndeptAccLiab: indeptAccLiab,
+			PledgeBorr: pledgeBorr,
+			IndemPayable: indemPayable,
+			PolicyDivPayable: policyDivPayable,
+			TotalLiab: totalLiab,
+			TreasuryShare: treasuryShare,
+			OrdinRiskReser: ordinRiskReser,
+			ForexDiffer: forexDiffer,
+			InvestLossUnconf: investLossUnconf,
+			MinorityInt: minorityInt,
+			TotalHldrEqyExcMinInt: totalHldrEqyExcMinInt,
+			TotalHldrEqyIncMinInt: totalHldrEqyIncMinInt,
+			TotalLiabHldrEqy: totalLiabHldrEqy,
+			LtPayrollPayable: ltPayrollPayable,
+			OthCompIncome: othCompIncome,
+			OthEqtTools: othEqtTools,
+			OthEqtToolsPShr: othEqtToolsPShr,
+			LendingFunds: lendingFunds,
+			AccReceivable: accReceivable,
+			StFinPayable: stFinPayable,
+			Payables: payables,
+			HfsAssets: hfsAssets,
+			HfsSales: hfsSales,
+			CostFinAssets: costFinAssets,
+			FairValueFinAssets: fairValueFinAssets,
+			CipTotal: cipTotal,
+			OthPayTotal: othPayTotal,
+			LongPayTotal: longPayTotal,
+			DebtInvest: debtInvest,
+			OthDebtInvest: othDebtInvest,
+			OthEqInvest: othEqInvest,
+			OthIlliqFinAssets: othIlliqFinAssets,
+			OthEqPpbond: othEqPpbond,
+			ReceivFinancing: receivFinancing,
+			UseRightAssets: useRightAssets,
+			LeaseLiab: leaseLiab,
+			ContractAssets: contractAssets,
+			ContractLiab: contractLiab,
+			AccountsReceivBill: accountsReceivBill,
+			AccountsPay: accountsPay,
+			OthRcvTotal: othRcvTotal,
+			FixAssetsTotal: fixAssetsTotal,
+			UpdateFlag: updateFlag,
+		}
+	}
+
+	return items, nil
 }

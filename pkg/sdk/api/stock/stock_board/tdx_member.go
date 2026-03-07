@@ -4,23 +4,36 @@ package stock_board
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// TdxMemberRequest 表示 tdx_member API 的请求
+// TdxMemberRequest 表示 通达信板块成分 API 的请求
 type TdxMemberRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"`
 }
 
-// TdxMemberItem 表示单个 tdx_member 数据项
+// TdxMemberItem 表示单个 通达信板块成分 数据项
 type TdxMemberItem struct {
+	TsCode string `json:"ts_code"`
+	TradeDate string `json:"trade_date"`
+	ConCode string `json:"con_code"`
+	ConName string `json:"con_name"`
 }
 
-// TdxMember 调用 tdx_member API
+// TdxMember 调用 通达信板块成分 API
 func TdxMember(ctx context.Context, client *sdk.Client, req *TdxMemberRequest) ([]TdxMemberItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.TradeDate != "" {
+		params["trade_date"] = req.TradeDate
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "trade_date", "con_code", "con_name"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +43,35 @@ func TdxMember(ctx context.Context, client *sdk.Client, req *TdxMemberRequest) (
 	if err := client.CallAPI(ctx, "tdx_member", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []TdxMemberItem{}, nil
+	items := make([]TdxMemberItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 trade_date 的简单类型
+		tradeDate, ok := item["trade_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 trade_date 类型")
+		}
+		// 处理 con_code 的简单类型
+		conCode, ok := item["con_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 con_code 类型")
+		}
+		// 处理 con_name 的简单类型
+		conName, ok := item["con_name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 con_name 类型")
+		}
+		items[i] = TdxMemberItem{
+			TsCode: tsCode,
+			TradeDate: tradeDate,
+			ConCode: conCode,
+			ConName: conName,
+		}
+	}
+
+	return items, nil
 }

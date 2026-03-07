@@ -8,17 +8,37 @@ import (
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// ExpressRequest 表示 express API 的请求
+// ExpressRequest 表示 业绩快报 API 的请求
 type ExpressRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	AnnDate string `json:"ann_date,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
+	Period string `json:"period,omitempty"`
 }
 
-// ExpressItem 表示单个 express 数据项
+// ExpressItem 表示单个 业绩快报 数据项
 type ExpressItem struct {
 }
 
-// Express 调用 express API
+// Express 调用 业绩快报 API
 func Express(ctx context.Context, client *sdk.Client, req *ExpressRequest) ([]ExpressItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.AnnDate != "" {
+		params["ann_date"] = req.AnnDate
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
+	if req.Period != "" {
+		params["period"] = req.Period
+	}
 
 	fields := []string{}
 

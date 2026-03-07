@@ -4,23 +4,46 @@ package us_stock
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// UsBasicRequest 表示 us_basic API 的请求
+// UsBasicRequest 表示 美股基础信息 API 的请求
 type UsBasicRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	Classify string `json:"classify,omitempty"`
+	Offset string `json:"offset,omitempty"`
+	Limit string `json:"limit,omitempty"`
 }
 
-// UsBasicItem 表示单个 us_basic 数据项
+// UsBasicItem 表示单个 美股基础信息 数据项
 type UsBasicItem struct {
+	TsCode string `json:"ts_code"`
+	Name string `json:"name"`
+	Enname string `json:"enname"`
+	Classify string `json:"classify"`
+	ListDate string `json:"list_date"`
+	DelistDate string `json:"delist_date"`
 }
 
-// UsBasic 调用 us_basic API
+// UsBasic 调用 美股基础信息 API
 func UsBasic(ctx context.Context, client *sdk.Client, req *UsBasicRequest) ([]UsBasicItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.Classify != "" {
+		params["classify"] = req.Classify
+	}
+	if req.Offset != "" {
+		params["offset"] = req.Offset
+	}
+	if req.Limit != "" {
+		params["limit"] = req.Limit
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "name", "enname", "classify", "list_date", "delist_date"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +53,47 @@ func UsBasic(ctx context.Context, client *sdk.Client, req *UsBasicRequest) ([]Us
 	if err := client.CallAPI(ctx, "us_basic", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []UsBasicItem{}, nil
+	items := make([]UsBasicItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 name 的简单类型
+		name, ok := item["name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 name 类型")
+		}
+		// 处理 enname 的简单类型
+		enname, ok := item["enname"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 enname 类型")
+		}
+		// 处理 classify 的简单类型
+		classify, ok := item["classify"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 classify 类型")
+		}
+		// 处理 list_date 的简单类型
+		listDate, ok := item["list_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 list_date 类型")
+		}
+		// 处理 delist_date 的简单类型
+		delistDate, ok := item["delist_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 delist_date 类型")
+		}
+		items[i] = UsBasicItem{
+			TsCode: tsCode,
+			Name: name,
+			Enname: enname,
+			Classify: classify,
+			ListDate: listDate,
+			DelistDate: delistDate,
+		}
+	}
+
+	return items, nil
 }

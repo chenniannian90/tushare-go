@@ -4,23 +4,60 @@ package stock_financial
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// DividendRequest 表示 dividend API 的请求
+// DividendRequest 表示 分红送股数据 API 的请求
 type DividendRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	AnnDate string `json:"ann_date,omitempty"`
+	RecordDate string `json:"record_date,omitempty"`
+	ExDate string `json:"ex_date,omitempty"`
+	ImpAnnDate string `json:"imp_ann_date,omitempty"`
 }
 
-// DividendItem 表示单个 dividend 数据项
+// DividendItem 表示单个 分红送股数据 数据项
 type DividendItem struct {
+	TsCode string `json:"ts_code"`
+	EndDate string `json:"end_date"`
+	AnnDate string `json:"ann_date"`
+	DivProc string `json:"div_proc"`
+	StkDiv float64 `json:"stk_div"`
+	StkBoRate float64 `json:"stk_bo_rate"`
+	StkCoRate float64 `json:"stk_co_rate"`
+	CashDiv float64 `json:"cash_div"`
+	CashDivTax float64 `json:"cash_div_tax"`
+	RecordDate string `json:"record_date"`
+	ExDate string `json:"ex_date"`
+	PayDate string `json:"pay_date"`
+	DivListdate string `json:"div_listdate"`
+	ImpAnnDate string `json:"imp_ann_date"`
+	BaseDate string `json:"base_date"`
+	BaseShare float64 `json:"base_share"`
 }
 
-// Dividend 调用 dividend API
+// Dividend 调用 分红送股数据 API
 func Dividend(ctx context.Context, client *sdk.Client, req *DividendRequest) ([]DividendItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.AnnDate != "" {
+		params["ann_date"] = req.AnnDate
+	}
+	if req.RecordDate != "" {
+		params["record_date"] = req.RecordDate
+	}
+	if req.ExDate != "" {
+		params["ex_date"] = req.ExDate
+	}
+	if req.ImpAnnDate != "" {
+		params["imp_ann_date"] = req.ImpAnnDate
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "end_date", "ann_date", "div_proc", "stk_div", "stk_bo_rate", "stk_co_rate", "cash_div", "cash_div_tax", "record_date", "ex_date", "pay_date", "div_listdate", "imp_ann_date", "base_date", "base_share"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +67,107 @@ func Dividend(ctx context.Context, client *sdk.Client, req *DividendRequest) ([]
 	if err := client.CallAPI(ctx, "dividend", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []DividendItem{}, nil
+	items := make([]DividendItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 end_date 的简单类型
+		endDate, ok := item["end_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 end_date 类型")
+		}
+		// 处理 ann_date 的简单类型
+		annDate, ok := item["ann_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ann_date 类型")
+		}
+		// 处理 div_proc 的简单类型
+		divProc, ok := item["div_proc"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 div_proc 类型")
+		}
+		// 处理 stk_div 的简单类型
+		stkDiv, ok := item["stk_div"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 stk_div 类型")
+		}
+		// 处理 stk_bo_rate 的简单类型
+		stkBoRate, ok := item["stk_bo_rate"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 stk_bo_rate 类型")
+		}
+		// 处理 stk_co_rate 的简单类型
+		stkCoRate, ok := item["stk_co_rate"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 stk_co_rate 类型")
+		}
+		// 处理 cash_div 的简单类型
+		cashDiv, ok := item["cash_div"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 cash_div 类型")
+		}
+		// 处理 cash_div_tax 的简单类型
+		cashDivTax, ok := item["cash_div_tax"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 cash_div_tax 类型")
+		}
+		// 处理 record_date 的简单类型
+		recordDate, ok := item["record_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 record_date 类型")
+		}
+		// 处理 ex_date 的简单类型
+		exDate, ok := item["ex_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ex_date 类型")
+		}
+		// 处理 pay_date 的简单类型
+		payDate, ok := item["pay_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 pay_date 类型")
+		}
+		// 处理 div_listdate 的简单类型
+		divListdate, ok := item["div_listdate"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 div_listdate 类型")
+		}
+		// 处理 imp_ann_date 的简单类型
+		impAnnDate, ok := item["imp_ann_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 imp_ann_date 类型")
+		}
+		// 处理 base_date 的简单类型
+		baseDate, ok := item["base_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 base_date 类型")
+		}
+		// 处理 base_share 的简单类型
+		baseShare, ok := item["base_share"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 base_share 类型")
+		}
+		items[i] = DividendItem{
+			TsCode: tsCode,
+			EndDate: endDate,
+			AnnDate: annDate,
+			DivProc: divProc,
+			StkDiv: stkDiv,
+			StkBoRate: stkBoRate,
+			StkCoRate: stkCoRate,
+			CashDiv: cashDiv,
+			CashDivTax: cashDivTax,
+			RecordDate: recordDate,
+			ExDate: exDate,
+			PayDate: payDate,
+			DivListdate: divListdate,
+			ImpAnnDate: impAnnDate,
+			BaseDate: baseDate,
+			BaseShare: baseShare,
+		}
+	}
+
+	return items, nil
 }

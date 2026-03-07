@@ -4,23 +4,51 @@ package index
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// IndexWeeklyRequest 表示 index_weekly API 的请求
+// IndexWeeklyRequest 表示 指数周线行情 API 的请求
 type IndexWeeklyRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// IndexWeeklyItem 表示单个 index_weekly 数据项
+// IndexWeeklyItem 表示单个 指数周线行情 数据项
 type IndexWeeklyItem struct {
+	TsCode string `json:"ts_code"`
+	TradeDate string `json:"trade_date"`
+	Close float64 `json:"close"`
+	Open float64 `json:"open"`
+	High float64 `json:"high"`
+	Low float64 `json:"low"`
+	PreClose float64 `json:"pre_close"`
+	Change float64 `json:"change"`
+	PctChg float64 `json:"pct_chg"`
+	Vol float64 `json:"vol"`
+	Amount float64 `json:"amount"`
 }
 
-// IndexWeekly 调用 index_weekly API
+// IndexWeekly 调用 指数周线行情 API
 func IndexWeekly(ctx context.Context, client *sdk.Client, req *IndexWeeklyRequest) ([]IndexWeeklyItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.TradeDate != "" {
+		params["trade_date"] = req.TradeDate
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "trade_date", "close", "open", "high", "low", "pre_close", "change", "pct_chg", "vol", "amount"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +58,77 @@ func IndexWeekly(ctx context.Context, client *sdk.Client, req *IndexWeeklyReques
 	if err := client.CallAPI(ctx, "index_weekly", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []IndexWeeklyItem{}, nil
+	items := make([]IndexWeeklyItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 trade_date 的简单类型
+		tradeDate, ok := item["trade_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 trade_date 类型")
+		}
+		// 处理 close 的简单类型
+		close, ok := item["close"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 close 类型")
+		}
+		// 处理 open 的简单类型
+		open, ok := item["open"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 open 类型")
+		}
+		// 处理 high 的简单类型
+		high, ok := item["high"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 high 类型")
+		}
+		// 处理 low 的简单类型
+		low, ok := item["low"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 low 类型")
+		}
+		// 处理 pre_close 的简单类型
+		preClose, ok := item["pre_close"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 pre_close 类型")
+		}
+		// 处理 change 的简单类型
+		change, ok := item["change"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 change 类型")
+		}
+		// 处理 pct_chg 的简单类型
+		pctChg, ok := item["pct_chg"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 pct_chg 类型")
+		}
+		// 处理 vol 的简单类型
+		vol, ok := item["vol"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 vol 类型")
+		}
+		// 处理 amount 的简单类型
+		amount, ok := item["amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 amount 类型")
+		}
+		items[i] = IndexWeeklyItem{
+			TsCode: tsCode,
+			TradeDate: tradeDate,
+			Close: close,
+			Open: open,
+			High: high,
+			Low: low,
+			PreClose: preClose,
+			Change: change,
+			PctChg: pctChg,
+			Vol: vol,
+			Amount: amount,
+		}
+	}
+
+	return items, nil
 }

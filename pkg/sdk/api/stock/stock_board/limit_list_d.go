@@ -4,23 +4,66 @@ package stock_board
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// LimitListDRequest 表示 limit_list_d API 的请求
+// LimitListDRequest 表示 涨跌停和炸板数据 API 的请求
 type LimitListDRequest struct {
+	TradeDate string `json:"trade_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"`
+	LimitType string `json:"limit_type,omitempty"`
+	Exchange string `json:"exchange,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// LimitListDItem 表示单个 limit_list_d 数据项
+// LimitListDItem 表示单个 涨跌停和炸板数据 数据项
 type LimitListDItem struct {
+	TradeDate string `json:"trade_date"`
+	TsCode string `json:"ts_code"`
+	Industry string `json:"industry"`
+	Name string `json:"name"`
+	Close float64 `json:"close"`
+	PctChg float64 `json:"pct_chg"`
+	Amount float64 `json:"amount"`
+	LimitAmount float64 `json:"limit_amount"`
+	FloatMv float64 `json:"float_mv"`
+	TotalMv float64 `json:"total_mv"`
+	TurnoverRatio float64 `json:"turnover_ratio"`
+	FdAmount float64 `json:"fd_amount"`
+	FirstTime string `json:"first_time"`
+	LastTime string `json:"last_time"`
+	OpenTimes int `json:"open_times"`
+	UpStat string `json:"up_stat"`
+	LimitTimes int `json:"limit_times"`
+	Limit string `json:"limit"`
 }
 
-// LimitListD 调用 limit_list_d API
+// LimitListD 调用 涨跌停和炸板数据 API
 func LimitListD(ctx context.Context, client *sdk.Client, req *LimitListDRequest) ([]LimitListDItem, error) {
 	params := map[string]interface{}{}
+	if req.TradeDate != "" {
+		params["trade_date"] = req.TradeDate
+	}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.LimitType != "" {
+		params["limit_type"] = req.LimitType
+	}
+	if req.Exchange != "" {
+		params["exchange"] = req.Exchange
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
-	fields := []string{}
+	fields := []string{"trade_date", "ts_code", "industry", "name", "close", "pct_chg", "amount", "limit_amount", "float_mv", "total_mv", "turnover_ratio", "fd_amount", "first_time", "last_time", "open_times", "up_stat", "limit_times", "limit"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +73,119 @@ func LimitListD(ctx context.Context, client *sdk.Client, req *LimitListDRequest)
 	if err := client.CallAPI(ctx, "limit_list_d", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []LimitListDItem{}, nil
+	items := make([]LimitListDItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 trade_date 的简单类型
+		tradeDate, ok := item["trade_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 trade_date 类型")
+		}
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 industry 的简单类型
+		industry, ok := item["industry"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 industry 类型")
+		}
+		// 处理 name 的简单类型
+		name, ok := item["name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 name 类型")
+		}
+		// 处理 close 的简单类型
+		close, ok := item["close"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 close 类型")
+		}
+		// 处理 pct_chg 的简单类型
+		pctChg, ok := item["pct_chg"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 pct_chg 类型")
+		}
+		// 处理 amount 的简单类型
+		amount, ok := item["amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 amount 类型")
+		}
+		// 处理 limit_amount 的简单类型
+		limitAmount, ok := item["limit_amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 limit_amount 类型")
+		}
+		// 处理 float_mv 的简单类型
+		floatMv, ok := item["float_mv"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 float_mv 类型")
+		}
+		// 处理 total_mv 的简单类型
+		totalMv, ok := item["total_mv"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 total_mv 类型")
+		}
+		// 处理 turnover_ratio 的简单类型
+		turnoverRatio, ok := item["turnover_ratio"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 turnover_ratio 类型")
+		}
+		// 处理 fd_amount 的简单类型
+		fdAmount, ok := item["fd_amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 fd_amount 类型")
+		}
+		// 处理 first_time 的简单类型
+		firstTime, ok := item["first_time"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 first_time 类型")
+		}
+		// 处理 last_time 的简单类型
+		lastTime, ok := item["last_time"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 last_time 类型")
+		}
+		// 处理 open_times 的简单类型
+		openTimes, ok := item["open_times"].(int)
+		if !ok {
+			return nil, fmt.Errorf("无效的 open_times 类型")
+		}
+		// 处理 up_stat 的简单类型
+		upStat, ok := item["up_stat"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 up_stat 类型")
+		}
+		// 处理 limit_times 的简单类型
+		limitTimes, ok := item["limit_times"].(int)
+		if !ok {
+			return nil, fmt.Errorf("无效的 limit_times 类型")
+		}
+		// 处理 limit 的简单类型
+		limit, ok := item["limit"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 limit 类型")
+		}
+		items[i] = LimitListDItem{
+			TradeDate: tradeDate,
+			TsCode: tsCode,
+			Industry: industry,
+			Name: name,
+			Close: close,
+			PctChg: pctChg,
+			Amount: amount,
+			LimitAmount: limitAmount,
+			FloatMv: floatMv,
+			TotalMv: totalMv,
+			TurnoverRatio: turnoverRatio,
+			FdAmount: fdAmount,
+			FirstTime: firstTime,
+			LastTime: lastTime,
+			OpenTimes: openTimes,
+			UpStat: upStat,
+			LimitTimes: limitTimes,
+			Limit: limit,
+		}
+	}
+
+	return items, nil
 }

@@ -4,23 +4,75 @@ package bond
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// CbIssueRequest 表示 cb_issue API 的请求
+// CbIssueRequest 表示 可转债发行 API 的请求
 type CbIssueRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	AnnDate string `json:"ann_date,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// CbIssueItem 表示单个 cb_issue 数据项
+// CbIssueItem 表示单个 可转债发行 数据项
 type CbIssueItem struct {
+	TsCode string `json:"ts_code"`
+	AnnDate string `json:"ann_date"`
+	ResAnnDate string `json:"res_ann_date"`
+	PlanIssueSize float64 `json:"plan_issue_size"`
+	IssueSize float64 `json:"issue_size"`
+	IssuePrice float64 `json:"issue_price"`
+	IssueType string `json:"issue_type"`
+	IssueCost float64 `json:"issue_cost"`
+	OnlCode string `json:"onl_code"`
+	OnlName string `json:"onl_name"`
+	OnlDate string `json:"onl_date"`
+	OnlSize float64 `json:"onl_size"`
+	OnlPchVol float64 `json:"onl_pch_vol"`
+	OnlPchNum int `json:"onl_pch_num"`
+	OnlPchExcess float64 `json:"onl_pch_excess"`
+	OnlWinningRate float64 `json:"onl_winning_rate"`
+	ShdRationCode string `json:"shd_ration_code"`
+	ShdRationName string `json:"shd_ration_name"`
+	ShdRationDate string `json:"shd_ration_date"`
+	ShdRationRecordDate string `json:"shd_ration_record_date"`
+	ShdRationPayDate string `json:"shd_ration_pay_date"`
+	ShdRationPrice float64 `json:"shd_ration_price"`
+	ShdRationRatio float64 `json:"shd_ration_ratio"`
+	ShdRationSize float64 `json:"shd_ration_size"`
+	ShdRationVol float64 `json:"shd_ration_vol"`
+	ShdRationNum int `json:"shd_ration_num"`
+	ShdRationExcess float64 `json:"shd_ration_excess"`
+	OfflSize float64 `json:"offl_size"`
+	OfflDeposit float64 `json:"offl_deposit"`
+	OfflPchVol float64 `json:"offl_pch_vol"`
+	OfflPchNum int `json:"offl_pch_num"`
+	OfflPchExcess float64 `json:"offl_pch_excess"`
+	OfflWinningRate float64 `json:"offl_winning_rate"`
+	LeadUnderwriter string `json:"lead_underwriter"`
+	LeadUnderwriterVol float64 `json:"lead_underwriter_vol"`
 }
 
-// CbIssue 调用 cb_issue API
+// CbIssue 调用 可转债发行 API
 func CbIssue(ctx context.Context, client *sdk.Client, req *CbIssueRequest) ([]CbIssueItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.AnnDate != "" {
+		params["ann_date"] = req.AnnDate
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "ann_date", "res_ann_date", "plan_issue_size", "issue_size", "issue_price", "issue_type", "issue_cost", "onl_code", "onl_name", "onl_date", "onl_size", "onl_pch_vol", "onl_pch_num", "onl_pch_excess", "onl_winning_rate", "shd_ration_code", "shd_ration_name", "shd_ration_date", "shd_ration_record_date", "shd_ration_pay_date", "shd_ration_price", "shd_ration_ratio", "shd_ration_size", "shd_ration_vol", "shd_ration_num", "shd_ration_excess", "offl_size", "offl_deposit", "offl_pch_vol", "offl_pch_num", "offl_pch_excess", "offl_winning_rate", "lead_underwriter", "lead_underwriter_vol"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +82,221 @@ func CbIssue(ctx context.Context, client *sdk.Client, req *CbIssueRequest) ([]Cb
 	if err := client.CallAPI(ctx, "cb_issue", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []CbIssueItem{}, nil
+	items := make([]CbIssueItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 ann_date 的简单类型
+		annDate, ok := item["ann_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ann_date 类型")
+		}
+		// 处理 res_ann_date 的简单类型
+		resAnnDate, ok := item["res_ann_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 res_ann_date 类型")
+		}
+		// 处理 plan_issue_size 的简单类型
+		planIssueSize, ok := item["plan_issue_size"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 plan_issue_size 类型")
+		}
+		// 处理 issue_size 的简单类型
+		issueSize, ok := item["issue_size"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 issue_size 类型")
+		}
+		// 处理 issue_price 的简单类型
+		issuePrice, ok := item["issue_price"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 issue_price 类型")
+		}
+		// 处理 issue_type 的简单类型
+		issueType, ok := item["issue_type"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 issue_type 类型")
+		}
+		// 处理 issue_cost 的简单类型
+		issueCost, ok := item["issue_cost"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 issue_cost 类型")
+		}
+		// 处理 onl_code 的简单类型
+		onlCode, ok := item["onl_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 onl_code 类型")
+		}
+		// 处理 onl_name 的简单类型
+		onlName, ok := item["onl_name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 onl_name 类型")
+		}
+		// 处理 onl_date 的简单类型
+		onlDate, ok := item["onl_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 onl_date 类型")
+		}
+		// 处理 onl_size 的简单类型
+		onlSize, ok := item["onl_size"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 onl_size 类型")
+		}
+		// 处理 onl_pch_vol 的简单类型
+		onlPchVol, ok := item["onl_pch_vol"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 onl_pch_vol 类型")
+		}
+		// 处理 onl_pch_num 的简单类型
+		onlPchNum, ok := item["onl_pch_num"].(int)
+		if !ok {
+			return nil, fmt.Errorf("无效的 onl_pch_num 类型")
+		}
+		// 处理 onl_pch_excess 的简单类型
+		onlPchExcess, ok := item["onl_pch_excess"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 onl_pch_excess 类型")
+		}
+		// 处理 onl_winning_rate 的简单类型
+		onlWinningRate, ok := item["onl_winning_rate"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 onl_winning_rate 类型")
+		}
+		// 处理 shd_ration_code 的简单类型
+		shdRationCode, ok := item["shd_ration_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 shd_ration_code 类型")
+		}
+		// 处理 shd_ration_name 的简单类型
+		shdRationName, ok := item["shd_ration_name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 shd_ration_name 类型")
+		}
+		// 处理 shd_ration_date 的简单类型
+		shdRationDate, ok := item["shd_ration_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 shd_ration_date 类型")
+		}
+		// 处理 shd_ration_record_date 的简单类型
+		shdRationRecordDate, ok := item["shd_ration_record_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 shd_ration_record_date 类型")
+		}
+		// 处理 shd_ration_pay_date 的简单类型
+		shdRationPayDate, ok := item["shd_ration_pay_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 shd_ration_pay_date 类型")
+		}
+		// 处理 shd_ration_price 的简单类型
+		shdRationPrice, ok := item["shd_ration_price"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 shd_ration_price 类型")
+		}
+		// 处理 shd_ration_ratio 的简单类型
+		shdRationRatio, ok := item["shd_ration_ratio"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 shd_ration_ratio 类型")
+		}
+		// 处理 shd_ration_size 的简单类型
+		shdRationSize, ok := item["shd_ration_size"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 shd_ration_size 类型")
+		}
+		// 处理 shd_ration_vol 的简单类型
+		shdRationVol, ok := item["shd_ration_vol"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 shd_ration_vol 类型")
+		}
+		// 处理 shd_ration_num 的简单类型
+		shdRationNum, ok := item["shd_ration_num"].(int)
+		if !ok {
+			return nil, fmt.Errorf("无效的 shd_ration_num 类型")
+		}
+		// 处理 shd_ration_excess 的简单类型
+		shdRationExcess, ok := item["shd_ration_excess"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 shd_ration_excess 类型")
+		}
+		// 处理 offl_size 的简单类型
+		offlSize, ok := item["offl_size"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 offl_size 类型")
+		}
+		// 处理 offl_deposit 的简单类型
+		offlDeposit, ok := item["offl_deposit"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 offl_deposit 类型")
+		}
+		// 处理 offl_pch_vol 的简单类型
+		offlPchVol, ok := item["offl_pch_vol"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 offl_pch_vol 类型")
+		}
+		// 处理 offl_pch_num 的简单类型
+		offlPchNum, ok := item["offl_pch_num"].(int)
+		if !ok {
+			return nil, fmt.Errorf("无效的 offl_pch_num 类型")
+		}
+		// 处理 offl_pch_excess 的简单类型
+		offlPchExcess, ok := item["offl_pch_excess"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 offl_pch_excess 类型")
+		}
+		// 处理 offl_winning_rate 的简单类型
+		offlWinningRate, ok := item["offl_winning_rate"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 offl_winning_rate 类型")
+		}
+		// 处理 lead_underwriter 的简单类型
+		leadUnderwriter, ok := item["lead_underwriter"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 lead_underwriter 类型")
+		}
+		// 处理 lead_underwriter_vol 的简单类型
+		leadUnderwriterVol, ok := item["lead_underwriter_vol"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 lead_underwriter_vol 类型")
+		}
+		items[i] = CbIssueItem{
+			TsCode: tsCode,
+			AnnDate: annDate,
+			ResAnnDate: resAnnDate,
+			PlanIssueSize: planIssueSize,
+			IssueSize: issueSize,
+			IssuePrice: issuePrice,
+			IssueType: issueType,
+			IssueCost: issueCost,
+			OnlCode: onlCode,
+			OnlName: onlName,
+			OnlDate: onlDate,
+			OnlSize: onlSize,
+			OnlPchVol: onlPchVol,
+			OnlPchNum: onlPchNum,
+			OnlPchExcess: onlPchExcess,
+			OnlWinningRate: onlWinningRate,
+			ShdRationCode: shdRationCode,
+			ShdRationName: shdRationName,
+			ShdRationDate: shdRationDate,
+			ShdRationRecordDate: shdRationRecordDate,
+			ShdRationPayDate: shdRationPayDate,
+			ShdRationPrice: shdRationPrice,
+			ShdRationRatio: shdRationRatio,
+			ShdRationSize: shdRationSize,
+			ShdRationVol: shdRationVol,
+			ShdRationNum: shdRationNum,
+			ShdRationExcess: shdRationExcess,
+			OfflSize: offlSize,
+			OfflDeposit: offlDeposit,
+			OfflPchVol: offlPchVol,
+			OfflPchNum: offlPchNum,
+			OfflPchExcess: offlPchExcess,
+			OfflWinningRate: offlWinningRate,
+			LeadUnderwriter: leadUnderwriter,
+			LeadUnderwriterVol: leadUnderwriterVol,
+		}
+	}
+
+	return items, nil
 }

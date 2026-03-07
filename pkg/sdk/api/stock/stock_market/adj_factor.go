@@ -8,17 +8,33 @@ import (
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// AdjFactorRequest 表示 adj_factor API 的请求
+// AdjFactorRequest 表示 复权因子 API 的请求
 type AdjFactorRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// AdjFactorItem 表示单个 adj_factor 数据项
+// AdjFactorItem 表示单个 复权因子 数据项
 type AdjFactorItem struct {
 }
 
-// AdjFactor 调用 adj_factor API
+// AdjFactor 调用 复权因子 API
 func AdjFactor(ctx context.Context, client *sdk.Client, req *AdjFactorRequest) ([]AdjFactorItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.TradeDate != "" {
+		params["trade_date"] = req.TradeDate
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
 	fields := []string{}
 

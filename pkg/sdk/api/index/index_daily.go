@@ -8,17 +8,33 @@ import (
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// IndexDailyRequest 表示 index_daily API 的请求
+// IndexDailyRequest 表示 指数日线行情 API 的请求
 type IndexDailyRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// IndexDailyItem 表示单个 index_daily 数据项
+// IndexDailyItem 表示单个 指数日线行情 数据项
 type IndexDailyItem struct {
 }
 
-// IndexDaily 调用 index_daily API
+// IndexDaily 调用 指数日线行情 API
 func IndexDaily(ctx context.Context, client *sdk.Client, req *IndexDailyRequest) ([]IndexDailyItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.TradeDate != "" {
+		params["trade_date"] = req.TradeDate
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
 	fields := []string{}
 

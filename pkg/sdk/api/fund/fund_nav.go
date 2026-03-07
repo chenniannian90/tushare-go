@@ -4,23 +4,53 @@ package fund
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// FundNavRequest 表示 fund_nav API 的请求
+// FundNavRequest 表示 基金净值 API 的请求
 type FundNavRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	NavDate string `json:"nav_date,omitempty"`
+	Market string `json:"market,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// FundNavItem 表示单个 fund_nav 数据项
+// FundNavItem 表示单个 基金净值 数据项
 type FundNavItem struct {
+	TsCode string `json:"ts_code"`
+	AnnDate string `json:"ann_date"`
+	NavDate string `json:"nav_date"`
+	UnitNav float64 `json:"unit_nav"`
+	AccumNav float64 `json:"accum_nav"`
+	AccumDiv float64 `json:"accum_div"`
+	NetAsset float64 `json:"net_asset"`
+	TotalNetasset float64 `json:"total_netasset"`
+	AdjNav float64 `json:"adj_nav"`
 }
 
-// FundNav 调用 fund_nav API
+// FundNav 调用 基金净值 API
 func FundNav(ctx context.Context, client *sdk.Client, req *FundNavRequest) ([]FundNavItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.NavDate != "" {
+		params["nav_date"] = req.NavDate
+	}
+	if req.Market != "" {
+		params["market"] = req.Market
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "ann_date", "nav_date", "unit_nav", "accum_nav", "accum_div", "net_asset", "total_netasset", "adj_nav"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +60,65 @@ func FundNav(ctx context.Context, client *sdk.Client, req *FundNavRequest) ([]Fu
 	if err := client.CallAPI(ctx, "fund_nav", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []FundNavItem{}, nil
+	items := make([]FundNavItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 ann_date 的简单类型
+		annDate, ok := item["ann_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ann_date 类型")
+		}
+		// 处理 nav_date 的简单类型
+		navDate, ok := item["nav_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 nav_date 类型")
+		}
+		// 处理 unit_nav 的简单类型
+		unitNav, ok := item["unit_nav"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 unit_nav 类型")
+		}
+		// 处理 accum_nav 的简单类型
+		accumNav, ok := item["accum_nav"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 accum_nav 类型")
+		}
+		// 处理 accum_div 的简单类型
+		accumDiv, ok := item["accum_div"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 accum_div 类型")
+		}
+		// 处理 net_asset 的简单类型
+		netAsset, ok := item["net_asset"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 net_asset 类型")
+		}
+		// 处理 total_netasset 的简单类型
+		totalNetasset, ok := item["total_netasset"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 total_netasset 类型")
+		}
+		// 处理 adj_nav 的简单类型
+		adjNav, ok := item["adj_nav"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 adj_nav 类型")
+		}
+		items[i] = FundNavItem{
+			TsCode: tsCode,
+			AnnDate: annDate,
+			NavDate: navDate,
+			UnitNav: unitNav,
+			AccumNav: accumNav,
+			AccumDiv: accumDiv,
+			NetAsset: netAsset,
+			TotalNetasset: totalNetasset,
+			AdjNav: adjNav,
+		}
+	}
+
+	return items, nil
 }

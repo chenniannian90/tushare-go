@@ -8,17 +8,37 @@ import (
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// Top10HoldersRequest 表示 top10_holders API 的请求
+// Top10HoldersRequest 表示 前十大股东 API 的请求
 type Top10HoldersRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	Period string `json:"period,omitempty"`
+	AnnDate string `json:"ann_date,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// Top10HoldersItem 表示单个 top10_holders 数据项
+// Top10HoldersItem 表示单个 前十大股东 数据项
 type Top10HoldersItem struct {
 }
 
-// Top10Holders 调用 top10_holders API
+// Top10Holders 调用 前十大股东 API
 func Top10Holders(ctx context.Context, client *sdk.Client, req *Top10HoldersRequest) ([]Top10HoldersItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.Period != "" {
+		params["period"] = req.Period
+	}
+	if req.AnnDate != "" {
+		params["ann_date"] = req.AnnDate
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
 	fields := []string{}
 

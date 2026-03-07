@@ -4,23 +4,72 @@ package bond
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// CbBasicRequest 表示 cb_basic API 的请求
+// CbBasicRequest 表示 可转债基础信息 API 的请求
 type CbBasicRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	ListDate string `json:"list_date,omitempty"`
+	Exchange string `json:"exchange,omitempty"`
 }
 
-// CbBasicItem 表示单个 cb_basic 数据项
+// CbBasicItem 表示单个 可转债基础信息 数据项
 type CbBasicItem struct {
+	TsCode string `json:"ts_code"`
+	BondFullName string `json:"bond_full_name"`
+	BondShortName string `json:"bond_short_name"`
+	CbCode string `json:"cb_code"`
+	StkCode string `json:"stk_code"`
+	StkShortName string `json:"stk_short_name"`
+	Maturity float64 `json:"maturity"`
+	Par float64 `json:"par"`
+	IssuePrice float64 `json:"issue_price"`
+	IssueSize float64 `json:"issue_size"`
+	RemainSize float64 `json:"remain_size"`
+	ValueDate string `json:"value_date"`
+	MaturityDate string `json:"maturity_date"`
+	RateType string `json:"rate_type"`
+	CouponRate float64 `json:"coupon_rate"`
+	AddRate float64 `json:"add_rate"`
+	PayPerYear int `json:"pay_per_year"`
+	ListDate string `json:"list_date"`
+	DelistDate string `json:"delist_date"`
+	Exchange string `json:"exchange"`
+	ConvStartDate string `json:"conv_start_date"`
+	ConvEndDate string `json:"conv_end_date"`
+	ConvStopDate string `json:"conv_stop_date"`
+	FirstConvPrice float64 `json:"first_conv_price"`
+	ConvPrice float64 `json:"conv_price"`
+	RateClause string `json:"rate_clause"`
+	PutClause string `json:"put_clause"`
+	MaturityPutPrice string `json:"maturity_put_price"`
+	CallClause string `json:"call_clause"`
+	ResetClause string `json:"reset_clause"`
+	ConvClause string `json:"conv_clause"`
+	Guarantor string `json:"guarantor"`
+	GuaranteeType string `json:"guarantee_type"`
+	IssueRating string `json:"issue_rating"`
+	NewestRating string `json:"newest_rating"`
+	RatingComp string `json:"rating_comp"`
 }
 
-// CbBasic 调用 cb_basic API
+// CbBasic 调用 可转债基础信息 API
 func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]CbBasicItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.ListDate != "" {
+		params["list_date"] = req.ListDate
+	}
+	if req.Exchange != "" {
+		params["exchange"] = req.Exchange
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "bond_full_name", "bond_short_name", "cb_code", "stk_code", "stk_short_name", "maturity", "par", "issue_price", "issue_size", "remain_size", "value_date", "maturity_date", "rate_type", "coupon_rate", "add_rate", "pay_per_year", "list_date", "delist_date", "exchange", "conv_start_date", "conv_end_date", "conv_stop_date", "first_conv_price", "conv_price", "rate_clause", "put_clause", "maturity_put_price", "call_clause", "reset_clause", "conv_clause", "guarantor", "guarantee_type", "issue_rating", "newest_rating", "rating_comp"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +79,227 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 	if err := client.CallAPI(ctx, "cb_basic", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []CbBasicItem{}, nil
+	items := make([]CbBasicItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 bond_full_name 的简单类型
+		bondFullName, ok := item["bond_full_name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 bond_full_name 类型")
+		}
+		// 处理 bond_short_name 的简单类型
+		bondShortName, ok := item["bond_short_name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 bond_short_name 类型")
+		}
+		// 处理 cb_code 的简单类型
+		cbCode, ok := item["cb_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 cb_code 类型")
+		}
+		// 处理 stk_code 的简单类型
+		stkCode, ok := item["stk_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 stk_code 类型")
+		}
+		// 处理 stk_short_name 的简单类型
+		stkShortName, ok := item["stk_short_name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 stk_short_name 类型")
+		}
+		// 处理 maturity 的简单类型
+		maturity, ok := item["maturity"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 maturity 类型")
+		}
+		// 处理 par 的简单类型
+		par, ok := item["par"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 par 类型")
+		}
+		// 处理 issue_price 的简单类型
+		issuePrice, ok := item["issue_price"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 issue_price 类型")
+		}
+		// 处理 issue_size 的简单类型
+		issueSize, ok := item["issue_size"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 issue_size 类型")
+		}
+		// 处理 remain_size 的简单类型
+		remainSize, ok := item["remain_size"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 remain_size 类型")
+		}
+		// 处理 value_date 的简单类型
+		valueDate, ok := item["value_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 value_date 类型")
+		}
+		// 处理 maturity_date 的简单类型
+		maturityDate, ok := item["maturity_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 maturity_date 类型")
+		}
+		// 处理 rate_type 的简单类型
+		rateType, ok := item["rate_type"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 rate_type 类型")
+		}
+		// 处理 coupon_rate 的简单类型
+		couponRate, ok := item["coupon_rate"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 coupon_rate 类型")
+		}
+		// 处理 add_rate 的简单类型
+		addRate, ok := item["add_rate"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 add_rate 类型")
+		}
+		// 处理 pay_per_year 的简单类型
+		payPerYear, ok := item["pay_per_year"].(int)
+		if !ok {
+			return nil, fmt.Errorf("无效的 pay_per_year 类型")
+		}
+		// 处理 list_date 的简单类型
+		listDate, ok := item["list_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 list_date 类型")
+		}
+		// 处理 delist_date 的简单类型
+		delistDate, ok := item["delist_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 delist_date 类型")
+		}
+		// 处理 exchange 的简单类型
+		exchange, ok := item["exchange"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 exchange 类型")
+		}
+		// 处理 conv_start_date 的简单类型
+		convStartDate, ok := item["conv_start_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 conv_start_date 类型")
+		}
+		// 处理 conv_end_date 的简单类型
+		convEndDate, ok := item["conv_end_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 conv_end_date 类型")
+		}
+		// 处理 conv_stop_date 的简单类型
+		convStopDate, ok := item["conv_stop_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 conv_stop_date 类型")
+		}
+		// 处理 first_conv_price 的简单类型
+		firstConvPrice, ok := item["first_conv_price"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 first_conv_price 类型")
+		}
+		// 处理 conv_price 的简单类型
+		convPrice, ok := item["conv_price"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 conv_price 类型")
+		}
+		// 处理 rate_clause 的简单类型
+		rateClause, ok := item["rate_clause"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 rate_clause 类型")
+		}
+		// 处理 put_clause 的简单类型
+		putClause, ok := item["put_clause"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 put_clause 类型")
+		}
+		// 处理 maturity_put_price 的简单类型
+		maturityPutPrice, ok := item["maturity_put_price"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 maturity_put_price 类型")
+		}
+		// 处理 call_clause 的简单类型
+		callClause, ok := item["call_clause"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 call_clause 类型")
+		}
+		// 处理 reset_clause 的简单类型
+		resetClause, ok := item["reset_clause"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 reset_clause 类型")
+		}
+		// 处理 conv_clause 的简单类型
+		convClause, ok := item["conv_clause"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 conv_clause 类型")
+		}
+		// 处理 guarantor 的简单类型
+		guarantor, ok := item["guarantor"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 guarantor 类型")
+		}
+		// 处理 guarantee_type 的简单类型
+		guaranteeType, ok := item["guarantee_type"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 guarantee_type 类型")
+		}
+		// 处理 issue_rating 的简单类型
+		issueRating, ok := item["issue_rating"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 issue_rating 类型")
+		}
+		// 处理 newest_rating 的简单类型
+		newestRating, ok := item["newest_rating"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 newest_rating 类型")
+		}
+		// 处理 rating_comp 的简单类型
+		ratingComp, ok := item["rating_comp"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 rating_comp 类型")
+		}
+		items[i] = CbBasicItem{
+			TsCode: tsCode,
+			BondFullName: bondFullName,
+			BondShortName: bondShortName,
+			CbCode: cbCode,
+			StkCode: stkCode,
+			StkShortName: stkShortName,
+			Maturity: maturity,
+			Par: par,
+			IssuePrice: issuePrice,
+			IssueSize: issueSize,
+			RemainSize: remainSize,
+			ValueDate: valueDate,
+			MaturityDate: maturityDate,
+			RateType: rateType,
+			CouponRate: couponRate,
+			AddRate: addRate,
+			PayPerYear: payPerYear,
+			ListDate: listDate,
+			DelistDate: delistDate,
+			Exchange: exchange,
+			ConvStartDate: convStartDate,
+			ConvEndDate: convEndDate,
+			ConvStopDate: convStopDate,
+			FirstConvPrice: firstConvPrice,
+			ConvPrice: convPrice,
+			RateClause: rateClause,
+			PutClause: putClause,
+			MaturityPutPrice: maturityPutPrice,
+			CallClause: callClause,
+			ResetClause: resetClause,
+			ConvClause: convClause,
+			Guarantor: guarantor,
+			GuaranteeType: guaranteeType,
+			IssueRating: issueRating,
+			NewestRating: newestRating,
+			RatingComp: ratingComp,
+		}
+	}
+
+	return items, nil
 }

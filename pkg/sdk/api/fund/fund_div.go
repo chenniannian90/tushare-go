@@ -4,23 +4,56 @@ package fund
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// FundDivRequest 表示 fund_div API 的请求
+// FundDivRequest 表示 基金分红 API 的请求
 type FundDivRequest struct {
+	AnnDate string `json:"ann_date,omitempty"`
+	ExDate string `json:"ex_date,omitempty"`
+	PayDate string `json:"pay_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"`
 }
 
-// FundDivItem 表示单个 fund_div 数据项
+// FundDivItem 表示单个 基金分红 数据项
 type FundDivItem struct {
+	TsCode string `json:"ts_code"`
+	AnnDate string `json:"ann_date"`
+	ImpAnndate string `json:"imp_anndate"`
+	BaseDate string `json:"base_date"`
+	DivProc string `json:"div_proc"`
+	RecordDate string `json:"record_date"`
+	ExDate string `json:"ex_date"`
+	PayDate string `json:"pay_date"`
+	EarpayDate string `json:"earpay_date"`
+	NetExDate string `json:"net_ex_date"`
+	DivCash float64 `json:"div_cash"`
+	BaseUnit float64 `json:"base_unit"`
+	EarDistr float64 `json:"ear_distr"`
+	EarAmount float64 `json:"ear_amount"`
+	AccountDate string `json:"account_date"`
+	BaseYear string `json:"base_year"`
 }
 
-// FundDiv 调用 fund_div API
+// FundDiv 调用 基金分红 API
 func FundDiv(ctx context.Context, client *sdk.Client, req *FundDivRequest) ([]FundDivItem, error) {
 	params := map[string]interface{}{}
+	if req.AnnDate != "" {
+		params["ann_date"] = req.AnnDate
+	}
+	if req.ExDate != "" {
+		params["ex_date"] = req.ExDate
+	}
+	if req.PayDate != "" {
+		params["pay_date"] = req.PayDate
+	}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "ann_date", "imp_anndate", "base_date", "div_proc", "record_date", "ex_date", "pay_date", "earpay_date", "net_ex_date", "div_cash", "base_unit", "ear_distr", "ear_amount", "account_date", "base_year"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +63,107 @@ func FundDiv(ctx context.Context, client *sdk.Client, req *FundDivRequest) ([]Fu
 	if err := client.CallAPI(ctx, "fund_div", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []FundDivItem{}, nil
+	items := make([]FundDivItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 ann_date 的简单类型
+		annDate, ok := item["ann_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ann_date 类型")
+		}
+		// 处理 imp_anndate 的简单类型
+		impAnndate, ok := item["imp_anndate"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 imp_anndate 类型")
+		}
+		// 处理 base_date 的简单类型
+		baseDate, ok := item["base_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 base_date 类型")
+		}
+		// 处理 div_proc 的简单类型
+		divProc, ok := item["div_proc"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 div_proc 类型")
+		}
+		// 处理 record_date 的简单类型
+		recordDate, ok := item["record_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 record_date 类型")
+		}
+		// 处理 ex_date 的简单类型
+		exDate, ok := item["ex_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ex_date 类型")
+		}
+		// 处理 pay_date 的简单类型
+		payDate, ok := item["pay_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 pay_date 类型")
+		}
+		// 处理 earpay_date 的简单类型
+		earpayDate, ok := item["earpay_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 earpay_date 类型")
+		}
+		// 处理 net_ex_date 的简单类型
+		netExDate, ok := item["net_ex_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 net_ex_date 类型")
+		}
+		// 处理 div_cash 的简单类型
+		divCash, ok := item["div_cash"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 div_cash 类型")
+		}
+		// 处理 base_unit 的简单类型
+		baseUnit, ok := item["base_unit"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 base_unit 类型")
+		}
+		// 处理 ear_distr 的简单类型
+		earDistr, ok := item["ear_distr"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ear_distr 类型")
+		}
+		// 处理 ear_amount 的简单类型
+		earAmount, ok := item["ear_amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ear_amount 类型")
+		}
+		// 处理 account_date 的简单类型
+		accountDate, ok := item["account_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 account_date 类型")
+		}
+		// 处理 base_year 的简单类型
+		baseYear, ok := item["base_year"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 base_year 类型")
+		}
+		items[i] = FundDivItem{
+			TsCode: tsCode,
+			AnnDate: annDate,
+			ImpAnndate: impAnndate,
+			BaseDate: baseDate,
+			DivProc: divProc,
+			RecordDate: recordDate,
+			ExDate: exDate,
+			PayDate: payDate,
+			EarpayDate: earpayDate,
+			NetExDate: netExDate,
+			DivCash: divCash,
+			BaseUnit: baseUnit,
+			EarDistr: earDistr,
+			EarAmount: earAmount,
+			AccountDate: accountDate,
+			BaseYear: baseYear,
+		}
+	}
+
+	return items, nil
 }

@@ -4,23 +4,47 @@ package index
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// IndexClassifyRequest 表示 index_classify API 的请求
+// IndexClassifyRequest 表示 申万行业分类 API 的请求
 type IndexClassifyRequest struct {
+	IndexCode string `json:"index_code,omitempty"`
+	Level string `json:"level,omitempty"`
+	ParentCode string `json:"parent_code,omitempty"`
+	Src string `json:"src,omitempty"`
 }
 
-// IndexClassifyItem 表示单个 index_classify 数据项
+// IndexClassifyItem 表示单个 申万行业分类 数据项
 type IndexClassifyItem struct {
+	IndexCode string `json:"index_code"`
+	IndustryName string `json:"industry_name"`
+	ParentCode string `json:"parent_code"`
+	Level string `json:"level"`
+	IndustryCode string `json:"industry_code"`
+	IsPub string `json:"is_pub"`
+	Src string `json:"src"`
 }
 
-// IndexClassify 调用 index_classify API
+// IndexClassify 调用 申万行业分类 API
 func IndexClassify(ctx context.Context, client *sdk.Client, req *IndexClassifyRequest) ([]IndexClassifyItem, error) {
 	params := map[string]interface{}{}
+	if req.IndexCode != "" {
+		params["index_code"] = req.IndexCode
+	}
+	if req.Level != "" {
+		params["level"] = req.Level
+	}
+	if req.ParentCode != "" {
+		params["parent_code"] = req.ParentCode
+	}
+	if req.Src != "" {
+		params["src"] = req.Src
+	}
 
-	fields := []string{}
+	fields := []string{"index_code", "industry_name", "parent_code", "level", "industry_code", "is_pub", "src"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +54,53 @@ func IndexClassify(ctx context.Context, client *sdk.Client, req *IndexClassifyRe
 	if err := client.CallAPI(ctx, "index_classify", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []IndexClassifyItem{}, nil
+	items := make([]IndexClassifyItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 index_code 的简单类型
+		indexCode, ok := item["index_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 index_code 类型")
+		}
+		// 处理 industry_name 的简单类型
+		industryName, ok := item["industry_name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 industry_name 类型")
+		}
+		// 处理 parent_code 的简单类型
+		parentCode, ok := item["parent_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 parent_code 类型")
+		}
+		// 处理 level 的简单类型
+		level, ok := item["level"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 level 类型")
+		}
+		// 处理 industry_code 的简单类型
+		industryCode, ok := item["industry_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 industry_code 类型")
+		}
+		// 处理 is_pub 的简单类型
+		isPub, ok := item["is_pub"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 is_pub 类型")
+		}
+		// 处理 src 的简单类型
+		src, ok := item["src"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 src 类型")
+		}
+		items[i] = IndexClassifyItem{
+			IndexCode: indexCode,
+			IndustryName: industryName,
+			ParentCode: parentCode,
+			Level: level,
+			IndustryCode: industryCode,
+			IsPub: isPub,
+			Src: src,
+		}
+	}
+
+	return items, nil
 }

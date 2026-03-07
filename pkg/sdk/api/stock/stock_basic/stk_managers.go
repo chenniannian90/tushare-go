@@ -4,23 +4,52 @@ package stock_basic
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// StkManagersRequest 表示 stk_managers API 的请求
+// StkManagersRequest 表示 上市公司管理层 API 的请求
 type StkManagersRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	AnnDate string `json:"ann_date,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// StkManagersItem 表示单个 stk_managers 数据项
+// StkManagersItem 表示单个 上市公司管理层 数据项
 type StkManagersItem struct {
+	TsCode string `json:"ts_code"`
+	AnnDate string `json:"ann_date"`
+	Name string `json:"name"`
+	Gender string `json:"gender"`
+	Lev string `json:"lev"`
+	Title string `json:"title"`
+	Edu string `json:"edu"`
+	National string `json:"national"`
+	Birthday string `json:"birthday"`
+	BeginDate string `json:"begin_date"`
+	EndDate string `json:"end_date"`
+	Resume string `json:"resume"`
 }
 
-// StkManagers 调用 stk_managers API
+// StkManagers 调用 上市公司管理层 API
 func StkManagers(ctx context.Context, client *sdk.Client, req *StkManagersRequest) ([]StkManagersItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.AnnDate != "" {
+		params["ann_date"] = req.AnnDate
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "ann_date", "name", "gender", "lev", "title", "edu", "national", "birthday", "begin_date", "end_date", "resume"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +59,83 @@ func StkManagers(ctx context.Context, client *sdk.Client, req *StkManagersReques
 	if err := client.CallAPI(ctx, "stk_managers", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []StkManagersItem{}, nil
+	items := make([]StkManagersItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 ann_date 的简单类型
+		annDate, ok := item["ann_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ann_date 类型")
+		}
+		// 处理 name 的简单类型
+		name, ok := item["name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 name 类型")
+		}
+		// 处理 gender 的简单类型
+		gender, ok := item["gender"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 gender 类型")
+		}
+		// 处理 lev 的简单类型
+		lev, ok := item["lev"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 lev 类型")
+		}
+		// 处理 title 的简单类型
+		title, ok := item["title"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 title 类型")
+		}
+		// 处理 edu 的简单类型
+		edu, ok := item["edu"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 edu 类型")
+		}
+		// 处理 national 的简单类型
+		national, ok := item["national"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 national 类型")
+		}
+		// 处理 birthday 的简单类型
+		birthday, ok := item["birthday"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 birthday 类型")
+		}
+		// 处理 begin_date 的简单类型
+		beginDate, ok := item["begin_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 begin_date 类型")
+		}
+		// 处理 end_date 的简单类型
+		endDate, ok := item["end_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 end_date 类型")
+		}
+		// 处理 resume 的简单类型
+		resume, ok := item["resume"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 resume 类型")
+		}
+		items[i] = StkManagersItem{
+			TsCode: tsCode,
+			AnnDate: annDate,
+			Name: name,
+			Gender: gender,
+			Lev: lev,
+			Title: title,
+			Edu: edu,
+			National: national,
+			Birthday: birthday,
+			BeginDate: beginDate,
+			EndDate: endDate,
+			Resume: resume,
+		}
+	}
+
+	return items, nil
 }

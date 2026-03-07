@@ -4,23 +4,45 @@ package macro_interest_rate
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// HiborRequest 表示 hibor API 的请求
+// HiborRequest 表示 Hibor利率 API 的请求
 type HiborRequest struct {
+	Date string `json:"date,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// HiborItem 表示单个 hibor 数据项
+// HiborItem 表示单个 Hibor利率 数据项
 type HiborItem struct {
+	Date string `json:"date"`
+	On float64 `json:"on"`
+	1w float64 `json:"1w"`
+	2w float64 `json:"2w"`
+	1m float64 `json:"1m"`
+	2m float64 `json:"2m"`
+	3m float64 `json:"3m"`
+	6m float64 `json:"6m"`
+	12m float64 `json:"12m"`
 }
 
-// Hibor 调用 hibor API
+// Hibor 调用 Hibor利率 API
 func Hibor(ctx context.Context, client *sdk.Client, req *HiborRequest) ([]HiborItem, error) {
 	params := map[string]interface{}{}
+	if req.Date != "" {
+		params["date"] = req.Date
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
-	fields := []string{}
+	fields := []string{"date", "on", "1w", "2w", "1m", "2m", "3m", "6m", "12m"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +52,65 @@ func Hibor(ctx context.Context, client *sdk.Client, req *HiborRequest) ([]HiborI
 	if err := client.CallAPI(ctx, "hibor", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []HiborItem{}, nil
+	items := make([]HiborItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 date 的简单类型
+		date, ok := item["date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 date 类型")
+		}
+		// 处理 on 的简单类型
+		on, ok := item["on"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 on 类型")
+		}
+		// 处理 1w 的简单类型
+		1w, ok := item["1w"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 1w 类型")
+		}
+		// 处理 2w 的简单类型
+		2w, ok := item["2w"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 2w 类型")
+		}
+		// 处理 1m 的简单类型
+		1m, ok := item["1m"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 1m 类型")
+		}
+		// 处理 2m 的简单类型
+		2m, ok := item["2m"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 2m 类型")
+		}
+		// 处理 3m 的简单类型
+		3m, ok := item["3m"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 3m 类型")
+		}
+		// 处理 6m 的简单类型
+		6m, ok := item["6m"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 6m 类型")
+		}
+		// 处理 12m 的简单类型
+		12m, ok := item["12m"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 12m 类型")
+		}
+		items[i] = HiborItem{
+			Date: date,
+			On: on,
+			1w: 1w,
+			2w: 2w,
+			1m: 1m,
+			2m: 2m,
+			3m: 3m,
+			6m: 6m,
+			12m: 12m,
+		}
+	}
+
+	return items, nil
 }

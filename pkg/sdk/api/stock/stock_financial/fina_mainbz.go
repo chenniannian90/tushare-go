@@ -8,17 +8,37 @@ import (
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// FinaMainbzRequest 表示 fina_mainbz API 的请求
+// FinaMainbzRequest 表示 主营业务构成 API 的请求
 type FinaMainbzRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	Period string `json:"period,omitempty"`
+	Type string `json:"type,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// FinaMainbzItem 表示单个 fina_mainbz 数据项
+// FinaMainbzItem 表示单个 主营业务构成 数据项
 type FinaMainbzItem struct {
 }
 
-// FinaMainbz 调用 fina_mainbz API
+// FinaMainbz 调用 主营业务构成 API
 func FinaMainbz(ctx context.Context, client *sdk.Client, req *FinaMainbzRequest) ([]FinaMainbzItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.Period != "" {
+		params["period"] = req.Period
+	}
+	if req.Type != "" {
+		params["type"] = req.Type
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
 	fields := []string{}
 

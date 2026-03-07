@@ -4,23 +4,211 @@ package stock_financial
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// FinaIndicatorRequest 表示 fina_indicator API 的请求
+// FinaIndicatorRequest 表示 财务指标数据 API 的请求
 type FinaIndicatorRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	AnnDate string `json:"ann_date,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
+	Period string `json:"period,omitempty"`
 }
 
-// FinaIndicatorItem 表示单个 fina_indicator 数据项
+// FinaIndicatorItem 表示单个 财务指标数据 数据项
 type FinaIndicatorItem struct {
+	TsCode string `json:"ts_code"`
+	AnnDate string `json:"ann_date"`
+	EndDate string `json:"end_date"`
+	Eps float64 `json:"eps"`
+	DtEps float64 `json:"dt_eps"`
+	TotalRevenuePs float64 `json:"total_revenue_ps"`
+	RevenuePs float64 `json:"revenue_ps"`
+	CapitalResePs float64 `json:"capital_rese_ps"`
+	SurplusResePs float64 `json:"surplus_rese_ps"`
+	UndistProfitPs float64 `json:"undist_profit_ps"`
+	ExtraItem float64 `json:"extra_item"`
+	ProfitDedt float64 `json:"profit_dedt"`
+	GrossMargin float64 `json:"gross_margin"`
+	CurrentRatio float64 `json:"current_ratio"`
+	QuickRatio float64 `json:"quick_ratio"`
+	CashRatio float64 `json:"cash_ratio"`
+	InvturnDays float64 `json:"invturn_days"`
+	ArturnDays float64 `json:"arturn_days"`
+	InvTurn float64 `json:"inv_turn"`
+	ArTurn float64 `json:"ar_turn"`
+	CaTurn float64 `json:"ca_turn"`
+	FaTurn float64 `json:"fa_turn"`
+	AssetsTurn float64 `json:"assets_turn"`
+	OpIncome float64 `json:"op_income"`
+	ValuechangeIncome float64 `json:"valuechange_income"`
+	InterstIncome float64 `json:"interst_income"`
+	Daa float64 `json:"daa"`
+	Ebit float64 `json:"ebit"`
+	Ebitda float64 `json:"ebitda"`
+	Fcff float64 `json:"fcff"`
+	Fcfe float64 `json:"fcfe"`
+	CurrentExint float64 `json:"current_exint"`
+	NoncurrentExint float64 `json:"noncurrent_exint"`
+	Interestdebt float64 `json:"interestdebt"`
+	Netdebt float64 `json:"netdebt"`
+	TangibleAsset float64 `json:"tangible_asset"`
+	WorkingCapital float64 `json:"working_capital"`
+	NetworkingCapital float64 `json:"networking_capital"`
+	InvestCapital float64 `json:"invest_capital"`
+	RetainedEarnings float64 `json:"retained_earnings"`
+	Diluted2Eps float64 `json:"diluted2_eps"`
+	Bps float64 `json:"bps"`
+	Ocfps float64 `json:"ocfps"`
+	Retainedps float64 `json:"retainedps"`
+	Cfps float64 `json:"cfps"`
+	EbitPs float64 `json:"ebit_ps"`
+	FcffPs float64 `json:"fcff_ps"`
+	FcfePs float64 `json:"fcfe_ps"`
+	NetprofitMargin float64 `json:"netprofit_margin"`
+	GrossprofitMargin float64 `json:"grossprofit_margin"`
+	CogsOfSales float64 `json:"cogs_of_sales"`
+	ExpenseOfSales float64 `json:"expense_of_sales"`
+	ProfitToGr float64 `json:"profit_to_gr"`
+	SaleexpToGr float64 `json:"saleexp_to_gr"`
+	AdminexpOfGr float64 `json:"adminexp_of_gr"`
+	FinaexpOfGr float64 `json:"finaexp_of_gr"`
+	ImpaiTtm float64 `json:"impai_ttm"`
+	GcOfGr float64 `json:"gc_of_gr"`
+	OpOfGr float64 `json:"op_of_gr"`
+	EbitOfGr float64 `json:"ebit_of_gr"`
+	Roe float64 `json:"roe"`
+	RoeWaa float64 `json:"roe_waa"`
+	RoeDt float64 `json:"roe_dt"`
+	Roa float64 `json:"roa"`
+	Npta float64 `json:"npta"`
+	Roic float64 `json:"roic"`
+	RoeYearly float64 `json:"roe_yearly"`
+	Roa2Yearly float64 `json:"roa2_yearly"`
+	RoeAvg float64 `json:"roe_avg"`
+	OpincomeOfEbt float64 `json:"opincome_of_ebt"`
+	InvestincomeOfEbt float64 `json:"investincome_of_ebt"`
+	NOpProfitOfEbt float64 `json:"n_op_profit_of_ebt"`
+	TaxToEbt float64 `json:"tax_to_ebt"`
+	DtprofitToProfit float64 `json:"dtprofit_to_profit"`
+	SalescashToOr float64 `json:"salescash_to_or"`
+	OcfToOr float64 `json:"ocf_to_or"`
+	OcfToOpincome float64 `json:"ocf_to_opincome"`
+	CapitalizedToDa float64 `json:"capitalized_to_da"`
+	DebtToAssets float64 `json:"debt_to_assets"`
+	AssetsToEqt float64 `json:"assets_to_eqt"`
+	DpAssetsToEqt float64 `json:"dp_assets_to_eqt"`
+	CaToAssets float64 `json:"ca_to_assets"`
+	NcaToAssets float64 `json:"nca_to_assets"`
+	TbassetsToTotalassets float64 `json:"tbassets_to_totalassets"`
+	IntToTalcap float64 `json:"int_to_talcap"`
+	EqtToTalcapital float64 `json:"eqt_to_talcapital"`
+	CurrentdebtToDebt float64 `json:"currentdebt_to_debt"`
+	LongdebToDebt float64 `json:"longdeb_to_debt"`
+	OcfToShortdebt float64 `json:"ocf_to_shortdebt"`
+	DebtToEqt float64 `json:"debt_to_eqt"`
+	EqtToDebt float64 `json:"eqt_to_debt"`
+	EqtToInterestdebt float64 `json:"eqt_to_interestdebt"`
+	TangibleassetToDebt float64 `json:"tangibleasset_to_debt"`
+	TangassetToIntdebt float64 `json:"tangasset_to_intdebt"`
+	TangibleassetToNetdebt float64 `json:"tangibleasset_to_netdebt"`
+	OcfToDebt float64 `json:"ocf_to_debt"`
+	OcfToInterestdebt float64 `json:"ocf_to_interestdebt"`
+	OcfToNetdebt float64 `json:"ocf_to_netdebt"`
+	EbitToInterest float64 `json:"ebit_to_interest"`
+	LongdebtToWorkingcapital float64 `json:"longdebt_to_workingcapital"`
+	EbitdaToDebt float64 `json:"ebitda_to_debt"`
+	TurnDays float64 `json:"turn_days"`
+	RoaYearly float64 `json:"roa_yearly"`
+	RoaDp float64 `json:"roa_dp"`
+	FixedAssets float64 `json:"fixed_assets"`
+	ProfitPrefinExp float64 `json:"profit_prefin_exp"`
+	NonOpProfit float64 `json:"non_op_profit"`
+	OpToEbt float64 `json:"op_to_ebt"`
+	NopToEbt float64 `json:"nop_to_ebt"`
+	OcfToProfit float64 `json:"ocf_to_profit"`
+	CashToLiqdebt float64 `json:"cash_to_liqdebt"`
+	CashToLiqdebtWithinterest float64 `json:"cash_to_liqdebt_withinterest"`
+	OpToLiqdebt float64 `json:"op_to_liqdebt"`
+	OpToDebt float64 `json:"op_to_debt"`
+	RoicYearly float64 `json:"roic_yearly"`
+	TotalFaTrun float64 `json:"total_fa_trun"`
+	ProfitToOp float64 `json:"profit_to_op"`
+	QOpincome float64 `json:"q_opincome"`
+	QInvestincome float64 `json:"q_investincome"`
+	QDtprofit float64 `json:"q_dtprofit"`
+	QEps float64 `json:"q_eps"`
+	QNetprofitMargin float64 `json:"q_netprofit_margin"`
+	QGsprofitMargin float64 `json:"q_gsprofit_margin"`
+	QExpToSales float64 `json:"q_exp_to_sales"`
+	QProfitToGr float64 `json:"q_profit_to_gr"`
+	QSaleexpToGr float64 `json:"q_saleexp_to_gr"`
+	QAdminexpToGr float64 `json:"q_adminexp_to_gr"`
+	QFinaexpToGr float64 `json:"q_finaexp_to_gr"`
+	QImpairToGrTtm float64 `json:"q_impair_to_gr_ttm"`
+	QGcToGr float64 `json:"q_gc_to_gr"`
+	QOpToGr float64 `json:"q_op_to_gr"`
+	QRoe float64 `json:"q_roe"`
+	QDtRoe float64 `json:"q_dt_roe"`
+	QNpta float64 `json:"q_npta"`
+	QOpincomeToEbt float64 `json:"q_opincome_to_ebt"`
+	QInvestincomeToEbt float64 `json:"q_investincome_to_ebt"`
+	QDtprofitToProfit float64 `json:"q_dtprofit_to_profit"`
+	QSalescashToOr float64 `json:"q_salescash_to_or"`
+	QOcfToSales float64 `json:"q_ocf_to_sales"`
+	QOcfToOr float64 `json:"q_ocf_to_or"`
+	BasicEpsYoy float64 `json:"basic_eps_yoy"`
+	DtEpsYoy float64 `json:"dt_eps_yoy"`
+	CfpsYoy float64 `json:"cfps_yoy"`
+	OpYoy float64 `json:"op_yoy"`
+	EbtYoy float64 `json:"ebt_yoy"`
+	NetprofitYoy float64 `json:"netprofit_yoy"`
+	DtNetprofitYoy float64 `json:"dt_netprofit_yoy"`
+	OcfYoy float64 `json:"ocf_yoy"`
+	RoeYoy float64 `json:"roe_yoy"`
+	BpsYoy float64 `json:"bps_yoy"`
+	AssetsYoy float64 `json:"assets_yoy"`
+	EqtYoy float64 `json:"eqt_yoy"`
+	TrYoy float64 `json:"tr_yoy"`
+	OrYoy float64 `json:"or_yoy"`
+	QGrYoy float64 `json:"q_gr_yoy"`
+	QGrQoq float64 `json:"q_gr_qoq"`
+	QSalesYoy float64 `json:"q_sales_yoy"`
+	QSalesQoq float64 `json:"q_sales_qoq"`
+	QOpYoy float64 `json:"q_op_yoy"`
+	QOpQoq float64 `json:"q_op_qoq"`
+	QProfitYoy float64 `json:"q_profit_yoy"`
+	QProfitQoq float64 `json:"q_profit_qoq"`
+	QNetprofitYoy float64 `json:"q_netprofit_yoy"`
+	QNetprofitQoq float64 `json:"q_netprofit_qoq"`
+	EquityYoy float64 `json:"equity_yoy"`
+	RdExp float64 `json:"rd_exp"`
+	UpdateFlag string `json:"update_flag"`
 }
 
-// FinaIndicator 调用 fina_indicator API
+// FinaIndicator 调用 财务指标数据 API
 func FinaIndicator(ctx context.Context, client *sdk.Client, req *FinaIndicatorRequest) ([]FinaIndicatorItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.AnnDate != "" {
+		params["ann_date"] = req.AnnDate
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
+	if req.Period != "" {
+		params["period"] = req.Period
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "ann_date", "end_date", "eps", "dt_eps", "total_revenue_ps", "revenue_ps", "capital_rese_ps", "surplus_rese_ps", "undist_profit_ps", "extra_item", "profit_dedt", "gross_margin", "current_ratio", "quick_ratio", "cash_ratio", "invturn_days", "arturn_days", "inv_turn", "ar_turn", "ca_turn", "fa_turn", "assets_turn", "op_income", "valuechange_income", "interst_income", "daa", "ebit", "ebitda", "fcff", "fcfe", "current_exint", "noncurrent_exint", "interestdebt", "netdebt", "tangible_asset", "working_capital", "networking_capital", "invest_capital", "retained_earnings", "diluted2_eps", "bps", "ocfps", "retainedps", "cfps", "ebit_ps", "fcff_ps", "fcfe_ps", "netprofit_margin", "grossprofit_margin", "cogs_of_sales", "expense_of_sales", "profit_to_gr", "saleexp_to_gr", "adminexp_of_gr", "finaexp_of_gr", "impai_ttm", "gc_of_gr", "op_of_gr", "ebit_of_gr", "roe", "roe_waa", "roe_dt", "roa", "npta", "roic", "roe_yearly", "roa2_yearly", "roe_avg", "opincome_of_ebt", "investincome_of_ebt", "n_op_profit_of_ebt", "tax_to_ebt", "dtprofit_to_profit", "salescash_to_or", "ocf_to_or", "ocf_to_opincome", "capitalized_to_da", "debt_to_assets", "assets_to_eqt", "dp_assets_to_eqt", "ca_to_assets", "nca_to_assets", "tbassets_to_totalassets", "int_to_talcap", "eqt_to_talcapital", "currentdebt_to_debt", "longdeb_to_debt", "ocf_to_shortdebt", "debt_to_eqt", "eqt_to_debt", "eqt_to_interestdebt", "tangibleasset_to_debt", "tangasset_to_intdebt", "tangibleasset_to_netdebt", "ocf_to_debt", "ocf_to_interestdebt", "ocf_to_netdebt", "ebit_to_interest", "longdebt_to_workingcapital", "ebitda_to_debt", "turn_days", "roa_yearly", "roa_dp", "fixed_assets", "profit_prefin_exp", "non_op_profit", "op_to_ebt", "nop_to_ebt", "ocf_to_profit", "cash_to_liqdebt", "cash_to_liqdebt_withinterest", "op_to_liqdebt", "op_to_debt", "roic_yearly", "total_fa_trun", "profit_to_op", "q_opincome", "q_investincome", "q_dtprofit", "q_eps", "q_netprofit_margin", "q_gsprofit_margin", "q_exp_to_sales", "q_profit_to_gr", "q_saleexp_to_gr", "q_adminexp_to_gr", "q_finaexp_to_gr", "q_impair_to_gr_ttm", "q_gc_to_gr", "q_op_to_gr", "q_roe", "q_dt_roe", "q_npta", "q_opincome_to_ebt", "q_investincome_to_ebt", "q_dtprofit_to_profit", "q_salescash_to_or", "q_ocf_to_sales", "q_ocf_to_or", "basic_eps_yoy", "dt_eps_yoy", "cfps_yoy", "op_yoy", "ebt_yoy", "netprofit_yoy", "dt_netprofit_yoy", "ocf_yoy", "roe_yoy", "bps_yoy", "assets_yoy", "eqt_yoy", "tr_yoy", "or_yoy", "q_gr_yoy", "q_gr_qoq", "q_sales_yoy", "q_sales_qoq", "q_op_yoy", "q_op_qoq", "q_profit_yoy", "q_profit_qoq", "q_netprofit_yoy", "q_netprofit_qoq", "equity_yoy", "rd_exp", "update_flag"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +218,1013 @@ func FinaIndicator(ctx context.Context, client *sdk.Client, req *FinaIndicatorRe
 	if err := client.CallAPI(ctx, "fina_indicator", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []FinaIndicatorItem{}, nil
+	items := make([]FinaIndicatorItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 ann_date 的简单类型
+		annDate, ok := item["ann_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ann_date 类型")
+		}
+		// 处理 end_date 的简单类型
+		endDate, ok := item["end_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 end_date 类型")
+		}
+		// 处理 eps 的简单类型
+		eps, ok := item["eps"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 eps 类型")
+		}
+		// 处理 dt_eps 的简单类型
+		dtEps, ok := item["dt_eps"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 dt_eps 类型")
+		}
+		// 处理 total_revenue_ps 的简单类型
+		totalRevenuePs, ok := item["total_revenue_ps"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 total_revenue_ps 类型")
+		}
+		// 处理 revenue_ps 的简单类型
+		revenuePs, ok := item["revenue_ps"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 revenue_ps 类型")
+		}
+		// 处理 capital_rese_ps 的简单类型
+		capitalResePs, ok := item["capital_rese_ps"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 capital_rese_ps 类型")
+		}
+		// 处理 surplus_rese_ps 的简单类型
+		surplusResePs, ok := item["surplus_rese_ps"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 surplus_rese_ps 类型")
+		}
+		// 处理 undist_profit_ps 的简单类型
+		undistProfitPs, ok := item["undist_profit_ps"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 undist_profit_ps 类型")
+		}
+		// 处理 extra_item 的简单类型
+		extraItem, ok := item["extra_item"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 extra_item 类型")
+		}
+		// 处理 profit_dedt 的简单类型
+		profitDedt, ok := item["profit_dedt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 profit_dedt 类型")
+		}
+		// 处理 gross_margin 的简单类型
+		grossMargin, ok := item["gross_margin"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 gross_margin 类型")
+		}
+		// 处理 current_ratio 的简单类型
+		currentRatio, ok := item["current_ratio"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 current_ratio 类型")
+		}
+		// 处理 quick_ratio 的简单类型
+		quickRatio, ok := item["quick_ratio"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 quick_ratio 类型")
+		}
+		// 处理 cash_ratio 的简单类型
+		cashRatio, ok := item["cash_ratio"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 cash_ratio 类型")
+		}
+		// 处理 invturn_days 的简单类型
+		invturnDays, ok := item["invturn_days"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 invturn_days 类型")
+		}
+		// 处理 arturn_days 的简单类型
+		arturnDays, ok := item["arturn_days"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 arturn_days 类型")
+		}
+		// 处理 inv_turn 的简单类型
+		invTurn, ok := item["inv_turn"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 inv_turn 类型")
+		}
+		// 处理 ar_turn 的简单类型
+		arTurn, ok := item["ar_turn"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ar_turn 类型")
+		}
+		// 处理 ca_turn 的简单类型
+		caTurn, ok := item["ca_turn"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ca_turn 类型")
+		}
+		// 处理 fa_turn 的简单类型
+		faTurn, ok := item["fa_turn"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 fa_turn 类型")
+		}
+		// 处理 assets_turn 的简单类型
+		assetsTurn, ok := item["assets_turn"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 assets_turn 类型")
+		}
+		// 处理 op_income 的简单类型
+		opIncome, ok := item["op_income"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 op_income 类型")
+		}
+		// 处理 valuechange_income 的简单类型
+		valuechangeIncome, ok := item["valuechange_income"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 valuechange_income 类型")
+		}
+		// 处理 interst_income 的简单类型
+		interstIncome, ok := item["interst_income"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 interst_income 类型")
+		}
+		// 处理 daa 的简单类型
+		daa, ok := item["daa"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 daa 类型")
+		}
+		// 处理 ebit 的简单类型
+		ebit, ok := item["ebit"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ebit 类型")
+		}
+		// 处理 ebitda 的简单类型
+		ebitda, ok := item["ebitda"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ebitda 类型")
+		}
+		// 处理 fcff 的简单类型
+		fcff, ok := item["fcff"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 fcff 类型")
+		}
+		// 处理 fcfe 的简单类型
+		fcfe, ok := item["fcfe"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 fcfe 类型")
+		}
+		// 处理 current_exint 的简单类型
+		currentExint, ok := item["current_exint"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 current_exint 类型")
+		}
+		// 处理 noncurrent_exint 的简单类型
+		noncurrentExint, ok := item["noncurrent_exint"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 noncurrent_exint 类型")
+		}
+		// 处理 interestdebt 的简单类型
+		interestdebt, ok := item["interestdebt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 interestdebt 类型")
+		}
+		// 处理 netdebt 的简单类型
+		netdebt, ok := item["netdebt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 netdebt 类型")
+		}
+		// 处理 tangible_asset 的简单类型
+		tangibleAsset, ok := item["tangible_asset"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 tangible_asset 类型")
+		}
+		// 处理 working_capital 的简单类型
+		workingCapital, ok := item["working_capital"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 working_capital 类型")
+		}
+		// 处理 networking_capital 的简单类型
+		networkingCapital, ok := item["networking_capital"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 networking_capital 类型")
+		}
+		// 处理 invest_capital 的简单类型
+		investCapital, ok := item["invest_capital"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 invest_capital 类型")
+		}
+		// 处理 retained_earnings 的简单类型
+		retainedEarnings, ok := item["retained_earnings"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 retained_earnings 类型")
+		}
+		// 处理 diluted2_eps 的简单类型
+		diluted2Eps, ok := item["diluted2_eps"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 diluted2_eps 类型")
+		}
+		// 处理 bps 的简单类型
+		bps, ok := item["bps"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 bps 类型")
+		}
+		// 处理 ocfps 的简单类型
+		ocfps, ok := item["ocfps"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ocfps 类型")
+		}
+		// 处理 retainedps 的简单类型
+		retainedps, ok := item["retainedps"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 retainedps 类型")
+		}
+		// 处理 cfps 的简单类型
+		cfps, ok := item["cfps"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 cfps 类型")
+		}
+		// 处理 ebit_ps 的简单类型
+		ebitPs, ok := item["ebit_ps"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ebit_ps 类型")
+		}
+		// 处理 fcff_ps 的简单类型
+		fcffPs, ok := item["fcff_ps"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 fcff_ps 类型")
+		}
+		// 处理 fcfe_ps 的简单类型
+		fcfePs, ok := item["fcfe_ps"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 fcfe_ps 类型")
+		}
+		// 处理 netprofit_margin 的简单类型
+		netprofitMargin, ok := item["netprofit_margin"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 netprofit_margin 类型")
+		}
+		// 处理 grossprofit_margin 的简单类型
+		grossprofitMargin, ok := item["grossprofit_margin"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 grossprofit_margin 类型")
+		}
+		// 处理 cogs_of_sales 的简单类型
+		cogsOfSales, ok := item["cogs_of_sales"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 cogs_of_sales 类型")
+		}
+		// 处理 expense_of_sales 的简单类型
+		expenseOfSales, ok := item["expense_of_sales"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 expense_of_sales 类型")
+		}
+		// 处理 profit_to_gr 的简单类型
+		profitToGr, ok := item["profit_to_gr"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 profit_to_gr 类型")
+		}
+		// 处理 saleexp_to_gr 的简单类型
+		saleexpToGr, ok := item["saleexp_to_gr"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 saleexp_to_gr 类型")
+		}
+		// 处理 adminexp_of_gr 的简单类型
+		adminexpOfGr, ok := item["adminexp_of_gr"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 adminexp_of_gr 类型")
+		}
+		// 处理 finaexp_of_gr 的简单类型
+		finaexpOfGr, ok := item["finaexp_of_gr"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 finaexp_of_gr 类型")
+		}
+		// 处理 impai_ttm 的简单类型
+		impaiTtm, ok := item["impai_ttm"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 impai_ttm 类型")
+		}
+		// 处理 gc_of_gr 的简单类型
+		gcOfGr, ok := item["gc_of_gr"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 gc_of_gr 类型")
+		}
+		// 处理 op_of_gr 的简单类型
+		opOfGr, ok := item["op_of_gr"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 op_of_gr 类型")
+		}
+		// 处理 ebit_of_gr 的简单类型
+		ebitOfGr, ok := item["ebit_of_gr"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ebit_of_gr 类型")
+		}
+		// 处理 roe 的简单类型
+		roe, ok := item["roe"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 roe 类型")
+		}
+		// 处理 roe_waa 的简单类型
+		roeWaa, ok := item["roe_waa"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 roe_waa 类型")
+		}
+		// 处理 roe_dt 的简单类型
+		roeDt, ok := item["roe_dt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 roe_dt 类型")
+		}
+		// 处理 roa 的简单类型
+		roa, ok := item["roa"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 roa 类型")
+		}
+		// 处理 npta 的简单类型
+		npta, ok := item["npta"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 npta 类型")
+		}
+		// 处理 roic 的简单类型
+		roic, ok := item["roic"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 roic 类型")
+		}
+		// 处理 roe_yearly 的简单类型
+		roeYearly, ok := item["roe_yearly"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 roe_yearly 类型")
+		}
+		// 处理 roa2_yearly 的简单类型
+		roa2Yearly, ok := item["roa2_yearly"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 roa2_yearly 类型")
+		}
+		// 处理 roe_avg 的简单类型
+		roeAvg, ok := item["roe_avg"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 roe_avg 类型")
+		}
+		// 处理 opincome_of_ebt 的简单类型
+		opincomeOfEbt, ok := item["opincome_of_ebt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 opincome_of_ebt 类型")
+		}
+		// 处理 investincome_of_ebt 的简单类型
+		investincomeOfEbt, ok := item["investincome_of_ebt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 investincome_of_ebt 类型")
+		}
+		// 处理 n_op_profit_of_ebt 的简单类型
+		nOpProfitOfEbt, ok := item["n_op_profit_of_ebt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 n_op_profit_of_ebt 类型")
+		}
+		// 处理 tax_to_ebt 的简单类型
+		taxToEbt, ok := item["tax_to_ebt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 tax_to_ebt 类型")
+		}
+		// 处理 dtprofit_to_profit 的简单类型
+		dtprofitToProfit, ok := item["dtprofit_to_profit"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 dtprofit_to_profit 类型")
+		}
+		// 处理 salescash_to_or 的简单类型
+		salescashToOr, ok := item["salescash_to_or"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 salescash_to_or 类型")
+		}
+		// 处理 ocf_to_or 的简单类型
+		ocfToOr, ok := item["ocf_to_or"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ocf_to_or 类型")
+		}
+		// 处理 ocf_to_opincome 的简单类型
+		ocfToOpincome, ok := item["ocf_to_opincome"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ocf_to_opincome 类型")
+		}
+		// 处理 capitalized_to_da 的简单类型
+		capitalizedToDa, ok := item["capitalized_to_da"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 capitalized_to_da 类型")
+		}
+		// 处理 debt_to_assets 的简单类型
+		debtToAssets, ok := item["debt_to_assets"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 debt_to_assets 类型")
+		}
+		// 处理 assets_to_eqt 的简单类型
+		assetsToEqt, ok := item["assets_to_eqt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 assets_to_eqt 类型")
+		}
+		// 处理 dp_assets_to_eqt 的简单类型
+		dpAssetsToEqt, ok := item["dp_assets_to_eqt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 dp_assets_to_eqt 类型")
+		}
+		// 处理 ca_to_assets 的简单类型
+		caToAssets, ok := item["ca_to_assets"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ca_to_assets 类型")
+		}
+		// 处理 nca_to_assets 的简单类型
+		ncaToAssets, ok := item["nca_to_assets"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 nca_to_assets 类型")
+		}
+		// 处理 tbassets_to_totalassets 的简单类型
+		tbassetsToTotalassets, ok := item["tbassets_to_totalassets"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 tbassets_to_totalassets 类型")
+		}
+		// 处理 int_to_talcap 的简单类型
+		intToTalcap, ok := item["int_to_talcap"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 int_to_talcap 类型")
+		}
+		// 处理 eqt_to_talcapital 的简单类型
+		eqtToTalcapital, ok := item["eqt_to_talcapital"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 eqt_to_talcapital 类型")
+		}
+		// 处理 currentdebt_to_debt 的简单类型
+		currentdebtToDebt, ok := item["currentdebt_to_debt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 currentdebt_to_debt 类型")
+		}
+		// 处理 longdeb_to_debt 的简单类型
+		longdebToDebt, ok := item["longdeb_to_debt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 longdeb_to_debt 类型")
+		}
+		// 处理 ocf_to_shortdebt 的简单类型
+		ocfToShortdebt, ok := item["ocf_to_shortdebt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ocf_to_shortdebt 类型")
+		}
+		// 处理 debt_to_eqt 的简单类型
+		debtToEqt, ok := item["debt_to_eqt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 debt_to_eqt 类型")
+		}
+		// 处理 eqt_to_debt 的简单类型
+		eqtToDebt, ok := item["eqt_to_debt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 eqt_to_debt 类型")
+		}
+		// 处理 eqt_to_interestdebt 的简单类型
+		eqtToInterestdebt, ok := item["eqt_to_interestdebt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 eqt_to_interestdebt 类型")
+		}
+		// 处理 tangibleasset_to_debt 的简单类型
+		tangibleassetToDebt, ok := item["tangibleasset_to_debt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 tangibleasset_to_debt 类型")
+		}
+		// 处理 tangasset_to_intdebt 的简单类型
+		tangassetToIntdebt, ok := item["tangasset_to_intdebt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 tangasset_to_intdebt 类型")
+		}
+		// 处理 tangibleasset_to_netdebt 的简单类型
+		tangibleassetToNetdebt, ok := item["tangibleasset_to_netdebt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 tangibleasset_to_netdebt 类型")
+		}
+		// 处理 ocf_to_debt 的简单类型
+		ocfToDebt, ok := item["ocf_to_debt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ocf_to_debt 类型")
+		}
+		// 处理 ocf_to_interestdebt 的简单类型
+		ocfToInterestdebt, ok := item["ocf_to_interestdebt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ocf_to_interestdebt 类型")
+		}
+		// 处理 ocf_to_netdebt 的简单类型
+		ocfToNetdebt, ok := item["ocf_to_netdebt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ocf_to_netdebt 类型")
+		}
+		// 处理 ebit_to_interest 的简单类型
+		ebitToInterest, ok := item["ebit_to_interest"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ebit_to_interest 类型")
+		}
+		// 处理 longdebt_to_workingcapital 的简单类型
+		longdebtToWorkingcapital, ok := item["longdebt_to_workingcapital"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 longdebt_to_workingcapital 类型")
+		}
+		// 处理 ebitda_to_debt 的简单类型
+		ebitdaToDebt, ok := item["ebitda_to_debt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ebitda_to_debt 类型")
+		}
+		// 处理 turn_days 的简单类型
+		turnDays, ok := item["turn_days"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 turn_days 类型")
+		}
+		// 处理 roa_yearly 的简单类型
+		roaYearly, ok := item["roa_yearly"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 roa_yearly 类型")
+		}
+		// 处理 roa_dp 的简单类型
+		roaDp, ok := item["roa_dp"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 roa_dp 类型")
+		}
+		// 处理 fixed_assets 的简单类型
+		fixedAssets, ok := item["fixed_assets"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 fixed_assets 类型")
+		}
+		// 处理 profit_prefin_exp 的简单类型
+		profitPrefinExp, ok := item["profit_prefin_exp"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 profit_prefin_exp 类型")
+		}
+		// 处理 non_op_profit 的简单类型
+		nonOpProfit, ok := item["non_op_profit"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 non_op_profit 类型")
+		}
+		// 处理 op_to_ebt 的简单类型
+		opToEbt, ok := item["op_to_ebt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 op_to_ebt 类型")
+		}
+		// 处理 nop_to_ebt 的简单类型
+		nopToEbt, ok := item["nop_to_ebt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 nop_to_ebt 类型")
+		}
+		// 处理 ocf_to_profit 的简单类型
+		ocfToProfit, ok := item["ocf_to_profit"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ocf_to_profit 类型")
+		}
+		// 处理 cash_to_liqdebt 的简单类型
+		cashToLiqdebt, ok := item["cash_to_liqdebt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 cash_to_liqdebt 类型")
+		}
+		// 处理 cash_to_liqdebt_withinterest 的简单类型
+		cashToLiqdebtWithinterest, ok := item["cash_to_liqdebt_withinterest"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 cash_to_liqdebt_withinterest 类型")
+		}
+		// 处理 op_to_liqdebt 的简单类型
+		opToLiqdebt, ok := item["op_to_liqdebt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 op_to_liqdebt 类型")
+		}
+		// 处理 op_to_debt 的简单类型
+		opToDebt, ok := item["op_to_debt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 op_to_debt 类型")
+		}
+		// 处理 roic_yearly 的简单类型
+		roicYearly, ok := item["roic_yearly"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 roic_yearly 类型")
+		}
+		// 处理 total_fa_trun 的简单类型
+		totalFaTrun, ok := item["total_fa_trun"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 total_fa_trun 类型")
+		}
+		// 处理 profit_to_op 的简单类型
+		profitToOp, ok := item["profit_to_op"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 profit_to_op 类型")
+		}
+		// 处理 q_opincome 的简单类型
+		qOpincome, ok := item["q_opincome"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_opincome 类型")
+		}
+		// 处理 q_investincome 的简单类型
+		qInvestincome, ok := item["q_investincome"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_investincome 类型")
+		}
+		// 处理 q_dtprofit 的简单类型
+		qDtprofit, ok := item["q_dtprofit"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_dtprofit 类型")
+		}
+		// 处理 q_eps 的简单类型
+		qEps, ok := item["q_eps"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_eps 类型")
+		}
+		// 处理 q_netprofit_margin 的简单类型
+		qNetprofitMargin, ok := item["q_netprofit_margin"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_netprofit_margin 类型")
+		}
+		// 处理 q_gsprofit_margin 的简单类型
+		qGsprofitMargin, ok := item["q_gsprofit_margin"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_gsprofit_margin 类型")
+		}
+		// 处理 q_exp_to_sales 的简单类型
+		qExpToSales, ok := item["q_exp_to_sales"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_exp_to_sales 类型")
+		}
+		// 处理 q_profit_to_gr 的简单类型
+		qProfitToGr, ok := item["q_profit_to_gr"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_profit_to_gr 类型")
+		}
+		// 处理 q_saleexp_to_gr 的简单类型
+		qSaleexpToGr, ok := item["q_saleexp_to_gr"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_saleexp_to_gr 类型")
+		}
+		// 处理 q_adminexp_to_gr 的简单类型
+		qAdminexpToGr, ok := item["q_adminexp_to_gr"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_adminexp_to_gr 类型")
+		}
+		// 处理 q_finaexp_to_gr 的简单类型
+		qFinaexpToGr, ok := item["q_finaexp_to_gr"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_finaexp_to_gr 类型")
+		}
+		// 处理 q_impair_to_gr_ttm 的简单类型
+		qImpairToGrTtm, ok := item["q_impair_to_gr_ttm"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_impair_to_gr_ttm 类型")
+		}
+		// 处理 q_gc_to_gr 的简单类型
+		qGcToGr, ok := item["q_gc_to_gr"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_gc_to_gr 类型")
+		}
+		// 处理 q_op_to_gr 的简单类型
+		qOpToGr, ok := item["q_op_to_gr"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_op_to_gr 类型")
+		}
+		// 处理 q_roe 的简单类型
+		qRoe, ok := item["q_roe"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_roe 类型")
+		}
+		// 处理 q_dt_roe 的简单类型
+		qDtRoe, ok := item["q_dt_roe"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_dt_roe 类型")
+		}
+		// 处理 q_npta 的简单类型
+		qNpta, ok := item["q_npta"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_npta 类型")
+		}
+		// 处理 q_opincome_to_ebt 的简单类型
+		qOpincomeToEbt, ok := item["q_opincome_to_ebt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_opincome_to_ebt 类型")
+		}
+		// 处理 q_investincome_to_ebt 的简单类型
+		qInvestincomeToEbt, ok := item["q_investincome_to_ebt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_investincome_to_ebt 类型")
+		}
+		// 处理 q_dtprofit_to_profit 的简单类型
+		qDtprofitToProfit, ok := item["q_dtprofit_to_profit"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_dtprofit_to_profit 类型")
+		}
+		// 处理 q_salescash_to_or 的简单类型
+		qSalescashToOr, ok := item["q_salescash_to_or"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_salescash_to_or 类型")
+		}
+		// 处理 q_ocf_to_sales 的简单类型
+		qOcfToSales, ok := item["q_ocf_to_sales"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_ocf_to_sales 类型")
+		}
+		// 处理 q_ocf_to_or 的简单类型
+		qOcfToOr, ok := item["q_ocf_to_or"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_ocf_to_or 类型")
+		}
+		// 处理 basic_eps_yoy 的简单类型
+		basicEpsYoy, ok := item["basic_eps_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 basic_eps_yoy 类型")
+		}
+		// 处理 dt_eps_yoy 的简单类型
+		dtEpsYoy, ok := item["dt_eps_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 dt_eps_yoy 类型")
+		}
+		// 处理 cfps_yoy 的简单类型
+		cfpsYoy, ok := item["cfps_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 cfps_yoy 类型")
+		}
+		// 处理 op_yoy 的简单类型
+		opYoy, ok := item["op_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 op_yoy 类型")
+		}
+		// 处理 ebt_yoy 的简单类型
+		ebtYoy, ok := item["ebt_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ebt_yoy 类型")
+		}
+		// 处理 netprofit_yoy 的简单类型
+		netprofitYoy, ok := item["netprofit_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 netprofit_yoy 类型")
+		}
+		// 处理 dt_netprofit_yoy 的简单类型
+		dtNetprofitYoy, ok := item["dt_netprofit_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 dt_netprofit_yoy 类型")
+		}
+		// 处理 ocf_yoy 的简单类型
+		ocfYoy, ok := item["ocf_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ocf_yoy 类型")
+		}
+		// 处理 roe_yoy 的简单类型
+		roeYoy, ok := item["roe_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 roe_yoy 类型")
+		}
+		// 处理 bps_yoy 的简单类型
+		bpsYoy, ok := item["bps_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 bps_yoy 类型")
+		}
+		// 处理 assets_yoy 的简单类型
+		assetsYoy, ok := item["assets_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 assets_yoy 类型")
+		}
+		// 处理 eqt_yoy 的简单类型
+		eqtYoy, ok := item["eqt_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 eqt_yoy 类型")
+		}
+		// 处理 tr_yoy 的简单类型
+		trYoy, ok := item["tr_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 tr_yoy 类型")
+		}
+		// 处理 or_yoy 的简单类型
+		orYoy, ok := item["or_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 or_yoy 类型")
+		}
+		// 处理 q_gr_yoy 的简单类型
+		qGrYoy, ok := item["q_gr_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_gr_yoy 类型")
+		}
+		// 处理 q_gr_qoq 的简单类型
+		qGrQoq, ok := item["q_gr_qoq"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_gr_qoq 类型")
+		}
+		// 处理 q_sales_yoy 的简单类型
+		qSalesYoy, ok := item["q_sales_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_sales_yoy 类型")
+		}
+		// 处理 q_sales_qoq 的简单类型
+		qSalesQoq, ok := item["q_sales_qoq"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_sales_qoq 类型")
+		}
+		// 处理 q_op_yoy 的简单类型
+		qOpYoy, ok := item["q_op_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_op_yoy 类型")
+		}
+		// 处理 q_op_qoq 的简单类型
+		qOpQoq, ok := item["q_op_qoq"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_op_qoq 类型")
+		}
+		// 处理 q_profit_yoy 的简单类型
+		qProfitYoy, ok := item["q_profit_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_profit_yoy 类型")
+		}
+		// 处理 q_profit_qoq 的简单类型
+		qProfitQoq, ok := item["q_profit_qoq"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_profit_qoq 类型")
+		}
+		// 处理 q_netprofit_yoy 的简单类型
+		qNetprofitYoy, ok := item["q_netprofit_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_netprofit_yoy 类型")
+		}
+		// 处理 q_netprofit_qoq 的简单类型
+		qNetprofitQoq, ok := item["q_netprofit_qoq"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 q_netprofit_qoq 类型")
+		}
+		// 处理 equity_yoy 的简单类型
+		equityYoy, ok := item["equity_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 equity_yoy 类型")
+		}
+		// 处理 rd_exp 的简单类型
+		rdExp, ok := item["rd_exp"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 rd_exp 类型")
+		}
+		// 处理 update_flag 的简单类型
+		updateFlag, ok := item["update_flag"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 update_flag 类型")
+		}
+		items[i] = FinaIndicatorItem{
+			TsCode: tsCode,
+			AnnDate: annDate,
+			EndDate: endDate,
+			Eps: eps,
+			DtEps: dtEps,
+			TotalRevenuePs: totalRevenuePs,
+			RevenuePs: revenuePs,
+			CapitalResePs: capitalResePs,
+			SurplusResePs: surplusResePs,
+			UndistProfitPs: undistProfitPs,
+			ExtraItem: extraItem,
+			ProfitDedt: profitDedt,
+			GrossMargin: grossMargin,
+			CurrentRatio: currentRatio,
+			QuickRatio: quickRatio,
+			CashRatio: cashRatio,
+			InvturnDays: invturnDays,
+			ArturnDays: arturnDays,
+			InvTurn: invTurn,
+			ArTurn: arTurn,
+			CaTurn: caTurn,
+			FaTurn: faTurn,
+			AssetsTurn: assetsTurn,
+			OpIncome: opIncome,
+			ValuechangeIncome: valuechangeIncome,
+			InterstIncome: interstIncome,
+			Daa: daa,
+			Ebit: ebit,
+			Ebitda: ebitda,
+			Fcff: fcff,
+			Fcfe: fcfe,
+			CurrentExint: currentExint,
+			NoncurrentExint: noncurrentExint,
+			Interestdebt: interestdebt,
+			Netdebt: netdebt,
+			TangibleAsset: tangibleAsset,
+			WorkingCapital: workingCapital,
+			NetworkingCapital: networkingCapital,
+			InvestCapital: investCapital,
+			RetainedEarnings: retainedEarnings,
+			Diluted2Eps: diluted2Eps,
+			Bps: bps,
+			Ocfps: ocfps,
+			Retainedps: retainedps,
+			Cfps: cfps,
+			EbitPs: ebitPs,
+			FcffPs: fcffPs,
+			FcfePs: fcfePs,
+			NetprofitMargin: netprofitMargin,
+			GrossprofitMargin: grossprofitMargin,
+			CogsOfSales: cogsOfSales,
+			ExpenseOfSales: expenseOfSales,
+			ProfitToGr: profitToGr,
+			SaleexpToGr: saleexpToGr,
+			AdminexpOfGr: adminexpOfGr,
+			FinaexpOfGr: finaexpOfGr,
+			ImpaiTtm: impaiTtm,
+			GcOfGr: gcOfGr,
+			OpOfGr: opOfGr,
+			EbitOfGr: ebitOfGr,
+			Roe: roe,
+			RoeWaa: roeWaa,
+			RoeDt: roeDt,
+			Roa: roa,
+			Npta: npta,
+			Roic: roic,
+			RoeYearly: roeYearly,
+			Roa2Yearly: roa2Yearly,
+			RoeAvg: roeAvg,
+			OpincomeOfEbt: opincomeOfEbt,
+			InvestincomeOfEbt: investincomeOfEbt,
+			NOpProfitOfEbt: nOpProfitOfEbt,
+			TaxToEbt: taxToEbt,
+			DtprofitToProfit: dtprofitToProfit,
+			SalescashToOr: salescashToOr,
+			OcfToOr: ocfToOr,
+			OcfToOpincome: ocfToOpincome,
+			CapitalizedToDa: capitalizedToDa,
+			DebtToAssets: debtToAssets,
+			AssetsToEqt: assetsToEqt,
+			DpAssetsToEqt: dpAssetsToEqt,
+			CaToAssets: caToAssets,
+			NcaToAssets: ncaToAssets,
+			TbassetsToTotalassets: tbassetsToTotalassets,
+			IntToTalcap: intToTalcap,
+			EqtToTalcapital: eqtToTalcapital,
+			CurrentdebtToDebt: currentdebtToDebt,
+			LongdebToDebt: longdebToDebt,
+			OcfToShortdebt: ocfToShortdebt,
+			DebtToEqt: debtToEqt,
+			EqtToDebt: eqtToDebt,
+			EqtToInterestdebt: eqtToInterestdebt,
+			TangibleassetToDebt: tangibleassetToDebt,
+			TangassetToIntdebt: tangassetToIntdebt,
+			TangibleassetToNetdebt: tangibleassetToNetdebt,
+			OcfToDebt: ocfToDebt,
+			OcfToInterestdebt: ocfToInterestdebt,
+			OcfToNetdebt: ocfToNetdebt,
+			EbitToInterest: ebitToInterest,
+			LongdebtToWorkingcapital: longdebtToWorkingcapital,
+			EbitdaToDebt: ebitdaToDebt,
+			TurnDays: turnDays,
+			RoaYearly: roaYearly,
+			RoaDp: roaDp,
+			FixedAssets: fixedAssets,
+			ProfitPrefinExp: profitPrefinExp,
+			NonOpProfit: nonOpProfit,
+			OpToEbt: opToEbt,
+			NopToEbt: nopToEbt,
+			OcfToProfit: ocfToProfit,
+			CashToLiqdebt: cashToLiqdebt,
+			CashToLiqdebtWithinterest: cashToLiqdebtWithinterest,
+			OpToLiqdebt: opToLiqdebt,
+			OpToDebt: opToDebt,
+			RoicYearly: roicYearly,
+			TotalFaTrun: totalFaTrun,
+			ProfitToOp: profitToOp,
+			QOpincome: qOpincome,
+			QInvestincome: qInvestincome,
+			QDtprofit: qDtprofit,
+			QEps: qEps,
+			QNetprofitMargin: qNetprofitMargin,
+			QGsprofitMargin: qGsprofitMargin,
+			QExpToSales: qExpToSales,
+			QProfitToGr: qProfitToGr,
+			QSaleexpToGr: qSaleexpToGr,
+			QAdminexpToGr: qAdminexpToGr,
+			QFinaexpToGr: qFinaexpToGr,
+			QImpairToGrTtm: qImpairToGrTtm,
+			QGcToGr: qGcToGr,
+			QOpToGr: qOpToGr,
+			QRoe: qRoe,
+			QDtRoe: qDtRoe,
+			QNpta: qNpta,
+			QOpincomeToEbt: qOpincomeToEbt,
+			QInvestincomeToEbt: qInvestincomeToEbt,
+			QDtprofitToProfit: qDtprofitToProfit,
+			QSalescashToOr: qSalescashToOr,
+			QOcfToSales: qOcfToSales,
+			QOcfToOr: qOcfToOr,
+			BasicEpsYoy: basicEpsYoy,
+			DtEpsYoy: dtEpsYoy,
+			CfpsYoy: cfpsYoy,
+			OpYoy: opYoy,
+			EbtYoy: ebtYoy,
+			NetprofitYoy: netprofitYoy,
+			DtNetprofitYoy: dtNetprofitYoy,
+			OcfYoy: ocfYoy,
+			RoeYoy: roeYoy,
+			BpsYoy: bpsYoy,
+			AssetsYoy: assetsYoy,
+			EqtYoy: eqtYoy,
+			TrYoy: trYoy,
+			OrYoy: orYoy,
+			QGrYoy: qGrYoy,
+			QGrQoq: qGrQoq,
+			QSalesYoy: qSalesYoy,
+			QSalesQoq: qSalesQoq,
+			QOpYoy: qOpYoy,
+			QOpQoq: qOpQoq,
+			QProfitYoy: qProfitYoy,
+			QProfitQoq: qProfitQoq,
+			QNetprofitYoy: qNetprofitYoy,
+			QNetprofitQoq: qNetprofitQoq,
+			EquityYoy: equityYoy,
+			RdExp: rdExp,
+			UpdateFlag: updateFlag,
+		}
+	}
+
+	return items, nil
 }

@@ -8,17 +8,33 @@ import (
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// IndexWeightRequest 表示 index_weight API 的请求
+// IndexWeightRequest 表示 指数成分和权重 API 的请求
 type IndexWeightRequest struct {
+	IndexCode string `json:"index_code,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// IndexWeightItem 表示单个 index_weight 数据项
+// IndexWeightItem 表示单个 指数成分和权重 数据项
 type IndexWeightItem struct {
 }
 
-// IndexWeight 调用 index_weight API
+// IndexWeight 调用 指数成分和权重 API
 func IndexWeight(ctx context.Context, client *sdk.Client, req *IndexWeightRequest) ([]IndexWeightItem, error) {
 	params := map[string]interface{}{}
+	if req.IndexCode != "" {
+		params["index_code"] = req.IndexCode
+	}
+	if req.TradeDate != "" {
+		params["trade_date"] = req.TradeDate
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
 	fields := []string{}
 

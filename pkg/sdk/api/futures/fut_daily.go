@@ -4,23 +4,60 @@ package futures
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// FutDailyRequest 表示 fut_daily API 的请求
+// FutDailyRequest 表示 日线行情 API 的请求
 type FutDailyRequest struct {
+	TradeDate string `json:"trade_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"`
+	Exchange string `json:"exchange,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// FutDailyItem 表示单个 fut_daily 数据项
+// FutDailyItem 表示单个 日线行情 数据项
 type FutDailyItem struct {
+	TsCode string `json:"ts_code"`
+	TradeDate string `json:"trade_date"`
+	PreClose float64 `json:"pre_close"`
+	PreSettle float64 `json:"pre_settle"`
+	Open float64 `json:"open"`
+	High float64 `json:"high"`
+	Low float64 `json:"low"`
+	Close float64 `json:"close"`
+	Settle float64 `json:"settle"`
+	Change1 float64 `json:"change1"`
+	Change2 float64 `json:"change2"`
+	Vol float64 `json:"vol"`
+	Amount float64 `json:"amount"`
+	Oi float64 `json:"oi"`
+	OiChg float64 `json:"oi_chg"`
+	DelvSettle float64 `json:"delv_settle"`
 }
 
-// FutDaily 调用 fut_daily API
+// FutDaily 调用 日线行情 API
 func FutDaily(ctx context.Context, client *sdk.Client, req *FutDailyRequest) ([]FutDailyItem, error) {
 	params := map[string]interface{}{}
+	if req.TradeDate != "" {
+		params["trade_date"] = req.TradeDate
+	}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.Exchange != "" {
+		params["exchange"] = req.Exchange
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "trade_date", "pre_close", "pre_settle", "open", "high", "low", "close", "settle", "change1", "change2", "vol", "amount", "oi", "oi_chg", "delv_settle"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +67,107 @@ func FutDaily(ctx context.Context, client *sdk.Client, req *FutDailyRequest) ([]
 	if err := client.CallAPI(ctx, "fut_daily", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []FutDailyItem{}, nil
+	items := make([]FutDailyItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 trade_date 的简单类型
+		tradeDate, ok := item["trade_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 trade_date 类型")
+		}
+		// 处理 pre_close 的简单类型
+		preClose, ok := item["pre_close"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 pre_close 类型")
+		}
+		// 处理 pre_settle 的简单类型
+		preSettle, ok := item["pre_settle"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 pre_settle 类型")
+		}
+		// 处理 open 的简单类型
+		open, ok := item["open"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 open 类型")
+		}
+		// 处理 high 的简单类型
+		high, ok := item["high"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 high 类型")
+		}
+		// 处理 low 的简单类型
+		low, ok := item["low"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 low 类型")
+		}
+		// 处理 close 的简单类型
+		close, ok := item["close"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 close 类型")
+		}
+		// 处理 settle 的简单类型
+		settle, ok := item["settle"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 settle 类型")
+		}
+		// 处理 change1 的简单类型
+		change1, ok := item["change1"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 change1 类型")
+		}
+		// 处理 change2 的简单类型
+		change2, ok := item["change2"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 change2 类型")
+		}
+		// 处理 vol 的简单类型
+		vol, ok := item["vol"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 vol 类型")
+		}
+		// 处理 amount 的简单类型
+		amount, ok := item["amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 amount 类型")
+		}
+		// 处理 oi 的简单类型
+		oi, ok := item["oi"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 oi 类型")
+		}
+		// 处理 oi_chg 的简单类型
+		oiChg, ok := item["oi_chg"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 oi_chg 类型")
+		}
+		// 处理 delv_settle 的简单类型
+		delvSettle, ok := item["delv_settle"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 delv_settle 类型")
+		}
+		items[i] = FutDailyItem{
+			TsCode: tsCode,
+			TradeDate: tradeDate,
+			PreClose: preClose,
+			PreSettle: preSettle,
+			Open: open,
+			High: high,
+			Low: low,
+			Close: close,
+			Settle: settle,
+			Change1: change1,
+			Change2: change2,
+			Vol: vol,
+			Amount: amount,
+			Oi: oi,
+			OiChg: oiChg,
+			DelvSettle: delvSettle,
+		}
+	}
+
+	return items, nil
 }

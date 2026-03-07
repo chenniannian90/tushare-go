@@ -4,23 +4,42 @@ package stock_board
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// TopInstRequest 表示 top_inst API 的请求
+// TopInstRequest 表示 龙虎榜机构交易单 API 的请求
 type TopInstRequest struct {
+	TradeDate string `json:"trade_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"`
 }
 
-// TopInstItem 表示单个 top_inst 数据项
+// TopInstItem 表示单个 龙虎榜机构交易单 数据项
 type TopInstItem struct {
+	TradeDate string `json:"trade_date"`
+	TsCode string `json:"ts_code"`
+	Exalter string `json:"exalter"`
+	Side string `json:"side"`
+	Buy float64 `json:"buy"`
+	BuyRate float64 `json:"buy_rate"`
+	Sell float64 `json:"sell"`
+	SellRate float64 `json:"sell_rate"`
+	NetBuy float64 `json:"net_buy"`
+	Reason string `json:"reason"`
 }
 
-// TopInst 调用 top_inst API
+// TopInst 调用 龙虎榜机构交易单 API
 func TopInst(ctx context.Context, client *sdk.Client, req *TopInstRequest) ([]TopInstItem, error) {
 	params := map[string]interface{}{}
+	if req.TradeDate != "" {
+		params["trade_date"] = req.TradeDate
+	}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
 
-	fields := []string{}
+	fields := []string{"trade_date", "ts_code", "exalter", "side", "buy", "buy_rate", "sell", "sell_rate", "net_buy", "reason"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +49,71 @@ func TopInst(ctx context.Context, client *sdk.Client, req *TopInstRequest) ([]To
 	if err := client.CallAPI(ctx, "top_inst", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []TopInstItem{}, nil
+	items := make([]TopInstItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 trade_date 的简单类型
+		tradeDate, ok := item["trade_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 trade_date 类型")
+		}
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 exalter 的简单类型
+		exalter, ok := item["exalter"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 exalter 类型")
+		}
+		// 处理 side 的简单类型
+		side, ok := item["side"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 side 类型")
+		}
+		// 处理 buy 的简单类型
+		buy, ok := item["buy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 buy 类型")
+		}
+		// 处理 buy_rate 的简单类型
+		buyRate, ok := item["buy_rate"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 buy_rate 类型")
+		}
+		// 处理 sell 的简单类型
+		sell, ok := item["sell"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 sell 类型")
+		}
+		// 处理 sell_rate 的简单类型
+		sellRate, ok := item["sell_rate"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 sell_rate 类型")
+		}
+		// 处理 net_buy 的简单类型
+		netBuy, ok := item["net_buy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 net_buy 类型")
+		}
+		// 处理 reason 的简单类型
+		reason, ok := item["reason"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 reason 类型")
+		}
+		items[i] = TopInstItem{
+			TradeDate: tradeDate,
+			TsCode: tsCode,
+			Exalter: exalter,
+			Side: side,
+			Buy: buy,
+			BuyRate: buyRate,
+			Sell: sell,
+			SellRate: sellRate,
+			NetBuy: netBuy,
+			Reason: reason,
+		}
+	}
+
+	return items, nil
 }

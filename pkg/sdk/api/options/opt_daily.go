@@ -4,23 +4,57 @@ package options
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// OptDailyRequest 表示 opt_daily API 的请求
+// OptDailyRequest 表示 期权日线行情 API 的请求
 type OptDailyRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
+	Exchange string `json:"exchange,omitempty"`
 }
 
-// OptDailyItem 表示单个 opt_daily 数据项
+// OptDailyItem 表示单个 期权日线行情 数据项
 type OptDailyItem struct {
+	TsCode string `json:"ts_code"`
+	TradeDate string `json:"trade_date"`
+	Exchange string `json:"exchange"`
+	PreSettle float64 `json:"pre_settle"`
+	PreClose float64 `json:"pre_close"`
+	Open float64 `json:"open"`
+	High float64 `json:"high"`
+	Low float64 `json:"low"`
+	Close float64 `json:"close"`
+	Settle float64 `json:"settle"`
+	Vol float64 `json:"vol"`
+	Amount float64 `json:"amount"`
+	Oi float64 `json:"oi"`
 }
 
-// OptDaily 调用 opt_daily API
+// OptDaily 调用 期权日线行情 API
 func OptDaily(ctx context.Context, client *sdk.Client, req *OptDailyRequest) ([]OptDailyItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.TradeDate != "" {
+		params["trade_date"] = req.TradeDate
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
+	if req.Exchange != "" {
+		params["exchange"] = req.Exchange
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "trade_date", "exchange", "pre_settle", "pre_close", "open", "high", "low", "close", "settle", "vol", "amount", "oi"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +64,89 @@ func OptDaily(ctx context.Context, client *sdk.Client, req *OptDailyRequest) ([]
 	if err := client.CallAPI(ctx, "opt_daily", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []OptDailyItem{}, nil
+	items := make([]OptDailyItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 trade_date 的简单类型
+		tradeDate, ok := item["trade_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 trade_date 类型")
+		}
+		// 处理 exchange 的简单类型
+		exchange, ok := item["exchange"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 exchange 类型")
+		}
+		// 处理 pre_settle 的简单类型
+		preSettle, ok := item["pre_settle"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 pre_settle 类型")
+		}
+		// 处理 pre_close 的简单类型
+		preClose, ok := item["pre_close"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 pre_close 类型")
+		}
+		// 处理 open 的简单类型
+		open, ok := item["open"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 open 类型")
+		}
+		// 处理 high 的简单类型
+		high, ok := item["high"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 high 类型")
+		}
+		// 处理 low 的简单类型
+		low, ok := item["low"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 low 类型")
+		}
+		// 处理 close 的简单类型
+		close, ok := item["close"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 close 类型")
+		}
+		// 处理 settle 的简单类型
+		settle, ok := item["settle"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 settle 类型")
+		}
+		// 处理 vol 的简单类型
+		vol, ok := item["vol"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 vol 类型")
+		}
+		// 处理 amount 的简单类型
+		amount, ok := item["amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 amount 类型")
+		}
+		// 处理 oi 的简单类型
+		oi, ok := item["oi"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 oi 类型")
+		}
+		items[i] = OptDailyItem{
+			TsCode: tsCode,
+			TradeDate: tradeDate,
+			Exchange: exchange,
+			PreSettle: preSettle,
+			PreClose: preClose,
+			Open: open,
+			High: high,
+			Low: low,
+			Close: close,
+			Settle: settle,
+			Vol: vol,
+			Amount: amount,
+			Oi: oi,
+		}
+	}
+
+	return items, nil
 }

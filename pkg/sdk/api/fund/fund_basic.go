@@ -4,23 +4,61 @@ package fund
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// FundBasicRequest 表示 fund_basic API 的请求
+// FundBasicRequest 表示 基金列表 API 的请求
 type FundBasicRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	Market string `json:"market,omitempty"`
+	Status string `json:"status,omitempty"`
 }
 
-// FundBasicItem 表示单个 fund_basic 数据项
+// FundBasicItem 表示单个 基金列表 数据项
 type FundBasicItem struct {
+	TsCode string `json:"ts_code"`
+	Name string `json:"name"`
+	Management string `json:"management"`
+	Custodian string `json:"custodian"`
+	FundType string `json:"fund_type"`
+	FoundDate string `json:"found_date"`
+	DueDate string `json:"due_date"`
+	ListDate string `json:"list_date"`
+	IssueDate string `json:"issue_date"`
+	DelistDate string `json:"delist_date"`
+	IssueAmount float64 `json:"issue_amount"`
+	MFee float64 `json:"m_fee"`
+	CFee float64 `json:"c_fee"`
+	DurationYear float64 `json:"duration_year"`
+	PValue float64 `json:"p_value"`
+	MinAmount float64 `json:"min_amount"`
+	ExpReturn float64 `json:"exp_return"`
+	Benchmark string `json:"benchmark"`
+	Status string `json:"status"`
+	InvestType string `json:"invest_type"`
+	Type string `json:"type"`
+	Trustee string `json:"trustee"`
+	PurcStartdate string `json:"purc_startdate"`
+	RedmStartdate string `json:"redm_startdate"`
+	Market string `json:"market"`
 }
 
-// FundBasic 调用 fund_basic API
+// FundBasic 调用 基金列表 API
 func FundBasic(ctx context.Context, client *sdk.Client, req *FundBasicRequest) ([]FundBasicItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.Market != "" {
+		params["market"] = req.Market
+	}
+	if req.Status != "" {
+		params["status"] = req.Status
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "name", "management", "custodian", "fund_type", "found_date", "due_date", "list_date", "issue_date", "delist_date", "issue_amount", "m_fee", "c_fee", "duration_year", "p_value", "min_amount", "exp_return", "benchmark", "status", "invest_type", "type", "trustee", "purc_startdate", "redm_startdate", "market"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +68,161 @@ func FundBasic(ctx context.Context, client *sdk.Client, req *FundBasicRequest) (
 	if err := client.CallAPI(ctx, "fund_basic", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []FundBasicItem{}, nil
+	items := make([]FundBasicItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 name 的简单类型
+		name, ok := item["name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 name 类型")
+		}
+		// 处理 management 的简单类型
+		management, ok := item["management"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 management 类型")
+		}
+		// 处理 custodian 的简单类型
+		custodian, ok := item["custodian"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 custodian 类型")
+		}
+		// 处理 fund_type 的简单类型
+		fundType, ok := item["fund_type"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 fund_type 类型")
+		}
+		// 处理 found_date 的简单类型
+		foundDate, ok := item["found_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 found_date 类型")
+		}
+		// 处理 due_date 的简单类型
+		dueDate, ok := item["due_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 due_date 类型")
+		}
+		// 处理 list_date 的简单类型
+		listDate, ok := item["list_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 list_date 类型")
+		}
+		// 处理 issue_date 的简单类型
+		issueDate, ok := item["issue_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 issue_date 类型")
+		}
+		// 处理 delist_date 的简单类型
+		delistDate, ok := item["delist_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 delist_date 类型")
+		}
+		// 处理 issue_amount 的简单类型
+		issueAmount, ok := item["issue_amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 issue_amount 类型")
+		}
+		// 处理 m_fee 的简单类型
+		mFee, ok := item["m_fee"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 m_fee 类型")
+		}
+		// 处理 c_fee 的简单类型
+		cFee, ok := item["c_fee"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 c_fee 类型")
+		}
+		// 处理 duration_year 的简单类型
+		durationYear, ok := item["duration_year"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 duration_year 类型")
+		}
+		// 处理 p_value 的简单类型
+		pValue, ok := item["p_value"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 p_value 类型")
+		}
+		// 处理 min_amount 的简单类型
+		minAmount, ok := item["min_amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 min_amount 类型")
+		}
+		// 处理 exp_return 的简单类型
+		expReturn, ok := item["exp_return"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 exp_return 类型")
+		}
+		// 处理 benchmark 的简单类型
+		benchmark, ok := item["benchmark"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 benchmark 类型")
+		}
+		// 处理 status 的简单类型
+		status, ok := item["status"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 status 类型")
+		}
+		// 处理 invest_type 的简单类型
+		investType, ok := item["invest_type"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 invest_type 类型")
+		}
+		// 处理 type 的简单类型
+		typeValue, ok := item["type"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 type 类型")
+		}
+		// 处理 trustee 的简单类型
+		trustee, ok := item["trustee"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 trustee 类型")
+		}
+		// 处理 purc_startdate 的简单类型
+		purcStartdate, ok := item["purc_startdate"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 purc_startdate 类型")
+		}
+		// 处理 redm_startdate 的简单类型
+		redmStartdate, ok := item["redm_startdate"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 redm_startdate 类型")
+		}
+		// 处理 market 的简单类型
+		market, ok := item["market"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 market 类型")
+		}
+		items[i] = FundBasicItem{
+			TsCode: tsCode,
+			Name: name,
+			Management: management,
+			Custodian: custodian,
+			FundType: fundType,
+			FoundDate: foundDate,
+			DueDate: dueDate,
+			ListDate: listDate,
+			IssueDate: issueDate,
+			DelistDate: delistDate,
+			IssueAmount: issueAmount,
+			MFee: mFee,
+			CFee: cFee,
+			DurationYear: durationYear,
+			PValue: pValue,
+			MinAmount: minAmount,
+			ExpReturn: expReturn,
+			Benchmark: benchmark,
+			Status: status,
+			InvestType: investType,
+			Type: typeValue,
+			Trustee: trustee,
+			PurcStartdate: purcStartdate,
+			RedmStartdate: redmStartdate,
+			Market: market,
+		}
+	}
+
+	return items, nil
 }

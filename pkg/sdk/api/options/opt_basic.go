@@ -4,23 +4,62 @@ package options
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// OptBasicRequest 表示 opt_basic API 的请求
+// OptBasicRequest 表示 期权合约信息 API 的请求
 type OptBasicRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	Exchange string `json:"exchange,omitempty"`
+	ListDate string `json:"list_date,omitempty"`
+	OptCode string `json:"opt_code,omitempty"`
+	CallPut string `json:"call_put,omitempty"`
 }
 
-// OptBasicItem 表示单个 opt_basic 数据项
+// OptBasicItem 表示单个 期权合约信息 数据项
 type OptBasicItem struct {
+	TsCode string `json:"ts_code"`
+	Exchange string `json:"exchange"`
+	Name string `json:"name"`
+	PerUnit string `json:"per_unit"`
+	OptCode string `json:"opt_code"`
+	OptType string `json:"opt_type"`
+	CallPut string `json:"call_put"`
+	ExerciseType string `json:"exercise_type"`
+	ExercisePrice float64 `json:"exercise_price"`
+	SMonth string `json:"s_month"`
+	MaturityDate string `json:"maturity_date"`
+	ListPrice float64 `json:"list_price"`
+	ListDate string `json:"list_date"`
+	DelistDate string `json:"delist_date"`
+	LastEdate string `json:"last_edate"`
+	LastDdate string `json:"last_ddate"`
+	QuoteUnit string `json:"quote_unit"`
+	MinPriceChg string `json:"min_price_chg"`
 }
 
-// OptBasic 调用 opt_basic API
+// OptBasic 调用 期权合约信息 API
 func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]OptBasicItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.Exchange != "" {
+		params["exchange"] = req.Exchange
+	}
+	if req.ListDate != "" {
+		params["list_date"] = req.ListDate
+	}
+	if req.OptCode != "" {
+		params["opt_code"] = req.OptCode
+	}
+	if req.CallPut != "" {
+		params["call_put"] = req.CallPut
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "exchange", "name", "per_unit", "opt_code", "opt_type", "call_put", "exercise_type", "exercise_price", "s_month", "maturity_date", "list_price", "list_date", "delist_date", "last_edate", "last_ddate", "quote_unit", "min_price_chg"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +69,119 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 	if err := client.CallAPI(ctx, "opt_basic", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []OptBasicItem{}, nil
+	items := make([]OptBasicItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 exchange 的简单类型
+		exchange, ok := item["exchange"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 exchange 类型")
+		}
+		// 处理 name 的简单类型
+		name, ok := item["name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 name 类型")
+		}
+		// 处理 per_unit 的简单类型
+		perUnit, ok := item["per_unit"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 per_unit 类型")
+		}
+		// 处理 opt_code 的简单类型
+		optCode, ok := item["opt_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 opt_code 类型")
+		}
+		// 处理 opt_type 的简单类型
+		optType, ok := item["opt_type"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 opt_type 类型")
+		}
+		// 处理 call_put 的简单类型
+		callPut, ok := item["call_put"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 call_put 类型")
+		}
+		// 处理 exercise_type 的简单类型
+		exerciseType, ok := item["exercise_type"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 exercise_type 类型")
+		}
+		// 处理 exercise_price 的简单类型
+		exercisePrice, ok := item["exercise_price"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 exercise_price 类型")
+		}
+		// 处理 s_month 的简单类型
+		sMonth, ok := item["s_month"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 s_month 类型")
+		}
+		// 处理 maturity_date 的简单类型
+		maturityDate, ok := item["maturity_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 maturity_date 类型")
+		}
+		// 处理 list_price 的简单类型
+		listPrice, ok := item["list_price"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 list_price 类型")
+		}
+		// 处理 list_date 的简单类型
+		listDate, ok := item["list_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 list_date 类型")
+		}
+		// 处理 delist_date 的简单类型
+		delistDate, ok := item["delist_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 delist_date 类型")
+		}
+		// 处理 last_edate 的简单类型
+		lastEdate, ok := item["last_edate"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 last_edate 类型")
+		}
+		// 处理 last_ddate 的简单类型
+		lastDdate, ok := item["last_ddate"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 last_ddate 类型")
+		}
+		// 处理 quote_unit 的简单类型
+		quoteUnit, ok := item["quote_unit"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 quote_unit 类型")
+		}
+		// 处理 min_price_chg 的简单类型
+		minPriceChg, ok := item["min_price_chg"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 min_price_chg 类型")
+		}
+		items[i] = OptBasicItem{
+			TsCode: tsCode,
+			Exchange: exchange,
+			Name: name,
+			PerUnit: perUnit,
+			OptCode: optCode,
+			OptType: optType,
+			CallPut: callPut,
+			ExerciseType: exerciseType,
+			ExercisePrice: exercisePrice,
+			SMonth: sMonth,
+			MaturityDate: maturityDate,
+			ListPrice: listPrice,
+			ListDate: listDate,
+			DelistDate: delistDate,
+			LastEdate: lastEdate,
+			LastDdate: lastDdate,
+			QuoteUnit: quoteUnit,
+			MinPriceChg: minPriceChg,
+		}
+	}
+
+	return items, nil
 }

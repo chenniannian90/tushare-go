@@ -4,23 +4,65 @@ package stock_basic
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// StockBasicRequest 表示 stock_basic API 的请求
+// StockBasicRequest 表示 股票列表 API 的请求
 type StockBasicRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	Name string `json:"name,omitempty"`
+	Market string `json:"market,omitempty"`
+	ListStatus string `json:"list_status,omitempty"`
+	Exchange string `json:"exchange,omitempty"`
+	IsHs string `json:"is_hs,omitempty"`
 }
 
-// StockBasicItem 表示单个 stock_basic 数据项
+// StockBasicItem 表示单个 股票列表 数据项
 type StockBasicItem struct {
+	TsCode string `json:"ts_code"`
+	Symbol string `json:"symbol"`
+	Name string `json:"name"`
+	Area string `json:"area"`
+	Industry string `json:"industry"`
+	Fullname string `json:"fullname"`
+	Enname string `json:"enname"`
+	Cnspell string `json:"cnspell"`
+	Market string `json:"market"`
+	Exchange string `json:"exchange"`
+	CurrType string `json:"curr_type"`
+	ListStatus string `json:"list_status"`
+	ListDate string `json:"list_date"`
+	DelistDate string `json:"delist_date"`
+	IsHs string `json:"is_hs"`
+	ActName string `json:"act_name"`
+	ActEntType string `json:"act_ent_type"`
 }
 
-// StockBasic 调用 stock_basic API
+// StockBasic 调用 股票列表 API
 func StockBasic(ctx context.Context, client *sdk.Client, req *StockBasicRequest) ([]StockBasicItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.Name != "" {
+		params["name"] = req.Name
+	}
+	if req.Market != "" {
+		params["market"] = req.Market
+	}
+	if req.ListStatus != "" {
+		params["list_status"] = req.ListStatus
+	}
+	if req.Exchange != "" {
+		params["exchange"] = req.Exchange
+	}
+	if req.IsHs != "" {
+		params["is_hs"] = req.IsHs
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "symbol", "name", "area", "industry", "fullname", "enname", "cnspell", "market", "exchange", "curr_type", "list_status", "list_date", "delist_date", "is_hs", "act_name", "act_ent_type"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +72,113 @@ func StockBasic(ctx context.Context, client *sdk.Client, req *StockBasicRequest)
 	if err := client.CallAPI(ctx, "stock_basic", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []StockBasicItem{}, nil
+	items := make([]StockBasicItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 symbol 的简单类型
+		symbol, ok := item["symbol"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 symbol 类型")
+		}
+		// 处理 name 的简单类型
+		name, ok := item["name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 name 类型")
+		}
+		// 处理 area 的简单类型
+		area, ok := item["area"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 area 类型")
+		}
+		// 处理 industry 的简单类型
+		industry, ok := item["industry"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 industry 类型")
+		}
+		// 处理 fullname 的简单类型
+		fullname, ok := item["fullname"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 fullname 类型")
+		}
+		// 处理 enname 的简单类型
+		enname, ok := item["enname"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 enname 类型")
+		}
+		// 处理 cnspell 的简单类型
+		cnspell, ok := item["cnspell"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 cnspell 类型")
+		}
+		// 处理 market 的简单类型
+		market, ok := item["market"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 market 类型")
+		}
+		// 处理 exchange 的简单类型
+		exchange, ok := item["exchange"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 exchange 类型")
+		}
+		// 处理 curr_type 的简单类型
+		currType, ok := item["curr_type"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 curr_type 类型")
+		}
+		// 处理 list_status 的简单类型
+		listStatus, ok := item["list_status"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 list_status 类型")
+		}
+		// 处理 list_date 的简单类型
+		listDate, ok := item["list_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 list_date 类型")
+		}
+		// 处理 delist_date 的简单类型
+		delistDate, ok := item["delist_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 delist_date 类型")
+		}
+		// 处理 is_hs 的简单类型
+		isHs, ok := item["is_hs"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 is_hs 类型")
+		}
+		// 处理 act_name 的简单类型
+		actName, ok := item["act_name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 act_name 类型")
+		}
+		// 处理 act_ent_type 的简单类型
+		actEntType, ok := item["act_ent_type"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 act_ent_type 类型")
+		}
+		items[i] = StockBasicItem{
+			TsCode: tsCode,
+			Symbol: symbol,
+			Name: name,
+			Area: area,
+			Industry: industry,
+			Fullname: fullname,
+			Enname: enname,
+			Cnspell: cnspell,
+			Market: market,
+			Exchange: exchange,
+			CurrType: currType,
+			ListStatus: listStatus,
+			ListDate: listDate,
+			DelistDate: delistDate,
+			IsHs: isHs,
+			ActName: actName,
+			ActEntType: actEntType,
+		}
+	}
+
+	return items, nil
 }

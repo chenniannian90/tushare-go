@@ -4,23 +4,55 @@ package bond
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// CbDailyRequest 表示 cb_daily API 的请求
+// CbDailyRequest 表示 可转债行情 API 的请求
 type CbDailyRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// CbDailyItem 表示单个 cb_daily 数据项
+// CbDailyItem 表示单个 可转债行情 数据项
 type CbDailyItem struct {
+	TsCode string `json:"ts_code"`
+	TradeDate string `json:"trade_date"`
+	PreClose float64 `json:"pre_close"`
+	Open float64 `json:"open"`
+	High float64 `json:"high"`
+	Low float64 `json:"low"`
+	Close float64 `json:"close"`
+	Change float64 `json:"change"`
+	PctChg float64 `json:"pct_chg"`
+	Vol float64 `json:"vol"`
+	Amount float64 `json:"amount"`
+	BondValue float64 `json:"bond_value"`
+	BondOverRate float64 `json:"bond_over_rate"`
+	CbValue float64 `json:"cb_value"`
+	CbOverRate float64 `json:"cb_over_rate"`
 }
 
-// CbDaily 调用 cb_daily API
+// CbDaily 调用 可转债行情 API
 func CbDaily(ctx context.Context, client *sdk.Client, req *CbDailyRequest) ([]CbDailyItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.TradeDate != "" {
+		params["trade_date"] = req.TradeDate
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "trade_date", "pre_close", "open", "high", "low", "close", "change", "pct_chg", "vol", "amount", "bond_value", "bond_over_rate", "cb_value", "cb_over_rate"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +62,101 @@ func CbDaily(ctx context.Context, client *sdk.Client, req *CbDailyRequest) ([]Cb
 	if err := client.CallAPI(ctx, "cb_daily", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []CbDailyItem{}, nil
+	items := make([]CbDailyItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 trade_date 的简单类型
+		tradeDate, ok := item["trade_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 trade_date 类型")
+		}
+		// 处理 pre_close 的简单类型
+		preClose, ok := item["pre_close"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 pre_close 类型")
+		}
+		// 处理 open 的简单类型
+		open, ok := item["open"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 open 类型")
+		}
+		// 处理 high 的简单类型
+		high, ok := item["high"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 high 类型")
+		}
+		// 处理 low 的简单类型
+		low, ok := item["low"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 low 类型")
+		}
+		// 处理 close 的简单类型
+		close, ok := item["close"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 close 类型")
+		}
+		// 处理 change 的简单类型
+		change, ok := item["change"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 change 类型")
+		}
+		// 处理 pct_chg 的简单类型
+		pctChg, ok := item["pct_chg"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 pct_chg 类型")
+		}
+		// 处理 vol 的简单类型
+		vol, ok := item["vol"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 vol 类型")
+		}
+		// 处理 amount 的简单类型
+		amount, ok := item["amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 amount 类型")
+		}
+		// 处理 bond_value 的简单类型
+		bondValue, ok := item["bond_value"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 bond_value 类型")
+		}
+		// 处理 bond_over_rate 的简单类型
+		bondOverRate, ok := item["bond_over_rate"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 bond_over_rate 类型")
+		}
+		// 处理 cb_value 的简单类型
+		cbValue, ok := item["cb_value"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 cb_value 类型")
+		}
+		// 处理 cb_over_rate 的简单类型
+		cbOverRate, ok := item["cb_over_rate"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 cb_over_rate 类型")
+		}
+		items[i] = CbDailyItem{
+			TsCode: tsCode,
+			TradeDate: tradeDate,
+			PreClose: preClose,
+			Open: open,
+			High: high,
+			Low: low,
+			Close: close,
+			Change: change,
+			PctChg: pctChg,
+			Vol: vol,
+			Amount: amount,
+			BondValue: bondValue,
+			BondOverRate: bondOverRate,
+			CbValue: cbValue,
+			CbOverRate: cbOverRate,
+		}
+	}
+
+	return items, nil
 }

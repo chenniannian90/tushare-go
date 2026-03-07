@@ -4,23 +4,56 @@ package fund
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// FundPortfolioRequest 表示 fund_portfolio API 的请求
+// FundPortfolioRequest 表示 基金持仓 API 的请求
 type FundPortfolioRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	Symbol string `json:"symbol,omitempty"`
+	AnnDate string `json:"ann_date,omitempty"`
+	Period string `json:"period,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// FundPortfolioItem 表示单个 fund_portfolio 数据项
+// FundPortfolioItem 表示单个 基金持仓 数据项
 type FundPortfolioItem struct {
+	TsCode string `json:"ts_code"`
+	AnnDate string `json:"ann_date"`
+	EndDate string `json:"end_date"`
+	Symbol string `json:"symbol"`
+	Mkv float64 `json:"mkv"`
+	Amount float64 `json:"amount"`
+	StkMkvRatio float64 `json:"stk_mkv_ratio"`
+	StkFloatRatio float64 `json:"stk_float_ratio"`
 }
 
-// FundPortfolio 调用 fund_portfolio API
+// FundPortfolio 调用 基金持仓 API
 func FundPortfolio(ctx context.Context, client *sdk.Client, req *FundPortfolioRequest) ([]FundPortfolioItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.Symbol != "" {
+		params["symbol"] = req.Symbol
+	}
+	if req.AnnDate != "" {
+		params["ann_date"] = req.AnnDate
+	}
+	if req.Period != "" {
+		params["period"] = req.Period
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "ann_date", "end_date", "symbol", "mkv", "amount", "stk_mkv_ratio", "stk_float_ratio"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +63,59 @@ func FundPortfolio(ctx context.Context, client *sdk.Client, req *FundPortfolioRe
 	if err := client.CallAPI(ctx, "fund_portfolio", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []FundPortfolioItem{}, nil
+	items := make([]FundPortfolioItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 ann_date 的简单类型
+		annDate, ok := item["ann_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ann_date 类型")
+		}
+		// 处理 end_date 的简单类型
+		endDate, ok := item["end_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 end_date 类型")
+		}
+		// 处理 symbol 的简单类型
+		symbol, ok := item["symbol"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 symbol 类型")
+		}
+		// 处理 mkv 的简单类型
+		mkv, ok := item["mkv"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 mkv 类型")
+		}
+		// 处理 amount 的简单类型
+		amount, ok := item["amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 amount 类型")
+		}
+		// 处理 stk_mkv_ratio 的简单类型
+		stkMkvRatio, ok := item["stk_mkv_ratio"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 stk_mkv_ratio 类型")
+		}
+		// 处理 stk_float_ratio 的简单类型
+		stkFloatRatio, ok := item["stk_float_ratio"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 stk_float_ratio 类型")
+		}
+		items[i] = FundPortfolioItem{
+			TsCode: tsCode,
+			AnnDate: annDate,
+			EndDate: endDate,
+			Symbol: symbol,
+			Mkv: mkv,
+			Amount: amount,
+			StkMkvRatio: stkMkvRatio,
+			StkFloatRatio: stkFloatRatio,
+		}
+	}
+
+	return items, nil
 }

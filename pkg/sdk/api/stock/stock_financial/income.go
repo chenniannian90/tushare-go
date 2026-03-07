@@ -4,23 +4,150 @@ package stock_financial
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// IncomeRequest 表示 income API 的请求
+// IncomeRequest 表示 利润表 API 的请求
 type IncomeRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	AnnDate string `json:"ann_date,omitempty"`
+	FAnnDate string `json:"f_ann_date,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
+	Period string `json:"period,omitempty"`
+	ReportType string `json:"report_type,omitempty"`
+	CompType string `json:"comp_type,omitempty"`
 }
 
-// IncomeItem 表示单个 income 数据项
+// IncomeItem 表示单个 利润表 数据项
 type IncomeItem struct {
+	TsCode string `json:"ts_code"`
+	AnnDate string `json:"ann_date"`
+	FAnnDate string `json:"f_ann_date"`
+	EndDate string `json:"end_date"`
+	ReportType string `json:"report_type"`
+	CompType string `json:"comp_type"`
+	EndType string `json:"end_type"`
+	BasicEps float64 `json:"basic_eps"`
+	DilutedEps float64 `json:"diluted_eps"`
+	TotalRevenue float64 `json:"total_revenue"`
+	Revenue float64 `json:"revenue"`
+	IntIncome float64 `json:"int_income"`
+	PremEarned float64 `json:"prem_earned"`
+	CommIncome float64 `json:"comm_income"`
+	NCommisIncome float64 `json:"n_commis_income"`
+	NOthIncome float64 `json:"n_oth_income"`
+	NOthBIncome float64 `json:"n_oth_b_income"`
+	PremIncome float64 `json:"prem_income"`
+	OutPrem float64 `json:"out_prem"`
+	UnePremReser float64 `json:"une_prem_reser"`
+	ReinsIncome float64 `json:"reins_income"`
+	NSecTbIncome float64 `json:"n_sec_tb_income"`
+	NSecUwIncome float64 `json:"n_sec_uw_income"`
+	NAssetMgIncome float64 `json:"n_asset_mg_income"`
+	OthBIncome float64 `json:"oth_b_income"`
+	FvValueChgGain float64 `json:"fv_value_chg_gain"`
+	InvestIncome float64 `json:"invest_income"`
+	AssInvestIncome float64 `json:"ass_invest_income"`
+	ForexGain float64 `json:"forex_gain"`
+	TotalCogs float64 `json:"total_cogs"`
+	OperCost float64 `json:"oper_cost"`
+	IntExp float64 `json:"int_exp"`
+	CommExp float64 `json:"comm_exp"`
+	BizTaxSurchg float64 `json:"biz_tax_surchg"`
+	SellExp float64 `json:"sell_exp"`
+	AdminExp float64 `json:"admin_exp"`
+	FinExp float64 `json:"fin_exp"`
+	AssetsImpairLoss float64 `json:"assets_impair_loss"`
+	PremRefund float64 `json:"prem_refund"`
+	CompensPayout float64 `json:"compens_payout"`
+	ReserInsurLiab float64 `json:"reser_insur_liab"`
+	DivPayt float64 `json:"div_payt"`
+	ReinsExp float64 `json:"reins_exp"`
+	OperExp float64 `json:"oper_exp"`
+	CompensPayoutRefu float64 `json:"compens_payout_refu"`
+	InsurReserRefu float64 `json:"insur_reser_refu"`
+	ReinsCostRefund float64 `json:"reins_cost_refund"`
+	OtherBusCost float64 `json:"other_bus_cost"`
+	OperateProfit float64 `json:"operate_profit"`
+	NonOperIncome float64 `json:"non_oper_income"`
+	NonOperExp float64 `json:"non_oper_exp"`
+	NcaDisploss float64 `json:"nca_disploss"`
+	TotalProfit float64 `json:"total_profit"`
+	IncomeTax float64 `json:"income_tax"`
+	NIncome float64 `json:"n_income"`
+	NIncomeAttrP float64 `json:"n_income_attr_p"`
+	MinorityGain float64 `json:"minority_gain"`
+	OthComprIncome float64 `json:"oth_compr_income"`
+	TComprIncome float64 `json:"t_compr_income"`
+	ComprIncAttrP float64 `json:"compr_inc_attr_p"`
+	ComprIncAttrMS float64 `json:"compr_inc_attr_m_s"`
+	Ebit float64 `json:"ebit"`
+	Ebitda float64 `json:"ebitda"`
+	InsuranceExp float64 `json:"insurance_exp"`
+	UndistProfit float64 `json:"undist_profit"`
+	DistableProfit float64 `json:"distable_profit"`
+	RdExp float64 `json:"rd_exp"`
+	FinExpIntExp float64 `json:"fin_exp_int_exp"`
+	FinExpIntInc float64 `json:"fin_exp_int_inc"`
+	TransferSurplusRese float64 `json:"transfer_surplus_rese"`
+	TransferHousingImprest float64 `json:"transfer_housing_imprest"`
+	TransferOth float64 `json:"transfer_oth"`
+	AdjLossgain float64 `json:"adj_lossgain"`
+	WithdraLegalSurplus float64 `json:"withdra_legal_surplus"`
+	WithdraLegalPubfund float64 `json:"withdra_legal_pubfund"`
+	WithdraBizDevfund float64 `json:"withdra_biz_devfund"`
+	WithdraReseFund float64 `json:"withdra_rese_fund"`
+	WithdraOthErsu float64 `json:"withdra_oth_ersu"`
+	WorkersWelfare float64 `json:"workers_welfare"`
+	DistrProfitShrhder float64 `json:"distr_profit_shrhder"`
+	PrfsharePayableDvd float64 `json:"prfshare_payable_dvd"`
+	ComsharePayableDvd float64 `json:"comshare_payable_dvd"`
+	CapitComstockDiv float64 `json:"capit_comstock_div"`
+	NetAfterNrLpCorrect float64 `json:"net_after_nr_lp_correct"`
+	CreditImpaLoss float64 `json:"credit_impa_loss"`
+	NetExpoHedgingBenefits float64 `json:"net_expo_hedging_benefits"`
+	OthImpairLossAssets float64 `json:"oth_impair_loss_assets"`
+	TotalOpcost float64 `json:"total_opcost"`
+	AmodcostFinAssets float64 `json:"amodcost_fin_assets"`
+	OthIncome float64 `json:"oth_income"`
+	AssetDispIncome float64 `json:"asset_disp_income"`
+	ContinuedNetProfit float64 `json:"continued_net_profit"`
+	EndNetProfit float64 `json:"end_net_profit"`
+	UpdateFlag string `json:"update_flag"`
 }
 
-// Income 调用 income API
+// Income 调用 利润表 API
 func Income(ctx context.Context, client *sdk.Client, req *IncomeRequest) ([]IncomeItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.AnnDate != "" {
+		params["ann_date"] = req.AnnDate
+	}
+	if req.FAnnDate != "" {
+		params["f_ann_date"] = req.FAnnDate
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
+	if req.Period != "" {
+		params["period"] = req.Period
+	}
+	if req.ReportType != "" {
+		params["report_type"] = req.ReportType
+	}
+	if req.CompType != "" {
+		params["comp_type"] = req.CompType
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "ann_date", "f_ann_date", "end_date", "report_type", "comp_type", "end_type", "basic_eps", "diluted_eps", "total_revenue", "revenue", "int_income", "prem_earned", "comm_income", "n_commis_income", "n_oth_income", "n_oth_b_income", "prem_income", "out_prem", "une_prem_reser", "reins_income", "n_sec_tb_income", "n_sec_uw_income", "n_asset_mg_income", "oth_b_income", "fv_value_chg_gain", "invest_income", "ass_invest_income", "forex_gain", "total_cogs", "oper_cost", "int_exp", "comm_exp", "biz_tax_surchg", "sell_exp", "admin_exp", "fin_exp", "assets_impair_loss", "prem_refund", "compens_payout", "reser_insur_liab", "div_payt", "reins_exp", "oper_exp", "compens_payout_refu", "insur_reser_refu", "reins_cost_refund", "other_bus_cost", "operate_profit", "non_oper_income", "non_oper_exp", "nca_disploss", "total_profit", "income_tax", "n_income", "n_income_attr_p", "minority_gain", "oth_compr_income", "t_compr_income", "compr_inc_attr_p", "compr_inc_attr_m_s", "ebit", "ebitda", "insurance_exp", "undist_profit", "distable_profit", "rd_exp", "fin_exp_int_exp", "fin_exp_int_inc", "transfer_surplus_rese", "transfer_housing_imprest", "transfer_oth", "adj_lossgain", "withdra_legal_surplus", "withdra_legal_pubfund", "withdra_biz_devfund", "withdra_rese_fund", "withdra_oth_ersu", "workers_welfare", "distr_profit_shrhder", "prfshare_payable_dvd", "comshare_payable_dvd", "capit_comstock_div", "net_after_nr_lp_correct", "credit_impa_loss", "net_expo_hedging_benefits", "oth_impair_loss_assets", "total_opcost", "amodcost_fin_assets", "oth_income", "asset_disp_income", "continued_net_profit", "end_net_profit", "update_flag"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +157,575 @@ func Income(ctx context.Context, client *sdk.Client, req *IncomeRequest) ([]Inco
 	if err := client.CallAPI(ctx, "income", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []IncomeItem{}, nil
+	items := make([]IncomeItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 ann_date 的简单类型
+		annDate, ok := item["ann_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ann_date 类型")
+		}
+		// 处理 f_ann_date 的简单类型
+		fAnnDate, ok := item["f_ann_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 f_ann_date 类型")
+		}
+		// 处理 end_date 的简单类型
+		endDate, ok := item["end_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 end_date 类型")
+		}
+		// 处理 report_type 的简单类型
+		reportType, ok := item["report_type"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 report_type 类型")
+		}
+		// 处理 comp_type 的简单类型
+		compType, ok := item["comp_type"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 comp_type 类型")
+		}
+		// 处理 end_type 的简单类型
+		endType, ok := item["end_type"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 end_type 类型")
+		}
+		// 处理 basic_eps 的简单类型
+		basicEps, ok := item["basic_eps"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 basic_eps 类型")
+		}
+		// 处理 diluted_eps 的简单类型
+		dilutedEps, ok := item["diluted_eps"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 diluted_eps 类型")
+		}
+		// 处理 total_revenue 的简单类型
+		totalRevenue, ok := item["total_revenue"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 total_revenue 类型")
+		}
+		// 处理 revenue 的简单类型
+		revenue, ok := item["revenue"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 revenue 类型")
+		}
+		// 处理 int_income 的简单类型
+		intIncome, ok := item["int_income"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 int_income 类型")
+		}
+		// 处理 prem_earned 的简单类型
+		premEarned, ok := item["prem_earned"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 prem_earned 类型")
+		}
+		// 处理 comm_income 的简单类型
+		commIncome, ok := item["comm_income"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 comm_income 类型")
+		}
+		// 处理 n_commis_income 的简单类型
+		nCommisIncome, ok := item["n_commis_income"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 n_commis_income 类型")
+		}
+		// 处理 n_oth_income 的简单类型
+		nOthIncome, ok := item["n_oth_income"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 n_oth_income 类型")
+		}
+		// 处理 n_oth_b_income 的简单类型
+		nOthBIncome, ok := item["n_oth_b_income"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 n_oth_b_income 类型")
+		}
+		// 处理 prem_income 的简单类型
+		premIncome, ok := item["prem_income"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 prem_income 类型")
+		}
+		// 处理 out_prem 的简单类型
+		outPrem, ok := item["out_prem"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 out_prem 类型")
+		}
+		// 处理 une_prem_reser 的简单类型
+		unePremReser, ok := item["une_prem_reser"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 une_prem_reser 类型")
+		}
+		// 处理 reins_income 的简单类型
+		reinsIncome, ok := item["reins_income"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 reins_income 类型")
+		}
+		// 处理 n_sec_tb_income 的简单类型
+		nSecTbIncome, ok := item["n_sec_tb_income"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 n_sec_tb_income 类型")
+		}
+		// 处理 n_sec_uw_income 的简单类型
+		nSecUwIncome, ok := item["n_sec_uw_income"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 n_sec_uw_income 类型")
+		}
+		// 处理 n_asset_mg_income 的简单类型
+		nAssetMgIncome, ok := item["n_asset_mg_income"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 n_asset_mg_income 类型")
+		}
+		// 处理 oth_b_income 的简单类型
+		othBIncome, ok := item["oth_b_income"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 oth_b_income 类型")
+		}
+		// 处理 fv_value_chg_gain 的简单类型
+		fvValueChgGain, ok := item["fv_value_chg_gain"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 fv_value_chg_gain 类型")
+		}
+		// 处理 invest_income 的简单类型
+		investIncome, ok := item["invest_income"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 invest_income 类型")
+		}
+		// 处理 ass_invest_income 的简单类型
+		assInvestIncome, ok := item["ass_invest_income"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ass_invest_income 类型")
+		}
+		// 处理 forex_gain 的简单类型
+		forexGain, ok := item["forex_gain"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 forex_gain 类型")
+		}
+		// 处理 total_cogs 的简单类型
+		totalCogs, ok := item["total_cogs"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 total_cogs 类型")
+		}
+		// 处理 oper_cost 的简单类型
+		operCost, ok := item["oper_cost"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 oper_cost 类型")
+		}
+		// 处理 int_exp 的简单类型
+		intExp, ok := item["int_exp"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 int_exp 类型")
+		}
+		// 处理 comm_exp 的简单类型
+		commExp, ok := item["comm_exp"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 comm_exp 类型")
+		}
+		// 处理 biz_tax_surchg 的简单类型
+		bizTaxSurchg, ok := item["biz_tax_surchg"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 biz_tax_surchg 类型")
+		}
+		// 处理 sell_exp 的简单类型
+		sellExp, ok := item["sell_exp"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 sell_exp 类型")
+		}
+		// 处理 admin_exp 的简单类型
+		adminExp, ok := item["admin_exp"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 admin_exp 类型")
+		}
+		// 处理 fin_exp 的简单类型
+		finExp, ok := item["fin_exp"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 fin_exp 类型")
+		}
+		// 处理 assets_impair_loss 的简单类型
+		assetsImpairLoss, ok := item["assets_impair_loss"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 assets_impair_loss 类型")
+		}
+		// 处理 prem_refund 的简单类型
+		premRefund, ok := item["prem_refund"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 prem_refund 类型")
+		}
+		// 处理 compens_payout 的简单类型
+		compensPayout, ok := item["compens_payout"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 compens_payout 类型")
+		}
+		// 处理 reser_insur_liab 的简单类型
+		reserInsurLiab, ok := item["reser_insur_liab"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 reser_insur_liab 类型")
+		}
+		// 处理 div_payt 的简单类型
+		divPayt, ok := item["div_payt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 div_payt 类型")
+		}
+		// 处理 reins_exp 的简单类型
+		reinsExp, ok := item["reins_exp"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 reins_exp 类型")
+		}
+		// 处理 oper_exp 的简单类型
+		operExp, ok := item["oper_exp"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 oper_exp 类型")
+		}
+		// 处理 compens_payout_refu 的简单类型
+		compensPayoutRefu, ok := item["compens_payout_refu"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 compens_payout_refu 类型")
+		}
+		// 处理 insur_reser_refu 的简单类型
+		insurReserRefu, ok := item["insur_reser_refu"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 insur_reser_refu 类型")
+		}
+		// 处理 reins_cost_refund 的简单类型
+		reinsCostRefund, ok := item["reins_cost_refund"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 reins_cost_refund 类型")
+		}
+		// 处理 other_bus_cost 的简单类型
+		otherBusCost, ok := item["other_bus_cost"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 other_bus_cost 类型")
+		}
+		// 处理 operate_profit 的简单类型
+		operateProfit, ok := item["operate_profit"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 operate_profit 类型")
+		}
+		// 处理 non_oper_income 的简单类型
+		nonOperIncome, ok := item["non_oper_income"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 non_oper_income 类型")
+		}
+		// 处理 non_oper_exp 的简单类型
+		nonOperExp, ok := item["non_oper_exp"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 non_oper_exp 类型")
+		}
+		// 处理 nca_disploss 的简单类型
+		ncaDisploss, ok := item["nca_disploss"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 nca_disploss 类型")
+		}
+		// 处理 total_profit 的简单类型
+		totalProfit, ok := item["total_profit"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 total_profit 类型")
+		}
+		// 处理 income_tax 的简单类型
+		incomeTax, ok := item["income_tax"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 income_tax 类型")
+		}
+		// 处理 n_income 的简单类型
+		nIncome, ok := item["n_income"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 n_income 类型")
+		}
+		// 处理 n_income_attr_p 的简单类型
+		nIncomeAttrP, ok := item["n_income_attr_p"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 n_income_attr_p 类型")
+		}
+		// 处理 minority_gain 的简单类型
+		minorityGain, ok := item["minority_gain"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 minority_gain 类型")
+		}
+		// 处理 oth_compr_income 的简单类型
+		othComprIncome, ok := item["oth_compr_income"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 oth_compr_income 类型")
+		}
+		// 处理 t_compr_income 的简单类型
+		tComprIncome, ok := item["t_compr_income"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 t_compr_income 类型")
+		}
+		// 处理 compr_inc_attr_p 的简单类型
+		comprIncAttrP, ok := item["compr_inc_attr_p"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 compr_inc_attr_p 类型")
+		}
+		// 处理 compr_inc_attr_m_s 的简单类型
+		comprIncAttrMS, ok := item["compr_inc_attr_m_s"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 compr_inc_attr_m_s 类型")
+		}
+		// 处理 ebit 的简单类型
+		ebit, ok := item["ebit"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ebit 类型")
+		}
+		// 处理 ebitda 的简单类型
+		ebitda, ok := item["ebitda"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ebitda 类型")
+		}
+		// 处理 insurance_exp 的简单类型
+		insuranceExp, ok := item["insurance_exp"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 insurance_exp 类型")
+		}
+		// 处理 undist_profit 的简单类型
+		undistProfit, ok := item["undist_profit"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 undist_profit 类型")
+		}
+		// 处理 distable_profit 的简单类型
+		distableProfit, ok := item["distable_profit"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 distable_profit 类型")
+		}
+		// 处理 rd_exp 的简单类型
+		rdExp, ok := item["rd_exp"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 rd_exp 类型")
+		}
+		// 处理 fin_exp_int_exp 的简单类型
+		finExpIntExp, ok := item["fin_exp_int_exp"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 fin_exp_int_exp 类型")
+		}
+		// 处理 fin_exp_int_inc 的简单类型
+		finExpIntInc, ok := item["fin_exp_int_inc"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 fin_exp_int_inc 类型")
+		}
+		// 处理 transfer_surplus_rese 的简单类型
+		transferSurplusRese, ok := item["transfer_surplus_rese"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 transfer_surplus_rese 类型")
+		}
+		// 处理 transfer_housing_imprest 的简单类型
+		transferHousingImprest, ok := item["transfer_housing_imprest"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 transfer_housing_imprest 类型")
+		}
+		// 处理 transfer_oth 的简单类型
+		transferOth, ok := item["transfer_oth"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 transfer_oth 类型")
+		}
+		// 处理 adj_lossgain 的简单类型
+		adjLossgain, ok := item["adj_lossgain"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 adj_lossgain 类型")
+		}
+		// 处理 withdra_legal_surplus 的简单类型
+		withdraLegalSurplus, ok := item["withdra_legal_surplus"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 withdra_legal_surplus 类型")
+		}
+		// 处理 withdra_legal_pubfund 的简单类型
+		withdraLegalPubfund, ok := item["withdra_legal_pubfund"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 withdra_legal_pubfund 类型")
+		}
+		// 处理 withdra_biz_devfund 的简单类型
+		withdraBizDevfund, ok := item["withdra_biz_devfund"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 withdra_biz_devfund 类型")
+		}
+		// 处理 withdra_rese_fund 的简单类型
+		withdraReseFund, ok := item["withdra_rese_fund"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 withdra_rese_fund 类型")
+		}
+		// 处理 withdra_oth_ersu 的简单类型
+		withdraOthErsu, ok := item["withdra_oth_ersu"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 withdra_oth_ersu 类型")
+		}
+		// 处理 workers_welfare 的简单类型
+		workersWelfare, ok := item["workers_welfare"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 workers_welfare 类型")
+		}
+		// 处理 distr_profit_shrhder 的简单类型
+		distrProfitShrhder, ok := item["distr_profit_shrhder"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 distr_profit_shrhder 类型")
+		}
+		// 处理 prfshare_payable_dvd 的简单类型
+		prfsharePayableDvd, ok := item["prfshare_payable_dvd"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 prfshare_payable_dvd 类型")
+		}
+		// 处理 comshare_payable_dvd 的简单类型
+		comsharePayableDvd, ok := item["comshare_payable_dvd"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 comshare_payable_dvd 类型")
+		}
+		// 处理 capit_comstock_div 的简单类型
+		capitComstockDiv, ok := item["capit_comstock_div"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 capit_comstock_div 类型")
+		}
+		// 处理 net_after_nr_lp_correct 的简单类型
+		netAfterNrLpCorrect, ok := item["net_after_nr_lp_correct"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 net_after_nr_lp_correct 类型")
+		}
+		// 处理 credit_impa_loss 的简单类型
+		creditImpaLoss, ok := item["credit_impa_loss"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 credit_impa_loss 类型")
+		}
+		// 处理 net_expo_hedging_benefits 的简单类型
+		netExpoHedgingBenefits, ok := item["net_expo_hedging_benefits"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 net_expo_hedging_benefits 类型")
+		}
+		// 处理 oth_impair_loss_assets 的简单类型
+		othImpairLossAssets, ok := item["oth_impair_loss_assets"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 oth_impair_loss_assets 类型")
+		}
+		// 处理 total_opcost 的简单类型
+		totalOpcost, ok := item["total_opcost"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 total_opcost 类型")
+		}
+		// 处理 amodcost_fin_assets 的简单类型
+		amodcostFinAssets, ok := item["amodcost_fin_assets"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 amodcost_fin_assets 类型")
+		}
+		// 处理 oth_income 的简单类型
+		othIncome, ok := item["oth_income"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 oth_income 类型")
+		}
+		// 处理 asset_disp_income 的简单类型
+		assetDispIncome, ok := item["asset_disp_income"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 asset_disp_income 类型")
+		}
+		// 处理 continued_net_profit 的简单类型
+		continuedNetProfit, ok := item["continued_net_profit"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 continued_net_profit 类型")
+		}
+		// 处理 end_net_profit 的简单类型
+		endNetProfit, ok := item["end_net_profit"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 end_net_profit 类型")
+		}
+		// 处理 update_flag 的简单类型
+		updateFlag, ok := item["update_flag"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 update_flag 类型")
+		}
+		items[i] = IncomeItem{
+			TsCode: tsCode,
+			AnnDate: annDate,
+			FAnnDate: fAnnDate,
+			EndDate: endDate,
+			ReportType: reportType,
+			CompType: compType,
+			EndType: endType,
+			BasicEps: basicEps,
+			DilutedEps: dilutedEps,
+			TotalRevenue: totalRevenue,
+			Revenue: revenue,
+			IntIncome: intIncome,
+			PremEarned: premEarned,
+			CommIncome: commIncome,
+			NCommisIncome: nCommisIncome,
+			NOthIncome: nOthIncome,
+			NOthBIncome: nOthBIncome,
+			PremIncome: premIncome,
+			OutPrem: outPrem,
+			UnePremReser: unePremReser,
+			ReinsIncome: reinsIncome,
+			NSecTbIncome: nSecTbIncome,
+			NSecUwIncome: nSecUwIncome,
+			NAssetMgIncome: nAssetMgIncome,
+			OthBIncome: othBIncome,
+			FvValueChgGain: fvValueChgGain,
+			InvestIncome: investIncome,
+			AssInvestIncome: assInvestIncome,
+			ForexGain: forexGain,
+			TotalCogs: totalCogs,
+			OperCost: operCost,
+			IntExp: intExp,
+			CommExp: commExp,
+			BizTaxSurchg: bizTaxSurchg,
+			SellExp: sellExp,
+			AdminExp: adminExp,
+			FinExp: finExp,
+			AssetsImpairLoss: assetsImpairLoss,
+			PremRefund: premRefund,
+			CompensPayout: compensPayout,
+			ReserInsurLiab: reserInsurLiab,
+			DivPayt: divPayt,
+			ReinsExp: reinsExp,
+			OperExp: operExp,
+			CompensPayoutRefu: compensPayoutRefu,
+			InsurReserRefu: insurReserRefu,
+			ReinsCostRefund: reinsCostRefund,
+			OtherBusCost: otherBusCost,
+			OperateProfit: operateProfit,
+			NonOperIncome: nonOperIncome,
+			NonOperExp: nonOperExp,
+			NcaDisploss: ncaDisploss,
+			TotalProfit: totalProfit,
+			IncomeTax: incomeTax,
+			NIncome: nIncome,
+			NIncomeAttrP: nIncomeAttrP,
+			MinorityGain: minorityGain,
+			OthComprIncome: othComprIncome,
+			TComprIncome: tComprIncome,
+			ComprIncAttrP: comprIncAttrP,
+			ComprIncAttrMS: comprIncAttrMS,
+			Ebit: ebit,
+			Ebitda: ebitda,
+			InsuranceExp: insuranceExp,
+			UndistProfit: undistProfit,
+			DistableProfit: distableProfit,
+			RdExp: rdExp,
+			FinExpIntExp: finExpIntExp,
+			FinExpIntInc: finExpIntInc,
+			TransferSurplusRese: transferSurplusRese,
+			TransferHousingImprest: transferHousingImprest,
+			TransferOth: transferOth,
+			AdjLossgain: adjLossgain,
+			WithdraLegalSurplus: withdraLegalSurplus,
+			WithdraLegalPubfund: withdraLegalPubfund,
+			WithdraBizDevfund: withdraBizDevfund,
+			WithdraReseFund: withdraReseFund,
+			WithdraOthErsu: withdraOthErsu,
+			WorkersWelfare: workersWelfare,
+			DistrProfitShrhder: distrProfitShrhder,
+			PrfsharePayableDvd: prfsharePayableDvd,
+			ComsharePayableDvd: comsharePayableDvd,
+			CapitComstockDiv: capitComstockDiv,
+			NetAfterNrLpCorrect: netAfterNrLpCorrect,
+			CreditImpaLoss: creditImpaLoss,
+			NetExpoHedgingBenefits: netExpoHedgingBenefits,
+			OthImpairLossAssets: othImpairLossAssets,
+			TotalOpcost: totalOpcost,
+			AmodcostFinAssets: amodcostFinAssets,
+			OthIncome: othIncome,
+			AssetDispIncome: assetDispIncome,
+			ContinuedNetProfit: continuedNetProfit,
+			EndNetProfit: endNetProfit,
+			UpdateFlag: updateFlag,
+		}
+	}
+
+	return items, nil
 }

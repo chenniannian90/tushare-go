@@ -11,15 +11,15 @@ import (
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// {{Title .APIName}}Request 表示 {{.APIName}} API 的请求
-type {{Title .APIName}}Request struct {
+// {{Title .APICode}}Request 表示 {{.APIName}} API 的请求
+type {{Title .APICode}}Request struct {
 	{{- range $i, $p := .RequestParams}}
 	{{Title $p.Name}} {{goType $p.Type}} `json:"{{$p.Name}},omitempty"`
 	{{- end}}
 }
 
-// {{Title .APIName}}Item 表示单个 {{.APIName}} 数据项
-type {{Title .APIName}}Item struct {
+// {{Title .APICode}}Item 表示单个 {{.APIName}} 数据项
+type {{Title .APICode}}Item struct {
 	{{- range $i, $f := .ResponseFields}}
 	{{- if isArray $f}}
 	{{Title $f.Name}} {{fullArrayType $f}} `json:"{{$f.Name}}"`
@@ -29,12 +29,20 @@ type {{Title .APIName}}Item struct {
 	{{- end}}
 }
 
-// {{Title .APIName}} 调用 {{.APIName}} API
-func {{Title .APIName}}(ctx context.Context, client *sdk.Client, req *{{Title .APIName}}Request) ([]{{Title .APIName}}Item, error) {
+// {{Title .APICode}} 调用 {{.APIName}} API
+func {{Title .APICode}}(ctx context.Context, client *sdk.Client, req *{{Title .APICode}}Request) ([]{{Title .APICode}}Item, error) {
 	params := map[string]interface{}{}
 	{{- range $p := .RequestParams}}
 	{{- if eq $p.Type "bool" "boolean"}}
 	if req.{{Title $p.Name}} {
+		params["{{$p.Name}}"] = req.{{Title $p.Name}}
+	}
+	{{- else if eq $p.Type "int" "integer"}}
+	if req.{{Title $p.Name}} != 0 {
+		params["{{$p.Name}}"] = req.{{Title $p.Name}}
+	}
+	{{- else if eq $p.Type "float" "float64" "double"}}
+	if req.{{Title $p.Name}} != 0 {
 		params["{{$p.Name}}"] = req.{{Title $p.Name}}
 	}
 	{{- else}}
@@ -51,12 +59,12 @@ func {{Title .APIName}}(ctx context.Context, client *sdk.Client, req *{{Title .A
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "{{.APIName}}", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "{{.APICode}}", params, fields, &result); err != nil {
 		return nil, err
 	}
 
 	{{- if gt (len .ResponseFields) 0}}
-	items := make([]{{Title .APIName}}Item, len(result.Items))
+	items := make([]{{Title .APICode}}Item, len(result.Items))
 	for i, item := range result.Items {
 		{{- range $f := .ResponseFields}}
 		{{- if isArray $f}}
@@ -102,15 +110,26 @@ func {{Title .APIName}}(ctx context.Context, client *sdk.Client, req *{{Title .A
 		}
 		{{- else}}
 		// 处理 {{$f.Name}} 的简单类型
+		{{- if eq $f.Name "type"}}
+		typeValue, ok := item["{{$f.Name}}"].({{goType $f.Type}})
+		if !ok {
+			return nil, fmt.Errorf("无效的 {{$f.Name}} 类型")
+		}
+		{{- else}}
 		{{lowerCamel $f.Name}}, ok := item["{{$f.Name}}"].({{goType $f.Type}})
 		if !ok {
 			return nil, fmt.Errorf("无效的 {{$f.Name}} 类型")
 		}
 		{{- end}}
 		{{- end}}
-		items[i] = {{Title .APIName}}Item{
+		{{- end}}
+		items[i] = {{Title .APICode}}Item{
 			{{- range $f := .ResponseFields}}
+			{{- if eq $f.Name "type"}}
+			Type: typeValue,
+			{{- else}}
 			{{Title $f.Name}}: {{lowerCamel $f.Name}},
+			{{- end}}
 			{{- end}}
 		}
 	}
@@ -118,6 +137,6 @@ func {{Title .APIName}}(ctx context.Context, client *sdk.Client, req *{{Title .A
 	return items, nil
 	{{- else}}
 	// No response fields defined, return empty items
-	return []{{Title .APIName}}Item{}, nil
+	return []{{Title .APICode}}Item{}, nil
 	{{- end}}
 }

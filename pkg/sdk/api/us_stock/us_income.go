@@ -4,23 +4,55 @@ package us_stock
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// UsIncomeRequest 表示 us_income API 的请求
+// UsIncomeRequest 表示 美股利润表 API 的请求
 type UsIncomeRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	Period string `json:"period,omitempty"`
+	IndName string `json:"ind_name,omitempty"`
+	ReportType string `json:"report_type,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// UsIncomeItem 表示单个 us_income 数据项
+// UsIncomeItem 表示单个 美股利润表 数据项
 type UsIncomeItem struct {
+	TsCode string `json:"ts_code"`
+	EndDate string `json:"end_date"`
+	IndType string `json:"ind_type"`
+	Name string `json:"name"`
+	IndName string `json:"ind_name"`
+	IndValue float64 `json:"ind_value"`
+	ReportType string `json:"report_type"`
 }
 
-// UsIncome 调用 us_income API
+// UsIncome 调用 美股利润表 API
 func UsIncome(ctx context.Context, client *sdk.Client, req *UsIncomeRequest) ([]UsIncomeItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.Period != "" {
+		params["period"] = req.Period
+	}
+	if req.IndName != "" {
+		params["ind_name"] = req.IndName
+	}
+	if req.ReportType != "" {
+		params["report_type"] = req.ReportType
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "end_date", "ind_type", "name", "ind_name", "ind_value", "report_type"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +62,53 @@ func UsIncome(ctx context.Context, client *sdk.Client, req *UsIncomeRequest) ([]
 	if err := client.CallAPI(ctx, "us_income", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []UsIncomeItem{}, nil
+	items := make([]UsIncomeItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 end_date 的简单类型
+		endDate, ok := item["end_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 end_date 类型")
+		}
+		// 处理 ind_type 的简单类型
+		indType, ok := item["ind_type"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ind_type 类型")
+		}
+		// 处理 name 的简单类型
+		name, ok := item["name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 name 类型")
+		}
+		// 处理 ind_name 的简单类型
+		indName, ok := item["ind_name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ind_name 类型")
+		}
+		// 处理 ind_value 的简单类型
+		indValue, ok := item["ind_value"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ind_value 类型")
+		}
+		// 处理 report_type 的简单类型
+		reportType, ok := item["report_type"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 report_type 类型")
+		}
+		items[i] = UsIncomeItem{
+			TsCode: tsCode,
+			EndDate: endDate,
+			IndType: indType,
+			Name: name,
+			IndName: indName,
+			IndValue: indValue,
+			ReportType: reportType,
+		}
+	}
+
+	return items, nil
 }

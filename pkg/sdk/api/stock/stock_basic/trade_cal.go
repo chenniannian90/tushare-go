@@ -4,23 +4,44 @@ package stock_basic
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// TradeCalRequest 表示 trade_cal API 的请求
+// TradeCalRequest 表示 交易日历 API 的请求
 type TradeCalRequest struct {
+	Exchange string `json:"exchange,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
+	IsOpen string `json:"is_open,omitempty"`
 }
 
-// TradeCalItem 表示单个 trade_cal 数据项
+// TradeCalItem 表示单个 交易日历 数据项
 type TradeCalItem struct {
+	Exchange string `json:"exchange"`
+	CalDate string `json:"cal_date"`
+	IsOpen string `json:"is_open"`
+	PretradeDate string `json:"pretrade_date"`
 }
 
-// TradeCal 调用 trade_cal API
+// TradeCal 调用 交易日历 API
 func TradeCal(ctx context.Context, client *sdk.Client, req *TradeCalRequest) ([]TradeCalItem, error) {
 	params := map[string]interface{}{}
+	if req.Exchange != "" {
+		params["exchange"] = req.Exchange
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
+	if req.IsOpen != "" {
+		params["is_open"] = req.IsOpen
+	}
 
-	fields := []string{}
+	fields := []string{"exchange", "cal_date", "is_open", "pretrade_date"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +51,35 @@ func TradeCal(ctx context.Context, client *sdk.Client, req *TradeCalRequest) ([]
 	if err := client.CallAPI(ctx, "trade_cal", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []TradeCalItem{}, nil
+	items := make([]TradeCalItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 exchange 的简单类型
+		exchange, ok := item["exchange"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 exchange 类型")
+		}
+		// 处理 cal_date 的简单类型
+		calDate, ok := item["cal_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 cal_date 类型")
+		}
+		// 处理 is_open 的简单类型
+		isOpen, ok := item["is_open"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 is_open 类型")
+		}
+		// 处理 pretrade_date 的简单类型
+		pretradeDate, ok := item["pretrade_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 pretrade_date 类型")
+		}
+		items[i] = TradeCalItem{
+			Exchange: exchange,
+			CalDate: calDate,
+			IsOpen: isOpen,
+			PretradeDate: pretradeDate,
+		}
+	}
+
+	return items, nil
 }

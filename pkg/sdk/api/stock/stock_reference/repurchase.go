@@ -4,23 +4,45 @@ package stock_reference
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// RepurchaseRequest 表示 repurchase API 的请求
+// RepurchaseRequest 表示 股票回购 API 的请求
 type RepurchaseRequest struct {
+	AnnDate string `json:"ann_date,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// RepurchaseItem 表示单个 repurchase 数据项
+// RepurchaseItem 表示单个 股票回购 数据项
 type RepurchaseItem struct {
+	TsCode string `json:"ts_code"`
+	AnnDate string `json:"ann_date"`
+	EndDate string `json:"end_date"`
+	Proc string `json:"proc"`
+	ExpDate string `json:"exp_date"`
+	Vol float64 `json:"vol"`
+	Amount float64 `json:"amount"`
+	HighLimit float64 `json:"high_limit"`
+	LowLimit float64 `json:"low_limit"`
 }
 
-// Repurchase 调用 repurchase API
+// Repurchase 调用 股票回购 API
 func Repurchase(ctx context.Context, client *sdk.Client, req *RepurchaseRequest) ([]RepurchaseItem, error) {
 	params := map[string]interface{}{}
+	if req.AnnDate != "" {
+		params["ann_date"] = req.AnnDate
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "ann_date", "end_date", "proc", "exp_date", "vol", "amount", "high_limit", "low_limit"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +52,65 @@ func Repurchase(ctx context.Context, client *sdk.Client, req *RepurchaseRequest)
 	if err := client.CallAPI(ctx, "repurchase", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []RepurchaseItem{}, nil
+	items := make([]RepurchaseItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 ann_date 的简单类型
+		annDate, ok := item["ann_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ann_date 类型")
+		}
+		// 处理 end_date 的简单类型
+		endDate, ok := item["end_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 end_date 类型")
+		}
+		// 处理 proc 的简单类型
+		proc, ok := item["proc"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 proc 类型")
+		}
+		// 处理 exp_date 的简单类型
+		expDate, ok := item["exp_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 exp_date 类型")
+		}
+		// 处理 vol 的简单类型
+		vol, ok := item["vol"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 vol 类型")
+		}
+		// 处理 amount 的简单类型
+		amount, ok := item["amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 amount 类型")
+		}
+		// 处理 high_limit 的简单类型
+		highLimit, ok := item["high_limit"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 high_limit 类型")
+		}
+		// 处理 low_limit 的简单类型
+		lowLimit, ok := item["low_limit"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 low_limit 类型")
+		}
+		items[i] = RepurchaseItem{
+			TsCode: tsCode,
+			AnnDate: annDate,
+			EndDate: endDate,
+			Proc: proc,
+			ExpDate: expDate,
+			Vol: vol,
+			Amount: amount,
+			HighLimit: highLimit,
+			LowLimit: lowLimit,
+		}
+	}
+
+	return items, nil
 }

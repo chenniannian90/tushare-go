@@ -8,17 +8,29 @@ import (
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// NamechangeRequest 表示 namechange API 的请求
+// NamechangeRequest 表示 股票曾用名 API 的请求
 type NamechangeRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// NamechangeItem 表示单个 namechange 数据项
+// NamechangeItem 表示单个 股票曾用名 数据项
 type NamechangeItem struct {
 }
 
-// Namechange 调用 namechange API
+// Namechange 调用 股票曾用名 API
 func Namechange(ctx context.Context, client *sdk.Client, req *NamechangeRequest) ([]NamechangeItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
 	fields := []string{}
 

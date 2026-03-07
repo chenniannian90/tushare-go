@@ -4,23 +4,47 @@ package stock_board
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// TopListRequest 表示 top_list API 的请求
+// TopListRequest 表示 龙虎榜每日统计单 API 的请求
 type TopListRequest struct {
+	TradeDate string `json:"trade_date,omitempty"`
+	TsCode string `json:"ts_code,omitempty"`
 }
 
-// TopListItem 表示单个 top_list 数据项
+// TopListItem 表示单个 龙虎榜每日统计单 数据项
 type TopListItem struct {
+	TradeDate string `json:"trade_date"`
+	TsCode string `json:"ts_code"`
+	Name string `json:"name"`
+	Close float64 `json:"close"`
+	PctChange float64 `json:"pct_change"`
+	TurnoverRate float64 `json:"turnover_rate"`
+	Amount float64 `json:"amount"`
+	LSell float64 `json:"l_sell"`
+	LBuy float64 `json:"l_buy"`
+	LAmount float64 `json:"l_amount"`
+	NetAmount float64 `json:"net_amount"`
+	NetRate float64 `json:"net_rate"`
+	AmountRate float64 `json:"amount_rate"`
+	FloatValues float64 `json:"float_values"`
+	Reason string `json:"reason"`
 }
 
-// TopList 调用 top_list API
+// TopList 调用 龙虎榜每日统计单 API
 func TopList(ctx context.Context, client *sdk.Client, req *TopListRequest) ([]TopListItem, error) {
 	params := map[string]interface{}{}
+	if req.TradeDate != "" {
+		params["trade_date"] = req.TradeDate
+	}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
 
-	fields := []string{}
+	fields := []string{"trade_date", "ts_code", "name", "close", "pct_change", "turnover_rate", "amount", "l_sell", "l_buy", "l_amount", "net_amount", "net_rate", "amount_rate", "float_values", "reason"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +54,101 @@ func TopList(ctx context.Context, client *sdk.Client, req *TopListRequest) ([]To
 	if err := client.CallAPI(ctx, "top_list", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []TopListItem{}, nil
+	items := make([]TopListItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 trade_date 的简单类型
+		tradeDate, ok := item["trade_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 trade_date 类型")
+		}
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 name 的简单类型
+		name, ok := item["name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 name 类型")
+		}
+		// 处理 close 的简单类型
+		close, ok := item["close"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 close 类型")
+		}
+		// 处理 pct_change 的简单类型
+		pctChange, ok := item["pct_change"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 pct_change 类型")
+		}
+		// 处理 turnover_rate 的简单类型
+		turnoverRate, ok := item["turnover_rate"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 turnover_rate 类型")
+		}
+		// 处理 amount 的简单类型
+		amount, ok := item["amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 amount 类型")
+		}
+		// 处理 l_sell 的简单类型
+		lSell, ok := item["l_sell"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 l_sell 类型")
+		}
+		// 处理 l_buy 的简单类型
+		lBuy, ok := item["l_buy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 l_buy 类型")
+		}
+		// 处理 l_amount 的简单类型
+		lAmount, ok := item["l_amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 l_amount 类型")
+		}
+		// 处理 net_amount 的简单类型
+		netAmount, ok := item["net_amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 net_amount 类型")
+		}
+		// 处理 net_rate 的简单类型
+		netRate, ok := item["net_rate"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 net_rate 类型")
+		}
+		// 处理 amount_rate 的简单类型
+		amountRate, ok := item["amount_rate"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 amount_rate 类型")
+		}
+		// 处理 float_values 的简单类型
+		floatValues, ok := item["float_values"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 float_values 类型")
+		}
+		// 处理 reason 的简单类型
+		reason, ok := item["reason"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 reason 类型")
+		}
+		items[i] = TopListItem{
+			TradeDate: tradeDate,
+			TsCode: tsCode,
+			Name: name,
+			Close: close,
+			PctChange: pctChange,
+			TurnoverRate: turnoverRate,
+			Amount: amount,
+			LSell: lSell,
+			LBuy: lBuy,
+			LAmount: lAmount,
+			NetAmount: netAmount,
+			NetRate: netRate,
+			AmountRate: amountRate,
+			FloatValues: floatValues,
+			Reason: reason,
+		}
+	}
+
+	return items, nil
 }

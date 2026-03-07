@@ -4,23 +4,48 @@ package stock_market
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// StkMinsRequest 表示 stk_mins API 的请求
+// StkMinsRequest 表示 历史分钟 API 的请求
 type StkMinsRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	Freq string `json:"freq,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// StkMinsItem 表示单个 stk_mins 数据项
+// StkMinsItem 表示单个 历史分钟 数据项
 type StkMinsItem struct {
+	TsCode string `json:"ts_code"`
+	TradeTime string `json:"trade_time"`
+	Open float64 `json:"open"`
+	Close float64 `json:"close"`
+	High float64 `json:"high"`
+	Low float64 `json:"low"`
+	Vol int `json:"vol"`
+	Amount float64 `json:"amount"`
 }
 
-// StkMins 调用 stk_mins API
+// StkMins 调用 历史分钟 API
 func StkMins(ctx context.Context, client *sdk.Client, req *StkMinsRequest) ([]StkMinsItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.Freq != "" {
+		params["freq"] = req.Freq
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "trade_time", "open", "close", "high", "low", "vol", "amount"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +55,59 @@ func StkMins(ctx context.Context, client *sdk.Client, req *StkMinsRequest) ([]St
 	if err := client.CallAPI(ctx, "stk_mins", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []StkMinsItem{}, nil
+	items := make([]StkMinsItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 trade_time 的简单类型
+		tradeTime, ok := item["trade_time"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 trade_time 类型")
+		}
+		// 处理 open 的简单类型
+		open, ok := item["open"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 open 类型")
+		}
+		// 处理 close 的简单类型
+		close, ok := item["close"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 close 类型")
+		}
+		// 处理 high 的简单类型
+		high, ok := item["high"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 high 类型")
+		}
+		// 处理 low 的简单类型
+		low, ok := item["low"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 low 类型")
+		}
+		// 处理 vol 的简单类型
+		vol, ok := item["vol"].(int)
+		if !ok {
+			return nil, fmt.Errorf("无效的 vol 类型")
+		}
+		// 处理 amount 的简单类型
+		amount, ok := item["amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 amount 类型")
+		}
+		items[i] = StkMinsItem{
+			TsCode: tsCode,
+			TradeTime: tradeTime,
+			Open: open,
+			Close: close,
+			High: high,
+			Low: low,
+			Vol: vol,
+			Amount: amount,
+		}
+	}
+
+	return items, nil
 }

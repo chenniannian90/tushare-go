@@ -4,23 +4,42 @@ package stock_basic
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// StockCompanyRequest 表示 stock_company API 的请求
+// StockCompanyRequest 表示 上市公司基本信息 API 的请求
 type StockCompanyRequest struct {
 }
 
-// StockCompanyItem 表示单个 stock_company 数据项
+// StockCompanyItem 表示单个 上市公司基本信息 数据项
 type StockCompanyItem struct {
+	TsCode string `json:"ts_code"`
+	ComName string `json:"com_name"`
+	ComId string `json:"com_id"`
+	Exchange string `json:"exchange"`
+	Chairman string `json:"chairman"`
+	Manager string `json:"manager"`
+	Secretary string `json:"secretary"`
+	RegCapital float64 `json:"reg_capital"`
+	SetupDate string `json:"setup_date"`
+	Province string `json:"province"`
+	City string `json:"city"`
+	Introduction string `json:"introduction"`
+	Website string `json:"website"`
+	Email string `json:"email"`
+	Office string `json:"office"`
+	Employees int `json:"employees"`
+	MainBusiness string `json:"main_business"`
+	BusinessScope string `json:"business_scope"`
 }
 
-// StockCompany 调用 stock_company API
+// StockCompany 调用 上市公司基本信息 API
 func StockCompany(ctx context.Context, client *sdk.Client, req *StockCompanyRequest) ([]StockCompanyItem, error) {
 	params := map[string]interface{}{}
 
-	fields := []string{}
+	fields := []string{"ts_code", "com_name", "com_id", "exchange", "chairman", "manager", "secretary", "reg_capital", "setup_date", "province", "city", "introduction", "website", "email", "office", "employees", "main_business", "business_scope"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +49,119 @@ func StockCompany(ctx context.Context, client *sdk.Client, req *StockCompanyRequ
 	if err := client.CallAPI(ctx, "stock_company", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []StockCompanyItem{}, nil
+	items := make([]StockCompanyItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 com_name 的简单类型
+		comName, ok := item["com_name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 com_name 类型")
+		}
+		// 处理 com_id 的简单类型
+		comId, ok := item["com_id"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 com_id 类型")
+		}
+		// 处理 exchange 的简单类型
+		exchange, ok := item["exchange"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 exchange 类型")
+		}
+		// 处理 chairman 的简单类型
+		chairman, ok := item["chairman"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 chairman 类型")
+		}
+		// 处理 manager 的简单类型
+		manager, ok := item["manager"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 manager 类型")
+		}
+		// 处理 secretary 的简单类型
+		secretary, ok := item["secretary"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 secretary 类型")
+		}
+		// 处理 reg_capital 的简单类型
+		regCapital, ok := item["reg_capital"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 reg_capital 类型")
+		}
+		// 处理 setup_date 的简单类型
+		setupDate, ok := item["setup_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 setup_date 类型")
+		}
+		// 处理 province 的简单类型
+		province, ok := item["province"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 province 类型")
+		}
+		// 处理 city 的简单类型
+		city, ok := item["city"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 city 类型")
+		}
+		// 处理 introduction 的简单类型
+		introduction, ok := item["introduction"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 introduction 类型")
+		}
+		// 处理 website 的简单类型
+		website, ok := item["website"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 website 类型")
+		}
+		// 处理 email 的简单类型
+		email, ok := item["email"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 email 类型")
+		}
+		// 处理 office 的简单类型
+		office, ok := item["office"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 office 类型")
+		}
+		// 处理 employees 的简单类型
+		employees, ok := item["employees"].(int)
+		if !ok {
+			return nil, fmt.Errorf("无效的 employees 类型")
+		}
+		// 处理 main_business 的简单类型
+		mainBusiness, ok := item["main_business"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 main_business 类型")
+		}
+		// 处理 business_scope 的简单类型
+		businessScope, ok := item["business_scope"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 business_scope 类型")
+		}
+		items[i] = StockCompanyItem{
+			TsCode: tsCode,
+			ComName: comName,
+			ComId: comId,
+			Exchange: exchange,
+			Chairman: chairman,
+			Manager: manager,
+			Secretary: secretary,
+			RegCapital: regCapital,
+			SetupDate: setupDate,
+			Province: province,
+			City: city,
+			Introduction: introduction,
+			Website: website,
+			Email: email,
+			Office: office,
+			Employees: employees,
+			MainBusiness: mainBusiness,
+			BusinessScope: businessScope,
+		}
+	}
+
+	return items, nil
 }

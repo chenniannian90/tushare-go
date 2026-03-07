@@ -4,23 +4,113 @@ package us_stock
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// UsFinaIndicatorRequest 表示 us_fina_indicator API 的请求
+// UsFinaIndicatorRequest 表示 美股财务指标数据 API 的请求
 type UsFinaIndicatorRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	Period string `json:"period,omitempty"`
+	ReportType string `json:"report_type,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// UsFinaIndicatorItem 表示单个 us_fina_indicator 数据项
+// UsFinaIndicatorItem 表示单个 美股财务指标数据 数据项
 type UsFinaIndicatorItem struct {
+	TsCode string `json:"ts_code"`
+	EndDate string `json:"end_date"`
+	IndType string `json:"ind_type"`
+	SecurityNameAbbr string `json:"security_name_abbr"`
+	AccountingStandards string `json:"accounting_standards"`
+	NoticeDate string `json:"notice_date"`
+	StartDate string `json:"start_date"`
+	StdReportDate string `json:"std_report_date"`
+	FinancialDate string `json:"financial_date"`
+	Currency string `json:"currency"`
+	DateType string `json:"date_type"`
+	ReportType string `json:"report_type"`
+	OperateIncome float64 `json:"operate_income"`
+	OperateIncomeYoy float64 `json:"operate_income_yoy"`
+	GrossProfit float64 `json:"gross_profit"`
+	GrossProfitYoy float64 `json:"gross_profit_yoy"`
+	ParentHolderNetprofit float64 `json:"parent_holder_netprofit"`
+	ParentHolderNetprofitYoy float64 `json:"parent_holder_netprofit_yoy"`
+	BasicEps float64 `json:"basic_eps"`
+	DilutedEps float64 `json:"diluted_eps"`
+	GrossProfitRatio float64 `json:"gross_profit_ratio"`
+	NetProfitRatio float64 `json:"net_profit_ratio"`
+	AccountsReceTr float64 `json:"accounts_rece_tr"`
+	InventoryTr float64 `json:"inventory_tr"`
+	TotalAssetsTr float64 `json:"total_assets_tr"`
+	AccountsReceTdays float64 `json:"accounts_rece_tdays"`
+	InventoryTdays float64 `json:"inventory_tdays"`
+	TotalAssetsTdays float64 `json:"total_assets_tdays"`
+	RoeAvg float64 `json:"roe_avg"`
+	Roa float64 `json:"roa"`
+	CurrentRatio float64 `json:"current_ratio"`
+	SpeedRatio float64 `json:"speed_ratio"`
+	OcfLiqdebt float64 `json:"ocf_liqdebt"`
+	DebtAssetRatio float64 `json:"debt_asset_ratio"`
+	EquityRatio float64 `json:"equity_ratio"`
+	BasicEpsYoy float64 `json:"basic_eps_yoy"`
+	GrossProfitRatioYoy float64 `json:"gross_profit_ratio_yoy"`
+	NetProfitRatioYoy float64 `json:"net_profit_ratio_yoy"`
+	RoeAvgYoy float64 `json:"roe_avg_yoy"`
+	RoaYoy float64 `json:"roa_yoy"`
+	DebtAssetRatioYoy float64 `json:"debt_asset_ratio_yoy"`
+	CurrentRatioYoy float64 `json:"current_ratio_yoy"`
+	SpeedRatioYoy float64 `json:"speed_ratio_yoy"`
+	CurrencyAbbr string `json:"currency_abbr"`
+	TotalIncome float64 `json:"total_income"`
+	TotalIncomeYoy float64 `json:"total_income_yoy"`
+	PremiumIncome float64 `json:"premium_income"`
+	PremiumIncomeYoy float64 `json:"premium_income_yoy"`
+	BasicEpsCs float64 `json:"basic_eps_cs"`
+	BasicEpsCsYoy float64 `json:"basic_eps_cs_yoy"`
+	DilutedEpsCs float64 `json:"diluted_eps_cs"`
+	PayoutRatio float64 `json:"payout_ratio"`
+	CapitialRatio float64 `json:"capitial_ratio"`
+	Roe float64 `json:"roe"`
+	RoeYoy float64 `json:"roe_yoy"`
+	DebtRatio float64 `json:"debt_ratio"`
+	DebtRatioYoy float64 `json:"debt_ratio_yoy"`
+	NetInterestIncome float64 `json:"net_interest_income"`
+	NetInterestIncomeYoy float64 `json:"net_interest_income_yoy"`
+	DilutedEpsCsYoy float64 `json:"diluted_eps_cs_yoy"`
+	LoanLossProvision float64 `json:"loan_loss_provision"`
+	LoanLossProvisionYoy float64 `json:"loan_loss_provision_yoy"`
+	LoanDeposit float64 `json:"loan_deposit"`
+	LoanEquity float64 `json:"loan_equity"`
+	LoanAssets float64 `json:"loan_assets"`
+	DepositEquity float64 `json:"deposit_equity"`
+	DepositAssets float64 `json:"deposit_assets"`
+	Rol float64 `json:"rol"`
+	Rod float64 `json:"rod"`
 }
 
-// UsFinaIndicator 调用 us_fina_indicator API
+// UsFinaIndicator 调用 美股财务指标数据 API
 func UsFinaIndicator(ctx context.Context, client *sdk.Client, req *UsFinaIndicatorRequest) ([]UsFinaIndicatorItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.Period != "" {
+		params["period"] = req.Period
+	}
+	if req.ReportType != "" {
+		params["report_type"] = req.ReportType
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "end_date", "ind_type", "security_name_abbr", "accounting_standards", "notice_date", "start_date", "std_report_date", "financial_date", "currency", "date_type", "report_type", "operate_income", "operate_income_yoy", "gross_profit", "gross_profit_yoy", "parent_holder_netprofit", "parent_holder_netprofit_yoy", "basic_eps", "diluted_eps", "gross_profit_ratio", "net_profit_ratio", "accounts_rece_tr", "inventory_tr", "total_assets_tr", "accounts_rece_tdays", "inventory_tdays", "total_assets_tdays", "roe_avg", "roa", "current_ratio", "speed_ratio", "ocf_liqdebt", "debt_asset_ratio", "equity_ratio", "basic_eps_yoy", "gross_profit_ratio_yoy", "net_profit_ratio_yoy", "roe_avg_yoy", "roa_yoy", "debt_asset_ratio_yoy", "current_ratio_yoy", "speed_ratio_yoy", "currency_abbr", "total_income", "total_income_yoy", "premium_income", "premium_income_yoy", "basic_eps_cs", "basic_eps_cs_yoy", "diluted_eps_cs", "payout_ratio", "capitial_ratio", "roe", "roe_yoy", "debt_ratio", "debt_ratio_yoy", "net_interest_income", "net_interest_income_yoy", "diluted_eps_cs_yoy", "loan_loss_provision", "loan_loss_provision_yoy", "loan_deposit", "loan_equity", "loan_assets", "deposit_equity", "deposit_assets", "rol", "rod"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +120,425 @@ func UsFinaIndicator(ctx context.Context, client *sdk.Client, req *UsFinaIndicat
 	if err := client.CallAPI(ctx, "us_fina_indicator", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []UsFinaIndicatorItem{}, nil
+	items := make([]UsFinaIndicatorItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 end_date 的简单类型
+		endDate, ok := item["end_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 end_date 类型")
+		}
+		// 处理 ind_type 的简单类型
+		indType, ok := item["ind_type"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ind_type 类型")
+		}
+		// 处理 security_name_abbr 的简单类型
+		securityNameAbbr, ok := item["security_name_abbr"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 security_name_abbr 类型")
+		}
+		// 处理 accounting_standards 的简单类型
+		accountingStandards, ok := item["accounting_standards"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 accounting_standards 类型")
+		}
+		// 处理 notice_date 的简单类型
+		noticeDate, ok := item["notice_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 notice_date 类型")
+		}
+		// 处理 start_date 的简单类型
+		startDate, ok := item["start_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 start_date 类型")
+		}
+		// 处理 std_report_date 的简单类型
+		stdReportDate, ok := item["std_report_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 std_report_date 类型")
+		}
+		// 处理 financial_date 的简单类型
+		financialDate, ok := item["financial_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 financial_date 类型")
+		}
+		// 处理 currency 的简单类型
+		currency, ok := item["currency"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 currency 类型")
+		}
+		// 处理 date_type 的简单类型
+		dateType, ok := item["date_type"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 date_type 类型")
+		}
+		// 处理 report_type 的简单类型
+		reportType, ok := item["report_type"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 report_type 类型")
+		}
+		// 处理 operate_income 的简单类型
+		operateIncome, ok := item["operate_income"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 operate_income 类型")
+		}
+		// 处理 operate_income_yoy 的简单类型
+		operateIncomeYoy, ok := item["operate_income_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 operate_income_yoy 类型")
+		}
+		// 处理 gross_profit 的简单类型
+		grossProfit, ok := item["gross_profit"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 gross_profit 类型")
+		}
+		// 处理 gross_profit_yoy 的简单类型
+		grossProfitYoy, ok := item["gross_profit_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 gross_profit_yoy 类型")
+		}
+		// 处理 parent_holder_netprofit 的简单类型
+		parentHolderNetprofit, ok := item["parent_holder_netprofit"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 parent_holder_netprofit 类型")
+		}
+		// 处理 parent_holder_netprofit_yoy 的简单类型
+		parentHolderNetprofitYoy, ok := item["parent_holder_netprofit_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 parent_holder_netprofit_yoy 类型")
+		}
+		// 处理 basic_eps 的简单类型
+		basicEps, ok := item["basic_eps"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 basic_eps 类型")
+		}
+		// 处理 diluted_eps 的简单类型
+		dilutedEps, ok := item["diluted_eps"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 diluted_eps 类型")
+		}
+		// 处理 gross_profit_ratio 的简单类型
+		grossProfitRatio, ok := item["gross_profit_ratio"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 gross_profit_ratio 类型")
+		}
+		// 处理 net_profit_ratio 的简单类型
+		netProfitRatio, ok := item["net_profit_ratio"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 net_profit_ratio 类型")
+		}
+		// 处理 accounts_rece_tr 的简单类型
+		accountsReceTr, ok := item["accounts_rece_tr"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 accounts_rece_tr 类型")
+		}
+		// 处理 inventory_tr 的简单类型
+		inventoryTr, ok := item["inventory_tr"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 inventory_tr 类型")
+		}
+		// 处理 total_assets_tr 的简单类型
+		totalAssetsTr, ok := item["total_assets_tr"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 total_assets_tr 类型")
+		}
+		// 处理 accounts_rece_tdays 的简单类型
+		accountsReceTdays, ok := item["accounts_rece_tdays"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 accounts_rece_tdays 类型")
+		}
+		// 处理 inventory_tdays 的简单类型
+		inventoryTdays, ok := item["inventory_tdays"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 inventory_tdays 类型")
+		}
+		// 处理 total_assets_tdays 的简单类型
+		totalAssetsTdays, ok := item["total_assets_tdays"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 total_assets_tdays 类型")
+		}
+		// 处理 roe_avg 的简单类型
+		roeAvg, ok := item["roe_avg"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 roe_avg 类型")
+		}
+		// 处理 roa 的简单类型
+		roa, ok := item["roa"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 roa 类型")
+		}
+		// 处理 current_ratio 的简单类型
+		currentRatio, ok := item["current_ratio"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 current_ratio 类型")
+		}
+		// 处理 speed_ratio 的简单类型
+		speedRatio, ok := item["speed_ratio"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 speed_ratio 类型")
+		}
+		// 处理 ocf_liqdebt 的简单类型
+		ocfLiqdebt, ok := item["ocf_liqdebt"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ocf_liqdebt 类型")
+		}
+		// 处理 debt_asset_ratio 的简单类型
+		debtAssetRatio, ok := item["debt_asset_ratio"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 debt_asset_ratio 类型")
+		}
+		// 处理 equity_ratio 的简单类型
+		equityRatio, ok := item["equity_ratio"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 equity_ratio 类型")
+		}
+		// 处理 basic_eps_yoy 的简单类型
+		basicEpsYoy, ok := item["basic_eps_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 basic_eps_yoy 类型")
+		}
+		// 处理 gross_profit_ratio_yoy 的简单类型
+		grossProfitRatioYoy, ok := item["gross_profit_ratio_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 gross_profit_ratio_yoy 类型")
+		}
+		// 处理 net_profit_ratio_yoy 的简单类型
+		netProfitRatioYoy, ok := item["net_profit_ratio_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 net_profit_ratio_yoy 类型")
+		}
+		// 处理 roe_avg_yoy 的简单类型
+		roeAvgYoy, ok := item["roe_avg_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 roe_avg_yoy 类型")
+		}
+		// 处理 roa_yoy 的简单类型
+		roaYoy, ok := item["roa_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 roa_yoy 类型")
+		}
+		// 处理 debt_asset_ratio_yoy 的简单类型
+		debtAssetRatioYoy, ok := item["debt_asset_ratio_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 debt_asset_ratio_yoy 类型")
+		}
+		// 处理 current_ratio_yoy 的简单类型
+		currentRatioYoy, ok := item["current_ratio_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 current_ratio_yoy 类型")
+		}
+		// 处理 speed_ratio_yoy 的简单类型
+		speedRatioYoy, ok := item["speed_ratio_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 speed_ratio_yoy 类型")
+		}
+		// 处理 currency_abbr 的简单类型
+		currencyAbbr, ok := item["currency_abbr"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 currency_abbr 类型")
+		}
+		// 处理 total_income 的简单类型
+		totalIncome, ok := item["total_income"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 total_income 类型")
+		}
+		// 处理 total_income_yoy 的简单类型
+		totalIncomeYoy, ok := item["total_income_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 total_income_yoy 类型")
+		}
+		// 处理 premium_income 的简单类型
+		premiumIncome, ok := item["premium_income"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 premium_income 类型")
+		}
+		// 处理 premium_income_yoy 的简单类型
+		premiumIncomeYoy, ok := item["premium_income_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 premium_income_yoy 类型")
+		}
+		// 处理 basic_eps_cs 的简单类型
+		basicEpsCs, ok := item["basic_eps_cs"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 basic_eps_cs 类型")
+		}
+		// 处理 basic_eps_cs_yoy 的简单类型
+		basicEpsCsYoy, ok := item["basic_eps_cs_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 basic_eps_cs_yoy 类型")
+		}
+		// 处理 diluted_eps_cs 的简单类型
+		dilutedEpsCs, ok := item["diluted_eps_cs"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 diluted_eps_cs 类型")
+		}
+		// 处理 payout_ratio 的简单类型
+		payoutRatio, ok := item["payout_ratio"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 payout_ratio 类型")
+		}
+		// 处理 capitial_ratio 的简单类型
+		capitialRatio, ok := item["capitial_ratio"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 capitial_ratio 类型")
+		}
+		// 处理 roe 的简单类型
+		roe, ok := item["roe"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 roe 类型")
+		}
+		// 处理 roe_yoy 的简单类型
+		roeYoy, ok := item["roe_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 roe_yoy 类型")
+		}
+		// 处理 debt_ratio 的简单类型
+		debtRatio, ok := item["debt_ratio"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 debt_ratio 类型")
+		}
+		// 处理 debt_ratio_yoy 的简单类型
+		debtRatioYoy, ok := item["debt_ratio_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 debt_ratio_yoy 类型")
+		}
+		// 处理 net_interest_income 的简单类型
+		netInterestIncome, ok := item["net_interest_income"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 net_interest_income 类型")
+		}
+		// 处理 net_interest_income_yoy 的简单类型
+		netInterestIncomeYoy, ok := item["net_interest_income_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 net_interest_income_yoy 类型")
+		}
+		// 处理 diluted_eps_cs_yoy 的简单类型
+		dilutedEpsCsYoy, ok := item["diluted_eps_cs_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 diluted_eps_cs_yoy 类型")
+		}
+		// 处理 loan_loss_provision 的简单类型
+		loanLossProvision, ok := item["loan_loss_provision"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 loan_loss_provision 类型")
+		}
+		// 处理 loan_loss_provision_yoy 的简单类型
+		loanLossProvisionYoy, ok := item["loan_loss_provision_yoy"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 loan_loss_provision_yoy 类型")
+		}
+		// 处理 loan_deposit 的简单类型
+		loanDeposit, ok := item["loan_deposit"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 loan_deposit 类型")
+		}
+		// 处理 loan_equity 的简单类型
+		loanEquity, ok := item["loan_equity"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 loan_equity 类型")
+		}
+		// 处理 loan_assets 的简单类型
+		loanAssets, ok := item["loan_assets"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 loan_assets 类型")
+		}
+		// 处理 deposit_equity 的简单类型
+		depositEquity, ok := item["deposit_equity"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 deposit_equity 类型")
+		}
+		// 处理 deposit_assets 的简单类型
+		depositAssets, ok := item["deposit_assets"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 deposit_assets 类型")
+		}
+		// 处理 rol 的简单类型
+		rol, ok := item["rol"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 rol 类型")
+		}
+		// 处理 rod 的简单类型
+		rod, ok := item["rod"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 rod 类型")
+		}
+		items[i] = UsFinaIndicatorItem{
+			TsCode: tsCode,
+			EndDate: endDate,
+			IndType: indType,
+			SecurityNameAbbr: securityNameAbbr,
+			AccountingStandards: accountingStandards,
+			NoticeDate: noticeDate,
+			StartDate: startDate,
+			StdReportDate: stdReportDate,
+			FinancialDate: financialDate,
+			Currency: currency,
+			DateType: dateType,
+			ReportType: reportType,
+			OperateIncome: operateIncome,
+			OperateIncomeYoy: operateIncomeYoy,
+			GrossProfit: grossProfit,
+			GrossProfitYoy: grossProfitYoy,
+			ParentHolderNetprofit: parentHolderNetprofit,
+			ParentHolderNetprofitYoy: parentHolderNetprofitYoy,
+			BasicEps: basicEps,
+			DilutedEps: dilutedEps,
+			GrossProfitRatio: grossProfitRatio,
+			NetProfitRatio: netProfitRatio,
+			AccountsReceTr: accountsReceTr,
+			InventoryTr: inventoryTr,
+			TotalAssetsTr: totalAssetsTr,
+			AccountsReceTdays: accountsReceTdays,
+			InventoryTdays: inventoryTdays,
+			TotalAssetsTdays: totalAssetsTdays,
+			RoeAvg: roeAvg,
+			Roa: roa,
+			CurrentRatio: currentRatio,
+			SpeedRatio: speedRatio,
+			OcfLiqdebt: ocfLiqdebt,
+			DebtAssetRatio: debtAssetRatio,
+			EquityRatio: equityRatio,
+			BasicEpsYoy: basicEpsYoy,
+			GrossProfitRatioYoy: grossProfitRatioYoy,
+			NetProfitRatioYoy: netProfitRatioYoy,
+			RoeAvgYoy: roeAvgYoy,
+			RoaYoy: roaYoy,
+			DebtAssetRatioYoy: debtAssetRatioYoy,
+			CurrentRatioYoy: currentRatioYoy,
+			SpeedRatioYoy: speedRatioYoy,
+			CurrencyAbbr: currencyAbbr,
+			TotalIncome: totalIncome,
+			TotalIncomeYoy: totalIncomeYoy,
+			PremiumIncome: premiumIncome,
+			PremiumIncomeYoy: premiumIncomeYoy,
+			BasicEpsCs: basicEpsCs,
+			BasicEpsCsYoy: basicEpsCsYoy,
+			DilutedEpsCs: dilutedEpsCs,
+			PayoutRatio: payoutRatio,
+			CapitialRatio: capitialRatio,
+			Roe: roe,
+			RoeYoy: roeYoy,
+			DebtRatio: debtRatio,
+			DebtRatioYoy: debtRatioYoy,
+			NetInterestIncome: netInterestIncome,
+			NetInterestIncomeYoy: netInterestIncomeYoy,
+			DilutedEpsCsYoy: dilutedEpsCsYoy,
+			LoanLossProvision: loanLossProvision,
+			LoanLossProvisionYoy: loanLossProvisionYoy,
+			LoanDeposit: loanDeposit,
+			LoanEquity: loanEquity,
+			LoanAssets: loanAssets,
+			DepositEquity: depositEquity,
+			DepositAssets: depositAssets,
+			Rol: rol,
+			Rod: rod,
+		}
+	}
+
+	return items, nil
 }

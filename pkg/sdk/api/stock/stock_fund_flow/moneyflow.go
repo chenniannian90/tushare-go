@@ -4,23 +4,60 @@ package stock_fund_flow
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// MoneyflowRequest 表示 moneyflow API 的请求
+// MoneyflowRequest 表示 个股资金流向 API 的请求
 type MoneyflowRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// MoneyflowItem 表示单个 moneyflow 数据项
+// MoneyflowItem 表示单个 个股资金流向 数据项
 type MoneyflowItem struct {
+	TsCode string `json:"ts_code"`
+	TradeDate string `json:"trade_date"`
+	BuySmVol int `json:"buy_sm_vol"`
+	BuySmAmount float64 `json:"buy_sm_amount"`
+	SellSmVol int `json:"sell_sm_vol"`
+	SellSmAmount float64 `json:"sell_sm_amount"`
+	BuyMdVol int `json:"buy_md_vol"`
+	BuyMdAmount float64 `json:"buy_md_amount"`
+	SellMdVol int `json:"sell_md_vol"`
+	SellMdAmount float64 `json:"sell_md_amount"`
+	BuyLgVol int `json:"buy_lg_vol"`
+	BuyLgAmount float64 `json:"buy_lg_amount"`
+	SellLgVol int `json:"sell_lg_vol"`
+	SellLgAmount float64 `json:"sell_lg_amount"`
+	BuyElgVol int `json:"buy_elg_vol"`
+	BuyElgAmount float64 `json:"buy_elg_amount"`
+	SellElgVol int `json:"sell_elg_vol"`
+	SellElgAmount float64 `json:"sell_elg_amount"`
+	NetMfVol int `json:"net_mf_vol"`
+	NetMfAmount float64 `json:"net_mf_amount"`
 }
 
-// Moneyflow 调用 moneyflow API
+// Moneyflow 调用 个股资金流向 API
 func Moneyflow(ctx context.Context, client *sdk.Client, req *MoneyflowRequest) ([]MoneyflowItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.TradeDate != "" {
+		params["trade_date"] = req.TradeDate
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "trade_date", "buy_sm_vol", "buy_sm_amount", "sell_sm_vol", "sell_sm_amount", "buy_md_vol", "buy_md_amount", "sell_md_vol", "sell_md_amount", "buy_lg_vol", "buy_lg_amount", "sell_lg_vol", "sell_lg_amount", "buy_elg_vol", "buy_elg_amount", "sell_elg_vol", "sell_elg_amount", "net_mf_vol", "net_mf_amount"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +67,131 @@ func Moneyflow(ctx context.Context, client *sdk.Client, req *MoneyflowRequest) (
 	if err := client.CallAPI(ctx, "moneyflow", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []MoneyflowItem{}, nil
+	items := make([]MoneyflowItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 trade_date 的简单类型
+		tradeDate, ok := item["trade_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 trade_date 类型")
+		}
+		// 处理 buy_sm_vol 的简单类型
+		buySmVol, ok := item["buy_sm_vol"].(int)
+		if !ok {
+			return nil, fmt.Errorf("无效的 buy_sm_vol 类型")
+		}
+		// 处理 buy_sm_amount 的简单类型
+		buySmAmount, ok := item["buy_sm_amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 buy_sm_amount 类型")
+		}
+		// 处理 sell_sm_vol 的简单类型
+		sellSmVol, ok := item["sell_sm_vol"].(int)
+		if !ok {
+			return nil, fmt.Errorf("无效的 sell_sm_vol 类型")
+		}
+		// 处理 sell_sm_amount 的简单类型
+		sellSmAmount, ok := item["sell_sm_amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 sell_sm_amount 类型")
+		}
+		// 处理 buy_md_vol 的简单类型
+		buyMdVol, ok := item["buy_md_vol"].(int)
+		if !ok {
+			return nil, fmt.Errorf("无效的 buy_md_vol 类型")
+		}
+		// 处理 buy_md_amount 的简单类型
+		buyMdAmount, ok := item["buy_md_amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 buy_md_amount 类型")
+		}
+		// 处理 sell_md_vol 的简单类型
+		sellMdVol, ok := item["sell_md_vol"].(int)
+		if !ok {
+			return nil, fmt.Errorf("无效的 sell_md_vol 类型")
+		}
+		// 处理 sell_md_amount 的简单类型
+		sellMdAmount, ok := item["sell_md_amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 sell_md_amount 类型")
+		}
+		// 处理 buy_lg_vol 的简单类型
+		buyLgVol, ok := item["buy_lg_vol"].(int)
+		if !ok {
+			return nil, fmt.Errorf("无效的 buy_lg_vol 类型")
+		}
+		// 处理 buy_lg_amount 的简单类型
+		buyLgAmount, ok := item["buy_lg_amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 buy_lg_amount 类型")
+		}
+		// 处理 sell_lg_vol 的简单类型
+		sellLgVol, ok := item["sell_lg_vol"].(int)
+		if !ok {
+			return nil, fmt.Errorf("无效的 sell_lg_vol 类型")
+		}
+		// 处理 sell_lg_amount 的简单类型
+		sellLgAmount, ok := item["sell_lg_amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 sell_lg_amount 类型")
+		}
+		// 处理 buy_elg_vol 的简单类型
+		buyElgVol, ok := item["buy_elg_vol"].(int)
+		if !ok {
+			return nil, fmt.Errorf("无效的 buy_elg_vol 类型")
+		}
+		// 处理 buy_elg_amount 的简单类型
+		buyElgAmount, ok := item["buy_elg_amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 buy_elg_amount 类型")
+		}
+		// 处理 sell_elg_vol 的简单类型
+		sellElgVol, ok := item["sell_elg_vol"].(int)
+		if !ok {
+			return nil, fmt.Errorf("无效的 sell_elg_vol 类型")
+		}
+		// 处理 sell_elg_amount 的简单类型
+		sellElgAmount, ok := item["sell_elg_amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 sell_elg_amount 类型")
+		}
+		// 处理 net_mf_vol 的简单类型
+		netMfVol, ok := item["net_mf_vol"].(int)
+		if !ok {
+			return nil, fmt.Errorf("无效的 net_mf_vol 类型")
+		}
+		// 处理 net_mf_amount 的简单类型
+		netMfAmount, ok := item["net_mf_amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 net_mf_amount 类型")
+		}
+		items[i] = MoneyflowItem{
+			TsCode: tsCode,
+			TradeDate: tradeDate,
+			BuySmVol: buySmVol,
+			BuySmAmount: buySmAmount,
+			SellSmVol: sellSmVol,
+			SellSmAmount: sellSmAmount,
+			BuyMdVol: buyMdVol,
+			BuyMdAmount: buyMdAmount,
+			SellMdVol: sellMdVol,
+			SellMdAmount: sellMdAmount,
+			BuyLgVol: buyLgVol,
+			BuyLgAmount: buyLgAmount,
+			SellLgVol: sellLgVol,
+			SellLgAmount: sellLgAmount,
+			BuyElgVol: buyElgVol,
+			BuyElgAmount: buyElgAmount,
+			SellElgVol: sellElgVol,
+			SellElgAmount: sellElgAmount,
+			NetMfVol: netMfVol,
+			NetMfAmount: netMfAmount,
+		}
+	}
+
+	return items, nil
 }

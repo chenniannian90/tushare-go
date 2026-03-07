@@ -4,23 +4,45 @@ package stock_board
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// TdxIndexRequest 表示 tdx_index API 的请求
+// TdxIndexRequest 表示 通达信板块信息 API 的请求
 type TdxIndexRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"`
+	IdxType string `json:"idx_type,omitempty"`
 }
 
-// TdxIndexItem 表示单个 tdx_index 数据项
+// TdxIndexItem 表示单个 通达信板块信息 数据项
 type TdxIndexItem struct {
+	TsCode string `json:"ts_code"`
+	TradeDate string `json:"trade_date"`
+	Name string `json:"name"`
+	IdxType string `json:"idx_type"`
+	IdxCount int `json:"idx_count"`
+	TotalShare float64 `json:"total_share"`
+	FloatShare float64 `json:"float_share"`
+	TotalMv float64 `json:"total_mv"`
+	FloatMv float64 `json:"float_mv"`
 }
 
-// TdxIndex 调用 tdx_index API
+// TdxIndex 调用 通达信板块信息 API
 func TdxIndex(ctx context.Context, client *sdk.Client, req *TdxIndexRequest) ([]TdxIndexItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.TradeDate != "" {
+		params["trade_date"] = req.TradeDate
+	}
+	if req.IdxType != "" {
+		params["idx_type"] = req.IdxType
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "trade_date", "name", "idx_type", "idx_count", "total_share", "float_share", "total_mv", "float_mv"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +52,65 @@ func TdxIndex(ctx context.Context, client *sdk.Client, req *TdxIndexRequest) ([]
 	if err := client.CallAPI(ctx, "tdx_index", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []TdxIndexItem{}, nil
+	items := make([]TdxIndexItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 trade_date 的简单类型
+		tradeDate, ok := item["trade_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 trade_date 类型")
+		}
+		// 处理 name 的简单类型
+		name, ok := item["name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 name 类型")
+		}
+		// 处理 idx_type 的简单类型
+		idxType, ok := item["idx_type"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 idx_type 类型")
+		}
+		// 处理 idx_count 的简单类型
+		idxCount, ok := item["idx_count"].(int)
+		if !ok {
+			return nil, fmt.Errorf("无效的 idx_count 类型")
+		}
+		// 处理 total_share 的简单类型
+		totalShare, ok := item["total_share"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 total_share 类型")
+		}
+		// 处理 float_share 的简单类型
+		floatShare, ok := item["float_share"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 float_share 类型")
+		}
+		// 处理 total_mv 的简单类型
+		totalMv, ok := item["total_mv"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 total_mv 类型")
+		}
+		// 处理 float_mv 的简单类型
+		floatMv, ok := item["float_mv"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 float_mv 类型")
+		}
+		items[i] = TdxIndexItem{
+			TsCode: tsCode,
+			TradeDate: tradeDate,
+			Name: name,
+			IdxType: idxType,
+			IdxCount: idxCount,
+			TotalShare: totalShare,
+			FloatShare: floatShare,
+			TotalMv: totalMv,
+			FloatMv: floatMv,
+		}
+	}
+
+	return items, nil
 }

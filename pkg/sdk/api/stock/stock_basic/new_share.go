@@ -4,23 +4,44 @@ package stock_basic
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// NewShareRequest 表示 new_share API 的请求
+// NewShareRequest 表示 IPO新股上市 API 的请求
 type NewShareRequest struct {
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// NewShareItem 表示单个 new_share 数据项
+// NewShareItem 表示单个 IPO新股上市 数据项
 type NewShareItem struct {
+	TsCode string `json:"ts_code"`
+	SubCode string `json:"sub_code"`
+	Name string `json:"name"`
+	IpoDate string `json:"ipo_date"`
+	IssueDate string `json:"issue_date"`
+	Amount float64 `json:"amount"`
+	MarketAmount float64 `json:"market_amount"`
+	Price float64 `json:"price"`
+	Pe float64 `json:"pe"`
+	LimitAmount float64 `json:"limit_amount"`
+	Funds float64 `json:"funds"`
+	Ballot float64 `json:"ballot"`
 }
 
-// NewShare 调用 new_share API
+// NewShare 调用 IPO新股上市 API
 func NewShare(ctx context.Context, client *sdk.Client, req *NewShareRequest) ([]NewShareItem, error) {
 	params := map[string]interface{}{}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "sub_code", "name", "ipo_date", "issue_date", "amount", "market_amount", "price", "pe", "limit_amount", "funds", "ballot"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +51,83 @@ func NewShare(ctx context.Context, client *sdk.Client, req *NewShareRequest) ([]
 	if err := client.CallAPI(ctx, "new_share", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []NewShareItem{}, nil
+	items := make([]NewShareItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 sub_code 的简单类型
+		subCode, ok := item["sub_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 sub_code 类型")
+		}
+		// 处理 name 的简单类型
+		name, ok := item["name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 name 类型")
+		}
+		// 处理 ipo_date 的简单类型
+		ipoDate, ok := item["ipo_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ipo_date 类型")
+		}
+		// 处理 issue_date 的简单类型
+		issueDate, ok := item["issue_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 issue_date 类型")
+		}
+		// 处理 amount 的简单类型
+		amount, ok := item["amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 amount 类型")
+		}
+		// 处理 market_amount 的简单类型
+		marketAmount, ok := item["market_amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 market_amount 类型")
+		}
+		// 处理 price 的简单类型
+		price, ok := item["price"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 price 类型")
+		}
+		// 处理 pe 的简单类型
+		pe, ok := item["pe"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 pe 类型")
+		}
+		// 处理 limit_amount 的简单类型
+		limitAmount, ok := item["limit_amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 limit_amount 类型")
+		}
+		// 处理 funds 的简单类型
+		funds, ok := item["funds"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 funds 类型")
+		}
+		// 处理 ballot 的简单类型
+		ballot, ok := item["ballot"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ballot 类型")
+		}
+		items[i] = NewShareItem{
+			TsCode: tsCode,
+			SubCode: subCode,
+			Name: name,
+			IpoDate: ipoDate,
+			IssueDate: issueDate,
+			Amount: amount,
+			MarketAmount: marketAmount,
+			Price: price,
+			Pe: pe,
+			LimitAmount: limitAmount,
+			Funds: funds,
+			Ballot: ballot,
+		}
+	}
+
+	return items, nil
 }

@@ -4,23 +4,39 @@ package stock_basic
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// StkRewardsRequest 表示 stk_rewards API 的请求
+// StkRewardsRequest 表示 管理层薪酬和持股 API 的请求
 type StkRewardsRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// StkRewardsItem 表示单个 stk_rewards 数据项
+// StkRewardsItem 表示单个 管理层薪酬和持股 数据项
 type StkRewardsItem struct {
+	TsCode string `json:"ts_code"`
+	AnnDate string `json:"ann_date"`
+	EndDate string `json:"end_date"`
+	Name string `json:"name"`
+	Title string `json:"title"`
+	Reward float64 `json:"reward"`
+	HoldVol float64 `json:"hold_vol"`
 }
 
-// StkRewards 调用 stk_rewards API
+// StkRewards 调用 管理层薪酬和持股 API
 func StkRewards(ctx context.Context, client *sdk.Client, req *StkRewardsRequest) ([]StkRewardsItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "ann_date", "end_date", "name", "title", "reward", "hold_vol"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +46,53 @@ func StkRewards(ctx context.Context, client *sdk.Client, req *StkRewardsRequest)
 	if err := client.CallAPI(ctx, "stk_rewards", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []StkRewardsItem{}, nil
+	items := make([]StkRewardsItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 ann_date 的简单类型
+		annDate, ok := item["ann_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ann_date 类型")
+		}
+		// 处理 end_date 的简单类型
+		endDate, ok := item["end_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 end_date 类型")
+		}
+		// 处理 name 的简单类型
+		name, ok := item["name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 name 类型")
+		}
+		// 处理 title 的简单类型
+		title, ok := item["title"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 title 类型")
+		}
+		// 处理 reward 的简单类型
+		reward, ok := item["reward"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 reward 类型")
+		}
+		// 处理 hold_vol 的简单类型
+		holdVol, ok := item["hold_vol"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 hold_vol 类型")
+		}
+		items[i] = StkRewardsItem{
+			TsCode: tsCode,
+			AnnDate: annDate,
+			EndDate: endDate,
+			Name: name,
+			Title: title,
+			Reward: reward,
+			HoldVol: holdVol,
+		}
+	}
+
+	return items, nil
 }

@@ -4,23 +4,56 @@ package futures
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// FutBasicRequest 表示 fut_basic API 的请求
+// FutBasicRequest 表示 合约信息 API 的请求
 type FutBasicRequest struct {
+	Exchange string `json:"exchange,omitempty"`
+	FutType string `json:"fut_type,omitempty"`
+	FutCode string `json:"fut_code,omitempty"`
+	ListDate string `json:"list_date,omitempty"`
 }
 
-// FutBasicItem 表示单个 fut_basic 数据项
+// FutBasicItem 表示单个 合约信息 数据项
 type FutBasicItem struct {
+	TsCode string `json:"ts_code"`
+	Symbol string `json:"symbol"`
+	Exchange string `json:"exchange"`
+	Name string `json:"name"`
+	FutCode string `json:"fut_code"`
+	Multiplier float64 `json:"multiplier"`
+	TradeUnit string `json:"trade_unit"`
+	PerUnit float64 `json:"per_unit"`
+	QuoteUnit string `json:"quote_unit"`
+	QuoteUnitDesc string `json:"quote_unit_desc"`
+	DModeDesc string `json:"d_mode_desc"`
+	ListDate string `json:"list_date"`
+	DelistDate string `json:"delist_date"`
+	DMonth string `json:"d_month"`
+	LastDdate string `json:"last_ddate"`
+	TradeTimeDesc string `json:"trade_time_desc"`
 }
 
-// FutBasic 调用 fut_basic API
+// FutBasic 调用 合约信息 API
 func FutBasic(ctx context.Context, client *sdk.Client, req *FutBasicRequest) ([]FutBasicItem, error) {
 	params := map[string]interface{}{}
+	if req.Exchange != "" {
+		params["exchange"] = req.Exchange
+	}
+	if req.FutType != "" {
+		params["fut_type"] = req.FutType
+	}
+	if req.FutCode != "" {
+		params["fut_code"] = req.FutCode
+	}
+	if req.ListDate != "" {
+		params["list_date"] = req.ListDate
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "symbol", "exchange", "name", "fut_code", "multiplier", "trade_unit", "per_unit", "quote_unit", "quote_unit_desc", "d_mode_desc", "list_date", "delist_date", "d_month", "last_ddate", "trade_time_desc"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +63,107 @@ func FutBasic(ctx context.Context, client *sdk.Client, req *FutBasicRequest) ([]
 	if err := client.CallAPI(ctx, "fut_basic", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []FutBasicItem{}, nil
+	items := make([]FutBasicItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 symbol 的简单类型
+		symbol, ok := item["symbol"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 symbol 类型")
+		}
+		// 处理 exchange 的简单类型
+		exchange, ok := item["exchange"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 exchange 类型")
+		}
+		// 处理 name 的简单类型
+		name, ok := item["name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 name 类型")
+		}
+		// 处理 fut_code 的简单类型
+		futCode, ok := item["fut_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 fut_code 类型")
+		}
+		// 处理 multiplier 的简单类型
+		multiplier, ok := item["multiplier"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 multiplier 类型")
+		}
+		// 处理 trade_unit 的简单类型
+		tradeUnit, ok := item["trade_unit"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 trade_unit 类型")
+		}
+		// 处理 per_unit 的简单类型
+		perUnit, ok := item["per_unit"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 per_unit 类型")
+		}
+		// 处理 quote_unit 的简单类型
+		quoteUnit, ok := item["quote_unit"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 quote_unit 类型")
+		}
+		// 处理 quote_unit_desc 的简单类型
+		quoteUnitDesc, ok := item["quote_unit_desc"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 quote_unit_desc 类型")
+		}
+		// 处理 d_mode_desc 的简单类型
+		dModeDesc, ok := item["d_mode_desc"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 d_mode_desc 类型")
+		}
+		// 处理 list_date 的简单类型
+		listDate, ok := item["list_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 list_date 类型")
+		}
+		// 处理 delist_date 的简单类型
+		delistDate, ok := item["delist_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 delist_date 类型")
+		}
+		// 处理 d_month 的简单类型
+		dMonth, ok := item["d_month"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 d_month 类型")
+		}
+		// 处理 last_ddate 的简单类型
+		lastDdate, ok := item["last_ddate"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 last_ddate 类型")
+		}
+		// 处理 trade_time_desc 的简单类型
+		tradeTimeDesc, ok := item["trade_time_desc"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 trade_time_desc 类型")
+		}
+		items[i] = FutBasicItem{
+			TsCode: tsCode,
+			Symbol: symbol,
+			Exchange: exchange,
+			Name: name,
+			FutCode: futCode,
+			Multiplier: multiplier,
+			TradeUnit: tradeUnit,
+			PerUnit: perUnit,
+			QuoteUnit: quoteUnit,
+			QuoteUnitDesc: quoteUnitDesc,
+			DModeDesc: dModeDesc,
+			ListDate: listDate,
+			DelistDate: delistDate,
+			DMonth: dMonth,
+			LastDdate: lastDdate,
+			TradeTimeDesc: tradeTimeDesc,
+		}
+	}
+
+	return items, nil
 }

@@ -4,23 +4,39 @@ package stock_reference
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// PledgeStatRequest 表示 pledge_stat API 的请求
+// PledgeStatRequest 表示 股权质押统计数据 API 的请求
 type PledgeStatRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// PledgeStatItem 表示单个 pledge_stat 数据项
+// PledgeStatItem 表示单个 股权质押统计数据 数据项
 type PledgeStatItem struct {
+	TsCode string `json:"ts_code"`
+	EndDate string `json:"end_date"`
+	PledgeCount int `json:"pledge_count"`
+	UnrestPledge float64 `json:"unrest_pledge"`
+	RestPledge float64 `json:"rest_pledge"`
+	TotalShare float64 `json:"total_share"`
+	PledgeRatio float64 `json:"pledge_ratio"`
 }
 
-// PledgeStat 调用 pledge_stat API
+// PledgeStat 调用 股权质押统计数据 API
 func PledgeStat(ctx context.Context, client *sdk.Client, req *PledgeStatRequest) ([]PledgeStatItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "end_date", "pledge_count", "unrest_pledge", "rest_pledge", "total_share", "pledge_ratio"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +46,53 @@ func PledgeStat(ctx context.Context, client *sdk.Client, req *PledgeStatRequest)
 	if err := client.CallAPI(ctx, "pledge_stat", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []PledgeStatItem{}, nil
+	items := make([]PledgeStatItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 end_date 的简单类型
+		endDate, ok := item["end_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 end_date 类型")
+		}
+		// 处理 pledge_count 的简单类型
+		pledgeCount, ok := item["pledge_count"].(int)
+		if !ok {
+			return nil, fmt.Errorf("无效的 pledge_count 类型")
+		}
+		// 处理 unrest_pledge 的简单类型
+		unrestPledge, ok := item["unrest_pledge"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 unrest_pledge 类型")
+		}
+		// 处理 rest_pledge 的简单类型
+		restPledge, ok := item["rest_pledge"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 rest_pledge 类型")
+		}
+		// 处理 total_share 的简单类型
+		totalShare, ok := item["total_share"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 total_share 类型")
+		}
+		// 处理 pledge_ratio 的简单类型
+		pledgeRatio, ok := item["pledge_ratio"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 pledge_ratio 类型")
+		}
+		items[i] = PledgeStatItem{
+			TsCode: tsCode,
+			EndDate: endDate,
+			PledgeCount: pledgeCount,
+			UnrestPledge: unrestPledge,
+			RestPledge: restPledge,
+			TotalShare: totalShare,
+			PledgeRatio: pledgeRatio,
+		}
+	}
+
+	return items, nil
 }

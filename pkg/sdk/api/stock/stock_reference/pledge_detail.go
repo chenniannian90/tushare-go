@@ -4,23 +4,42 @@ package stock_reference
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// PledgeDetailRequest 表示 pledge_detail API 的请求
+// PledgeDetailRequest 表示 股权质押明细数据 API 的请求
 type PledgeDetailRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
 }
 
-// PledgeDetailItem 表示单个 pledge_detail 数据项
+// PledgeDetailItem 表示单个 股权质押明细数据 数据项
 type PledgeDetailItem struct {
+	TsCode string `json:"ts_code"`
+	AnnDate string `json:"ann_date"`
+	HolderName string `json:"holder_name"`
+	PledgeAmount float64 `json:"pledge_amount"`
+	StartDate string `json:"start_date"`
+	EndDate string `json:"end_date"`
+	IsRelease string `json:"is_release"`
+	ReleaseDate string `json:"release_date"`
+	Pledgor string `json:"pledgor"`
+	HoldingAmount float64 `json:"holding_amount"`
+	PledgedAmount float64 `json:"pledged_amount"`
+	PTotalRatio float64 `json:"p_total_ratio"`
+	HTotalRatio float64 `json:"h_total_ratio"`
+	IsBuyback string `json:"is_buyback"`
 }
 
-// PledgeDetail 调用 pledge_detail API
+// PledgeDetail 调用 股权质押明细数据 API
 func PledgeDetail(ctx context.Context, client *sdk.Client, req *PledgeDetailRequest) ([]PledgeDetailItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "ann_date", "holder_name", "pledge_amount", "start_date", "end_date", "is_release", "release_date", "pledgor", "holding_amount", "pledged_amount", "p_total_ratio", "h_total_ratio", "is_buyback"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +49,95 @@ func PledgeDetail(ctx context.Context, client *sdk.Client, req *PledgeDetailRequ
 	if err := client.CallAPI(ctx, "pledge_detail", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []PledgeDetailItem{}, nil
+	items := make([]PledgeDetailItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 ann_date 的简单类型
+		annDate, ok := item["ann_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ann_date 类型")
+		}
+		// 处理 holder_name 的简单类型
+		holderName, ok := item["holder_name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 holder_name 类型")
+		}
+		// 处理 pledge_amount 的简单类型
+		pledgeAmount, ok := item["pledge_amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 pledge_amount 类型")
+		}
+		// 处理 start_date 的简单类型
+		startDate, ok := item["start_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 start_date 类型")
+		}
+		// 处理 end_date 的简单类型
+		endDate, ok := item["end_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 end_date 类型")
+		}
+		// 处理 is_release 的简单类型
+		isRelease, ok := item["is_release"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 is_release 类型")
+		}
+		// 处理 release_date 的简单类型
+		releaseDate, ok := item["release_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 release_date 类型")
+		}
+		// 处理 pledgor 的简单类型
+		pledgor, ok := item["pledgor"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 pledgor 类型")
+		}
+		// 处理 holding_amount 的简单类型
+		holdingAmount, ok := item["holding_amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 holding_amount 类型")
+		}
+		// 处理 pledged_amount 的简单类型
+		pledgedAmount, ok := item["pledged_amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 pledged_amount 类型")
+		}
+		// 处理 p_total_ratio 的简单类型
+		pTotalRatio, ok := item["p_total_ratio"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 p_total_ratio 类型")
+		}
+		// 处理 h_total_ratio 的简单类型
+		hTotalRatio, ok := item["h_total_ratio"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 h_total_ratio 类型")
+		}
+		// 处理 is_buyback 的简单类型
+		isBuyback, ok := item["is_buyback"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 is_buyback 类型")
+		}
+		items[i] = PledgeDetailItem{
+			TsCode: tsCode,
+			AnnDate: annDate,
+			HolderName: holderName,
+			PledgeAmount: pledgeAmount,
+			StartDate: startDate,
+			EndDate: endDate,
+			IsRelease: isRelease,
+			ReleaseDate: releaseDate,
+			Pledgor: pledgor,
+			HoldingAmount: holdingAmount,
+			PledgedAmount: pledgedAmount,
+			PTotalRatio: pTotalRatio,
+			HTotalRatio: hTotalRatio,
+			IsBuyback: isBuyback,
+		}
+	}
+
+	return items, nil
 }

@@ -4,23 +4,49 @@ package macro_interest_rate
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// LiborRequest 表示 libor API 的请求
+// LiborRequest 表示 Libor利率 API 的请求
 type LiborRequest struct {
+	Date string `json:"date,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
+	CurrType string `json:"curr_type,omitempty"`
 }
 
-// LiborItem 表示单个 libor 数据项
+// LiborItem 表示单个 Libor利率 数据项
 type LiborItem struct {
+	Date string `json:"date"`
+	CurrType string `json:"curr_type"`
+	On float64 `json:"on"`
+	1w float64 `json:"1w"`
+	1m float64 `json:"1m"`
+	2m float64 `json:"2m"`
+	3m float64 `json:"3m"`
+	6m float64 `json:"6m"`
+	12m float64 `json:"12m"`
 }
 
-// Libor 调用 libor API
+// Libor 调用 Libor利率 API
 func Libor(ctx context.Context, client *sdk.Client, req *LiborRequest) ([]LiborItem, error) {
 	params := map[string]interface{}{}
+	if req.Date != "" {
+		params["date"] = req.Date
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
+	if req.CurrType != "" {
+		params["curr_type"] = req.CurrType
+	}
 
-	fields := []string{}
+	fields := []string{"date", "curr_type", "on", "1w", "1m", "2m", "3m", "6m", "12m"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +56,65 @@ func Libor(ctx context.Context, client *sdk.Client, req *LiborRequest) ([]LiborI
 	if err := client.CallAPI(ctx, "libor", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []LiborItem{}, nil
+	items := make([]LiborItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 date 的简单类型
+		date, ok := item["date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 date 类型")
+		}
+		// 处理 curr_type 的简单类型
+		currType, ok := item["curr_type"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 curr_type 类型")
+		}
+		// 处理 on 的简单类型
+		on, ok := item["on"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 on 类型")
+		}
+		// 处理 1w 的简单类型
+		1w, ok := item["1w"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 1w 类型")
+		}
+		// 处理 1m 的简单类型
+		1m, ok := item["1m"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 1m 类型")
+		}
+		// 处理 2m 的简单类型
+		2m, ok := item["2m"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 2m 类型")
+		}
+		// 处理 3m 的简单类型
+		3m, ok := item["3m"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 3m 类型")
+		}
+		// 处理 6m 的简单类型
+		6m, ok := item["6m"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 6m 类型")
+		}
+		// 处理 12m 的简单类型
+		12m, ok := item["12m"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 12m 类型")
+		}
+		items[i] = LiborItem{
+			Date: date,
+			CurrType: currType,
+			On: on,
+			1w: 1w,
+			1m: 1m,
+			2m: 2m,
+			3m: 3m,
+			6m: 6m,
+			12m: 12m,
+		}
+	}
+
+	return items, nil
 }

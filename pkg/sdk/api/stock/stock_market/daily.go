@@ -8,17 +8,33 @@ import (
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// DailyRequest 表示 daily API 的请求
+// DailyRequest 表示 历史日线 API 的请求
 type DailyRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	TradeDate string `json:"trade_date,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// DailyItem 表示单个 daily 数据项
+// DailyItem 表示单个 历史日线 数据项
 type DailyItem struct {
 }
 
-// Daily 调用 daily API
+// Daily 调用 历史日线 API
 func Daily(ctx context.Context, client *sdk.Client, req *DailyRequest) ([]DailyItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.TradeDate != "" {
+		params["trade_date"] = req.TradeDate
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
 	fields := []string{}
 

@@ -4,23 +4,51 @@ package bond
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// CbCallRequest 表示 cb_call API 的请求
+// CbCallRequest 表示 可转债赎回信息 API 的请求
 type CbCallRequest struct {
+	TsCode string `json:"ts_code,omitempty"`
+	AnnDate string `json:"ann_date,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// CbCallItem 表示单个 cb_call 数据项
+// CbCallItem 表示单个 可转债赎回信息 数据项
 type CbCallItem struct {
+	TsCode string `json:"ts_code"`
+	CallType string `json:"call_type"`
+	IsCall string `json:"is_call"`
+	AnnDate string `json:"ann_date"`
+	CallDate string `json:"call_date"`
+	CallPrice float64 `json:"call_price"`
+	CallPriceTax float64 `json:"call_price_tax"`
+	CallVol float64 `json:"call_vol"`
+	CallAmount float64 `json:"call_amount"`
+	PaymentDate string `json:"payment_date"`
+	CallRegDate string `json:"call_reg_date"`
 }
 
-// CbCall 调用 cb_call API
+// CbCall 调用 可转债赎回信息 API
 func CbCall(ctx context.Context, client *sdk.Client, req *CbCallRequest) ([]CbCallItem, error) {
 	params := map[string]interface{}{}
+	if req.TsCode != "" {
+		params["ts_code"] = req.TsCode
+	}
+	if req.AnnDate != "" {
+		params["ann_date"] = req.AnnDate
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "call_type", "is_call", "ann_date", "call_date", "call_price", "call_price_tax", "call_vol", "call_amount", "payment_date", "call_reg_date"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -30,6 +58,77 @@ func CbCall(ctx context.Context, client *sdk.Client, req *CbCallRequest) ([]CbCa
 	if err := client.CallAPI(ctx, "cb_call", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []CbCallItem{}, nil
+	items := make([]CbCallItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		tsCode, ok := item["ts_code"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 call_type 的简单类型
+		callType, ok := item["call_type"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 call_type 类型")
+		}
+		// 处理 is_call 的简单类型
+		isCall, ok := item["is_call"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 is_call 类型")
+		}
+		// 处理 ann_date 的简单类型
+		annDate, ok := item["ann_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ann_date 类型")
+		}
+		// 处理 call_date 的简单类型
+		callDate, ok := item["call_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 call_date 类型")
+		}
+		// 处理 call_price 的简单类型
+		callPrice, ok := item["call_price"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 call_price 类型")
+		}
+		// 处理 call_price_tax 的简单类型
+		callPriceTax, ok := item["call_price_tax"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 call_price_tax 类型")
+		}
+		// 处理 call_vol 的简单类型
+		callVol, ok := item["call_vol"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 call_vol 类型")
+		}
+		// 处理 call_amount 的简单类型
+		callAmount, ok := item["call_amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 call_amount 类型")
+		}
+		// 处理 payment_date 的简单类型
+		paymentDate, ok := item["payment_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 payment_date 类型")
+		}
+		// 处理 call_reg_date 的简单类型
+		callRegDate, ok := item["call_reg_date"].(string)
+		if !ok {
+			return nil, fmt.Errorf("无效的 call_reg_date 类型")
+		}
+		items[i] = CbCallItem{
+			TsCode: tsCode,
+			CallType: callType,
+			IsCall: isCall,
+			AnnDate: annDate,
+			CallDate: callDate,
+			CallPrice: callPrice,
+			CallPriceTax: callPriceTax,
+			CallVol: callVol,
+			CallAmount: callAmount,
+			PaymentDate: paymentDate,
+			CallRegDate: callRegDate,
+		}
+	}
+
+	return items, nil
 }

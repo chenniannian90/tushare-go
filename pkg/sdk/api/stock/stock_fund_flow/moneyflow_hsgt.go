@@ -8,17 +8,29 @@ import (
 	"github.com/chenniannian90/tushare-go/pkg/sdk"
 )
 
-// MoneyflowHsgtRequest 表示 moneyflow_hsgt API 的请求
+// MoneyflowHsgtRequest 表示 沪深港通资金流向 API 的请求
 type MoneyflowHsgtRequest struct {
+	TradeDate string `json:"trade_date,omitempty"`
+	StartDate string `json:"start_date,omitempty"`
+	EndDate string `json:"end_date,omitempty"`
 }
 
-// MoneyflowHsgtItem 表示单个 moneyflow_hsgt 数据项
+// MoneyflowHsgtItem 表示单个 沪深港通资金流向 数据项
 type MoneyflowHsgtItem struct {
 }
 
-// MoneyflowHsgt 调用 moneyflow_hsgt API
+// MoneyflowHsgt 调用 沪深港通资金流向 API
 func MoneyflowHsgt(ctx context.Context, client *sdk.Client, req *MoneyflowHsgtRequest) ([]MoneyflowHsgtItem, error) {
 	params := map[string]interface{}{}
+	if req.TradeDate != "" {
+		params["trade_date"] = req.TradeDate
+	}
+	if req.StartDate != "" {
+		params["start_date"] = req.StartDate
+	}
+	if req.EndDate != "" {
+		params["end_date"] = req.EndDate
+	}
 
 	fields := []string{}
 
