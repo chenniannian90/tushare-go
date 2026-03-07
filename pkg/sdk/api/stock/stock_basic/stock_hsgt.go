@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 )
 
 // StockHsgtRequest 表示 沪深港通股票列表 API 的请求

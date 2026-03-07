@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 )
 
 // WeeklyRequest 表示 周线行情 API 的请求

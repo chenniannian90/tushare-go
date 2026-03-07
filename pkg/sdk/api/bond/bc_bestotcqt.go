@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 )
 
 // BcBestotcqtRequest 表示 柜台流通式债券最优报价 API 的请求

@@ -6,8 +6,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	stockmarket "github.com/chenniannian90/tushare-go/pkg/sdk/api/stock/stock_market"
+	"tushare-go/pkg/sdk"
+	stockmarket "tushare-go/pkg/sdk/api/stock/stock_market"
 )
 
 func main() {

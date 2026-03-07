@@ -4,29 +4,59 @@ package indextools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	index "github.com/chenniannian90/tushare-go/pkg/sdk/api/index"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	index "tushare-go/pkg/sdk/api/index"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callIndexMonthly handles IndexMonthly tool calls
-func (m *IndexTools) callIndexMonthly(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &index.IndexMonthlyRequest{}
+// registerIndexMonthly registers the tool
+func (r *IndexTools) registerIndexMonthly() {
+	inputSchema, _ := jsonschema.For[IndexMonthlyInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "index.index_monthly",
+		Description: "获取指数月线行情,每月更新一次",
+		InputSchema: inputSchema,
 	}
 
-	items, err := index.IndexMonthly(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input IndexMonthlyInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &index.IndexMonthlyRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+
+		}
+
+		items, err := index.IndexMonthly(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := IndexMonthlyOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "index", "index_monthly")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

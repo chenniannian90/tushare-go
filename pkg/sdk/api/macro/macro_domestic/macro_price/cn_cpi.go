@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 )
 
 // CnCpiRequest 表示 居民消费价格指数（CPI） API 的请求

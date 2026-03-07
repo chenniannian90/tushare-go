@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 )
 
 // IndexDailybasicRequest 表示 大盘指数每日指标 API 的请求

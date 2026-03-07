@@ -4,29 +4,59 @@ package hk_stocktools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	hk_stock "github.com/chenniannian90/tushare-go/pkg/sdk/api/hk_stock"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	hk_stock "tushare-go/pkg/sdk/api/hk_stock"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callHkMins handles HkMins tool calls
-func (m *Hk_stockTools) callHkMins(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &hk_stock.HkMinsRequest{}
+// registerHkMins registers the tool
+func (r *Hk_stockTools) registerHkMins() {
+	inputSchema, _ := jsonschema.For[HkMinsInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "hk_stock.hk_mins",
+		Description: "港股分钟数据，支持1min/5min/15min/30min/60min行情，提供Python SDK和 http Restful API两种方式",
+		InputSchema: inputSchema,
 	}
 
-	items, err := hk_stock.HkMins(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input HkMinsInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &hk_stock.HkMinsRequest{
+TsCode: input.TsCode,
+Freq: input.Freq,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+
+		}
+
+		items, err := hk_stock.HkMins(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := HkMinsOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "hk_stock", "hk_mins")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

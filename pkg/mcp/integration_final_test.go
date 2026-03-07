@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 )
 
 // TestMCPIntegration_RealAPIThroughMCP tests real API calls through MCP

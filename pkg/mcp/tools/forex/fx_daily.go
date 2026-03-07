@@ -4,29 +4,60 @@ package forextools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	forex "github.com/chenniannian90/tushare-go/pkg/sdk/api/forex"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	forex "tushare-go/pkg/sdk/api/forex"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callFxDaily handles FxDaily tool calls
-func (m *ForexTools) callFxDaily(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &forex.FxDailyRequest{}
+// registerFxDaily registers the tool
+func (r *ForexTools) registerFxDaily() {
+	inputSchema, _ := jsonschema.For[FxDailyInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "forex.fx_daily",
+		Description: "获取外汇日线行情",
+		InputSchema: inputSchema,
 	}
 
-	items, err := forex.FxDaily(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input FxDailyInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &forex.FxDailyRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+Exchange: input.Exchange,
+
+		}
+
+		items, err := forex.FxDaily(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := FxDailyOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "forex", "fx_daily")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

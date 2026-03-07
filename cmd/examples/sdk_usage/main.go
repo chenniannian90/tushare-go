@@ -6,9 +6,9 @@ import (
 	"log"
 	"os"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	sdkapis "github.com/chenniannian90/tushare-go/pkg/sdk/apis"
-	stockboard "github.com/chenniannian90/tushare-go/pkg/sdk/api/stock/stock_board"
+	"tushare-go/pkg/sdk"
+	sdkapis "tushare-go/pkg/sdk/apis"
+	stockboard "tushare-go/pkg/sdk/api/stock/stock_board"
 )
 
 func main() {
@@ -82,7 +82,7 @@ func main() {
 	fmt.Println("\n在项目中统一使用 apis 包：")
 	fmt.Println(`
 	// 统一导入
-	import sdkapis "github.com/chenniannian90/tushare-go/pkg/sdk/apis"
+	import sdkapis "tushare-go/pkg/sdk/apis"
 
 	// 使用
 	data, err := sdkapis.TopList(ctx, client, req)
@@ -117,8 +117,8 @@ func main() {
 	fmt.Println(`
 	// 1. 导入包
 	import (
-	    "github.com/chenniannian90/tushare-go/pkg/sdk"
-	    sdkapis "github.com/chenniannian90/tushare-go/pkg/sdk/apis"
+	    "tushare-go/pkg/sdk"
+	    sdkapis "tushare-go/pkg/sdk/apis"
 	)
 
 	// 2. 创建客户端

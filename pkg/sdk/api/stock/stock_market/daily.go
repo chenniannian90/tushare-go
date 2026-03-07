@@ -5,7 +5,7 @@ package stock_market
 import (
 	"context"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 )
 
 // DailyRequest 表示 历史日线 API 的请求

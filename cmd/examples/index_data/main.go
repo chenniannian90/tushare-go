@@ -6,8 +6,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	indexapi "github.com/chenniannian90/tushare-go/pkg/sdk/api/index"
+	"tushare-go/pkg/sdk"
+	indexapi "tushare-go/pkg/sdk/api/index"
 )
 
 func main() {

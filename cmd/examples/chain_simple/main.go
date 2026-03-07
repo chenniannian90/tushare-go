@@ -6,8 +6,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/sdk/apis"
+	"tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk/apis"
 )
 
 func main() {
@@ -63,7 +63,7 @@ func main() {
 	fmt.Println("\n🎯 使用示例:")
 	fmt.Println(`
 	// 1. 导入包
-	import "github.com/chenniannian90/tushare-go/pkg/sdk/apis"
+	import "tushare-go/pkg/sdk/apis"
 
 	// 2. 创建客户端
 	client := sdk.NewClient(config)

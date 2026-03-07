@@ -4,18 +4,22 @@ package apis
 
 import (
 	"context"
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/sdk/api/llm_corpus"
+	"tushare-go/pkg/sdk"
+	llm_corpus "tushare-go/pkg/sdk/api/llm_corpus"
 )
 
 type LlmCorpus interface {
+	// AnnsD 调用 上市公司公告 API
 	AnnsD(ctx context.Context, req *llm_corpus.AnnsDRequest) ([]llm_corpus.AnnsDItem, error)
+	// CctvNews 调用 新闻联播文字稿 API
 	CctvNews(ctx context.Context, req *llm_corpus.CctvNewsRequest) ([]llm_corpus.CctvNewsItem, error)
-	IrmQaSh(ctx context.Context, req *llm_corpus.IrmQaShRequest) ([]llm_corpus.IrmQaShItem, error)
-	IrmQaSz(ctx context.Context, req *llm_corpus.IrmQaSzRequest) ([]llm_corpus.IrmQaSzItem, error)
+	// MajorNews 调用 新闻通讯（长篇） API
 	MajorNews(ctx context.Context, req *llm_corpus.MajorNewsRequest) ([]llm_corpus.MajorNewsItem, error)
+	// News 调用 新闻快讯（短讯） API
 	News(ctx context.Context, req *llm_corpus.NewsRequest) ([]llm_corpus.NewsItem, error)
+	// Npr 调用 国家政策库 API
 	Npr(ctx context.Context, req *llm_corpus.NprRequest) ([]llm_corpus.NprItem, error)
+	// ResearchReport 调用 券商研究报告 API
 	ResearchReport(ctx context.Context, req *llm_corpus.ResearchReportRequest) ([]llm_corpus.ResearchReportItem, error)
 }
 
@@ -23,34 +27,32 @@ type llmCorpusImpl struct {
 	client *sdk.Client
 }
 
+// AnnsD 调用 上市公司公告 API
 func (impl *llmCorpusImpl) AnnsD(ctx context.Context, req *llm_corpus.AnnsDRequest) ([]llm_corpus.AnnsDItem, error) {
 	return llm_corpus.AnnsD(ctx, impl.client, req)
 }
 
+// CctvNews 调用 新闻联播文字稿 API
 func (impl *llmCorpusImpl) CctvNews(ctx context.Context, req *llm_corpus.CctvNewsRequest) ([]llm_corpus.CctvNewsItem, error) {
 	return llm_corpus.CctvNews(ctx, impl.client, req)
 }
 
-func (impl *llmCorpusImpl) IrmQaSh(ctx context.Context, req *llm_corpus.IrmQaShRequest) ([]llm_corpus.IrmQaShItem, error) {
-	return llm_corpus.IrmQaSh(ctx, impl.client, req)
-}
-
-func (impl *llmCorpusImpl) IrmQaSz(ctx context.Context, req *llm_corpus.IrmQaSzRequest) ([]llm_corpus.IrmQaSzItem, error) {
-	return llm_corpus.IrmQaSz(ctx, impl.client, req)
-}
-
+// MajorNews 调用 新闻通讯（长篇） API
 func (impl *llmCorpusImpl) MajorNews(ctx context.Context, req *llm_corpus.MajorNewsRequest) ([]llm_corpus.MajorNewsItem, error) {
 	return llm_corpus.MajorNews(ctx, impl.client, req)
 }
 
+// News 调用 新闻快讯（短讯） API
 func (impl *llmCorpusImpl) News(ctx context.Context, req *llm_corpus.NewsRequest) ([]llm_corpus.NewsItem, error) {
 	return llm_corpus.News(ctx, impl.client, req)
 }
 
+// Npr 调用 国家政策库 API
 func (impl *llmCorpusImpl) Npr(ctx context.Context, req *llm_corpus.NprRequest) ([]llm_corpus.NprItem, error) {
 	return llm_corpus.Npr(ctx, impl.client, req)
 }
 
+// ResearchReport 调用 券商研究报告 API
 func (impl *llmCorpusImpl) ResearchReport(ctx context.Context, req *llm_corpus.ResearchReportRequest) ([]llm_corpus.ResearchReportItem, error) {
 	return llm_corpus.ResearchReport(ctx, impl.client, req)
 }

@@ -4,29 +4,55 @@ package stock_margintools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	stock_stock_margin "github.com/chenniannian90/tushare-go/pkg/sdk/api/stock/stock_margin"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	stock_stock_margin "tushare-go/pkg/sdk/api/stock/stock_margin"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callSlbLenMm handles SlbLenMm tool calls
-func (m *Stock_marginTools) callSlbLenMm(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &stock_stock_margin.SlbLenMmRequest{}
+// registerSlbLenMm registers the tool
+func (r *Stock_marginTools) registerSlbLenMm() {
+	inputSchema, _ := jsonschema.For[SlbLenMmInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "stock_margin.slb_len_mm",
+		Description: "Retrieve slblenmm data from Tushare stock margin API",
+		InputSchema: inputSchema,
 	}
 
-	items, err := stock_stock_margin.SlbLenMm(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input SlbLenMmInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &stock_stock_margin.SlbLenMmRequest{
+
+		}
+
+		items, err := stock_stock_margin.SlbLenMm(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := SlbLenMmOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "stock_margin", "slb_len_mm")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

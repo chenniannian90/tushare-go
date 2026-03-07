@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 )
 
 func TestNewServer(t *testing.T) {

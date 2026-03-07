@@ -3,129 +3,35 @@
 package stock_featuretools
 
 import (
-	"context"
-	"fmt"
-
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	"tushare-go/pkg/sdk"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// Stock_featureTools implements tools for stock_feature API
+// Stock_featureTools represents stock_feature tools
 type Stock_featureTools struct {
+	server *mcp.Server
 	client *sdk.Client
 }
 
-// NewStock_featureTools creates a new stock_feature tools instance
-func NewStock_featureTools(client *sdk.Client) *Stock_featureTools {
-	return &Stock_featureTools{
-		client: client,
-	}
+// NewStock_featureTools creates a new instance
+func NewStock_featureTools(server *mcp.Server, client *sdk.Client) *Stock_featureTools {
+	return &Stock_featureTools{server: server, client: client}
 }
 
-// GetAPIName returns the Tushare API name for this module
-func (m *Stock_featureTools) GetAPIName() string {
-	return "stock_feature"
-}
+// RegisterAll registers all tools
+func (r *Stock_featureTools) RegisterAll() {
+	r.registerBrokerRecommend()
+	r.registerCcassHold()
+	r.registerCcassHoldDetail()
+	r.registerCyqChips()
+	r.registerCyqPerf()
+	r.registerHkHold()
+	r.registerReportRc()
+	r.registerStkAhComparison()
+	r.registerStkAuctionC()
+	r.registerStkAuctionO()
+	r.registerStkFactorPro()
+	r.registerStkNineturn()
+	r.registerStkSurv()
 
-// ListTools returns all available tools in this module
-func (m *Stock_featureTools) ListTools() []common.Tool {
-	return []common.Tool{
-		{
-			Name: "stock_feature.broker_recommend",
-			Description: "Access broker_recommend data from Tushare API",
-		},
-		{
-			Name: "stock_feature.ccass_hold",
-			Description: "Access ccass_hold data from Tushare API",
-		},
-		{
-			Name: "stock_feature.ccass_hold_detail",
-			Description: "Access ccass_hold_detail data from Tushare API",
-		},
-		{
-			Name: "stock_feature.cyq_chips",
-			Description: "Access cyq_chips data from Tushare API",
-		},
-		{
-			Name: "stock_feature.cyq_perf",
-			Description: "Access cyq_perf data from Tushare API",
-		},
-		{
-			Name: "stock_feature.hk_hold",
-			Description: "Access hk_hold data from Tushare API",
-		},
-		{
-			Name: "stock_feature.report_rc",
-			Description: "Access report_rc data from Tushare API",
-		},
-		{
-			Name: "stock_feature.stk_ah_comparison",
-			Description: "Access stk_ah_comparison data from Tushare API",
-		},
-		{
-			Name: "stock_feature.stk_auction_c",
-			Description: "Access stk_auction_c data from Tushare API",
-		},
-		{
-			Name: "stock_feature.stk_auction_o",
-			Description: "Access stk_auction_o data from Tushare API",
-		},
-		{
-			Name: "stock_feature.stk_factor_pro",
-			Description: "Access stk_factor_pro data from Tushare API",
-		},
-		{
-			Name: "stock_feature.stk_nineturn",
-			Description: "Access stk_nineturn data from Tushare API",
-		},
-		{
-			Name: "stock_feature.stk_surv",
-			Description: "Access stk_surv data from Tushare API",
-		},
-	}
-}
-
-// HandlesTool checks if this module handles a tool
-func (m *Stock_featureTools) HandlesTool(toolName string) bool {
-	tools := m.ListTools()
-	for _, tool := range tools {
-		if tool.Name == toolName {
-			return true
-		}
-	}
-	return false
-}
-
-// CallTool executes a tool call
-func (m *Stock_featureTools) CallTool(ctx context.Context, toolName string, args map[string]interface{}) (*common.ToolResult, error) {
-	switch toolName {
-	case "stock_feature.broker_recommend":
-		return m.callBrokerRecommend(ctx, args)
-	case "stock_feature.ccass_hold":
-		return m.callCcassHold(ctx, args)
-	case "stock_feature.ccass_hold_detail":
-		return m.callCcassHoldDetail(ctx, args)
-	case "stock_feature.cyq_chips":
-		return m.callCyqChips(ctx, args)
-	case "stock_feature.cyq_perf":
-		return m.callCyqPerf(ctx, args)
-	case "stock_feature.hk_hold":
-		return m.callHkHold(ctx, args)
-	case "stock_feature.report_rc":
-		return m.callReportRc(ctx, args)
-	case "stock_feature.stk_ah_comparison":
-		return m.callStkAhComparison(ctx, args)
-	case "stock_feature.stk_auction_c":
-		return m.callStkAuctionC(ctx, args)
-	case "stock_feature.stk_auction_o":
-		return m.callStkAuctionO(ctx, args)
-	case "stock_feature.stk_factor_pro":
-		return m.callStkFactorPro(ctx, args)
-	case "stock_feature.stk_nineturn":
-		return m.callStkNineturn(ctx, args)
-	case "stock_feature.stk_surv":
-		return m.callStkSurv(ctx, args)
-	default:
-		return nil, fmt.Errorf("unknown tool: %s", toolName)
-	}
 }

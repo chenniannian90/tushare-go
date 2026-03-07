@@ -4,29 +4,48 @@ package apis
 
 import (
 	"context"
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/sdk/api/index"
+	"tushare-go/pkg/sdk"
+	index "tushare-go/pkg/sdk/api/index"
 )
 
 type Index interface {
+	// CiDaily 调用 中信行业指数日行情 API
 	CiDaily(ctx context.Context, req *index.CiDailyRequest) ([]index.CiDailyItem, error)
+	// CiIndexMember 调用 中信行业成分 API
 	CiIndexMember(ctx context.Context, req *index.CiIndexMemberRequest) ([]index.CiIndexMemberItem, error)
+	// DailyInfo 调用 沪深市场每日交易统计 API
 	DailyInfo(ctx context.Context, req *index.DailyInfoRequest) ([]index.DailyInfoItem, error)
+	// IdxFactorPro 调用 指数技术面因子(专业版) API
 	IdxFactorPro(ctx context.Context, req *index.IdxFactorProRequest) ([]index.IdxFactorProItem, error)
+	// IdxMins 调用 指数历史分钟 API
 	IdxMins(ctx context.Context, req *index.IdxMinsRequest) ([]index.IdxMinsItem, error)
+	// IndexBasic 调用 指数基本信息 API
 	IndexBasic(ctx context.Context, req *index.IndexBasicRequest) ([]index.IndexBasicItem, error)
+	// IndexClassify 调用 申万行业分类 API
 	IndexClassify(ctx context.Context, req *index.IndexClassifyRequest) ([]index.IndexClassifyItem, error)
+	// IndexDaily 调用 指数日线行情 API
 	IndexDaily(ctx context.Context, req *index.IndexDailyRequest) ([]index.IndexDailyItem, error)
+	// IndexDailybasic 调用 大盘指数每日指标 API
 	IndexDailybasic(ctx context.Context, req *index.IndexDailybasicRequest) ([]index.IndexDailybasicItem, error)
+	// IndexGlobal 调用 国际主要指数 API
 	IndexGlobal(ctx context.Context, req *index.IndexGlobalRequest) ([]index.IndexGlobalItem, error)
+	// IndexMemberAll 调用 申万行业成分（分级） API
 	IndexMemberAll(ctx context.Context, req *index.IndexMemberAllRequest) ([]index.IndexMemberAllItem, error)
+	// IndexMonthly 调用 指数月线行情 API
 	IndexMonthly(ctx context.Context, req *index.IndexMonthlyRequest) ([]index.IndexMonthlyItem, error)
+	// IndexWeekly 调用 指数周线行情 API
 	IndexWeekly(ctx context.Context, req *index.IndexWeeklyRequest) ([]index.IndexWeeklyItem, error)
+	// IndexWeight 调用 指数成分和权重 API
 	IndexWeight(ctx context.Context, req *index.IndexWeightRequest) ([]index.IndexWeightItem, error)
+	// RtIdxK 调用 指数实时日线 API
 	RtIdxK(ctx context.Context, req *index.RtIdxKRequest) ([]index.RtIdxKItem, error)
+	// RtIdxMin 调用 指数实时分钟 API
 	RtIdxMin(ctx context.Context, req *index.RtIdxMinRequest) ([]index.RtIdxMinItem, error)
+	// RtSwK 调用 申万实时行情 API
 	RtSwK(ctx context.Context, req *index.RtSwKRequest) ([]index.RtSwKItem, error)
+	// SwDaily 调用 申万行业指数日行情 API
 	SwDaily(ctx context.Context, req *index.SwDailyRequest) ([]index.SwDailyItem, error)
+	// SzDailyInfo 调用 深圳市场每日交易情况 API
 	SzDailyInfo(ctx context.Context, req *index.SzDailyInfoRequest) ([]index.SzDailyInfoItem, error)
 }
 
@@ -34,78 +53,97 @@ type indexImpl struct {
 	client *sdk.Client
 }
 
+// CiDaily 调用 中信行业指数日行情 API
 func (impl *indexImpl) CiDaily(ctx context.Context, req *index.CiDailyRequest) ([]index.CiDailyItem, error) {
 	return index.CiDaily(ctx, impl.client, req)
 }
 
+// CiIndexMember 调用 中信行业成分 API
 func (impl *indexImpl) CiIndexMember(ctx context.Context, req *index.CiIndexMemberRequest) ([]index.CiIndexMemberItem, error) {
 	return index.CiIndexMember(ctx, impl.client, req)
 }
 
+// DailyInfo 调用 沪深市场每日交易统计 API
 func (impl *indexImpl) DailyInfo(ctx context.Context, req *index.DailyInfoRequest) ([]index.DailyInfoItem, error) {
 	return index.DailyInfo(ctx, impl.client, req)
 }
 
+// IdxFactorPro 调用 指数技术面因子(专业版) API
 func (impl *indexImpl) IdxFactorPro(ctx context.Context, req *index.IdxFactorProRequest) ([]index.IdxFactorProItem, error) {
 	return index.IdxFactorPro(ctx, impl.client, req)
 }
 
+// IdxMins 调用 指数历史分钟 API
 func (impl *indexImpl) IdxMins(ctx context.Context, req *index.IdxMinsRequest) ([]index.IdxMinsItem, error) {
 	return index.IdxMins(ctx, impl.client, req)
 }
 
+// IndexBasic 调用 指数基本信息 API
 func (impl *indexImpl) IndexBasic(ctx context.Context, req *index.IndexBasicRequest) ([]index.IndexBasicItem, error) {
 	return index.IndexBasic(ctx, impl.client, req)
 }
 
+// IndexClassify 调用 申万行业分类 API
 func (impl *indexImpl) IndexClassify(ctx context.Context, req *index.IndexClassifyRequest) ([]index.IndexClassifyItem, error) {
 	return index.IndexClassify(ctx, impl.client, req)
 }
 
+// IndexDaily 调用 指数日线行情 API
 func (impl *indexImpl) IndexDaily(ctx context.Context, req *index.IndexDailyRequest) ([]index.IndexDailyItem, error) {
 	return index.IndexDaily(ctx, impl.client, req)
 }
 
+// IndexDailybasic 调用 大盘指数每日指标 API
 func (impl *indexImpl) IndexDailybasic(ctx context.Context, req *index.IndexDailybasicRequest) ([]index.IndexDailybasicItem, error) {
 	return index.IndexDailybasic(ctx, impl.client, req)
 }
 
+// IndexGlobal 调用 国际主要指数 API
 func (impl *indexImpl) IndexGlobal(ctx context.Context, req *index.IndexGlobalRequest) ([]index.IndexGlobalItem, error) {
 	return index.IndexGlobal(ctx, impl.client, req)
 }
 
+// IndexMemberAll 调用 申万行业成分（分级） API
 func (impl *indexImpl) IndexMemberAll(ctx context.Context, req *index.IndexMemberAllRequest) ([]index.IndexMemberAllItem, error) {
 	return index.IndexMemberAll(ctx, impl.client, req)
 }
 
+// IndexMonthly 调用 指数月线行情 API
 func (impl *indexImpl) IndexMonthly(ctx context.Context, req *index.IndexMonthlyRequest) ([]index.IndexMonthlyItem, error) {
 	return index.IndexMonthly(ctx, impl.client, req)
 }
 
+// IndexWeekly 调用 指数周线行情 API
 func (impl *indexImpl) IndexWeekly(ctx context.Context, req *index.IndexWeeklyRequest) ([]index.IndexWeeklyItem, error) {
 	return index.IndexWeekly(ctx, impl.client, req)
 }
 
+// IndexWeight 调用 指数成分和权重 API
 func (impl *indexImpl) IndexWeight(ctx context.Context, req *index.IndexWeightRequest) ([]index.IndexWeightItem, error) {
 	return index.IndexWeight(ctx, impl.client, req)
 }
 
+// RtIdxK 调用 指数实时日线 API
 func (impl *indexImpl) RtIdxK(ctx context.Context, req *index.RtIdxKRequest) ([]index.RtIdxKItem, error) {
 	return index.RtIdxK(ctx, impl.client, req)
 }
 
+// RtIdxMin 调用 指数实时分钟 API
 func (impl *indexImpl) RtIdxMin(ctx context.Context, req *index.RtIdxMinRequest) ([]index.RtIdxMinItem, error) {
 	return index.RtIdxMin(ctx, impl.client, req)
 }
 
+// RtSwK 调用 申万实时行情 API
 func (impl *indexImpl) RtSwK(ctx context.Context, req *index.RtSwKRequest) ([]index.RtSwKItem, error) {
 	return index.RtSwK(ctx, impl.client, req)
 }
 
+// SwDaily 调用 申万行业指数日行情 API
 func (impl *indexImpl) SwDaily(ctx context.Context, req *index.SwDailyRequest) ([]index.SwDailyItem, error) {
 	return index.SwDaily(ctx, impl.client, req)
 }
 
+// SzDailyInfo 调用 深圳市场每日交易情况 API
 func (impl *indexImpl) SzDailyInfo(ctx context.Context, req *index.SzDailyInfoRequest) ([]index.SzDailyInfoItem, error) {
 	return index.SzDailyInfo(ctx, impl.client, req)
 }

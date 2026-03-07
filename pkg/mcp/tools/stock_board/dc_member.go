@@ -4,29 +4,55 @@ package stock_boardtools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	stock_stock_board "github.com/chenniannian90/tushare-go/pkg/sdk/api/stock/stock_board"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	stock_stock_board "tushare-go/pkg/sdk/api/stock/stock_board"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callDcMember handles DcMember tool calls
-func (m *Stock_boardTools) callDcMember(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &stock_stock_board.DcMemberRequest{}
+// registerDcMember registers the tool
+func (r *Stock_boardTools) registerDcMember() {
+	inputSchema, _ := jsonschema.For[DcMemberInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "stock_board.dc_member",
+		Description: "Retrieve dcmember data from Tushare stock board API",
+		InputSchema: inputSchema,
 	}
 
-	items, err := stock_stock_board.DcMember(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input DcMemberInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &stock_stock_board.DcMemberRequest{
+
+		}
+
+		items, err := stock_stock_board.DcMember(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := DcMemberOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "stock_board", "dc_member")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

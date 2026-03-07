@@ -4,65 +4,85 @@ package apis
 
 import (
 	"context"
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/sdk/api/stock_financial"
+	"tushare-go/pkg/sdk"
+	stock_stock_financial "tushare-go/pkg/sdk/api/stock/stock_financial"
 )
 
 type StockFinancial interface {
-	Balancesheet(ctx context.Context, req *stock_financial.BalancesheetRequest) ([]stock_financial.BalancesheetItem, error)
-	Cashflow(ctx context.Context, req *stock_financial.CashflowRequest) ([]stock_financial.CashflowItem, error)
-	DisclosureDate(ctx context.Context, req *stock_financial.DisclosureDateRequest) ([]stock_financial.DisclosureDateItem, error)
-	Dividend(ctx context.Context, req *stock_financial.DividendRequest) ([]stock_financial.DividendItem, error)
-	Express(ctx context.Context, req *stock_financial.ExpressRequest) ([]stock_financial.ExpressItem, error)
-	FinaAudit(ctx context.Context, req *stock_financial.FinaAuditRequest) ([]stock_financial.FinaAuditItem, error)
-	FinaIndicator(ctx context.Context, req *stock_financial.FinaIndicatorRequest) ([]stock_financial.FinaIndicatorItem, error)
-	FinaMainbz(ctx context.Context, req *stock_financial.FinaMainbzRequest) ([]stock_financial.FinaMainbzItem, error)
-	Forecast(ctx context.Context, req *stock_financial.ForecastRequest) ([]stock_financial.ForecastItem, error)
-	Income(ctx context.Context, req *stock_financial.IncomeRequest) ([]stock_financial.IncomeItem, error)
+	// Balancesheet 调用 资产负债表 API
+	Balancesheet(ctx context.Context, req *stock_stock_financial.BalancesheetRequest) ([]stock_stock_financial.BalancesheetItem, error)
+	// Cashflow 调用 现金流量表 API
+	Cashflow(ctx context.Context, req *stock_stock_financial.CashflowRequest) ([]stock_stock_financial.CashflowItem, error)
+	// DisclosureDate 调用 财报披露日期表 API
+	DisclosureDate(ctx context.Context, req *stock_stock_financial.DisclosureDateRequest) ([]stock_stock_financial.DisclosureDateItem, error)
+	// Dividend 调用 分红送股数据 API
+	Dividend(ctx context.Context, req *stock_stock_financial.DividendRequest) ([]stock_stock_financial.DividendItem, error)
+	// Express 调用 业绩快报 API
+	Express(ctx context.Context, req *stock_stock_financial.ExpressRequest) ([]stock_stock_financial.ExpressItem, error)
+	// FinaAudit 调用 财务审计意见 API
+	FinaAudit(ctx context.Context, req *stock_stock_financial.FinaAuditRequest) ([]stock_stock_financial.FinaAuditItem, error)
+	// FinaIndicator 调用 财务指标数据 API
+	FinaIndicator(ctx context.Context, req *stock_stock_financial.FinaIndicatorRequest) ([]stock_stock_financial.FinaIndicatorItem, error)
+	// FinaMainbz 调用 主营业务构成 API
+	FinaMainbz(ctx context.Context, req *stock_stock_financial.FinaMainbzRequest) ([]stock_stock_financial.FinaMainbzItem, error)
+	// Forecast 调用 业绩预告 API
+	Forecast(ctx context.Context, req *stock_stock_financial.ForecastRequest) ([]stock_stock_financial.ForecastItem, error)
+	// Income 调用 利润表 API
+	Income(ctx context.Context, req *stock_stock_financial.IncomeRequest) ([]stock_stock_financial.IncomeItem, error)
 }
 
 type stockFinancialImpl struct {
 	client *sdk.Client
 }
 
-func (impl *stockFinancialImpl) Balancesheet(ctx context.Context, req *stock_financial.BalancesheetRequest) ([]stock_financial.BalancesheetItem, error) {
-	return stock_financial.Balancesheet(ctx, impl.client, req)
+// Balancesheet 调用 资产负债表 API
+func (impl *stockFinancialImpl) Balancesheet(ctx context.Context, req *stock_stock_financial.BalancesheetRequest) ([]stock_stock_financial.BalancesheetItem, error) {
+	return stock_stock_financial.Balancesheet(ctx, impl.client, req)
 }
 
-func (impl *stockFinancialImpl) Cashflow(ctx context.Context, req *stock_financial.CashflowRequest) ([]stock_financial.CashflowItem, error) {
-	return stock_financial.Cashflow(ctx, impl.client, req)
+// Cashflow 调用 现金流量表 API
+func (impl *stockFinancialImpl) Cashflow(ctx context.Context, req *stock_stock_financial.CashflowRequest) ([]stock_stock_financial.CashflowItem, error) {
+	return stock_stock_financial.Cashflow(ctx, impl.client, req)
 }
 
-func (impl *stockFinancialImpl) DisclosureDate(ctx context.Context, req *stock_financial.DisclosureDateRequest) ([]stock_financial.DisclosureDateItem, error) {
-	return stock_financial.DisclosureDate(ctx, impl.client, req)
+// DisclosureDate 调用 财报披露日期表 API
+func (impl *stockFinancialImpl) DisclosureDate(ctx context.Context, req *stock_stock_financial.DisclosureDateRequest) ([]stock_stock_financial.DisclosureDateItem, error) {
+	return stock_stock_financial.DisclosureDate(ctx, impl.client, req)
 }
 
-func (impl *stockFinancialImpl) Dividend(ctx context.Context, req *stock_financial.DividendRequest) ([]stock_financial.DividendItem, error) {
-	return stock_financial.Dividend(ctx, impl.client, req)
+// Dividend 调用 分红送股数据 API
+func (impl *stockFinancialImpl) Dividend(ctx context.Context, req *stock_stock_financial.DividendRequest) ([]stock_stock_financial.DividendItem, error) {
+	return stock_stock_financial.Dividend(ctx, impl.client, req)
 }
 
-func (impl *stockFinancialImpl) Express(ctx context.Context, req *stock_financial.ExpressRequest) ([]stock_financial.ExpressItem, error) {
-	return stock_financial.Express(ctx, impl.client, req)
+// Express 调用 业绩快报 API
+func (impl *stockFinancialImpl) Express(ctx context.Context, req *stock_stock_financial.ExpressRequest) ([]stock_stock_financial.ExpressItem, error) {
+	return stock_stock_financial.Express(ctx, impl.client, req)
 }
 
-func (impl *stockFinancialImpl) FinaAudit(ctx context.Context, req *stock_financial.FinaAuditRequest) ([]stock_financial.FinaAuditItem, error) {
-	return stock_financial.FinaAudit(ctx, impl.client, req)
+// FinaAudit 调用 财务审计意见 API
+func (impl *stockFinancialImpl) FinaAudit(ctx context.Context, req *stock_stock_financial.FinaAuditRequest) ([]stock_stock_financial.FinaAuditItem, error) {
+	return stock_stock_financial.FinaAudit(ctx, impl.client, req)
 }
 
-func (impl *stockFinancialImpl) FinaIndicator(ctx context.Context, req *stock_financial.FinaIndicatorRequest) ([]stock_financial.FinaIndicatorItem, error) {
-	return stock_financial.FinaIndicator(ctx, impl.client, req)
+// FinaIndicator 调用 财务指标数据 API
+func (impl *stockFinancialImpl) FinaIndicator(ctx context.Context, req *stock_stock_financial.FinaIndicatorRequest) ([]stock_stock_financial.FinaIndicatorItem, error) {
+	return stock_stock_financial.FinaIndicator(ctx, impl.client, req)
 }
 
-func (impl *stockFinancialImpl) FinaMainbz(ctx context.Context, req *stock_financial.FinaMainbzRequest) ([]stock_financial.FinaMainbzItem, error) {
-	return stock_financial.FinaMainbz(ctx, impl.client, req)
+// FinaMainbz 调用 主营业务构成 API
+func (impl *stockFinancialImpl) FinaMainbz(ctx context.Context, req *stock_stock_financial.FinaMainbzRequest) ([]stock_stock_financial.FinaMainbzItem, error) {
+	return stock_stock_financial.FinaMainbz(ctx, impl.client, req)
 }
 
-func (impl *stockFinancialImpl) Forecast(ctx context.Context, req *stock_financial.ForecastRequest) ([]stock_financial.ForecastItem, error) {
-	return stock_financial.Forecast(ctx, impl.client, req)
+// Forecast 调用 业绩预告 API
+func (impl *stockFinancialImpl) Forecast(ctx context.Context, req *stock_stock_financial.ForecastRequest) ([]stock_stock_financial.ForecastItem, error) {
+	return stock_stock_financial.Forecast(ctx, impl.client, req)
 }
 
-func (impl *stockFinancialImpl) Income(ctx context.Context, req *stock_financial.IncomeRequest) ([]stock_financial.IncomeItem, error) {
-	return stock_financial.Income(ctx, impl.client, req)
+// Income 调用 利润表 API
+func (impl *stockFinancialImpl) Income(ctx context.Context, req *stock_stock_financial.IncomeRequest) ([]stock_stock_financial.IncomeItem, error) {
+	return stock_stock_financial.Income(ctx, impl.client, req)
 }
 
 func newstockFinancialImpl(client *sdk.Client) StockFinancial {

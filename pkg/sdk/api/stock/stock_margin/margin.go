@@ -5,7 +5,7 @@ package stock_margin
 import (
 	"context"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 )
 
 // MarginRequest 表示 融资融券交易汇总 API 的请求

@@ -4,25 +4,40 @@ package apis
 
 import (
 	"context"
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/sdk/api/bond"
+	"tushare-go/pkg/sdk"
+	bond "tushare-go/pkg/sdk/api/bond"
 )
 
 type Bond interface {
+	// BcBestotcqt 调用 柜台流通式债券最优报价 API
 	BcBestotcqt(ctx context.Context, req *bond.BcBestotcqtRequest) ([]bond.BcBestotcqtItem, error)
+	// BcOtcqt 调用 柜台流通式债券报价 API
 	BcOtcqt(ctx context.Context, req *bond.BcOtcqtRequest) ([]bond.BcOtcqtItem, error)
+	// BondBlk 调用 大宗交易 API
 	BondBlk(ctx context.Context, req *bond.BondBlkRequest) ([]bond.BondBlkItem, error)
+	// BondBlkDetail 调用 大宗交易明细 API
 	BondBlkDetail(ctx context.Context, req *bond.BondBlkDetailRequest) ([]bond.BondBlkDetailItem, error)
+	// CbBasic 调用 可转债基础信息 API
 	CbBasic(ctx context.Context, req *bond.CbBasicRequest) ([]bond.CbBasicItem, error)
+	// CbCall 调用 可转债赎回信息 API
 	CbCall(ctx context.Context, req *bond.CbCallRequest) ([]bond.CbCallItem, error)
+	// CbDaily 调用 可转债行情 API
 	CbDaily(ctx context.Context, req *bond.CbDailyRequest) ([]bond.CbDailyItem, error)
+	// CbFactorPro 调用 可转债技术面因子(专业版) API
 	CbFactorPro(ctx context.Context, req *bond.CbFactorProRequest) ([]bond.CbFactorProItem, error)
+	// CbIssue 调用 可转债发行 API
 	CbIssue(ctx context.Context, req *bond.CbIssueRequest) ([]bond.CbIssueItem, error)
+	// CbPriceChg 调用 可转债转股价变动 API
 	CbPriceChg(ctx context.Context, req *bond.CbPriceChgRequest) ([]bond.CbPriceChgItem, error)
+	// CbRate 调用 可转债票面利率 API
 	CbRate(ctx context.Context, req *bond.CbRateRequest) ([]bond.CbRateItem, error)
+	// CbShare 调用 可转债转股结果 API
 	CbShare(ctx context.Context, req *bond.CbShareRequest) ([]bond.CbShareItem, error)
+	// EcoCal 调用 全球财经事件 API
 	EcoCal(ctx context.Context, req *bond.EcoCalRequest) ([]bond.EcoCalItem, error)
+	// RepoDaily 调用 债券回购日行情 API
 	RepoDaily(ctx context.Context, req *bond.RepoDailyRequest) ([]bond.RepoDailyItem, error)
+	// YcCb 调用 国债收益率曲线 API
 	YcCb(ctx context.Context, req *bond.YcCbRequest) ([]bond.YcCbItem, error)
 }
 
@@ -30,62 +45,77 @@ type bondImpl struct {
 	client *sdk.Client
 }
 
+// BcBestotcqt 调用 柜台流通式债券最优报价 API
 func (impl *bondImpl) BcBestotcqt(ctx context.Context, req *bond.BcBestotcqtRequest) ([]bond.BcBestotcqtItem, error) {
 	return bond.BcBestotcqt(ctx, impl.client, req)
 }
 
+// BcOtcqt 调用 柜台流通式债券报价 API
 func (impl *bondImpl) BcOtcqt(ctx context.Context, req *bond.BcOtcqtRequest) ([]bond.BcOtcqtItem, error) {
 	return bond.BcOtcqt(ctx, impl.client, req)
 }
 
+// BondBlk 调用 大宗交易 API
 func (impl *bondImpl) BondBlk(ctx context.Context, req *bond.BondBlkRequest) ([]bond.BondBlkItem, error) {
 	return bond.BondBlk(ctx, impl.client, req)
 }
 
+// BondBlkDetail 调用 大宗交易明细 API
 func (impl *bondImpl) BondBlkDetail(ctx context.Context, req *bond.BondBlkDetailRequest) ([]bond.BondBlkDetailItem, error) {
 	return bond.BondBlkDetail(ctx, impl.client, req)
 }
 
+// CbBasic 调用 可转债基础信息 API
 func (impl *bondImpl) CbBasic(ctx context.Context, req *bond.CbBasicRequest) ([]bond.CbBasicItem, error) {
 	return bond.CbBasic(ctx, impl.client, req)
 }
 
+// CbCall 调用 可转债赎回信息 API
 func (impl *bondImpl) CbCall(ctx context.Context, req *bond.CbCallRequest) ([]bond.CbCallItem, error) {
 	return bond.CbCall(ctx, impl.client, req)
 }
 
+// CbDaily 调用 可转债行情 API
 func (impl *bondImpl) CbDaily(ctx context.Context, req *bond.CbDailyRequest) ([]bond.CbDailyItem, error) {
 	return bond.CbDaily(ctx, impl.client, req)
 }
 
+// CbFactorPro 调用 可转债技术面因子(专业版) API
 func (impl *bondImpl) CbFactorPro(ctx context.Context, req *bond.CbFactorProRequest) ([]bond.CbFactorProItem, error) {
 	return bond.CbFactorPro(ctx, impl.client, req)
 }
 
+// CbIssue 调用 可转债发行 API
 func (impl *bondImpl) CbIssue(ctx context.Context, req *bond.CbIssueRequest) ([]bond.CbIssueItem, error) {
 	return bond.CbIssue(ctx, impl.client, req)
 }
 
+// CbPriceChg 调用 可转债转股价变动 API
 func (impl *bondImpl) CbPriceChg(ctx context.Context, req *bond.CbPriceChgRequest) ([]bond.CbPriceChgItem, error) {
 	return bond.CbPriceChg(ctx, impl.client, req)
 }
 
+// CbRate 调用 可转债票面利率 API
 func (impl *bondImpl) CbRate(ctx context.Context, req *bond.CbRateRequest) ([]bond.CbRateItem, error) {
 	return bond.CbRate(ctx, impl.client, req)
 }
 
+// CbShare 调用 可转债转股结果 API
 func (impl *bondImpl) CbShare(ctx context.Context, req *bond.CbShareRequest) ([]bond.CbShareItem, error) {
 	return bond.CbShare(ctx, impl.client, req)
 }
 
+// EcoCal 调用 全球财经事件 API
 func (impl *bondImpl) EcoCal(ctx context.Context, req *bond.EcoCalRequest) ([]bond.EcoCalItem, error) {
 	return bond.EcoCal(ctx, impl.client, req)
 }
 
+// RepoDaily 调用 债券回购日行情 API
 func (impl *bondImpl) RepoDaily(ctx context.Context, req *bond.RepoDailyRequest) ([]bond.RepoDailyItem, error) {
 	return bond.RepoDaily(ctx, impl.client, req)
 }
 
+// YcCb 调用 国债收益率曲线 API
 func (impl *bondImpl) YcCb(ctx context.Context, req *bond.YcCbRequest) ([]bond.YcCbItem, error) {
 	return bond.YcCb(ctx, impl.client, req)
 }

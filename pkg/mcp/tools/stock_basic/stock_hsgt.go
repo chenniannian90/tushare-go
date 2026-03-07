@@ -4,29 +4,55 @@ package stock_basictools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	stock_stock_basic "github.com/chenniannian90/tushare-go/pkg/sdk/api/stock/stock_basic"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	stock_stock_basic "tushare-go/pkg/sdk/api/stock/stock_basic"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callStockHsgt handles StockHsgt tool calls
-func (m *Stock_basicTools) callStockHsgt(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &stock_stock_basic.StockHsgtRequest{}
+// registerStockHsgt registers the tool
+func (r *Stock_basicTools) registerStockHsgt() {
+	inputSchema, _ := jsonschema.For[StockHsgtInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "stock_basic.stock_hsgt",
+		Description: "Retrieve stockhsgt data from Tushare stock basic API",
+		InputSchema: inputSchema,
 	}
 
-	items, err := stock_stock_basic.StockHsgt(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input StockHsgtInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &stock_stock_basic.StockHsgtRequest{
+
+		}
+
+		items, err := stock_stock_basic.StockHsgt(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := StockHsgtOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "stock_basic", "stock_hsgt")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

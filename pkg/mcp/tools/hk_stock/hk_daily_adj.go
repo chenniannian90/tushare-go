@@ -4,29 +4,59 @@ package hk_stocktools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	hk_stock "github.com/chenniannian90/tushare-go/pkg/sdk/api/hk_stock"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	hk_stock "tushare-go/pkg/sdk/api/hk_stock"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callHkDailyAdj handles HkDailyAdj tool calls
-func (m *Hk_stockTools) callHkDailyAdj(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &hk_stock.HkDailyAdjRequest{}
+// registerHkDailyAdj registers the tool
+func (r *Hk_stockTools) registerHkDailyAdj() {
+	inputSchema, _ := jsonschema.For[HkDailyAdjInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "hk_stock.hk_daily_adj",
+		Description: "获取港股复权行情，提供股票股本、市值和成交及换手多个数据指标",
+		InputSchema: inputSchema,
 	}
 
-	items, err := hk_stock.HkDailyAdj(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input HkDailyAdjInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &hk_stock.HkDailyAdjRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+
+		}
+
+		items, err := hk_stock.HkDailyAdj(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := HkDailyAdjOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "hk_stock", "hk_daily_adj")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

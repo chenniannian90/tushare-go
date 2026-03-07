@@ -6,10 +6,10 @@ import (
 	"log"
 	"os"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/sdk/apis"
-	stockbasic "github.com/chenniannian90/tushare-go/pkg/sdk/api/stock/stock_basic"
-	stockmarket "github.com/chenniannian90/tushare-go/pkg/sdk/api/stock/stock_market"
+	"tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk/apis"
+	stockbasic "tushare-go/pkg/sdk/api/stock/stock_basic"
+	stockmarket "tushare-go/pkg/sdk/api/stock/stock_market"
 )
 
 func main() {

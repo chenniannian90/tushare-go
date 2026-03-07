@@ -3,63 +3,24 @@
 package forextools
 
 import (
-	"context"
-	"fmt"
-
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	"tushare-go/pkg/sdk"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// ForexTools implements tools for forex API
+// ForexTools represents forex tools
 type ForexTools struct {
+	server *mcp.Server
 	client *sdk.Client
 }
 
-// NewForexTools creates a new forex tools instance
-func NewForexTools(client *sdk.Client) *ForexTools {
-	return &ForexTools{
-		client: client,
-	}
+// NewForexTools creates a new instance
+func NewForexTools(server *mcp.Server, client *sdk.Client) *ForexTools {
+	return &ForexTools{server: server, client: client}
 }
 
-// GetAPIName returns the Tushare API name for this module
-func (m *ForexTools) GetAPIName() string {
-	return "forex"
-}
+// RegisterAll registers all tools
+func (r *ForexTools) RegisterAll() {
+	r.registerFxDaily()
+	r.registerFxObasic()
 
-// ListTools returns all available tools in this module
-func (m *ForexTools) ListTools() []common.Tool {
-	return []common.Tool{
-		{
-			Name: "forex.fx_daily",
-			Description: "Access fx_daily data from Tushare API",
-		},
-		{
-			Name: "forex.fx_obasic",
-			Description: "Access fx_obasic data from Tushare API",
-		},
-	}
-}
-
-// HandlesTool checks if this module handles a tool
-func (m *ForexTools) HandlesTool(toolName string) bool {
-	tools := m.ListTools()
-	for _, tool := range tools {
-		if tool.Name == toolName {
-			return true
-		}
-	}
-	return false
-}
-
-// CallTool executes a tool call
-func (m *ForexTools) CallTool(ctx context.Context, toolName string, args map[string]interface{}) (*common.ToolResult, error) {
-	switch toolName {
-	case "forex.fx_daily":
-		return m.callFxDaily(ctx, args)
-	case "forex.fx_obasic":
-		return m.callFxObasic(ctx, args)
-	default:
-		return nil, fmt.Errorf("unknown tool: %s", toolName)
-	}
 }

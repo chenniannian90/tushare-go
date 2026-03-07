@@ -4,29 +4,59 @@ package indextools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	index "github.com/chenniannian90/tushare-go/pkg/sdk/api/index"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	index "tushare-go/pkg/sdk/api/index"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callIndexGlobal handles IndexGlobal tool calls
-func (m *IndexTools) callIndexGlobal(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &index.IndexGlobalRequest{}
+// registerIndexGlobal registers the tool
+func (r *IndexTools) registerIndexGlobal() {
+	inputSchema, _ := jsonschema.For[IndexGlobalInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "index.index_global",
+		Description: "获取国际主要指数日线行情",
+		InputSchema: inputSchema,
 	}
 
-	items, err := index.IndexGlobal(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input IndexGlobalInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &index.IndexGlobalRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+
+		}
+
+		items, err := index.IndexGlobal(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := IndexGlobalOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "index", "index_global")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

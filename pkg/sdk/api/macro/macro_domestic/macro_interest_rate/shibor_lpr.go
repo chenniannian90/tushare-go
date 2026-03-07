@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 )
 
 // ShiborLprRequest 表示 LPR贷款基础利率 API 的请求
@@ -19,8 +19,8 @@ type ShiborLprRequest struct {
 // ShiborLprItem 表示单个 LPR贷款基础利率 数据项
 type ShiborLprItem struct {
 	Date string `json:"date"` // 日期
-	1y float64 `json:"1y"` // 1年贷款利率
-	5y float64 `json:"5y"` // 5年贷款利率
+	Field1y float64 `json:"1y"` // 1年贷款利率
+	Field5y float64 `json:"5y"` // 5年贷款利率
 }
 
 // ShiborLpr 调用 LPR贷款基础利率 API
@@ -54,19 +54,19 @@ func ShiborLpr(ctx context.Context, client *sdk.Client, req *ShiborLprRequest) (
 			return nil, fmt.Errorf("无效的 date 类型")
 		}
 		// 处理 1y 的简单类型
-		1y, ok := item["1y"].(float64)
+		field1y, ok := item["1y"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 1y 类型")
 		}
 		// 处理 5y 的简单类型
-		5y, ok := item["5y"].(float64)
+		field5y, ok := item["5y"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 5y 类型")
 		}
 		items[i] = ShiborLprItem{
 			Date: date,
-			1y: 1y,
-			5y: 5y,
+			Field1y: field1y,
+			Field5y: field5y,
 		}
 	}
 

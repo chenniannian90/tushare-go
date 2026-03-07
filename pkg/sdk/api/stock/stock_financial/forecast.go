@@ -5,7 +5,7 @@ package stock_financial
 import (
 	"context"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 )
 
 // ForecastRequest 表示 业绩预告 API 的请求

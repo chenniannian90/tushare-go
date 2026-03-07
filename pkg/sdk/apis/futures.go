@@ -4,24 +4,38 @@ package apis
 
 import (
 	"context"
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/sdk/api/futures"
+	"tushare-go/pkg/sdk"
+	futures "tushare-go/pkg/sdk/api/futures"
 )
 
 type Futures interface {
+	// FtLimit 调用 期货合约涨跌停价格 API
 	FtLimit(ctx context.Context, req *futures.FtLimitRequest) ([]futures.FtLimitItem, error)
+	// FtMins 调用 历史分钟行情 API
 	FtMins(ctx context.Context, req *futures.FtMinsRequest) ([]futures.FtMinsItem, error)
+	// FutBasic 调用 合约信息 API
 	FutBasic(ctx context.Context, req *futures.FutBasicRequest) ([]futures.FutBasicItem, error)
+	// FutDaily 调用 日线行情 API
 	FutDaily(ctx context.Context, req *futures.FutDailyRequest) ([]futures.FutDailyItem, error)
+	// FutHolding 调用 每日持仓排名 API
 	FutHolding(ctx context.Context, req *futures.FutHoldingRequest) ([]futures.FutHoldingItem, error)
+	// FutMapping 调用 期货主力与连续合约 API
 	FutMapping(ctx context.Context, req *futures.FutMappingRequest) ([]futures.FutMappingItem, error)
+	// FutSettle 调用 每日结算参数 API
 	FutSettle(ctx context.Context, req *futures.FutSettleRequest) ([]futures.FutSettleItem, error)
+	// FutTick 调用 历史Tick行情 API
 	FutTick(ctx context.Context, req *futures.FutTickRequest) ([]futures.FutTickItem, error)
+	// FutWeeklyDetail 调用 期货主要品种交易周报 API
 	FutWeeklyDetail(ctx context.Context, req *futures.FutWeeklyDetailRequest) ([]futures.FutWeeklyDetailItem, error)
+	// FutWeeklyMonthly 调用 期货周/月线行情(每日更新) API
 	FutWeeklyMonthly(ctx context.Context, req *futures.FutWeeklyMonthlyRequest) ([]futures.FutWeeklyMonthlyItem, error)
+	// FutWsr 调用 仓单日报 API
 	FutWsr(ctx context.Context, req *futures.FutWsrRequest) ([]futures.FutWsrItem, error)
+	// IndexDaily 调用 南华期货指数行情 API
 	IndexDaily(ctx context.Context, req *futures.IndexDailyRequest) ([]futures.IndexDailyItem, error)
+	// RtFutMin 调用 实时分钟行情 API
 	RtFutMin(ctx context.Context, req *futures.RtFutMinRequest) ([]futures.RtFutMinItem, error)
+	// TradeCal 调用 交易日历 API
 	TradeCal(ctx context.Context, req *futures.TradeCalRequest) ([]futures.TradeCalItem, error)
 }
 
@@ -29,58 +43,72 @@ type futuresImpl struct {
 	client *sdk.Client
 }
 
+// FtLimit 调用 期货合约涨跌停价格 API
 func (impl *futuresImpl) FtLimit(ctx context.Context, req *futures.FtLimitRequest) ([]futures.FtLimitItem, error) {
 	return futures.FtLimit(ctx, impl.client, req)
 }
 
+// FtMins 调用 历史分钟行情 API
 func (impl *futuresImpl) FtMins(ctx context.Context, req *futures.FtMinsRequest) ([]futures.FtMinsItem, error) {
 	return futures.FtMins(ctx, impl.client, req)
 }
 
+// FutBasic 调用 合约信息 API
 func (impl *futuresImpl) FutBasic(ctx context.Context, req *futures.FutBasicRequest) ([]futures.FutBasicItem, error) {
 	return futures.FutBasic(ctx, impl.client, req)
 }
 
+// FutDaily 调用 日线行情 API
 func (impl *futuresImpl) FutDaily(ctx context.Context, req *futures.FutDailyRequest) ([]futures.FutDailyItem, error) {
 	return futures.FutDaily(ctx, impl.client, req)
 }
 
+// FutHolding 调用 每日持仓排名 API
 func (impl *futuresImpl) FutHolding(ctx context.Context, req *futures.FutHoldingRequest) ([]futures.FutHoldingItem, error) {
 	return futures.FutHolding(ctx, impl.client, req)
 }
 
+// FutMapping 调用 期货主力与连续合约 API
 func (impl *futuresImpl) FutMapping(ctx context.Context, req *futures.FutMappingRequest) ([]futures.FutMappingItem, error) {
 	return futures.FutMapping(ctx, impl.client, req)
 }
 
+// FutSettle 调用 每日结算参数 API
 func (impl *futuresImpl) FutSettle(ctx context.Context, req *futures.FutSettleRequest) ([]futures.FutSettleItem, error) {
 	return futures.FutSettle(ctx, impl.client, req)
 }
 
+// FutTick 调用 历史Tick行情 API
 func (impl *futuresImpl) FutTick(ctx context.Context, req *futures.FutTickRequest) ([]futures.FutTickItem, error) {
 	return futures.FutTick(ctx, impl.client, req)
 }
 
+// FutWeeklyDetail 调用 期货主要品种交易周报 API
 func (impl *futuresImpl) FutWeeklyDetail(ctx context.Context, req *futures.FutWeeklyDetailRequest) ([]futures.FutWeeklyDetailItem, error) {
 	return futures.FutWeeklyDetail(ctx, impl.client, req)
 }
 
+// FutWeeklyMonthly 调用 期货周/月线行情(每日更新) API
 func (impl *futuresImpl) FutWeeklyMonthly(ctx context.Context, req *futures.FutWeeklyMonthlyRequest) ([]futures.FutWeeklyMonthlyItem, error) {
 	return futures.FutWeeklyMonthly(ctx, impl.client, req)
 }
 
+// FutWsr 调用 仓单日报 API
 func (impl *futuresImpl) FutWsr(ctx context.Context, req *futures.FutWsrRequest) ([]futures.FutWsrItem, error) {
 	return futures.FutWsr(ctx, impl.client, req)
 }
 
+// IndexDaily 调用 南华期货指数行情 API
 func (impl *futuresImpl) IndexDaily(ctx context.Context, req *futures.IndexDailyRequest) ([]futures.IndexDailyItem, error) {
 	return futures.IndexDaily(ctx, impl.client, req)
 }
 
+// RtFutMin 调用 实时分钟行情 API
 func (impl *futuresImpl) RtFutMin(ctx context.Context, req *futures.RtFutMinRequest) ([]futures.RtFutMinItem, error) {
 	return futures.RtFutMin(ctx, impl.client, req)
 }
 
+// TradeCal 调用 交易日历 API
 func (impl *futuresImpl) TradeCal(ctx context.Context, req *futures.TradeCalRequest) ([]futures.TradeCalItem, error) {
 	return futures.TradeCal(ctx, impl.client, req)
 }

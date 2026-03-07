@@ -4,29 +4,60 @@ package fundtools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	fund "github.com/chenniannian90/tushare-go/pkg/sdk/api/fund"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	fund "tushare-go/pkg/sdk/api/fund"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callFundShare handles FundShare tool calls
-func (m *FundTools) callFundShare(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &fund.FundShareRequest{}
+// registerFundShare registers the tool
+func (r *FundTools) registerFundShare() {
+	inputSchema, _ := jsonschema.For[FundShareInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "fund.fund_share",
+		Description: "获取基金规模数据，包含上海和深圳ETF基金",
+		InputSchema: inputSchema,
 	}
 
-	items, err := fund.FundShare(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input FundShareInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &fund.FundShareRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+Market: input.Market,
+
+		}
+
+		items, err := fund.FundShare(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := FundShareOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "fund", "fund_share")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

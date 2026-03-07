@@ -5,7 +5,7 @@ package index
 import (
 	"context"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 )
 
 // IndexWeightRequest 表示 指数成分和权重 API 的请求

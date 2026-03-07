@@ -5,7 +5,7 @@ package industry_tmt
 import (
 	"context"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 )
 
 // TmtTwincomedetailRequest 表示 台湾电子产业月营收明细 API 的请求

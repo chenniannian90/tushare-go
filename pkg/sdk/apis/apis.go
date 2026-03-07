@@ -2,72 +2,72 @@
 // 这个包导入了 SDK 和具体的 API 包，为 SDK 的链式调用客户端提供类型化方法
 package apis
 
-import "github.com/chenniannian90/tushare-go/pkg/sdk"
+import "tushare-go/pkg/sdk"
 
 // TushareClient 提供链式调用客户端，集成所有 API 接口
 type TushareClient struct {
 	client *sdk.Client
+	StockMarket StockMarket
+	StockReference StockReference
+	UsStock UsStock
 	Fund Fund
-	Futures Futures
-	MacroBusiness MacroBusiness
-	Options Options
+	Index Index
+	MacroUsRate MacroUsRate
 	StockBasic StockBasic
 	StockBoard StockBoard
-	StockFinancial StockFinancial
-	StockFundFlow StockFundFlow
-	MacroInterestRate MacroInterestRate
-	Index Index
-	IndustryTmt IndustryTmt
-	MacroPrice MacroPrice
-	StockFeature StockFeature
-	StockMargin StockMargin
-	StockReference StockReference
 	WealthFundSales WealthFundSales
-	HkStock HkStock
-	LlmCorpus LlmCorpus
-	StockMarket StockMarket
-	UsStock UsStock
+	Forex Forex
+	MacroSocialFinancing MacroSocialFinancing
+	MacroInterestRate MacroInterestRate
+	MacroPrice MacroPrice
+	Options Options
+	Spot Spot
+	StockFeature StockFeature
+	StockFundFlow StockFundFlow
+	MacroMoneySupply MacroMoneySupply
 	Bond Bond
 	Etf Etf
-	Forex Forex
+	Futures Futures
+	IndustryTmt IndustryTmt
+	MacroBusiness MacroBusiness
 	MacroEconomy MacroEconomy
-	MacroMoneySupply MacroMoneySupply
-	MacroSocialFinancing MacroSocialFinancing
-	MacroUsRate MacroUsRate
-	Spot Spot
+	StockMargin StockMargin
+	HkStock HkStock
+	LlmCorpus LlmCorpus
+	StockFinancial StockFinancial
 }
 
 // NewTushareClient 创建一个新的链式调用客户端
 func NewTushareClient(client *sdk.Client) *TushareClient {
 	return &TushareClient{
 		client: client,
+		StockMarket: newstockMarketImpl(client),
+		StockReference: newstockReferenceImpl(client),
+		UsStock: newusStockImpl(client),
 		Fund: newfundImpl(client),
-		Futures: newfuturesImpl(client),
-		MacroBusiness: newmacroBusinessImpl(client),
-		Options: newoptionsImpl(client),
+		Index: newindexImpl(client),
+		MacroUsRate: newmacroUsRateImpl(client),
 		StockBasic: newstockBasicImpl(client),
 		StockBoard: newstockBoardImpl(client),
-		StockFinancial: newstockFinancialImpl(client),
-		StockFundFlow: newstockFundFlowImpl(client),
-		MacroInterestRate: newmacroInterestRateImpl(client),
-		Index: newindexImpl(client),
-		IndustryTmt: newindustryTmtImpl(client),
-		MacroPrice: newmacroPriceImpl(client),
-		StockFeature: newstockFeatureImpl(client),
-		StockMargin: newstockMarginImpl(client),
-		StockReference: newstockReferenceImpl(client),
 		WealthFundSales: newwealthFundSalesImpl(client),
-		HkStock: newhkStockImpl(client),
-		LlmCorpus: newllmCorpusImpl(client),
-		StockMarket: newstockMarketImpl(client),
-		UsStock: newusStockImpl(client),
+		Forex: newforexImpl(client),
+		MacroSocialFinancing: newmacroSocialFinancingImpl(client),
+		MacroInterestRate: newmacroInterestRateImpl(client),
+		MacroPrice: newmacroPriceImpl(client),
+		Options: newoptionsImpl(client),
+		Spot: newspotImpl(client),
+		StockFeature: newstockFeatureImpl(client),
+		StockFundFlow: newstockFundFlowImpl(client),
+		MacroMoneySupply: newmacroMoneySupplyImpl(client),
 		Bond: newbondImpl(client),
 		Etf: newetfImpl(client),
-		Forex: newforexImpl(client),
+		Futures: newfuturesImpl(client),
+		IndustryTmt: newindustryTmtImpl(client),
+		MacroBusiness: newmacroBusinessImpl(client),
 		MacroEconomy: newmacroEconomyImpl(client),
-		MacroMoneySupply: newmacroMoneySupplyImpl(client),
-		MacroSocialFinancing: newmacroSocialFinancingImpl(client),
-		MacroUsRate: newmacroUsRateImpl(client),
-		Spot: newspotImpl(client),
+		StockMargin: newstockMarginImpl(client),
+		HkStock: newhkStockImpl(client),
+		LlmCorpus: newllmCorpusImpl(client),
+		StockFinancial: newstockFinancialImpl(client),
 	}
 }

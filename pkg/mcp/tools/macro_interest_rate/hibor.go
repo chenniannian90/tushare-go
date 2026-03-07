@@ -4,29 +4,55 @@ package macro_interest_ratetools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	macro_macro_domestic_macro_interest_rate "github.com/chenniannian90/tushare-go/pkg/sdk/api/macro/macro_domestic/macro_interest_rate"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	macro_macro_domestic_macro_interest_rate "tushare-go/pkg/sdk/api/macro/macro_domestic/macro_interest_rate"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callHibor handles Hibor tool calls
-func (m *Macro_interest_rateTools) callHibor(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &macro_macro_domestic_macro_interest_rate.HiborRequest{}
+// registerHibor registers the tool
+func (r *Macro_interest_rateTools) registerHibor() {
+	inputSchema, _ := jsonschema.For[HiborInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "macro_interest_rate.hibor",
+		Description: "Retrieve hibor data from Tushare macro interest rate API",
+		InputSchema: inputSchema,
 	}
 
-	items, err := macro_macro_domestic_macro_interest_rate.Hibor(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input HiborInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &macro_macro_domestic_macro_interest_rate.HiborRequest{
+
+		}
+
+		items, err := macro_macro_domestic_macro_interest_rate.Hibor(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := HiborOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "macro_interest_rate", "hibor")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

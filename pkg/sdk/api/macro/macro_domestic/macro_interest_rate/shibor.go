@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 )
 
 // ShiborRequest 表示 Shibor利率 API 的请求
@@ -20,13 +20,13 @@ type ShiborRequest struct {
 type ShiborItem struct {
 	Date string `json:"date"` // 日期
 	On float64 `json:"on"` // 隔夜
-	1w float64 `json:"1w"` // 1周
-	2w float64 `json:"2w"` // 2周
-	1m float64 `json:"1m"` // 1个月
-	3m float64 `json:"3m"` // 3个月
-	6m float64 `json:"6m"` // 6个月
-	9m float64 `json:"9m"` // 9个月
-	1y float64 `json:"1y"` // 1年
+	Field1w float64 `json:"1w"` // 1周
+	Field2w float64 `json:"2w"` // 2周
+	Field1m float64 `json:"1m"` // 1个月
+	Field3m float64 `json:"3m"` // 3个月
+	Field6m float64 `json:"6m"` // 6个月
+	Field9m float64 `json:"9m"` // 9个月
+	Field1y float64 `json:"1y"` // 1年
 }
 
 // Shibor 调用 Shibor利率 API
@@ -65,50 +65,50 @@ func Shibor(ctx context.Context, client *sdk.Client, req *ShiborRequest) ([]Shib
 			return nil, fmt.Errorf("无效的 on 类型")
 		}
 		// 处理 1w 的简单类型
-		1w, ok := item["1w"].(float64)
+		field1w, ok := item["1w"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 1w 类型")
 		}
 		// 处理 2w 的简单类型
-		2w, ok := item["2w"].(float64)
+		field2w, ok := item["2w"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 2w 类型")
 		}
 		// 处理 1m 的简单类型
-		1m, ok := item["1m"].(float64)
+		field1m, ok := item["1m"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 1m 类型")
 		}
 		// 处理 3m 的简单类型
-		3m, ok := item["3m"].(float64)
+		field3m, ok := item["3m"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 3m 类型")
 		}
 		// 处理 6m 的简单类型
-		6m, ok := item["6m"].(float64)
+		field6m, ok := item["6m"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 6m 类型")
 		}
 		// 处理 9m 的简单类型
-		9m, ok := item["9m"].(float64)
+		field9m, ok := item["9m"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 9m 类型")
 		}
 		// 处理 1y 的简单类型
-		1y, ok := item["1y"].(float64)
+		field1y, ok := item["1y"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 1y 类型")
 		}
 		items[i] = ShiborItem{
 			Date: date,
 			On: on,
-			1w: 1w,
-			2w: 2w,
-			1m: 1m,
-			3m: 3m,
-			6m: 6m,
-			9m: 9m,
-			1y: 1y,
+			Field1w: field1w,
+			Field2w: field2w,
+			Field1m: field1m,
+			Field3m: field3m,
+			Field6m: field6m,
+			Field9m: field9m,
+			Field1y: field1y,
 		}
 	}
 

@@ -4,12 +4,14 @@ package apis
 
 import (
 	"context"
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/sdk/api/forex"
+	"tushare-go/pkg/sdk"
+	forex "tushare-go/pkg/sdk/api/forex"
 )
 
 type Forex interface {
+	// FxDaily 调用 外汇日线行情 API
 	FxDaily(ctx context.Context, req *forex.FxDailyRequest) ([]forex.FxDailyItem, error)
+	// FxObasic 调用 外汇基础信息（海外） API
 	FxObasic(ctx context.Context, req *forex.FxObasicRequest) ([]forex.FxObasicItem, error)
 }
 
@@ -17,10 +19,12 @@ type forexImpl struct {
 	client *sdk.Client
 }
 
+// FxDaily 调用 外汇日线行情 API
 func (impl *forexImpl) FxDaily(ctx context.Context, req *forex.FxDailyRequest) ([]forex.FxDailyItem, error) {
 	return forex.FxDaily(ctx, impl.client, req)
 }
 
+// FxObasic 调用 外汇基础信息（海外） API
 func (impl *forexImpl) FxObasic(ctx context.Context, req *forex.FxObasicRequest) ([]forex.FxObasicItem, error) {
 	return forex.FxObasic(ctx, impl.client, req)
 }

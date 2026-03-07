@@ -4,29 +4,60 @@ package etftools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	etf "github.com/chenniannian90/tushare-go/pkg/sdk/api/etf"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	etf "tushare-go/pkg/sdk/api/etf"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callEtfShareSize handles EtfShareSize tool calls
-func (m *EtfTools) callEtfShareSize(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &etf.EtfShareSizeRequest{}
+// registerEtfShareSize registers the tool
+func (r *EtfTools) registerEtfShareSize() {
+	inputSchema, _ := jsonschema.For[EtfShareSizeInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "etf.etf_share_size",
+		Description: "Retrieve etfsharesize data from Tushare etf API",
+		InputSchema: inputSchema,
 	}
 
-	items, err := etf.EtfShareSize(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input EtfShareSizeInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &etf.EtfShareSizeRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+Exchange: input.Exchange,
+
+		}
+
+		items, err := etf.EtfShareSize(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := EtfShareSizeOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "etf", "etf_share_size")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

@@ -4,29 +4,59 @@ package bondtools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	bond "github.com/chenniannian90/tushare-go/pkg/sdk/api/bond"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	bond "tushare-go/pkg/sdk/api/bond"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callCbShare handles CbShare tool calls
-func (m *BondTools) callCbShare(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &bond.CbShareRequest{}
+// registerCbShare registers the tool
+func (r *BondTools) registerCbShare() {
+	inputSchema, _ := jsonschema.For[CbShareInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "bond.cb_share",
+		Description: "获取可转债转股结果",
+		InputSchema: inputSchema,
 	}
 
-	items, err := bond.CbShare(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input CbShareInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &bond.CbShareRequest{
+TsCode: input.TsCode,
+AnnDate: input.AnnDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+
+		}
+
+		items, err := bond.CbShare(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := CbShareOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "bond", "cb_share")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

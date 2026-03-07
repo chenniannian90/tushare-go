@@ -4,29 +4,55 @@ package stock_basictools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	stock_stock_basic "github.com/chenniannian90/tushare-go/pkg/sdk/api/stock/stock_basic"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	stock_stock_basic "tushare-go/pkg/sdk/api/stock/stock_basic"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callBseMapping handles BseMapping tool calls
-func (m *Stock_basicTools) callBseMapping(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &stock_stock_basic.BseMappingRequest{}
+// registerBseMapping registers the tool
+func (r *Stock_basicTools) registerBseMapping() {
+	inputSchema, _ := jsonschema.For[BseMappingInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "stock_basic.bse_mapping",
+		Description: "Retrieve bsemapping data from Tushare stock basic API",
+		InputSchema: inputSchema,
 	}
 
-	items, err := stock_stock_basic.BseMapping(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input BseMappingInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &stock_stock_basic.BseMappingRequest{
+
+		}
+
+		items, err := stock_stock_basic.BseMapping(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := BseMappingOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "stock_basic", "bse_mapping")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

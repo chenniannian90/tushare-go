@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/chenniannian90/tushare-go/internal/gen"
+	"tushare-go/internal/gen"
 )
 
 func main() {

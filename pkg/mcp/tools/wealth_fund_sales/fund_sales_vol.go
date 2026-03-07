@@ -4,29 +4,55 @@ package wealth_fund_salestools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	wealth_wealth_fund_sales "github.com/chenniannian90/tushare-go/pkg/sdk/api/wealth/wealth_fund_sales"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	wealth_wealth_fund_sales "tushare-go/pkg/sdk/api/wealth/wealth_fund_sales"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callFundSalesVol handles FundSalesVol tool calls
-func (m *Wealth_fund_salesTools) callFundSalesVol(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &wealth_wealth_fund_sales.FundSalesVolRequest{}
+// registerFundSalesVol registers the tool
+func (r *Wealth_fund_salesTools) registerFundSalesVol() {
+	inputSchema, _ := jsonschema.For[FundSalesVolInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "wealth_fund_sales.fund_sales_vol",
+		Description: "Retrieve fundsalesvol data from Tushare wealth fund sales API",
+		InputSchema: inputSchema,
 	}
 
-	items, err := wealth_wealth_fund_sales.FundSalesVol(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input FundSalesVolInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &wealth_wealth_fund_sales.FundSalesVolRequest{
+
+		}
+
+		items, err := wealth_wealth_fund_sales.FundSalesVol(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := FundSalesVolOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "wealth_fund_sales", "fund_sales_vol")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

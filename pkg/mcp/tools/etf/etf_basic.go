@@ -4,29 +4,61 @@ package etftools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	etf "github.com/chenniannian90/tushare-go/pkg/sdk/api/etf"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	etf "tushare-go/pkg/sdk/api/etf"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callEtfBasic handles EtfBasic tool calls
-func (m *EtfTools) callEtfBasic(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &etf.EtfBasicRequest{}
+// registerEtfBasic registers the tool
+func (r *EtfTools) registerEtfBasic() {
+	inputSchema, _ := jsonschema.For[EtfBasicInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "etf.etf_basic",
+		Description: "获取国内ETF基础信息，包括了QDII。数据来源与沪深交易所公开披露信息。",
+		InputSchema: inputSchema,
 	}
 
-	items, err := etf.EtfBasic(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input EtfBasicInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &etf.EtfBasicRequest{
+TsCode: input.TsCode,
+IndexCode: input.IndexCode,
+ListDate: input.ListDate,
+ListStatus: input.ListStatus,
+Exchange: input.Exchange,
+Mgr: input.Mgr,
+
+		}
+
+		items, err := etf.EtfBasic(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := EtfBasicOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "etf", "etf_basic")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

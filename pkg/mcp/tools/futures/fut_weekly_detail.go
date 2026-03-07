@@ -4,29 +4,61 @@ package futurestools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	futures "github.com/chenniannian90/tushare-go/pkg/sdk/api/futures"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	futures "tushare-go/pkg/sdk/api/futures"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callFutWeeklyDetail handles FutWeeklyDetail tool calls
-func (m *FuturesTools) callFutWeeklyDetail(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &futures.FutWeeklyDetailRequest{}
+// registerFutWeeklyDetail registers the tool
+func (r *FuturesTools) registerFutWeeklyDetail() {
+	inputSchema, _ := jsonschema.For[FutWeeklyDetailInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "futures.fut_weekly_detail",
+		Description: "获取期货交易所主要品种每周交易统计信息，数据从2010年3月开始",
+		InputSchema: inputSchema,
 	}
 
-	items, err := futures.FutWeeklyDetail(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input FutWeeklyDetailInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &futures.FutWeeklyDetailRequest{
+Week: input.Week,
+Prd: input.Prd,
+StartWeek: input.StartWeek,
+EndWeek: input.EndWeek,
+Exchange: input.Exchange,
+Fields: input.Fields,
+
+		}
+
+		items, err := futures.FutWeeklyDetail(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := FutWeeklyDetailOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "futures", "fut_weekly_detail")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

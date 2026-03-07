@@ -4,29 +4,56 @@ package bondtools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	bond "github.com/chenniannian90/tushare-go/pkg/sdk/api/bond"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	bond "tushare-go/pkg/sdk/api/bond"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callCbPriceChg handles CbPriceChg tool calls
-func (m *BondTools) callCbPriceChg(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &bond.CbPriceChgRequest{}
+// registerCbPriceChg registers the tool
+func (r *BondTools) registerCbPriceChg() {
+	inputSchema, _ := jsonschema.For[CbPriceChgInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "bond.cb_price_chg",
+		Description: "获取可转债转股价变动",
+		InputSchema: inputSchema,
 	}
 
-	items, err := bond.CbPriceChg(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input CbPriceChgInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &bond.CbPriceChgRequest{
+TsCode: input.TsCode,
+
+		}
+
+		items, err := bond.CbPriceChg(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := CbPriceChgOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "bond", "cb_price_chg")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

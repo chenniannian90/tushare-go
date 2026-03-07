@@ -4,29 +4,59 @@ package bondtools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	bond "github.com/chenniannian90/tushare-go/pkg/sdk/api/bond"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	bond "tushare-go/pkg/sdk/api/bond"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callBcBestotcqt handles BcBestotcqt tool calls
-func (m *BondTools) callBcBestotcqt(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &bond.BcBestotcqtRequest{}
+// registerBcBestotcqt registers the tool
+func (r *BondTools) registerBcBestotcqt() {
+	inputSchema, _ := jsonschema.For[BcBestotcqtInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "bond.bc_bestotcqt",
+		Description: "柜台流通式债券最优报价",
+		InputSchema: inputSchema,
 	}
 
-	items, err := bond.BcBestotcqt(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input BcBestotcqtInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &bond.BcBestotcqtRequest{
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+TsCode: input.TsCode,
+
+		}
+
+		items, err := bond.BcBestotcqt(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := BcBestotcqtOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "bond", "bc_bestotcqt")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

@@ -1,0 +1,99 @@
+//go:build go1.24
+// +build go1.24
+
+package main
+
+import (
+	"context"
+	"fmt"
+	"log"
+	"os"
+	"time"
+
+	"github.com/chenniannian90/tushare-go/pkg/mcp/server"
+	"github.com/chenniannian90/tushare-go/pkg/sdk"
+)
+
+func main() {
+	fmt.Println("=== Tushare MCP 服务器示例 (使用官方 SDK) ===\n")
+	fmt.Println("⚠️  注意: 此示例需要 Go 1.24+ 版本")
+	fmt.Printf("当前 Go 版本: %s\n\n", os.Getenv("GO_VERSION"))
+
+	// 配置环境变量
+	os.Setenv("TUSHARE_TOKEN", "your-tushare-token")
+	os.Setenv("MCP_API_KEY", "your-mcp-api-key")
+	os.Setenv("MCP_REQUIRE_AUTH", "false")
+	os.Setenv("LOG_LEVEL", "INFO")
+
+	// 创建 SDK 客户端
+	config := server.DefaultServerConfig()
+	client, err := config.CreateSDKClient()
+	if err != nil {
+		log.Fatalf("创建 SDK 客户端失败: %v", err)
+	}
+
+	// 创建基于官方 SDK 的 MCP 服务器
+	mcpServer := server.NewSDKMCPServer(client, config)
+
+	// 启动服务器
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	// 在 goroutine 中启动服务器
+	go func() {
+		if err := mcpServer.StartStdio(ctx); err != nil && err != context.Canceled {
+			log.Printf("服务器错误: %v", err)
+		}
+	}()
+
+	fmt.Println("✅ 服务器正在启动...")
+	time.Sleep(1 * time.Second) // 等待服务器启动
+
+	fmt.Println("\n📋 服务器功能:")
+	fmt.Println("  协议: MCP (Model Context Protocol)")
+	fmt.Println("  传输: stdio (标准输入/输出)")
+	fmt.Println("  SDK: 官方 github.com/modelcontextprotocol/go-sdk/mcp")
+	fmt.Println()
+
+	fmt.Println("🔧 支持的 MCP 操作:")
+	fmt.Println("  - initialize: 初始化连接")
+	fmt.Println("  - tools/list: 列出可用工具")
+	fmt.Println("  - tools/call: 调用工具")
+	fmt.Println()
+
+	fmt.Println("📊 服务器状态:")
+	status := mcpServer.GetStatus()
+	fmt.Printf("  工具数量: %v\n", status["tool_count"])
+	fmt.Printf("  SDK 版本: %v\n", status["sdk_version"])
+	fmt.Printf("  服务器类型: %v\n", status["server_type"])
+	fmt.Println()
+
+	tools := mcpServer.Registry.GetTools()
+	fmt.Printf("📦 已注册 %d 个工具:\n", len(tools))
+	for i, tool := range tools {
+		if i < 10 { // 只显示前10个工具作为示例
+			fmt.Printf("  - %s: %s\n", tool.Name, tool.Description)
+		}
+	}
+	if len(tools) > 10 {
+		fmt.Printf("  ... 还有 %d 个工具\n", len(tools)-10)
+	}
+
+	fmt.Println("\n💡 使用提示:")
+	fmt.Println("  - 服务器使用官方 MCP SDK 实现")
+	fmt.Println("  - 支持完整的 MCP 协议规范")
+	fmt.Println("  - 通过 stdio 进行通信")
+	fmt.Println("  - 所有 195 个工具都已注册")
+	fmt.Println()
+
+	fmt.Println("🔍 MCP 客户端示例 (JSON-RPC 2.0):")
+	fmt.Println(`  {"jsonrpc":"2.0","id":1,"method":"initialize","params":{"clientInfo":{"name":"test-client","version":"1.0.0"}}}`)
+	fmt.Println(`  {"jsonrpc":"2.0","id":2,"method":"tools/list"}`)
+	fmt.Println(`  {"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"stock_basic.stock_basic","arguments":{"ts_code":"000001.SZ"}}}`)
+
+	fmt.Println("\n🛑 按 Ctrl+C 停止服务器")
+
+	// 等待用户中断
+	<-ctx.Done()
+	fmt.Println("\n👋 服务器已停止")
+}

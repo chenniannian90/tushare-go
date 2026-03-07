@@ -4,29 +4,60 @@ package optionstools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	options "github.com/chenniannian90/tushare-go/pkg/sdk/api/options"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	options "tushare-go/pkg/sdk/api/options"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callOptDaily handles OptDaily tool calls
-func (m *OptionsTools) callOptDaily(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &options.OptDailyRequest{}
+// registerOptDaily registers the tool
+func (r *OptionsTools) registerOptDaily() {
+	inputSchema, _ := jsonschema.For[OptDailyInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "options.opt_daily",
+		Description: "获取期权日线行情",
+		InputSchema: inputSchema,
 	}
 
-	items, err := options.OptDaily(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input OptDailyInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &options.OptDailyRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+Exchange: input.Exchange,
+
+		}
+
+		items, err := options.OptDaily(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := OptDailyOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "options", "opt_daily")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

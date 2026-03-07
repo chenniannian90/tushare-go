@@ -4,29 +4,59 @@ package etftools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	etf "github.com/chenniannian90/tushare-go/pkg/sdk/api/etf"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	etf "tushare-go/pkg/sdk/api/etf"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callFundDaily handles FundDaily tool calls
-func (m *EtfTools) callFundDaily(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &etf.FundDailyRequest{}
+// registerFundDaily registers the tool
+func (r *EtfTools) registerFundDaily() {
+	inputSchema, _ := jsonschema.For[FundDailyInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "etf.fund_daily",
+		Description: "Retrieve funddaily data from Tushare etf API",
+		InputSchema: inputSchema,
 	}
 
-	items, err := etf.FundDaily(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input FundDailyInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &etf.FundDailyRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+
+		}
+
+		items, err := etf.FundDaily(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := FundDailyOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "etf", "fund_daily")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

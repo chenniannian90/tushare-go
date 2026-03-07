@@ -3,93 +3,29 @@
 package macro_interest_ratetools
 
 import (
-	"context"
-	"fmt"
-
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	"tushare-go/pkg/sdk"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// Macro_interest_rateTools implements tools for macro_interest_rate API
+// Macro_interest_rateTools represents macro_interest_rate tools
 type Macro_interest_rateTools struct {
+	server *mcp.Server
 	client *sdk.Client
 }
 
-// NewMacro_interest_rateTools creates a new macro_interest_rate tools instance
-func NewMacro_interest_rateTools(client *sdk.Client) *Macro_interest_rateTools {
-	return &Macro_interest_rateTools{
-		client: client,
-	}
+// NewMacro_interest_rateTools creates a new instance
+func NewMacro_interest_rateTools(server *mcp.Server, client *sdk.Client) *Macro_interest_rateTools {
+	return &Macro_interest_rateTools{server: server, client: client}
 }
 
-// GetAPIName returns the Tushare API name for this module
-func (m *Macro_interest_rateTools) GetAPIName() string {
-	return "macro_interest_rate"
-}
+// RegisterAll registers all tools
+func (r *Macro_interest_rateTools) RegisterAll() {
+	r.registerGzIndex()
+	r.registerHibor()
+	r.registerLibor()
+	r.registerShibor()
+	r.registerShiborLpr()
+	r.registerShiborQuote()
+	r.registerWzIndex()
 
-// ListTools returns all available tools in this module
-func (m *Macro_interest_rateTools) ListTools() []common.Tool {
-	return []common.Tool{
-		{
-			Name: "macro_interest_rate.gz_index",
-			Description: "Access gz_index data from Tushare API",
-		},
-		{
-			Name: "macro_interest_rate.hibor",
-			Description: "Access hibor data from Tushare API",
-		},
-		{
-			Name: "macro_interest_rate.libor",
-			Description: "Access libor data from Tushare API",
-		},
-		{
-			Name: "macro_interest_rate.shibor",
-			Description: "Access shibor data from Tushare API",
-		},
-		{
-			Name: "macro_interest_rate.shibor_lpr",
-			Description: "Access shibor_lpr data from Tushare API",
-		},
-		{
-			Name: "macro_interest_rate.shibor_quote",
-			Description: "Access shibor_quote data from Tushare API",
-		},
-		{
-			Name: "macro_interest_rate.wz_index",
-			Description: "Access wz_index data from Tushare API",
-		},
-	}
-}
-
-// HandlesTool checks if this module handles a tool
-func (m *Macro_interest_rateTools) HandlesTool(toolName string) bool {
-	tools := m.ListTools()
-	for _, tool := range tools {
-		if tool.Name == toolName {
-			return true
-		}
-	}
-	return false
-}
-
-// CallTool executes a tool call
-func (m *Macro_interest_rateTools) CallTool(ctx context.Context, toolName string, args map[string]interface{}) (*common.ToolResult, error) {
-	switch toolName {
-	case "macro_interest_rate.gz_index":
-		return m.callGzIndex(ctx, args)
-	case "macro_interest_rate.hibor":
-		return m.callHibor(ctx, args)
-	case "macro_interest_rate.libor":
-		return m.callLibor(ctx, args)
-	case "macro_interest_rate.shibor":
-		return m.callShibor(ctx, args)
-	case "macro_interest_rate.shibor_lpr":
-		return m.callShiborLpr(ctx, args)
-	case "macro_interest_rate.shibor_quote":
-		return m.callShiborQuote(ctx, args)
-	case "macro_interest_rate.wz_index":
-		return m.callWzIndex(ctx, args)
-	default:
-		return nil, fmt.Errorf("unknown tool: %s", toolName)
-	}
 }

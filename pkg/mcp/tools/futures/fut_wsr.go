@@ -4,29 +4,60 @@ package futurestools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	futures "github.com/chenniannian90/tushare-go/pkg/sdk/api/futures"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	futures "tushare-go/pkg/sdk/api/futures"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callFutWsr handles FutWsr tool calls
-func (m *FuturesTools) callFutWsr(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &futures.FutWsrRequest{}
+// registerFutWsr registers the tool
+func (r *FuturesTools) registerFutWsr() {
+	inputSchema, _ := jsonschema.For[FutWsrInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "futures.fut_wsr",
+		Description: "获取仓单日报数据，了解各仓库/厂库的仓单变化",
+		InputSchema: inputSchema,
 	}
 
-	items, err := futures.FutWsr(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input FutWsrInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &futures.FutWsrRequest{
+TradeDate: input.TradeDate,
+Symbol: input.Symbol,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+Exchange: input.Exchange,
+
+		}
+
+		items, err := futures.FutWsr(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := FutWsrOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "futures", "fut_wsr")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

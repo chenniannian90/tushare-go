@@ -4,29 +4,55 @@ package stock_fund_flowtools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	stock_stock_fund_flow "github.com/chenniannian90/tushare-go/pkg/sdk/api/stock/stock_fund_flow"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	stock_stock_fund_flow "tushare-go/pkg/sdk/api/stock/stock_fund_flow"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callMoneyflowHsgt handles MoneyflowHsgt tool calls
-func (m *Stock_fund_flowTools) callMoneyflowHsgt(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &stock_stock_fund_flow.MoneyflowHsgtRequest{}
+// registerMoneyflowHsgt registers the tool
+func (r *Stock_fund_flowTools) registerMoneyflowHsgt() {
+	inputSchema, _ := jsonschema.For[MoneyflowHsgtInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "stock_fund_flow.moneyflow_hsgt",
+		Description: "Retrieve moneyflowhsgt data from Tushare stock fund flow API",
+		InputSchema: inputSchema,
 	}
 
-	items, err := stock_stock_fund_flow.MoneyflowHsgt(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input MoneyflowHsgtInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &stock_stock_fund_flow.MoneyflowHsgtRequest{
+
+		}
+
+		items, err := stock_stock_fund_flow.MoneyflowHsgt(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := MoneyflowHsgtOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "stock_fund_flow", "moneyflow_hsgt")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

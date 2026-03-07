@@ -5,7 +5,7 @@ package stock_financial
 import (
 	"context"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 )
 
 // FinaAuditRequest 表示 财务审计意见 API 的请求

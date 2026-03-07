@@ -4,29 +4,55 @@ package macro_interest_ratetools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	macro_macro_domestic_macro_interest_rate "github.com/chenniannian90/tushare-go/pkg/sdk/api/macro/macro_domestic/macro_interest_rate"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	macro_macro_domestic_macro_interest_rate "tushare-go/pkg/sdk/api/macro/macro_domestic/macro_interest_rate"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callLibor handles Libor tool calls
-func (m *Macro_interest_rateTools) callLibor(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &macro_macro_domestic_macro_interest_rate.LiborRequest{}
+// registerLibor registers the tool
+func (r *Macro_interest_rateTools) registerLibor() {
+	inputSchema, _ := jsonschema.For[LiborInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "macro_interest_rate.libor",
+		Description: "Retrieve libor data from Tushare macro interest rate API",
+		InputSchema: inputSchema,
 	}
 
-	items, err := macro_macro_domestic_macro_interest_rate.Libor(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input LiborInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &macro_macro_domestic_macro_interest_rate.LiborRequest{
+
+		}
+
+		items, err := macro_macro_domestic_macro_interest_rate.Libor(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := LiborOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "macro_interest_rate", "libor")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

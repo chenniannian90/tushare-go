@@ -7,6 +7,9 @@ test:
 build-mcp:
 	go build -o bin/tushare-mcp ./cmd/mcp-server
 
+build-mcp-auth:
+	go build -o bin/mcp_server_with_auth ./cmd/mcp-server
+
 build-gen:
 	go build -o bin/generator ./cmd/generator
 

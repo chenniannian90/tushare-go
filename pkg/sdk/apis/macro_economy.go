@@ -4,20 +4,22 @@ package apis
 
 import (
 	"context"
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/sdk/api/macro_economy"
+	"tushare-go/pkg/sdk"
+	macro_macro_domestic_macro_economy "tushare-go/pkg/sdk/api/macro/macro_domestic/macro_economy"
 )
 
 type MacroEconomy interface {
-	CnGdp(ctx context.Context, req *macro_economy.CnGdpRequest) ([]macro_economy.CnGdpItem, error)
+	// CnGdp 调用 国内生产总值（GDP） API
+	CnGdp(ctx context.Context, req *macro_macro_domestic_macro_economy.CnGdpRequest) ([]macro_macro_domestic_macro_economy.CnGdpItem, error)
 }
 
 type macroEconomyImpl struct {
 	client *sdk.Client
 }
 
-func (impl *macroEconomyImpl) CnGdp(ctx context.Context, req *macro_economy.CnGdpRequest) ([]macro_economy.CnGdpItem, error) {
-	return macro_economy.CnGdp(ctx, impl.client, req)
+// CnGdp 调用 国内生产总值（GDP） API
+func (impl *macroEconomyImpl) CnGdp(ctx context.Context, req *macro_macro_domestic_macro_economy.CnGdpRequest) ([]macro_macro_domestic_macro_economy.CnGdpItem, error) {
+	return macro_macro_domestic_macro_economy.CnGdp(ctx, impl.client, req)
 }
 
 func newmacroEconomyImpl(client *sdk.Client) MacroEconomy {

@@ -3,99 +3,30 @@
 package industry_tmttools
 
 import (
-	"context"
-	"fmt"
-
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	"tushare-go/pkg/sdk"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// Industry_tmtTools implements tools for industry_tmt API
+// Industry_tmtTools represents industry_tmt tools
 type Industry_tmtTools struct {
+	server *mcp.Server
 	client *sdk.Client
 }
 
-// NewIndustry_tmtTools creates a new industry_tmt tools instance
-func NewIndustry_tmtTools(client *sdk.Client) *Industry_tmtTools {
-	return &Industry_tmtTools{
-		client: client,
-	}
+// NewIndustry_tmtTools creates a new instance
+func NewIndustry_tmtTools(server *mcp.Server, client *sdk.Client) *Industry_tmtTools {
+	return &Industry_tmtTools{server: server, client: client}
 }
 
-// GetAPIName returns the Tushare API name for this module
-func (m *Industry_tmtTools) GetAPIName() string {
-	return "industry_tmt"
-}
+// RegisterAll registers all tools
+func (r *Industry_tmtTools) RegisterAll() {
+	r.registerBoCinema()
+	r.registerBoDaily()
+	r.registerBoMonthly()
+	r.registerBoWeekly()
+	r.registerFilmRecord()
+	r.registerTeleplayRecord()
+	r.registerTmtTwincome()
+	r.registerTmtTwincomedetail()
 
-// ListTools returns all available tools in this module
-func (m *Industry_tmtTools) ListTools() []common.Tool {
-	return []common.Tool{
-		{
-			Name: "industry_tmt.bo_cinema",
-			Description: "Access bo_cinema data from Tushare API",
-		},
-		{
-			Name: "industry_tmt.bo_daily",
-			Description: "Access bo_daily data from Tushare API",
-		},
-		{
-			Name: "industry_tmt.bo_monthly",
-			Description: "Access bo_monthly data from Tushare API",
-		},
-		{
-			Name: "industry_tmt.bo_weekly",
-			Description: "Access bo_weekly data from Tushare API",
-		},
-		{
-			Name: "industry_tmt.film_record",
-			Description: "Access film_record data from Tushare API",
-		},
-		{
-			Name: "industry_tmt.teleplay_record",
-			Description: "Access teleplay_record data from Tushare API",
-		},
-		{
-			Name: "industry_tmt.tmt_twincome",
-			Description: "Access tmt_twincome data from Tushare API",
-		},
-		{
-			Name: "industry_tmt.tmt_twincomedetail",
-			Description: "Access tmt_twincomedetail data from Tushare API",
-		},
-	}
-}
-
-// HandlesTool checks if this module handles a tool
-func (m *Industry_tmtTools) HandlesTool(toolName string) bool {
-	tools := m.ListTools()
-	for _, tool := range tools {
-		if tool.Name == toolName {
-			return true
-		}
-	}
-	return false
-}
-
-// CallTool executes a tool call
-func (m *Industry_tmtTools) CallTool(ctx context.Context, toolName string, args map[string]interface{}) (*common.ToolResult, error) {
-	switch toolName {
-	case "industry_tmt.bo_cinema":
-		return m.callBoCinema(ctx, args)
-	case "industry_tmt.bo_daily":
-		return m.callBoDaily(ctx, args)
-	case "industry_tmt.bo_monthly":
-		return m.callBoMonthly(ctx, args)
-	case "industry_tmt.bo_weekly":
-		return m.callBoWeekly(ctx, args)
-	case "industry_tmt.film_record":
-		return m.callFilmRecord(ctx, args)
-	case "industry_tmt.teleplay_record":
-		return m.callTeleplayRecord(ctx, args)
-	case "industry_tmt.tmt_twincome":
-		return m.callTmtTwincome(ctx, args)
-	case "industry_tmt.tmt_twincomedetail":
-		return m.callTmtTwincomedetail(ctx, args)
-	default:
-		return nil, fmt.Errorf("unknown tool: %s", toolName)
-	}
 }

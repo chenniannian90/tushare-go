@@ -93,7 +93,7 @@ func main() {
 
 		// Build import path
 		parts := strings.Split(dir, string(filepath.Separator))
-		importPath := "github.com/chenniannian90/tushare-go/pkg/sdk/api/stock/" + strings.Join(parts, "/")
+		importPath := "tushare-go/pkg/sdk/api/stock/" + strings.Join(parts, "/")
 
 		// Find exported functions
 		for _, decl := range file.Decls {
@@ -130,7 +130,7 @@ package apis
 import (
 	"context"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 `
 
 	// Collect unique imports

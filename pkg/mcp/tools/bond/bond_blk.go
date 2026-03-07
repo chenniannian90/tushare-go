@@ -4,29 +4,59 @@ package bondtools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	bond "github.com/chenniannian90/tushare-go/pkg/sdk/api/bond"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	bond "tushare-go/pkg/sdk/api/bond"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callBondBlk handles BondBlk tool calls
-func (m *BondTools) callBondBlk(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &bond.BondBlkRequest{}
+// registerBondBlk registers the tool
+func (r *BondTools) registerBondBlk() {
+	inputSchema, _ := jsonschema.For[BondBlkInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "bond.bond_blk",
+		Description: "获取沪深交易所债券大宗交易数据，可以通过数据工具调试和查看数据。",
+		InputSchema: inputSchema,
 	}
 
-	items, err := bond.BondBlk(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input BondBlkInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &bond.BondBlkRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+
+		}
+
+		items, err := bond.BondBlk(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := BondBlkOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "bond", "bond_blk")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

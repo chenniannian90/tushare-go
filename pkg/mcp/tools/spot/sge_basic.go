@@ -4,29 +4,56 @@ package spottools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	spot "github.com/chenniannian90/tushare-go/pkg/sdk/api/spot"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	spot "tushare-go/pkg/sdk/api/spot"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callSgeBasic handles SgeBasic tool calls
-func (m *SpotTools) callSgeBasic(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &spot.SgeBasicRequest{}
+// registerSgeBasic registers the tool
+func (r *SpotTools) registerSgeBasic() {
+	inputSchema, _ := jsonschema.For[SgeBasicInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "spot.sge_basic",
+		Description: "获取上海黄金交易所现货合约基础信息",
+		InputSchema: inputSchema,
 	}
 
-	items, err := spot.SgeBasic(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input SgeBasicInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &spot.SgeBasicRequest{
+TsCode: input.TsCode,
+
+		}
+
+		items, err := spot.SgeBasic(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := SgeBasicOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "spot", "sge_basic")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

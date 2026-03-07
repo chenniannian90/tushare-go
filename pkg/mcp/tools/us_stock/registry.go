@@ -3,105 +3,31 @@
 package us_stocktools
 
 import (
-	"context"
-	"fmt"
-
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	"tushare-go/pkg/sdk"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// Us_stockTools implements tools for us_stock API
+// Us_stockTools represents us_stock tools
 type Us_stockTools struct {
+	server *mcp.Server
 	client *sdk.Client
 }
 
-// NewUs_stockTools creates a new us_stock tools instance
-func NewUs_stockTools(client *sdk.Client) *Us_stockTools {
-	return &Us_stockTools{
-		client: client,
-	}
+// NewUs_stockTools creates a new instance
+func NewUs_stockTools(server *mcp.Server, client *sdk.Client) *Us_stockTools {
+	return &Us_stockTools{server: server, client: client}
 }
 
-// GetAPIName returns the Tushare API name for this module
-func (m *Us_stockTools) GetAPIName() string {
-	return "us_stock"
-}
+// RegisterAll registers all tools
+func (r *Us_stockTools) RegisterAll() {
+	r.registerUsAdjfactor()
+	r.registerUsBalancesheet()
+	r.registerUsBasic()
+	r.registerUsCashflow()
+	r.registerUsDaily()
+	r.registerUsDailyAdj()
+	r.registerUsFinaIndicator()
+	r.registerUsIncome()
+	r.registerUsTradecal()
 
-// ListTools returns all available tools in this module
-func (m *Us_stockTools) ListTools() []common.Tool {
-	return []common.Tool{
-		{
-			Name: "us_stock.us_adjfactor",
-			Description: "Access us_adjfactor data from Tushare API",
-		},
-		{
-			Name: "us_stock.us_balancesheet",
-			Description: "Access us_balancesheet data from Tushare API",
-		},
-		{
-			Name: "us_stock.us_basic",
-			Description: "Access us_basic data from Tushare API",
-		},
-		{
-			Name: "us_stock.us_cashflow",
-			Description: "Access us_cashflow data from Tushare API",
-		},
-		{
-			Name: "us_stock.us_daily",
-			Description: "Access us_daily data from Tushare API",
-		},
-		{
-			Name: "us_stock.us_daily_adj",
-			Description: "Access us_daily_adj data from Tushare API",
-		},
-		{
-			Name: "us_stock.us_fina_indicator",
-			Description: "Access us_fina_indicator data from Tushare API",
-		},
-		{
-			Name: "us_stock.us_income",
-			Description: "Access us_income data from Tushare API",
-		},
-		{
-			Name: "us_stock.us_tradecal",
-			Description: "Access us_tradecal data from Tushare API",
-		},
-	}
-}
-
-// HandlesTool checks if this module handles a tool
-func (m *Us_stockTools) HandlesTool(toolName string) bool {
-	tools := m.ListTools()
-	for _, tool := range tools {
-		if tool.Name == toolName {
-			return true
-		}
-	}
-	return false
-}
-
-// CallTool executes a tool call
-func (m *Us_stockTools) CallTool(ctx context.Context, toolName string, args map[string]interface{}) (*common.ToolResult, error) {
-	switch toolName {
-	case "us_stock.us_adjfactor":
-		return m.callUsAdjfactor(ctx, args)
-	case "us_stock.us_balancesheet":
-		return m.callUsBalancesheet(ctx, args)
-	case "us_stock.us_basic":
-		return m.callUsBasic(ctx, args)
-	case "us_stock.us_cashflow":
-		return m.callUsCashflow(ctx, args)
-	case "us_stock.us_daily":
-		return m.callUsDaily(ctx, args)
-	case "us_stock.us_daily_adj":
-		return m.callUsDailyAdj(ctx, args)
-	case "us_stock.us_fina_indicator":
-		return m.callUsFinaIndicator(ctx, args)
-	case "us_stock.us_income":
-		return m.callUsIncome(ctx, args)
-	case "us_stock.us_tradecal":
-		return m.callUsTradecal(ctx, args)
-	default:
-		return nil, fmt.Errorf("unknown tool: %s", toolName)
-	}
 }

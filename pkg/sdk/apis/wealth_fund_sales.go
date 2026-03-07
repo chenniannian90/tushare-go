@@ -4,25 +4,22 @@ package apis
 
 import (
 	"context"
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/sdk/api/wealth_fund_sales"
+	"tushare-go/pkg/sdk"
+	wealth_wealth_fund_sales "tushare-go/pkg/sdk/api/wealth/wealth_fund_sales"
 )
 
 type WealthFundSales interface {
-	FundSalesRatio(ctx context.Context, req *wealth_fund_sales.FundSalesRatioRequest) ([]wealth_fund_sales.FundSalesRatioItem, error)
-	FundSalesVol(ctx context.Context, req *wealth_fund_sales.FundSalesVolRequest) ([]wealth_fund_sales.FundSalesVolItem, error)
+	// FundSalesVol 调用 销售机构公募基金销售保有规模 API
+	FundSalesVol(ctx context.Context, req *wealth_wealth_fund_sales.FundSalesVolRequest) ([]wealth_wealth_fund_sales.FundSalesVolItem, error)
 }
 
 type wealthFundSalesImpl struct {
 	client *sdk.Client
 }
 
-func (impl *wealthFundSalesImpl) FundSalesRatio(ctx context.Context, req *wealth_fund_sales.FundSalesRatioRequest) ([]wealth_fund_sales.FundSalesRatioItem, error) {
-	return wealth_fund_sales.FundSalesRatio(ctx, impl.client, req)
-}
-
-func (impl *wealthFundSalesImpl) FundSalesVol(ctx context.Context, req *wealth_fund_sales.FundSalesVolRequest) ([]wealth_fund_sales.FundSalesVolItem, error) {
-	return wealth_fund_sales.FundSalesVol(ctx, impl.client, req)
+// FundSalesVol 调用 销售机构公募基金销售保有规模 API
+func (impl *wealthFundSalesImpl) FundSalesVol(ctx context.Context, req *wealth_wealth_fund_sales.FundSalesVolRequest) ([]wealth_wealth_fund_sales.FundSalesVolItem, error) {
+	return wealth_wealth_fund_sales.FundSalesVol(ctx, impl.client, req)
 }
 
 func newwealthFundSalesImpl(client *sdk.Client) WealthFundSales {

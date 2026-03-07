@@ -3,135 +3,36 @@
 package futurestools
 
 import (
-	"context"
-	"fmt"
-
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	"tushare-go/pkg/sdk"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// FuturesTools implements tools for futures API
+// FuturesTools represents futures tools
 type FuturesTools struct {
+	server *mcp.Server
 	client *sdk.Client
 }
 
-// NewFuturesTools creates a new futures tools instance
-func NewFuturesTools(client *sdk.Client) *FuturesTools {
-	return &FuturesTools{
-		client: client,
-	}
+// NewFuturesTools creates a new instance
+func NewFuturesTools(server *mcp.Server, client *sdk.Client) *FuturesTools {
+	return &FuturesTools{server: server, client: client}
 }
 
-// GetAPIName returns the Tushare API name for this module
-func (m *FuturesTools) GetAPIName() string {
-	return "futures"
-}
+// RegisterAll registers all tools
+func (r *FuturesTools) RegisterAll() {
+	r.registerFtLimit()
+	r.registerFtMins()
+	r.registerFutBasic()
+	r.registerFutDaily()
+	r.registerFutHolding()
+	r.registerFutMapping()
+	r.registerFutSettle()
+	r.registerFutTick()
+	r.registerFutWeeklyDetail()
+	r.registerFutWeeklyMonthly()
+	r.registerFutWsr()
+	r.registerIndexDaily()
+	r.registerRtFutMin()
+	r.registerTradeCal()
 
-// ListTools returns all available tools in this module
-func (m *FuturesTools) ListTools() []common.Tool {
-	return []common.Tool{
-		{
-			Name: "futures.ft_limit",
-			Description: "Access ft_limit data from Tushare API",
-		},
-		{
-			Name: "futures.ft_mins",
-			Description: "Access ft_mins data from Tushare API",
-		},
-		{
-			Name: "futures.fut_basic",
-			Description: "Access fut_basic data from Tushare API",
-		},
-		{
-			Name: "futures.fut_daily",
-			Description: "Access fut_daily data from Tushare API",
-		},
-		{
-			Name: "futures.fut_holding",
-			Description: "Access fut_holding data from Tushare API",
-		},
-		{
-			Name: "futures.fut_mapping",
-			Description: "Access fut_mapping data from Tushare API",
-		},
-		{
-			Name: "futures.fut_settle",
-			Description: "Access fut_settle data from Tushare API",
-		},
-		{
-			Name: "futures.fut_tick",
-			Description: "Access fut_tick data from Tushare API",
-		},
-		{
-			Name: "futures.fut_weekly_detail",
-			Description: "Access fut_weekly_detail data from Tushare API",
-		},
-		{
-			Name: "futures.fut_weekly_monthly",
-			Description: "Access fut_weekly_monthly data from Tushare API",
-		},
-		{
-			Name: "futures.fut_wsr",
-			Description: "Access fut_wsr data from Tushare API",
-		},
-		{
-			Name: "futures.index_daily",
-			Description: "Access index_daily data from Tushare API",
-		},
-		{
-			Name: "futures.rt_fut_min",
-			Description: "Access rt_fut_min data from Tushare API",
-		},
-		{
-			Name: "futures.trade_cal",
-			Description: "Access trade_cal data from Tushare API",
-		},
-	}
-}
-
-// HandlesTool checks if this module handles a tool
-func (m *FuturesTools) HandlesTool(toolName string) bool {
-	tools := m.ListTools()
-	for _, tool := range tools {
-		if tool.Name == toolName {
-			return true
-		}
-	}
-	return false
-}
-
-// CallTool executes a tool call
-func (m *FuturesTools) CallTool(ctx context.Context, toolName string, args map[string]interface{}) (*common.ToolResult, error) {
-	switch toolName {
-	case "futures.ft_limit":
-		return m.callFtLimit(ctx, args)
-	case "futures.ft_mins":
-		return m.callFtMins(ctx, args)
-	case "futures.fut_basic":
-		return m.callFutBasic(ctx, args)
-	case "futures.fut_daily":
-		return m.callFutDaily(ctx, args)
-	case "futures.fut_holding":
-		return m.callFutHolding(ctx, args)
-	case "futures.fut_mapping":
-		return m.callFutMapping(ctx, args)
-	case "futures.fut_settle":
-		return m.callFutSettle(ctx, args)
-	case "futures.fut_tick":
-		return m.callFutTick(ctx, args)
-	case "futures.fut_weekly_detail":
-		return m.callFutWeeklyDetail(ctx, args)
-	case "futures.fut_weekly_monthly":
-		return m.callFutWeeklyMonthly(ctx, args)
-	case "futures.fut_wsr":
-		return m.callFutWsr(ctx, args)
-	case "futures.index_daily":
-		return m.callIndexDaily(ctx, args)
-	case "futures.rt_fut_min":
-		return m.callRtFutMin(ctx, args)
-	case "futures.trade_cal":
-		return m.callTradeCal(ctx, args)
-	default:
-		return nil, fmt.Errorf("unknown tool: %s", toolName)
-	}
 }

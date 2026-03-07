@@ -4,55 +4,71 @@ package apis
 
 import (
 	"context"
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/sdk/api/stock_fund_flow"
+	"tushare-go/pkg/sdk"
+	stock_stock_fund_flow "tushare-go/pkg/sdk/api/stock/stock_fund_flow"
 )
 
 type StockFundFlow interface {
-	Moneyflow(ctx context.Context, req *stock_fund_flow.MoneyflowRequest) ([]stock_fund_flow.MoneyflowItem, error)
-	MoneyflowCntThs(ctx context.Context, req *stock_fund_flow.MoneyflowCntThsRequest) ([]stock_fund_flow.MoneyflowCntThsItem, error)
-	MoneyflowDc(ctx context.Context, req *stock_fund_flow.MoneyflowDcRequest) ([]stock_fund_flow.MoneyflowDcItem, error)
-	MoneyflowHsgt(ctx context.Context, req *stock_fund_flow.MoneyflowHsgtRequest) ([]stock_fund_flow.MoneyflowHsgtItem, error)
-	MoneyflowIndDc(ctx context.Context, req *stock_fund_flow.MoneyflowIndDcRequest) ([]stock_fund_flow.MoneyflowIndDcItem, error)
-	MoneyflowIndThs(ctx context.Context, req *stock_fund_flow.MoneyflowIndThsRequest) ([]stock_fund_flow.MoneyflowIndThsItem, error)
-	MoneyflowMktDc(ctx context.Context, req *stock_fund_flow.MoneyflowMktDcRequest) ([]stock_fund_flow.MoneyflowMktDcItem, error)
-	MoneyflowThs(ctx context.Context, req *stock_fund_flow.MoneyflowThsRequest) ([]stock_fund_flow.MoneyflowThsItem, error)
+	// Moneyflow 调用 个股资金流向 API
+	Moneyflow(ctx context.Context, req *stock_stock_fund_flow.MoneyflowRequest) ([]stock_stock_fund_flow.MoneyflowItem, error)
+	// MoneyflowCntThs 调用 板块资金流向（THS) API
+	MoneyflowCntThs(ctx context.Context, req *stock_stock_fund_flow.MoneyflowCntThsRequest) ([]stock_stock_fund_flow.MoneyflowCntThsItem, error)
+	// MoneyflowDc 调用 个股资金流向（DC） API
+	MoneyflowDc(ctx context.Context, req *stock_stock_fund_flow.MoneyflowDcRequest) ([]stock_stock_fund_flow.MoneyflowDcItem, error)
+	// MoneyflowHsgt 调用 沪深港通资金流向 API
+	MoneyflowHsgt(ctx context.Context, req *stock_stock_fund_flow.MoneyflowHsgtRequest) ([]stock_stock_fund_flow.MoneyflowHsgtItem, error)
+	// MoneyflowIndDc 调用 板块资金流向（DC） API
+	MoneyflowIndDc(ctx context.Context, req *stock_stock_fund_flow.MoneyflowIndDcRequest) ([]stock_stock_fund_flow.MoneyflowIndDcItem, error)
+	// MoneyflowIndThs 调用 行业资金流向（THS） API
+	MoneyflowIndThs(ctx context.Context, req *stock_stock_fund_flow.MoneyflowIndThsRequest) ([]stock_stock_fund_flow.MoneyflowIndThsItem, error)
+	// MoneyflowMktDc 调用 大盘资金流向（DC） API
+	MoneyflowMktDc(ctx context.Context, req *stock_stock_fund_flow.MoneyflowMktDcRequest) ([]stock_stock_fund_flow.MoneyflowMktDcItem, error)
+	// MoneyflowThs 调用 个股资金流向（THS） API
+	MoneyflowThs(ctx context.Context, req *stock_stock_fund_flow.MoneyflowThsRequest) ([]stock_stock_fund_flow.MoneyflowThsItem, error)
 }
 
 type stockFundFlowImpl struct {
 	client *sdk.Client
 }
 
-func (impl *stockFundFlowImpl) Moneyflow(ctx context.Context, req *stock_fund_flow.MoneyflowRequest) ([]stock_fund_flow.MoneyflowItem, error) {
-	return stock_fund_flow.Moneyflow(ctx, impl.client, req)
+// Moneyflow 调用 个股资金流向 API
+func (impl *stockFundFlowImpl) Moneyflow(ctx context.Context, req *stock_stock_fund_flow.MoneyflowRequest) ([]stock_stock_fund_flow.MoneyflowItem, error) {
+	return stock_stock_fund_flow.Moneyflow(ctx, impl.client, req)
 }
 
-func (impl *stockFundFlowImpl) MoneyflowCntThs(ctx context.Context, req *stock_fund_flow.MoneyflowCntThsRequest) ([]stock_fund_flow.MoneyflowCntThsItem, error) {
-	return stock_fund_flow.MoneyflowCntThs(ctx, impl.client, req)
+// MoneyflowCntThs 调用 板块资金流向（THS) API
+func (impl *stockFundFlowImpl) MoneyflowCntThs(ctx context.Context, req *stock_stock_fund_flow.MoneyflowCntThsRequest) ([]stock_stock_fund_flow.MoneyflowCntThsItem, error) {
+	return stock_stock_fund_flow.MoneyflowCntThs(ctx, impl.client, req)
 }
 
-func (impl *stockFundFlowImpl) MoneyflowDc(ctx context.Context, req *stock_fund_flow.MoneyflowDcRequest) ([]stock_fund_flow.MoneyflowDcItem, error) {
-	return stock_fund_flow.MoneyflowDc(ctx, impl.client, req)
+// MoneyflowDc 调用 个股资金流向（DC） API
+func (impl *stockFundFlowImpl) MoneyflowDc(ctx context.Context, req *stock_stock_fund_flow.MoneyflowDcRequest) ([]stock_stock_fund_flow.MoneyflowDcItem, error) {
+	return stock_stock_fund_flow.MoneyflowDc(ctx, impl.client, req)
 }
 
-func (impl *stockFundFlowImpl) MoneyflowHsgt(ctx context.Context, req *stock_fund_flow.MoneyflowHsgtRequest) ([]stock_fund_flow.MoneyflowHsgtItem, error) {
-	return stock_fund_flow.MoneyflowHsgt(ctx, impl.client, req)
+// MoneyflowHsgt 调用 沪深港通资金流向 API
+func (impl *stockFundFlowImpl) MoneyflowHsgt(ctx context.Context, req *stock_stock_fund_flow.MoneyflowHsgtRequest) ([]stock_stock_fund_flow.MoneyflowHsgtItem, error) {
+	return stock_stock_fund_flow.MoneyflowHsgt(ctx, impl.client, req)
 }
 
-func (impl *stockFundFlowImpl) MoneyflowIndDc(ctx context.Context, req *stock_fund_flow.MoneyflowIndDcRequest) ([]stock_fund_flow.MoneyflowIndDcItem, error) {
-	return stock_fund_flow.MoneyflowIndDc(ctx, impl.client, req)
+// MoneyflowIndDc 调用 板块资金流向（DC） API
+func (impl *stockFundFlowImpl) MoneyflowIndDc(ctx context.Context, req *stock_stock_fund_flow.MoneyflowIndDcRequest) ([]stock_stock_fund_flow.MoneyflowIndDcItem, error) {
+	return stock_stock_fund_flow.MoneyflowIndDc(ctx, impl.client, req)
 }
 
-func (impl *stockFundFlowImpl) MoneyflowIndThs(ctx context.Context, req *stock_fund_flow.MoneyflowIndThsRequest) ([]stock_fund_flow.MoneyflowIndThsItem, error) {
-	return stock_fund_flow.MoneyflowIndThs(ctx, impl.client, req)
+// MoneyflowIndThs 调用 行业资金流向（THS） API
+func (impl *stockFundFlowImpl) MoneyflowIndThs(ctx context.Context, req *stock_stock_fund_flow.MoneyflowIndThsRequest) ([]stock_stock_fund_flow.MoneyflowIndThsItem, error) {
+	return stock_stock_fund_flow.MoneyflowIndThs(ctx, impl.client, req)
 }
 
-func (impl *stockFundFlowImpl) MoneyflowMktDc(ctx context.Context, req *stock_fund_flow.MoneyflowMktDcRequest) ([]stock_fund_flow.MoneyflowMktDcItem, error) {
-	return stock_fund_flow.MoneyflowMktDc(ctx, impl.client, req)
+// MoneyflowMktDc 调用 大盘资金流向（DC） API
+func (impl *stockFundFlowImpl) MoneyflowMktDc(ctx context.Context, req *stock_stock_fund_flow.MoneyflowMktDcRequest) ([]stock_stock_fund_flow.MoneyflowMktDcItem, error) {
+	return stock_stock_fund_flow.MoneyflowMktDc(ctx, impl.client, req)
 }
 
-func (impl *stockFundFlowImpl) MoneyflowThs(ctx context.Context, req *stock_fund_flow.MoneyflowThsRequest) ([]stock_fund_flow.MoneyflowThsItem, error) {
-	return stock_fund_flow.MoneyflowThs(ctx, impl.client, req)
+// MoneyflowThs 调用 个股资金流向（THS） API
+func (impl *stockFundFlowImpl) MoneyflowThs(ctx context.Context, req *stock_stock_fund_flow.MoneyflowThsRequest) ([]stock_stock_fund_flow.MoneyflowThsItem, error) {
+	return stock_stock_fund_flow.MoneyflowThs(ctx, impl.client, req)
 }
 
 func newstockFundFlowImpl(client *sdk.Client) StockFundFlow {

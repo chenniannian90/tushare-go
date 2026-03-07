@@ -3,57 +3,23 @@
 package macro_economytools
 
 import (
-	"context"
-	"fmt"
-
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	"tushare-go/pkg/sdk"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// Macro_economyTools implements tools for macro_economy API
+// Macro_economyTools represents macro_economy tools
 type Macro_economyTools struct {
+	server *mcp.Server
 	client *sdk.Client
 }
 
-// NewMacro_economyTools creates a new macro_economy tools instance
-func NewMacro_economyTools(client *sdk.Client) *Macro_economyTools {
-	return &Macro_economyTools{
-		client: client,
-	}
+// NewMacro_economyTools creates a new instance
+func NewMacro_economyTools(server *mcp.Server, client *sdk.Client) *Macro_economyTools {
+	return &Macro_economyTools{server: server, client: client}
 }
 
-// GetAPIName returns the Tushare API name for this module
-func (m *Macro_economyTools) GetAPIName() string {
-	return "macro_economy"
-}
+// RegisterAll registers all tools
+func (r *Macro_economyTools) RegisterAll() {
+	r.registerCnGdp()
 
-// ListTools returns all available tools in this module
-func (m *Macro_economyTools) ListTools() []common.Tool {
-	return []common.Tool{
-		{
-			Name: "macro_economy.cn_gdp",
-			Description: "Access cn_gdp data from Tushare API",
-		},
-	}
-}
-
-// HandlesTool checks if this module handles a tool
-func (m *Macro_economyTools) HandlesTool(toolName string) bool {
-	tools := m.ListTools()
-	for _, tool := range tools {
-		if tool.Name == toolName {
-			return true
-		}
-	}
-	return false
-}
-
-// CallTool executes a tool call
-func (m *Macro_economyTools) CallTool(ctx context.Context, toolName string, args map[string]interface{}) (*common.ToolResult, error) {
-	switch toolName {
-	case "macro_economy.cn_gdp":
-		return m.callCnGdp(ctx, args)
-	default:
-		return nil, fmt.Errorf("unknown tool: %s", toolName)
-	}
 }

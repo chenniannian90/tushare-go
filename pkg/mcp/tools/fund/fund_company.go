@@ -4,29 +4,55 @@ package fundtools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	fund "github.com/chenniannian90/tushare-go/pkg/sdk/api/fund"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	fund "tushare-go/pkg/sdk/api/fund"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callFundCompany handles FundCompany tool calls
-func (m *FundTools) callFundCompany(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &fund.FundCompanyRequest{}
+// registerFundCompany registers the tool
+func (r *FundTools) registerFundCompany() {
+	inputSchema, _ := jsonschema.For[FundCompanyInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "fund.fund_company",
+		Description: "获取公募基金管理人列表",
+		InputSchema: inputSchema,
 	}
 
-	items, err := fund.FundCompany(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input FundCompanyInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &fund.FundCompanyRequest{
+
+		}
+
+		items, err := fund.FundCompany(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := FundCompanyOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "fund", "fund_company")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

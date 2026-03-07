@@ -3,57 +3,23 @@
 package wealth_fund_salestools
 
 import (
-	"context"
-	"fmt"
-
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	"tushare-go/pkg/sdk"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// Wealth_fund_salesTools implements tools for wealth_fund_sales API
+// Wealth_fund_salesTools represents wealth_fund_sales tools
 type Wealth_fund_salesTools struct {
+	server *mcp.Server
 	client *sdk.Client
 }
 
-// NewWealth_fund_salesTools creates a new wealth_fund_sales tools instance
-func NewWealth_fund_salesTools(client *sdk.Client) *Wealth_fund_salesTools {
-	return &Wealth_fund_salesTools{
-		client: client,
-	}
+// NewWealth_fund_salesTools creates a new instance
+func NewWealth_fund_salesTools(server *mcp.Server, client *sdk.Client) *Wealth_fund_salesTools {
+	return &Wealth_fund_salesTools{server: server, client: client}
 }
 
-// GetAPIName returns the Tushare API name for this module
-func (m *Wealth_fund_salesTools) GetAPIName() string {
-	return "wealth_fund_sales"
-}
+// RegisterAll registers all tools
+func (r *Wealth_fund_salesTools) RegisterAll() {
+	r.registerFundSalesVol()
 
-// ListTools returns all available tools in this module
-func (m *Wealth_fund_salesTools) ListTools() []common.Tool {
-	return []common.Tool{
-		{
-			Name: "wealth_fund_sales.fund_sales_vol",
-			Description: "Access fund_sales_vol data from Tushare API",
-		},
-	}
-}
-
-// HandlesTool checks if this module handles a tool
-func (m *Wealth_fund_salesTools) HandlesTool(toolName string) bool {
-	tools := m.ListTools()
-	for _, tool := range tools {
-		if tool.Name == toolName {
-			return true
-		}
-	}
-	return false
-}
-
-// CallTool executes a tool call
-func (m *Wealth_fund_salesTools) CallTool(ctx context.Context, toolName string, args map[string]interface{}) (*common.ToolResult, error) {
-	switch toolName {
-	case "wealth_fund_sales.fund_sales_vol":
-		return m.callFundSalesVol(ctx, args)
-	default:
-		return nil, fmt.Errorf("unknown tool: %s", toolName)
-	}
 }

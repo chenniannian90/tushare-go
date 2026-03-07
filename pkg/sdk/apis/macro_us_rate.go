@@ -4,40 +4,50 @@ package apis
 
 import (
 	"context"
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/sdk/api/macro_us_rate"
+	"tushare-go/pkg/sdk"
+	macro_macro_international_macro_us_rate "tushare-go/pkg/sdk/api/macro/macro_international/macro_us_rate"
 )
 
 type MacroUsRate interface {
-	UsTbr(ctx context.Context, req *macro_us_rate.UsTbrRequest) ([]macro_us_rate.UsTbrItem, error)
-	UsTltr(ctx context.Context, req *macro_us_rate.UsTltrRequest) ([]macro_us_rate.UsTltrItem, error)
-	UsTrltr(ctx context.Context, req *macro_us_rate.UsTrltrRequest) ([]macro_us_rate.UsTrltrItem, error)
-	UsTrycr(ctx context.Context, req *macro_us_rate.UsTrycrRequest) ([]macro_us_rate.UsTrycrItem, error)
-	UsTycr(ctx context.Context, req *macro_us_rate.UsTycrRequest) ([]macro_us_rate.UsTycrItem, error)
+	// UsTbr 调用 短期国债利率 API
+	UsTbr(ctx context.Context, req *macro_macro_international_macro_us_rate.UsTbrRequest) ([]macro_macro_international_macro_us_rate.UsTbrItem, error)
+	// UsTltr 调用 国债长期利率 API
+	UsTltr(ctx context.Context, req *macro_macro_international_macro_us_rate.UsTltrRequest) ([]macro_macro_international_macro_us_rate.UsTltrItem, error)
+	// UsTrltr 调用 国债长期利率平均值 API
+	UsTrltr(ctx context.Context, req *macro_macro_international_macro_us_rate.UsTrltrRequest) ([]macro_macro_international_macro_us_rate.UsTrltrItem, error)
+	// UsTrycr 调用 国债实际收益率曲线利率 API
+	UsTrycr(ctx context.Context, req *macro_macro_international_macro_us_rate.UsTrycrRequest) ([]macro_macro_international_macro_us_rate.UsTrycrItem, error)
+	// UsTycr 调用 国债收益率曲线利率 API
+	UsTycr(ctx context.Context, req *macro_macro_international_macro_us_rate.UsTycrRequest) ([]macro_macro_international_macro_us_rate.UsTycrItem, error)
 }
 
 type macroUsRateImpl struct {
 	client *sdk.Client
 }
 
-func (impl *macroUsRateImpl) UsTbr(ctx context.Context, req *macro_us_rate.UsTbrRequest) ([]macro_us_rate.UsTbrItem, error) {
-	return macro_us_rate.UsTbr(ctx, impl.client, req)
+// UsTbr 调用 短期国债利率 API
+func (impl *macroUsRateImpl) UsTbr(ctx context.Context, req *macro_macro_international_macro_us_rate.UsTbrRequest) ([]macro_macro_international_macro_us_rate.UsTbrItem, error) {
+	return macro_macro_international_macro_us_rate.UsTbr(ctx, impl.client, req)
 }
 
-func (impl *macroUsRateImpl) UsTltr(ctx context.Context, req *macro_us_rate.UsTltrRequest) ([]macro_us_rate.UsTltrItem, error) {
-	return macro_us_rate.UsTltr(ctx, impl.client, req)
+// UsTltr 调用 国债长期利率 API
+func (impl *macroUsRateImpl) UsTltr(ctx context.Context, req *macro_macro_international_macro_us_rate.UsTltrRequest) ([]macro_macro_international_macro_us_rate.UsTltrItem, error) {
+	return macro_macro_international_macro_us_rate.UsTltr(ctx, impl.client, req)
 }
 
-func (impl *macroUsRateImpl) UsTrltr(ctx context.Context, req *macro_us_rate.UsTrltrRequest) ([]macro_us_rate.UsTrltrItem, error) {
-	return macro_us_rate.UsTrltr(ctx, impl.client, req)
+// UsTrltr 调用 国债长期利率平均值 API
+func (impl *macroUsRateImpl) UsTrltr(ctx context.Context, req *macro_macro_international_macro_us_rate.UsTrltrRequest) ([]macro_macro_international_macro_us_rate.UsTrltrItem, error) {
+	return macro_macro_international_macro_us_rate.UsTrltr(ctx, impl.client, req)
 }
 
-func (impl *macroUsRateImpl) UsTrycr(ctx context.Context, req *macro_us_rate.UsTrycrRequest) ([]macro_us_rate.UsTrycrItem, error) {
-	return macro_us_rate.UsTrycr(ctx, impl.client, req)
+// UsTrycr 调用 国债实际收益率曲线利率 API
+func (impl *macroUsRateImpl) UsTrycr(ctx context.Context, req *macro_macro_international_macro_us_rate.UsTrycrRequest) ([]macro_macro_international_macro_us_rate.UsTrycrItem, error) {
+	return macro_macro_international_macro_us_rate.UsTrycr(ctx, impl.client, req)
 }
 
-func (impl *macroUsRateImpl) UsTycr(ctx context.Context, req *macro_us_rate.UsTycrRequest) ([]macro_us_rate.UsTycrItem, error) {
-	return macro_us_rate.UsTycr(ctx, impl.client, req)
+// UsTycr 调用 国债收益率曲线利率 API
+func (impl *macroUsRateImpl) UsTycr(ctx context.Context, req *macro_macro_international_macro_us_rate.UsTycrRequest) ([]macro_macro_international_macro_us_rate.UsTycrItem, error) {
+	return macro_macro_international_macro_us_rate.UsTycr(ctx, impl.client, req)
 }
 
 func newmacroUsRateImpl(client *sdk.Client) MacroUsRate {

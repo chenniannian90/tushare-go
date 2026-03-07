@@ -4,29 +4,60 @@ package optionstools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	options "github.com/chenniannian90/tushare-go/pkg/sdk/api/options"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	options "tushare-go/pkg/sdk/api/options"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callOptBasic handles OptBasic tool calls
-func (m *OptionsTools) callOptBasic(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &options.OptBasicRequest{}
+// registerOptBasic registers the tool
+func (r *OptionsTools) registerOptBasic() {
+	inputSchema, _ := jsonschema.For[OptBasicInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "options.opt_basic",
+		Description: "Retrieve optbasic data from Tushare options API",
+		InputSchema: inputSchema,
 	}
 
-	items, err := options.OptBasic(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input OptBasicInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &options.OptBasicRequest{
+TsCode: input.TsCode,
+Exchange: input.Exchange,
+ListDate: input.ListDate,
+OptCode: input.OptCode,
+CallPut: input.CallPut,
+
+		}
+
+		items, err := options.OptBasic(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := OptBasicOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "options", "opt_basic")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

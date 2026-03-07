@@ -5,7 +5,7 @@ package stock_market
 import (
 	"context"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 )
 
 // Api146Request 表示 复权行情 API 的请求

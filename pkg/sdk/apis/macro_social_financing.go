@@ -4,20 +4,22 @@ package apis
 
 import (
 	"context"
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/sdk/api/macro_social_financing"
+	"tushare-go/pkg/sdk"
+	macro_macro_domestic_macro_finance_macro_social_financing "tushare-go/pkg/sdk/api/macro/macro_domestic/macro_finance/macro_social_financing"
 )
 
 type MacroSocialFinancing interface {
-	SfMonth(ctx context.Context, req *macro_social_financing.SfMonthRequest) ([]macro_social_financing.SfMonthItem, error)
+	// SfMonth 调用 社融增量（月度） API
+	SfMonth(ctx context.Context, req *macro_macro_domestic_macro_finance_macro_social_financing.SfMonthRequest) ([]macro_macro_domestic_macro_finance_macro_social_financing.SfMonthItem, error)
 }
 
 type macroSocialFinancingImpl struct {
 	client *sdk.Client
 }
 
-func (impl *macroSocialFinancingImpl) SfMonth(ctx context.Context, req *macro_social_financing.SfMonthRequest) ([]macro_social_financing.SfMonthItem, error) {
-	return macro_social_financing.SfMonth(ctx, impl.client, req)
+// SfMonth 调用 社融增量（月度） API
+func (impl *macroSocialFinancingImpl) SfMonth(ctx context.Context, req *macro_macro_domestic_macro_finance_macro_social_financing.SfMonthRequest) ([]macro_macro_domestic_macro_finance_macro_social_financing.SfMonthItem, error) {
+	return macro_macro_domestic_macro_finance_macro_social_financing.SfMonth(ctx, impl.client, req)
 }
 
 func newmacroSocialFinancingImpl(client *sdk.Client) MacroSocialFinancing {

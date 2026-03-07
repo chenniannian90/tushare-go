@@ -4,29 +4,59 @@ package etftools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	etf "github.com/chenniannian90/tushare-go/pkg/sdk/api/etf"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	etf "tushare-go/pkg/sdk/api/etf"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callStkMins handles StkMins tool calls
-func (m *EtfTools) callStkMins(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &etf.StkMinsRequest{}
+// registerStkMins registers the tool
+func (r *EtfTools) registerStkMins() {
+	inputSchema, _ := jsonschema.For[StkMinsInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "etf.stk_mins",
+		Description: "Retrieve stkmins data from Tushare etf API",
+		InputSchema: inputSchema,
 	}
 
-	items, err := etf.StkMins(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input StkMinsInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &etf.StkMinsRequest{
+TsCode: input.TsCode,
+Freq: input.Freq,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+
+		}
+
+		items, err := etf.StkMins(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := StkMinsOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "etf", "stk_mins")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

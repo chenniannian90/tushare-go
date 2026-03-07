@@ -4,29 +4,60 @@ package fundtools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	fund "github.com/chenniannian90/tushare-go/pkg/sdk/api/fund"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	fund "tushare-go/pkg/sdk/api/fund"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callFundManager handles FundManager tool calls
-func (m *FundTools) callFundManager(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &fund.FundManagerRequest{}
+// registerFundManager registers the tool
+func (r *FundTools) registerFundManager() {
+	inputSchema, _ := jsonschema.For[FundManagerInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "fund.fund_manager",
+		Description: "获取公募基金经理数据，包括基金经理简历等数据",
+		InputSchema: inputSchema,
 	}
 
-	items, err := fund.FundManager(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input FundManagerInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &fund.FundManagerRequest{
+TsCode: input.TsCode,
+AnnDate: input.AnnDate,
+Name: input.Name,
+Offset: input.Offset,
+Limit: input.Limit,
+
+		}
+
+		items, err := fund.FundManager(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := FundManagerOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "fund", "fund_manager")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

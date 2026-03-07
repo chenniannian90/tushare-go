@@ -5,7 +5,7 @@ package stock_reference
 import (
 	"context"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 )
 
 // Top10FloatholdersRequest 表示 前十大流通股东 API 的请求

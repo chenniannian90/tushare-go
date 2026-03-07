@@ -4,29 +4,55 @@ package macro_economytools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	macro_macro_domestic_macro_economy "github.com/chenniannian90/tushare-go/pkg/sdk/api/macro/macro_domestic/macro_economy"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	macro_macro_domestic_macro_economy "tushare-go/pkg/sdk/api/macro/macro_domestic/macro_economy"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callCnGdp handles CnGdp tool calls
-func (m *Macro_economyTools) callCnGdp(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &macro_macro_domestic_macro_economy.CnGdpRequest{}
+// registerCnGdp registers the tool
+func (r *Macro_economyTools) registerCnGdp() {
+	inputSchema, _ := jsonschema.For[CnGdpInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "macro_economy.cn_gdp",
+		Description: "Retrieve cngdp data from Tushare macro economy API",
+		InputSchema: inputSchema,
 	}
 
-	items, err := macro_macro_domestic_macro_economy.CnGdp(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input CnGdpInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &macro_macro_domestic_macro_economy.CnGdpRequest{
+
+		}
+
+		items, err := macro_macro_domestic_macro_economy.CnGdp(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := CnGdpOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "macro_economy", "cn_gdp")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

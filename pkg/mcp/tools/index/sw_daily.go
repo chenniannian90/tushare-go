@@ -4,29 +4,59 @@ package indextools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	index "github.com/chenniannian90/tushare-go/pkg/sdk/api/index"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	index "tushare-go/pkg/sdk/api/index"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callSwDaily handles SwDaily tool calls
-func (m *IndexTools) callSwDaily(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &index.SwDailyRequest{}
+// registerSwDaily registers the tool
+func (r *IndexTools) registerSwDaily() {
+	inputSchema, _ := jsonschema.For[SwDailyInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "index.sw_daily",
+		Description: "获取申万行业日线行情（默认是申万2021版行情）",
+		InputSchema: inputSchema,
 	}
 
-	items, err := index.SwDaily(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input SwDailyInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &index.SwDailyRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+
+		}
+
+		items, err := index.SwDaily(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := SwDailyOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "index", "sw_daily")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

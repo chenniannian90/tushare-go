@@ -5,7 +5,7 @@ package stock_market
 import (
 	"context"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 )
 
 // RealtimeListRequest 表示 实时排名（爬虫） API 的请求

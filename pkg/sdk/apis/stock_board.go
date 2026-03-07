@@ -4,125 +4,169 @@ package apis
 
 import (
 	"context"
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/sdk/api/stock_board"
+	"tushare-go/pkg/sdk"
+	stock_stock_board "tushare-go/pkg/sdk/api/stock/stock_board"
 )
 
 type StockBoard interface {
-	DcDaily(ctx context.Context, req *stock_board.DcDailyRequest) ([]stock_board.DcDailyItem, error)
-	DcHot(ctx context.Context, req *stock_board.DcHotRequest) ([]stock_board.DcHotItem, error)
-	DcIndex(ctx context.Context, req *stock_board.DcIndexRequest) ([]stock_board.DcIndexItem, error)
-	DcMember(ctx context.Context, req *stock_board.DcMemberRequest) ([]stock_board.DcMemberItem, error)
-	HmDetail(ctx context.Context, req *stock_board.HmDetailRequest) ([]stock_board.HmDetailItem, error)
-	HmList(ctx context.Context, req *stock_board.HmListRequest) ([]stock_board.HmListItem, error)
-	KplConceptCons(ctx context.Context, req *stock_board.KplConceptConsRequest) ([]stock_board.KplConceptConsItem, error)
-	KplList(ctx context.Context, req *stock_board.KplListRequest) ([]stock_board.KplListItem, error)
-	LimitCptList(ctx context.Context, req *stock_board.LimitCptListRequest) ([]stock_board.LimitCptListItem, error)
-	LimitListD(ctx context.Context, req *stock_board.LimitListDRequest) ([]stock_board.LimitListDItem, error)
-	LimitListThs(ctx context.Context, req *stock_board.LimitListThsRequest) ([]stock_board.LimitListThsItem, error)
-	LimitStep(ctx context.Context, req *stock_board.LimitStepRequest) ([]stock_board.LimitStepItem, error)
-	StkAuction(ctx context.Context, req *stock_board.StkAuctionRequest) ([]stock_board.StkAuctionItem, error)
-	TdxDaily(ctx context.Context, req *stock_board.TdxDailyRequest) ([]stock_board.TdxDailyItem, error)
-	TdxIndex(ctx context.Context, req *stock_board.TdxIndexRequest) ([]stock_board.TdxIndexItem, error)
-	TdxMember(ctx context.Context, req *stock_board.TdxMemberRequest) ([]stock_board.TdxMemberItem, error)
-	ThsDaily(ctx context.Context, req *stock_board.ThsDailyRequest) ([]stock_board.ThsDailyItem, error)
-	ThsHot(ctx context.Context, req *stock_board.ThsHotRequest) ([]stock_board.ThsHotItem, error)
-	ThsIndex(ctx context.Context, req *stock_board.ThsIndexRequest) ([]stock_board.ThsIndexItem, error)
-	ThsMember(ctx context.Context, req *stock_board.ThsMemberRequest) ([]stock_board.ThsMemberItem, error)
-	TopInst(ctx context.Context, req *stock_board.TopInstRequest) ([]stock_board.TopInstItem, error)
-	TopList(ctx context.Context, req *stock_board.TopListRequest) ([]stock_board.TopListItem, error)
+	// DcDaily 调用 东财概念和行业指数行情 API
+	DcDaily(ctx context.Context, req *stock_stock_board.DcDailyRequest) ([]stock_stock_board.DcDailyItem, error)
+	// DcHot 调用 东方财富App热榜 API
+	DcHot(ctx context.Context, req *stock_stock_board.DcHotRequest) ([]stock_stock_board.DcHotItem, error)
+	// DcIndex 调用 东方财富概念板块 API
+	DcIndex(ctx context.Context, req *stock_stock_board.DcIndexRequest) ([]stock_stock_board.DcIndexItem, error)
+	// DcMember 调用 东方财富概念成分 API
+	DcMember(ctx context.Context, req *stock_stock_board.DcMemberRequest) ([]stock_stock_board.DcMemberItem, error)
+	// HmDetail 调用 游资交易每日明细 API
+	HmDetail(ctx context.Context, req *stock_stock_board.HmDetailRequest) ([]stock_stock_board.HmDetailItem, error)
+	// HmList 调用 市场游资最全名录 API
+	HmList(ctx context.Context, req *stock_stock_board.HmListRequest) ([]stock_stock_board.HmListItem, error)
+	// KplConceptCons 调用 题材成分（开盘啦） API
+	KplConceptCons(ctx context.Context, req *stock_stock_board.KplConceptConsRequest) ([]stock_stock_board.KplConceptConsItem, error)
+	// KplList 调用 榜单数据（开盘啦） API
+	KplList(ctx context.Context, req *stock_stock_board.KplListRequest) ([]stock_stock_board.KplListItem, error)
+	// LimitCptList 调用 涨停最强板块统计 API
+	LimitCptList(ctx context.Context, req *stock_stock_board.LimitCptListRequest) ([]stock_stock_board.LimitCptListItem, error)
+	// LimitListD 调用 涨跌停和炸板数据 API
+	LimitListD(ctx context.Context, req *stock_stock_board.LimitListDRequest) ([]stock_stock_board.LimitListDItem, error)
+	// LimitListThs 调用 同花顺涨跌停榜单 API
+	LimitListThs(ctx context.Context, req *stock_stock_board.LimitListThsRequest) ([]stock_stock_board.LimitListThsItem, error)
+	// LimitStep 调用 涨停股票连板天梯 API
+	LimitStep(ctx context.Context, req *stock_stock_board.LimitStepRequest) ([]stock_stock_board.LimitStepItem, error)
+	// StkAuction 调用 开盘竞价成交（当日） API
+	StkAuction(ctx context.Context, req *stock_stock_board.StkAuctionRequest) ([]stock_stock_board.StkAuctionItem, error)
+	// TdxDaily 调用 通达信板块行情 API
+	TdxDaily(ctx context.Context, req *stock_stock_board.TdxDailyRequest) ([]stock_stock_board.TdxDailyItem, error)
+	// TdxIndex 调用 通达信板块信息 API
+	TdxIndex(ctx context.Context, req *stock_stock_board.TdxIndexRequest) ([]stock_stock_board.TdxIndexItem, error)
+	// TdxMember 调用 通达信板块成分 API
+	TdxMember(ctx context.Context, req *stock_stock_board.TdxMemberRequest) ([]stock_stock_board.TdxMemberItem, error)
+	// ThsDaily 调用 同花顺概念和行业指数行情 API
+	ThsDaily(ctx context.Context, req *stock_stock_board.ThsDailyRequest) ([]stock_stock_board.ThsDailyItem, error)
+	// ThsHot 调用 同花顺App热榜数 API
+	ThsHot(ctx context.Context, req *stock_stock_board.ThsHotRequest) ([]stock_stock_board.ThsHotItem, error)
+	// ThsIndex 调用 同花顺行业概念板块 API
+	ThsIndex(ctx context.Context, req *stock_stock_board.ThsIndexRequest) ([]stock_stock_board.ThsIndexItem, error)
+	// ThsMember 调用 同花顺行业概念成分 API
+	ThsMember(ctx context.Context, req *stock_stock_board.ThsMemberRequest) ([]stock_stock_board.ThsMemberItem, error)
+	// TopInst 调用 龙虎榜机构交易单 API
+	TopInst(ctx context.Context, req *stock_stock_board.TopInstRequest) ([]stock_stock_board.TopInstItem, error)
+	// TopList 调用 龙虎榜每日统计单 API
+	TopList(ctx context.Context, req *stock_stock_board.TopListRequest) ([]stock_stock_board.TopListItem, error)
 }
 
 type stockBoardImpl struct {
 	client *sdk.Client
 }
 
-func (impl *stockBoardImpl) DcDaily(ctx context.Context, req *stock_board.DcDailyRequest) ([]stock_board.DcDailyItem, error) {
-	return stock_board.DcDaily(ctx, impl.client, req)
+// DcDaily 调用 东财概念和行业指数行情 API
+func (impl *stockBoardImpl) DcDaily(ctx context.Context, req *stock_stock_board.DcDailyRequest) ([]stock_stock_board.DcDailyItem, error) {
+	return stock_stock_board.DcDaily(ctx, impl.client, req)
 }
 
-func (impl *stockBoardImpl) DcHot(ctx context.Context, req *stock_board.DcHotRequest) ([]stock_board.DcHotItem, error) {
-	return stock_board.DcHot(ctx, impl.client, req)
+// DcHot 调用 东方财富App热榜 API
+func (impl *stockBoardImpl) DcHot(ctx context.Context, req *stock_stock_board.DcHotRequest) ([]stock_stock_board.DcHotItem, error) {
+	return stock_stock_board.DcHot(ctx, impl.client, req)
 }
 
-func (impl *stockBoardImpl) DcIndex(ctx context.Context, req *stock_board.DcIndexRequest) ([]stock_board.DcIndexItem, error) {
-	return stock_board.DcIndex(ctx, impl.client, req)
+// DcIndex 调用 东方财富概念板块 API
+func (impl *stockBoardImpl) DcIndex(ctx context.Context, req *stock_stock_board.DcIndexRequest) ([]stock_stock_board.DcIndexItem, error) {
+	return stock_stock_board.DcIndex(ctx, impl.client, req)
 }
 
-func (impl *stockBoardImpl) DcMember(ctx context.Context, req *stock_board.DcMemberRequest) ([]stock_board.DcMemberItem, error) {
-	return stock_board.DcMember(ctx, impl.client, req)
+// DcMember 调用 东方财富概念成分 API
+func (impl *stockBoardImpl) DcMember(ctx context.Context, req *stock_stock_board.DcMemberRequest) ([]stock_stock_board.DcMemberItem, error) {
+	return stock_stock_board.DcMember(ctx, impl.client, req)
 }
 
-func (impl *stockBoardImpl) HmDetail(ctx context.Context, req *stock_board.HmDetailRequest) ([]stock_board.HmDetailItem, error) {
-	return stock_board.HmDetail(ctx, impl.client, req)
+// HmDetail 调用 游资交易每日明细 API
+func (impl *stockBoardImpl) HmDetail(ctx context.Context, req *stock_stock_board.HmDetailRequest) ([]stock_stock_board.HmDetailItem, error) {
+	return stock_stock_board.HmDetail(ctx, impl.client, req)
 }
 
-func (impl *stockBoardImpl) HmList(ctx context.Context, req *stock_board.HmListRequest) ([]stock_board.HmListItem, error) {
-	return stock_board.HmList(ctx, impl.client, req)
+// HmList 调用 市场游资最全名录 API
+func (impl *stockBoardImpl) HmList(ctx context.Context, req *stock_stock_board.HmListRequest) ([]stock_stock_board.HmListItem, error) {
+	return stock_stock_board.HmList(ctx, impl.client, req)
 }
 
-func (impl *stockBoardImpl) KplConceptCons(ctx context.Context, req *stock_board.KplConceptConsRequest) ([]stock_board.KplConceptConsItem, error) {
-	return stock_board.KplConceptCons(ctx, impl.client, req)
+// KplConceptCons 调用 题材成分（开盘啦） API
+func (impl *stockBoardImpl) KplConceptCons(ctx context.Context, req *stock_stock_board.KplConceptConsRequest) ([]stock_stock_board.KplConceptConsItem, error) {
+	return stock_stock_board.KplConceptCons(ctx, impl.client, req)
 }
 
-func (impl *stockBoardImpl) KplList(ctx context.Context, req *stock_board.KplListRequest) ([]stock_board.KplListItem, error) {
-	return stock_board.KplList(ctx, impl.client, req)
+// KplList 调用 榜单数据（开盘啦） API
+func (impl *stockBoardImpl) KplList(ctx context.Context, req *stock_stock_board.KplListRequest) ([]stock_stock_board.KplListItem, error) {
+	return stock_stock_board.KplList(ctx, impl.client, req)
 }
 
-func (impl *stockBoardImpl) LimitCptList(ctx context.Context, req *stock_board.LimitCptListRequest) ([]stock_board.LimitCptListItem, error) {
-	return stock_board.LimitCptList(ctx, impl.client, req)
+// LimitCptList 调用 涨停最强板块统计 API
+func (impl *stockBoardImpl) LimitCptList(ctx context.Context, req *stock_stock_board.LimitCptListRequest) ([]stock_stock_board.LimitCptListItem, error) {
+	return stock_stock_board.LimitCptList(ctx, impl.client, req)
 }
 
-func (impl *stockBoardImpl) LimitListD(ctx context.Context, req *stock_board.LimitListDRequest) ([]stock_board.LimitListDItem, error) {
-	return stock_board.LimitListD(ctx, impl.client, req)
+// LimitListD 调用 涨跌停和炸板数据 API
+func (impl *stockBoardImpl) LimitListD(ctx context.Context, req *stock_stock_board.LimitListDRequest) ([]stock_stock_board.LimitListDItem, error) {
+	return stock_stock_board.LimitListD(ctx, impl.client, req)
 }
 
-func (impl *stockBoardImpl) LimitListThs(ctx context.Context, req *stock_board.LimitListThsRequest) ([]stock_board.LimitListThsItem, error) {
-	return stock_board.LimitListThs(ctx, impl.client, req)
+// LimitListThs 调用 同花顺涨跌停榜单 API
+func (impl *stockBoardImpl) LimitListThs(ctx context.Context, req *stock_stock_board.LimitListThsRequest) ([]stock_stock_board.LimitListThsItem, error) {
+	return stock_stock_board.LimitListThs(ctx, impl.client, req)
 }
 
-func (impl *stockBoardImpl) LimitStep(ctx context.Context, req *stock_board.LimitStepRequest) ([]stock_board.LimitStepItem, error) {
-	return stock_board.LimitStep(ctx, impl.client, req)
+// LimitStep 调用 涨停股票连板天梯 API
+func (impl *stockBoardImpl) LimitStep(ctx context.Context, req *stock_stock_board.LimitStepRequest) ([]stock_stock_board.LimitStepItem, error) {
+	return stock_stock_board.LimitStep(ctx, impl.client, req)
 }
 
-func (impl *stockBoardImpl) StkAuction(ctx context.Context, req *stock_board.StkAuctionRequest) ([]stock_board.StkAuctionItem, error) {
-	return stock_board.StkAuction(ctx, impl.client, req)
+// StkAuction 调用 开盘竞价成交（当日） API
+func (impl *stockBoardImpl) StkAuction(ctx context.Context, req *stock_stock_board.StkAuctionRequest) ([]stock_stock_board.StkAuctionItem, error) {
+	return stock_stock_board.StkAuction(ctx, impl.client, req)
 }
 
-func (impl *stockBoardImpl) TdxDaily(ctx context.Context, req *stock_board.TdxDailyRequest) ([]stock_board.TdxDailyItem, error) {
-	return stock_board.TdxDaily(ctx, impl.client, req)
+// TdxDaily 调用 通达信板块行情 API
+func (impl *stockBoardImpl) TdxDaily(ctx context.Context, req *stock_stock_board.TdxDailyRequest) ([]stock_stock_board.TdxDailyItem, error) {
+	return stock_stock_board.TdxDaily(ctx, impl.client, req)
 }
 
-func (impl *stockBoardImpl) TdxIndex(ctx context.Context, req *stock_board.TdxIndexRequest) ([]stock_board.TdxIndexItem, error) {
-	return stock_board.TdxIndex(ctx, impl.client, req)
+// TdxIndex 调用 通达信板块信息 API
+func (impl *stockBoardImpl) TdxIndex(ctx context.Context, req *stock_stock_board.TdxIndexRequest) ([]stock_stock_board.TdxIndexItem, error) {
+	return stock_stock_board.TdxIndex(ctx, impl.client, req)
 }
 
-func (impl *stockBoardImpl) TdxMember(ctx context.Context, req *stock_board.TdxMemberRequest) ([]stock_board.TdxMemberItem, error) {
-	return stock_board.TdxMember(ctx, impl.client, req)
+// TdxMember 调用 通达信板块成分 API
+func (impl *stockBoardImpl) TdxMember(ctx context.Context, req *stock_stock_board.TdxMemberRequest) ([]stock_stock_board.TdxMemberItem, error) {
+	return stock_stock_board.TdxMember(ctx, impl.client, req)
 }
 
-func (impl *stockBoardImpl) ThsDaily(ctx context.Context, req *stock_board.ThsDailyRequest) ([]stock_board.ThsDailyItem, error) {
-	return stock_board.ThsDaily(ctx, impl.client, req)
+// ThsDaily 调用 同花顺概念和行业指数行情 API
+func (impl *stockBoardImpl) ThsDaily(ctx context.Context, req *stock_stock_board.ThsDailyRequest) ([]stock_stock_board.ThsDailyItem, error) {
+	return stock_stock_board.ThsDaily(ctx, impl.client, req)
 }
 
-func (impl *stockBoardImpl) ThsHot(ctx context.Context, req *stock_board.ThsHotRequest) ([]stock_board.ThsHotItem, error) {
-	return stock_board.ThsHot(ctx, impl.client, req)
+// ThsHot 调用 同花顺App热榜数 API
+func (impl *stockBoardImpl) ThsHot(ctx context.Context, req *stock_stock_board.ThsHotRequest) ([]stock_stock_board.ThsHotItem, error) {
+	return stock_stock_board.ThsHot(ctx, impl.client, req)
 }
 
-func (impl *stockBoardImpl) ThsIndex(ctx context.Context, req *stock_board.ThsIndexRequest) ([]stock_board.ThsIndexItem, error) {
-	return stock_board.ThsIndex(ctx, impl.client, req)
+// ThsIndex 调用 同花顺行业概念板块 API
+func (impl *stockBoardImpl) ThsIndex(ctx context.Context, req *stock_stock_board.ThsIndexRequest) ([]stock_stock_board.ThsIndexItem, error) {
+	return stock_stock_board.ThsIndex(ctx, impl.client, req)
 }
 
-func (impl *stockBoardImpl) ThsMember(ctx context.Context, req *stock_board.ThsMemberRequest) ([]stock_board.ThsMemberItem, error) {
-	return stock_board.ThsMember(ctx, impl.client, req)
+// ThsMember 调用 同花顺行业概念成分 API
+func (impl *stockBoardImpl) ThsMember(ctx context.Context, req *stock_stock_board.ThsMemberRequest) ([]stock_stock_board.ThsMemberItem, error) {
+	return stock_stock_board.ThsMember(ctx, impl.client, req)
 }
 
-func (impl *stockBoardImpl) TopInst(ctx context.Context, req *stock_board.TopInstRequest) ([]stock_board.TopInstItem, error) {
-	return stock_board.TopInst(ctx, impl.client, req)
+// TopInst 调用 龙虎榜机构交易单 API
+func (impl *stockBoardImpl) TopInst(ctx context.Context, req *stock_stock_board.TopInstRequest) ([]stock_stock_board.TopInstItem, error) {
+	return stock_stock_board.TopInst(ctx, impl.client, req)
 }
 
-func (impl *stockBoardImpl) TopList(ctx context.Context, req *stock_board.TopListRequest) ([]stock_board.TopListItem, error) {
-	return stock_board.TopList(ctx, impl.client, req)
+// TopList 调用 龙虎榜每日统计单 API
+func (impl *stockBoardImpl) TopList(ctx context.Context, req *stock_stock_board.TopListRequest) ([]stock_stock_board.TopListItem, error) {
+	return stock_stock_board.TopList(ctx, impl.client, req)
 }
 
 func newstockBoardImpl(client *sdk.Client) StockBoard {

@@ -4,13 +4,16 @@ package apis
 
 import (
 	"context"
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/sdk/api/options"
+	"tushare-go/pkg/sdk"
+	options "tushare-go/pkg/sdk/api/options"
 )
 
 type Options interface {
+	// OptBasic 调用 期权合约信息 API
 	OptBasic(ctx context.Context, req *options.OptBasicRequest) ([]options.OptBasicItem, error)
+	// OptDaily 调用 期权日线行情 API
 	OptDaily(ctx context.Context, req *options.OptDailyRequest) ([]options.OptDailyItem, error)
+	// OptMins 调用 期权分钟行情 API
 	OptMins(ctx context.Context, req *options.OptMinsRequest) ([]options.OptMinsItem, error)
 }
 
@@ -18,14 +21,17 @@ type optionsImpl struct {
 	client *sdk.Client
 }
 
+// OptBasic 调用 期权合约信息 API
 func (impl *optionsImpl) OptBasic(ctx context.Context, req *options.OptBasicRequest) ([]options.OptBasicItem, error) {
 	return options.OptBasic(ctx, impl.client, req)
 }
 
+// OptDaily 调用 期权日线行情 API
 func (impl *optionsImpl) OptDaily(ctx context.Context, req *options.OptDailyRequest) ([]options.OptDailyItem, error) {
 	return options.OptDaily(ctx, impl.client, req)
 }
 
+// OptMins 调用 期权分钟行情 API
 func (impl *optionsImpl) OptMins(ctx context.Context, req *options.OptMinsRequest) ([]options.OptMinsItem, error) {
 	return options.OptMins(ctx, impl.client, req)
 }

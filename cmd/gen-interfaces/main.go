@@ -241,8 +241,8 @@ func generateInterfaceFile(category CategoryAPIs, outputDir string) error {
 	builder.WriteString("package apis\n\n")
 	builder.WriteString("import (\n")
 	builder.WriteString("\t\"context\"\n")
-	builder.WriteString("\t\"github.com/chenniannian90/tushare-go/pkg/sdk\"\n")
-	builder.WriteString("\t" + packageAlias + " \"github.com/chenniannian90/tushare-go/pkg/sdk/api/" + category.PackageName + "\"\n")
+	builder.WriteString("\t\"tushare-go/pkg/sdk\"\n")
+	builder.WriteString("\t" + packageAlias + " \"tushare-go/pkg/sdk/api/" + category.PackageName + "\"\n")
 	builder.WriteString(")\n\n")
 
 	builder.WriteString("type " + category.CategoryName + " interface {\n")
@@ -292,7 +292,7 @@ func generateMainFile(categories []CategoryAPIs, outputDir string) error {
 	builder.WriteString("// Package apis 提供类型化的链式调用方法\n")
 	builder.WriteString("// 这个包导入了 SDK 和具体的 API 包，为 SDK 的链式调用客户端提供类型化方法\n")
 	builder.WriteString("package apis\n\n")
-	builder.WriteString("import \"github.com/chenniannian90/tushare-go/pkg/sdk\"\n\n")
+	builder.WriteString("import \"tushare-go/pkg/sdk\"\n\n")
 
 	builder.WriteString("// TushareClient 提供链式调用客户端，集成所有 API 接口\n")
 	builder.WriteString("type TushareClient struct {\n")

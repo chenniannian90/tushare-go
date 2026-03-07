@@ -4,29 +4,61 @@ package indextools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	index "github.com/chenniannian90/tushare-go/pkg/sdk/api/index"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	index "tushare-go/pkg/sdk/api/index"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callDailyInfo handles DailyInfo tool calls
-func (m *IndexTools) callDailyInfo(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &index.DailyInfoRequest{}
+// registerDailyInfo registers the tool
+func (r *IndexTools) registerDailyInfo() {
+	inputSchema, _ := jsonschema.For[DailyInfoInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "index.daily_info",
+		Description: "获取交易所股票交易统计，包括各板块明细",
+		InputSchema: inputSchema,
 	}
 
-	items, err := index.DailyInfo(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input DailyInfoInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &index.DailyInfoRequest{
+TradeDate: input.TradeDate,
+TsCode: input.TsCode,
+Exchange: input.Exchange,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+Fields: input.Fields,
+
+		}
+
+		items, err := index.DailyInfo(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := DailyInfoOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "index", "daily_info")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

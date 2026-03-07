@@ -3,165 +3,41 @@
 package indextools
 
 import (
-	"context"
-	"fmt"
-
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	"tushare-go/pkg/sdk"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// IndexTools implements tools for index API
+// IndexTools represents index tools
 type IndexTools struct {
+	server *mcp.Server
 	client *sdk.Client
 }
 
-// NewIndexTools creates a new index tools instance
-func NewIndexTools(client *sdk.Client) *IndexTools {
-	return &IndexTools{
-		client: client,
-	}
+// NewIndexTools creates a new instance
+func NewIndexTools(server *mcp.Server, client *sdk.Client) *IndexTools {
+	return &IndexTools{server: server, client: client}
 }
 
-// GetAPIName returns the Tushare API name for this module
-func (m *IndexTools) GetAPIName() string {
-	return "index"
-}
+// RegisterAll registers all tools
+func (r *IndexTools) RegisterAll() {
+	r.registerCiDaily()
+	r.registerCiIndexMember()
+	r.registerDailyInfo()
+	r.registerIdxFactorPro()
+	r.registerIdxMins()
+	r.registerIndexBasic()
+	r.registerIndexClassify()
+	r.registerIndexDaily()
+	r.registerIndexDailybasic()
+	r.registerIndexGlobal()
+	r.registerIndexMemberAll()
+	r.registerIndexMonthly()
+	r.registerIndexWeekly()
+	r.registerIndexWeight()
+	r.registerRtIdxK()
+	r.registerRtIdxMin()
+	r.registerRtSwK()
+	r.registerSwDaily()
+	r.registerSzDailyInfo()
 
-// ListTools returns all available tools in this module
-func (m *IndexTools) ListTools() []common.Tool {
-	return []common.Tool{
-		{
-			Name: "index.ci_daily",
-			Description: "Access ci_daily data from Tushare API",
-		},
-		{
-			Name: "index.ci_index_member",
-			Description: "Access ci_index_member data from Tushare API",
-		},
-		{
-			Name: "index.daily_info",
-			Description: "Access daily_info data from Tushare API",
-		},
-		{
-			Name: "index.idx_factor_pro",
-			Description: "Access idx_factor_pro data from Tushare API",
-		},
-		{
-			Name: "index.idx_mins",
-			Description: "Access idx_mins data from Tushare API",
-		},
-		{
-			Name: "index.index_basic",
-			Description: "Access index_basic data from Tushare API",
-		},
-		{
-			Name: "index.index_classify",
-			Description: "Access index_classify data from Tushare API",
-		},
-		{
-			Name: "index.index_daily",
-			Description: "Access index_daily data from Tushare API",
-		},
-		{
-			Name: "index.index_dailybasic",
-			Description: "Access index_dailybasic data from Tushare API",
-		},
-		{
-			Name: "index.index_global",
-			Description: "Access index_global data from Tushare API",
-		},
-		{
-			Name: "index.index_member_all",
-			Description: "Access index_member_all data from Tushare API",
-		},
-		{
-			Name: "index.index_monthly",
-			Description: "Access index_monthly data from Tushare API",
-		},
-		{
-			Name: "index.index_weekly",
-			Description: "Access index_weekly data from Tushare API",
-		},
-		{
-			Name: "index.index_weight",
-			Description: "Access index_weight data from Tushare API",
-		},
-		{
-			Name: "index.rt_idx_k",
-			Description: "Access rt_idx_k data from Tushare API",
-		},
-		{
-			Name: "index.rt_idx_min",
-			Description: "Access rt_idx_min data from Tushare API",
-		},
-		{
-			Name: "index.rt_sw_k",
-			Description: "Access rt_sw_k data from Tushare API",
-		},
-		{
-			Name: "index.sw_daily",
-			Description: "Access sw_daily data from Tushare API",
-		},
-		{
-			Name: "index.sz_daily_info",
-			Description: "Access sz_daily_info data from Tushare API",
-		},
-	}
-}
-
-// HandlesTool checks if this module handles a tool
-func (m *IndexTools) HandlesTool(toolName string) bool {
-	tools := m.ListTools()
-	for _, tool := range tools {
-		if tool.Name == toolName {
-			return true
-		}
-	}
-	return false
-}
-
-// CallTool executes a tool call
-func (m *IndexTools) CallTool(ctx context.Context, toolName string, args map[string]interface{}) (*common.ToolResult, error) {
-	switch toolName {
-	case "index.ci_daily":
-		return m.callCiDaily(ctx, args)
-	case "index.ci_index_member":
-		return m.callCiIndexMember(ctx, args)
-	case "index.daily_info":
-		return m.callDailyInfo(ctx, args)
-	case "index.idx_factor_pro":
-		return m.callIdxFactorPro(ctx, args)
-	case "index.idx_mins":
-		return m.callIdxMins(ctx, args)
-	case "index.index_basic":
-		return m.callIndexBasic(ctx, args)
-	case "index.index_classify":
-		return m.callIndexClassify(ctx, args)
-	case "index.index_daily":
-		return m.callIndexDaily(ctx, args)
-	case "index.index_dailybasic":
-		return m.callIndexDailybasic(ctx, args)
-	case "index.index_global":
-		return m.callIndexGlobal(ctx, args)
-	case "index.index_member_all":
-		return m.callIndexMemberAll(ctx, args)
-	case "index.index_monthly":
-		return m.callIndexMonthly(ctx, args)
-	case "index.index_weekly":
-		return m.callIndexWeekly(ctx, args)
-	case "index.index_weight":
-		return m.callIndexWeight(ctx, args)
-	case "index.rt_idx_k":
-		return m.callRtIdxK(ctx, args)
-	case "index.rt_idx_min":
-		return m.callRtIdxMin(ctx, args)
-	case "index.rt_sw_k":
-		return m.callRtSwK(ctx, args)
-	case "index.sw_daily":
-		return m.callSwDaily(ctx, args)
-	case "index.sz_daily_info":
-		return m.callSzDailyInfo(ctx, args)
-	default:
-		return nil, fmt.Errorf("unknown tool: %s", toolName)
-	}
 }

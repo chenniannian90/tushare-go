@@ -5,7 +5,7 @@ package stock_market
 import (
 	"context"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 )
 
 // Api109Request 表示 通用行情接口 API 的请求

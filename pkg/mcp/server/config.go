@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 )
 
 // ServerConfig holds MCP server configuration
@@ -100,7 +100,7 @@ func GetServerInfo() ServerInfo {
 		Version:     "1.0.0",
 		Author:      "Tushare Go SDK Contributors",
 		Description: "MCP server for Tushare Pro - Chinese financial data platform",
-		Homepage:    "https://github.com/chenniannian90/tushare-go",
+		Homepage:    "https://tushare-go",
 		License:     "MIT",
 	}
 }

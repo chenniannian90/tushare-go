@@ -6,10 +6,10 @@ import (
 	"log"
 	"os"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/sdk/apis"
-	stockbasic "github.com/chenniannian90/tushare-go/pkg/sdk/api/stock/stock_basic"
-	stockboard "github.com/chenniannian90/tushare-go/pkg/sdk/api/stock/stock_board"
+	"tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk/apis"
+	stockbasic "tushare-go/pkg/sdk/api/stock/stock_basic"
+	stockboard "tushare-go/pkg/sdk/api/stock/stock_board"
 )
 
 func main() {
@@ -123,7 +123,7 @@ func main() {
 	fmt.Println("  topList, _ := stockboard.TopList(ctx, client, req)")
 
 	fmt.Println("\n【链式调用】只需导入一个包：")
-	fmt.Println("  import \"github.com/chenniannian90/tushare-go/pkg/sdk/apis\"")
+	fmt.Println("  import \"tushare-go/pkg/sdk/apis\"")
 	fmt.Println("  client := apis.NewTushareClient(sdkClient)")
 	fmt.Println("  stocks, _ := client.StockBasic(ctx, req)")
 	fmt.Println("  daily, _ := client.Daily(ctx, req)")

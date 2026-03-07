@@ -5,7 +5,7 @@ package stock_financial
 import (
 	"context"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 )
 
 // FinaMainbzRequest 表示 主营业务构成 API 的请求

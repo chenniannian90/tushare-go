@@ -4,29 +4,62 @@ package llm_corpustools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	llm_corpus "github.com/chenniannian90/tushare-go/pkg/sdk/api/llm_corpus"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	llm_corpus "tushare-go/pkg/sdk/api/llm_corpus"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callResearchReport handles ResearchReport tool calls
-func (m *Llm_corpusTools) callResearchReport(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &llm_corpus.ResearchReportRequest{}
+// registerResearchReport registers the tool
+func (r *Llm_corpusTools) registerResearchReport() {
+	inputSchema, _ := jsonschema.For[ResearchReportInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "llm_corpus.research_report",
+		Description: "Retrieve researchreport data from Tushare llm corpus API",
+		InputSchema: inputSchema,
 	}
 
-	items, err := llm_corpus.ResearchReport(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input ResearchReportInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &llm_corpus.ResearchReportRequest{
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+ReportType: input.ReportType,
+TsCode: input.TsCode,
+InstCsname: input.InstCsname,
+IndName: input.IndName,
+
+		}
+
+		items, err := llm_corpus.ResearchReport(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := ResearchReportOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "llm_corpus", "research_report")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

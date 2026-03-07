@@ -5,7 +5,7 @@ package futures
 import (
 	"context"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 )
 
 // IndexDailyRequest 表示 南华期货指数行情 API 的请求

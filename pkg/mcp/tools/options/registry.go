@@ -3,69 +3,25 @@
 package optionstools
 
 import (
-	"context"
-	"fmt"
-
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	"tushare-go/pkg/sdk"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// OptionsTools implements tools for options API
+// OptionsTools represents options tools
 type OptionsTools struct {
+	server *mcp.Server
 	client *sdk.Client
 }
 
-// NewOptionsTools creates a new options tools instance
-func NewOptionsTools(client *sdk.Client) *OptionsTools {
-	return &OptionsTools{
-		client: client,
-	}
+// NewOptionsTools creates a new instance
+func NewOptionsTools(server *mcp.Server, client *sdk.Client) *OptionsTools {
+	return &OptionsTools{server: server, client: client}
 }
 
-// GetAPIName returns the Tushare API name for this module
-func (m *OptionsTools) GetAPIName() string {
-	return "options"
-}
+// RegisterAll registers all tools
+func (r *OptionsTools) RegisterAll() {
+	r.registerOptBasic()
+	r.registerOptDaily()
+	r.registerOptMins()
 
-// ListTools returns all available tools in this module
-func (m *OptionsTools) ListTools() []common.Tool {
-	return []common.Tool{
-		{
-			Name: "options.opt_basic",
-			Description: "Access opt_basic data from Tushare API",
-		},
-		{
-			Name: "options.opt_daily",
-			Description: "Access opt_daily data from Tushare API",
-		},
-		{
-			Name: "options.opt_mins",
-			Description: "Access opt_mins data from Tushare API",
-		},
-	}
-}
-
-// HandlesTool checks if this module handles a tool
-func (m *OptionsTools) HandlesTool(toolName string) bool {
-	tools := m.ListTools()
-	for _, tool := range tools {
-		if tool.Name == toolName {
-			return true
-		}
-	}
-	return false
-}
-
-// CallTool executes a tool call
-func (m *OptionsTools) CallTool(ctx context.Context, toolName string, args map[string]interface{}) (*common.ToolResult, error) {
-	switch toolName {
-	case "options.opt_basic":
-		return m.callOptBasic(ctx, args)
-	case "options.opt_daily":
-		return m.callOptDaily(ctx, args)
-	case "options.opt_mins":
-		return m.callOptMins(ctx, args)
-	default:
-		return nil, fmt.Errorf("unknown tool: %s", toolName)
-	}
 }

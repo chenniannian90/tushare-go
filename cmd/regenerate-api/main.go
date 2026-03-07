@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/chenniannian90/tushare-go/internal/gen"
+	"tushare-go/internal/gen"
 )
 
 // extractNameFromPath 从路径组件中提取 ___ 后面的部分

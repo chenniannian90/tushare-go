@@ -4,29 +4,59 @@ package futurestools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	futures "github.com/chenniannian90/tushare-go/pkg/sdk/api/futures"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	futures "tushare-go/pkg/sdk/api/futures"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callFtMins handles FtMins tool calls
-func (m *FuturesTools) callFtMins(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &futures.FtMinsRequest{}
+// registerFtMins registers the tool
+func (r *FuturesTools) registerFtMins() {
+	inputSchema, _ := jsonschema.For[FtMinsInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "futures.ft_mins",
+		Description: "获取全市场期货合约分钟数据，支持1min/5min/15min/30min/60min行情，提供Python SDK和 http Restful API两种方式，如果需要主力合约分钟，请先通过主力mapping接口获取对应的合约代码后提取分钟。",
+		InputSchema: inputSchema,
 	}
 
-	items, err := futures.FtMins(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input FtMinsInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &futures.FtMinsRequest{
+TsCode: input.TsCode,
+Freq: input.Freq,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+
+		}
+
+		items, err := futures.FtMins(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := FtMinsOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "futures", "ft_mins")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

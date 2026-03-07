@@ -5,7 +5,7 @@ package stock_basic
 import (
 	"context"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 )
 
 // NamechangeRequest 表示 股票曾用名 API 的请求

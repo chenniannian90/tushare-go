@@ -4,29 +4,57 @@ package hk_stocktools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	hk_stock "github.com/chenniannian90/tushare-go/pkg/sdk/api/hk_stock"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	hk_stock "tushare-go/pkg/sdk/api/hk_stock"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callHkBasic handles HkBasic tool calls
-func (m *Hk_stockTools) callHkBasic(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &hk_stock.HkBasicRequest{}
+// registerHkBasic registers the tool
+func (r *Hk_stockTools) registerHkBasic() {
+	inputSchema, _ := jsonschema.For[HkBasicInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "hk_stock.hk_basic",
+		Description: "获取港股列表信息数量：单次可提取全部在交易的港股列表数据",
+		InputSchema: inputSchema,
 	}
 
-	items, err := hk_stock.HkBasic(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input HkBasicInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &hk_stock.HkBasicRequest{
+TsCode: input.TsCode,
+ListStatus: input.ListStatus,
+
+		}
+
+		items, err := hk_stock.HkBasic(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := HkBasicOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "hk_stock", "hk_basic")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

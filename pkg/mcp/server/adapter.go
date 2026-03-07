@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	"tushare-go/pkg/mcp/common"
 	mcpsdk "github.com/modelcontextprotocol/go-sdk/mcp"
 )
 

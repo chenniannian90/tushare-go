@@ -4,29 +4,58 @@ package forextools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	forex "github.com/chenniannian90/tushare-go/pkg/sdk/api/forex"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	forex "tushare-go/pkg/sdk/api/forex"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callFxObasic handles FxObasic tool calls
-func (m *ForexTools) callFxObasic(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &forex.FxObasicRequest{}
+// registerFxObasic registers the tool
+func (r *ForexTools) registerFxObasic() {
+	inputSchema, _ := jsonschema.For[FxObasicInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "forex.fx_obasic",
+		Description: "获取海外外汇基础信息，目前只有FXCM交易商的数据数量：单次可提取全部数据",
+		InputSchema: inputSchema,
 	}
 
-	items, err := forex.FxObasic(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input FxObasicInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &forex.FxObasicRequest{
+Exchange: input.Exchange,
+Classify: input.Classify,
+TsCode: input.TsCode,
+
+		}
+
+		items, err := forex.FxObasic(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := FxObasicOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "forex", "fx_obasic")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

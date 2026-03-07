@@ -4,29 +4,60 @@ package hk_stocktools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	hk_stock "github.com/chenniannian90/tushare-go/pkg/sdk/api/hk_stock"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	hk_stock "tushare-go/pkg/sdk/api/hk_stock"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callHkFinaIndicator handles HkFinaIndicator tool calls
-func (m *Hk_stockTools) callHkFinaIndicator(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &hk_stock.HkFinaIndicatorRequest{}
+// registerHkFinaIndicator registers the tool
+func (r *Hk_stockTools) registerHkFinaIndicator() {
+	inputSchema, _ := jsonschema.For[HkFinaIndicatorInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "hk_stock.hk_fina_indicator",
+		Description: "Retrieve hkfinaindicator data from Tushare hk stock API",
+		InputSchema: inputSchema,
 	}
 
-	items, err := hk_stock.HkFinaIndicator(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input HkFinaIndicatorInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &hk_stock.HkFinaIndicatorRequest{
+TsCode: input.TsCode,
+Period: input.Period,
+ReportType: input.ReportType,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+
+		}
+
+		items, err := hk_stock.HkFinaIndicator(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := HkFinaIndicatorOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "hk_stock", "hk_fina_indicator")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

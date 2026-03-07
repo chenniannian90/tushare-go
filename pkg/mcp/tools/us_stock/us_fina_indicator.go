@@ -4,29 +4,60 @@ package us_stocktools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	us_stock "github.com/chenniannian90/tushare-go/pkg/sdk/api/us_stock"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	us_stock "tushare-go/pkg/sdk/api/us_stock"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callUsFinaIndicator handles UsFinaIndicator tool calls
-func (m *Us_stockTools) callUsFinaIndicator(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &us_stock.UsFinaIndicatorRequest{}
+// registerUsFinaIndicator registers the tool
+func (r *Us_stockTools) registerUsFinaIndicator() {
+	inputSchema, _ := jsonschema.For[UsFinaIndicatorInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "us_stock.us_fina_indicator",
+		Description: "获取美股上市公司财务指标数据，目前只覆盖主要美股和中概股。为避免服务器压力，现阶段每次请求最多返回200条记录，可通过设置日期多次请求获取更多数据。",
+		InputSchema: inputSchema,
 	}
 
-	items, err := us_stock.UsFinaIndicator(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input UsFinaIndicatorInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &us_stock.UsFinaIndicatorRequest{
+TsCode: input.TsCode,
+Period: input.Period,
+ReportType: input.ReportType,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+
+		}
+
+		items, err := us_stock.UsFinaIndicator(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := UsFinaIndicatorOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "us_stock", "us_fina_indicator")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

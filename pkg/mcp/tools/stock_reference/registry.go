@@ -3,117 +3,33 @@
 package stock_referencetools
 
 import (
-	"context"
-	"fmt"
-
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	"tushare-go/pkg/sdk"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// Stock_referenceTools implements tools for stock_reference API
+// Stock_referenceTools represents stock_reference tools
 type Stock_referenceTools struct {
+	server *mcp.Server
 	client *sdk.Client
 }
 
-// NewStock_referenceTools creates a new stock_reference tools instance
-func NewStock_referenceTools(client *sdk.Client) *Stock_referenceTools {
-	return &Stock_referenceTools{
-		client: client,
-	}
+// NewStock_referenceTools creates a new instance
+func NewStock_referenceTools(server *mcp.Server, client *sdk.Client) *Stock_referenceTools {
+	return &Stock_referenceTools{server: server, client: client}
 }
 
-// GetAPIName returns the Tushare API name for this module
-func (m *Stock_referenceTools) GetAPIName() string {
-	return "stock_reference"
-}
+// RegisterAll registers all tools
+func (r *Stock_referenceTools) RegisterAll() {
+	r.registerBlockTrade()
+	r.registerPledgeDetail()
+	r.registerPledgeStat()
+	r.registerRepurchase()
+	r.registerShareFloat()
+	r.registerStkAccount()
+	r.registerStkAccountOld()
+	r.registerStkHoldernumber()
+	r.registerStkHoldertrade()
+	r.registerTop10Floatholders()
+	r.registerTop10Holders()
 
-// ListTools returns all available tools in this module
-func (m *Stock_referenceTools) ListTools() []common.Tool {
-	return []common.Tool{
-		{
-			Name: "stock_reference.block_trade",
-			Description: "Access block_trade data from Tushare API",
-		},
-		{
-			Name: "stock_reference.pledge_detail",
-			Description: "Access pledge_detail data from Tushare API",
-		},
-		{
-			Name: "stock_reference.pledge_stat",
-			Description: "Access pledge_stat data from Tushare API",
-		},
-		{
-			Name: "stock_reference.repurchase",
-			Description: "Access repurchase data from Tushare API",
-		},
-		{
-			Name: "stock_reference.share_float",
-			Description: "Access share_float data from Tushare API",
-		},
-		{
-			Name: "stock_reference.stk_account",
-			Description: "Access stk_account data from Tushare API",
-		},
-		{
-			Name: "stock_reference.stk_account_old",
-			Description: "Access stk_account_old data from Tushare API",
-		},
-		{
-			Name: "stock_reference.stk_holdernumber",
-			Description: "Access stk_holdernumber data from Tushare API",
-		},
-		{
-			Name: "stock_reference.stk_holdertrade",
-			Description: "Access stk_holdertrade data from Tushare API",
-		},
-		{
-			Name: "stock_reference.top10_floatholders",
-			Description: "Access top10_floatholders data from Tushare API",
-		},
-		{
-			Name: "stock_reference.top10_holders",
-			Description: "Access top10_holders data from Tushare API",
-		},
-	}
-}
-
-// HandlesTool checks if this module handles a tool
-func (m *Stock_referenceTools) HandlesTool(toolName string) bool {
-	tools := m.ListTools()
-	for _, tool := range tools {
-		if tool.Name == toolName {
-			return true
-		}
-	}
-	return false
-}
-
-// CallTool executes a tool call
-func (m *Stock_referenceTools) CallTool(ctx context.Context, toolName string, args map[string]interface{}) (*common.ToolResult, error) {
-	switch toolName {
-	case "stock_reference.block_trade":
-		return m.callBlockTrade(ctx, args)
-	case "stock_reference.pledge_detail":
-		return m.callPledgeDetail(ctx, args)
-	case "stock_reference.pledge_stat":
-		return m.callPledgeStat(ctx, args)
-	case "stock_reference.repurchase":
-		return m.callRepurchase(ctx, args)
-	case "stock_reference.share_float":
-		return m.callShareFloat(ctx, args)
-	case "stock_reference.stk_account":
-		return m.callStkAccount(ctx, args)
-	case "stock_reference.stk_account_old":
-		return m.callStkAccountOld(ctx, args)
-	case "stock_reference.stk_holdernumber":
-		return m.callStkHoldernumber(ctx, args)
-	case "stock_reference.stk_holdertrade":
-		return m.callStkHoldertrade(ctx, args)
-	case "stock_reference.top10_floatholders":
-		return m.callTop10Floatholders(ctx, args)
-	case "stock_reference.top10_holders":
-		return m.callTop10Holders(ctx, args)
-	default:
-		return nil, fmt.Errorf("unknown tool: %s", toolName)
-	}
 }

@@ -15,7 +15,14 @@
 ## 安装
 
 ```bash
-go get github.com/chenniannian90/tushare-go
+# 本地安装
+git clone https://github.com/chenniannian90/tushare-go.git
+cd tushare-go
+
+# 或作为模块使用 (需要 Go 1.24+)
+go mod init your-module
+echo "require tushare-go v1.0.0" >> go.mod
+echo "replace tushare-go => /path/to/tushare-go" >> go.mod
 ```
 
 ## 快速开始
@@ -30,8 +37,8 @@ package main
 import (
     "context"
     "fmt"
-    "github.com/chenniannian90/tushare-go/pkg/sdk"
-    stockbasic "github.com/chenniannian90/tushare-go/pkg/sdk/api/stock/stock_basic"
+    "tushare-go/pkg/sdk"
+    stockbasic "tushare-go/pkg/sdk/api/stock/stock_basic"
 )
 
 func main() {
@@ -165,15 +172,74 @@ go run cmd/examples/daily/main.go
 # 运行测试
 make test
 
-# 构建MCP服务器
+# 构建 MCP 服务器
 make build-mcp
 
 # 构建代码生成器
 make build-gen
 
-# 生成API代码
+# 生成 API 代码
 make gen
+
+# 生成 MCP 工具
+go run cmd/gen-mcp-tools/main.go -optimized
 ```
+
+## MCP 服务器使用
+
+### 快速启动
+
+```bash
+# 设置 Token
+export TUSHARE_TOKEN="your-tushare-token"
+
+# 启动 MCP 服务器
+go run cmd/mcp-server/main.go
+
+# 或者使用构建好的版本
+make build-mcp
+./bin/tushare-mcp
+```
+
+### 传输模式
+
+```bash
+# HTTP 模式 (默认)
+go run cmd/mcp-server/main.go -transport http
+
+# Stdio 模式 (用于 AI 助手)
+go run cmd/mcp-server/main.go -transport stdio
+
+# 双重模式 (同时支持)
+go run cmd/mcp-server/main.go -transport both
+```
+
+### 工具调用
+
+```bash
+# 健康检查
+curl http://localhost:8080/health
+
+# 列出所有工具
+curl -X POST http://localhost:8080/mcp \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+
+# 调用工具
+curl -X POST http://localhost:8080/mcp \
+  -H "Content-Type: application/json" \
+  -d '{
+    "jsonrpc":"2.0",
+    "id":1,
+    "method":"tools/call",
+    "params":{
+      "name":"stock_basic.stock_basic",
+      "arguments":{"ts_code":"000001.SZ"}
+    }
+  }'
+```
+
+**📖 详细文档**: 查看 [MCP 服务器完整指南](docs/MCP_SERVER_GUIDE.md) 或 [快速开始指南](docs/QUICK_START.md)
 
 ## 测试
 
@@ -205,3 +271,35 @@ tushare-go/
 ## 许可证
 
 MIT许可证
+
+## 📝 模块名称说明
+
+本项目已从 `github.com/chenniannian90/tushare-go` 重构为 `tushare-go`，以提供更简洁的导入路径：
+
+```go
+// 旧的导入路径 (仍可使用)
+import "github.com/chenniannian90/tushare-go/pkg/sdk"
+
+// 新的导入路径 (推荐)
+import "tushare-go/pkg/sdk"
+```
+
+### 重构内容
+
+- ✅ 模块名简化为 `tushare-go`
+- ✅ 所有 565 个 Go 文件的导入路径已更新
+- ✅ 25 个 API 模块，223 个工具，全部编译通过
+- ✅ 二进制文件统一放在 `bin/` 目录
+- ✅ 完整的文档更新
+
+### 迁移指南
+
+如果您正在使用旧版本，需要更新导入路径：
+
+```bash
+# 查找需要更新的文件
+grep -r "github.com/chenniannian90/tushare-go" --include="*.go"
+
+# 批量替换
+find . -name "*.go" -exec sed -i '' 's|github.com/chenniannian90/tushare-go|tushare-go|g' {} +
+```

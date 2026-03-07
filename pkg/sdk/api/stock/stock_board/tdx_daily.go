@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 )
 
 // TdxDailyRequest 表示 通达信板块行情 API 的请求
@@ -39,14 +39,14 @@ type TdxDailyItem struct {
 	LimitUpNum int `json:"limit_up_num"` // 涨停家数
 	LimitDownNum int `json:"limit_down_num"` // 跌停家数
 	LuDays int `json:"lu_days"` // 连涨天数
-	3day float64 `json:"3day"` // 3日涨幅%
-	5day float64 `json:"5day"` // 5日涨幅%
-	10day float64 `json:"10day"` // 10日涨幅%
-	20day float64 `json:"20day"` // 20日涨幅%
-	60day float64 `json:"60day"` // 60日涨幅%
+	Field3day float64 `json:"3day"` // 3日涨幅%
+	Field5day float64 `json:"5day"` // 5日涨幅%
+	Field10day float64 `json:"10day"` // 10日涨幅%
+	Field20day float64 `json:"20day"` // 20日涨幅%
+	Field60day float64 `json:"60day"` // 60日涨幅%
 	Mtd float64 `json:"mtd"` // 月初至今%
 	Ytd float64 `json:"ytd"` // 年初至今%
-	1year float64 `json:"1year"` // 一年涨幅%
+	Field1year float64 `json:"1year"` // 一年涨幅%
 	Pe string `json:"pe"` // 市盈率
 	Pb string `json:"pb"` // 市净率
 	FloatMv float64 `json:"float_mv"` // 流通市值(亿)
@@ -188,27 +188,27 @@ func TdxDaily(ctx context.Context, client *sdk.Client, req *TdxDailyRequest) ([]
 			return nil, fmt.Errorf("无效的 lu_days 类型")
 		}
 		// 处理 3day 的简单类型
-		3day, ok := item["3day"].(float64)
+		field3day, ok := item["3day"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 3day 类型")
 		}
 		// 处理 5day 的简单类型
-		5day, ok := item["5day"].(float64)
+		field5day, ok := item["5day"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 5day 类型")
 		}
 		// 处理 10day 的简单类型
-		10day, ok := item["10day"].(float64)
+		field10day, ok := item["10day"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 10day 类型")
 		}
 		// 处理 20day 的简单类型
-		20day, ok := item["20day"].(float64)
+		field20day, ok := item["20day"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 20day 类型")
 		}
 		// 处理 60day 的简单类型
-		60day, ok := item["60day"].(float64)
+		field60day, ok := item["60day"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 60day 类型")
 		}
@@ -223,7 +223,7 @@ func TdxDaily(ctx context.Context, client *sdk.Client, req *TdxDailyRequest) ([]
 			return nil, fmt.Errorf("无效的 ytd 类型")
 		}
 		// 处理 1year 的简单类型
-		1year, ok := item["1year"].(float64)
+		field1year, ok := item["1year"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 1year 类型")
 		}
@@ -298,14 +298,14 @@ func TdxDaily(ctx context.Context, client *sdk.Client, req *TdxDailyRequest) ([]
 			LimitUpNum: limitUpNum,
 			LimitDownNum: limitDownNum,
 			LuDays: luDays,
-			3day: 3day,
-			5day: 5day,
-			10day: 10day,
-			20day: 20day,
-			60day: 60day,
+			Field3day: field3day,
+			Field5day: field5day,
+			Field10day: field10day,
+			Field20day: field20day,
+			Field60day: field60day,
 			Mtd: mtd,
 			Ytd: ytd,
-			1year: 1year,
+			Field1year: field1year,
 			Pe: pe,
 			Pb: pb,
 			FloatMv: floatMv,

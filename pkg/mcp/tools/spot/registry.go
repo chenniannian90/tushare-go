@@ -3,63 +3,24 @@
 package spottools
 
 import (
-	"context"
-	"fmt"
-
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	"tushare-go/pkg/sdk"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// SpotTools implements tools for spot API
+// SpotTools represents spot tools
 type SpotTools struct {
+	server *mcp.Server
 	client *sdk.Client
 }
 
-// NewSpotTools creates a new spot tools instance
-func NewSpotTools(client *sdk.Client) *SpotTools {
-	return &SpotTools{
-		client: client,
-	}
+// NewSpotTools creates a new instance
+func NewSpotTools(server *mcp.Server, client *sdk.Client) *SpotTools {
+	return &SpotTools{server: server, client: client}
 }
 
-// GetAPIName returns the Tushare API name for this module
-func (m *SpotTools) GetAPIName() string {
-	return "spot"
-}
+// RegisterAll registers all tools
+func (r *SpotTools) RegisterAll() {
+	r.registerSgeBasic()
+	r.registerSgeDaily()
 
-// ListTools returns all available tools in this module
-func (m *SpotTools) ListTools() []common.Tool {
-	return []common.Tool{
-		{
-			Name: "spot.sge_basic",
-			Description: "Access sge_basic data from Tushare API",
-		},
-		{
-			Name: "spot.sge_daily",
-			Description: "Access sge_daily data from Tushare API",
-		},
-	}
-}
-
-// HandlesTool checks if this module handles a tool
-func (m *SpotTools) HandlesTool(toolName string) bool {
-	tools := m.ListTools()
-	for _, tool := range tools {
-		if tool.Name == toolName {
-			return true
-		}
-	}
-	return false
-}
-
-// CallTool executes a tool call
-func (m *SpotTools) CallTool(ctx context.Context, toolName string, args map[string]interface{}) (*common.ToolResult, error) {
-	switch toolName {
-	case "spot.sge_basic":
-		return m.callSgeBasic(ctx, args)
-	case "spot.sge_daily":
-		return m.callSgeDaily(ctx, args)
-	default:
-		return nil, fmt.Errorf("unknown tool: %s", toolName)
-	}
 }

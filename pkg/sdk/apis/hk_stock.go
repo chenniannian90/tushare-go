@@ -4,21 +4,32 @@ package apis
 
 import (
 	"context"
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/sdk/api/hk_stock"
+	"tushare-go/pkg/sdk"
+	hk_stock "tushare-go/pkg/sdk/api/hk_stock"
 )
 
 type HkStock interface {
+	// HkAdjfactor 调用 港股复权因子 API
 	HkAdjfactor(ctx context.Context, req *hk_stock.HkAdjfactorRequest) ([]hk_stock.HkAdjfactorItem, error)
+	// HkBalancesheet 调用 港股资产负债表 API
 	HkBalancesheet(ctx context.Context, req *hk_stock.HkBalancesheetRequest) ([]hk_stock.HkBalancesheetItem, error)
+	// HkBasic 调用 港股基础信息 API
 	HkBasic(ctx context.Context, req *hk_stock.HkBasicRequest) ([]hk_stock.HkBasicItem, error)
+	// HkCashflow 调用 港股现金流量表 API
 	HkCashflow(ctx context.Context, req *hk_stock.HkCashflowRequest) ([]hk_stock.HkCashflowItem, error)
+	// HkDaily 调用 港股日线行情 API
 	HkDaily(ctx context.Context, req *hk_stock.HkDailyRequest) ([]hk_stock.HkDailyItem, error)
+	// HkDailyAdj 调用 港股复权行情 API
 	HkDailyAdj(ctx context.Context, req *hk_stock.HkDailyAdjRequest) ([]hk_stock.HkDailyAdjItem, error)
+	// HkFinaIndicator 调用 港股财务指标数据 API
 	HkFinaIndicator(ctx context.Context, req *hk_stock.HkFinaIndicatorRequest) ([]hk_stock.HkFinaIndicatorItem, error)
+	// HkIncome 调用 港股利润表 API
 	HkIncome(ctx context.Context, req *hk_stock.HkIncomeRequest) ([]hk_stock.HkIncomeItem, error)
+	// HkMins 调用 港股分钟行情 API
 	HkMins(ctx context.Context, req *hk_stock.HkMinsRequest) ([]hk_stock.HkMinsItem, error)
+	// HkTradecal 调用 港股交易日历 API
 	HkTradecal(ctx context.Context, req *hk_stock.HkTradecalRequest) ([]hk_stock.HkTradecalItem, error)
+	// RtHkK 调用 港股实时日线 API
 	RtHkK(ctx context.Context, req *hk_stock.RtHkKRequest) ([]hk_stock.RtHkKItem, error)
 }
 
@@ -26,46 +37,57 @@ type hkStockImpl struct {
 	client *sdk.Client
 }
 
+// HkAdjfactor 调用 港股复权因子 API
 func (impl *hkStockImpl) HkAdjfactor(ctx context.Context, req *hk_stock.HkAdjfactorRequest) ([]hk_stock.HkAdjfactorItem, error) {
 	return hk_stock.HkAdjfactor(ctx, impl.client, req)
 }
 
+// HkBalancesheet 调用 港股资产负债表 API
 func (impl *hkStockImpl) HkBalancesheet(ctx context.Context, req *hk_stock.HkBalancesheetRequest) ([]hk_stock.HkBalancesheetItem, error) {
 	return hk_stock.HkBalancesheet(ctx, impl.client, req)
 }
 
+// HkBasic 调用 港股基础信息 API
 func (impl *hkStockImpl) HkBasic(ctx context.Context, req *hk_stock.HkBasicRequest) ([]hk_stock.HkBasicItem, error) {
 	return hk_stock.HkBasic(ctx, impl.client, req)
 }
 
+// HkCashflow 调用 港股现金流量表 API
 func (impl *hkStockImpl) HkCashflow(ctx context.Context, req *hk_stock.HkCashflowRequest) ([]hk_stock.HkCashflowItem, error) {
 	return hk_stock.HkCashflow(ctx, impl.client, req)
 }
 
+// HkDaily 调用 港股日线行情 API
 func (impl *hkStockImpl) HkDaily(ctx context.Context, req *hk_stock.HkDailyRequest) ([]hk_stock.HkDailyItem, error) {
 	return hk_stock.HkDaily(ctx, impl.client, req)
 }
 
+// HkDailyAdj 调用 港股复权行情 API
 func (impl *hkStockImpl) HkDailyAdj(ctx context.Context, req *hk_stock.HkDailyAdjRequest) ([]hk_stock.HkDailyAdjItem, error) {
 	return hk_stock.HkDailyAdj(ctx, impl.client, req)
 }
 
+// HkFinaIndicator 调用 港股财务指标数据 API
 func (impl *hkStockImpl) HkFinaIndicator(ctx context.Context, req *hk_stock.HkFinaIndicatorRequest) ([]hk_stock.HkFinaIndicatorItem, error) {
 	return hk_stock.HkFinaIndicator(ctx, impl.client, req)
 }
 
+// HkIncome 调用 港股利润表 API
 func (impl *hkStockImpl) HkIncome(ctx context.Context, req *hk_stock.HkIncomeRequest) ([]hk_stock.HkIncomeItem, error) {
 	return hk_stock.HkIncome(ctx, impl.client, req)
 }
 
+// HkMins 调用 港股分钟行情 API
 func (impl *hkStockImpl) HkMins(ctx context.Context, req *hk_stock.HkMinsRequest) ([]hk_stock.HkMinsItem, error) {
 	return hk_stock.HkMins(ctx, impl.client, req)
 }
 
+// HkTradecal 调用 港股交易日历 API
 func (impl *hkStockImpl) HkTradecal(ctx context.Context, req *hk_stock.HkTradecalRequest) ([]hk_stock.HkTradecalItem, error) {
 	return hk_stock.HkTradecal(ctx, impl.client, req)
 }
 
+// RtHkK 调用 港股实时日线 API
 func (impl *hkStockImpl) RtHkK(ctx context.Context, req *hk_stock.RtHkKRequest) ([]hk_stock.RtHkKItem, error) {
 	return hk_stock.RtHkK(ctx, impl.client, req)
 }

@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 )
 
 // LiborRequest 表示 Libor利率 API 的请求
@@ -22,12 +22,12 @@ type LiborItem struct {
 	Date string `json:"date"` // 日期
 	CurrType string `json:"curr_type"` // 货币
 	On float64 `json:"on"` // 隔夜
-	1w float64 `json:"1w"` // 1周
-	1m float64 `json:"1m"` // 1个月
-	2m float64 `json:"2m"` // 2个月
-	3m float64 `json:"3m"` // 3个月
-	6m float64 `json:"6m"` // 6个月
-	12m float64 `json:"12m"` // 12个月
+	Field1w float64 `json:"1w"` // 1周
+	Field1m float64 `json:"1m"` // 1个月
+	Field2m float64 `json:"2m"` // 2个月
+	Field3m float64 `json:"3m"` // 3个月
+	Field6m float64 `json:"6m"` // 6个月
+	Field12m float64 `json:"12m"` // 12个月
 }
 
 // Libor 调用 Libor利率 API
@@ -74,32 +74,32 @@ func Libor(ctx context.Context, client *sdk.Client, req *LiborRequest) ([]LiborI
 			return nil, fmt.Errorf("无效的 on 类型")
 		}
 		// 处理 1w 的简单类型
-		1w, ok := item["1w"].(float64)
+		field1w, ok := item["1w"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 1w 类型")
 		}
 		// 处理 1m 的简单类型
-		1m, ok := item["1m"].(float64)
+		field1m, ok := item["1m"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 1m 类型")
 		}
 		// 处理 2m 的简单类型
-		2m, ok := item["2m"].(float64)
+		field2m, ok := item["2m"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 2m 类型")
 		}
 		// 处理 3m 的简单类型
-		3m, ok := item["3m"].(float64)
+		field3m, ok := item["3m"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 3m 类型")
 		}
 		// 处理 6m 的简单类型
-		6m, ok := item["6m"].(float64)
+		field6m, ok := item["6m"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 6m 类型")
 		}
 		// 处理 12m 的简单类型
-		12m, ok := item["12m"].(float64)
+		field12m, ok := item["12m"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 12m 类型")
 		}
@@ -107,12 +107,12 @@ func Libor(ctx context.Context, client *sdk.Client, req *LiborRequest) ([]LiborI
 			Date: date,
 			CurrType: currType,
 			On: on,
-			1w: 1w,
-			1m: 1m,
-			2m: 2m,
-			3m: 3m,
-			6m: 6m,
-			12m: 12m,
+			Field1w: field1w,
+			Field1m: field1m,
+			Field2m: field2m,
+			Field3m: field3m,
+			Field6m: field6m,
+			Field12m: field12m,
 		}
 	}
 

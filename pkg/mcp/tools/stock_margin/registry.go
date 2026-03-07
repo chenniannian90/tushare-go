@@ -3,93 +3,29 @@
 package stock_margintools
 
 import (
-	"context"
-	"fmt"
-
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	"tushare-go/pkg/sdk"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// Stock_marginTools implements tools for stock_margin API
+// Stock_marginTools represents stock_margin tools
 type Stock_marginTools struct {
+	server *mcp.Server
 	client *sdk.Client
 }
 
-// NewStock_marginTools creates a new stock_margin tools instance
-func NewStock_marginTools(client *sdk.Client) *Stock_marginTools {
-	return &Stock_marginTools{
-		client: client,
-	}
+// NewStock_marginTools creates a new instance
+func NewStock_marginTools(server *mcp.Server, client *sdk.Client) *Stock_marginTools {
+	return &Stock_marginTools{server: server, client: client}
 }
 
-// GetAPIName returns the Tushare API name for this module
-func (m *Stock_marginTools) GetAPIName() string {
-	return "stock_margin"
-}
+// RegisterAll registers all tools
+func (r *Stock_marginTools) RegisterAll() {
+	r.registerMargin()
+	r.registerMarginDetail()
+	r.registerMarginSecs()
+	r.registerSlbLen()
+	r.registerSlbLenMm()
+	r.registerSlbSec()
+	r.registerSlbSecDetail()
 
-// ListTools returns all available tools in this module
-func (m *Stock_marginTools) ListTools() []common.Tool {
-	return []common.Tool{
-		{
-			Name: "stock_margin.margin",
-			Description: "Access margin data from Tushare API",
-		},
-		{
-			Name: "stock_margin.margin_detail",
-			Description: "Access margin_detail data from Tushare API",
-		},
-		{
-			Name: "stock_margin.margin_secs",
-			Description: "Access margin_secs data from Tushare API",
-		},
-		{
-			Name: "stock_margin.slb_len",
-			Description: "Access slb_len data from Tushare API",
-		},
-		{
-			Name: "stock_margin.slb_len_mm",
-			Description: "Access slb_len_mm data from Tushare API",
-		},
-		{
-			Name: "stock_margin.slb_sec",
-			Description: "Access slb_sec data from Tushare API",
-		},
-		{
-			Name: "stock_margin.slb_sec_detail",
-			Description: "Access slb_sec_detail data from Tushare API",
-		},
-	}
-}
-
-// HandlesTool checks if this module handles a tool
-func (m *Stock_marginTools) HandlesTool(toolName string) bool {
-	tools := m.ListTools()
-	for _, tool := range tools {
-		if tool.Name == toolName {
-			return true
-		}
-	}
-	return false
-}
-
-// CallTool executes a tool call
-func (m *Stock_marginTools) CallTool(ctx context.Context, toolName string, args map[string]interface{}) (*common.ToolResult, error) {
-	switch toolName {
-	case "stock_margin.margin":
-		return m.callMargin(ctx, args)
-	case "stock_margin.margin_detail":
-		return m.callMarginDetail(ctx, args)
-	case "stock_margin.margin_secs":
-		return m.callMarginSecs(ctx, args)
-	case "stock_margin.slb_len":
-		return m.callSlbLen(ctx, args)
-	case "stock_margin.slb_len_mm":
-		return m.callSlbLenMm(ctx, args)
-	case "stock_margin.slb_sec":
-		return m.callSlbSec(ctx, args)
-	case "stock_margin.slb_sec_detail":
-		return m.callSlbSecDetail(ctx, args)
-	default:
-		return nil, fmt.Errorf("unknown tool: %s", toolName)
-	}
 }

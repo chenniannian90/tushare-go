@@ -3,99 +3,30 @@
 package etftools
 
 import (
-	"context"
-	"fmt"
-
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	"tushare-go/pkg/sdk"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// EtfTools implements tools for etf API
+// EtfTools represents etf tools
 type EtfTools struct {
+	server *mcp.Server
 	client *sdk.Client
 }
 
-// NewEtfTools creates a new etf tools instance
-func NewEtfTools(client *sdk.Client) *EtfTools {
-	return &EtfTools{
-		client: client,
-	}
+// NewEtfTools creates a new instance
+func NewEtfTools(server *mcp.Server, client *sdk.Client) *EtfTools {
+	return &EtfTools{server: server, client: client}
 }
 
-// GetAPIName returns the Tushare API name for this module
-func (m *EtfTools) GetAPIName() string {
-	return "etf"
-}
+// RegisterAll registers all tools
+func (r *EtfTools) RegisterAll() {
+	r.registerEtfBasic()
+	r.registerEtfIndex()
+	r.registerEtfShareSize()
+	r.registerFundAdj()
+	r.registerFundDaily()
+	r.registerRtEtfK()
+	r.registerRtMin()
+	r.registerStkMins()
 
-// ListTools returns all available tools in this module
-func (m *EtfTools) ListTools() []common.Tool {
-	return []common.Tool{
-		{
-			Name: "etf.etf_basic",
-			Description: "Access etf_basic data from Tushare API",
-		},
-		{
-			Name: "etf.etf_index",
-			Description: "Access etf_index data from Tushare API",
-		},
-		{
-			Name: "etf.etf_share_size",
-			Description: "Access etf_share_size data from Tushare API",
-		},
-		{
-			Name: "etf.fund_adj",
-			Description: "Access fund_adj data from Tushare API",
-		},
-		{
-			Name: "etf.fund_daily",
-			Description: "Access fund_daily data from Tushare API",
-		},
-		{
-			Name: "etf.rt_etf_k",
-			Description: "Access rt_etf_k data from Tushare API",
-		},
-		{
-			Name: "etf.rt_min",
-			Description: "Access rt_min data from Tushare API",
-		},
-		{
-			Name: "etf.stk_mins",
-			Description: "Access stk_mins data from Tushare API",
-		},
-	}
-}
-
-// HandlesTool checks if this module handles a tool
-func (m *EtfTools) HandlesTool(toolName string) bool {
-	tools := m.ListTools()
-	for _, tool := range tools {
-		if tool.Name == toolName {
-			return true
-		}
-	}
-	return false
-}
-
-// CallTool executes a tool call
-func (m *EtfTools) CallTool(ctx context.Context, toolName string, args map[string]interface{}) (*common.ToolResult, error) {
-	switch toolName {
-	case "etf.etf_basic":
-		return m.callEtfBasic(ctx, args)
-	case "etf.etf_index":
-		return m.callEtfIndex(ctx, args)
-	case "etf.etf_share_size":
-		return m.callEtfShareSize(ctx, args)
-	case "etf.fund_adj":
-		return m.callFundAdj(ctx, args)
-	case "etf.fund_daily":
-		return m.callFundDaily(ctx, args)
-	case "etf.rt_etf_k":
-		return m.callRtEtfK(ctx, args)
-	case "etf.rt_min":
-		return m.callRtMin(ctx, args)
-	case "etf.stk_mins":
-		return m.callStkMins(ctx, args)
-	default:
-		return nil, fmt.Errorf("unknown tool: %s", toolName)
-	}
 }

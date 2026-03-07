@@ -4,12 +4,14 @@ package apis
 
 import (
 	"context"
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/sdk/api/spot"
+	"tushare-go/pkg/sdk"
+	spot "tushare-go/pkg/sdk/api/spot"
 )
 
 type Spot interface {
+	// SgeBasic 调用 上海黄金基础信息 API
 	SgeBasic(ctx context.Context, req *spot.SgeBasicRequest) ([]spot.SgeBasicItem, error)
+	// SgeDaily 调用 上海黄金现货日行情 API
 	SgeDaily(ctx context.Context, req *spot.SgeDailyRequest) ([]spot.SgeDailyItem, error)
 }
 
@@ -17,10 +19,12 @@ type spotImpl struct {
 	client *sdk.Client
 }
 
+// SgeBasic 调用 上海黄金基础信息 API
 func (impl *spotImpl) SgeBasic(ctx context.Context, req *spot.SgeBasicRequest) ([]spot.SgeBasicItem, error) {
 	return spot.SgeBasic(ctx, impl.client, req)
 }
 
+// SgeDaily 调用 上海黄金现货日行情 API
 func (impl *spotImpl) SgeDaily(ctx context.Context, req *spot.SgeDailyRequest) ([]spot.SgeDailyItem, error) {
 	return spot.SgeDaily(ctx, impl.client, req)
 }

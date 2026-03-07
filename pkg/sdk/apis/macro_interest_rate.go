@@ -4,50 +4,64 @@ package apis
 
 import (
 	"context"
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/sdk/api/macro_interest_rate"
+	"tushare-go/pkg/sdk"
+	macro_macro_domestic_macro_interest_rate "tushare-go/pkg/sdk/api/macro/macro_domestic/macro_interest_rate"
 )
 
 type MacroInterestRate interface {
-	GzIndex(ctx context.Context, req *macro_interest_rate.GzIndexRequest) ([]macro_interest_rate.GzIndexItem, error)
-	Hibor(ctx context.Context, req *macro_interest_rate.HiborRequest) ([]macro_interest_rate.HiborItem, error)
-	Libor(ctx context.Context, req *macro_interest_rate.LiborRequest) ([]macro_interest_rate.LiborItem, error)
-	Shibor(ctx context.Context, req *macro_interest_rate.ShiborRequest) ([]macro_interest_rate.ShiborItem, error)
-	ShiborLpr(ctx context.Context, req *macro_interest_rate.ShiborLprRequest) ([]macro_interest_rate.ShiborLprItem, error)
-	ShiborQuote(ctx context.Context, req *macro_interest_rate.ShiborQuoteRequest) ([]macro_interest_rate.ShiborQuoteItem, error)
-	WzIndex(ctx context.Context, req *macro_interest_rate.WzIndexRequest) ([]macro_interest_rate.WzIndexItem, error)
+	// GzIndex 调用 广州民间借贷利率 API
+	GzIndex(ctx context.Context, req *macro_macro_domestic_macro_interest_rate.GzIndexRequest) ([]macro_macro_domestic_macro_interest_rate.GzIndexItem, error)
+	// Hibor 调用 Hibor利率 API
+	Hibor(ctx context.Context, req *macro_macro_domestic_macro_interest_rate.HiborRequest) ([]macro_macro_domestic_macro_interest_rate.HiborItem, error)
+	// Libor 调用 Libor利率 API
+	Libor(ctx context.Context, req *macro_macro_domestic_macro_interest_rate.LiborRequest) ([]macro_macro_domestic_macro_interest_rate.LiborItem, error)
+	// Shibor 调用 Shibor利率 API
+	Shibor(ctx context.Context, req *macro_macro_domestic_macro_interest_rate.ShiborRequest) ([]macro_macro_domestic_macro_interest_rate.ShiborItem, error)
+	// ShiborLpr 调用 LPR贷款基础利率 API
+	ShiborLpr(ctx context.Context, req *macro_macro_domestic_macro_interest_rate.ShiborLprRequest) ([]macro_macro_domestic_macro_interest_rate.ShiborLprItem, error)
+	// ShiborQuote 调用 Shibor报价数据 API
+	ShiborQuote(ctx context.Context, req *macro_macro_domestic_macro_interest_rate.ShiborQuoteRequest) ([]macro_macro_domestic_macro_interest_rate.ShiborQuoteItem, error)
+	// WzIndex 调用 温州民间借贷利率 API
+	WzIndex(ctx context.Context, req *macro_macro_domestic_macro_interest_rate.WzIndexRequest) ([]macro_macro_domestic_macro_interest_rate.WzIndexItem, error)
 }
 
 type macroInterestRateImpl struct {
 	client *sdk.Client
 }
 
-func (impl *macroInterestRateImpl) GzIndex(ctx context.Context, req *macro_interest_rate.GzIndexRequest) ([]macro_interest_rate.GzIndexItem, error) {
-	return macro_interest_rate.GzIndex(ctx, impl.client, req)
+// GzIndex 调用 广州民间借贷利率 API
+func (impl *macroInterestRateImpl) GzIndex(ctx context.Context, req *macro_macro_domestic_macro_interest_rate.GzIndexRequest) ([]macro_macro_domestic_macro_interest_rate.GzIndexItem, error) {
+	return macro_macro_domestic_macro_interest_rate.GzIndex(ctx, impl.client, req)
 }
 
-func (impl *macroInterestRateImpl) Hibor(ctx context.Context, req *macro_interest_rate.HiborRequest) ([]macro_interest_rate.HiborItem, error) {
-	return macro_interest_rate.Hibor(ctx, impl.client, req)
+// Hibor 调用 Hibor利率 API
+func (impl *macroInterestRateImpl) Hibor(ctx context.Context, req *macro_macro_domestic_macro_interest_rate.HiborRequest) ([]macro_macro_domestic_macro_interest_rate.HiborItem, error) {
+	return macro_macro_domestic_macro_interest_rate.Hibor(ctx, impl.client, req)
 }
 
-func (impl *macroInterestRateImpl) Libor(ctx context.Context, req *macro_interest_rate.LiborRequest) ([]macro_interest_rate.LiborItem, error) {
-	return macro_interest_rate.Libor(ctx, impl.client, req)
+// Libor 调用 Libor利率 API
+func (impl *macroInterestRateImpl) Libor(ctx context.Context, req *macro_macro_domestic_macro_interest_rate.LiborRequest) ([]macro_macro_domestic_macro_interest_rate.LiborItem, error) {
+	return macro_macro_domestic_macro_interest_rate.Libor(ctx, impl.client, req)
 }
 
-func (impl *macroInterestRateImpl) Shibor(ctx context.Context, req *macro_interest_rate.ShiborRequest) ([]macro_interest_rate.ShiborItem, error) {
-	return macro_interest_rate.Shibor(ctx, impl.client, req)
+// Shibor 调用 Shibor利率 API
+func (impl *macroInterestRateImpl) Shibor(ctx context.Context, req *macro_macro_domestic_macro_interest_rate.ShiborRequest) ([]macro_macro_domestic_macro_interest_rate.ShiborItem, error) {
+	return macro_macro_domestic_macro_interest_rate.Shibor(ctx, impl.client, req)
 }
 
-func (impl *macroInterestRateImpl) ShiborLpr(ctx context.Context, req *macro_interest_rate.ShiborLprRequest) ([]macro_interest_rate.ShiborLprItem, error) {
-	return macro_interest_rate.ShiborLpr(ctx, impl.client, req)
+// ShiborLpr 调用 LPR贷款基础利率 API
+func (impl *macroInterestRateImpl) ShiborLpr(ctx context.Context, req *macro_macro_domestic_macro_interest_rate.ShiborLprRequest) ([]macro_macro_domestic_macro_interest_rate.ShiborLprItem, error) {
+	return macro_macro_domestic_macro_interest_rate.ShiborLpr(ctx, impl.client, req)
 }
 
-func (impl *macroInterestRateImpl) ShiborQuote(ctx context.Context, req *macro_interest_rate.ShiborQuoteRequest) ([]macro_interest_rate.ShiborQuoteItem, error) {
-	return macro_interest_rate.ShiborQuote(ctx, impl.client, req)
+// ShiborQuote 调用 Shibor报价数据 API
+func (impl *macroInterestRateImpl) ShiborQuote(ctx context.Context, req *macro_macro_domestic_macro_interest_rate.ShiborQuoteRequest) ([]macro_macro_domestic_macro_interest_rate.ShiborQuoteItem, error) {
+	return macro_macro_domestic_macro_interest_rate.ShiborQuote(ctx, impl.client, req)
 }
 
-func (impl *macroInterestRateImpl) WzIndex(ctx context.Context, req *macro_interest_rate.WzIndexRequest) ([]macro_interest_rate.WzIndexItem, error) {
-	return macro_interest_rate.WzIndex(ctx, impl.client, req)
+// WzIndex 调用 温州民间借贷利率 API
+func (impl *macroInterestRateImpl) WzIndex(ctx context.Context, req *macro_macro_domestic_macro_interest_rate.WzIndexRequest) ([]macro_macro_domestic_macro_interest_rate.WzIndexItem, error) {
+	return macro_macro_domestic_macro_interest_rate.WzIndex(ctx, impl.client, req)
 }
 
 func newmacroInterestRateImpl(client *sdk.Client) MacroInterestRate {

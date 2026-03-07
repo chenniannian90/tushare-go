@@ -5,7 +5,7 @@ package stock_fund_flow
 import (
 	"context"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 )
 
 // MoneyflowHsgtRequest 表示 沪深港通资金流向 API 的请求

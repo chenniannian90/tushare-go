@@ -4,29 +4,59 @@ package fundtools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	fund "github.com/chenniannian90/tushare-go/pkg/sdk/api/fund"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	fund "tushare-go/pkg/sdk/api/fund"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callFundDiv handles FundDiv tool calls
-func (m *FundTools) callFundDiv(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &fund.FundDivRequest{}
+// registerFundDiv registers the tool
+func (r *FundTools) registerFundDiv() {
+	inputSchema, _ := jsonschema.For[FundDivInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "fund.fund_div",
+		Description: "获取公募基金分红数据",
+		InputSchema: inputSchema,
 	}
 
-	items, err := fund.FundDiv(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input FundDivInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &fund.FundDivRequest{
+AnnDate: input.AnnDate,
+ExDate: input.ExDate,
+PayDate: input.PayDate,
+TsCode: input.TsCode,
+
+		}
+
+		items, err := fund.FundDiv(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := FundDivOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "fund", "fund_div")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

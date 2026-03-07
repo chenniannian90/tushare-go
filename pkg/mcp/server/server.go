@@ -3,9 +3,9 @@ package server
 import (
 	"context"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/mcp"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	"tushare-go/pkg/sdk"
+	"tushare-go/pkg/mcp"
+	"tushare-go/pkg/mcp/common"
 )
 
 // Server represents the MCP server

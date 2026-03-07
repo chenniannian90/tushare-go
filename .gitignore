@@ -9,6 +9,16 @@ bin/
 obj/
 test_*    # 测试二进制文件
 
+# 根目录下的二进制文件
+/main
+/mcp-server
+/mcp_server_with_auth
+/spec-gen
+/gen-interfaces
+/regenerate-api
+/generator
+/tushare-mcp
+
 # Go编译产物
 *.o
 *.a

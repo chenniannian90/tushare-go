@@ -5,7 +5,7 @@ package index
 import (
 	"context"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 )
 
 // IndexBasicRequest 表示 指数基本信息 API 的请求

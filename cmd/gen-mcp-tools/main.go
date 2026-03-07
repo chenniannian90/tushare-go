@@ -1,11 +1,13 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
+	"text/template"
 )
 
 // APIModule represents a discovered API module
@@ -27,15 +29,54 @@ type APIFunction struct {
 
 // MCPGenerator generates MCP tools from API modules
 type MCPGenerator struct {
-	apiBasePath string
-	mcpToolsPath string
-	modules     []APIModule
+	apiBasePath   string
+	mcpToolsPath  string
+	specBasePath  string
+	optimizedMode bool
+	modules       []APIModule
+}
+
+// APISpec represents the structure of a Tushare API spec file
+type APISpec struct {
+	APIName       string       `json:"api_name"`
+	APICode       string       `json:"api_code"`
+	Description   string       `json:"description"`
+	Describe      DescribeInfo `json:"__describe__"`
+	RequestParams []FieldInfo  `json:"request_params"`
+	ResponseFields []FieldInfo `json:"response_fields"`
+}
+
+// DescribeInfo contains metadata about the API
+type DescribeInfo struct {
+	URL      string `json:"url"`
+	Name     string `json:"name"`
+	Category string `json:"category"`
+}
+
+// FieldInfo represents a field in the API spec
+type FieldInfo struct {
+	Name        string `json:"name"`
+	Type        string `json:"type"`
+	Description string `json:"description"`
+	Required    bool   `json:"required"`
+}
+
+// FieldWithGoType represents a field with Go type information
+type FieldWithGoType struct {
+	Name            string
+	JSONName        string
+	GoType          string
+	Description     string
+	StructFieldName string
+	Required        bool
 }
 
 func main() {
 	// Define command-line flags
 	apiPath := flag.String("api-path", "pkg/sdk/api", "Path to the API directory")
+	specPath := flag.String("spec-path", "internal/gen/specs", "Path to the spec files directory")
 	mcpToolsPath := flag.String("mcp-tools-path", "pkg/mcp/tools", "Path to the MCP tools output directory")
+	optimizedMode := flag.Bool("optimized", false, "Generate optimized MCP tools with JSON schema")
 	showHelp := flag.Bool("help", false, "Show help message")
 
 	flag.Parse()
@@ -49,8 +90,12 @@ func main() {
 		flag.PrintDefaults()
 		fmt.Println("\nExamples:")
 		fmt.Println("  gen-mcp-tools")
+		fmt.Println("  gen-mcp-tools -optimized")
 		fmt.Println("  gen-mcp-tools -api-path ./api -mcp-tools-path ./tools")
-		fmt.Println("  gen-mcp-tools -api-path /absolute/path/to/api")
+		fmt.Println("  gen-mcp-tools -api-path /absolute/path/to/api -optimized")
+		fmt.Println("\nOptimized Mode:")
+		fmt.Println("  When -optimized is enabled, generates tools following the reference")
+		fmt.Println("  implementation pattern with JSON schema support and better type safety.")
 		os.Exit(0)
 	}
 
@@ -64,15 +109,19 @@ func main() {
 
 	// Resolve paths (support both relative and absolute paths)
 	apiBasePath := resolvePath(projectRoot, *apiPath)
+	specBasePath := resolvePath(projectRoot, *specPath)
 	mcpToolsOutputPath := resolvePath(projectRoot, *mcpToolsPath)
 
 	fmt.Printf("Project root: %s\n", projectRoot)
 	fmt.Printf("API path: %s\n", apiBasePath)
+	fmt.Printf("Spec path: %s\n", specBasePath)
 	fmt.Printf("MCP tools path: %s\n", mcpToolsOutputPath)
 
 	generator := &MCPGenerator{
-		apiBasePath:  apiBasePath,
-		mcpToolsPath: mcpToolsOutputPath,
+		apiBasePath:   apiBasePath,
+		specBasePath:  specBasePath,
+		mcpToolsPath:  mcpToolsOutputPath,
+		optimizedMode: *optimizedMode,
 	}
 
 	if err := generator.Generate(); err != nil {
@@ -129,17 +178,31 @@ func (g *MCPGenerator) Generate() error {
 		fmt.Printf("  - %s: %d functions\n", module.Name, len(module.Functions))
 	}
 
-	fmt.Println("\n🔨 Generating MCP tools...")
-
-	// Generate main tools file
-	if err := g.generateMainToolsFile(); err != nil {
-		return fmt.Errorf("failed to generate main tools file: %w", err)
+	if g.optimizedMode {
+		fmt.Println("\n🔨 Generating optimized MCP tools with JSON schema...")
+		fmt.Println("📝 Note: Standard mode generation skipped (optimized mode enabled)")
+	} else {
+		fmt.Println("\n🔨 Generating MCP tools...")
 	}
 
-	// Generate individual module tool files
+	// Generate main tools file and standard tools (only in non-optimized mode)
+	if !g.optimizedMode {
+		if err := g.generateMainToolsFile(); err != nil {
+			return fmt.Errorf("failed to generate main tools file: %w", err)
+		}
+
+		// Generate individual module tool files
+		for _, module := range g.modules {
+			if err := g.generateModuleTools(module); err != nil {
+				return fmt.Errorf("failed to generate tools for module %s: %w", module.Name, err)
+			}
+		}
+	}
+
+	// Generate optimized tools for each module
 	for _, module := range g.modules {
-		if err := g.generateModuleTools(module); err != nil {
-			return fmt.Errorf("failed to generate tools for module %s: %w", module.Name, err)
+		if err := g.generateOptimizedModuleTools(module); err != nil {
+			return fmt.Errorf("failed to generate optimized tools for module %s: %w", module.Name, err)
 		}
 	}
 
@@ -317,6 +380,53 @@ func (g *MCPGenerator) toToolName(module, function string) string {
 	return fmt.Sprintf("%s.%s", module, g.toSnakeCase(function))
 }
 
+// toToolDescription generates a better description for the tool
+func (g *MCPGenerator) toToolDescription(module, function, apiName string) string {
+	// Try to extract description from spec file first
+	if spec := g.loadAPISpec(module, apiName); spec != nil && spec.Description != "" {
+		return spec.Description
+	}
+
+	// Fallback to generated description
+	functionName := strings.ReplaceAll(function, "_", " ")
+	functionName = strings.ToLower(functionName)
+
+	moduleName := strings.ReplaceAll(module, "_", " ")
+
+	return fmt.Sprintf("Retrieve %s data from Tushare %s API", functionName, moduleName)
+}
+
+// loadAPISpec loads the API spec file for a given module and API code
+func (g *MCPGenerator) loadAPISpec(module, apiCode string) *APISpec {
+	// Try different possible file paths
+	possiblePaths := []string{
+		filepath.Join(g.specBasePath, module+"___"+module, "*___"+apiCode+".json"),
+		filepath.Join(g.specBasePath, "*"+module+"*", "*___"+apiCode+".json"),
+		filepath.Join(g.specBasePath, module, "*___"+apiCode+".json"),
+	}
+
+	for _, pattern := range possiblePaths {
+		matches, err := filepath.Glob(pattern)
+		if err == nil && len(matches) > 0 {
+			// Read the first matching file
+			specFile := matches[0]
+			data, err := os.ReadFile(specFile)
+			if err != nil {
+				continue
+			}
+
+			var spec APISpec
+			if err := json.Unmarshal(data, &spec); err != nil {
+				continue
+			}
+
+			return &spec
+		}
+	}
+
+	return nil
+}
+
 // toAPIName converts function name to Tushare API name
 func (g *MCPGenerator) toAPIName(function string) string {
 	return g.toSnakeCase(function)
@@ -344,7 +454,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 
 	// Import all tool modules
 `
@@ -352,11 +462,11 @@ import (
 	// Generate import statements for all modules dynamically
 	for _, module := range g.modules {
 		packageAlias := module.Name + "tools"
-		content += fmt.Sprintf("\t%s \"github.com/chenniannian90/tushare-go/pkg/mcp/tools/%s\"\n", packageAlias, module.Name)
+		content += fmt.Sprintf("\t%s \"tushare-go/pkg/mcp/tools/%s\"\n", packageAlias, module.Name)
 	}
 
 	content += `
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	"tushare-go/pkg/mcp/common"
 )
 
 // ModuleTools is the interface for all API module tools
@@ -470,8 +580,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	"tushare-go/pkg/sdk"
+	"tushare-go/pkg/mcp/common"
 )
 
 // %sTools implements tools for %s API
@@ -503,9 +613,10 @@ func (m *%sTools) ListTools() []common.Tool {
 	for _, fn := range module.Functions {
 		toolName := g.toToolName(module.Name, fn.Name)
 		apiName := g.toAPIName(fn.Name)
+		description := g.toToolDescription(module.Name, fn.Name, apiName)
 		content += fmt.Sprintf("\t\t{\n")
 		content += fmt.Sprintf("\t\t\tName: \"%s\",\n", toolName)
-		content += fmt.Sprintf("\t\t\tDescription: \"Access %s data from Tushare API\",\n", apiName)
+		content += fmt.Sprintf("\t\t\tDescription: \"%s\",\n", description)
 		content += fmt.Sprintf("\t\t},\n")
 	}
 
@@ -566,11 +677,12 @@ package %s
 import (
 	"context"
 
-	%s "github.com/chenniannian90/tushare-go/pkg/sdk/api/%s"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	%s "tushare-go/pkg/sdk/api/%s"
+	"tushare-go/pkg/mcp/common"
 )
 
 // call%s handles %s tool calls
+// This tool provides access to %s data from the Tushare API
 func (m *%sTools) call%s(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
 	req := &%s.%s{}
 
@@ -594,7 +706,7 @@ func (m *%sTools) call%s(ctx context.Context, args map[string]interface{}) (*com
 `,
 		packageName,
 		importAlias, actualPackagePath,
-		fn.Name, fn.Name,
+		fn.Name, fn.Name, apiName,
 		className, fn.Name,
 		importAlias, requestType,
 		importAlias, fn.Name,
@@ -619,4 +731,489 @@ func (m *%sTools) call%s(ctx context.Context, args map[string]interface{}) (*com
 	}
 
 	return os.WriteFile(outputPath, []byte(content), 0644)
+}
+
+// Template for optimized main module file
+const optimizedMainModuleTemplate = `// Code generated by gen-mcp-tools. DO NOT EDIT.
+
+package {{.PackageName}}
+
+import (
+	"tushare-go/pkg/sdk"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
+)
+
+// {{.ClassName}}Tools represents {{.ModuleName}} tools
+type {{.ClassName}}Tools struct {
+	server *mcp.Server
+	client *sdk.Client
+}
+
+// New{{.ClassName}}Tools creates a new instance
+func New{{.ClassName}}Tools(server *mcp.Server, client *sdk.Client) *{{.ClassName}}Tools {
+	return &{{.ClassName}}Tools{server: server, client: client}
+}
+
+// RegisterAll registers all tools
+func (r *{{.ClassName}}Tools) RegisterAll() {
+{{range .Functions}}	r.register{{.Name}}()
+{{end}}
+}
+`
+
+// Template for types.go file
+const typesFileTemplate = `// Code generated by gen-mcp-tools. DO NOT EDIT.
+
+package {{.PackageName}}
+
+import (
+{{range $import := .Imports}}	{{$import}}
+{{end}}
+)
+
+{{range .Types}}
+// {{.InputTypeName}} defines the input schema
+type {{.InputTypeName}} struct {
+{{range .Fields}}{{.FieldName}} {{.FieldType}} ` + "`json:{{.JSONName}},omitempty jsonschema:{{.Description}}`" + `
+{{end}}
+}
+
+// {{.OutputTypeName}} defines the output schema
+type {{.OutputTypeName}} struct {
+	Data  []{{.DataType}} ` + "`json:data jsonschema:{{.APIName}} data list`" + `
+	Total int              ` + "`json:total jsonschema:Total count`" + `
+}
+{{end}}
+`
+
+// Template for optimized tool registration (without type definitions)
+const optimizedToolRegistrationTemplate = `// Code generated by gen-mcp-tools. DO NOT EDIT.
+
+package {{.PackageName}}
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+
+	{{.ImportAlias}} "tushare-go/pkg/sdk/api/{{.ActualPackagePath}}"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
+)
+
+// register{{.FunctionName}} registers the tool
+func (r *{{.ClassName}}Tools) register{{.FunctionName}}() {
+	inputSchema, _ := jsonschema.For[{{.FunctionName}}Input](nil)
+
+	tool := &mcp.Tool{
+		Name:        "{{.ToolName}}",
+		Description: "{{.ToolDescription}}",
+		InputSchema: inputSchema,
+	}
+
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input {{.FunctionName}}Input
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(` + "`" + `{"error":"Invalid input: %v"}` + "`" + `, err)}},
+			}, nil
+		}
+
+		apiReq := &{{.ImportAlias}}.{{.RequestType}}{
+{{range .Fields}}{{.StructFieldName}}: input.{{.Name}},
+{{end}}
+		}
+
+		items, err := {{.ImportAlias}}.{{.FunctionName}}(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(` + "`" + `{"error":"API call failed: %v"}` + "`" + `, err)}},
+			}, nil
+		}
+
+		output := {{.FunctionName}}Output{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
+	}
+
+	r.server.AddTool(tool, handler)
+}
+`
+
+// generateOptimizedMainModuleFile generates the main optimized module file
+func (g *MCPGenerator) generateOptimizedMainModuleFile(module APIModule, className, packageName string) error {
+	// Create template data
+	data := struct {
+		PackageName string
+		ClassName   string
+		ModuleName  string
+		Functions   []APIFunction
+	}{
+		PackageName: packageName,
+		ClassName:   className,
+		ModuleName:  module.Name,
+		Functions:   module.Functions,
+	}
+
+	// Parse template
+	tmpl, err := template.New("optimizedMainModule").Parse(optimizedMainModuleTemplate)
+	if err != nil {
+		return fmt.Errorf("failed to parse template: %w", err)
+	}
+
+	// Execute template
+	var content strings.Builder
+	if err := tmpl.Execute(&content, data); err != nil {
+		return fmt.Errorf("failed to execute template: %w", err)
+	}
+
+	// Ensure the module directory exists
+	moduleDir := filepath.Join(g.mcpToolsPath, module.Name)
+	if err := os.MkdirAll(moduleDir, 0755); err != nil {
+		return fmt.Errorf("failed to create module directory: %w", err)
+	}
+
+	// Write to file
+	outputPath := filepath.Join(moduleDir, "registry.go")
+	return os.WriteFile(outputPath, []byte(content.String()), 0644)
+}
+
+// generateOptimizedToolRegistration generates individual tool registration files
+func (g *MCPGenerator) generateOptimizedToolRegistration(module APIModule, fn APIFunction, className, packageName string) error {
+	requestType := fn.StructName
+	apiName := g.toAPIName(fn.Name)
+	moduleName := module.Name
+
+	// Use the actual package path from the module
+	actualPackagePath := module.PackageName
+
+	// Create a safe import alias by replacing slashes with underscores
+	importAlias := strings.ReplaceAll(actualPackagePath, "/", "_")
+
+	// Extract fields from spec file
+	specFields := g.extractFieldsFromSpec(module.Name, apiName)
+
+	// Extract item type name from SDK API
+	itemTypeName := g.extractItemTypeName(module.PackageName, fn.Name)
+
+	// Convert spec fields to template fields
+	fields := make([]struct {
+		Name            string
+		JSONName        string
+		Type            string
+		Description     string
+		StructFieldName string
+	}, len(specFields))
+	for i, field := range specFields {
+		fields[i] = struct {
+			Name            string
+			JSONName        string
+			Type            string
+			Description     string
+			StructFieldName string
+		}{
+			Name:            field.Name,
+			JSONName:        field.JSONName,
+			Type:            field.GoType,
+			Description:     field.Description,
+			StructFieldName: field.StructFieldName,
+		}
+	}
+
+	// Create template data
+	data := struct {
+		PackageName       string
+		ImportAlias       string
+		ActualPackagePath string
+		FunctionName      string
+		APIName           string
+		ToolName          string
+		ToolDescription   string
+		ClassName         string
+		ModuleName        string
+		RequestType       string
+		ItemTypeName       string
+		Fields            []struct {
+			Name            string
+			JSONName        string
+			Type            string
+			Description     string
+			StructFieldName string
+		}
+	}{
+		PackageName:       packageName,
+		ImportAlias:       importAlias,
+		ActualPackagePath: actualPackagePath,
+		FunctionName:      fn.Name,
+		APIName:           apiName,
+		ToolName:          g.toToolName(module.Name, fn.Name),
+		ToolDescription:   g.toToolDescription(module.Name, fn.Name, apiName),
+		ClassName:         className,
+		ModuleName:        moduleName,
+		RequestType:       requestType,
+		ItemTypeName:       itemTypeName,
+		Fields:            fields,
+	}
+
+	// Parse template
+	tmpl, err := template.New("optimizedToolRegistration").Parse(optimizedToolRegistrationTemplate)
+	if err != nil {
+		return fmt.Errorf("failed to parse template: %w", err)
+	}
+
+	// Execute template
+	var content strings.Builder
+	if err := tmpl.Execute(&content, data); err != nil {
+		return fmt.Errorf("failed to execute template: %w", err)
+	}
+
+	// Ensure the module directory exists
+	moduleDir := filepath.Join(g.mcpToolsPath, module.Name)
+	if err := os.MkdirAll(moduleDir, 0755); err != nil {
+		return fmt.Errorf("failed to create module directory: %w", err)
+	}
+
+	// Write to file
+	filename := g.toSnakeCase(fn.Name) + ".go"
+	outputPath := filepath.Join(moduleDir, filename)
+
+	return os.WriteFile(outputPath, []byte(content.String()), 0644)
+}
+
+// generateOptimizedModuleTools generates optimized tools for a specific module
+func (g *MCPGenerator) generateOptimizedModuleTools(module APIModule) error {
+	className := strings.ToUpper(module.Name[:1]) + module.Name[1:]
+	packageName := module.Name + "tools"
+
+	// Generate the types.go file with all Input/Output types
+	if err := g.generateTypesFile(module, className, packageName); err != nil {
+		return fmt.Errorf("failed to generate types file: %w", err)
+	}
+
+	// Generate the main optimized module file with tools struct
+	if err := g.generateOptimizedMainModuleFile(module, className, packageName); err != nil {
+		return fmt.Errorf("failed to generate optimized main module file: %w", err)
+	}
+
+	// Generate individual tool registration files (no struct definitions)
+	for _, fn := range module.Functions {
+		if err := g.generateOptimizedToolRegistration(module, fn, className, packageName); err != nil {
+			return fmt.Errorf("failed to generate optimized tool registration %s: %w", fn.Name, err)
+		}
+	}
+
+	return nil
+}
+
+// generateTypesFile generates the types.go file containing all Input/Output types
+func (g *MCPGenerator) generateTypesFile(module APIModule, className, packageName string) error {
+	// Collect unique imports needed for data types
+	imports := make(map[string]string)
+	types := make([]struct {
+		InputTypeName  string
+		OutputTypeName string
+		APIName        string
+		DataType       string
+		Fields         []struct {
+			FieldName    string
+			FieldType    string
+			JSONName     string
+			Description  string
+		}
+	}, 0, len(module.Functions))
+
+	for _, fn := range module.Functions {
+		apiName := g.toAPIName(fn.Name)
+		actualPackagePath := module.PackageName
+		importAlias := strings.ReplaceAll(actualPackagePath, "/", "_")
+		itemTypeName := g.extractItemTypeName(module.PackageName, fn.Name)
+
+		// Add import for this API's item type
+		importPath := fmt.Sprintf(`%s "tushare-go/pkg/sdk/api/%s"`, importAlias, actualPackagePath)
+		imports[importPath] = importPath
+
+		// Extract fields from spec
+		specFields := g.extractFieldsFromSpec(module.Name, apiName)
+
+		// Build fields list for types.go
+		fields := make([]struct {
+			FieldName   string
+			FieldType   string
+			JSONName    string
+			Description string
+		}, len(specFields))
+
+		for i, field := range specFields {
+			fields[i] = struct {
+				FieldName   string
+				FieldType   string
+				JSONName    string
+				Description string
+			}{
+				FieldName:   field.Name,
+				FieldType:   field.GoType,
+				JSONName:    field.JSONName,
+				Description: field.Description,
+			}
+		}
+
+		// Remove "Request" suffix from StructName for Input/Output type names
+		baseTypeName := strings.TrimSuffix(fn.StructName, "Request")
+
+		types = append(types, struct {
+			InputTypeName  string
+			OutputTypeName string
+			APIName        string
+			DataType       string
+			Fields         []struct {
+				FieldName    string
+				FieldType    string
+				JSONName     string
+				Description  string
+			}
+		}{
+			InputTypeName:  baseTypeName + "Input",
+			OutputTypeName: baseTypeName + "Output",
+			APIName:        apiName,
+			DataType:       importAlias + "." + itemTypeName,
+			Fields:         fields,
+		})
+	}
+
+	// Convert imports map to slice
+	importList := make([]string, 0, len(imports))
+	for _, imp := range imports {
+		importList = append(importList, imp)
+	}
+
+	// Create template data
+	data := struct {
+		PackageName string
+		Imports     []string
+		Types       []struct {
+			InputTypeName  string
+			OutputTypeName string
+			APIName        string
+			DataType       string
+			Fields         []struct {
+				FieldName    string
+				FieldType    string
+				JSONName     string
+				Description  string
+			}
+		}
+	}{
+		PackageName: packageName,
+		Imports:     importList,
+		Types:       types,
+	}
+
+	// Parse template
+	tmpl, err := template.New("typesFile").Parse(typesFileTemplate)
+	if err != nil {
+		return fmt.Errorf("failed to parse types template: %w", err)
+	}
+
+	// Execute template
+	var content strings.Builder
+	if err := tmpl.Execute(&content, data); err != nil {
+		return fmt.Errorf("failed to execute types template: %w", err)
+	}
+
+	// Ensure the module directory exists
+	moduleDir := filepath.Join(g.mcpToolsPath, module.Name)
+	if err := os.MkdirAll(moduleDir, 0755); err != nil {
+		return fmt.Errorf("failed to create module directory: %w", err)
+	}
+
+	// Write to types.go
+	outputPath := filepath.Join(moduleDir, "types.go")
+	return os.WriteFile(outputPath, []byte(content.String()), 0644)
+}
+
+// extractFieldsFromSpec extracts fields from API spec for generating Input structs
+func (g *MCPGenerator) extractFieldsFromSpec(module, apiCode string) []FieldWithGoType {
+	spec := g.loadAPISpec(module, apiCode)
+	if spec == nil || len(spec.RequestParams) == 0 {
+		// Return empty slice if no request params (API takes no input)
+		return []FieldWithGoType{}
+	}
+
+	fields := make([]FieldWithGoType, 0, len(spec.RequestParams))
+	for _, param := range spec.RequestParams {
+		field := FieldWithGoType{
+			Name:            g.toPascalCase(param.Name),
+			JSONName:        param.Name,
+			GoType:          g.specTypeToGoType(param.Type),
+			Description:     param.Description,
+			StructFieldName: g.toPascalCase(param.Name),
+			Required:        param.Required,
+		}
+		fields = append(fields, field)
+	}
+
+	return fields
+}
+
+// specTypeToGoType converts spec type to Go type
+func (g *MCPGenerator) specTypeToGoType(specType string) string {
+	switch strings.ToLower(specType) {
+	case "str", "string":
+		return "string"
+	case "int", "integer":
+		return "int"
+	case "float", "float64", "double":
+		return "float64"
+	case "bool", "boolean":
+		return "bool"
+	default:
+		return "string"
+	}
+}
+
+// toPascalCase converts snake_case to PascalCase
+func (g *MCPGenerator) toPascalCase(s string) string {
+	parts := strings.Split(s, "_")
+	var result strings.Builder
+	for _, part := range parts {
+		if len(part) > 0 {
+			result.WriteString(strings.ToUpper(part[:1]))
+			result.WriteString(part[1:])
+		}
+	}
+	return result.String()
+}
+
+// extractItemTypeName extracts the item type name from SDK API file
+func (g *MCPGenerator) extractItemTypeName(packageName, functionName string) string {
+	// Try to read the SDK API file
+	apiFileName := g.toSnakeCase(functionName)
+	apiFilePath := filepath.Join(g.apiBasePath, packageName, apiFileName+".go")
+
+	data, err := os.ReadFile(apiFilePath)
+	if err != nil {
+		// Fallback to function name + Item
+		return functionName + "Item"
+	}
+
+	// Search for Item type definition
+	content := string(data)
+	searchPattern := functionName + "Item struct"
+
+	// Find the struct definition
+	idx := strings.Index(content, searchPattern)
+	if idx == -1 {
+		// Fallback to function name + Item
+		return functionName + "Item"
+	}
+
+	return functionName + "Item"
 }

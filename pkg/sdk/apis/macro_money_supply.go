@@ -4,20 +4,22 @@ package apis
 
 import (
 	"context"
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/sdk/api/macro_money_supply"
+	"tushare-go/pkg/sdk"
+	macro_macro_domestic_macro_finance_macro_money_supply "tushare-go/pkg/sdk/api/macro/macro_domestic/macro_finance/macro_money_supply"
 )
 
 type MacroMoneySupply interface {
-	CnM(ctx context.Context, req *macro_money_supply.CnMRequest) ([]macro_money_supply.CnMItem, error)
+	// CnM 调用 货币供应量（月） API
+	CnM(ctx context.Context, req *macro_macro_domestic_macro_finance_macro_money_supply.CnMRequest) ([]macro_macro_domestic_macro_finance_macro_money_supply.CnMItem, error)
 }
 
 type macroMoneySupplyImpl struct {
 	client *sdk.Client
 }
 
-func (impl *macroMoneySupplyImpl) CnM(ctx context.Context, req *macro_money_supply.CnMRequest) ([]macro_money_supply.CnMItem, error) {
-	return macro_money_supply.CnM(ctx, impl.client, req)
+// CnM 调用 货币供应量（月） API
+func (impl *macroMoneySupplyImpl) CnM(ctx context.Context, req *macro_macro_domestic_macro_finance_macro_money_supply.CnMRequest) ([]macro_macro_domestic_macro_finance_macro_money_supply.CnMItem, error) {
+	return macro_macro_domestic_macro_finance_macro_money_supply.CnM(ctx, impl.client, req)
 }
 
 func newmacroMoneySupplyImpl(client *sdk.Client) MacroMoneySupply {

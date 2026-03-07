@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 )
 
 // ShiborQuoteRequest 表示 Shibor报价数据 API 的请求
@@ -23,20 +23,20 @@ type ShiborQuoteItem struct {
 	Bank string `json:"bank"` // 报价银行
 	OnB float64 `json:"on_b"` // 隔夜_Bid
 	OnA float64 `json:"on_a"` // 隔夜_Ask
-	1wB float64 `json:"1w_b"` // 1周_Bid
-	1wA float64 `json:"1w_a"` // 1周_Ask
-	2wB float64 `json:"2w_b"` // 2周_Bid
-	2wA float64 `json:"2w_a"` // 2周_Ask
-	1mB float64 `json:"1m_b"` // 1月_Bid
-	1mA float64 `json:"1m_a"` // 1月_Ask
-	3mB float64 `json:"3m_b"` // 3月_Bid
-	3mA float64 `json:"3m_a"` // 3月_Ask
-	6mB float64 `json:"6m_b"` // 6月_Bid
-	6mA float64 `json:"6m_a"` // 6月_Ask
-	9mB float64 `json:"9m_b"` // 9月_Bid
-	9mA float64 `json:"9m_a"` // 9月_Ask
-	1yB float64 `json:"1y_b"` // 1年_Bid
-	1yA float64 `json:"1y_a"` // 1年_Ask
+	Field1wB float64 `json:"1w_b"` // 1周_Bid
+	Field1wA float64 `json:"1w_a"` // 1周_Ask
+	Field2wB float64 `json:"2w_b"` // 2周_Bid
+	Field2wA float64 `json:"2w_a"` // 2周_Ask
+	Field1mB float64 `json:"1m_b"` // 1月_Bid
+	Field1mA float64 `json:"1m_a"` // 1月_Ask
+	Field3mB float64 `json:"3m_b"` // 3月_Bid
+	Field3mA float64 `json:"3m_a"` // 3月_Ask
+	Field6mB float64 `json:"6m_b"` // 6月_Bid
+	Field6mA float64 `json:"6m_a"` // 6月_Ask
+	Field9mB float64 `json:"9m_b"` // 9月_Bid
+	Field9mA float64 `json:"9m_a"` // 9月_Ask
+	Field1yB float64 `json:"1y_b"` // 1年_Bid
+	Field1yA float64 `json:"1y_a"` // 1年_Ask
 }
 
 // ShiborQuote 调用 Shibor报价数据 API
@@ -88,72 +88,72 @@ func ShiborQuote(ctx context.Context, client *sdk.Client, req *ShiborQuoteReques
 			return nil, fmt.Errorf("无效的 on_a 类型")
 		}
 		// 处理 1w_b 的简单类型
-		1wB, ok := item["1w_b"].(float64)
+		field1wB, ok := item["1w_b"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 1w_b 类型")
 		}
 		// 处理 1w_a 的简单类型
-		1wA, ok := item["1w_a"].(float64)
+		field1wA, ok := item["1w_a"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 1w_a 类型")
 		}
 		// 处理 2w_b 的简单类型
-		2wB, ok := item["2w_b"].(float64)
+		field2wB, ok := item["2w_b"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 2w_b 类型")
 		}
 		// 处理 2w_a 的简单类型
-		2wA, ok := item["2w_a"].(float64)
+		field2wA, ok := item["2w_a"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 2w_a 类型")
 		}
 		// 处理 1m_b 的简单类型
-		1mB, ok := item["1m_b"].(float64)
+		field1mB, ok := item["1m_b"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 1m_b 类型")
 		}
 		// 处理 1m_a 的简单类型
-		1mA, ok := item["1m_a"].(float64)
+		field1mA, ok := item["1m_a"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 1m_a 类型")
 		}
 		// 处理 3m_b 的简单类型
-		3mB, ok := item["3m_b"].(float64)
+		field3mB, ok := item["3m_b"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 3m_b 类型")
 		}
 		// 处理 3m_a 的简单类型
-		3mA, ok := item["3m_a"].(float64)
+		field3mA, ok := item["3m_a"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 3m_a 类型")
 		}
 		// 处理 6m_b 的简单类型
-		6mB, ok := item["6m_b"].(float64)
+		field6mB, ok := item["6m_b"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 6m_b 类型")
 		}
 		// 处理 6m_a 的简单类型
-		6mA, ok := item["6m_a"].(float64)
+		field6mA, ok := item["6m_a"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 6m_a 类型")
 		}
 		// 处理 9m_b 的简单类型
-		9mB, ok := item["9m_b"].(float64)
+		field9mB, ok := item["9m_b"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 9m_b 类型")
 		}
 		// 处理 9m_a 的简单类型
-		9mA, ok := item["9m_a"].(float64)
+		field9mA, ok := item["9m_a"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 9m_a 类型")
 		}
 		// 处理 1y_b 的简单类型
-		1yB, ok := item["1y_b"].(float64)
+		field1yB, ok := item["1y_b"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 1y_b 类型")
 		}
 		// 处理 1y_a 的简单类型
-		1yA, ok := item["1y_a"].(float64)
+		field1yA, ok := item["1y_a"].(float64)
 		if !ok {
 			return nil, fmt.Errorf("无效的 1y_a 类型")
 		}
@@ -162,20 +162,20 @@ func ShiborQuote(ctx context.Context, client *sdk.Client, req *ShiborQuoteReques
 			Bank: bank,
 			OnB: onB,
 			OnA: onA,
-			1wB: 1wB,
-			1wA: 1wA,
-			2wB: 2wB,
-			2wA: 2wA,
-			1mB: 1mB,
-			1mA: 1mA,
-			3mB: 3mB,
-			3mA: 3mA,
-			6mB: 6mB,
-			6mA: 6mA,
-			9mB: 9mB,
-			9mA: 9mA,
-			1yB: 1yB,
-			1yA: 1yA,
+			Field1wB: field1wB,
+			Field1wA: field1wA,
+			Field2wB: field2wB,
+			Field2wA: field2wA,
+			Field1mB: field1mB,
+			Field1mA: field1mA,
+			Field3mB: field3mB,
+			Field3mA: field3mA,
+			Field6mB: field6mB,
+			Field6mA: field6mA,
+			Field9mB: field9mB,
+			Field9mA: field9mA,
+			Field1yB: field1yB,
+			Field1yA: field1yA,
 		}
 	}
 

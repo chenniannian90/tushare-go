@@ -3,183 +3,44 @@
 package stock_boardtools
 
 import (
-	"context"
-	"fmt"
-
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	"tushare-go/pkg/sdk"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// Stock_boardTools implements tools for stock_board API
+// Stock_boardTools represents stock_board tools
 type Stock_boardTools struct {
+	server *mcp.Server
 	client *sdk.Client
 }
 
-// NewStock_boardTools creates a new stock_board tools instance
-func NewStock_boardTools(client *sdk.Client) *Stock_boardTools {
-	return &Stock_boardTools{
-		client: client,
-	}
+// NewStock_boardTools creates a new instance
+func NewStock_boardTools(server *mcp.Server, client *sdk.Client) *Stock_boardTools {
+	return &Stock_boardTools{server: server, client: client}
 }
 
-// GetAPIName returns the Tushare API name for this module
-func (m *Stock_boardTools) GetAPIName() string {
-	return "stock_board"
-}
+// RegisterAll registers all tools
+func (r *Stock_boardTools) RegisterAll() {
+	r.registerDcDaily()
+	r.registerDcHot()
+	r.registerDcIndex()
+	r.registerDcMember()
+	r.registerHmDetail()
+	r.registerHmList()
+	r.registerKplConceptCons()
+	r.registerKplList()
+	r.registerLimitCptList()
+	r.registerLimitListD()
+	r.registerLimitListThs()
+	r.registerLimitStep()
+	r.registerStkAuction()
+	r.registerTdxDaily()
+	r.registerTdxIndex()
+	r.registerTdxMember()
+	r.registerThsDaily()
+	r.registerThsHot()
+	r.registerThsIndex()
+	r.registerThsMember()
+	r.registerTopInst()
+	r.registerTopList()
 
-// ListTools returns all available tools in this module
-func (m *Stock_boardTools) ListTools() []common.Tool {
-	return []common.Tool{
-		{
-			Name: "stock_board.dc_daily",
-			Description: "Access dc_daily data from Tushare API",
-		},
-		{
-			Name: "stock_board.dc_hot",
-			Description: "Access dc_hot data from Tushare API",
-		},
-		{
-			Name: "stock_board.dc_index",
-			Description: "Access dc_index data from Tushare API",
-		},
-		{
-			Name: "stock_board.dc_member",
-			Description: "Access dc_member data from Tushare API",
-		},
-		{
-			Name: "stock_board.hm_detail",
-			Description: "Access hm_detail data from Tushare API",
-		},
-		{
-			Name: "stock_board.hm_list",
-			Description: "Access hm_list data from Tushare API",
-		},
-		{
-			Name: "stock_board.kpl_concept_cons",
-			Description: "Access kpl_concept_cons data from Tushare API",
-		},
-		{
-			Name: "stock_board.kpl_list",
-			Description: "Access kpl_list data from Tushare API",
-		},
-		{
-			Name: "stock_board.limit_cpt_list",
-			Description: "Access limit_cpt_list data from Tushare API",
-		},
-		{
-			Name: "stock_board.limit_list_d",
-			Description: "Access limit_list_d data from Tushare API",
-		},
-		{
-			Name: "stock_board.limit_list_ths",
-			Description: "Access limit_list_ths data from Tushare API",
-		},
-		{
-			Name: "stock_board.limit_step",
-			Description: "Access limit_step data from Tushare API",
-		},
-		{
-			Name: "stock_board.stk_auction",
-			Description: "Access stk_auction data from Tushare API",
-		},
-		{
-			Name: "stock_board.tdx_daily",
-			Description: "Access tdx_daily data from Tushare API",
-		},
-		{
-			Name: "stock_board.tdx_index",
-			Description: "Access tdx_index data from Tushare API",
-		},
-		{
-			Name: "stock_board.tdx_member",
-			Description: "Access tdx_member data from Tushare API",
-		},
-		{
-			Name: "stock_board.ths_daily",
-			Description: "Access ths_daily data from Tushare API",
-		},
-		{
-			Name: "stock_board.ths_hot",
-			Description: "Access ths_hot data from Tushare API",
-		},
-		{
-			Name: "stock_board.ths_index",
-			Description: "Access ths_index data from Tushare API",
-		},
-		{
-			Name: "stock_board.ths_member",
-			Description: "Access ths_member data from Tushare API",
-		},
-		{
-			Name: "stock_board.top_inst",
-			Description: "Access top_inst data from Tushare API",
-		},
-		{
-			Name: "stock_board.top_list",
-			Description: "Access top_list data from Tushare API",
-		},
-	}
-}
-
-// HandlesTool checks if this module handles a tool
-func (m *Stock_boardTools) HandlesTool(toolName string) bool {
-	tools := m.ListTools()
-	for _, tool := range tools {
-		if tool.Name == toolName {
-			return true
-		}
-	}
-	return false
-}
-
-// CallTool executes a tool call
-func (m *Stock_boardTools) CallTool(ctx context.Context, toolName string, args map[string]interface{}) (*common.ToolResult, error) {
-	switch toolName {
-	case "stock_board.dc_daily":
-		return m.callDcDaily(ctx, args)
-	case "stock_board.dc_hot":
-		return m.callDcHot(ctx, args)
-	case "stock_board.dc_index":
-		return m.callDcIndex(ctx, args)
-	case "stock_board.dc_member":
-		return m.callDcMember(ctx, args)
-	case "stock_board.hm_detail":
-		return m.callHmDetail(ctx, args)
-	case "stock_board.hm_list":
-		return m.callHmList(ctx, args)
-	case "stock_board.kpl_concept_cons":
-		return m.callKplConceptCons(ctx, args)
-	case "stock_board.kpl_list":
-		return m.callKplList(ctx, args)
-	case "stock_board.limit_cpt_list":
-		return m.callLimitCptList(ctx, args)
-	case "stock_board.limit_list_d":
-		return m.callLimitListD(ctx, args)
-	case "stock_board.limit_list_ths":
-		return m.callLimitListThs(ctx, args)
-	case "stock_board.limit_step":
-		return m.callLimitStep(ctx, args)
-	case "stock_board.stk_auction":
-		return m.callStkAuction(ctx, args)
-	case "stock_board.tdx_daily":
-		return m.callTdxDaily(ctx, args)
-	case "stock_board.tdx_index":
-		return m.callTdxIndex(ctx, args)
-	case "stock_board.tdx_member":
-		return m.callTdxMember(ctx, args)
-	case "stock_board.ths_daily":
-		return m.callThsDaily(ctx, args)
-	case "stock_board.ths_hot":
-		return m.callThsHot(ctx, args)
-	case "stock_board.ths_index":
-		return m.callThsIndex(ctx, args)
-	case "stock_board.ths_member":
-		return m.callThsMember(ctx, args)
-	case "stock_board.top_inst":
-		return m.callTopInst(ctx, args)
-	case "stock_board.top_list":
-		return m.callTopList(ctx, args)
-	default:
-		return nil, fmt.Errorf("unknown tool: %s", toolName)
-	}
 }

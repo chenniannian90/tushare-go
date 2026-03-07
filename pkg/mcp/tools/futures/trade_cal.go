@@ -4,29 +4,59 @@ package futurestools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	futures "github.com/chenniannian90/tushare-go/pkg/sdk/api/futures"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	futures "tushare-go/pkg/sdk/api/futures"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callTradeCal handles TradeCal tool calls
-func (m *FuturesTools) callTradeCal(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &futures.TradeCalRequest{}
+// registerTradeCal registers the tool
+func (r *FuturesTools) registerTradeCal() {
+	inputSchema, _ := jsonschema.For[TradeCalInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "futures.trade_cal",
+		Description: "获取各大期货交易所交易日历数据",
+		InputSchema: inputSchema,
 	}
 
-	items, err := futures.TradeCal(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input TradeCalInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &futures.TradeCalRequest{
+Exchange: input.Exchange,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+IsOpen: input.IsOpen,
+
+		}
+
+		items, err := futures.TradeCal(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := TradeCalOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "futures", "trade_cal")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

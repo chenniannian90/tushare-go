@@ -4,29 +4,58 @@ package etftools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	etf "github.com/chenniannian90/tushare-go/pkg/sdk/api/etf"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	etf "tushare-go/pkg/sdk/api/etf"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callEtfIndex handles EtfIndex tool calls
-func (m *EtfTools) callEtfIndex(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &etf.EtfIndexRequest{}
+// registerEtfIndex registers the tool
+func (r *EtfTools) registerEtfIndex() {
+	inputSchema, _ := jsonschema.For[EtfIndexInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "etf.etf_index",
+		Description: "获取ETF基准指数列表信息",
+		InputSchema: inputSchema,
 	}
 
-	items, err := etf.EtfIndex(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input EtfIndexInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &etf.EtfIndexRequest{
+TsCode: input.TsCode,
+PubDate: input.PubDate,
+BaseDate: input.BaseDate,
+
+		}
+
+		items, err := etf.EtfIndex(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := EtfIndexOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "etf", "etf_index")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

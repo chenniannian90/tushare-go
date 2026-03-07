@@ -3,87 +3,28 @@
 package llm_corpustools
 
 import (
-	"context"
-	"fmt"
-
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	"tushare-go/pkg/sdk"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// Llm_corpusTools implements tools for llm_corpus API
+// Llm_corpusTools represents llm_corpus tools
 type Llm_corpusTools struct {
+	server *mcp.Server
 	client *sdk.Client
 }
 
-// NewLlm_corpusTools creates a new llm_corpus tools instance
-func NewLlm_corpusTools(client *sdk.Client) *Llm_corpusTools {
-	return &Llm_corpusTools{
-		client: client,
-	}
+// NewLlm_corpusTools creates a new instance
+func NewLlm_corpusTools(server *mcp.Server, client *sdk.Client) *Llm_corpusTools {
+	return &Llm_corpusTools{server: server, client: client}
 }
 
-// GetAPIName returns the Tushare API name for this module
-func (m *Llm_corpusTools) GetAPIName() string {
-	return "llm_corpus"
-}
+// RegisterAll registers all tools
+func (r *Llm_corpusTools) RegisterAll() {
+	r.registerAnnsD()
+	r.registerCctvNews()
+	r.registerMajorNews()
+	r.registerNews()
+	r.registerNpr()
+	r.registerResearchReport()
 
-// ListTools returns all available tools in this module
-func (m *Llm_corpusTools) ListTools() []common.Tool {
-	return []common.Tool{
-		{
-			Name: "llm_corpus.anns_d",
-			Description: "Access anns_d data from Tushare API",
-		},
-		{
-			Name: "llm_corpus.cctv_news",
-			Description: "Access cctv_news data from Tushare API",
-		},
-		{
-			Name: "llm_corpus.major_news",
-			Description: "Access major_news data from Tushare API",
-		},
-		{
-			Name: "llm_corpus.news",
-			Description: "Access news data from Tushare API",
-		},
-		{
-			Name: "llm_corpus.npr",
-			Description: "Access npr data from Tushare API",
-		},
-		{
-			Name: "llm_corpus.research_report",
-			Description: "Access research_report data from Tushare API",
-		},
-	}
-}
-
-// HandlesTool checks if this module handles a tool
-func (m *Llm_corpusTools) HandlesTool(toolName string) bool {
-	tools := m.ListTools()
-	for _, tool := range tools {
-		if tool.Name == toolName {
-			return true
-		}
-	}
-	return false
-}
-
-// CallTool executes a tool call
-func (m *Llm_corpusTools) CallTool(ctx context.Context, toolName string, args map[string]interface{}) (*common.ToolResult, error) {
-	switch toolName {
-	case "llm_corpus.anns_d":
-		return m.callAnnsD(ctx, args)
-	case "llm_corpus.cctv_news":
-		return m.callCctvNews(ctx, args)
-	case "llm_corpus.major_news":
-		return m.callMajorNews(ctx, args)
-	case "llm_corpus.news":
-		return m.callNews(ctx, args)
-	case "llm_corpus.npr":
-		return m.callNpr(ctx, args)
-	case "llm_corpus.research_report":
-		return m.callResearchReport(ctx, args)
-	default:
-		return nil, fmt.Errorf("unknown tool: %s", toolName)
-	}
 }

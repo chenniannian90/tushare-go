@@ -4,70 +4,92 @@ package apis
 
 import (
 	"context"
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/sdk/api/stock_reference"
+	"tushare-go/pkg/sdk"
+	stock_stock_reference "tushare-go/pkg/sdk/api/stock/stock_reference"
 )
 
 type StockReference interface {
-	BlockTrade(ctx context.Context, req *stock_reference.BlockTradeRequest) ([]stock_reference.BlockTradeItem, error)
-	PledgeDetail(ctx context.Context, req *stock_reference.PledgeDetailRequest) ([]stock_reference.PledgeDetailItem, error)
-	PledgeStat(ctx context.Context, req *stock_reference.PledgeStatRequest) ([]stock_reference.PledgeStatItem, error)
-	Repurchase(ctx context.Context, req *stock_reference.RepurchaseRequest) ([]stock_reference.RepurchaseItem, error)
-	ShareFloat(ctx context.Context, req *stock_reference.ShareFloatRequest) ([]stock_reference.ShareFloatItem, error)
-	StkAccount(ctx context.Context, req *stock_reference.StkAccountRequest) ([]stock_reference.StkAccountItem, error)
-	StkAccountOld(ctx context.Context, req *stock_reference.StkAccountOldRequest) ([]stock_reference.StkAccountOldItem, error)
-	StkHoldernumber(ctx context.Context, req *stock_reference.StkHoldernumberRequest) ([]stock_reference.StkHoldernumberItem, error)
-	StkHoldertrade(ctx context.Context, req *stock_reference.StkHoldertradeRequest) ([]stock_reference.StkHoldertradeItem, error)
-	Top10Floatholders(ctx context.Context, req *stock_reference.Top10FloatholdersRequest) ([]stock_reference.Top10FloatholdersItem, error)
-	Top10Holders(ctx context.Context, req *stock_reference.Top10HoldersRequest) ([]stock_reference.Top10HoldersItem, error)
+	// BlockTrade 调用 大宗交易 API
+	BlockTrade(ctx context.Context, req *stock_stock_reference.BlockTradeRequest) ([]stock_stock_reference.BlockTradeItem, error)
+	// PledgeDetail 调用 股权质押明细数据 API
+	PledgeDetail(ctx context.Context, req *stock_stock_reference.PledgeDetailRequest) ([]stock_stock_reference.PledgeDetailItem, error)
+	// PledgeStat 调用 股权质押统计数据 API
+	PledgeStat(ctx context.Context, req *stock_stock_reference.PledgeStatRequest) ([]stock_stock_reference.PledgeStatItem, error)
+	// Repurchase 调用 股票回购 API
+	Repurchase(ctx context.Context, req *stock_stock_reference.RepurchaseRequest) ([]stock_stock_reference.RepurchaseItem, error)
+	// ShareFloat 调用 限售股解禁 API
+	ShareFloat(ctx context.Context, req *stock_stock_reference.ShareFloatRequest) ([]stock_stock_reference.ShareFloatItem, error)
+	// StkAccount 调用 股票开户数据（停） API
+	StkAccount(ctx context.Context, req *stock_stock_reference.StkAccountRequest) ([]stock_stock_reference.StkAccountItem, error)
+	// StkAccountOld 调用 股票开户数据（旧） API
+	StkAccountOld(ctx context.Context, req *stock_stock_reference.StkAccountOldRequest) ([]stock_stock_reference.StkAccountOldItem, error)
+	// StkHoldernumber 调用 股东人数 API
+	StkHoldernumber(ctx context.Context, req *stock_stock_reference.StkHoldernumberRequest) ([]stock_stock_reference.StkHoldernumberItem, error)
+	// StkHoldertrade 调用 股东增减持 API
+	StkHoldertrade(ctx context.Context, req *stock_stock_reference.StkHoldertradeRequest) ([]stock_stock_reference.StkHoldertradeItem, error)
+	// Top10Floatholders 调用 前十大流通股东 API
+	Top10Floatholders(ctx context.Context, req *stock_stock_reference.Top10FloatholdersRequest) ([]stock_stock_reference.Top10FloatholdersItem, error)
+	// Top10Holders 调用 前十大股东 API
+	Top10Holders(ctx context.Context, req *stock_stock_reference.Top10HoldersRequest) ([]stock_stock_reference.Top10HoldersItem, error)
 }
 
 type stockReferenceImpl struct {
 	client *sdk.Client
 }
 
-func (impl *stockReferenceImpl) BlockTrade(ctx context.Context, req *stock_reference.BlockTradeRequest) ([]stock_reference.BlockTradeItem, error) {
-	return stock_reference.BlockTrade(ctx, impl.client, req)
+// BlockTrade 调用 大宗交易 API
+func (impl *stockReferenceImpl) BlockTrade(ctx context.Context, req *stock_stock_reference.BlockTradeRequest) ([]stock_stock_reference.BlockTradeItem, error) {
+	return stock_stock_reference.BlockTrade(ctx, impl.client, req)
 }
 
-func (impl *stockReferenceImpl) PledgeDetail(ctx context.Context, req *stock_reference.PledgeDetailRequest) ([]stock_reference.PledgeDetailItem, error) {
-	return stock_reference.PledgeDetail(ctx, impl.client, req)
+// PledgeDetail 调用 股权质押明细数据 API
+func (impl *stockReferenceImpl) PledgeDetail(ctx context.Context, req *stock_stock_reference.PledgeDetailRequest) ([]stock_stock_reference.PledgeDetailItem, error) {
+	return stock_stock_reference.PledgeDetail(ctx, impl.client, req)
 }
 
-func (impl *stockReferenceImpl) PledgeStat(ctx context.Context, req *stock_reference.PledgeStatRequest) ([]stock_reference.PledgeStatItem, error) {
-	return stock_reference.PledgeStat(ctx, impl.client, req)
+// PledgeStat 调用 股权质押统计数据 API
+func (impl *stockReferenceImpl) PledgeStat(ctx context.Context, req *stock_stock_reference.PledgeStatRequest) ([]stock_stock_reference.PledgeStatItem, error) {
+	return stock_stock_reference.PledgeStat(ctx, impl.client, req)
 }
 
-func (impl *stockReferenceImpl) Repurchase(ctx context.Context, req *stock_reference.RepurchaseRequest) ([]stock_reference.RepurchaseItem, error) {
-	return stock_reference.Repurchase(ctx, impl.client, req)
+// Repurchase 调用 股票回购 API
+func (impl *stockReferenceImpl) Repurchase(ctx context.Context, req *stock_stock_reference.RepurchaseRequest) ([]stock_stock_reference.RepurchaseItem, error) {
+	return stock_stock_reference.Repurchase(ctx, impl.client, req)
 }
 
-func (impl *stockReferenceImpl) ShareFloat(ctx context.Context, req *stock_reference.ShareFloatRequest) ([]stock_reference.ShareFloatItem, error) {
-	return stock_reference.ShareFloat(ctx, impl.client, req)
+// ShareFloat 调用 限售股解禁 API
+func (impl *stockReferenceImpl) ShareFloat(ctx context.Context, req *stock_stock_reference.ShareFloatRequest) ([]stock_stock_reference.ShareFloatItem, error) {
+	return stock_stock_reference.ShareFloat(ctx, impl.client, req)
 }
 
-func (impl *stockReferenceImpl) StkAccount(ctx context.Context, req *stock_reference.StkAccountRequest) ([]stock_reference.StkAccountItem, error) {
-	return stock_reference.StkAccount(ctx, impl.client, req)
+// StkAccount 调用 股票开户数据（停） API
+func (impl *stockReferenceImpl) StkAccount(ctx context.Context, req *stock_stock_reference.StkAccountRequest) ([]stock_stock_reference.StkAccountItem, error) {
+	return stock_stock_reference.StkAccount(ctx, impl.client, req)
 }
 
-func (impl *stockReferenceImpl) StkAccountOld(ctx context.Context, req *stock_reference.StkAccountOldRequest) ([]stock_reference.StkAccountOldItem, error) {
-	return stock_reference.StkAccountOld(ctx, impl.client, req)
+// StkAccountOld 调用 股票开户数据（旧） API
+func (impl *stockReferenceImpl) StkAccountOld(ctx context.Context, req *stock_stock_reference.StkAccountOldRequest) ([]stock_stock_reference.StkAccountOldItem, error) {
+	return stock_stock_reference.StkAccountOld(ctx, impl.client, req)
 }
 
-func (impl *stockReferenceImpl) StkHoldernumber(ctx context.Context, req *stock_reference.StkHoldernumberRequest) ([]stock_reference.StkHoldernumberItem, error) {
-	return stock_reference.StkHoldernumber(ctx, impl.client, req)
+// StkHoldernumber 调用 股东人数 API
+func (impl *stockReferenceImpl) StkHoldernumber(ctx context.Context, req *stock_stock_reference.StkHoldernumberRequest) ([]stock_stock_reference.StkHoldernumberItem, error) {
+	return stock_stock_reference.StkHoldernumber(ctx, impl.client, req)
 }
 
-func (impl *stockReferenceImpl) StkHoldertrade(ctx context.Context, req *stock_reference.StkHoldertradeRequest) ([]stock_reference.StkHoldertradeItem, error) {
-	return stock_reference.StkHoldertrade(ctx, impl.client, req)
+// StkHoldertrade 调用 股东增减持 API
+func (impl *stockReferenceImpl) StkHoldertrade(ctx context.Context, req *stock_stock_reference.StkHoldertradeRequest) ([]stock_stock_reference.StkHoldertradeItem, error) {
+	return stock_stock_reference.StkHoldertrade(ctx, impl.client, req)
 }
 
-func (impl *stockReferenceImpl) Top10Floatholders(ctx context.Context, req *stock_reference.Top10FloatholdersRequest) ([]stock_reference.Top10FloatholdersItem, error) {
-	return stock_reference.Top10Floatholders(ctx, impl.client, req)
+// Top10Floatholders 调用 前十大流通股东 API
+func (impl *stockReferenceImpl) Top10Floatholders(ctx context.Context, req *stock_stock_reference.Top10FloatholdersRequest) ([]stock_stock_reference.Top10FloatholdersItem, error) {
+	return stock_stock_reference.Top10Floatholders(ctx, impl.client, req)
 }
 
-func (impl *stockReferenceImpl) Top10Holders(ctx context.Context, req *stock_reference.Top10HoldersRequest) ([]stock_reference.Top10HoldersItem, error) {
-	return stock_reference.Top10Holders(ctx, impl.client, req)
+// Top10Holders 调用 前十大股东 API
+func (impl *stockReferenceImpl) Top10Holders(ctx context.Context, req *stock_stock_reference.Top10HoldersRequest) ([]stock_stock_reference.Top10HoldersItem, error) {
+	return stock_stock_reference.Top10Holders(ctx, impl.client, req)
 }
 
 func newstockReferenceImpl(client *sdk.Client) StockReference {

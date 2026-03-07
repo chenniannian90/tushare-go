@@ -4,29 +4,58 @@ package llm_corpustools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	llm_corpus "github.com/chenniannian90/tushare-go/pkg/sdk/api/llm_corpus"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	llm_corpus "tushare-go/pkg/sdk/api/llm_corpus"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callMajorNews handles MajorNews tool calls
-func (m *Llm_corpusTools) callMajorNews(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &llm_corpus.MajorNewsRequest{}
+// registerMajorNews registers the tool
+func (r *Llm_corpusTools) registerMajorNews() {
+	inputSchema, _ := jsonschema.For[MajorNewsInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "llm_corpus.major_news",
+		Description: "Retrieve majornews data from Tushare llm corpus API",
+		InputSchema: inputSchema,
 	}
 
-	items, err := llm_corpus.MajorNews(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input MajorNewsInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &llm_corpus.MajorNewsRequest{
+Src: input.Src,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+
+		}
+
+		items, err := llm_corpus.MajorNews(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := MajorNewsOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "llm_corpus", "major_news")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }

@@ -4,20 +4,22 @@ package apis
 
 import (
 	"context"
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
-	"github.com/chenniannian90/tushare-go/pkg/sdk/api/macro_business"
+	"tushare-go/pkg/sdk"
+	macro_macro_domestic_macro_business "tushare-go/pkg/sdk/api/macro/macro_domestic/macro_business"
 )
 
 type MacroBusiness interface {
-	CnPmi(ctx context.Context, req *macro_business.CnPmiRequest) ([]macro_business.CnPmiItem, error)
+	// CnPmi 调用 采购经理指数（PMI） API
+	CnPmi(ctx context.Context, req *macro_macro_domestic_macro_business.CnPmiRequest) ([]macro_macro_domestic_macro_business.CnPmiItem, error)
 }
 
 type macroBusinessImpl struct {
 	client *sdk.Client
 }
 
-func (impl *macroBusinessImpl) CnPmi(ctx context.Context, req *macro_business.CnPmiRequest) ([]macro_business.CnPmiItem, error) {
-	return macro_business.CnPmi(ctx, impl.client, req)
+// CnPmi 调用 采购经理指数（PMI） API
+func (impl *macroBusinessImpl) CnPmi(ctx context.Context, req *macro_macro_domestic_macro_business.CnPmiRequest) ([]macro_macro_domestic_macro_business.CnPmiItem, error) {
+	return macro_macro_domestic_macro_business.CnPmi(ctx, impl.client, req)
 }
 
 func newmacroBusinessImpl(client *sdk.Client) MacroBusiness {

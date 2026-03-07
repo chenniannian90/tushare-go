@@ -4,29 +4,55 @@ package stock_referencetools
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 
-	stock_stock_reference "github.com/chenniannian90/tushare-go/pkg/sdk/api/stock/stock_reference"
-	"github.com/chenniannian90/tushare-go/pkg/mcp/common"
+	stock_stock_reference "tushare-go/pkg/sdk/api/stock/stock_reference"
+	"github.com/google/jsonschema-go/jsonschema"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// callTop10Holders handles Top10Holders tool calls
-func (m *Stock_referenceTools) callTop10Holders(ctx context.Context, args map[string]interface{}) (*common.ToolResult, error) {
-	req := &stock_stock_reference.Top10HoldersRequest{}
+// registerTop10Holders registers the tool
+func (r *Stock_referenceTools) registerTop10Holders() {
+	inputSchema, _ := jsonschema.For[Top10HoldersInput](nil)
 
-	// Parse arguments into request
-	if err := common.ParseInput(args, req); err != nil {
-		return common.ErrorResult(err), nil
+	tool := &mcp.Tool{
+		Name:        "stock_reference.top10_holders",
+		Description: "Retrieve top10holders data from Tushare stock reference API",
+		InputSchema: inputSchema,
 	}
 
-	items, err := stock_stock_reference.Top10Holders(ctx, m.client, req)
-	if err != nil {
-		return common.ErrorResult(err), nil
+	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var input Top10HoldersInput
+		if err := json.Unmarshal(req.Params.Arguments, &input); err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"Invalid input: %v"}`, err)}},
+			}, nil
+		}
+
+		apiReq := &stock_stock_reference.Top10HoldersRequest{
+
+		}
+
+		items, err := stock_stock_reference.Top10Holders(ctx, r.client, apiReq)
+		if err != nil {
+			return &mcp.CallToolResult{
+				IsError: true,
+				Content: []mcp.Content{&mcp.TextContent{Text: fmt.Sprintf(`{"error":"API call failed: %v"}`, err)}},
+			}, nil
+		}
+
+		output := Top10HoldersOutput{
+			Data:  items,
+			Total: len(items),
+		}
+
+		outputJSON, _ := json.MarshalIndent(output, "", "  ")
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{Text: string(outputJSON)}},
+		}, nil
 	}
 
-	// Format results
-	result, err := common.APIResult(items, "stock_reference", "top10_holders")
-	if err != nil {
-		return common.ErrorResult(err), nil
-	}
-	return result, nil
+	r.server.AddTool(tool, handler)
 }
