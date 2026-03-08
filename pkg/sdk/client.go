@@ -6,20 +6,21 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"strings"
+
+	"tushare-go/pkg/sdk/logger"
 )
 
 // logAPIError 记录API调用的详细错误信息
 func logAPIError(apiName string, reqBody map[string]interface{}, respBody []byte, errMsg string) {
 	reqJSON, _ := json.Marshal(reqBody)
-	log.Printf("=== API调用失败 ===")
-	log.Printf("API名称: %s", apiName)
-	log.Printf("错误信息: %s", errMsg)
-	log.Printf("请求体: %s", string(reqJSON))
-	log.Printf("响应体: %s", string(respBody))
-	log.Printf("===================")
+	logger.WithFields(logger.Fields{
+		"api_name": apiName,
+		"error":    errMsg,
+		"request":  string(reqJSON),
+		"response": string(respBody),
+	}).Error("=== API调用失败 ===")
 }
 
 // Context key type for storing token in context
