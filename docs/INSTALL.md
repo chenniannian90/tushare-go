@@ -1,87 +1,87 @@
-# tushare-go Installation & Configuration Guide
+# tushare-go 安装与配置指南
 
-> **This document is designed to help users install and configure tushare-go MCP server.** Feed this file directly to your AI agent for automated setup.
+> **本文档旨在帮助用户安装和配置 tushare-go MCP 服务器。** 您可以直接将此文件提供给 AI 助手进行自动化设置。
 
-## What is tushare-go?
+## 什么是 tushare-go？
 
-tushare-go is a Go implementation of the [Tushare](https://tushare.pro) financial data API with Model Context Protocol (MCP) server support. It provides MCP tools for accessing Chinese stock market data, financial statements, economic indicators, and more.
+tushare-go 是 [Tushare](https://tushare.pro) 金融数据 API 的 Go 语言实现，支持模型上下文协议（MCP）服务器。它提供了访问中国股票市场数据、财务报表、经济指标等的 MCP 工具。
 
 **GitHub**: https://github.com/chenniannian90/tushare-go
 
-## Prerequisites
+## 前置要求
 
-- **Go**: >= 1.24 (for building from source)
-- **Tushare Token**: Register at https://tushare.pro to get your API token
-- **MCP Client**: Claude Desktop, Cursor, or any MCP-compatible client
+- **Go**: >= 1.24（从源代码构建时需要）
+- **Tushare Token**: 访问 https://tushare.pro 注册获取您的 API token
+- **MCP 客户端**: Claude Desktop、Cursor 或任何兼容 MCP 的客户端
 
-## Step 1: Install tushare-go
+## 第��步：安装 tushare-go
 
-### Option A: Download binary from GitHub Releases (recommended)
+### 选项 A：从 GitHub 发布页面下载二进制文件（推荐）
 
-Go to https://github.com/chenniannian90/tushare-go/releases and download the binary for your platform:
+访问 https://github.com/chenniannian90/tushare-go/releases 并下载适合您平台的二进制文件：
 
 - `tushare-mcp-linux-amd64` / `tushare-mcp-linux-arm64`
 - `tushare-mcp-darwin-amd64` / `tushare-mcp-darwin-arm64`
 - `tushare-mcp-windows-amd64.exe`
 
 ```bash
-# Example for macOS ARM64 (Apple Silicon):
+# macOS ARM64（Apple Silicon）示例：
 curl -L -o tushare-mcp https://github.com/chenniannian90/tushare-go/releases/latest/download/tushare-mcp-darwin-arm64
 chmod +x tushare-mcp
 sudo mv tushare-mcp /usr/local/bin/
 
-# Example for Linux amd64:
+# Linux amd64 示例：
 curl -L -o tushare-mcp https://github.com/chenniannian90/tushare-go/releases/latest/download/tushare-mcp-linux-amd64
 chmod +x tushare-mcp
 sudo mv tushare-mcp /usr/local/bin/
 ```
 
-On macOS, you may need to remove the quarantine attribute:
+在 macOS 上，您可能需要移除隔离属性：
 
 ```bash
 xattr -d com.apple.quarantine tushare-mcp
 ```
 
-### Option B: Build from source
+### 选项 B：从源代码构建
 
 ```bash
 git clone https://github.com/chenniannian90/tushare-go.git
 cd tushare-go
 make build
-# Binary will be at ./bin/tushare-mcp
+# 二进制文件将位于 ./bin/tushare-mcp
 ```
 
-### Option C: Install via Go install
+### 选项 C：通过 Go install 安装
 
 ```bash
 go install github.com/chenniannian90/tushare-go/cmd/mcp-server@latest
-# Binary will be at $GOPATH/bin/tushare-mcp
+# 二进制文件将位于 $GOPATH/bin/tushare-mcp
 ```
 
-Verify installation:
+验证安装：
 
 ```bash
 tushare-mcp --version
 ```
 
-## Step 2: Get Tushare API Token
+## 第二步：获取 Tushare API Token
 
-1. Visit https://tushare.pro and register/login
-2. Go to user center → API Token
-3. Copy your token (format: `xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`)
+1. 访问 https://tushare.pro 并注册/登��
+2. 进入用户中心 → API Token
+3. 复制您的 token（格式：`xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`）
 
-**Note**: Each user has different API access levels. Free tier has limited call frequency.
+**注意**：每个用户有不同的 API 访问级别。免费层级有调用频率限制。
 
-## Step 3: Create Configuration File
+## 第三步：创建配置文件
 
-Create a `config.json` file in your working directory:
+在工作目录中创建 `config.json` 文件：
 
 ```bash
-# Copy example config
+# 复制示例配置
 cp config.example.json config.json
 ```
 
-Edit `config.json` with your settings:
+编辑 `config.json` 配置您的设置：
 
 ```json
 {
@@ -112,27 +112,27 @@ Edit `config.json` with your settings:
 }
 ```
 
-### Configuration Options
+### 配置选项
 
-- **`transport`**: `"stdio"` or `"http"`
-  - `stdio`: For Claude Desktop and local MCP clients
-  - `http`: For HTTP-based access with multiple endpoints
+- **`transport`**: `"stdio"` 或 `"http"`
+  - `stdio`: 用于 Claude Desktop 和本地 MCP 客户端
+  - `http`: 用于基于 HTTP 的多端点访问
 
 - **`log_level`**: `"debug"`, `"info"`, `"warn"`, `"error"`
 
-- **`api_tokens`**: Array of Tushare API tokens (supports multiple tokens for load balancing)
+- **`api_tokens`**: Tushare API token 数组（支持多个 token 进行负载均衡）
 
-- **`services`**: Service configurations
-  - **`name`**: Service identifier
-  - **`path`**: HTTP path (ignored in stdio mode)
-  - **`categories`**: API categories to include (empty = all)
-  - **`description`**: Service description
+- **`services`**: 服务配置
+  - **`name`**: 服务标识符
+  - **`path`**: HTTP 路径（在 stdio 模式下忽略）
+  - **`categories`**: 包含的 API 类别（空表示全部）
+  - **`description`**: 服务描述
 
-## Step 4: Configure MCP Client
+## 第四步：配置 MCP 客户端
 
-### Claude Desktop (macOS/Windows)
+### Claude Desktop（macOS/Windows）
 
-Create or edit `~/Library/Application Support/Claude/claude_desktop_config.json`:
+创建或编辑 `~/Library/Application Support/Claude/claude_desktop_config.json`：
 
 ```json
 {
@@ -146,82 +146,82 @@ Create or edit `~/Library/Application Support/Claude/claude_desktop_config.json`
 }
 ```
 
-Restart Claude Desktop to load the MCP server.
+重启 Claude Desktop 以加载 MCP 服务器。
 
-### Cursor / Other MCP Clients
+### Cursor / 其他 MCP 客户端
 
-Refer to your client's MCP configuration documentation. The key parameters are:
-- **Command**: Full path to `tushare-mcp` binary
+请参考您客户端的 MCP 配置文档。关键参数包括：
+- **Command**: `tushare-mcp` 二进制文件的完整路径
 - **Args**: `["-config", "/path/to/config.json"]`
 - **Transport**: `"stdio"`
 
-### HTTP Mode (advanced)
+### HTTP 模式（高级）
 
-For HTTP mode, start the server:
+对于 HTTP 模式，启动服务器：
 
 ```bash
 tushare-mcp -config config.json
 ```
 
-The server will start on `http://localhost:8080` by default. Access different endpoints:
+服务器将默认在 `http://localhost:8080` 上启动。访问不同的端点：
 
-- `http://localhost:8080/stock` - Stock basic data only
-- `http://localhost:8080/all` - All APIs
+- `http://localhost:8080/stock` - 仅股票基础数据
+- `http://localhost:8080/all` - 所有 API
 
-## Step 5: Verify Installation
+## 第五步：验证安装
 
-### Test with MCP Client
+### 使用 MCP 客户端测试
 
-Start a conversation with Claude and try:
+与 Claude 开始对话并尝试：
 
 ```
 请使用 tushare API 获取股票基本信息，查询代码 000001.SZ
 ```
 
-You should see Claude using the `get_stock_basic` tool from tushare-go.
+您应该看到 Claude 使用 tushare-go 的 `get_stock_basic` 工具。
 
-### Test HTTP Mode (if applicable)
+### 测试 HTTP 模式（如适用）
 
 ```bash
-# Health check
+# 健康检查
 curl http://localhost:8080/health
 
-# List available tools
+# 列出可用工具
 curl http://localhost:8080/stock/tools
 ```
 
-## Step 6: Available MCP Tools
+## 第六步：可用的 MCP 工具
 
-Once connected, tushare-go provides these MCP tools:
+连接成功后，tushare-go 提供以下 MCP 工具：
 
-### Stock Market Data (股票市场数据)
+### 股票市场数据
 - **`get_stock_basic`**: 获取股票基本信息
 - **`get_daily`**: 获取日线行情
 - **`get_weekly`**: 获取周线行情
 - **`get_monthly`**: 获取月线行情
 - **`get_realtime_quote`**: 获取实时行情
 
-### Financial Data (财务数据)
+### 财务数据
 - **`get_income`**: 获取利润表
 - **`get_balancesheet`**: 获取资产负债表
 - **`get_cashflow`**: 获取现金流量表
 - **`get_fina_indicator`**: 获取财务指标
 
-### Index Data (指数数据)
+### 指数数据
 - **`get_index_basic`**: 获取指数基本信息
 - **`get_index_daily`**: 获取指数日线行情
 - **`get_index_weight`**: 获取指数成分和权重
 
-### Economic Data (经济数据)
+### 经济数据
 - **`get_gdp`**: 获取国内生产总值
 - **`get_cpi`**: 获取居民消费价格指数
 - **`get_shibor`**: 获取Shibor利率
 
-And 200+ more tools covering all Tushare API interfaces.
+以及 200+ 更多工具，覆盖所有 Tushare API 接口。
 
-## Advanced Configuration
+## 高级配置
 
-### Multiple API Tokens (Load Balancing)
+### 多个 API Token（负载均衡）
 
 ```json
 {
@@ -234,11 +234,11 @@ And 200+ more tools covering all Tushare API interfaces.
 }
 ```
 
-Available strategies: `"round_robin"`, `"random"`, `"least_used"`
+可用策略：`"round_robin"`、`"random"`、`"least_used"`
 
-### Service Categories
+### 服务分类
 
-Organize APIs into logical groups:
+将 API 组织为逻辑组：
 
 ```json
 {
@@ -265,7 +265,7 @@ Organize APIs into logical groups:
 }
 ```
 
-### HTTP Server Configuration
+### HTTP 服务器配置
 
 ```json
 {
@@ -277,33 +277,33 @@ Organize APIs into logical groups:
 }
 ```
 
-## Troubleshooting
+## 故障排除
 
-### Common Issues
+### 常见问题
 
-**"Failed to connect to MCP server"**
-- Verify binary path in config is correct
-- Check `config.json` syntax is valid
-- Ensure Tushare token is valid and not expired
+**"无法连接到 MCP 服务器"**
+- 验证配置中的二进制文件路径是否正确
+- 检查 `config.json` 语法是否有效
+- 确保 Tushare token 有效且未过期
 
-**"API call failed: token limit exceeded"**
-- Free tier has call frequency limits
-- Consider upgrading Tushare account
-- Use multiple tokens with load balancing
+**"API 调用失败：token 超限"**
+- 免费层级有调用频率限制
+- 考虑升级 Tushare 账户
+- 使用多个 token 进行负载均衡
 
-**"Service not found in HTTP mode"**
-- Check service `path` configuration
-- Verify categories are spelled correctly
-- Try accessing `/all` endpoint for debugging
+**"HTTP 模式下找不到服务"**
+- 检查服务 `path` 配置
+- 验证类别拼写是否正确
+- 尝试访问 `/all` 端点进行调试
 
-**"Invalid token error"**
-- Verify token format: 32 characters
-- Check for extra spaces or quotes
-- Regenerate token at Tushare website if needed
+**"无效 token 错误"**
+- 验证 token 格式：32 个字符
+- 检查是否有额外的空格或引号
+- 如需要，在 Tushare 网站重新生成 token
 
-### Debug Mode
+### 调试模式
 
-Enable debug logging:
+启用调试日志：
 
 ```json
 {
@@ -311,22 +311,22 @@ Enable debug logging:
 }
 ```
 
-Check logs for detailed error messages.
+检查日志以获取详细错误信息。
 
-### Test Tushare Token
+### 测试 Tushare Token
 
 ```bash
-# Test token manually
+# 手动测试 token
 curl "https://api.tushare.pro/api/v1/" \
   -H "Content-Type: application/json" \
   -d '{"token":"YOUR_TOKEN","api_name":"trade_cal","params":"","fields":""}'
 ```
 
-## Performance Optimization
+## 性能优化
 
-### Caching
+### 缓存
 
-Enable response caching to reduce API calls:
+启用响应缓存以减少 API 调用：
 
 ```json
 {
@@ -335,7 +335,7 @@ Enable response caching to reduce API calls:
 }
 ```
 
-### Connection Pooling
+### 连接池
 
 ```json
 {
@@ -344,39 +344,39 @@ Enable response caching to reduce API calls:
 }
 ```
 
-## Security Best Practices
+## 安全最佳实践
 
-1. **Never commit `config.json`** to version control
-2. **Use environment variables** for sensitive data:
+1. **切勿将 `config.json` 提交**到版本控制系统
+2. **使用环境变量**处理敏感数据：
    ```json
    {
      "api_tokens": ["${TUSHARE_TOKEN}"]
    }
    ```
-3. **Rotate tokens regularly**
-4. **Monitor usage** to detect unauthorized access
-5. **Restrict CORS origins** in production:
+3. **定期轮换 token**
+4. **监控使用情况**以检测未授权访问
+5. **在生产环境中限制 CORS 来源**：
    ```json
    {
      "http_cors_allowed_origins": ["https://yourdomain.com"]
    }
    ```
 
-## Next Steps
+## 下一步
 
-- **Documentation**: See `docs/` directory for detailed guides
-- **API Reference**: Check `docs/MCP_TOOLS.md` for all available tools
-- **Examples**: Visit `examples/` directory for usage examples
-- **Issues**: Report bugs at https://github.com/chenniannian90/tushare-go/issues
+- **文档**: 查看 `docs/` 目录获取详细指南
+- **API 参考**: 查看 `docs/MCP_TOOLS.md` 了解所有可用工具
+- **示例**: 访问 `examples/` 目录查看使用示例
+- **问题反馈**: 在 https://github.com/chenniannian90/tushare-go/issues 报告问题
 
-## Support
+## 支持
 
 - **Tushare Pro**: https://tushare.pro
 - **GitHub Issues**: https://github.com/chenniannian90/tushare-go/issues
-- **Documentation**: https://github.com/chenniannian90/tushare-go/tree/main/docs
+- **文档**: https://github.com/chenniannian90/tushare-go/tree/main/docs
 
 ---
 
-**Version**: 1.0.0
-**Last Updated**: 2026-03-08
-**License**: MIT
+**版本**: 1.0.0
+**最后更新**: 2026-03-08
+**许可证**: MIT
