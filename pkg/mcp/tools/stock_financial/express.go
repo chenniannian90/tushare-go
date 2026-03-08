@@ -18,7 +18,7 @@ func (r *Stock_financialTools) registerExpress() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_financial.express",
-		Description: "Retrieve express data from Tushare stock financial API",
+		Description: "获取上市公司业绩快报",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,11 @@ func (r *Stock_financialTools) registerExpress() {
 		}
 
 		apiReq := &stock_stock_financial.ExpressRequest{
+TsCode: input.TsCode,
+AnnDate: input.AnnDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+Period: input.Period,
 
 		}
 

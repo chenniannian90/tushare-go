@@ -32,6 +32,9 @@ func (r *Stock_fund_flowTools) registerMoneyflowMktDc() {
 		}
 
 		apiReq := &stock_stock_fund_flow.MoneyflowMktDcRequest{
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

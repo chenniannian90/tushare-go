@@ -32,6 +32,10 @@ func (r *Stock_fund_flowTools) registerMoneyflowThs() {
 		}
 
 		apiReq := &stock_stock_fund_flow.MoneyflowThsRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

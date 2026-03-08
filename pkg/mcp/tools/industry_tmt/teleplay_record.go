@@ -18,7 +18,7 @@ func (r *Industry_tmtTools) registerTeleplayRecord() {
 
 	tool := &mcp.Tool{
 		Name:        "industry_tmt.teleplay_record",
-		Description: "Retrieve teleplayrecord data from Tushare industry tmt API",
+		Description: "获取2009年以来全国拍摄制作电视剧备案公示数据",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,11 @@ func (r *Industry_tmtTools) registerTeleplayRecord() {
 		}
 
 		apiReq := &industry_industry_tmt.TeleplayRecordRequest{
+ReportDate: input.ReportDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+Org: input.Org,
+Name: input.Name,
 
 		}
 

@@ -18,7 +18,7 @@ func (r *Industry_tmtTools) registerBoCinema() {
 
 	tool := &mcp.Tool{
 		Name:        "industry_tmt.bo_cinema",
-		Description: "Retrieve bocinema data from Tushare industry tmt API",
+		Description: "获取每日各影院的票房数据数据历史： 数据从2018年9月开始，更多历史数据正在补充数据",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,7 @@ func (r *Industry_tmtTools) registerBoCinema() {
 		}
 
 		apiReq := &industry_industry_tmt.BoCinemaRequest{
+Date: input.Date,
 
 		}
 

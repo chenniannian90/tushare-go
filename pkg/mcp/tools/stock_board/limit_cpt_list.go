@@ -32,6 +32,10 @@ func (r *Stock_boardTools) registerLimitCptList() {
 		}
 
 		apiReq := &stock_stock_board.LimitCptListRequest{
+TradeDate: input.TradeDate,
+TsCode: input.TsCode,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

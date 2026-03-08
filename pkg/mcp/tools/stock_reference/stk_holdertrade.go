@@ -18,7 +18,7 @@ func (r *Stock_referenceTools) registerStkHoldertrade() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_reference.stk_holdertrade",
-		Description: "Retrieve stkholdertrade data from Tushare stock reference API",
+		Description: "获取上市公司增减持数据，了解重要股东近期及历史上的股份增减变化",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,12 @@ func (r *Stock_referenceTools) registerStkHoldertrade() {
 		}
 
 		apiReq := &stock_stock_reference.StkHoldertradeRequest{
+TsCode: input.TsCode,
+AnnDate: input.AnnDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+TradeType: input.TradeType,
+HolderType: input.HolderType,
 
 		}
 

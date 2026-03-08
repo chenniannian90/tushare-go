@@ -398,33 +398,47 @@ func (g *MCPGenerator) toToolDescription(module, function, apiName string) strin
 
 // loadAPISpec loads the API spec file for a given module and API code
 func (g *MCPGenerator) loadAPISpec(module, apiCode string) *APISpec {
-	// Try different possible file paths
-	possiblePaths := []string{
-		filepath.Join(g.specBasePath, module+"___"+module, "*___"+apiCode+".json"),
-		filepath.Join(g.specBasePath, "*"+module+"*", "*___"+apiCode+".json"),
-		filepath.Join(g.specBasePath, module, "*___"+apiCode+".json"),
-	}
+	// Use recursive search to find spec files
+	// This handles paths with Chinese characters and nested structures
+	targetFilename := "___" + apiCode + ".json"
 
-	for _, pattern := range possiblePaths {
-		matches, err := filepath.Glob(pattern)
-		if err == nil && len(matches) > 0 {
-			// Read the first matching file
-			specFile := matches[0]
-			data, err := os.ReadFile(specFile)
-			if err != nil {
-				continue
-			}
-
-			var spec APISpec
-			if err := json.Unmarshal(data, &spec); err != nil {
-				continue
-			}
-
-			return &spec
+	var foundSpecFile string
+	err := filepath.WalkDir(g.specBasePath, func(path string, d os.DirEntry, err error) error {
+		if err != nil {
+			return nil // Continue walking even if there's an error
 		}
+		if d.IsDir() {
+			return nil
+		}
+
+		// Check if the filename ends with the target pattern
+		if strings.HasSuffix(filepath.Base(path), targetFilename) {
+			foundSpecFile = path
+			return filepath.SkipAll // Stop walking once we find a match
+		}
+		return nil
+	})
+
+	if err != nil {
+		return nil
 	}
 
-	return nil
+	if foundSpecFile == "" {
+		return nil
+	}
+
+	// Read and parse the spec file
+	data, err := os.ReadFile(foundSpecFile)
+	if err != nil {
+		return nil
+	}
+
+	var spec APISpec
+	if err := json.Unmarshal(data, &spec); err != nil {
+		return nil
+	}
+
+	return &spec
 }
 
 // toAPIName converts function name to Tushare API name

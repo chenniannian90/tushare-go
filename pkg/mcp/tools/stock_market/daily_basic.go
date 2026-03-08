@@ -18,7 +18,7 @@ func (r *Stock_marketTools) registerDailyBasic() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.daily_basic",
-		Description: "Retrieve dailybasic data from Tushare stock market API",
+		Description: "获取全部股票每日重要的基本面指标，可用于选股分析、报表展示等。单次请求最大返回6000条数据，可按日线循环提取全部历史。",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,10 @@ func (r *Stock_marketTools) registerDailyBasic() {
 		}
 
 		apiReq := &stock_stock_market.DailyBasicRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

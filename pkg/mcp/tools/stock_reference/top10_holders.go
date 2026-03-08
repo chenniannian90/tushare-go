@@ -18,7 +18,7 @@ func (r *Stock_referenceTools) registerTop10Holders() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_reference.top10_holders",
-		Description: "Retrieve top10holders data from Tushare stock reference API",
+		Description: "获取上市公司前十大股东数据，包括持有数量和比例等信息",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,11 @@ func (r *Stock_referenceTools) registerTop10Holders() {
 		}
 
 		apiReq := &stock_stock_reference.Top10HoldersRequest{
+TsCode: input.TsCode,
+Period: input.Period,
+AnnDate: input.AnnDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

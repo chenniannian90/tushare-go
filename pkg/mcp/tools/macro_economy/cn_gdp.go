@@ -18,7 +18,7 @@ func (r *Macro_economyTools) registerCnGdp() {
 
 	tool := &mcp.Tool{
 		Name:        "macro_economy.cn_gdp",
-		Description: "Retrieve cngdp data from Tushare macro economy API",
+		Description: "获取国民经济之GDP数据",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,10 @@ func (r *Macro_economyTools) registerCnGdp() {
 		}
 
 		apiReq := &macro_macro_domestic_macro_economy.CnGdpRequest{
+Q: input.Q,
+StartQ: input.StartQ,
+EndQ: input.EndQ,
+Fields: input.Fields,
 
 		}
 

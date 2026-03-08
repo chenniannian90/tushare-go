@@ -18,7 +18,7 @@ func (r *Stock_boardTools) registerTdxIndex() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.tdx_index",
-		Description: "Retrieve tdxindex data from Tushare stock board API",
+		Description: "获取通达信板块基础信息，包括概念板块、行业、风格、地域等",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,9 @@ func (r *Stock_boardTools) registerTdxIndex() {
 		}
 
 		apiReq := &stock_stock_board.TdxIndexRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+IdxType: input.IdxType,
 
 		}
 

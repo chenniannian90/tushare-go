@@ -18,7 +18,7 @@ func (r *Stock_financialTools) registerFinaAudit() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_financial.fina_audit",
-		Description: "Retrieve finaaudit data from Tushare stock financial API",
+		Description: "获取上市公司定期财务审计意见数据",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,11 @@ func (r *Stock_financialTools) registerFinaAudit() {
 		}
 
 		apiReq := &stock_stock_financial.FinaAuditRequest{
+TsCode: input.TsCode,
+AnnDate: input.AnnDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+Period: input.Period,
 
 		}
 

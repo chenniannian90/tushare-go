@@ -18,7 +18,7 @@ func (r *Stock_marketTools) registerWeekly() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.weekly",
-		Description: "Retrieve weekly data from Tushare stock market API",
+		Description: "获取A股周线行情，本接口每周最后一个交易日更新，如需要使用每天更新的周线数据，请使用日度更新的周线行情接口。",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,10 @@ func (r *Stock_marketTools) registerWeekly() {
 		}
 
 		apiReq := &stock_stock_market.WeeklyRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

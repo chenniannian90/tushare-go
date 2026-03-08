@@ -18,7 +18,7 @@ func (r *Stock_marginTools) registerSlbLen() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_margin.slb_len",
-		Description: "Retrieve slblen data from Tushare stock margin API",
+		Description: "转融通融资汇总",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,9 @@ func (r *Stock_marginTools) registerSlbLen() {
 		}
 
 		apiReq := &stock_stock_margin.SlbLenRequest{
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

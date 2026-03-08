@@ -18,7 +18,7 @@ func (r *Stock_marketTools) registerStkWeeklyMonthly() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.stk_weekly_monthly",
-		Description: "Retrieve stkweeklymonthly data from Tushare stock market API",
+		Description: "股票周/月线行情(每日更新)",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,11 @@ func (r *Stock_marketTools) registerStkWeeklyMonthly() {
 		}
 
 		apiReq := &stock_stock_market.StkWeeklyMonthlyRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+Freq: input.Freq,
 
 		}
 

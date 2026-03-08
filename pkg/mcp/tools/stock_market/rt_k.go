@@ -32,6 +32,7 @@ func (r *Stock_marketTools) registerRtK() {
 		}
 
 		apiReq := &stock_stock_market.RtKRequest{
+TsCode: input.TsCode,
 
 		}
 

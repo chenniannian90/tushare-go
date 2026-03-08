@@ -18,7 +18,7 @@ func (r *Stock_marketTools) registerBakDaily() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.bak_daily",
-		Description: "Retrieve bakdaily data from Tushare stock market API",
+		Description: "获取备用行情，包括特定的行情指标(数据从2017年中左右开始，早期有几天数据缺失，近期正常)",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,12 @@ func (r *Stock_marketTools) registerBakDaily() {
 		}
 
 		apiReq := &stock_stock_market.BakDailyRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+Offset: input.Offset,
+Limit: input.Limit,
 
 		}
 

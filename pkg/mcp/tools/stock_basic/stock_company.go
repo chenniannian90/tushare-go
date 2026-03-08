@@ -18,7 +18,7 @@ func (r *Stock_basicTools) registerStockCompany() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_basic.stock_company",
-		Description: "Retrieve stockcompany data from Tushare stock basic API",
+		Description: "获取上市公司基础信息，单次提取4500条，可以根据交易所分批提取",
 		InputSchema: inputSchema,
 	}
 

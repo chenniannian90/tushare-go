@@ -18,7 +18,7 @@ func (r *Stock_basicTools) registerBseMapping() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_basic.bse_mapping",
-		Description: "Retrieve bsemapping data from Tushare stock basic API",
+		Description: "获取北交所股票代码变更后新旧代码映射表数据",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,8 @@ func (r *Stock_basicTools) registerBseMapping() {
 		}
 
 		apiReq := &stock_stock_basic.BseMappingRequest{
+OCode: input.OCode,
+NCode: input.NCode,
 
 		}
 

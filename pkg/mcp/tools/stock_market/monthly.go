@@ -18,7 +18,7 @@ func (r *Stock_marketTools) registerMonthly() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.monthly",
-		Description: "Retrieve monthly data from Tushare stock market API",
+		Description: "获取A股月线数据",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,10 @@ func (r *Stock_marketTools) registerMonthly() {
 		}
 
 		apiReq := &stock_stock_market.MonthlyRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

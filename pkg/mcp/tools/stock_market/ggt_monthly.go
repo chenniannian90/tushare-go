@@ -18,7 +18,7 @@ func (r *Stock_marketTools) registerGgtMonthly() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.ggt_monthly",
-		Description: "Retrieve ggtmonthly data from Tushare stock market API",
+		Description: "港股通每月成交信息，数据从2014年开始",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,9 @@ func (r *Stock_marketTools) registerGgtMonthly() {
 		}
 
 		apiReq := &stock_stock_market.GgtMonthlyRequest{
+Month: input.Month,
+StartMonth: input.StartMonth,
+EndMonth: input.EndMonth,
 
 		}
 

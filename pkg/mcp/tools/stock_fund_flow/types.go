@@ -10,6 +10,10 @@ import (
 
 // MoneyflowInput defines the input schema
 type MoneyflowInput struct {
+TsCode string `json:ts_code,omitempty jsonschema:股票代码 （股票和时间参数至少输入一个）`
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期`
+StartDate string `json:start_date,omitempty jsonschema:开始日期`
+EndDate string `json:end_date,omitempty jsonschema:结束日期`
 
 }
 
@@ -21,6 +25,10 @@ type MoneyflowOutput struct {
 
 // MoneyflowCntThsInput defines the input schema
 type MoneyflowCntThsInput struct {
+TsCode string `json:ts_code,omitempty jsonschema:代码`
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期(格式：YYYYMMDD，下同)`
+StartDate string `json:start_date,omitempty jsonschema:开始日期`
+EndDate string `json:end_date,omitempty jsonschema:结束日期`
 
 }
 
@@ -32,6 +40,10 @@ type MoneyflowCntThsOutput struct {
 
 // MoneyflowDcInput defines the input schema
 type MoneyflowDcInput struct {
+TsCode string `json:ts_code,omitempty jsonschema:股票代码`
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期（YYYYMMDD格式，下同）`
+StartDate string `json:start_date,omitempty jsonschema:开始日期`
+EndDate string `json:end_date,omitempty jsonschema:结束日期`
 
 }
 
@@ -43,6 +55,9 @@ type MoneyflowDcOutput struct {
 
 // MoneyflowHsgtInput defines the input schema
 type MoneyflowHsgtInput struct {
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期 (二选一)`
+StartDate string `json:start_date,omitempty jsonschema:开始日期 (二选一)`
+EndDate string `json:end_date,omitempty jsonschema:结束日期`
 
 }
 
@@ -54,6 +69,11 @@ type MoneyflowHsgtOutput struct {
 
 // MoneyflowIndDcInput defines the input schema
 type MoneyflowIndDcInput struct {
+TsCode string `json:ts_code,omitempty jsonschema:代码`
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期（YYYYMMDD格式，下同）`
+StartDate string `json:start_date,omitempty jsonschema:开始日期`
+EndDate string `json:end_date,omitempty jsonschema:结束日期`
+ContentType string `json:content_type,omitempty jsonschema:资金类型(行业、概念、地域)`
 
 }
 
@@ -65,6 +85,10 @@ type MoneyflowIndDcOutput struct {
 
 // MoneyflowIndThsInput defines the input schema
 type MoneyflowIndThsInput struct {
+TsCode string `json:ts_code,omitempty jsonschema:代码`
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期(YYYYMMDD格式，下同)`
+StartDate string `json:start_date,omitempty jsonschema:开始日期`
+EndDate string `json:end_date,omitempty jsonschema:结束日期`
 
 }
 
@@ -76,6 +100,9 @@ type MoneyflowIndThsOutput struct {
 
 // MoneyflowMktDcInput defines the input schema
 type MoneyflowMktDcInput struct {
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期(YYYYMMDD格式，下同）`
+StartDate string `json:start_date,omitempty jsonschema:开始日期`
+EndDate string `json:end_date,omitempty jsonschema:结束日期`
 
 }
 
@@ -87,6 +114,10 @@ type MoneyflowMktDcOutput struct {
 
 // MoneyflowThsInput defines the input schema
 type MoneyflowThsInput struct {
+TsCode string `json:ts_code,omitempty jsonschema:股票代码`
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期（YYYYMMDD格式，下同）`
+StartDate string `json:start_date,omitempty jsonschema:开始日期`
+EndDate string `json:end_date,omitempty jsonschema:结束日期`
 
 }
 

@@ -18,7 +18,7 @@ func (r *Stock_featureTools) registerReportRc() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_feature.report_rc",
-		Description: "Retrieve reportrc data from Tushare stock feature API",
+		Description: "获取券商（卖方）每天研报的盈利预测数据，数据从2010年开始，每晚19~22点更新当日数据",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,10 @@ func (r *Stock_featureTools) registerReportRc() {
 		}
 
 		apiReq := &stock_stock_feature.ReportRcRequest{
+TsCode: input.TsCode,
+ReportDate: input.ReportDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

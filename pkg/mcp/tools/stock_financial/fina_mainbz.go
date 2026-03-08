@@ -18,7 +18,7 @@ func (r *Stock_financialTools) registerFinaMainbz() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_financial.fina_mainbz",
-		Description: "Retrieve finamainbz data from Tushare stock financial API",
+		Description: "获得上市公司主营业务构成，分地区和产品两种方式",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,11 @@ func (r *Stock_financialTools) registerFinaMainbz() {
 		}
 
 		apiReq := &stock_stock_financial.FinaMainbzRequest{
+TsCode: input.TsCode,
+Period: input.Period,
+Type: input.Type,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

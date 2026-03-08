@@ -18,7 +18,7 @@ func (r *Stock_financialTools) registerForecast() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_financial.forecast",
-		Description: "Retrieve forecast data from Tushare stock financial API",
+		Description: "获取业绩预告数据",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,12 @@ func (r *Stock_financialTools) registerForecast() {
 		}
 
 		apiReq := &stock_stock_financial.ForecastRequest{
+TsCode: input.TsCode,
+AnnDate: input.AnnDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+Period: input.Period,
+Type: input.Type,
 
 		}
 

@@ -18,7 +18,7 @@ func (r *Stock_basicTools) registerStockHsgt() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_basic.stock_hsgt",
-		Description: "Retrieve stockhsgt data from Tushare stock basic API",
+		Description: "获取沪深港通股票列表",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,11 @@ func (r *Stock_basicTools) registerStockHsgt() {
 		}
 
 		apiReq := &stock_stock_basic.StockHsgtRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+Type: input.Type,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

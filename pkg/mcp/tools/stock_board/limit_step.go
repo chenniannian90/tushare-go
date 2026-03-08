@@ -18,7 +18,7 @@ func (r *Stock_boardTools) registerLimitStep() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.limit_step",
-		Description: "Retrieve limitstep data from Tushare stock board API",
+		Description: "获取每天连板个数晋级的股票，可以分析出每天连续涨停进阶个数，判断强势热度",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,11 @@ func (r *Stock_boardTools) registerLimitStep() {
 		}
 
 		apiReq := &stock_stock_board.LimitStepRequest{
+TradeDate: input.TradeDate,
+TsCode: input.TsCode,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+Nums: input.Nums,
 
 		}
 

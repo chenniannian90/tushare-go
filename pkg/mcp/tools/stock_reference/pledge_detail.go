@@ -32,6 +32,7 @@ func (r *Stock_referenceTools) registerPledgeDetail() {
 		}
 
 		apiReq := &stock_stock_reference.PledgeDetailRequest{
+TsCode: input.TsCode,
 
 		}
 

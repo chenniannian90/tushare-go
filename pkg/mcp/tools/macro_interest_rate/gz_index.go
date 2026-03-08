@@ -18,7 +18,7 @@ func (r *Macro_interest_rateTools) registerGzIndex() {
 
 	tool := &mcp.Tool{
 		Name:        "macro_interest_rate.gz_index",
-		Description: "Retrieve gzindex data from Tushare macro interest rate API",
+		Description: "广州民间借贷利率",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,9 @@ func (r *Macro_interest_rateTools) registerGzIndex() {
 		}
 
 		apiReq := &macro_macro_domestic_macro_interest_rate.GzIndexRequest{
+Date: input.Date,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

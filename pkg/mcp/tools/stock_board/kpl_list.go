@@ -32,6 +32,11 @@ func (r *Stock_boardTools) registerKplList() {
 		}
 
 		apiReq := &stock_stock_board.KplListRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+Tag: input.Tag,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

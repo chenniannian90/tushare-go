@@ -18,7 +18,7 @@ func (r *Stock_boardTools) registerHmDetail() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.hm_detail",
-		Description: "Retrieve hmdetail data from Tushare stock board API",
+		Description: "获取每日游资交易明细，数据开始于2022年8。游资分类名录，请点击游资名录",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,11 @@ func (r *Stock_boardTools) registerHmDetail() {
 		}
 
 		apiReq := &stock_stock_board.HmDetailRequest{
+TradeDate: input.TradeDate,
+TsCode: input.TsCode,
+HmName: input.HmName,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

@@ -10,6 +10,10 @@ import (
 
 // CnGdpInput defines the input schema
 type CnGdpInput struct {
+Q string `json:q,omitempty jsonschema:季度（2019Q1表示，2019年第一季度）`
+StartQ string `json:start_q,omitempty jsonschema:开始季度`
+EndQ string `json:end_q,omitempty jsonschema:结束季度`
+Fields string `json:fields,omitempty jsonschema:指定输出字段（e.g. fields='quarter,gdp,gdp_yoy'）`
 
 }
 

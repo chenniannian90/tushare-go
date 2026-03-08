@@ -18,7 +18,7 @@ func (r *Stock_fund_flowTools) registerMoneyflow() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_fund_flow.moneyflow",
-		Description: "Retrieve moneyflow data from Tushare stock fund flow API",
+		Description: "获取沪深A股票资金流向数据，分析大单小单成交情况，用于判别资金动向，数据开始于2010年。",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,10 @@ func (r *Stock_fund_flowTools) registerMoneyflow() {
 		}
 
 		apiReq := &stock_stock_fund_flow.MoneyflowRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

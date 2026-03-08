@@ -18,7 +18,7 @@ func (r *Stock_marketTools) registerSuspendD() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.suspend_d",
-		Description: "Retrieve suspendd data from Tushare stock market API",
+		Description: "按日期方式获取股票每日停复牌信息",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,11 @@ func (r *Stock_marketTools) registerSuspendD() {
 		}
 
 		apiReq := &stock_stock_market.SuspendDRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+SuspendType: input.SuspendType,
 
 		}
 

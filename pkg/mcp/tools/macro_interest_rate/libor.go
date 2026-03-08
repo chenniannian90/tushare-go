@@ -18,7 +18,7 @@ func (r *Macro_interest_rateTools) registerLibor() {
 
 	tool := &mcp.Tool{
 		Name:        "macro_interest_rate.libor",
-		Description: "Retrieve libor data from Tushare macro interest rate API",
+		Description: "Libor拆借利率",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,10 @@ func (r *Macro_interest_rateTools) registerLibor() {
 		}
 
 		apiReq := &macro_macro_domestic_macro_interest_rate.LiborRequest{
+Date: input.Date,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+CurrType: input.CurrType,
 
 		}
 

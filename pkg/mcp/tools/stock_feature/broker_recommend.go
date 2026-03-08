@@ -18,7 +18,7 @@ func (r *Stock_featureTools) registerBrokerRecommend() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_feature.broker_recommend",
-		Description: "Retrieve brokerrecommend data from Tushare stock feature API",
+		Description: "获取券商月度金股，一般1日~3日内更新当月数据",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,7 @@ func (r *Stock_featureTools) registerBrokerRecommend() {
 		}
 
 		apiReq := &stock_stock_feature.BrokerRecommendRequest{
+Month: input.Month,
 
 		}
 

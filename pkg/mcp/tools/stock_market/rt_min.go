@@ -32,6 +32,8 @@ func (r *Stock_marketTools) registerRtMin() {
 		}
 
 		apiReq := &stock_stock_market.RtMinRequest{
+Freq: input.Freq,
+TsCode: input.TsCode,
 
 		}
 

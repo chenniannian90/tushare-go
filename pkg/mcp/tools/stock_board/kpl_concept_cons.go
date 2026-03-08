@@ -32,6 +32,9 @@ func (r *Stock_boardTools) registerKplConceptCons() {
 		}
 
 		apiReq := &stock_stock_board.KplConceptConsRequest{
+TradeDate: input.TradeDate,
+TsCode: input.TsCode,
+ConCode: input.ConCode,
 
 		}
 

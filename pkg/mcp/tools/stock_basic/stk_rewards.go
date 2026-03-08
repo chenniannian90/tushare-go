@@ -18,7 +18,7 @@ func (r *Stock_basicTools) registerStkRewards() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_basic.stk_rewards",
-		Description: "Retrieve stkrewards data from Tushare stock basic API",
+		Description: "获取上市公司管理层薪酬和持股",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,8 @@ func (r *Stock_basicTools) registerStkRewards() {
 		}
 
 		apiReq := &stock_stock_basic.StkRewardsRequest{
+TsCode: input.TsCode,
+EndDate: input.EndDate,
 
 		}
 

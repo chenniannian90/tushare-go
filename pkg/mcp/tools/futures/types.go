@@ -181,7 +181,7 @@ type FutWsrOutput struct {
 
 // IndexDailyInput defines the input schema
 type IndexDailyInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:指数代码（南华期货指数以 .NH 结尾，具体请参考本文最下方）`
+TsCode string `json:ts_code,omitempty jsonschema:指数代码，来源指数基础信息接口`
 TradeDate string `json:trade_date,omitempty jsonschema:交易日期 （日期格式：YYYYMMDD，下同）`
 StartDate string `json:start_date,omitempty jsonschema:开始日期`
 EndDate string `json:end_date,omitempty jsonschema:结束日期`

@@ -32,6 +32,10 @@ func (r *Stock_basicTools) registerStkPremarket() {
 		}
 
 		apiReq := &stock_stock_basic.StkPremarketRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

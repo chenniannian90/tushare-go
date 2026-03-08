@@ -32,6 +32,10 @@ func (r *Stock_marketTools) registerStkMins() {
 		}
 
 		apiReq := &stock_stock_market.StkMinsRequest{
+TsCode: input.TsCode,
+Freq: input.Freq,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

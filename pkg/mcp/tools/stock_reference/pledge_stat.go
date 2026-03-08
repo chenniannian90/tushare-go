@@ -18,7 +18,7 @@ func (r *Stock_referenceTools) registerPledgeStat() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_reference.pledge_stat",
-		Description: "Retrieve pledgestat data from Tushare stock reference API",
+		Description: "获取股票质押统计数据",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,8 @@ func (r *Stock_referenceTools) registerPledgeStat() {
 		}
 
 		apiReq := &stock_stock_reference.PledgeStatRequest{
+TsCode: input.TsCode,
+EndDate: input.EndDate,
 
 		}
 

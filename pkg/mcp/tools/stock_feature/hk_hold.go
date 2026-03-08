@@ -32,6 +32,12 @@ func (r *Stock_featureTools) registerHkHold() {
 		}
 
 		apiReq := &stock_stock_feature.HkHoldRequest{
+Code: input.Code,
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+Exchange: input.Exchange,
 
 		}
 

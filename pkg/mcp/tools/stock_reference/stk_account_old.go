@@ -18,7 +18,7 @@ func (r *Stock_referenceTools) registerStkAccountOld() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_reference.stk_account_old",
-		Description: "Retrieve stkaccountold data from Tushare stock reference API",
+		Description: "获取股票账户开户数据旧版格式数据，数据从2008年1月开始，到2015年5月29，新数据请通过股票开户数据获取。",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,8 @@ func (r *Stock_referenceTools) registerStkAccountOld() {
 		}
 
 		apiReq := &stock_stock_reference.StkAccountOldRequest{
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

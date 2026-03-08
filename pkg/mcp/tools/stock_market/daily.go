@@ -18,7 +18,7 @@ func (r *Stock_marketTools) registerDaily() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.daily",
-		Description: "Retrieve daily data from Tushare stock market API",
+		Description: "获取股票行情数据，或通过通用行情接口获取数据，包含了前后复权数据",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,10 @@ func (r *Stock_marketTools) registerDaily() {
 		}
 
 		apiReq := &stock_stock_market.DailyRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

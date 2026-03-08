@@ -18,7 +18,7 @@ func (r *Stock_basicTools) registerStkManagers() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_basic.stk_managers",
-		Description: "Retrieve stkmanagers data from Tushare stock basic API",
+		Description: "获取上市公司管理层",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,10 @@ func (r *Stock_basicTools) registerStkManagers() {
 		}
 
 		apiReq := &stock_stock_basic.StkManagersRequest{
+TsCode: input.TsCode,
+AnnDate: input.AnnDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

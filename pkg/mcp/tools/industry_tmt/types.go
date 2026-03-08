@@ -10,6 +10,7 @@ import (
 
 // BoCinemaInput defines the input schema
 type BoCinemaInput struct {
+Date string `json:date,omitempty jsonschema:日期(格式:YYYYMMDD)`
 
 }
 
@@ -21,6 +22,7 @@ type BoCinemaOutput struct {
 
 // BoDailyInput defines the input schema
 type BoDailyInput struct {
+Date string `json:date,omitempty jsonschema:日期 （格式YYYYMMDD）`
 
 }
 
@@ -32,6 +34,7 @@ type BoDailyOutput struct {
 
 // BoMonthlyInput defines the input schema
 type BoMonthlyInput struct {
+Date string `json:date,omitempty jsonschema:日期（每月1号，格式YYYYMMDD）`
 
 }
 
@@ -43,6 +46,7 @@ type BoMonthlyOutput struct {
 
 // BoWeeklyInput defines the input schema
 type BoWeeklyInput struct {
+Date string `json:date,omitempty jsonschema:日期（每周一日期，格式YYYYMMDD）`
 
 }
 
@@ -54,6 +58,9 @@ type BoWeeklyOutput struct {
 
 // FilmRecordInput defines the input schema
 type FilmRecordInput struct {
+AnnDate string `json:ann_date,omitempty jsonschema:公布日期 （至少输入一个参数，格式：YYYYMMDD，日期不连续，定期公布）`
+StartDate string `json:start_date,omitempty jsonschema:开始日期`
+EndDate string `json:end_date,omitempty jsonschema:结束日期`
 
 }
 
@@ -65,6 +72,11 @@ type FilmRecordOutput struct {
 
 // TeleplayRecordInput defines the input schema
 type TeleplayRecordInput struct {
+ReportDate string `json:report_date,omitempty jsonschema:备案月份（YYYYMM）`
+StartDate string `json:start_date,omitempty jsonschema:备案开始月份（YYYYMM）`
+EndDate string `json:end_date,omitempty jsonschema:备案结束月份（YYYYMM）`
+Org string `json:org,omitempty jsonschema:备案机构`
+Name string `json:name,omitempty jsonschema:电视剧名称`
 
 }
 
@@ -76,6 +88,10 @@ type TeleplayRecordOutput struct {
 
 // TmtTwincomeInput defines the input schema
 type TmtTwincomeInput struct {
+Date string `json:date,omitempty jsonschema:报告期`
+Item string `json:item,omitempty jsonschema:产品代码`
+StartDate string `json:start_date,omitempty jsonschema:报告期开始日期`
+EndDate string `json:end_date,omitempty jsonschema:报告期结束日期`
 
 }
 
@@ -87,6 +103,12 @@ type TmtTwincomeOutput struct {
 
 // TmtTwincomedetailInput defines the input schema
 type TmtTwincomedetailInput struct {
+Date string `json:date,omitempty jsonschema:报告期`
+Item string `json:item,omitempty jsonschema:产品代码`
+Symbol string `json:symbol,omitempty jsonschema:公司代码`
+StartDate string `json:start_date,omitempty jsonschema:报告期开始日期`
+EndDate string `json:end_date,omitempty jsonschema:报告期结束日期`
+Source string `json:source,omitempty jsonschema:None`
 
 }
 

@@ -18,7 +18,7 @@ func (r *Macro_priceTools) registerCnCpi() {
 
 	tool := &mcp.Tool{
 		Name:        "macro_price.cn_cpi",
-		Description: "Retrieve cncpi data from Tushare macro price API",
+		Description: "获取CPI居民消费价格数据，包括全国、城市和农村的数据",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,9 @@ func (r *Macro_priceTools) registerCnCpi() {
 		}
 
 		apiReq := &macro_macro_domestic_macro_price.CnCpiRequest{
+M: input.M,
+StartM: input.StartM,
+EndM: input.EndM,
 
 		}
 

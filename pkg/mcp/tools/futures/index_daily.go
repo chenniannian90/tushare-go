@@ -18,7 +18,7 @@ func (r *FuturesTools) registerIndexDaily() {
 
 	tool := &mcp.Tool{
 		Name:        "futures.index_daily",
-		Description: "获取南华指数每日行情，指数行情也可以通过通用行情接口获取数据．",
+		Description: "获取指数每日行情，还可以通过bar接口获取。由于服务器压力，目前规则是单次调取最多取8000行记录，可以设置start和end日期补全。指数行情也可以通过通用行情接口获取数据．",
 		InputSchema: inputSchema,
 	}
 

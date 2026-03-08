@@ -32,6 +32,10 @@ func (r *Stock_featureTools) registerCyqPerf() {
 		}
 
 		apiReq := &stock_stock_feature.CyqPerfRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

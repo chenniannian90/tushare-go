@@ -18,7 +18,7 @@ func (r *Stock_featureTools) registerStkAuctionC() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_feature.stk_auction_c",
-		Description: "Retrieve stkauctionc data from Tushare stock feature API",
+		Description: "股票收盘15:00集合竞价数据，每天盘后更新",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,10 @@ func (r *Stock_featureTools) registerStkAuctionC() {
 		}
 
 		apiReq := &stock_stock_feature.StkAuctionCRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

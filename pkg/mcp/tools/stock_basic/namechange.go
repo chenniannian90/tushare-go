@@ -18,7 +18,7 @@ func (r *Stock_basicTools) registerNamechange() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_basic.namechange",
-		Description: "Retrieve namechange data from Tushare stock basic API",
+		Description: "历史名称变更记录",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,9 @@ func (r *Stock_basicTools) registerNamechange() {
 		}
 
 		apiReq := &stock_stock_basic.NamechangeRequest{
+TsCode: input.TsCode,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

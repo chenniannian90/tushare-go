@@ -18,7 +18,7 @@ func (r *Stock_boardTools) registerTdxMember() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.tdx_member",
-		Description: "Retrieve tdxmember data from Tushare stock board API",
+		Description: "获取通达信各板块成分股信息",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,8 @@ func (r *Stock_boardTools) registerTdxMember() {
 		}
 
 		apiReq := &stock_stock_board.TdxMemberRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
 
 		}
 

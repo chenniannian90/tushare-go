@@ -18,7 +18,7 @@ func (r *Industry_tmtTools) registerFilmRecord() {
 
 	tool := &mcp.Tool{
 		Name:        "industry_tmt.film_record",
-		Description: "Retrieve filmrecord data from Tushare industry tmt API",
+		Description: "获取全国电影剧本备案的公示数据",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,9 @@ func (r *Industry_tmtTools) registerFilmRecord() {
 		}
 
 		apiReq := &industry_industry_tmt.FilmRecordRequest{
+AnnDate: input.AnnDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

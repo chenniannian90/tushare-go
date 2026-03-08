@@ -18,7 +18,7 @@ func (r *Stock_boardTools) registerHmList() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.hm_list",
-		Description: "Retrieve hmlist data from Tushare stock board API",
+		Description: "获取游资分类名录信息",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,7 @@ func (r *Stock_boardTools) registerHmList() {
 		}
 
 		apiReq := &stock_stock_board.HmListRequest{
+Name: input.Name,
 
 		}
 

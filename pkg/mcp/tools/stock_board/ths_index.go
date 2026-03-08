@@ -18,7 +18,7 @@ func (r *Stock_boardTools) registerThsIndex() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.ths_index",
-		Description: "Retrieve thsindex data from Tushare stock board API",
+		Description: "获取同花顺板块指数。注：数据版权归属同花顺，如做商业用途，请主动联系同花顺，如需帮助请联系微信：waditu_a",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,9 @@ func (r *Stock_boardTools) registerThsIndex() {
 		}
 
 		apiReq := &stock_stock_board.ThsIndexRequest{
+TsCode: input.TsCode,
+Exchange: input.Exchange,
+Type: input.Type,
 
 		}
 

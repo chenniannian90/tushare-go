@@ -32,6 +32,12 @@ func (r *Stock_basicTools) registerStockBasic() {
 		}
 
 		apiReq := &stock_stock_basic.StockBasicRequest{
+TsCode: input.TsCode,
+Name: input.Name,
+Market: input.Market,
+ListStatus: input.ListStatus,
+Exchange: input.Exchange,
+IsHs: input.IsHs,
 
 		}
 

@@ -18,7 +18,7 @@ func (r *Stock_basicTools) registerBakBasic() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_basic.bak_basic",
-		Description: "Retrieve bakbasic data from Tushare stock basic API",
+		Description: "获取备用基础列表，数据从2016年开始",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,8 @@ func (r *Stock_basicTools) registerBakBasic() {
 		}
 
 		apiReq := &stock_stock_basic.BakBasicRequest{
+TradeDate: input.TradeDate,
+TsCode: input.TsCode,
 
 		}
 

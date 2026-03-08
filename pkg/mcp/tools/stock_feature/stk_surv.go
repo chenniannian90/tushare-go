@@ -18,7 +18,7 @@ func (r *Stock_featureTools) registerStkSurv() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_feature.stk_surv",
-		Description: "Retrieve stksurv data from Tushare stock feature API",
+		Description: "获取上市公司机构调研记录数据",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,10 @@ func (r *Stock_featureTools) registerStkSurv() {
 		}
 
 		apiReq := &stock_stock_feature.StkSurvRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

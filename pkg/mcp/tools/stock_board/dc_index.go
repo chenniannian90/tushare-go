@@ -32,6 +32,12 @@ func (r *Stock_boardTools) registerDcIndex() {
 		}
 
 		apiReq := &stock_stock_board.DcIndexRequest{
+TsCode: input.TsCode,
+Name: input.Name,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+IdxType: input.IdxType,
 
 		}
 

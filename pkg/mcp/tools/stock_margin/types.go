@@ -10,6 +10,10 @@ import (
 
 // MarginInput defines the input schema
 type MarginInput struct {
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期（格式：YYYYMMDD，下同）`
+StartDate string `json:start_date,omitempty jsonschema:开始日期`
+EndDate string `json:end_date,omitempty jsonschema:结束日期`
+ExchangeId string `json:exchange_id,omitempty jsonschema:交易所代码（SSE上交所SZSE深交所BSE北交所）`
 
 }
 
@@ -21,6 +25,10 @@ type MarginOutput struct {
 
 // MarginDetailInput defines the input schema
 type MarginDetailInput struct {
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期（格式：YYYYMMDD，下同）`
+TsCode string `json:ts_code,omitempty jsonschema:TS代码`
+StartDate string `json:start_date,omitempty jsonschema:开始日期`
+EndDate string `json:end_date,omitempty jsonschema:结束日期`
 
 }
 
@@ -32,6 +40,11 @@ type MarginDetailOutput struct {
 
 // MarginSecsInput defines the input schema
 type MarginSecsInput struct {
+TsCode string `json:ts_code,omitempty jsonschema:标的代码`
+TradeDate string `json:trade_date,omitempty jsonschema:交易日`
+Exchange string `json:exchange,omitempty jsonschema:交易所（SSE上交所 SZSE深交所 BSE北交所）`
+StartDate string `json:start_date,omitempty jsonschema:开始日期`
+EndDate string `json:end_date,omitempty jsonschema:结束日期`
 
 }
 
@@ -43,6 +56,9 @@ type MarginSecsOutput struct {
 
 // SlbLenInput defines the input schema
 type SlbLenInput struct {
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期（YYYYMMDD格式，下同）`
+StartDate string `json:start_date,omitempty jsonschema:开始日期`
+EndDate string `json:end_date,omitempty jsonschema:结束日期`
 
 }
 
@@ -54,6 +70,10 @@ type SlbLenOutput struct {
 
 // SlbLenMmInput defines the input schema
 type SlbLenMmInput struct {
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期（YYYYMMDD格式，下同）`
+TsCode string `json:ts_code,omitempty jsonschema:股票代码`
+StartDate string `json:start_date,omitempty jsonschema:开始日期`
+EndDate string `json:end_date,omitempty jsonschema:结束日期`
 
 }
 
@@ -65,6 +85,10 @@ type SlbLenMmOutput struct {
 
 // SlbSecInput defines the input schema
 type SlbSecInput struct {
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期（YYYYMMDD格式，下同）`
+TsCode string `json:ts_code,omitempty jsonschema:股票代码`
+StartDate string `json:start_date,omitempty jsonschema:开始日期`
+EndDate string `json:end_date,omitempty jsonschema:结束日期`
 
 }
 
@@ -76,6 +100,10 @@ type SlbSecOutput struct {
 
 // SlbSecDetailInput defines the input schema
 type SlbSecDetailInput struct {
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期（YYYYMMDD格式，下同）`
+TsCode string `json:ts_code,omitempty jsonschema:股票代码`
+StartDate string `json:start_date,omitempty jsonschema:开始日期`
+EndDate string `json:end_date,omitempty jsonschema:结束日期`
 
 }
 

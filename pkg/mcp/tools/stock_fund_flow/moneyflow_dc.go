@@ -18,7 +18,7 @@ func (r *Stock_fund_flowTools) registerMoneyflowDc() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_fund_flow.moneyflow_dc",
-		Description: "Retrieve moneyflowdc data from Tushare stock fund flow API",
+		Description: "获取东方财富个股资金流向数据，每日盘后更新，数据开始于20230911",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,10 @@ func (r *Stock_fund_flowTools) registerMoneyflowDc() {
 		}
 
 		apiReq := &stock_stock_fund_flow.MoneyflowDcRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

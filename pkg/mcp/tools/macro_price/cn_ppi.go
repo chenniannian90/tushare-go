@@ -18,7 +18,7 @@ func (r *Macro_priceTools) registerCnPpi() {
 
 	tool := &mcp.Tool{
 		Name:        "macro_price.cn_ppi",
-		Description: "Retrieve cnppi data from Tushare macro price API",
+		Description: "获取PPI工业生产者出厂价格指数数据",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,9 @@ func (r *Macro_priceTools) registerCnPpi() {
 		}
 
 		apiReq := &macro_macro_domestic_macro_price.CnPpiRequest{
+M: input.M,
+StartM: input.StartM,
+EndM: input.EndM,
 
 		}
 

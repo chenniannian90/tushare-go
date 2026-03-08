@@ -32,6 +32,9 @@ func (r *Stock_fund_flowTools) registerMoneyflowHsgt() {
 		}
 
 		apiReq := &stock_stock_fund_flow.MoneyflowHsgtRequest{
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

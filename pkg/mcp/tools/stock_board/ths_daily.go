@@ -18,7 +18,7 @@ func (r *Stock_boardTools) registerThsDaily() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.ths_daily",
-		Description: "Retrieve thsdaily data from Tushare stock board API",
+		Description: "获取同花顺板块指数行情。注：数据版权归属同花顺，如做商业用途，请主动联系同花顺，如需帮助请联系微信：waditu_a",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,10 @@ func (r *Stock_boardTools) registerThsDaily() {
 		}
 
 		apiReq := &stock_stock_board.ThsDailyRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

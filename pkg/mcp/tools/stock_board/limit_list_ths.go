@@ -18,7 +18,7 @@ func (r *Stock_boardTools) registerLimitListThs() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.limit_list_ths",
-		Description: "Retrieve limitlistths data from Tushare stock board API",
+		Description: "获取同花顺每日涨跌停榜单数据，历史数据从20231101开始提供，增量每天16点左右更新",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,12 @@ func (r *Stock_boardTools) registerLimitListThs() {
 		}
 
 		apiReq := &stock_stock_board.LimitListThsRequest{
+TradeDate: input.TradeDate,
+TsCode: input.TsCode,
+LimitType: input.LimitType,
+Market: input.Market,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

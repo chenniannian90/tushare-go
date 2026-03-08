@@ -32,6 +32,13 @@ func (r *Stock_financialTools) registerBalancesheet() {
 		}
 
 		apiReq := &stock_stock_financial.BalancesheetRequest{
+TsCode: input.TsCode,
+AnnDate: input.AnnDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+Period: input.Period,
+ReportType: input.ReportType,
+CompType: input.CompType,
 
 		}
 

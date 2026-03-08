@@ -18,7 +18,7 @@ func (r *Stock_marketTools) registerStkLimit() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.stk_limit",
-		Description: "Retrieve stklimit data from Tushare stock market API",
+		Description: "获取全市场（包含A/B股和基金）每日涨跌停价格，包括涨停价格，跌停价格等，每个交易日8点40左右更新当日股票涨跌停价格。",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,10 @@ func (r *Stock_marketTools) registerStkLimit() {
 		}
 
 		apiReq := &stock_stock_market.StkLimitRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

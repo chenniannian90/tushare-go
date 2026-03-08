@@ -18,7 +18,7 @@ func (r *Stock_marginTools) registerMarginDetail() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_margin.margin_detail",
-		Description: "Retrieve margindetail data from Tushare stock margin API",
+		Description: "获取沪深两市每日融资融券明细",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,10 @@ func (r *Stock_marginTools) registerMarginDetail() {
 		}
 
 		apiReq := &stock_stock_margin.MarginDetailRequest{
+TradeDate: input.TradeDate,
+TsCode: input.TsCode,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

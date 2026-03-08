@@ -18,7 +18,7 @@ func (r *Macro_interest_rateTools) registerWzIndex() {
 
 	tool := &mcp.Tool{
 		Name:        "macro_interest_rate.wz_index",
-		Description: "Retrieve wzindex data from Tushare macro interest rate API",
+		Description: "温州民间借贷利率，即温州指数",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,9 @@ func (r *Macro_interest_rateTools) registerWzIndex() {
 		}
 
 		apiReq := &macro_macro_domestic_macro_interest_rate.WzIndexRequest{
+Date: input.Date,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

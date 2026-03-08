@@ -18,7 +18,7 @@ func (r *Stock_financialTools) registerDisclosureDate() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_financial.disclosure_date",
-		Description: "Retrieve disclosuredate data from Tushare stock financial API",
+		Description: "获取财报披露计划日期",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,11 @@ func (r *Stock_financialTools) registerDisclosureDate() {
 		}
 
 		apiReq := &stock_stock_financial.DisclosureDateRequest{
+TsCode: input.TsCode,
+EndDate: input.EndDate,
+PreDate: input.PreDate,
+AnnDate: input.AnnDate,
+ActualDate: input.ActualDate,
 
 		}
 

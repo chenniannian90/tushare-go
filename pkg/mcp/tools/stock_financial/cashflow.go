@@ -32,6 +32,15 @@ func (r *Stock_financialTools) registerCashflow() {
 		}
 
 		apiReq := &stock_stock_financial.CashflowRequest{
+TsCode: input.TsCode,
+AnnDate: input.AnnDate,
+FAnnDate: input.FAnnDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+Period: input.Period,
+ReportType: input.ReportType,
+CompType: input.CompType,
+IsCalc: input.IsCalc,
 
 		}
 

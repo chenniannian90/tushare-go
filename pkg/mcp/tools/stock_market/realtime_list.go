@@ -18,7 +18,7 @@ func (r *Stock_marketTools) registerRealtimeList() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.realtime_list",
-		Description: "Retrieve realtimelist data from Tushare stock market API",
+		Description: "本接口是tushare org版实时接口的顺延，数据来自网络，且不进入tushare服务器，属于爬虫接口，数据包括该股票当日开盘以来的所有分笔成交数据。",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,7 @@ func (r *Stock_marketTools) registerRealtimeList() {
 		}
 
 		apiReq := &stock_stock_market.RealtimeListRequest{
+Src: input.Src,
 
 		}
 

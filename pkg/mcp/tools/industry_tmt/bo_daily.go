@@ -18,7 +18,7 @@ func (r *Industry_tmtTools) registerBoDaily() {
 
 	tool := &mcp.Tool{
 		Name:        "industry_tmt.bo_daily",
-		Description: "Retrieve bodaily data from Tushare industry tmt API",
+		Description: "获取电影日度票房数据更新：当日更新上一日数据数据历史： 数据从2018年9月开始，更多历史数据正在补充数据",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,7 @@ func (r *Industry_tmtTools) registerBoDaily() {
 		}
 
 		apiReq := &industry_industry_tmt.BoDailyRequest{
+Date: input.Date,
 
 		}
 

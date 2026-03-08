@@ -18,7 +18,7 @@ func (r *Stock_referenceTools) registerShareFloat() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_reference.share_float",
-		Description: "Retrieve sharefloat data from Tushare stock reference API",
+		Description: "获取限售股解禁",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,11 @@ func (r *Stock_referenceTools) registerShareFloat() {
 		}
 
 		apiReq := &stock_stock_reference.ShareFloatRequest{
+TsCode: input.TsCode,
+AnnDate: input.AnnDate,
+FloatDate: input.FloatDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

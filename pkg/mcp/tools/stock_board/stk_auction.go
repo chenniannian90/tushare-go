@@ -18,7 +18,7 @@ func (r *Stock_boardTools) registerStkAuction() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.stk_auction",
-		Description: "Retrieve stkauction data from Tushare stock board API",
+		Description: "获取当日个股和ETF的集合竞价成交情况，每天9点25~29分之间可以获取当日的集合竞价成交数据",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,10 @@ func (r *Stock_boardTools) registerStkAuction() {
 		}
 
 		apiReq := &stock_stock_board.StkAuctionRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

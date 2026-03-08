@@ -18,7 +18,7 @@ func (r *Stock_marketTools) registerHsgtTop10() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.hsgt_top10",
-		Description: "Retrieve hsgttop10 data from Tushare stock market API",
+		Description: "获取沪股通、深股通每日前十大成交详细数据，每天18~20点之间完成当日更新",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,11 @@ func (r *Stock_marketTools) registerHsgtTop10() {
 		}
 
 		apiReq := &stock_stock_market.HsgtTop10Request{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+MarketType: input.MarketType,
 
 		}
 

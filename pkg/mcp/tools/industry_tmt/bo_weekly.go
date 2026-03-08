@@ -18,7 +18,7 @@ func (r *Industry_tmtTools) registerBoWeekly() {
 
 	tool := &mcp.Tool{
 		Name:        "industry_tmt.bo_weekly",
-		Description: "Retrieve boweekly data from Tushare industry tmt API",
+		Description: "获取周度票房数据数据更新：本周更新上一周数据数据历史： 数据从2008年第一周开始，超过10年历史数据。数据",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,7 @@ func (r *Industry_tmtTools) registerBoWeekly() {
 		}
 
 		apiReq := &industry_industry_tmt.BoWeeklyRequest{
+Date: input.Date,
 
 		}
 

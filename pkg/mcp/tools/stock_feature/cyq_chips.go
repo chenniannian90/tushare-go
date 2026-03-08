@@ -32,6 +32,10 @@ func (r *Stock_featureTools) registerCyqChips() {
 		}
 
 		apiReq := &stock_stock_feature.CyqChipsRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

@@ -18,7 +18,7 @@ func (r *Stock_referenceTools) registerStkHoldernumber() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_reference.stk_holdernumber",
-		Description: "Retrieve stkholdernumber data from Tushare stock reference API",
+		Description: "获取上市公司股东户数数据，数据不定期公布",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,11 @@ func (r *Stock_referenceTools) registerStkHoldernumber() {
 		}
 
 		apiReq := &stock_stock_reference.StkHoldernumberRequest{
+TsCode: input.TsCode,
+AnnDate: input.AnnDate,
+Enddate: input.Enddate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

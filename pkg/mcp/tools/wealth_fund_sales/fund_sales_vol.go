@@ -18,7 +18,7 @@ func (r *Wealth_fund_salesTools) registerFundSalesVol() {
 
 	tool := &mcp.Tool{
 		Name:        "wealth_fund_sales.fund_sales_vol",
-		Description: "Retrieve fundsalesvol data from Tushare wealth fund sales API",
+		Description: "获取销售机构公募基金销售保有规模数据，本数据从2021年Q1开始公布，季度更新",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,9 @@ func (r *Wealth_fund_salesTools) registerFundSalesVol() {
 		}
 
 		apiReq := &wealth_wealth_fund_sales.FundSalesVolRequest{
+Year: input.Year,
+Quarter: input.Quarter,
+Name: input.Name,
 
 		}
 

@@ -32,6 +32,8 @@ func (r *Stock_boardTools) registerThsMember() {
 		}
 
 		apiReq := &stock_stock_board.ThsMemberRequest{
+TsCode: input.TsCode,
+ConCode: input.ConCode,
 
 		}
 

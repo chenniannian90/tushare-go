@@ -18,7 +18,7 @@ func (r *Stock_basicTools) registerNewShare() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_basic.new_share",
-		Description: "Retrieve newshare data from Tushare stock basic API",
+		Description: "获取新股上市列表数据",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,8 @@ func (r *Stock_basicTools) registerNewShare() {
 		}
 
 		apiReq := &stock_stock_basic.NewShareRequest{
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

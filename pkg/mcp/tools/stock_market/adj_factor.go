@@ -18,7 +18,7 @@ func (r *Stock_marketTools) registerAdjFactor() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.adj_factor",
-		Description: "Retrieve adjfactor data from Tushare stock market API",
+		Description: "本接口由Tushare自行生产，获取股票复权因子，可提取单只股票全部历史复权因子，也可以提取单日全部股票的复权因子。积分要求：2000积分起，5000以上可高频调取",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,10 @@ func (r *Stock_marketTools) registerAdjFactor() {
 		}
 
 		apiReq := &stock_stock_market.AdjFactorRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

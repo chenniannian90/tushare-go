@@ -18,7 +18,7 @@ func (r *Industry_tmtTools) registerTmtTwincome() {
 
 	tool := &mcp.Tool{
 		Name:        "industry_tmt.tmt_twincome",
-		Description: "Retrieve tmttwincome data from Tushare industry tmt API",
+		Description: "获取台湾TMT电子产业领域各类产品月度营收数据。",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,10 @@ func (r *Industry_tmtTools) registerTmtTwincome() {
 		}
 
 		apiReq := &industry_industry_tmt.TmtTwincomeRequest{
+Date: input.Date,
+Item: input.Item,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

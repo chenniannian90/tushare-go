@@ -18,7 +18,7 @@ func (r *Stock_basicTools) registerTradeCal() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_basic.trade_cal",
-		Description: "Retrieve tradecal data from Tushare stock basic API",
+		Description: "获取各大期货交易所交易日历数据",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,10 @@ func (r *Stock_basicTools) registerTradeCal() {
 		}
 
 		apiReq := &stock_stock_basic.TradeCalRequest{
+Exchange: input.Exchange,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+IsOpen: input.IsOpen,
 
 		}
 

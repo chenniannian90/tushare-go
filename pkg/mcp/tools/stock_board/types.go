@@ -10,6 +10,11 @@ import (
 
 // DcDailyInput defines the input schema
 type DcDailyInput struct {
+TsCode string `json:ts_code,omitempty jsonschema:板块代码（格式：xxxxx.DC)`
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期(格式：YYYYMMDD下同）`
+StartDate string `json:start_date,omitempty jsonschema:开始日期`
+EndDate string `json:end_date,omitempty jsonschema:结束日期`
+IdxType string `json:idx_type,omitempty jsonschema:板块类型： 概念板块、行业板块、地域板块`
 
 }
 
@@ -21,6 +26,11 @@ type DcDailyOutput struct {
 
 // DcHotInput defines the input schema
 type DcHotInput struct {
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期`
+TsCode string `json:ts_code,omitempty jsonschema:TS代码`
+Market string `json:market,omitempty jsonschema:类型(A股市场、ETF基金、港股市场、美股市场)`
+HotType string `json:hot_type,omitempty jsonschema:热点类型(人气榜、飙升榜)`
+IsNew string `json:is_new,omitempty jsonschema:是否最新（默认Y，如果为N则为盘中和盘后阶段采集，具体时间可参考rank_time字段，状态N每小时更新一次，状态Y更新时间为22：30）`
 
 }
 
@@ -32,6 +42,12 @@ type DcHotOutput struct {
 
 // DcIndexInput defines the input schema
 type DcIndexInput struct {
+TsCode string `json:ts_code,omitempty jsonschema:指数代码（支持多个代码同时输入，用逗号分隔）`
+Name string `json:name,omitempty jsonschema:板块名称（例如：人形机器人）`
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期（YYYYMMDD格式，下同）`
+StartDate string `json:start_date,omitempty jsonschema:开始日期`
+EndDate string `json:end_date,omitempty jsonschema:结束日期`
+IdxType string `json:idx_type,omitempty jsonschema:板块类型(行业板块、概念板块、地域板块)`
 
 }
 
@@ -43,6 +59,9 @@ type DcIndexOutput struct {
 
 // DcMemberInput defines the input schema
 type DcMemberInput struct {
+TsCode string `json:ts_code,omitempty jsonschema:板块指数代码`
+ConCode string `json:con_code,omitempty jsonschema:成分股票代码`
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期（YYYYMMDD格式）`
 
 }
 
@@ -54,6 +73,11 @@ type DcMemberOutput struct {
 
 // HmDetailInput defines the input schema
 type HmDetailInput struct {
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期(YYYYMMDD)`
+TsCode string `json:ts_code,omitempty jsonschema:股票代码`
+HmName string `json:hm_name,omitempty jsonschema:游资名称`
+StartDate string `json:start_date,omitempty jsonschema:开始日期(YYYYMMDD)`
+EndDate string `json:end_date,omitempty jsonschema:结束日期(YYYYMMDD)`
 
 }
 
@@ -65,6 +89,7 @@ type HmDetailOutput struct {
 
 // HmListInput defines the input schema
 type HmListInput struct {
+Name string `json:name,omitempty jsonschema:游资名称`
 
 }
 
@@ -76,6 +101,9 @@ type HmListOutput struct {
 
 // KplConceptConsInput defines the input schema
 type KplConceptConsInput struct {
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期（YYYYMMDD格式）`
+TsCode string `json:ts_code,omitempty jsonschema:题材代码（xxxxxx.KP格式）`
+ConCode string `json:con_code,omitempty jsonschema:成分代码（xxxxxx.SH格式）`
 
 }
 
@@ -87,6 +115,11 @@ type KplConceptConsOutput struct {
 
 // KplListInput defines the input schema
 type KplListInput struct {
+TsCode string `json:ts_code,omitempty jsonschema:股票代码`
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期`
+Tag string `json:tag,omitempty jsonschema:板单类型（涨停/炸板/跌停/自然涨停/竞价，默认为涨停)`
+StartDate string `json:start_date,omitempty jsonschema:开始日期`
+EndDate string `json:end_date,omitempty jsonschema:结束日期`
 
 }
 
@@ -98,6 +131,10 @@ type KplListOutput struct {
 
 // LimitCptListInput defines the input schema
 type LimitCptListInput struct {
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期（格式：YYYYMMDD，下同）`
+TsCode string `json:ts_code,omitempty jsonschema:板块代码`
+StartDate string `json:start_date,omitempty jsonschema:开始日期`
+EndDate string `json:end_date,omitempty jsonschema:结束日期`
 
 }
 
@@ -109,6 +146,12 @@ type LimitCptListOutput struct {
 
 // LimitListDInput defines the input schema
 type LimitListDInput struct {
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期`
+TsCode string `json:ts_code,omitempty jsonschema:股票代码`
+LimitType string `json:limit_type,omitempty jsonschema:涨跌停类型（U涨停D跌停Z炸板）`
+Exchange string `json:exchange,omitempty jsonschema:交易所（SH上交所SZ深交所BJ北交所）`
+StartDate string `json:start_date,omitempty jsonschema:开始日期`
+EndDate string `json:end_date,omitempty jsonschema:结束日期`
 
 }
 
@@ -120,6 +163,12 @@ type LimitListDOutput struct {
 
 // LimitListThsInput defines the input schema
 type LimitListThsInput struct {
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期`
+TsCode string `json:ts_code,omitempty jsonschema:股票代码`
+LimitType string `json:limit_type,omitempty jsonschema:涨停池、连扳池、冲刺涨停、炸板池、跌停池，默认：涨停池`
+Market string `json:market,omitempty jsonschema:HS-沪深主板 GEM-创业板 STAR-科创板`
+StartDate string `json:start_date,omitempty jsonschema:开始日期`
+EndDate string `json:end_date,omitempty jsonschema:结束日期`
 
 }
 
@@ -131,6 +180,11 @@ type LimitListThsOutput struct {
 
 // LimitStepInput defines the input schema
 type LimitStepInput struct {
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期（格式：YYYYMMDD，下同）`
+TsCode string `json:ts_code,omitempty jsonschema:股票代码`
+StartDate string `json:start_date,omitempty jsonschema:开始日期`
+EndDate string `json:end_date,omitempty jsonschema:结束日期`
+Nums string `json:nums,omitempty jsonschema:连板次数，支持多个输入，例如nums='2,3'`
 
 }
 
@@ -142,6 +196,10 @@ type LimitStepOutput struct {
 
 // StkAuctionInput defines the input schema
 type StkAuctionInput struct {
+TsCode string `json:ts_code,omitempty jsonschema:股票代码`
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期（YYYYMMDD格式，下同)`
+StartDate string `json:start_date,omitempty jsonschema:开始日期`
+EndDate string `json:end_date,omitempty jsonschema:结束日期`
 
 }
 
@@ -153,6 +211,10 @@ type StkAuctionOutput struct {
 
 // TdxDailyInput defines the input schema
 type TdxDailyInput struct {
+TsCode string `json:ts_code,omitempty jsonschema:板块代码：xxxxxx.TDX`
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期，格式YYYYMMDD,下同`
+StartDate string `json:start_date,omitempty jsonschema:开始日期`
+EndDate string `json:end_date,omitempty jsonschema:结束日期`
 
 }
 
@@ -164,6 +226,9 @@ type TdxDailyOutput struct {
 
 // TdxIndexInput defines the input schema
 type TdxIndexInput struct {
+TsCode string `json:ts_code,omitempty jsonschema:板块代码：xxxxxx.TDX`
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期(格式：YYYYMMDD）`
+IdxType string `json:idx_type,omitempty jsonschema:板块类型：概念板块、行业板块、风格板块、地区板块`
 
 }
 
@@ -175,6 +240,8 @@ type TdxIndexOutput struct {
 
 // TdxMemberInput defines the input schema
 type TdxMemberInput struct {
+TsCode string `json:ts_code,omitempty jsonschema:板块代码：xxxxxx.TDX`
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期：格式YYYYMMDD`
 
 }
 
@@ -186,6 +253,10 @@ type TdxMemberOutput struct {
 
 // ThsDailyInput defines the input schema
 type ThsDailyInput struct {
+TsCode string `json:ts_code,omitempty jsonschema:指数代码`
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期（YYYYMMDD格式，下同）`
+StartDate string `json:start_date,omitempty jsonschema:开始日期`
+EndDate string `json:end_date,omitempty jsonschema:结束日期`
 
 }
 
@@ -197,6 +268,10 @@ type ThsDailyOutput struct {
 
 // ThsHotInput defines the input schema
 type ThsHotInput struct {
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期`
+TsCode string `json:ts_code,omitempty jsonschema:TS代码`
+Market string `json:market,omitempty jsonschema:热榜类型(热股、ETF、可转债、行业板块、概念板块、期货、港股、热基、美股)`
+IsNew string `json:is_new,omitempty jsonschema:是否最新（默认Y，如果为N则为盘中和盘后阶段采集，具体时间可参考rank_time字段，状态N每小时更新一次，状态Y更新时间为22：30）`
 
 }
 
@@ -208,6 +283,9 @@ type ThsHotOutput struct {
 
 // ThsIndexInput defines the input schema
 type ThsIndexInput struct {
+TsCode string `json:ts_code,omitempty jsonschema:指数代码`
+Exchange string `json:exchange,omitempty jsonschema:市场类型A-a股 HK-港股 US-美股`
+Type string `json:type,omitempty jsonschema:指数类型 N-概念指数 I-行业指数 R-地域指数 S-同花顺特色指数 ST-同花顺风格指数 TH-同花顺主题指数 BB-同花顺宽基指数`
 
 }
 
@@ -219,6 +297,8 @@ type ThsIndexOutput struct {
 
 // ThsMemberInput defines the input schema
 type ThsMemberInput struct {
+TsCode string `json:ts_code,omitempty jsonschema:板块指数代码`
+ConCode string `json:con_code,omitempty jsonschema:股票代码`
 
 }
 
@@ -230,6 +310,8 @@ type ThsMemberOutput struct {
 
 // TopInstInput defines the input schema
 type TopInstInput struct {
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期`
+TsCode string `json:ts_code,omitempty jsonschema:TS代码`
 
 }
 
@@ -241,6 +323,8 @@ type TopInstOutput struct {
 
 // TopListInput defines the input schema
 type TopListInput struct {
+TradeDate string `json:trade_date,omitempty jsonschema:交易日期`
+TsCode string `json:ts_code,omitempty jsonschema:股票代码`
 
 }
 

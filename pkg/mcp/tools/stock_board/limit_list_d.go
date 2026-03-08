@@ -18,7 +18,7 @@ func (r *Stock_boardTools) registerLimitListD() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.limit_list_d",
-		Description: "Retrieve limitlistd data from Tushare stock board API",
+		Description: "获取A股每日涨跌停、炸板数据情况，数据从2020年开始（不提供ST股票的统计）",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,12 @@ func (r *Stock_boardTools) registerLimitListD() {
 		}
 
 		apiReq := &stock_stock_board.LimitListDRequest{
+TradeDate: input.TradeDate,
+TsCode: input.TsCode,
+LimitType: input.LimitType,
+Exchange: input.Exchange,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

@@ -18,7 +18,7 @@ func (r *Stock_referenceTools) registerBlockTrade() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_reference.block_trade",
-		Description: "Retrieve blocktrade data from Tushare stock reference API",
+		Description: "大宗交易",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,10 @@ func (r *Stock_referenceTools) registerBlockTrade() {
 		}
 
 		apiReq := &stock_stock_reference.BlockTradeRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

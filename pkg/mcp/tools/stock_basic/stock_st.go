@@ -18,7 +18,7 @@ func (r *Stock_basicTools) registerStockSt() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_basic.stock_st",
-		Description: "Retrieve stockst data from Tushare stock basic API",
+		Description: "获取ST股票列表，可根据交易日期获取历史上每天的ST列表",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,10 @@ func (r *Stock_basicTools) registerStockSt() {
 		}
 
 		apiReq := &stock_stock_basic.StockStRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

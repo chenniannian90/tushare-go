@@ -10,6 +10,9 @@ import (
 
 // FundSalesVolInput defines the input schema
 type FundSalesVolInput struct {
+Year string `json:year,omitempty jsonschema:年度`
+Quarter string `json:quarter,omitempty jsonschema:季度`
+Name string `json:name,omitempty jsonschema:机构名称`
 
 }
 

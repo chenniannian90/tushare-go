@@ -32,6 +32,9 @@ func (r *Stock_basicTools) registerSt() {
 		}
 
 		apiReq := &stock_stock_basic.StRequest{
+TsCode: input.TsCode,
+PubDate: input.PubDate,
+ImpDate: input.ImpDate,
 
 		}
 

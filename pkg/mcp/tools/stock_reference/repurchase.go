@@ -18,7 +18,7 @@ func (r *Stock_referenceTools) registerRepurchase() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_reference.repurchase",
-		Description: "Retrieve repurchase data from Tushare stock reference API",
+		Description: "获取上市公司回购股票数据",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,9 @@ func (r *Stock_referenceTools) registerRepurchase() {
 		}
 
 		apiReq := &stock_stock_reference.RepurchaseRequest{
+AnnDate: input.AnnDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

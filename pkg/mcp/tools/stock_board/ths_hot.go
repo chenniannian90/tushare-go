@@ -32,6 +32,10 @@ func (r *Stock_boardTools) registerThsHot() {
 		}
 
 		apiReq := &stock_stock_board.ThsHotRequest{
+TradeDate: input.TradeDate,
+TsCode: input.TsCode,
+Market: input.Market,
+IsNew: input.IsNew,
 
 		}
 

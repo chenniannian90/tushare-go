@@ -32,6 +32,8 @@ func (r *Stock_boardTools) registerTopInst() {
 		}
 
 		apiReq := &stock_stock_board.TopInstRequest{
+TradeDate: input.TradeDate,
+TsCode: input.TsCode,
 
 		}
 

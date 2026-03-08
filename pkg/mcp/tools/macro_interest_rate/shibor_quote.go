@@ -18,7 +18,7 @@ func (r *Macro_interest_rateTools) registerShiborQuote() {
 
 	tool := &mcp.Tool{
 		Name:        "macro_interest_rate.shibor_quote",
-		Description: "Retrieve shiborquote data from Tushare macro interest rate API",
+		Description: "Shibor报价数据",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,10 @@ func (r *Macro_interest_rateTools) registerShiborQuote() {
 		}
 
 		apiReq := &macro_macro_domestic_macro_interest_rate.ShiborQuoteRequest{
+Date: input.Date,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+Bank: input.Bank,
 
 		}
 

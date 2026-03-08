@@ -18,7 +18,7 @@ func (r *Macro_businessTools) registerCnPmi() {
 
 	tool := &mcp.Tool{
 		Name:        "macro_business.cn_pmi",
-		Description: "Retrieve cnpmi data from Tushare macro business API",
+		Description: "采购经理人指数",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,9 @@ func (r *Macro_businessTools) registerCnPmi() {
 		}
 
 		apiReq := &macro_macro_domestic_macro_business.CnPmiRequest{
+M: input.M,
+StartM: input.StartM,
+EndM: input.EndM,
 
 		}
 

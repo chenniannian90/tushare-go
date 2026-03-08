@@ -18,7 +18,7 @@ func (r *Stock_featureTools) registerStkAhComparison() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_feature.stk_ah_comparison",
-		Description: "Retrieve stkahcomparison data from Tushare stock feature API",
+		Description: "AH股比价数据，可根据交易日期获取历史",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,11 @@ func (r *Stock_featureTools) registerStkAhComparison() {
 		}
 
 		apiReq := &stock_stock_feature.StkAhComparisonRequest{
+HkCode: input.HkCode,
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

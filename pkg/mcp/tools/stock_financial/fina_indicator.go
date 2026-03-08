@@ -18,7 +18,7 @@ func (r *Stock_financialTools) registerFinaIndicator() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_financial.fina_indicator",
-		Description: "Retrieve finaindicator data from Tushare stock financial API",
+		Description: "获取上市公司财务指标数据，为避免服务器压力，现阶段每次请求最多返回100条记录，可通过设置日期多次请求获取更多数据。",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,11 @@ func (r *Stock_financialTools) registerFinaIndicator() {
 		}
 
 		apiReq := &stock_stock_financial.FinaIndicatorRequest{
+TsCode: input.TsCode,
+AnnDate: input.AnnDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
+Period: input.Period,
 
 		}
 

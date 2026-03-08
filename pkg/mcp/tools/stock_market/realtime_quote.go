@@ -18,7 +18,7 @@ func (r *Stock_marketTools) registerRealtimeQuote() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.realtime_quote",
-		Description: "Retrieve realtimequote data from Tushare stock market API",
+		Description: "本接口是tushare org版实时接口的顺延，数据来自网络，且不进入tushare服务器，属于爬虫接口，请将tushare升级到1.3.3版本以上。",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,8 @@ func (r *Stock_marketTools) registerRealtimeQuote() {
 		}
 
 		apiReq := &stock_stock_market.RealtimeQuoteRequest{
+TsCode: input.TsCode,
+Src: input.Src,
 
 		}
 

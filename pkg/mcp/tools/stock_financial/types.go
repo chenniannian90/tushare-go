@@ -10,6 +10,13 @@ import (
 
 // BalancesheetInput defines the input schema
 type BalancesheetInput struct {
+TsCode string `json:ts_code,omitempty jsonschema:股票代码`
+AnnDate string `json:ann_date,omitempty jsonschema:公告日期(YYYYMMDD格式，下同)`
+StartDate string `json:start_date,omitempty jsonschema:公告日开始日期`
+EndDate string `json:end_date,omitempty jsonschema:公告日结束日期`
+Period string `json:period,omitempty jsonschema:报告期(每个季度最后一天的日期，比如20171231表示年报，20170630半年报，20170930三季报)`
+ReportType string `json:report_type,omitempty jsonschema:报告类型：见下方详细说明`
+CompType string `json:comp_type,omitempty jsonschema:公司类型：1一般工商业 2银行 3保险 4证券`
 
 }
 
@@ -21,6 +28,15 @@ type BalancesheetOutput struct {
 
 // CashflowInput defines the input schema
 type CashflowInput struct {
+TsCode string `json:ts_code,omitempty jsonschema:股票代码`
+AnnDate string `json:ann_date,omitempty jsonschema:公告日期（YYYYMMDD格式，下同）`
+FAnnDate string `json:f_ann_date,omitempty jsonschema:实际公告日期`
+StartDate string `json:start_date,omitempty jsonschema:公告日开始日期`
+EndDate string `json:end_date,omitempty jsonschema:公告日结束日期`
+Period string `json:period,omitempty jsonschema:报告期(每个季度最后一天的日期，比如20171231表示年报，20170630半年报，20170930三季报)`
+ReportType string `json:report_type,omitempty jsonschema:报告类型：见下方详细说明`
+CompType string `json:comp_type,omitempty jsonschema:公司类型：1一般工商业 2银行 3保险 4证券`
+IsCalc int `json:is_calc,omitempty jsonschema:是否计算报表`
 
 }
 
@@ -32,6 +48,11 @@ type CashflowOutput struct {
 
 // DisclosureDateInput defines the input schema
 type DisclosureDateInput struct {
+TsCode string `json:ts_code,omitempty jsonschema:TS股票代码`
+EndDate string `json:end_date,omitempty jsonschema:财报周期（每个季度最后一天的日期，比如20181231表示2018年年报，20180630表示中报)`
+PreDate string `json:pre_date,omitempty jsonschema:计划披露日期`
+AnnDate string `json:ann_date,omitempty jsonschema:最新披露公告日`
+ActualDate string `json:actual_date,omitempty jsonschema:实际披露日期`
 
 }
 
@@ -43,6 +64,11 @@ type DisclosureDateOutput struct {
 
 // DividendInput defines the input schema
 type DividendInput struct {
+TsCode string `json:ts_code,omitempty jsonschema:TS代码`
+AnnDate string `json:ann_date,omitempty jsonschema:公告日`
+RecordDate string `json:record_date,omitempty jsonschema:股权登记日期`
+ExDate string `json:ex_date,omitempty jsonschema:除权除息日`
+ImpAnnDate string `json:imp_ann_date,omitempty jsonschema:实施公告日`
 
 }
 
@@ -54,6 +80,11 @@ type DividendOutput struct {
 
 // ExpressInput defines the input schema
 type ExpressInput struct {
+TsCode string `json:ts_code,omitempty jsonschema:股票代码`
+AnnDate string `json:ann_date,omitempty jsonschema:公告日期`
+StartDate string `json:start_date,omitempty jsonschema:公告开始日期`
+EndDate string `json:end_date,omitempty jsonschema:公告结束日期`
+Period string `json:period,omitempty jsonschema:报告期(每个季度最后一天的日期,比如20171231表示年报，20170630半年报，20170930三季报)`
 
 }
 
@@ -65,6 +96,11 @@ type ExpressOutput struct {
 
 // FinaAuditInput defines the input schema
 type FinaAuditInput struct {
+TsCode string `json:ts_code,omitempty jsonschema:股票代码`
+AnnDate string `json:ann_date,omitempty jsonschema:公告日期`
+StartDate string `json:start_date,omitempty jsonschema:公告开始日期`
+EndDate string `json:end_date,omitempty jsonschema:公告结束日期`
+Period string `json:period,omitempty jsonschema:报告期(每个季度最后一天的日期,比如20171231表示年报)`
 
 }
 
@@ -76,6 +112,11 @@ type FinaAuditOutput struct {
 
 // FinaIndicatorInput defines the input schema
 type FinaIndicatorInput struct {
+TsCode string `json:ts_code,omitempty jsonschema:TS股票代码,e.g. 600001.SH/000001.SZ`
+AnnDate string `json:ann_date,omitempty jsonschema:公告日期`
+StartDate string `json:start_date,omitempty jsonschema:报告期开始日期`
+EndDate string `json:end_date,omitempty jsonschema:报告期结束日期`
+Period string `json:period,omitempty jsonschema:报告期(每个季度最后一天的日期,比如20171231表示年报)`
 
 }
 
@@ -87,6 +128,11 @@ type FinaIndicatorOutput struct {
 
 // FinaMainbzInput defines the input schema
 type FinaMainbzInput struct {
+TsCode string `json:ts_code,omitempty jsonschema:股票代码`
+Period string `json:period,omitempty jsonschema:报告期(每个季度最后一天的日期,比如20171231表示年报)`
+Type string `json:type,omitempty jsonschema:类型：P按产品 D按地区 I按行业（请输入大写字母P或者D）`
+StartDate string `json:start_date,omitempty jsonschema:报告期开始日期`
+EndDate string `json:end_date,omitempty jsonschema:报告期结束日期`
 
 }
 
@@ -98,6 +144,12 @@ type FinaMainbzOutput struct {
 
 // ForecastInput defines the input schema
 type ForecastInput struct {
+TsCode string `json:ts_code,omitempty jsonschema:股票代码(二选一)`
+AnnDate string `json:ann_date,omitempty jsonschema:公告日期 (二选一)`
+StartDate string `json:start_date,omitempty jsonschema:公告开始日期`
+EndDate string `json:end_date,omitempty jsonschema:公告结束日期`
+Period string `json:period,omitempty jsonschema:报告期(每个季度最后一天的日期，比如20171231表示年报，20170630半年报，20170930三季报)`
+Type string `json:type,omitempty jsonschema:预告类型(预增/预减/扭亏/首亏/续亏/续盈/略增/略减)`
 
 }
 
@@ -109,6 +161,14 @@ type ForecastOutput struct {
 
 // IncomeInput defines the input schema
 type IncomeInput struct {
+TsCode string `json:ts_code,omitempty jsonschema:股票代码`
+AnnDate string `json:ann_date,omitempty jsonschema:公告日期（YYYYMMDD格式，下同）`
+FAnnDate string `json:f_ann_date,omitempty jsonschema:实际公告日期`
+StartDate string `json:start_date,omitempty jsonschema:公告日开始日期`
+EndDate string `json:end_date,omitempty jsonschema:公告日结束日期`
+Period string `json:period,omitempty jsonschema:报告期(每个季度最后一天的日期，比如20171231表示年报，20170630半年报，20170930三季报)`
+ReportType string `json:report_type,omitempty jsonschema:报告类型，参考文档最下方说明`
+CompType string `json:comp_type,omitempty jsonschema:公司类型（1一般工商业2银行3保险4证券）`
 
 }
 

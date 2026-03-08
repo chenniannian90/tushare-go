@@ -18,7 +18,7 @@ func (r *Stock_boardTools) registerDcMember() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.dc_member",
-		Description: "Retrieve dcmember data from Tushare stock board API",
+		Description: "获取东方财富板块每日成分数据，可以根据概念板块代码和交易日期，获取历史成分",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,9 @@ func (r *Stock_boardTools) registerDcMember() {
 		}
 
 		apiReq := &stock_stock_board.DcMemberRequest{
+TsCode: input.TsCode,
+ConCode: input.ConCode,
+TradeDate: input.TradeDate,
 
 		}
 

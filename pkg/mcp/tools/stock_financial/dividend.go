@@ -18,7 +18,7 @@ func (r *Stock_financialTools) registerDividend() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_financial.dividend",
-		Description: "Retrieve dividend data from Tushare stock financial API",
+		Description: "分红送股数据",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,11 @@ func (r *Stock_financialTools) registerDividend() {
 		}
 
 		apiReq := &stock_stock_financial.DividendRequest{
+TsCode: input.TsCode,
+AnnDate: input.AnnDate,
+RecordDate: input.RecordDate,
+ExDate: input.ExDate,
+ImpAnnDate: input.ImpAnnDate,
 
 		}
 

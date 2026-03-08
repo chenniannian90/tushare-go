@@ -18,7 +18,7 @@ func (r *Stock_marketTools) registerGgtDaily() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.ggt_daily",
-		Description: "Retrieve ggtdaily data from Tushare stock market API",
+		Description: "获取港股通每日成交信息，数据从2014年开始",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,9 @@ func (r *Stock_marketTools) registerGgtDaily() {
 		}
 
 		apiReq := &stock_stock_market.GgtDailyRequest{
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

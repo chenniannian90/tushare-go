@@ -18,7 +18,7 @@ func (r *Stock_referenceTools) registerStkAccount() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_reference.stk_account",
-		Description: "Retrieve stkaccount data from Tushare stock reference API",
+		Description: "获取股票账户开户数据，统计周期为一周",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,9 @@ func (r *Stock_referenceTools) registerStkAccount() {
 		}
 
 		apiReq := &stock_stock_reference.StkAccountRequest{
+Date: input.Date,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

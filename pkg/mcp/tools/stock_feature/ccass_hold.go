@@ -18,7 +18,7 @@ func (r *Stock_featureTools) registerCcassHold() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_feature.ccass_hold",
-		Description: "Retrieve ccasshold data from Tushare stock feature API",
+		Description: "获取中央结算系统持股汇总数据，覆盖全部历史数据，根据交易所披露时间，当日数据在下一交易日早上9点前完成入库",
 		InputSchema: inputSchema,
 	}
 
@@ -32,6 +32,11 @@ func (r *Stock_featureTools) registerCcassHold() {
 		}
 
 		apiReq := &stock_stock_feature.CcassHoldRequest{
+TsCode: input.TsCode,
+HkCode: input.HkCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 

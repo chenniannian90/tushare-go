@@ -32,6 +32,10 @@ func (r *Stock_boardTools) registerTdxDaily() {
 		}
 
 		apiReq := &stock_stock_board.TdxDailyRequest{
+TsCode: input.TsCode,
+TradeDate: input.TradeDate,
+StartDate: input.StartDate,
+EndDate: input.EndDate,
 
 		}
 
