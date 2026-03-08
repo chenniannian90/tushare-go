@@ -614,10 +614,10 @@ func (m *%sTools) ListTools() []common.Tool {
 		toolName := g.toToolName(module.Name, fn.Name)
 		apiName := g.toAPIName(fn.Name)
 		description := g.toToolDescription(module.Name, fn.Name, apiName)
-		content += fmt.Sprintf("\t\t{\n")
-		content += fmt.Sprintf("\t\t\tName: \"%s\",\n", toolName)
-		content += fmt.Sprintf("\t\t\tDescription: \"%s\",\n", description)
-		content += fmt.Sprintf("\t\t},\n")
+		content += "\t\t{\n"
+		content += fmt.Sprintf("\t\t\tName: %q,\n", toolName)
+		content += fmt.Sprintf("\t\t\tDescription: %q,\n", description)
+		content += "\t\t},\n"
 	}
 
 	content += "\t}\n}\n\n"
@@ -1166,7 +1166,7 @@ func (g *MCPGenerator) extractFieldsFromSpec(module, apiCode string) []FieldWith
 // specTypeToGoType converts spec type to Go type
 func (g *MCPGenerator) specTypeToGoType(specType string) string {
 	switch strings.ToLower(specType) {
-	case "str", "string":
+	case "str", "string": //nolint:goconst
 		return "string"
 	case "int", "integer":
 		return "int"

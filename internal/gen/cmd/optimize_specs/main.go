@@ -1,10 +1,9 @@
 package main
 
 import (
-	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
-	"io"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -17,12 +16,12 @@ import (
 
 // Spec 规范文件结构
 type Spec struct {
-	APIName        string            `json:"api_name"`
-	APICode        string            `json:"api_code"`
-	Description    string            `json:"description"`
-	Describe       DescribeInfo      `json:"__describe__"`
-	RequestParams  []APIParam        `json:"request_params"`
-	ResponseFields []APIField        `json:"response_fields"`
+	APIName        string       `json:"api_name"`
+	APICode        string       `json:"api_code"`
+	Description    string       `json:"description"`
+	Describe       DescribeInfo `json:"__describe__"`
+	RequestParams  []APIParam   `json:"request_params"`
+	ResponseFields []APIField   `json:"response_fields"`
 }
 
 type DescribeInfo struct {
@@ -133,7 +132,7 @@ func fetchFromTushare(url string) (*Spec, error) {
 	}
 
 	// 发送请求
-	req, err := http.NewRequest("GET", url, nil)
+	req, err := http.NewRequestWithContext(context.Background(), "GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("创建请求失败: %w", err)
 	}
@@ -144,7 +143,9 @@ func fetchFromTushare(url string) (*Spec, error) {
 	if err != nil {
 		return nil, fmt.Errorf("请求失败: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() {
+		_ = resp.Body.Close()
+	}()
 
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("HTTP 状态码: %d", resp.StatusCode)
@@ -200,7 +201,7 @@ func fetchFromTushare(url string) (*Spec, error) {
 			// 找到下一个 table
 			table := s.Next().Find("table")
 			if table.Length() > 0 {
-				spec.ResponseFields = extractTableParams(table, "output")
+				spec.ResponseFields = extractTableFields(table)
 			}
 		}
 	})
@@ -239,4 +240,33 @@ func extractTableParams(table *goquery.Selection, paramType string) []APIParam {
 	})
 
 	return params
+}
+
+func extractTableFields(table *goquery.Selection) []APIField {
+	var fields []APIField
+
+	table.Find("tr").Each(func(i int, row *goquery.Selection) {
+		// 跳过表头
+		if i == 0 {
+			return
+		}
+
+		cells := row.Find("td")
+		if cells.Length() < 3 {
+			return
+		}
+
+		field := APIField{
+			Name:           strings.TrimSpace(cells.Eq(0).Text()),
+			Type:           strings.TrimSpace(cells.Eq(1).Text()),
+			DefaultDisplay: false, // 默认值
+			Description:    strings.TrimSpace(cells.Eq(3).Text()),
+		}
+
+		if field.Name != "" {
+			fields = append(fields, field)
+		}
+	})
+
+	return fields
 }

@@ -10,10 +10,21 @@ import (
 	"text/template"
 )
 
+// getCurrentDir returns the directory of the file that calls this function
+func getCurrentDir() string {
+	_, file, _, ok := runtime.Caller(1)
+	if !ok {
+		return "."
+	}
+	return filepath.Dir(file)
+}
+
+// toGoType converts API type to Go type
+
 // toGoType converts API type to Go type
 func toGoType(apiType string) string {
 	switch strings.ToLower(apiType) {
-	case "string", "str":
+	case "string", "str": //nolint:goconst
 		return "string"
 	case "int", "integer":
 		return "int"
@@ -116,8 +127,7 @@ var templateFuncs = template.FuncMap{
 // Generate generates API wrapper code from a spec
 func Generate(spec *APISpec, outputPath string) error {
 	// Get the directory where this file is located
-	_, currentFile, _, _ := runtime.Caller(0)
-	currentDir := filepath.Dir(currentFile)
+	currentDir := getCurrentDir()
 
 	// Template is in templates/ subdirectory relative to this file
 	tmplPath := filepath.Join(currentDir, "templates", "api.go.tmpl")
@@ -204,8 +214,7 @@ func isValidGoIdentifier(s string) bool {
 
 // ListSpecs returns a list of all spec file paths (including subdirectories)
 func ListSpecs() ([]string, error) {
-	_, currentFile, _, _ := runtime.Caller(0)
-	currentDir := filepath.Dir(currentFile)
+	currentDir := getCurrentDir()
 	specsDir := filepath.Join(currentDir, "specs")
 
 	var specs []string

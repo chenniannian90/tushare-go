@@ -84,9 +84,7 @@ func scanGeneratedAPIs(apiDir string) ([]CategoryAPIs, error) {
 
 		// 提取 API 函数信息
 		apis := extractAPIInfo(string(content), packageName)
-		for _, api := range apis {
-			categoryMap[packageName] = append(categoryMap[packageName], api)
-		}
+		categoryMap[packageName] = append(categoryMap[packageName], apis...)
 
 		return nil
 	})

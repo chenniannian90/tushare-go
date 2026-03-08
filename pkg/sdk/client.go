@@ -76,7 +76,9 @@ func (c *Client) CallAPI(
 	if err != nil {
 		return WrapNetworkError(err, "请求失败")
 	}
-	defer resp.Body.Close()
+	defer func() {
+		_ = resp.Body.Close()
+	}()
 
 	// 检查 HTTP 状态码
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {

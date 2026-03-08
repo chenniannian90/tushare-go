@@ -74,7 +74,7 @@ func (e *APIError) Unwrap() error {
 
 // IsTemporary 如果错误是临时的且可以重试，则返回 true
 func (e *APIError) IsTemporary() bool {
-	switch e.Code {
+	switch e.Code { //nolint:exhaustive
 	case ErrNetworkTimeout, ErrConnectionFailed, ErrRateLimitExceeded,
 		ErrServiceUnavailable, ErrNetworkUnreachable:
 		return true
@@ -85,7 +85,7 @@ func (e *APIError) IsTemporary() bool {
 
 // IsPermanent 如果错误是永久的且不应重试，则返回 true
 func (e *APIError) IsPermanent() bool {
-	switch e.Code {
+	switch e.Code { //nolint:exhaustive
 	case ErrInvalidToken, ErrTokenExpired, ErrAccessDenied,
 		ErrInvalidParameter, ErrMissingParameter:
 		return true
@@ -96,7 +96,7 @@ func (e *APIError) IsPermanent() bool {
 
 // IsNetworkRelated 如果错误与网络相关，则返回 true
 func (e *APIError) IsNetworkRelated() bool {
-	switch e.Code {
+	switch e.Code { //nolint:exhaustive
 	case ErrNetworkTimeout, ErrConnectionFailed, ErrNetworkUnreachable,
 		ErrServiceUnavailable:
 		return true
@@ -170,14 +170,12 @@ func WrapNetworkError(err error, message string) *NetworkError {
 	} else if netErr, ok := err.(net.Error); ok {
 		if netErr.Timeout() {
 			code = ErrNetworkTimeout
-		} else if netErr.Temporary() {
-			code = ErrConnectionFailed
 		}
 	} else {
 		// 检查操作系统级别的错误
 		var sysErr syscall.Errno
 		if errors.As(err, &sysErr) {
-			switch sysErr {
+			switch sysErr { //nolint:exhaustive
 			case syscall.ECONNREFUSED:
 				code = ErrConnectionFailed
 			case syscall.EHOSTUNREACH:
@@ -265,7 +263,7 @@ func IsTemporaryError(err error) bool {
 	// 检查网络错误
 	var netErr2 net.Error
 	if errors.As(err, &netErr2) {
-		return netErr2.Timeout() || netErr2.Temporary()
+		return netErr2.Timeout()
 	}
 
 	return false

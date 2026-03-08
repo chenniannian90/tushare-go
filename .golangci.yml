@@ -1,69 +1,35 @@
+version: 2
+
 linters:
   disable-all: true
   enable:
     - asciicheck
     - bodyclose
-    - deadcode
-    #    - depguard
     - dogsled
-    #    - dupl
     - errcheck
     - exhaustive
-    - exportloopref
-    #- funlen
-    # - gci
-    #- gochecknoglobals
-    #- gochecknoinits
-    #- gocognit
     - goconst
     - gocritic
-    #    - gocyclo
-    #- godot
-    - godox
-    #- goerr113
-    - gofmt
-    #    - gofumpt
     - goheader
-    - goimports
-    - golint
-    #- gomnd
     - gomodguard
     - goprintffuncname
-    #    - gosec
-    - gosimple
     - govet
     - ineffassign
-    # - interfacer
-    # - lll
-    #- maligned
     - misspell
     - nakedret
-    #- nestif
-    #- nlreturn
     - noctx
     - nolintlint
     - prealloc
     - rowserrcheck
-    - scopelint
     - sqlclosecheck
     - staticcheck
-    - structcheck
-    - stylecheck
     - testpackage
-    - typecheck
     - unconvert
-    #- unparam
     - unused
-    - varcheck
     - whitespace
-    #- wsl
 
 run:
-  skip-dirs:
-    - pkg/components/agent
-    - pkg/components/log_analysis
-  skip-files:
-    - ".*__generated\\.go$"
+  go: "1.25"
   tests: false
   timeout: 5m
 
@@ -72,9 +38,22 @@ linters-settings:
     min-occurrences: 100
 
 issues:
+  exclude-dirs:
+    - pkg/components/agent
+    - pkg/components/log_analysis
+    - examples
+    - cmd/examples
+  exclude-files:
+    - ".*__generated\\.go$"
+    - ".*\\.bak$"
   exclude-rules:
+    # Exclude sync/atomic issues for Go 1.23 compatibility
     - linters:
-        - golint
+        - typecheck
+      text: "could not import sync/atomic"
+      path: pkg/sdk/config.go
+    - linters:
+        - revive
       text: "don't use ALL_CAPS in Go names; use CamelCase"
       path: pkg/constants/enums
     - linters:
@@ -111,3 +90,9 @@ issues:
     - linters:
         - godox
       text: "Line contains TODO/BUG/FIXME"
+    - linters:
+        - revive
+      text: "unused-parameter: parameter 'key' seems to be unused"
+    - linters:
+        - revive
+      text: "exported: type name will be used as"

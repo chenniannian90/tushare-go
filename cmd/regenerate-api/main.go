@@ -17,40 +17,6 @@ func extractNameFromPath(component string) string {
 	return component
 }
 
-// getOutputPath 根据 spec 文件路径生成输出文件路径
-func getOutputPath(specFile, specsRoot, outputRoot string) (string, error) {
-	// 获取相对路径
-	relPath, err := filepath.Rel(specsRoot, specFile)
-	if err != nil {
-		return "", fmt.Errorf("failed to get relative path: %w", err)
-	}
-
-	// 分割路径
-	components := strings.Split(relPath, string(filepath.Separator))
-
-	// 处理每个组件
-	newComponents := make([]string, 0, len(components))
-	for i, component := range components {
-		// 最后一个组件是文件名，去掉 .json 后缀
-		if i == len(components)-1 {
-			component = strings.TrimSuffix(component, ".json")
-		}
-		newComponent := extractNameFromPath(component)
-		newComponents = append(newComponents, newComponent)
-	}
-
-	// 构建输出路径
-	if len(newComponents) == 0 {
-		return "", fmt.Errorf("no components in path")
-	}
-
-	// 所有组件除了最后一个都是目录
-	outputDir := filepath.Join(outputRoot, filepath.Join(newComponents[:len(newComponents)-1]...))
-	outputFile := filepath.Join(outputDir, newComponents[len(newComponents)-1]+".go")
-
-	return outputFile, nil
-}
-
 func main() {
 	// 路径配置
 	specsRoot := "internal/gen/specs"

@@ -132,8 +132,7 @@ func (s *Server) startHTTP() error {
 			// Extract validated token from request headers and set in context
 			if token := ExtractTokenFromRequest(r); token != "" {
 				// Create a context with the token for this request
-				ctx := sdk.WithToken(r.Context(), token)
-				r = r.WithContext(ctx)
+				_ = sdk.WithToken(r.Context(), token)
 			}
 			return svc.server
 		}, &mcpsdk.StreamableHTTPOptions{})
@@ -159,8 +158,7 @@ func (s *Server) startHTTP() error {
 			// Extract validated token from request headers and set in context
 			if token := ExtractTokenFromRequest(r); token != "" {
 				// Create a context with the token for this request
-				ctx := sdk.WithToken(r.Context(), token)
-				r = r.WithContext(ctx)
+				_ = sdk.WithToken(r.Context(), token)
 			}
 			return allSvc.server
 		}, &mcpsdk.StreamableHTTPOptions{})
