@@ -1,60 +1,71 @@
 # Tushare MCP 服务命令列表
 # 复制以下命令并替换 YOUR_TOKEN 为您的实际 API Key
 
-# ==================== 主服务器（推荐） ====================
-claude mcp add --transport http tushare-main http://localhost:8080/mcp --header "X-API-Key:YOUR_TOKEN" --scope project
+# ==================== 股票基础数据 ====================
+claude mcp add --transport http tushare-stock-basic http://localhost:7878/stock/stock_basic --header "X-API-Key:YOUR_TOKEN" --scope project
 
-# ==================== 股票数据 ====================
-claude mcp add --transport http tushare-stock-basic http://localhost:8080/api/v1/stock_basic --header "X-API-Key:YOUR_TOKEN" --scope project
-claude mcp add --transport http tushare-stock-board http://localhost:8080/api/v1/stock_board --header "X-API-Key:YOUR_TOKEN" --scope project
-claude mcp add --transport http tushare-stock-feature http://localhost:8080/api/v1/stock_feature --header "X-API-Key:YOUR_TOKEN" --scope project
-claude mcp add --transport http tushare-stock-financial http://localhost:8080/api/v1/stock_financial --header "X-API-Key:YOUR_TOKEN" --scope project
-claude mcp add --transport http tushare-stock-fund-flow http://localhost:8080/api/v1/stock_fund_flow --header "X-API-Key:YOUR_TOKEN" --scope project
-claude mcp add --transport http tushare-stock-margin http://localhost:8080/api/v1/stock_margin --header "X-API-Key:YOUR_TOKEN" --scope project
-claude mcp add --transport http tushare-stock-market http://localhost:8080/api/v1/stock_market --header "X-API-Key:YOUR_TOKEN" --scope project
-claude mcp add --transport http tushare-stock-reference http://localhost:8080/api/v1/stock_reference --header "X-API-Key:YOUR_TOKEN" --scope project
+# ==================== 股票市场数据 ====================
+claude mcp add --transport http tushare-stock-market http://localhost:7878/stock/stock_market --header "X-API-Key:YOUR_TOKEN" --scope project
 
-# ==================== 港股数据（统一端点） ====================
-claude mcp add --transport http tushare-hk-stock http://localhost:8080/api/v1/hk_stock --header "X-API-Key:YOUR_TOKEN" --scope project
+# ==================== 股票财务数据 ====================
+claude mcp add --transport http tushare-stock-financial http://localhost:7878/stock/stock_financial --header "X-API-Key:YOUR_TOKEN" --scope project
+
+# ==================== 股票板块数据 ====================
+claude mcp add --transport http tushare-stock-board http://localhost:7878/stock/stock_board --header "X-API-Key:YOUR_TOKEN" --scope project
+
+# ==================== 股票特征数据 ====================
+claude mcp add --transport http tushare-stock-feature http://localhost:7878/stock/stock_feature --header "X-API-Key:YOUR_TOKEN" --scope project
+
+# ==================== 股票资金流向 ====================
+claude mcp add --transport http tushare-stock-fund-flow http://localhost:7878/stock/stock_fund_flow --header "X-API-Key:YOUR_TOKEN" --scope project
+
+# ==================== 股票融资融券 ====================
+claude mcp add --transport http tushare-stock-margin http://localhost:7878/stock/stock_margin --header "X-API-Key:YOUR_TOKEN" --scope project
+
+# ==================== 股票参考数据 ====================
+claude mcp add --transport http tushare-stock-reference http://localhost:7878/stock/stock_reference --header "X-API-Key:YOUR_TOKEN" --scope project
+
+# ==================== 港股数据 ====================
+claude mcp add --transport http tushare-hk-stock http://localhost:7878/hk_stock --header "X-API-Key:YOUR_TOKEN" --scope project
 
 # ==================== 美股数据 ====================
-claude mcp add --transport http tushare-us-stock http://localhost:8080/api/v1/us_stock --header "X-API-Key:YOUR_TOKEN" --scope project
+claude mcp add --transport http tushare-us-stock http://localhost:7878/us_stock --header "X-API-Key:YOUR_TOKEN" --scope project
 
 # ==================== 指数数据 ====================
-claude mcp add --transport http tushare-index http://localhost:8080/api/v1/index --header "X-API-Key:YOUR_TOKEN" --scope project
+claude mcp add --transport http tushare-index http://localhost:7878/index --header "X-API-Key:YOUR_TOKEN" --scope project
 
 # ==================== 基金数据 ====================
-claude mcp add --transport http tushare-fund http://localhost:8080/api/v1/fund --header "X-API-Key:YOUR_TOKEN" --scope project
+claude mcp add --transport http tushare-fund http://localhost:7878/fund --header "X-API-Key:YOUR_TOKEN" --scope project
 
 # ==================== 期货数据 ====================
-claude mcp add --transport http tushare-futures http://localhost:8080/api/v1/futures --header "X-API-Key:YOUR_TOKEN" --scope project
+claude mcp add --transport http tushare-futures http://localhost:7878/futures --header "X-API-Key:YOUR_TOKEN" --scope project
 
 # ==================== 债券数据 ====================
-claude mcp add --transport http tushare-bond http://localhost:8080/api/v1/bond --header "X-API-Key:YOUR_TOKEN" --scope project
+claude mcp add --transport http tushare-bond http://localhost:7878/bond --header "X-API-Key:YOUR_TOKEN" --scope project
 
 # ==================== 外汇数据 ====================
-claude mcp add --transport http tushare-forex http://localhost:8080/api/v1/forex --header "X-API-Key:YOUR_TOKEN" --scope project
+claude mcp add --transport http tushare-forex http://localhost:7878/forex --header "X-API-Key:YOUR_TOKEN" --scope project
 
 # ==================== ETF数据 ====================
-claude mcp add --transport http tushare-etf http://localhost:8080/api/v1/etf --header "X-API-Key:YOUR_TOKEN" --scope project
+claude mcp add --transport http tushare-etf http://localhost:7878/etf --header "X-API-Key:YOUR_TOKEN" --scope project
 
 # ==================== 期权数据 ====================
-claude mcp add --transport http tushare-options http://localhost:8080/api/v1/options --header "X-API-Key:YOUR_TOKEN" --scope project
+claude mcp add --transport http tushare-options http://localhost:7878/options --header "X-API-Key:YOUR_TOKEN" --scope project
 
 # ==================== 现货数据 ====================
-claude mcp add --transport http tushare-spot http://localhost:8080/api/v1/spot --header "X-API-Key:YOUR_TOKEN" --scope project
+claude mcp add --transport http tushare-spot http://localhost:7878/spot --header "X-API-Key:YOUR_TOKEN" --scope project
 
 # ==================== LLM语料数据 ====================
-claude mcp add --transport http tushare-llm-corpus http://localhost:8080/api/v1/llm_corpus --header "X-API-Key:YOUR_TOKEN" --scope project
+claude mcp add --transport http tushare-llm-corpus http://localhost:7878/llm_corpus --header "X-API-Key:YOUR_TOKEN" --scope project
 
 # ==================== 宏观经济数据 ====================
-claude mcp add --transport http tushare-macro-business http://localhost:8080/api/v1/macro_business --header "X-API-Key:YOUR_TOKEN" --scope project
-claude mcp add --transport http tushare-macro-economy http://localhost:8080/api/v1/macro_economy --header "X-API-Key:YOUR_TOKEN" --scope project
-claude mcp add --transport http tushare-macro-interest-rate http://localhost:8080/api/v1/macro_interest_rate --header "X-API-Key:YOUR_TOKEN" --scope project
-claude mcp add --transport http tushare-macro-price http://localhost:8080/api/v1/macro_price --header "X-API-Key:YOUR_TOKEN" --scope project
+claude mcp add --transport http tushare-macro-business http://localhost:7878/macro/macro_business --header "X-API-Key:YOUR_TOKEN" --scope project
+claude mcp add --transport http tushare-macro-economy http://localhost:7878/macro/macro_economy --header "X-API-Key:YOUR_TOKEN" --scope project
+claude mcp add --transport http tushare-macro-interest-rate http://localhost:7878/macro/macro_interest_rate --header "X-API-Key:YOUR_TOKEN" --scope project
+claude mcp add --transport http tushare-macro-price http://localhost:7878/macro/macro_price --header "X-API-Key:YOUR_TOKEN" --scope project
 
 # ==================== 行业数据 ====================
-claude mcp add --transport http tushare-industry-tmt http://localhost:8080/api/v1/industry_tmt --header "X-API-Key:YOUR_TOKEN" --scope project
+claude mcp add --transport http tushare-industry-tmt http://localhost:7878/industry_tmt --header "X-API-Key:YOUR_TOKEN" --scope project
 
 # ==================== 财富基金销售 ====================
-claude mcp add --transport http tushare-wealth-fund-sales http://localhost:8080/api/v1/wealth_fund_sales --header "X-API-Key:YOUR_TOKEN" --scope project
+claude mcp add --transport http tushare-wealth-fund-sales http://localhost:7878/wealth_fund_sales --header "X-API-Key:YOUR_TOKEN" --scope project

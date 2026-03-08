@@ -134,24 +134,29 @@ MCP 工具使用以下命名格式：`<module>.<tool_name>`
 所有 HTTP API 端点遵循以下格式：
 
 ```
-POST /api/v1/{module}/{tool}
+POST http://localhost:7878/{service_path}
 ```
 
 例如：
-- `POST /api/v1/bond/bond_oc` - 债券柜台交易
-- `POST /api/v1/fund/fund_basic` - 基金基本信息
-- `POST /api/v1/stock/daily` - 股票日线数据
+- `POST http://localhost:7878/bond` - 债券数据服务
+- `POST http://localhost:7878/fund` - 基金数据服务
+- `POST http://localhost:7878/stock/stock_basic` - 股票基础信息
 
 ### 路由列表
 
-每个 MCP 工具都有对应的 HTTP 端点。查看工具列表了解所有可用的路由。
+每个 MCP 服务都有对应的 HTTP 端点。查看服务列表了解所有可用的路由。
 
-### HTTP 请求格式
+### MCP 协议请求格式
 
 ```json
 {
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/call",
   "params": {
-    "ts_code": "000001.SZ",
+    "name": "tool_name",
+    "arguments": {
+      "ts_code": "000001.SZ",
     "start_date": "20240101",
     "end_date": "20240131"
   }
@@ -215,22 +220,38 @@ result = client.call_tool("fund.fund_basic", {
 result = client.call_tool("bond.bond_oc", {})
 ```
 
-### HTTP API 使用
+### HTTP MCP API 使用
 
 ```bash
 # 调用基金基本信息 API
-curl -X POST http://localhost:8080/api/v1/fund/fund_basic \
+curl -X POST http://localhost:7878/fund \
   -H "Content-Type: application/json" \
+  -H "X-API-Key: YOUR_TOKEN" \
   -d '{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "tools/call",
     "params": {
-      "ts_code": "000001.SZ"
+      "name": "fund_basic",
+      "arguments": {
+        "ts_code": "000001.SZ"
+      }
     }
   }'
 
 # 调用债券柜台交易 API
-curl -X POST http://localhost:8080/api/v1/bond/bond_oc \
+curl -X POST http://localhost:7878/bond \
   -H "Content-Type: application/json" \
-  -d '{}'
+  -H "X-API-Key: YOUR_TOKEN" \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "tools/call",
+    "params": {
+      "name": "bond_oc",
+      "arguments": {}
+    }
+  }'
 ```
 
 ## 配置

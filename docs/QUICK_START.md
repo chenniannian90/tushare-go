@@ -213,8 +213,16 @@ response = requests.post("http://localhost:8080/mcp", json={
 })
 
 # 调用工具
-result = requests.post("http://localhost:8080/api/v1/stock_basic/stock_basic", json={
-    "ts_code": "000001.SZ"
+result = requests.post("http://localhost:7878/stock/stock_basic", json={
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "tools/call",
+    "params": {
+        "name": "stock_basic",
+        "arguments": {
+            "ts_code": "000001.SZ"
+        }
+    }
 })
 
 print(result.json())
@@ -237,10 +245,18 @@ const response = await fetch('http://localhost:8080/mcp', {
 });
 
 // 调用工具
-const result = await fetch('http://localhost:8080/api/v1/stock_basic/stock_basic', {
+const result = await fetch('http://localhost:7878/stock/stock_basic', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ ts_code: '000001.SZ' })
+  body: JSON.stringify({
+    jsonrpc: '2.0',
+    id: 2,
+    method: 'tools/call',
+    params: {
+      name: 'stock_basic',
+      arguments: { ts_code: '000001.SZ' }
+    }
+  })
 });
 
 console.log(await result.json());
@@ -268,10 +284,23 @@ curl -H "Authorization: Bearer your-api-key" \
 
 ### 问题 3: 工具调用失败
 ```bash
-# 检查 Tushare Token 是否有效
-curl -X POST http://localhost:8080/api/v1/stock_basic/stock_basic \
+# 检查 Tushare Token 是否有效 (使用 MCP 协议)
+curl -X POST http://localhost:7878/stock/stock_basic \
   -H "Content-Type: application/json" \
-  -d '{"ts_code": "000001.SZ"}'
+  -H "X-API-Key: YOUR_TOKEN" \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "initialize",
+    "params": {
+      "protocolVersion": "2024-11-05",
+      "capabilities": {},
+      "clientInfo": {
+        "name": "test-client",
+        "version": "1.0.0"
+      }
+    }
+  }'
 ```
 
 ---
