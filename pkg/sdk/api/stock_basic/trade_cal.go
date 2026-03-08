@@ -46,41 +46,76 @@ func TradeCal(ctx context.Context, client *sdk.Client, req *TradeCalRequest) ([]
 	fields := []string{"exchange", "cal_date", "is_open", "pretrade_date"}
 
 	var result struct {
-		Fields []string                 `json:"fields"`
-		Items  []map[string]interface{} `json:"items"`
+		Fields []string      `json:"fields"`
+		Items  []interface{} `json:"items"` // 支持数组和对象两种格式
 	}
 
 	if err := client.CallAPI(ctx, "trade_cal", params, fields, &result); err != nil {
 		return nil, err
 	}
-	items := make([]TradeCalItem, len(result.Items))
+
+	items := make([]TradeCalItem, 0, len(result.Items))
+
 	for i, item := range result.Items {
-		// 处理 exchange 的简单类型
-		exchange, ok := item["exchange"].(string)
-		if !ok {
-			return nil, fmt.Errorf("无效的 exchange 类型")
+		var tradeCalItem TradeCalItem
+
+		// 检查items中的第一个元素类型
+		switch v := item.(type) {
+		case map[string]interface{}:
+			// 标准对象格式：{"exchange": "SSE", "cal_date": "20240101", ...}
+			exchange, ok := v["exchange"].(string)
+			if !ok {
+				return nil, fmt.Errorf("无效的 exchange 类型")
+			}
+			calDate, ok := v["cal_date"].(string)
+			if !ok {
+				return nil, fmt.Errorf("无效的 cal_date 类型")
+			}
+			isOpen, ok := v["is_open"].(string)
+			if !ok {
+				return nil, fmt.Errorf("无效的 is_open 类型")
+			}
+			pretradeDate, _ := v["pretrade_date"].(string) // 可选字段
+
+			tradeCalItem = TradeCalItem{
+				Exchange:     exchange,
+				CalDate:      calDate,
+				IsOpen:       isOpen,
+				PretradeDate: pretradeDate,
+			}
+
+		case []interface{}:
+			// 数组格式：["SSE", "20240101", "1", "20231229"] (按fields顺序)
+			if len(v) < 3 {
+				return nil, fmt.Errorf("数组格式错误：元素数量不足，期望至少3个，得到%d个", len(v))
+			}
+
+			// 按字段顺序解析：exchange, cal_date, is_open, pretrade_date
+			if exchange, ok := v[0].(string); ok {
+				tradeCalItem.Exchange = exchange
+			}
+			if calDate, ok := v[1].(string); ok {
+				tradeCalItem.CalDate = calDate
+			}
+			if len(v) > 2 {
+				switch isOpenVal := v[2].(type) {
+				case string:
+					tradeCalItem.IsOpen = isOpenVal
+				case float64:
+					tradeCalItem.IsOpen = fmt.Sprintf("%.0f", isOpenVal)
+				}
+			}
+			if len(v) >= 4 {
+				if pretradeDate, ok := v[3].(string); ok {
+					tradeCalItem.PretradeDate = pretradeDate
+				}
+			}
+
+		default:
+			return nil, fmt.Errorf("未知的items格式，第%d项: %T", i, item)
 		}
-		// 处理 cal_date 的简单类型
-		calDate, ok := item["cal_date"].(string)
-		if !ok {
-			return nil, fmt.Errorf("无效的 cal_date 类型")
-		}
-		// 处理 is_open 的简单类型
-		isOpen, ok := item["is_open"].(string)
-		if !ok {
-			return nil, fmt.Errorf("无效的 is_open 类型")
-		}
-		// 处理 pretrade_date 的简单类型
-		pretradeDate, ok := item["pretrade_date"].(string)
-		if !ok {
-			return nil, fmt.Errorf("无效的 pretrade_date 类型")
-		}
-		items[i] = TradeCalItem{
-			Exchange: exchange,
-			CalDate: calDate,
-			IsOpen: isOpen,
-			PretradeDate: pretradeDate,
-		}
+
+		items = append(items, tradeCalItem)
 	}
 
 	return items, nil

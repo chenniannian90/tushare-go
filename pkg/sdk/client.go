@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"strings"
 )
@@ -115,6 +116,9 @@ func (c *Client) CallAPI(
 
 	// 解析数据
 	if err := json.Unmarshal(apiResp.Data, result); err != nil {
+		// 添加调试信息：打印原始数据
+		log.Printf("DEBUG: API Name: %s", apiName)
+		log.Printf("DEBUG: Raw Response Data: %s", string(apiResp.Data))
 		return fmt.Errorf("数据反序列化失败: %w", err)
 	}
 
