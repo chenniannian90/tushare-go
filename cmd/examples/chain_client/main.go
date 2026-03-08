@@ -1,3 +1,5 @@
+// +build ignore
+
 package main
 
 import (
@@ -36,8 +38,8 @@ func main() {
 
 	// 示例1：获取股票基本信息
 	fmt.Println("\n✅ 示例1: 获取股票基本信息")
-	fmt.Println("调用: tushareClient.StockBasic()")
-	stocks, err := tushareClient.StockBasic(ctx, &stockbasic.StockBasicRequest{
+	fmt.Println("调用: tushareClient.StockBasic.StockBasic()")
+	stocks, err := tushareClient.StockBasic.StockBasic(ctx, &stockbasic.StockBasicRequest{
 		TsCode: "000001.SZ",
 	})
 	if err != nil {
@@ -51,8 +53,8 @@ func main() {
 
 	// 示例2：获取板块数据
 	fmt.Println("\n✅ 示例2: 获取板块数据")
-	fmt.Println("调用: tushareClient.TopList()")
-	topList, err := tushareClient.TopList(ctx, &stockboard.TopListRequest{})
+	fmt.Println("调用: tushareClient.StockBoard.TopList()")
+	topList, err := tushareClient.StockBoard.TopList(ctx, &stockboard.TopListRequest{})
 	if err != nil {
 		log.Printf("Error: %v", err)
 	} else {
@@ -61,8 +63,8 @@ func main() {
 
 	// 示例3：获取交易日历
 	fmt.Println("\n✅ 示例3: 获取交易日历")
-	fmt.Println("调用: tushareClient.TradeCal()")
-	calendar, err := tushareClient.TradeCal(ctx, &stockbasic.TradeCalRequest{
+	fmt.Println("调用: tushareClient.StockBasic.TradeCal()")
+	calendar, err := tushareClient.StockBasic.TradeCal(ctx, &stockbasic.TradeCalRequest{
 		Exchange:  "SSE",
 		StartDate: "20240101",
 		EndDate:   "20240105",

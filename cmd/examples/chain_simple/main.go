@@ -1,3 +1,5 @@
+// +build ignore
+
 package main
 
 import (
@@ -24,13 +26,13 @@ func main() {
 	client := sdk.NewClient(config)
 
 	// 创建链式调用客户端
-	tushareClient := apis.NewTushareClient(client)
+	_ = apis.NewTushareClient(client)
 
 	fmt.Println("========================================")
 	fmt.Println("链式调用客户端 - 简单示例")
 	fmt.Println("========================================")
 
-	ctx := context.Background()
+	_ = context.Background()
 
 	// 示例：演示如何使用链式调用客户端
 	// 注意：实际的 API 调用需要提供正确的参数

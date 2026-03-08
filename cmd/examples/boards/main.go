@@ -1,3 +1,5 @@
+// +build ignore
+
 package main
 
 import (
@@ -25,9 +27,9 @@ func main() {
 
 	client := sdk.NewClient(config)
 
-	// Example 1: Get limit up/down stocks
-	fmt.Println("=== Example 1: Get limit list ===")
-	limitList, err := stockboard.LimitList(context.Background(), client, &stockboard.LimitListRequest{})
+	// Example 1: Get limit up/down stocks (using LimitListD)
+	fmt.Println("=== Example 1: Get limit list (D) ===")
+	limitList, err := stockboard.LimitListD(context.Background(), client, &stockboard.LimitListDRequest{})
 	if err != nil {
 		log.Fatalf("Failed to get limit list: %v", err)
 	}

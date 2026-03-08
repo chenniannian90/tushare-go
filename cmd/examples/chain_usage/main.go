@@ -1,3 +1,5 @@
+// +build ignore
+
 package main
 
 import (
@@ -37,7 +39,7 @@ func main() {
 	// 示例1：获取股票基本信息
 	fmt.Println("\n📊 示例1: 获取股票基本信息")
 	fmt.Println("----------------------------------------")
-	stocks, err := tushareClient.StockBasic(ctx, &stockbasic.StockBasicRequest{
+	stocks, err := tushareClient.StockBasic.StockBasic(ctx, &stockbasic.StockBasicRequest{
 		TsCode: "000001.SZ",
 	})
 	if err != nil {
@@ -54,9 +56,9 @@ func main() {
 	// 示例2：获取日线数据
 	fmt.Println("\n📈 示例2: 获取日线数据")
 	fmt.Println("----------------------------------------")
-	daily, err := tushareClient.Daily(ctx, &stockmarket.DailyRequest{
-		TsCode:   "000001.SZ",
-			StartDate: "20240101",
+	daily, err := tushareClient.StockMarket.Daily(ctx, &stockmarket.DailyRequest{
+		TsCode:    "000001.SZ",
+		StartDate: "20240101",
 		EndDate:   "20240110",
 	})
 	if err != nil {
@@ -79,7 +81,7 @@ func main() {
 	// 示例3：获取交易日历
 	fmt.Println("\n📅 示例3: 获取交易日历")
 	fmt.Println("----------------------------------------")
-	calendar, err := tushareClient.TradeCal(ctx, &stockbasic.TradeCalRequest{
+	calendar, err := tushareClient.StockBasic.TradeCal(ctx, &stockbasic.TradeCalRequest{
 		Exchange: "SSE",
 		StartDate: "20240101",
 		EndDate:   "20240110",

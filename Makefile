@@ -1,4 +1,4 @@
-.PHONY: test build clean gen gen-specs examples fix-encoding run-examples version
+.PHONY: test build clean gen gen-specs examples fix-encoding run-examples version lint lint-fix fmt vet
 
 # Version information
 VERSION ?= $(shell git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0-dev")
@@ -14,6 +14,9 @@ test:
 
 build-mcp:
 	go build $(LDFLAGS) -o bin/tushare-mcp ./cmd/mcp-server
+
+# Alias for build-mcp
+build: build-mcp
 
 build-mcp-auth:
 	go build $(LDFLAGS) -o bin/mcp_server_with_auth ./cmd/mcp-server
@@ -119,3 +122,35 @@ except json.JSONDecodeError: \
 	else \
 		echo "✅ Fixed $$FIXED_FILES file(s) with encoding issues"; \
 	fi
+
+# Run golangci-lint
+lint:
+	@echo "🔍 Running golangci-lint..."
+	@if ! command -v golangci-lint >/dev/null 2>&1; then \
+		echo "❌ golangci-lint is not installed. Please install it first:"; \
+		echo "   go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest"; \
+		exit 1; \
+	fi
+	@golangci-lint run --config .golangci.yml ./...
+
+# Run golangci-lint with auto-fix
+lint-fix:
+	@echo "🔧 Running golangci-lint with auto-fix..."
+	@if ! command -v golangci-lint >/dev/null 2>&1; then \
+		echo "❌ golangci-lint is not installed. Please install it first:"; \
+		echo "   go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest"; \
+		exit 1; \
+	fi
+	@golangci-lint run --config .golangci.yml --fix ./...
+
+# Format Go code
+fmt:
+	@echo "🎨 Formatting Go code..."
+	@go fmt ./...
+	@echo "✅ Code formatted successfully!"
+
+# Run go vet
+vet:
+	@echo "🔍 Running go vet..."
+	@go vet ./...
+	@echo "✅ go vet completed successfully!"

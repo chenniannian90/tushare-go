@@ -54,10 +54,6 @@ func DefaultConfig(transport, addr string) *ServerConfig {
 				},
 			},
 		},
-		GlobalAuth: AuthConfig{
-			Type:     "none",
-			Required: false,
-		},
 	}
 }
 

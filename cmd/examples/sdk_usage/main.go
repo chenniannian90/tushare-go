@@ -1,3 +1,5 @@
+// +build ignore
+
 package main
 
 import (
@@ -43,9 +45,11 @@ func main() {
 	fmt.Println("\n✅ 方式 2: apis 包（推荐）")
 	fmt.Println("\n调用示例：")
 	fmt.Println("  import sdkapis \".../pkg/sdk/apis\"")
-	fmt.Println("  sdkapis.TopList(ctx, client, req)")
+	fmt.Println("  tushareClient := sdkapis.NewTushareClient(client)")
+	fmt.Println("  tushareClient.StockBoard.TopList(ctx, req)")
 
-	_, err = sdkapis.TopList(context.Background(), client, &stockboard.TopListRequest{})
+	tushareClient := sdkapis.NewTushareClient(client)
+	_, err = tushareClient.StockBoard.TopList(context.Background(), &stockboard.TopListRequest{})
 	if err != nil {
 		log.Printf("Note: Expected error (empty response_fields): %v", err)
 	}
