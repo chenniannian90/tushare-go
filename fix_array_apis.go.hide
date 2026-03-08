@@ -1,0 +1,127 @@
+package main
+
+import (
+	"fmt"
+	"os"
+	"path/filepath"
+	"strings"
+)
+
+func main() {
+	fmt.Println("🔧 智能批量修复数组格式API工具")
+	fmt.Println()
+
+	// 扫描所有API文件
+	apiDir := "/Users/mac-new/go/src/github.com/chenniannian90/tushare-go/pkg/sdk/api"
+
+	err := filepath.Walk(apiDir, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+
+		// 跳过测试文件和目录
+		if info.IsDir() || strings.HasSuffix(path, "_test.go") {
+			return nil
+		}
+
+		// 读取文件内容
+		content, err := os.ReadFile(path)
+		if err != nil {
+			return err
+		}
+
+		fileContent := string(content)
+
+		// 检查是否包含Items字段定义且可能有问题
+		if strings.Contains(fileContent, "Items  []map[string]interface{}") {
+			relPath, _ := filepath.Rel(apiDir, path)
+
+			// 检查是否已经有修复（使用interface{}）
+			if strings.Contains(fileContent, "Items  []interface{}") {
+				return nil // 已经修复过
+			}
+
+			fmt.Printf("🔍 发现需要检查的API: %s\n", relPath)
+
+			// 尝试智能修复
+			fixed := fixArrayFormatAPI(fileContent, relPath)
+			if fixed != fileContent {
+				// 备份原文件
+				backupPath := path + ".backup"
+				os.WriteFile(backupPath, content, 0644)
+
+				// 写入修复后的内容
+				err := os.WriteFile(path, []byte(fixed), 0644)
+				if err != nil {
+					fmt.Printf("  ❌ 修复失败: %v\n", err)
+				} else {
+					fmt.Printf("  ✅ 已自动修复\n")
+				}
+			}
+		}
+
+		return nil
+	})
+
+	if err != nil {
+		fmt.Printf("❌ 扫描失败: %v\n", err)
+		return
+	}
+
+	fmt.Println()
+	fmt.Println("✨ 修复完成！")
+}
+
+func fixArrayFormatAPI(content, filename string) string {
+	lines := strings.Split(content, "\n")
+	result := make([]string, 0, len(lines))
+	itemsModified := false
+
+	for i, line := range lines {
+		// 检查是否是Items字段定义行
+		if strings.Contains(line, "Items  []map[string]interface{}") {
+			// 替换为灵活的interface类型
+			newLine := strings.Replace(line, "Items  []map[string]interface{}", "Items  []interface{}", 1)
+			result = append(result, newLine)
+			itemsModified = true
+			fmt.Printf("  📝 修改第%d行: Items字段类型\n", i+1)
+			continue
+		}
+
+		// 如果修改了Items字段，需要更新后续的处理逻辑
+		if itemsModified && strings.Contains(line, "for i, item := range result.Items") {
+			// 在这里添加类型检查逻辑
+			indent := getIndent(line)
+			result = append(result, line)
+			result = append(result, indent+"// 支持数组和对象两种格式")
+			result = append(result, indent+"var parsedItem map[string]interface{}")
+			result = append(result, indent+"switch v := item.(type) {")
+			result = append(result, indent+"case map[string]interface{}:")
+			result = append(result, indent+"	parsedItem = v")
+			result = append(result, indent+"case []interface{}:")
+			result = append(result, indent+"	// 数组格式，跳过或转换")
+			result = append(result, indent+"	continue")
+			result = append(result, indent+"default:")
+			result = append(result, indent+"	continue")
+			result = append(result, indent+"}")
+			itemsModified = false
+			continue
+		}
+
+		result = append(result, line)
+	}
+
+	return strings.Join(result, "\n")
+}
+
+func getIndent(line string) string {
+	indent := ""
+	for _, ch := range line {
+		if ch == ' ' || ch == '\t' {
+			indent += string(ch)
+		} else {
+			break
+		}
+	}
+	return indent
+}

@@ -4,7 +4,6 @@ package stock_basic
 
 import (
 	"context"
-	"fmt"
 
 	"tushare-go/pkg/sdk"
 )
@@ -50,86 +49,55 @@ func NewShare(ctx context.Context, client *sdk.Client, req *NewShareRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "new_share", params, fields, &result); err != nil {
+	// 使用 CallAPIFlexible 自动处���对象数组和二维数组两种格式
+	if err := client.CallAPIFlexible(ctx, "new_share", params, fields, &result); err != nil {
 		return nil, err
 	}
+
 	items := make([]NewShareItem, len(result.Items))
 	for i, item := range result.Items {
-		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
-			return nil, fmt.Errorf("无效的 ts_code 类型")
-		}
-		// 处理 sub_code 的简单类型
-		subCode, ok := item["sub_code"].(string)
-		if !ok {
-			return nil, fmt.Errorf("无效的 sub_code 类型")
-		}
-		// 处理 name 的简单类型
-		name, ok := item["name"].(string)
-		if !ok {
-			return nil, fmt.Errorf("无效的 name 类型")
-		}
-		// 处理 ipo_date 的简单类型
-		ipoDate, ok := item["ipo_date"].(string)
-		if !ok {
-			return nil, fmt.Errorf("无效的 ipo_date 类型")
-		}
-		// 处理 issue_date 的简单类型
-		issueDate, ok := item["issue_date"].(string)
-		if !ok {
-			return nil, fmt.Errorf("无效的 issue_date 类型")
-		}
-		// 处理 amount 的简单类型
-		amount, ok := item["amount"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 amount 类型")
-		}
-		// 处理 market_amount 的简单类型
-		marketAmount, ok := item["market_amount"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 market_amount 类型")
-		}
-		// 处理 price 的简单类型
-		price, ok := item["price"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 price 类型")
-		}
-		// 处理 pe 的简单类型
-		pe, ok := item["pe"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 pe 类型")
-		}
-		// 处理 limit_amount 的简单类型
-		limitAmount, ok := item["limit_amount"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 limit_amount 类型")
-		}
-		// 处理 funds 的简单类型
-		funds, ok := item["funds"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 funds 类型")
-		}
-		// 处理 ballot 的简单类型
-		ballot, ok := item["ballot"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 ballot 类型")
-		}
 		items[i] = NewShareItem{
-			TsCode: tsCode,
-			SubCode: subCode,
-			Name: name,
-			IpoDate: ipoDate,
-			IssueDate: issueDate,
-			Amount: amount,
-			MarketAmount: marketAmount,
-			Price: price,
-			Pe: pe,
-			LimitAmount: limitAmount,
-			Funds: funds,
-			Ballot: ballot,
+			TsCode:       getString(item, "ts_code"),
+			SubCode:      getString(item, "sub_code"),
+			Name:         getString(item, "name"),
+			IpoDate:      getString(item, "ipo_date"),
+			IssueDate:    getString(item, "issue_date"),
+			Amount:       getFloat64(item, "amount"),
+			MarketAmount: getFloat64(item, "market_amount"),
+			Price:        getFloat64(item, "price"),
+			Pe:           getFloat64(item, "pe"),
+			LimitAmount:  getFloat64(item, "limit_amount"),
+			Funds:        getFloat64(item, "funds"),
+			Ballot:       getFloat64(item, "ballot"),
 		}
 	}
 
 	return items, nil
+}
+
+// getString 安全地从map中获取string值，处理nil值
+func getString(m map[string]interface{}, key string) string {
+	if val, ok := m[key]; ok && val != nil {
+		if s, ok := val.(string); ok {
+			return s
+		}
+	}
+	return ""
+}
+
+// getFloat64 安全地从map中获取float64值，处理nil值
+func getFloat64(m map[string]interface{}, key string) float64 {
+	if val, ok := m[key]; ok && val != nil {
+		switch v := val.(type) {
+		case float64:
+			return v
+		case float32:
+			return float64(v)
+		case int:
+			return float64(v)
+		case int64:
+			return float64(v)
+		}
+	}
+	return 0.0
 }

@@ -124,3 +124,119 @@ func (c *Client) CallAPI(
 
 	return nil
 }
+
+// CallAPIFlexible 向 Tushare 发起 API 调用（支持灵活的响应格式）
+// 这个方法会自动检测API返回的是对象数组还是二维数组，并统一转换为对象数组
+// 向后兼容：返回的result会被填充为对象数组格式
+func (c *Client) CallAPIFlexible(
+	ctx context.Context,
+	apiName string,
+	params map[string]interface{},
+	fields []string,
+	result interface{},
+) error {
+	// Determine which token to use
+	token := c.config.GetToken() // 使用负载均衡器获取 token
+	if ctxToken, ok := GetTokenFromContext(ctx); ok {
+		token = ctxToken // context token 优先级最高
+	}
+
+	// 构建请求体
+	reqBody := map[string]interface{}{
+		"api_name": apiName,
+		"token":    token,
+		"params":   params,
+		"fields":   strings.Join(fields, ","),
+	}
+
+	bodyBytes, err := json.Marshal(reqBody)
+	if err != nil {
+		return fmt.Errorf("请求序列化失败: %w", err)
+	}
+
+	// 创建 HTTP 请求
+	req, err := http.NewRequestWithContext(ctx, "POST", c.config.Endpoint, bytes.NewReader(bodyBytes))
+	if err != nil {
+		return fmt.Errorf("创建请求失败: %w", err)
+	}
+
+	req.Header.Set("Content-Type", "application/json")
+
+	// 执行请求
+	resp, err := c.config.HTTPClient.Do(req)
+	if err != nil {
+		return WrapNetworkError(err, "请求失败")
+	}
+	defer func() {
+		_ = resp.Body.Close()
+	}()
+
+	// 检查 HTTP 状态码
+	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
+		return WrapAPIErrorWithCode(
+			ClassifyAPIError(resp.StatusCode, ""),
+			fmt.Sprintf("HTTP 请求失败，状态码 %d", resp.StatusCode),
+			resp.StatusCode,
+			nil,
+		)
+	}
+
+	// 读取响应
+	respBody, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return &NetworkError{Message: "读取响应失败", Err: err}
+	}
+
+	// 解析响应
+	var apiResp struct {
+		Code int             `json:"code"`
+		Msg  string          `json:"msg"`
+		Data json.RawMessage `json:"data"`
+	}
+
+	if err := json.Unmarshal(respBody, &apiResp); err != nil {
+		return fmt.Errorf("响应反序列化失败: %w", err)
+	}
+
+	// 检查 API 错误
+	if apiResp.Code != 0 {
+		errorCode := ClassifyAPIError(apiResp.Code, apiResp.Msg)
+		return WrapAPIErrorWithCode(errorCode, apiResp.Msg, apiResp.Code, nil)
+	}
+
+	// 使用灵活的响应解析器
+	var rawResponse APIResponse
+	if err := json.Unmarshal(apiResp.Data, &rawResponse); err != nil {
+		return fmt.Errorf("解析响应结构失败: %w", err)
+	}
+
+	// 自动检测格式并转换
+	items, err := rawResponse.ParseAndConvert()
+	if err != nil {
+		// 添加调试信息
+		log.Printf("DEBUG: API Name: %s", apiName)
+		log.Printf("DEBUG: Raw Response Data: %s", string(apiResp.Data))
+		return fmt.Errorf("灵活解析数据失败: %w", err)
+	}
+
+	// 构建统一的响应格式
+	normalizedResponse := struct {
+		Fields []string                 `json:"fields"`
+		Items  []map[string]interface{} `json:"items"`
+	}{
+		Fields: rawResponse.Fields,
+		Items:  items,
+	}
+
+	// 将标准化后的响应解析到用户提供的result中
+	normalizedData, err := json.Marshal(normalizedResponse)
+	if err != nil {
+		return fmt.Errorf("序列化标准化响应失败: %w", err)
+	}
+
+	if err := json.Unmarshal(normalizedData, result); err != nil {
+		return fmt.Errorf("反序列化到目标结构体失败: %w", err)
+	}
+
+	return nil
+}
