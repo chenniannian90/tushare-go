@@ -45,7 +45,7 @@ POST /api/v1/hk_stock?tool=hk_factor
 
 ### 请求格式
 
-#### 使��统一端点
+#### 使用统一端点
 
 ```http
 POST /api/v1/hk_stock?tool=hk_basic HTTP/1.1
