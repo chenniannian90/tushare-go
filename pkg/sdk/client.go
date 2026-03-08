@@ -10,6 +10,22 @@ import (
 	"strings"
 )
 
+// Context key type for storing token in context
+type contextKey string
+
+const tokenKey contextKey = "tushare_token"
+
+// WithToken adds a token to the context for API calls
+func WithToken(ctx context.Context, token string) context.Context {
+	return context.WithValue(ctx, tokenKey, token)
+}
+
+// GetTokenFromContext extracts the token from the context
+func GetTokenFromContext(ctx context.Context) (string, bool) {
+	token, ok := ctx.Value(tokenKey).(string)
+	return token, ok
+}
+
 // Client 表示 Tushare API 客户端
 type Client struct {
 	config *Config
@@ -28,10 +44,16 @@ func (c *Client) CallAPI(
 	fields []string,
 	result interface{},
 ) error {
+	// Determine which token to use
+	token := c.config.GetToken() // 使用负载均衡器获取 token
+	if ctxToken, ok := GetTokenFromContext(ctx); ok {
+		token = ctxToken // context token 优先级最高
+	}
+
 	// 构建请求体
 	reqBody := map[string]interface{}{
 		"api_name": apiName,
-		"token":    c.config.Token,
+		"token":    token,
 		"params":   params,
 		"fields":   strings.Join(fields, ","),
 	}

@@ -1,20 +1,35 @@
-.PHONY: test build clean gen gen-specs examples fix-encoding run-examples
+.PHONY: test build clean gen gen-specs examples fix-encoding run-examples version
+
+# Version information
+VERSION ?= $(shell git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0-dev")
+GIT_COMMIT ?= $(shell git rev-parse --short HEAD 2>/dev/null || echo "unknown")
+BUILD_DATE ?= $(shell date -u '+%Y-%m-%d_%H:%M:%S' 2>/dev/null || echo "unknown")
+
+# Ldflags for version injection
+LDFLAGS := -ldflags "-X main.Version=$(VERSION) -X main.GitCommit=$(GIT_COMMIT) -X main.BuildDate=$(BUILD_DATE)"
 
 test:
 	go test -v -race -coverprofile=coverage.out ./...
 	go tool cover -html=coverage.out -o coverage.html
 
 build-mcp:
-	go build -o bin/tushare-mcp ./cmd/mcp-server
+	go build $(LDFLAGS) -o bin/tushare-mcp ./cmd/mcp-server
 
 build-mcp-auth:
-	go build -o bin/mcp_server_with_auth ./cmd/mcp-server
+	go build $(LDFLAGS) -o bin/mcp_server_with_auth ./cmd/mcp-server
 
 build-gen:
-	go build -o bin/generator ./cmd/generator
+	go build $(LDFLAGS) -o bin/generator ./cmd/generator
 
 build-spec-gen:
-	go build -o bin/spec-gen ./cmd/spec-gen
+	go build $(LDFLAGS) -o bin/spec-gen ./cmd/spec-gen
+
+# Show version information
+version:
+	@echo "Version: $(VERSION)"
+	@echo "Git Commit: $(GIT_COMMIT)"
+	@echo "Build Date: $(BUILD_DATE)"
+	@echo "Ldflags: $(LDFLAGS)"
 
 gen: build-gen
 	./bin/generator pkg/sdk/api

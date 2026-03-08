@@ -35,10 +35,47 @@ curl -X POST http://localhost:8080/mcp \
   -H "Content-Type: application/json" \
   -d '{"jsonrpc":"2.0","id":2,"method":"tools/list"}'
 
-# 调用工具
-curl -X POST http://localhost:8080/api/v1/stock_basic/stock_basic \
+# 调用工具 (使用 API Token 认证)
+curl -X POST http://localhost:8080/stock \
+  -H "Authorization: Bearer your-tushare-token" \
   -H "Content-Type: application/json" \
-  -d '{"ts_code": "000001.SZ"}'
+  -d '{"name":"stock_basic.stock_basic","arguments":{"ts_code":"000001.SZ"}}'
+```
+
+### 2.1 使用 API Token 认证 (可选)
+
+如果你想在配置文件中预设多个 API token：
+
+```bash
+# 1. 创建��置文件
+cp config.example.json config.json
+
+# 2. 编辑 config.json，添加 api_tokens 字段
+# {
+#   "api_tokens": [
+#     "your-tushare-token-1",
+#     "your-tushare-token-2"
+#   ]
+# }
+
+# 3. 使用配置文件启动（可以省略 TUSHARE_TOKEN 环境变量）
+go run cmd/mcp-server/main.go -config config.json
+```
+
+使用认证的 API 调用：
+
+```bash
+# 使用 Authorization header
+curl -X POST http://localhost:8080/stock \
+  -H "Authorization: Bearer your-tushare-token-1" \
+  -H "Content-Type: application/json" \
+  -d '{"name":"stock_basic.stock_basic","arguments":{}}'
+
+# 或使用 X-API-Token header
+curl -X POST http://localhost:8080/stock \
+  -H "X-API-Token: your-tushare-token-1" \
+  -H "Content-Type: application/json" \
+  -d '{"name":"stock_basic.stock_basic","arguments":{}}'
 ```
 
 ### 3. 在浏览器中访问

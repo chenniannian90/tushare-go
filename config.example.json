@@ -168,5 +168,10 @@
   "global_auth": {
     "type": "none",
     "required": false
-  }
+  },
+
+  "api_tokens": [
+    "your-tushare-token-1",
+    "your-tushare-token-2"
+  ]
 }

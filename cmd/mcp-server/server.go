@@ -25,28 +25,50 @@ func NewServer(cfg *config.ServerConfig, client *sdk.Client) (*Server, error) {
 
 	// Create services based on configuration
 	for name, svcConfig := range cfg.Services {
-		mcpService, err := createMCPService(name, svcConfig, client)
-		if err != nil {
-			return nil, fmt.Errorf("failed to create service %q: %w", name, err)
+		// Determine if we need to create separate services for each category
+		if len(svcConfig.Categories) == 0 || (len(svcConfig.Categories) == 1 && svcConfig.Categories[0] == name) {
+			// Single category matching name - create one service with all tools
+			mcpService, err := createMCPService(name, svcConfig, client, svcConfig.Categories)
+			if err != nil {
+				return nil, fmt.Errorf("failed to create service %q: %w", name, err)
+			}
+			srv.services[name] = mcpService
+			log.Printf("Created service '%s' on path '%s'", name, svcConfig.Path)
+		} else {
+			// Multiple categories - create separate service for each category
+			for _, category := range svcConfig.Categories {
+				// Create unique service name by combining service name and category
+				serviceName := fmt.Sprintf("%s_%s", name, category)
+				servicePath := fmt.Sprintf("%s/%s", svcConfig.Path, category)
+
+				// Create service config for this specific category
+				categoryConfig := svcConfig
+				categoryConfig.Path = servicePath
+
+				mcpService, err := createMCPService(serviceName, categoryConfig, client, []string{category})
+				if err != nil {
+					return nil, fmt.Errorf("failed to create service %q: %w", serviceName, err)
+				}
+				srv.services[serviceName] = mcpService
+				log.Printf("Created service '%s' on path '%s' (category: %s)", serviceName, servicePath, category)
+			}
 		}
-		srv.services[name] = mcpService
-		log.Printf("Created service '%s' on path '%s'", name, svcConfig.Path)
 	}
 
 	return srv, nil
 }
 
 // createMCPService creates a single MCP service
-func createMCPService(name string, svcConfig config.ServiceConfig, client *sdk.Client) (*mcpService, error) {
-	// Create MCP server
+func createMCPService(name string, svcConfig config.ServiceConfig, client *sdk.Client, categories []string) (*mcpService, error) {
+	// Create MCP server with version information
 	impl := &mcpsdk.Implementation{
 		Name:    "tushare-mcp-" + name,
-		Version: "1.0.0",
+		Version: Version,
 	}
 	mcpServer := mcpsdk.NewServer(impl, nil)
 
-	// Register tools based on service categories
-	if err := registerToolsForService(mcpServer, svcConfig.Categories, client); err != nil {
+	// Register tools based on provided categories
+	if err := registerToolsForService(mcpServer, categories, client); err != nil {
 		return nil, fmt.Errorf("failed to register tools: %w", err)
 	}
 
@@ -106,12 +128,24 @@ func (s *Server) startHTTP() error {
 		}
 
 		// Create streamable HTTP handler for this service
-		httpHandler := mcpsdk.NewStreamableHTTPHandler(func(*http.Request) *mcpsdk.Server {
+		httpHandler := mcpsdk.NewStreamableHTTPHandler(func(r *http.Request) *mcpsdk.Server {
+			// Extract validated token from request headers and set in context
+			if token := ExtractTokenFromRequest(r); token != "" {
+				// Create a context with the token for this request
+				ctx := sdk.WithToken(r.Context(), token)
+				r = r.WithContext(ctx)
+			}
 			return svc.server
 		}, &mcpsdk.StreamableHTTPOptions{})
 
+		// Wrap with authentication middleware if tokens are configured
+		var finalHandler http.Handler = httpHandler
+		if len(s.config.APITokens) > 0 {
+			finalHandler = AuthMiddleware(s.config.APITokens, httpHandler)
+		}
+
 		// Wrap with CORS middleware
-		corsHandler := corsMiddleware(httpHandler)
+		corsHandler := corsMiddleware(finalHandler)
 
 		// Register the handler on the service's path
 		mux.Handle(svc.config.Path, corsHandler)
@@ -121,10 +155,23 @@ func (s *Server) startHTTP() error {
 
 	// Also register "all" service on root path if configured
 	if allSvc, ok := s.services["all"]; ok {
-		httpHandler := mcpsdk.NewStreamableHTTPHandler(func(*http.Request) *mcpsdk.Server {
+		httpHandler := mcpsdk.NewStreamableHTTPHandler(func(r *http.Request) *mcpsdk.Server {
+			// Extract validated token from request headers and set in context
+			if token := ExtractTokenFromRequest(r); token != "" {
+				// Create a context with the token for this request
+				ctx := sdk.WithToken(r.Context(), token)
+				r = r.WithContext(ctx)
+			}
 			return allSvc.server
 		}, &mcpsdk.StreamableHTTPOptions{})
-		corsHandler := corsMiddleware(httpHandler)
+
+		// Wrap with authentication middleware if tokens are configured
+		var finalHandler http.Handler = httpHandler
+		if len(s.config.APITokens) > 0 {
+			finalHandler = AuthMiddleware(s.config.APITokens, httpHandler)
+		}
+
+		corsHandler := corsMiddleware(finalHandler)
 		mux.Handle("/", corsHandler)
 		log.Printf("Registered HTTP service 'all' on path '/'")
 	}

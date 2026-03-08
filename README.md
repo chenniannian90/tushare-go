@@ -12,6 +12,8 @@
 - ✅ 生产就绪，包含26个完整实现的工具模块
 - ✅ **链式调用客户端，统一的API访问入口**
 - ✅ **优化后的代码结构，简洁高效**
+- ✅ **API Token 认证，支持多用户访问控制**
+- ✅ **Token 负载均衡，支持多 Token 自动分配**
 
 ## 安装
 
@@ -173,8 +175,11 @@ go run cmd/examples/daily/main.go
 # 运行测试
 make test
 
-# 构建 MCP 服务器
+# 构建 MCP 服务器（自动获取 git tag 版本）
 make build-mcp
+
+# 查看构建版本信息
+make version
 
 # 构建代码生成器
 make build-gen
@@ -185,6 +190,14 @@ make gen
 # 生成 MCP 工具
 go run cmd/gen-mcp-tools/main.go -optimized
 ```
+
+**版本管理**：
+- 项目使用 Git tag 作为版本号来源
+- 构建时自动注入版本信息到二进制文件
+- 使用 `--version` 参数查看详细版本信息
+- 支持 `VERSION` 环境变量自定义版本
+
+📖 **详细文档**: [版本管理指南](docs/VERSION_MANAGEMENT.md)
 
 ## MCP 服务器使用
 
@@ -205,6 +218,9 @@ go run cmd/mcp-server/main.go -transport http -addr :8080
 # 或者使用构建好的版本
 make build-mcp
 ./bin/tushare-mcp
+
+# 查看版本信息
+./bin/tushare-mcp --version
 ```
 
 #### 方式2：使用配置文件
@@ -213,11 +229,20 @@ make build-mcp
 # 1. 复制示例配置文件
 cp config.example.json config.json
 
-# 2. 根据需要修改配置文件（可选）
+# 2. 根据需要修改配置文件
 # 编辑 config.json，设置 host、port、transport 等参数
 
-# 3. 使用配置文件启动
-export TUSHARE_TOKEN="your-tushare-token"
+# 3. (可选) 在配置文件中设置 API tokens
+# 在 config.json 中添加 "api_tokens" 字段：
+# {
+#   "api_tokens": [
+#     "your-tushare-token-1",
+#     "your-tushare-token-2"
+#   ]
+# }
+
+# 4. 使用配置文件启动
+# 如果配置了 api_tokens，可以省略 TUSHARE_TOKEN 环境变量
 go run cmd/mcp-server/main.go -config config.json
 ```
 
@@ -225,6 +250,7 @@ go run cmd/mcp-server/main.go -config config.json
 - `host`: HTTP服务器监听地址（默认：0.0.0.0）
 - `port`: HTTP服务器端口（默认：8080）
 - `transport`: 传输类型，可选 "stdio" 或 "http"
+- `api_tokens`: 合法的API token列表（可选，用于认证）
 - `services`: 服务配置，可以定义多个服务端点
   - `all`: 所有API集合（推荐用于stdio模式）
   - `stock`: 股票市场数据API
@@ -254,8 +280,23 @@ curl -X POST http://localhost:8080/mcp \
   -H "Content-Type: application/json" \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
 
-# 调用工具
-curl -X POST http://localhost:8080/mcp \
+# 调用工具（使用 API Token 认证）
+curl -X POST http://localhost:8080/stock \
+  -H "Authorization: Bearer your-tushare-token-1" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "jsonrpc":"2.0",
+    "id":1,
+    "method":"tools/call",
+    "params":{
+      "name":"stock_basic.stock_basic",
+      "arguments":{"ts_code":"000001.SZ"}
+    }
+  }'
+
+# 或者使用 X-API-Token header
+curl -X POST http://localhost:8080/stock \
+  -H "X-API-Token: your-tushare-token-1" \
   -H "Content-Type: application/json" \
   -d '{
     "jsonrpc":"2.0",
@@ -269,6 +310,8 @@ curl -X POST http://localhost:8080/mcp \
 ```
 
 **📖 详细文档**: 查看 [MCP 服务器完整指南](docs/MCP_SERVER_GUIDE.md) 或 [快速开始指南](docs/QUICK_START.md)
+
+**📚 文档中心**: 访问 [docs/README.md](docs/README.md) 查看所有文档
 
 ## 测试
 
@@ -306,6 +349,77 @@ tushare-go/
 ```
 
 ## 最新优化
+
+### Token 负载均衡功能 (2026-03-08)
+
+- ✅ **多 Token 支持**: 配置多个 API token 自动负载均衡
+- ✅ **轮询算法**: 按顺序依次使用 token，请求分布均匀
+- ✅ **随机算法**: 随机选择 token，更适合高并发场景
+- ✅ **并发安全**: 使用原子操作保证线程安全
+- ✅ **向后兼容**: 完全兼容原有单 token 使用方式
+
+**使用示例**：
+```go
+// 配置多个 token，轮询负载均衡
+tokens := []string{"token1", "token2", "token3"}
+config, _ := sdk.NewConfigWithTokens(tokens, "roundrobin")
+client := sdk.NewClient(config)
+
+// 使用方式与原来完全相同
+stocks, err := stockbasic.StockBasic(ctx, client, req)
+```
+
+📖 **详细文档**: [Token 负载均衡指南](docs/TOKEN_LOAD_BALANCING.md)
+
+### 版本管理自动化 (2026-03-08)
+
+- ✅ **自动版本获取**: 从 Git tag 自动获取版本号
+- ✅ **构建信息注入**: 自动注入版本号、commit hash、构建时间
+- ✅ **版本显示**: 支持 `--version` 参数查看详细版本信息
+- ✅ **发布流程**: 简化版本发布流程，一个命令完成
+- ✅ **CI/CD 友好**: 支持环境变量自定义版本信息
+
+**使用示例**：
+```bash
+# 查看版本信息
+./bin/tushare-mcp --version
+
+# 输出示例:
+# Tushare MCP Server
+# Version: v1.0.0 (ca3c630)
+# Full Info: v1.0.0, commit: ca3c630, built at: 2026-03-08_09:00:00
+```
+
+📖 **详细文档**: [版本管理指南](docs/VERSION_MANAGEMENT.md)
+
+### API Token 认证功能 (2026-03-08)
+
+- ✅ **多用户支持**: 支持在配置文件中设置多个合法的 API token
+- ✅ **灵活认证**: 支持 `Authorization: Bearer` 和 `X-API-Token` 两种认证方式
+- ✅ **动态 token**: 用户提供的 token 自动用于 Tushare API 调用
+- ✅ **向后兼容**: 仍支持 `TUSHARE_TOKEN` 环境变量方式
+- ✅ **安全增强**: 可为不同用户配置不同的 token，实现访问控制
+
+**配置示例**：
+```json
+{
+  "api_tokens": [
+    "your-tushare-token-1",
+    "your-tushare-token-2"
+  ]
+}
+```
+
+**使用示例**：
+```bash
+# 使用配置文件中的 token
+curl -X POST http://localhost:8080/stock \
+  -H "Authorization: Bearer your-tushare-token-1" \
+  -H "Content-Type: application/json" \
+  -d '{"name":"stock_basic.stock_basic","arguments":{}}'
+```
+
+📖 **详细文档**: [API Token 认证指南](docs/API_TOKEN_AUTH.md)
 
 ### MCP服务器重构 (2026-03-08)
 

@@ -19,8 +19,8 @@ test_*    # 测试二进制文件
 /generator
 /tushare-mcp
 
-# cmd目录下的二进制文件
-**/mcp-server
+# cmd目录下的二进制文件（但不包括源代码目录）
+*/mcp-server
 **/bin/
 
 # Go编译产物

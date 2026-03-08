@@ -90,6 +90,10 @@ make build-mcp-auth
   "host": "localhost",
   "port": 9000,
   "transport": "http",
+  "api_tokens": [
+    "your-tushare-token-1",
+    "your-tushare-token-2"
+  ],
   "services": {
     "stock": {
       "name": "tushare-stock",
@@ -110,8 +114,20 @@ make build-mcp-auth
 使用自定义配置:
 
 ```bash
+# 如果配置了 api_tokens，可以省略 TUSHARE_TOKEN 环境变量
+go run cmd/mcp-server/main.go -config config.json
+
+# 或者仍然使用环境变量
+export TUSHARE_TOKEN="your-tushare-token"
 go run cmd/mcp-server/main.go -config config.json
 ```
+
+**配置字段说明**：
+- `host`: 服务器监听地址
+- `port`: 服务器端口
+- `transport`: 传输类型 (`stdio` 或 `http`)
+- `api_tokens`: 可选的 API token 列表，用于多用户认证
+- `services`: 服务端点配置
 
 ## 📡 传输模式
 
@@ -149,6 +165,120 @@ go run cmd/mcp-server/main.go -transport http
 export TUSHARE_TOKEN="your-token"
 go run cmd/mcp-server/main.go -transport both
 ```
+
+## 🔐 API Token 认证
+
+### 概述
+
+MCP 服务器现在支持基于 API Token 的认证功能，允许你：
+
+1. 在配置文件中预设多个合法的 Tushare API token
+2. 为不同用户或应用配置不同的 token
+3. 用户请求时必须提供其中一个 token 进行认证
+4. 认证通过后，用户的 token 将自动用于 Tushare API 调用
+
+### 配置方式
+
+#### 方式 1: 配置文件 (推荐)
+
+在 `config.json` 中添加 `api_tokens` 字段：
+
+```json
+{
+  "host": "0.0.0.0",
+  "port": 8080,
+  "transport": "http",
+  "api_tokens": [
+    "your-tushare-token-1",
+    "your-tushare-token-2",
+    "your-tushare-token-3"
+  ],
+  "services": {
+    "stock": {
+      "name": "stock",
+      "path": "/stock",
+      "categories": ["stock_basic", "stock_market"]
+    }
+  }
+}
+```
+
+启动服务器时可以省略 `TUSHARE_TOKEN` 环境变量：
+
+```bash
+go run cmd/mcp-server/main.go -config config.json
+```
+
+#### 方式 2: 环境变量 (向后兼容)
+
+如果不设置 `api_tokens`，系统将继续使用 `TUSHARE_TOKEN` 环境变量：
+
+```bash
+export TUSHARE_TOKEN="your-tushare-token"
+go run cmd/mcp-server/main.go
+```
+
+### 使用方式
+
+#### HTTP 传输认证
+
+**使用 Authorization Header (推荐)**：
+
+```bash
+curl -X POST http://localhost:8080/stock \
+  -H "Authorization: Bearer your-tushare-token-1" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "stock_basic.stock_basic",
+    "arguments": {}
+  }'
+```
+
+**使用 X-API-Token Header**：
+
+```bash
+curl -X POST http://localhost:8080/stock \
+  -H "X-API-Token: your-tushare-token-1" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "stock_basic.stock_basic",
+    "arguments": {}
+  }'
+```
+
+#### 认证失败响应
+
+如果 token 无效或缺失，服务器将返回 401 Unauthorized：
+
+```json
+{
+  "error": "Invalid authentication token"
+}
+```
+
+或
+
+```json
+{
+  "error": "Missing authentication token"
+}
+```
+
+### 安全建议
+
+1. **配置文件保护**：
+   ```bash
+   chmod 600 config.json  # 只有所有者可读写
+   ```
+
+2. **不要提交敏感信息**：
+   ```bash
+   echo "config.json" >> .gitignore
+   ```
+
+3. **使用 HTTPS**：在生产环境中，建议使用 HTTPS 来保护 token 在传输过程中的安全
+
+4. **定期轮换**：定期更换 API tokens 以提高安全性
 
 ## 🧪 测试服务器
 

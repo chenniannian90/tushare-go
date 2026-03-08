@@ -27,6 +27,7 @@ type ServerConfig struct {
 	Transport  string                   `json:"transport"`   // "stdio" or "http"
 	Services   map[string]ServiceConfig `json:"services"`    // named service configurations
 	GlobalAuth AuthConfig               `json:"global_auth"` // fallback auth config
+	APITokens  []string                 `json:"api_tokens"`  // list of valid api tokens for authentication
 }
 
 // LoadFile loads server configuration from a JSON file

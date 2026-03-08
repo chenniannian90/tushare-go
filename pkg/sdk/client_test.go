@@ -193,3 +193,148 @@ func TestNewClient(t *testing.T) {
 		t.Error("NewClient() should store the config")
 	}
 }
+
+func TestWithContextToken(t *testing.T) {
+	tests := []struct {
+		name          string
+		baseToken     string
+		contextToken  string
+		expectedToken string
+	}{
+		{
+			name:          "context token overrides base token",
+			baseToken:     "base_token",
+			contextToken:  "context_token",
+			expectedToken: "context_token",
+		},
+		{
+			name:          "no context token uses base token",
+			baseToken:     "base_token",
+			contextToken:  "",
+			expectedToken: "base_token",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			ctx := context.Background()
+
+			// Add context token if provided
+			if tt.contextToken != "" {
+				ctx = WithToken(ctx, tt.contextToken)
+			}
+
+			// Check which token would be used
+			token := tt.baseToken
+			if ctxToken, ok := GetTokenFromContext(ctx); ok {
+				token = ctxToken
+			}
+
+			if token != tt.expectedToken {
+				t.Errorf("Expected token %q, got %q", tt.expectedToken, token)
+			}
+		})
+	}
+}
+
+func TestGetTokenFromContext(t *testing.T) {
+	tests := []struct {
+		name        string
+		token       string
+		expectFound bool
+	}{
+		{
+			name:        "token present in context",
+			token:       "test123",
+			expectFound: true,
+		},
+		{
+			name:        "token not in context",
+			token:       "",
+			expectFound: false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			ctx := context.Background()
+			if tt.token != "" {
+				ctx = WithToken(ctx, tt.token)
+			}
+
+			token, found := GetTokenFromContext(ctx)
+			if found != tt.expectFound {
+				t.Errorf("GetTokenFromContext() found = %v; want %v", found, tt.expectFound)
+			}
+			if found && token != tt.token {
+				t.Errorf("GetTokenFromContext() token = %q; want %q", token, tt.token)
+			}
+		})
+	}
+}
+
+func TestWithToken(t *testing.T) {
+	ctx := context.Background()
+	token := "test_token_123"
+
+	// Add token to context
+	newCtx := WithToken(ctx, token)
+
+	// Verify token can be extracted
+	retrievedToken, found := GetTokenFromContext(newCtx)
+	if !found {
+		t.Fatal("Token not found in context")
+	}
+	if retrievedToken != token {
+		t.Errorf("Expected token %q, got %q", token, retrievedToken)
+	}
+
+	// Verify original context is unchanged
+	_, found = GetTokenFromContext(ctx)
+	if found {
+		t.Error("Original context should not contain token")
+	}
+}
+
+func TestClient_CallAPI_WithContextToken(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Parse request body to verify token
+		var reqBody map[string]interface{}
+		json.NewDecoder(r.Body).Decode(&reqBody)
+
+		// Verify that the context token was used
+		token, ok := reqBody["token"].(string)
+		if !ok {
+			t.Error("token should be a string")
+		}
+		if token != "context_token_123" {
+			t.Errorf("expected token 'context_token_123', got %q", token)
+		}
+
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"code": 0,
+			"msg":  "success",
+			"data": map[string]interface{}{
+				"fields": []string{"ts_code"},
+				"items":  []map[string]interface{}{},
+			},
+		})
+	}))
+	defer server.Close()
+
+	config, _ := NewConfig("base_token") // Base token that should be overridden
+	config.Endpoint = server.URL
+	client := NewClient(config)
+
+	// Create context with token
+	ctx := context.Background()
+	ctx = WithToken(ctx, "context_token_123")
+
+	var result map[string]interface{}
+	err := client.CallAPI(ctx, "stock_basic", map[string]interface{}{}, []string{"ts_code"}, &result)
+
+	if err != nil {
+		t.Errorf("unexpected error: %v", err)
+	}
+}

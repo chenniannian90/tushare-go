@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
 	"os"
 
@@ -11,27 +12,23 @@ import (
 
 func main() {
 	// Parse command-line flags
+	showVersion := flag.Bool("version", false, "Show version information")
 	configPath := flag.String("config", "", "Path to configuration file (JSON)")
 	transport := flag.String("transport", "stdio", "Transport type: stdio or http (overridden by config file)")
 	addr := flag.String("addr", ":8080", "HTTP server address (for http transport) (overridden by config file)")
 	flag.Parse()
 
-	// Get Tushare token from environment
-	token := os.Getenv("TUSHARE_TOKEN")
-	if token == "" {
-		log.Fatal("TUSHARE_TOKEN environment variable is required")
+	// Show version information if requested
+	if *showVersion {
+		fmt.Printf("Tushare MCP Server\n")
+		fmt.Printf("Version: %s\n", GetVersion())
+		fmt.Printf("Full Info: %s\n", GetFullVersionInfo())
+		os.Exit(0)
 	}
 
-	// Create SDK client
-	sdkConfig, err := sdk.NewConfig(token)
-	if err != nil {
-		log.Fatalf("Failed to create SDK config: %v", err)
-	}
-
-	client := sdk.NewClient(sdkConfig)
-
-	// Load server configuration
+	// Load server configuration first to check for api_tokens
 	var serverConfig *config.ServerConfig
+	var err error
 	if *configPath != "" {
 		// Load from configuration file
 		serverConfig, err = config.LoadFile(*configPath)
@@ -43,6 +40,29 @@ func main() {
 		// Use default configuration with command-line overrides
 		serverConfig = config.DefaultConfig(*transport, *addr)
 	}
+
+	// Determine token for client creation
+	// If api_tokens are configured in config file, use the first one as default
+	// Otherwise, require TUSHARE_TOKEN environment variable
+	var token string
+	if len(serverConfig.APITokens) > 0 {
+		token = serverConfig.APITokens[0]
+		log.Printf("Using token from configuration file (first of %d tokens)", len(serverConfig.APITokens))
+	} else {
+		token = os.Getenv("TUSHARE_TOKEN")
+		if token == "" {
+			log.Fatal("Either TUSHARE_TOKEN environment variable or api_tokens in config file is required")
+		}
+		log.Printf("Using token from TUSHARE_TOKEN environment variable")
+	}
+
+	// Create SDK client
+	sdkConfig, err := sdk.NewConfig(token)
+	if err != nil {
+		log.Fatalf("Failed to create SDK config: %v", err)
+	}
+
+	client := sdk.NewClient(sdkConfig)
 
 	// Create server
 	srv, err := NewServer(serverConfig, client)
