@@ -14,6 +14,8 @@
 - ✅ **优化后的代码结构，简洁高效**
 - ✅ **API Token 认证，支持多用户访问控制**
 - ✅ **Token 负载均衡，支持多 Token 自动分配**
+- ✅ **结构化日志系统，支持日志轮转和多格式输出**
+- ✅ **自动错误记录，API调用失败时自动记录详细信息**
 
 ## 安装
 
@@ -186,6 +188,38 @@ export TUSHARE_TOKEN=your_token_here
 ```
 
 **完整的Claude桌面版集成说明请参见 [CLAUDE_DESKTOP.md](CLAUDE_DESKTOP.md)。**
+
+## 日志配置 ⚙️
+
+本项目集成了结构化日志系统，支持自动错误记录和日志轮转。
+
+### 快速配置
+
+```go
+import "tushare-go/pkg/sdk/logger"
+
+// 初始化日志系统（输出到文件）
+logger.Init(&logger.LogConfig{
+    Filename:   "api.log",
+    MaxSize:    10,    // MB
+    MaxAge:     30,    // days
+    MaxBackups: 3,
+    Compress:   true,
+    Level:      "info",
+    Format:     "text",
+})
+```
+
+### 主要特性
+
+- ✅ **自动错误记录** - API 调用失败时自动记录完整的请求和响应信息
+- ✅ **结构化日志** - 支持字段形式的日志记录，便于查询分析
+- ✅ **日志轮转** - 自动按大小和时间轮转日志文件
+- ✅ **多种输出** - 支持控制台、文件、同时输出
+- ✅ **多种格式** - JSON 和 Text 两种格式
+
+**完整的日志配置和使用说明请参见 [LOGGING.md](LOGGING.md)。**
+
 
 ## 示例代码
 
@@ -393,6 +427,8 @@ tushare-go/
 ## 最新优化
 
 ### Token 负载均衡功能 (2026-03-08)
+- ✅ **结构化日志系统，支持日志轮转和多格式输出**
+- ✅ **自动错误记录，API调用失败时自动记录详细信息**
 
 - ✅ **多 Token 支持**: 配置多个 API token 自动负载均衡
 - ✅ **轮询算法**: 按顺序依次使用 token，请求分布均匀
@@ -412,6 +448,8 @@ stocks, err := stockbasic.StockBasic(ctx, client, req)
 ```
 
 📖 **详细文档**: [Token 负载均衡指南](docs/TOKEN_LOAD_BALANCING.md)
+- ✅ **结构化日志系统，支持日志轮转和多格式输出**
+- ✅ **自动错误记录，API调用失败时自动记录详细信息**
 
 ### 版本管理自动化 (2026-03-08)
 
