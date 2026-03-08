@@ -36,6 +36,8 @@ type UsTycrItem struct {
 }
 
 // UsTycr 调用 国债收益率曲线利率 API
+// 获取美国每日国债收益率曲线利率
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func UsTycr(ctx context.Context, client *sdk.Client, req *UsTycrRequest) ([]UsTycrItem, error) {
 	params := map[string]interface{}{}
 	if req.Date != "" {
@@ -58,7 +60,7 @@ func UsTycr(ctx context.Context, client *sdk.Client, req *UsTycrRequest) ([]UsTy
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "us_tycr", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "us_tycr", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]UsTycrItem, len(result.Items))

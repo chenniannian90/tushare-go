@@ -48,7 +48,7 @@ func SgeBasic(ctx context.Context, client *sdk.Client, req *SgeBasicRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "sge_basic", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "sge_basic", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]SgeBasicItem, len(result.Items))

@@ -68,7 +68,7 @@ func ResearchReport(ctx context.Context, client *sdk.Client, req *ResearchReport
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "research_report", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "research_report", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]ResearchReportItem, len(result.Items))

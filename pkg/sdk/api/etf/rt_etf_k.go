@@ -51,7 +51,7 @@ func RtEtfK(ctx context.Context, client *sdk.Client, req *RtEtfKRequest) ([]RtEt
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "rt_etf_k", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "rt_etf_k", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]RtEtfKItem, len(result.Items))

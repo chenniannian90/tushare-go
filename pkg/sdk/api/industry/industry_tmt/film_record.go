@@ -30,6 +30,8 @@ type FilmRecordItem struct {
 }
 
 // FilmRecord 调用 全国电影剧本备案数据 API
+// 获取全国电影剧本备案的公示数据
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func FilmRecord(ctx context.Context, client *sdk.Client, req *FilmRecordRequest) ([]FilmRecordItem, error) {
 	params := map[string]interface{}{}
 	if req.AnnDate != "" {
@@ -49,7 +51,7 @@ func FilmRecord(ctx context.Context, client *sdk.Client, req *FilmRecordRequest)
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "film_record", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "film_record", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FilmRecordItem, len(result.Items))

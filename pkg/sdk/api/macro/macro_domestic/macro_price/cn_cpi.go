@@ -34,6 +34,8 @@ type CnCpiItem struct {
 }
 
 // CnCpi 调用 居民消费价格指数（CPI） API
+// 获取CPI居民消费价格数据，包括全国、城市和农村的数据
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func CnCpi(ctx context.Context, client *sdk.Client, req *CnCpiRequest) ([]CnCpiItem, error) {
 	params := map[string]interface{}{}
 	if req.M != "" {
@@ -53,7 +55,7 @@ func CnCpi(ctx context.Context, client *sdk.Client, req *CnCpiRequest) ([]CnCpiI
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "cn_cpi", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "cn_cpi", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]CnCpiItem, len(result.Items))

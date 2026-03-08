@@ -60,7 +60,7 @@ func FutHolding(ctx context.Context, client *sdk.Client, req *FutHoldingRequest)
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "fut_holding", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "fut_holding", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FutHoldingItem, len(result.Items))

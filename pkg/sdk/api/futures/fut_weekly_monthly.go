@@ -72,7 +72,7 @@ func FutWeeklyMonthly(ctx context.Context, client *sdk.Client, req *FutWeeklyMon
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "fut_weekly_monthly", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "fut_weekly_monthly", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FutWeeklyMonthlyItem, len(result.Items))

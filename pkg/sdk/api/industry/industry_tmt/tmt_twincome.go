@@ -21,6 +21,8 @@ type TmtTwincomeItem struct {
 }
 
 // TmtTwincome 调用 台湾电子产业月营收 API
+// 获取台湾TMT电子产业领域各类产品月度营收数据。
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func TmtTwincome(ctx context.Context, client *sdk.Client, req *TmtTwincomeRequest) ([]TmtTwincomeItem, error) {
 	params := map[string]interface{}{}
 	if req.Date != "" {
@@ -43,7 +45,7 @@ func TmtTwincome(ctx context.Context, client *sdk.Client, req *TmtTwincomeReques
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "tmt_twincome", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "tmt_twincome", params, fields, &result); err != nil {
 		return nil, err
 	}
 	// No response fields defined, return empty items

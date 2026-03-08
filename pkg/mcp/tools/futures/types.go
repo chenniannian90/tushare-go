@@ -224,7 +224,7 @@ type TradeCalInput struct {
 Exchange string `json:"exchange,omitempty" jsonschema:"交易所 SHFE 上期所 DCE 大商所 CFFEX中金所 CZCE郑商所 INE上海国际能源交易所"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
-IsOpen int `json:"is_open,omitempty" jsonschema:"是否交易 0休市 1交易"`
+IsOpen string `json:"is_open,omitempty" jsonschema:"是否交易 0休市 1交易"`
 
 }
 

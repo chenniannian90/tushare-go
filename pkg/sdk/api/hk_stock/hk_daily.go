@@ -57,7 +57,7 @@ func HkDaily(ctx context.Context, client *sdk.Client, req *HkDailyRequest) ([]Hk
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "hk_daily", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "hk_daily", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]HkDailyItem, len(result.Items))

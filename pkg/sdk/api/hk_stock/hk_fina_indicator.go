@@ -137,7 +137,7 @@ func HkFinaIndicator(ctx context.Context, client *sdk.Client, req *HkFinaIndicat
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "hk_fina_indicator", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "hk_fina_indicator", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]HkFinaIndicatorItem, len(result.Items))

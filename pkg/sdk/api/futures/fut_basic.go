@@ -62,7 +62,7 @@ func FutBasic(ctx context.Context, client *sdk.Client, req *FutBasicRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "fut_basic", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "fut_basic", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FutBasicItem, len(result.Items))

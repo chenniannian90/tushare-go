@@ -50,7 +50,7 @@ func HkBasic(ctx context.Context, client *sdk.Client, req *HkBasicRequest) ([]Hk
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "hk_basic", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "hk_basic", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]HkBasicItem, len(result.Items))

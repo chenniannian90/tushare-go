@@ -29,6 +29,8 @@ type BoDailyItem struct {
 }
 
 // BoDaily 调用 电影日度票房 API
+// 获取电影日度票房数据更新：当日更新上一日数据数据历史： 数据从2018年9月开始，更多历史数据正在补充数据
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func BoDaily(ctx context.Context, client *sdk.Client, req *BoDailyRequest) ([]BoDailyItem, error) {
 	params := map[string]interface{}{}
 	if req.Date != "" {
@@ -42,7 +44,7 @@ func BoDaily(ctx context.Context, client *sdk.Client, req *BoDailyRequest) ([]Bo
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "bo_daily", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "bo_daily", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]BoDailyItem, len(result.Items))

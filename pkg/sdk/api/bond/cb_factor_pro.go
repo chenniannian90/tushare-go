@@ -135,7 +135,7 @@ func CbFactorPro(ctx context.Context, client *sdk.Client, req *CbFactorProReques
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "cb_factor_pro", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "cb_factor_pro", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]CbFactorProItem, len(result.Items))

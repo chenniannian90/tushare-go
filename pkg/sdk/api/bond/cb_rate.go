@@ -39,7 +39,7 @@ func CbRate(ctx context.Context, client *sdk.Client, req *CbRateRequest) ([]CbRa
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "cb_rate", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "cb_rate", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]CbRateItem, len(result.Items))

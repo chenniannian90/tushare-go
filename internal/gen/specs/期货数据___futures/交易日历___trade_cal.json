@@ -28,7 +28,7 @@
     },
     {
       "name": "is_open",
-      "type": "int",
+      "type": "str",
       "description": "是否交易 0休市 1交易",
       "required": false
     }
@@ -48,7 +48,7 @@
     },
     {
       "name": "is_open",
-      "type": "int",
+      "type": "str",
       "description": "是否交易 0休市 1交易",
       "default_display": true
     },

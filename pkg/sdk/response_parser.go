@@ -82,7 +82,7 @@ func (r *APIResponse) ParseItems() (interface{}, error) {
 		return r.ParseItemsAsMaps()
 	case FormatArrayArray:
 		return r.ParseItemsAsArrays()
-	default:
+	case FormatUnknown:
 		// 尝试两种格式
 		items, err := r.ParseItemsAsMaps()
 		if err == nil {
@@ -96,6 +96,8 @@ func (r *APIResponse) ParseItems() (interface{}, error) {
 
 		return nil, fmt.Errorf("无法识别数据格式，尝试对象数组失败: %v, 尝试二维数组也失败: %v", err, err)
 	}
+	// unreachable: exhaustive switch covers all ResponseFormat values
+	panic("unreachable")
 }
 
 // ConvertArrayRowToMap 将数组行转换为map（根据fields）
@@ -162,7 +164,7 @@ func (r *APIResponse) ParseAndConvert() ([]map[string]interface{}, error) {
 		}
 		return result, nil
 
-	default:
+	case FormatUnknown:
 		// 最后尝试：先尝试解析为数组，如果成功就转换
 		arrays, err := r.ParseItemsAsArrays()
 		if err == nil && len(arrays) > 0 {
@@ -182,4 +184,6 @@ func (r *APIResponse) ParseAndConvert() ([]map[string]interface{}, error) {
 		items, err := r.ParseItemsAsMaps()
 		return items, err
 	}
+	// unreachable: exhaustive switch covers all ResponseFormat values
+	panic("unreachable")
 }

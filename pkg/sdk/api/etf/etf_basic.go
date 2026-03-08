@@ -68,7 +68,7 @@ func EtfBasic(ctx context.Context, client *sdk.Client, req *EtfBasicRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "etf_basic", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "etf_basic", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]EtfBasicItem, len(result.Items))

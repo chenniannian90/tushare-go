@@ -31,6 +31,8 @@ type LiborItem struct {
 }
 
 // Libor 调用 Libor利率 API
+// Libor拆借利率
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func Libor(ctx context.Context, client *sdk.Client, req *LiborRequest) ([]LiborItem, error) {
 	params := map[string]interface{}{}
 	if req.Date != "" {
@@ -53,7 +55,7 @@ func Libor(ctx context.Context, client *sdk.Client, req *LiborRequest) ([]LiborI
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "libor", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "libor", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]LiborItem, len(result.Items))

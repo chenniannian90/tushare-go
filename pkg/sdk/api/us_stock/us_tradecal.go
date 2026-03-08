@@ -19,7 +19,7 @@ type UsTradecalRequest struct {
 // UsTradecalItem 表示单个 美股交易日历 数据项
 type UsTradecalItem struct {
 	CalDate string `json:"cal_date"` // 日历日期
-	IsOpen int `json:"is_open"` // 是否交易 '0'休市 '1'交易
+	IsOpen string `json:"is_open"` // 是否交易 '0'休市 '1'交易
 	PretradeDate string `json:"pretrade_date"` // 上一个交易日
 }
 
@@ -45,7 +45,7 @@ func UsTradecal(ctx context.Context, client *sdk.Client, req *UsTradecalRequest)
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "us_tradecal", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "us_tradecal", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]UsTradecalItem, len(result.Items))
@@ -56,7 +56,7 @@ func UsTradecal(ctx context.Context, client *sdk.Client, req *UsTradecalRequest)
 			return nil, fmt.Errorf("无效的 cal_date 类型")
 		}
 		// 处理 is_open 的简单类型
-		isOpen, ok := item["is_open"].(int)
+		isOpen, ok := item["is_open"].(string)
 		if !ok {
 			return nil, fmt.Errorf("无效的 is_open 类型")
 		}

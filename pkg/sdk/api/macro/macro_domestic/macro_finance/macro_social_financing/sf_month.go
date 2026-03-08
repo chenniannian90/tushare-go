@@ -25,6 +25,8 @@ type SfMonthItem struct {
 }
 
 // SfMonth 调用 社融增量（月度） API
+// 获取月度社会融资数据
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func SfMonth(ctx context.Context, client *sdk.Client, req *SfMonthRequest) ([]SfMonthItem, error) {
 	params := map[string]interface{}{}
 	if req.M != "" {
@@ -44,7 +46,7 @@ func SfMonth(ctx context.Context, client *sdk.Client, req *SfMonthRequest) ([]Sf
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "sf_month", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "sf_month", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]SfMonthItem, len(result.Items))

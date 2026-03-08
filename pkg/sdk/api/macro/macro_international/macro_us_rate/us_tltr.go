@@ -26,6 +26,8 @@ type UsTltrItem struct {
 }
 
 // UsTltr 调用 国债长期利率 API
+// 国债长期利率
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func UsTltr(ctx context.Context, client *sdk.Client, req *UsTltrRequest) ([]UsTltrItem, error) {
 	params := map[string]interface{}{}
 	if req.Date != "" {
@@ -48,7 +50,7 @@ func UsTltr(ctx context.Context, client *sdk.Client, req *UsTltrRequest) ([]UsTl
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "us_tltr", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "us_tltr", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]UsTltrItem, len(result.Items))

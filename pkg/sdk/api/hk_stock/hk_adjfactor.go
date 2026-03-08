@@ -50,7 +50,7 @@ func HkAdjfactor(ctx context.Context, client *sdk.Client, req *HkAdjfactorReques
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "hk_adjfactor", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "hk_adjfactor", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]HkAdjfactorItem, len(result.Items))

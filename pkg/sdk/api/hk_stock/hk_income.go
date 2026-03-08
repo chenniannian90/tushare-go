@@ -55,7 +55,7 @@ func HkIncome(ctx context.Context, client *sdk.Client, req *HkIncomeRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "hk_income", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "hk_income", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]HkIncomeItem, len(result.Items))

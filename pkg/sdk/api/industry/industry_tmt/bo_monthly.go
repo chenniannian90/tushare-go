@@ -29,6 +29,8 @@ type BoMonthlyItem struct {
 }
 
 // BoMonthly 调用 电影月度票房 API
+// 获取电影月度票房数据数据更新：本月更新上一月数据数据历史： 数据从2008年1月1日开始，超过10年历史数据。数据
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func BoMonthly(ctx context.Context, client *sdk.Client, req *BoMonthlyRequest) ([]BoMonthlyItem, error) {
 	params := map[string]interface{}{}
 	if req.Date != "" {
@@ -42,7 +44,7 @@ func BoMonthly(ctx context.Context, client *sdk.Client, req *BoMonthlyRequest) (
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "bo_monthly", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "bo_monthly", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]BoMonthlyItem, len(result.Items))

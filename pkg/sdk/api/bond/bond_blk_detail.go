@@ -54,7 +54,7 @@ func BondBlkDetail(ctx context.Context, client *sdk.Client, req *BondBlkDetailRe
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "bond_blk_detail", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "bond_blk_detail", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]BondBlkDetailItem, len(result.Items))

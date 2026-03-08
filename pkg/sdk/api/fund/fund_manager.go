@@ -60,7 +60,7 @@ func FundManager(ctx context.Context, client *sdk.Client, req *FundManagerReques
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "fund_manager", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "fund_manager", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FundManagerItem, len(result.Items))

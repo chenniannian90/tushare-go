@@ -29,7 +29,7 @@ func Api314(ctx context.Context, client *sdk.Client, req *Api314Request) ([]Api3
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "api_314", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "api_314", params, fields, &result); err != nil {
 		return nil, err
 	}
 	// No response fields defined, return empty items

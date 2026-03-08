@@ -81,6 +81,8 @@ type CnPmiItem struct {
 }
 
 // CnPmi 调用 采购经理指数（PMI） API
+// 采购经理人指数
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func CnPmi(ctx context.Context, client *sdk.Client, req *CnPmiRequest) ([]CnPmiItem, error) {
 	params := map[string]interface{}{}
 	if req.M != "" {
@@ -100,7 +102,7 @@ func CnPmi(ctx context.Context, client *sdk.Client, req *CnPmiRequest) ([]CnPmiI
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "cn_pmi", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "cn_pmi", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]CnPmiItem, len(result.Items))

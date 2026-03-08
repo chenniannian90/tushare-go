@@ -51,7 +51,7 @@ func UsAdjfactor(ctx context.Context, client *sdk.Client, req *UsAdjfactorReques
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "us_adjfactor", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "us_adjfactor", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]UsAdjfactorItem, len(result.Items))

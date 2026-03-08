@@ -57,7 +57,7 @@ func CiDaily(ctx context.Context, client *sdk.Client, req *CiDailyRequest) ([]Ci
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "ci_daily", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "ci_daily", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]CiDailyItem, len(result.Items))

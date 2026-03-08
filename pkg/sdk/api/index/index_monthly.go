@@ -57,7 +57,7 @@ func IndexMonthly(ctx context.Context, client *sdk.Client, req *IndexMonthlyRequ
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "index_monthly", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "index_monthly", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]IndexMonthlyItem, len(result.Items))

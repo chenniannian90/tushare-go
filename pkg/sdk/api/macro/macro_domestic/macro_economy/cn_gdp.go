@@ -31,6 +31,8 @@ type CnGdpItem struct {
 }
 
 // CnGdp 调用 国内生产总值（GDP） API
+// 获取国民经济之GDP数据
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func CnGdp(ctx context.Context, client *sdk.Client, req *CnGdpRequest) ([]CnGdpItem, error) {
 	params := map[string]interface{}{}
 	if req.Q != "" {
@@ -53,7 +55,7 @@ func CnGdp(ctx context.Context, client *sdk.Client, req *CnGdpRequest) ([]CnGdpI
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "cn_gdp", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "cn_gdp", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]CnGdpItem, len(result.Items))

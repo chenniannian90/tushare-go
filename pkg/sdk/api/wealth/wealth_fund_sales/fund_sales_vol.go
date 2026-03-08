@@ -27,6 +27,8 @@ type FundSalesVolItem struct {
 }
 
 // FundSalesVol 调用 销售机构公募基金销售保有规模 API
+// 获取销售机构公募基金销售保有规模数据，本数据从2021年Q1开始公布，季度更新
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func FundSalesVol(ctx context.Context, client *sdk.Client, req *FundSalesVolRequest) ([]FundSalesVolItem, error) {
 	params := map[string]interface{}{}
 	if req.Year != "" {
@@ -46,7 +48,7 @@ func FundSalesVol(ctx context.Context, client *sdk.Client, req *FundSalesVolRequ
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "fund_sales_vol", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "fund_sales_vol", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FundSalesVolItem, len(result.Items))

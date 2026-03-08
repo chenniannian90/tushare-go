@@ -83,12 +83,7 @@ func {{Title .APICode}}(ctx context.Context, client *sdk.Client, req *{{Title .A
 				for j, val := range v {
 					{{lowerCamel $f.Name}}[j] = val.({{arrayElemType $f}})
 				}
-			case []string:
-				{{lowerCamel $f.Name}} = make([]{{arrayElemType $f}}, len(v))
-				for j, val := range v {
-					{{lowerCamel $f.Name}}[j] = val
-				}
-			case []float64:
+			case []{{arrayElemType $f}}:
 				{{lowerCamel $f.Name}} = make([]{{arrayElemType $f}}, len(v))
 				for j, val := range v {
 					{{lowerCamel $f.Name}}[j] = val

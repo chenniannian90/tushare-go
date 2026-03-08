@@ -62,7 +62,7 @@ func FutSettle(ctx context.Context, client *sdk.Client, req *FutSettleRequest) (
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "fut_settle", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "fut_settle", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FutSettleItem, len(result.Items))

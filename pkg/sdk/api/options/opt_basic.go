@@ -68,7 +68,7 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "opt_basic", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "opt_basic", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]OptBasicItem, len(result.Items))

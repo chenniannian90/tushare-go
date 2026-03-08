@@ -57,7 +57,7 @@ func BcBestotcqt(ctx context.Context, client *sdk.Client, req *BcBestotcqtReques
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "bc_bestotcqt", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "bc_bestotcqt", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]BcBestotcqtItem, len(result.Items))

@@ -55,7 +55,7 @@ func SzDailyInfo(ctx context.Context, client *sdk.Client, req *SzDailyInfoReques
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "sz_daily_info", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "sz_daily_info", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]SzDailyInfoItem, len(result.Items))

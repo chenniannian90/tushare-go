@@ -52,7 +52,7 @@ func AnnsD(ctx context.Context, client *sdk.Client, req *AnnsDRequest) ([]AnnsDI
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "anns_d", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "anns_d", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]AnnsDItem, len(result.Items))

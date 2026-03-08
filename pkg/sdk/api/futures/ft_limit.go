@@ -62,7 +62,7 @@ func FtLimit(ctx context.Context, client *sdk.Client, req *FtLimitRequest) ([]Ft
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "ft_limit", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "ft_limit", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FtLimitItem, len(result.Items))

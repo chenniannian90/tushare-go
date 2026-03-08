@@ -30,6 +30,8 @@ type HiborItem struct {
 }
 
 // Hibor 调用 Hibor利率 API
+// Hibor利率
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func Hibor(ctx context.Context, client *sdk.Client, req *HiborRequest) ([]HiborItem, error) {
 	params := map[string]interface{}{}
 	if req.Date != "" {
@@ -49,7 +51,7 @@ func Hibor(ctx context.Context, client *sdk.Client, req *HiborRequest) ([]HiborI
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "hibor", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "hibor", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]HiborItem, len(result.Items))

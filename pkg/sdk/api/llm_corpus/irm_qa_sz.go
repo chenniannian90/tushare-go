@@ -61,7 +61,7 @@ func IrmQaSz(ctx context.Context, client *sdk.Client, req *IrmQaSzRequest) ([]Ir
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "irm_qa_sz", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "irm_qa_sz", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]IrmQaSzItem, len(result.Items))

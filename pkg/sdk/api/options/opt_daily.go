@@ -63,7 +63,7 @@ func OptDaily(ctx context.Context, client *sdk.Client, req *OptDailyRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "opt_daily", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "opt_daily", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]OptDailyItem, len(result.Items))

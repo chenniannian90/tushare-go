@@ -28,6 +28,8 @@ type GzIndexItem struct {
 }
 
 // GzIndex 调用 广州民间借贷利率 API
+// 广州民间借贷利率
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func GzIndex(ctx context.Context, client *sdk.Client, req *GzIndexRequest) ([]GzIndexItem, error) {
 	params := map[string]interface{}{}
 	if req.Date != "" {
@@ -47,7 +49,7 @@ func GzIndex(ctx context.Context, client *sdk.Client, req *GzIndexRequest) ([]Gz
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "gz_index", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "gz_index", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]GzIndexItem, len(result.Items))

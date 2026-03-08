@@ -62,7 +62,7 @@ func FxDaily(ctx context.Context, client *sdk.Client, req *FxDailyRequest) ([]Fx
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "fx_daily", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "fx_daily", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FxDailyItem, len(result.Items))

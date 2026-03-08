@@ -58,7 +58,7 @@ func IndexDailybasic(ctx context.Context, client *sdk.Client, req *IndexDailybas
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "index_dailybasic", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "index_dailybasic", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]IndexDailybasicItem, len(result.Items))

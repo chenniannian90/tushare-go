@@ -52,6 +52,8 @@ type CnPpiItem struct {
 }
 
 // CnPpi 调用 工业生产者出厂价格指数（PPI） API
+// 获取PPI工业生产者出厂价格指数数据
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func CnPpi(ctx context.Context, client *sdk.Client, req *CnPpiRequest) ([]CnPpiItem, error) {
 	params := map[string]interface{}{}
 	if req.M != "" {
@@ -71,7 +73,7 @@ func CnPpi(ctx context.Context, client *sdk.Client, req *CnPpiRequest) ([]CnPpiI
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "cn_ppi", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "cn_ppi", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]CnPpiItem, len(result.Items))

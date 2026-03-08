@@ -35,6 +35,8 @@ type UsTbrItem struct {
 }
 
 // UsTbr 调用 短期国债利率 API
+// 获取美国短期国债利率数据
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func UsTbr(ctx context.Context, client *sdk.Client, req *UsTbrRequest) ([]UsTbrItem, error) {
 	params := map[string]interface{}{}
 	if req.Date != "" {
@@ -57,7 +59,7 @@ func UsTbr(ctx context.Context, client *sdk.Client, req *UsTbrRequest) ([]UsTbrI
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "us_tbr", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "us_tbr", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]UsTbrItem, len(result.Items))

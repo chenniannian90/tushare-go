@@ -24,6 +24,8 @@ type ShiborLprItem struct {
 }
 
 // ShiborLpr 调用 LPR贷款基础利率 API
+// LPR贷款基础利率
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func ShiborLpr(ctx context.Context, client *sdk.Client, req *ShiborLprRequest) ([]ShiborLprItem, error) {
 	params := map[string]interface{}{}
 	if req.Date != "" {
@@ -43,7 +45,7 @@ func ShiborLpr(ctx context.Context, client *sdk.Client, req *ShiborLprRequest) (
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "shibor_lpr", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "shibor_lpr", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]ShiborLprItem, len(result.Items))

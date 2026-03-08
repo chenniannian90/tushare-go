@@ -54,7 +54,7 @@ func IdxMins(ctx context.Context, client *sdk.Client, req *IdxMinsRequest) ([]Id
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "idx_mins", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "idx_mins", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]IdxMinsItem, len(result.Items))

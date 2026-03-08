@@ -36,6 +36,8 @@ type TeleplayRecordItem struct {
 }
 
 // TeleplayRecord 调用 全国电视剧备案公示数据 API
+// 获取2009年以来全国拍摄制作电视剧备案公示数据
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func TeleplayRecord(ctx context.Context, client *sdk.Client, req *TeleplayRecordRequest) ([]TeleplayRecordItem, error) {
 	params := map[string]interface{}{}
 	if req.ReportDate != "" {
@@ -61,7 +63,7 @@ func TeleplayRecord(ctx context.Context, client *sdk.Client, req *TeleplayRecord
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "teleplay_record", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "teleplay_record", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]TeleplayRecordItem, len(result.Items))

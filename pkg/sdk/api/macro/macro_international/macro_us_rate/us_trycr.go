@@ -28,6 +28,8 @@ type UsTrycrItem struct {
 }
 
 // UsTrycr 调用 国债实际收益率曲线利率 API
+// 国债实际收益率曲线利率
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func UsTrycr(ctx context.Context, client *sdk.Client, req *UsTrycrRequest) ([]UsTrycrItem, error) {
 	params := map[string]interface{}{}
 	if req.Date != "" {
@@ -50,7 +52,7 @@ func UsTrycr(ctx context.Context, client *sdk.Client, req *UsTrycrRequest) ([]Us
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "us_trycr", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "us_trycr", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]UsTrycrItem, len(result.Items))

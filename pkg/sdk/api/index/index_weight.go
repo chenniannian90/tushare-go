@@ -45,7 +45,7 @@ func IndexWeight(ctx context.Context, client *sdk.Client, req *IndexWeightReques
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "index_weight", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "index_weight", params, fields, &result); err != nil {
 		return nil, err
 	}
 	// No response fields defined, return empty items

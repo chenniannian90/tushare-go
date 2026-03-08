@@ -55,7 +55,7 @@ func FtMins(ctx context.Context, client *sdk.Client, req *FtMinsRequest) ([]FtMi
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "ft_mins", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "ft_mins", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FtMinsItem, len(result.Items))

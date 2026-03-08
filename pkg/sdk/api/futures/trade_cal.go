@@ -14,14 +14,14 @@ type TradeCalRequest struct {
 	Exchange string `json:"exchange,omitempty"` // 交易所 SHFE 上期所 DCE 大商所 CFFEX中金所  CZCE郑商所 INE上海国际能源交易所
 	StartDate string `json:"start_date,omitempty"` // 开始日期
 	EndDate string `json:"end_date,omitempty"` // 结束日期
-	IsOpen int `json:"is_open,omitempty"` // 是否交易 0休市 1交易
+	IsOpen string `json:"is_open,omitempty"` // 是否交易 0休市 1交易
 }
 
 // TradeCalItem 表示单个 交易日历 数据项
 type TradeCalItem struct {
 	Exchange string `json:"exchange"` // 交易所 同参数部分描述
 	CalDate string `json:"cal_date"` // 日历日期
-	IsOpen int `json:"is_open"` // 是否交易 0休市 1交易
+	IsOpen string `json:"is_open"` // 是否交易 0休市 1交易
 	PretradeDate string `json:"pretrade_date"` // 上一个交易日
 }
 
@@ -39,7 +39,7 @@ func TradeCal(ctx context.Context, client *sdk.Client, req *TradeCalRequest) ([]
 	if req.EndDate != "" {
 		params["end_date"] = req.EndDate
 	}
-	if req.IsOpen != 0 {
+	if req.IsOpen != "" {
 		params["is_open"] = req.IsOpen
 	}
 
@@ -50,7 +50,7 @@ func TradeCal(ctx context.Context, client *sdk.Client, req *TradeCalRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "trade_cal", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "trade_cal", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]TradeCalItem, len(result.Items))
@@ -66,7 +66,7 @@ func TradeCal(ctx context.Context, client *sdk.Client, req *TradeCalRequest) ([]
 			return nil, fmt.Errorf("无效的 cal_date 类型")
 		}
 		// 处理 is_open 的简单类型
-		isOpen, ok := item["is_open"].(int)
+		isOpen, ok := item["is_open"].(string)
 		if !ok {
 			return nil, fmt.Errorf("无效的 is_open 类型")
 		}

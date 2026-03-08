@@ -53,7 +53,7 @@ func IndexClassify(ctx context.Context, client *sdk.Client, req *IndexClassifyRe
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "index_classify", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "index_classify", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]IndexClassifyItem, len(result.Items))

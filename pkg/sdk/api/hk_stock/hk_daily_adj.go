@@ -64,7 +64,7 @@ func HkDailyAdj(ctx context.Context, client *sdk.Client, req *HkDailyAdjRequest)
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "hk_daily_adj", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "hk_daily_adj", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]HkDailyAdjItem, len(result.Items))

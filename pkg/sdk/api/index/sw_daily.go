@@ -61,7 +61,7 @@ func SwDaily(ctx context.Context, client *sdk.Client, req *SwDailyRequest) ([]Sw
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPIFlexible(ctx, "sw_daily", params, fields, &result); err != nil {
+	if err := client.CallAPI(ctx, "sw_daily", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]SwDailyItem, len(result.Items))
