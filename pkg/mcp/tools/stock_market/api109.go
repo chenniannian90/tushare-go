@@ -15,11 +15,12 @@ import (
 // registerApi109 registers the tool
 func (r *Stock_marketTools) registerApi109() {
 	inputSchema, _ := jsonschema.For[Api109Input](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.api109",
 		Description: "Retrieve api109 data from Tushare stock market API",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

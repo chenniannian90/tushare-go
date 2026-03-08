@@ -15,11 +15,12 @@ import (
 // registerOptDaily registers the tool
 func (r *OptionsTools) registerOptDaily() {
 	inputSchema, _ := jsonschema.For[OptDailyInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "options.opt_daily",
 		Description: "获取期权日线行情",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

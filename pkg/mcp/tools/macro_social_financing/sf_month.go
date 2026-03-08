@@ -15,11 +15,12 @@ import (
 // registerSfMonth registers the tool
 func (r *Macro_social_financingTools) registerSfMonth() {
 	inputSchema, _ := jsonschema.For[SfMonthInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "macro_social_financing.sf_month",
 		Description: "获取月度社会融资数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

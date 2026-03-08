@@ -11,7 +11,7 @@ import (
 // OptBasicInput defines the input schema
 type OptBasicInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"TS期权代码"`
-Exchange string `json:"exchange,omitempty" jsonschema:"交易所代码 （包括上交所SSE等交易所）"`
+Exchange string `json:"exchange,omitempty" jsonschema:"交易所代码 (包括上交所SSE等交易所)"`
 ListDate string `json:"list_date,omitempty" jsonschema:"上市交易日"`
 OptCode string `json:"opt_code,omitempty" jsonschema:"标准合约代码，OP+期货合约TS_CODE，如棕榈油2207合约，输入OPP2207.DCE"`
 CallPut string `json:"call_put,omitempty" jsonschema:"期权类型"`
@@ -26,11 +26,11 @@ type OptBasicOutput struct {
 
 // OptDailyInput defines the input schema
 type OptDailyInput struct {
-TsCode string `json:"ts_code,omitempty" jsonschema:"TS合约代码（输入代码或时间至少任意一个参数）"`
+TsCode string `json:"ts_code,omitempty" jsonschema:"TS合约代码(输入代码或时间至少任意一个参数)"`
 TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
-Exchange string `json:"exchange,omitempty" jsonschema:"交易所(SSE/SZSE/CFFEX/DCE/SHFE/CZCE）"`
+Exchange string `json:"exchange,omitempty" jsonschema:"交易所(SSE/SZSE/CFFEX/DCE/SHFE/CZCE)"`
 
 }
 
@@ -43,7 +43,7 @@ type OptDailyOutput struct {
 // OptMinsInput defines the input schema
 type OptMinsInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码，e.g：10007976.SH"`
-Freq string `json:"freq,omitempty" jsonschema:"分钟频度（1min/5min/15min/30min/60min）"`
+Freq string `json:"freq,omitempty" jsonschema:"分钟频度(1min/5min/15min/30min/60min)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期 格式：2024-08-25 09:00:00"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束时间 格式：2024-08-25 19:00:00"`
 

@@ -15,11 +15,12 @@ import (
 // registerRtEtfK registers the tool
 func (r *EtfTools) registerRtEtfK() {
 	inputSchema, _ := jsonschema.For[RtEtfKInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "etf.rt_etf_k",
 		Description: "获取ETF实时日k线行情，支持按ETF代码或代码通配符一次性提取全部ETF实时日k线行情",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

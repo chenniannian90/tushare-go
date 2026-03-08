@@ -15,11 +15,12 @@ import (
 // registerEtfBasic registers the tool
 func (r *EtfTools) registerEtfBasic() {
 	inputSchema, _ := jsonschema.For[EtfBasicInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "etf.etf_basic",
 		Description: "获取国内ETF基础信息，包括了QDII。数据来源与沪深交易所公开披露信息。",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

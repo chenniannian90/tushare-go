@@ -10,8 +10,8 @@ import (
 
 // BlockTradeInput defines the input schema
 type BlockTradeInput struct {
-TsCode string `json:"ts_code,omitempty" jsonschema:"TS代码（股票代码和日期至少输入一个参数）"`
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（格式：YYYYMMDD，下同）"`
+TsCode string `json:"ts_code,omitempty" jsonschema:"TS代码(股票代码和日期至少输入一个参数)"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期YYYYMMDD，下同)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
@@ -50,7 +50,7 @@ type PledgeStatOutput struct {
 
 // RepurchaseInput defines the input schema
 type RepurchaseInput struct {
-AnnDate string `json:"ann_date,omitempty" jsonschema:"公告日期（任意填参数，如果都不填，单次默认返回2000条）"`
+AnnDate string `json:"ann_date,omitempty" jsonschema:"公告日期(任意填参数，如果都不填，单次默认返回2000条)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"公告开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"公告结束日期"`
 
@@ -65,7 +65,7 @@ type RepurchaseOutput struct {
 // ShareFloatInput defines the input schema
 type ShareFloatInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"TS股票代码"`
-AnnDate string `json:"ann_date,omitempty" jsonschema:"公告日期（日期格式：YYYYMMDD，下同）"`
+AnnDate string `json:"ann_date,omitempty" jsonschema:"公告日期(日期格式：YYYYMMDD，下同)"`
 FloatDate string `json:"float_date,omitempty" jsonschema:"解禁日期"`
 StartDate string `json:"start_date,omitempty" jsonschema:"解禁开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"解禁结束日期"`
@@ -141,7 +141,7 @@ type StkHoldertradeOutput struct {
 // Top10FloatholdersInput defines the input schema
 type Top10FloatholdersInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"TS代码"`
-Period string `json:"period,omitempty" jsonschema:"报告期（YYYYMMDD格式，一般为每个季度最后一天）"`
+Period string `json:"period,omitempty" jsonschema:"报告期(YYYYMMDD格式，一般为每个季度最后一天)"`
 AnnDate string `json:"ann_date,omitempty" jsonschema:"公告日期"`
 StartDate string `json:"start_date,omitempty" jsonschema:"报告期开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"报告期结束日期"`
@@ -157,7 +157,7 @@ type Top10FloatholdersOutput struct {
 // Top10HoldersInput defines the input schema
 type Top10HoldersInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"TS代码"`
-Period string `json:"period,omitempty" jsonschema:"报告期（YYYYMMDD格式，一般为每个季度最后一天）"`
+Period string `json:"period,omitempty" jsonschema:"报告期(YYYYMMDD格式，一般为每个季度最后一天)"`
 AnnDate string `json:"ann_date,omitempty" jsonschema:"公告日期"`
 StartDate string `json:"start_date,omitempty" jsonschema:"报告期开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"报告期结束日期"`

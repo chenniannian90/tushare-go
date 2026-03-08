@@ -15,11 +15,12 @@ import (
 // registerLimitListThs registers the tool
 func (r *Stock_boardTools) registerLimitListThs() {
 	inputSchema, _ := jsonschema.For[LimitListThsInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.limit_list_ths",
 		Description: "获取同花顺每日涨跌停榜单数据，历史数据从20231101开始提供，增量每天16点左右更新",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

@@ -15,11 +15,12 @@ import (
 // registerBlockTrade registers the tool
 func (r *Stock_referenceTools) registerBlockTrade() {
 	inputSchema, _ := jsonschema.For[BlockTradeInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_reference.block_trade",
 		Description: "大宗交易",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

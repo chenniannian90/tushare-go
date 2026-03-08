@@ -15,11 +15,12 @@ import (
 // registerDaily registers the tool
 func (r *Stock_marketTools) registerDaily() {
 	inputSchema, _ := jsonschema.For[DailyInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.daily",
 		Description: "获取股票行情数据，或通过通用行情接口获取数据，包含了前后复权数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

@@ -15,11 +15,12 @@ import (
 // registerFutBasic registers the tool
 func (r *FuturesTools) registerFutBasic() {
 	inputSchema, _ := jsonschema.For[FutBasicInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "futures.fut_basic",
 		Description: "获取期货合约列表数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

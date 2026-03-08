@@ -15,11 +15,12 @@ import (
 // registerSgeDaily registers the tool
 func (r *SpotTools) registerSgeDaily() {
 	inputSchema, _ := jsonschema.For[SgeDailyInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "spot.sge_daily",
 		Description: "获取上海黄金交易所现货合约日线行情",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

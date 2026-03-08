@@ -15,11 +15,12 @@ import (
 // registerAdjFactor registers the tool
 func (r *Stock_marketTools) registerAdjFactor() {
 	inputSchema, _ := jsonschema.For[AdjFactorInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.adj_factor",
 		Description: "本接口由Tushare自行生产，获取股票复权因子，可提取单只股票全部历史复权因子，也可以提取单日全部股票的复权因子。积分要求：2000积分起，5000以上可高频调取",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

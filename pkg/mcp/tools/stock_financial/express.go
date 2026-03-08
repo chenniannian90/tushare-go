@@ -15,11 +15,12 @@ import (
 // registerExpress registers the tool
 func (r *Stock_financialTools) registerExpress() {
 	inputSchema, _ := jsonschema.For[ExpressInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_financial.express",
 		Description: "获取上市公司业绩快报",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

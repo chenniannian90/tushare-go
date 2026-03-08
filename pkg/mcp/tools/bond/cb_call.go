@@ -15,11 +15,12 @@ import (
 // registerCbCall registers the tool
 func (r *BondTools) registerCbCall() {
 	inputSchema, _ := jsonschema.For[CbCallInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "bond.cb_call",
 		Description: "获取可转债到期赎回、强制赎回等信息。数据来源于公开披露渠道，供个人和机构研究使用，请不要用于数据商业目的。",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

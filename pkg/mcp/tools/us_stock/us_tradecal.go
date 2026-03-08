@@ -15,11 +15,12 @@ import (
 // registerUsTradecal registers the tool
 func (r *Us_stockTools) registerUsTradecal() {
 	inputSchema, _ := jsonschema.For[UsTradecalInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "us_stock.us_tradecal",
 		Description: "获取美股交易日历信息",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

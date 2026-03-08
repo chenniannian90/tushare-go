@@ -24,7 +24,7 @@ type GzIndexOutput struct {
 
 // HiborInput defines the input schema
 type HiborInput struct {
-Date string `json:"date,omitempty" jsonschema:"日期  (日期输入格式：YYYYMMDD，下同)"`
+Date string `json:"date,omitempty" jsonschema:"日期 (日期输入格式：YYYYMMDD，下同)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
@@ -41,7 +41,7 @@ type LiborInput struct {
 Date string `json:"date,omitempty" jsonschema:"日期 (日期输入格式：YYYYMMDD，下同)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
-CurrType string `json:"curr_type,omitempty" jsonschema:"货币代码  (USD美元  EUR欧元  JPY日元  GBP英镑  CHF瑞郎，默认是USD)"`
+CurrType string `json:"curr_type,omitempty" jsonschema:"货币代码 (USD美元 EUR欧元 JPY日元 GBP英镑 CHF瑞郎，默认是USD)"`
 
 }
 
@@ -67,7 +67,7 @@ type ShiborOutput struct {
 
 // ShiborLprInput defines the input schema
 type ShiborLprInput struct {
-Date string `json:"date,omitempty" jsonschema:"日期  (日期输入格式：YYYYMMDD，下同)"`
+Date string `json:"date,omitempty" jsonschema:"日期 (日期输入格式：YYYYMMDD，下同)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
@@ -84,7 +84,7 @@ type ShiborQuoteInput struct {
 Date string `json:"date,omitempty" jsonschema:"日期 (日期输入格式：YYYYMMDD，下同)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
-Bank string `json:"bank,omitempty" jsonschema:"银行名称 （中文名称，例如 农业银行）"`
+Bank string `json:"bank,omitempty" jsonschema:"银行名称 (中文名称，例如 农业银行)"`
 
 }
 

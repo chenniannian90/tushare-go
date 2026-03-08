@@ -15,11 +15,12 @@ import (
 // registerOptBasic registers the tool
 func (r *OptionsTools) registerOptBasic() {
 	inputSchema, _ := jsonschema.For[OptBasicInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "options.opt_basic",
 		Description: "获取期权合约信息",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

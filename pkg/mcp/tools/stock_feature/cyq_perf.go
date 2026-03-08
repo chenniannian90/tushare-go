@@ -15,11 +15,12 @@ import (
 // registerCyqPerf registers the tool
 func (r *Stock_featureTools) registerCyqPerf() {
 	inputSchema, _ := jsonschema.For[CyqPerfInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_feature.cyq_perf",
 		Description: "获取A股每日筹码平均成本和胜率情况，每天18~19点左右更新，数据从2018年开始 来源：Tushare社区",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

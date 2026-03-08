@@ -15,11 +15,12 @@ import (
 // registerBrokerRecommend registers the tool
 func (r *Stock_featureTools) registerBrokerRecommend() {
 	inputSchema, _ := jsonschema.For[BrokerRecommendInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_feature.broker_recommend",
 		Description: "获取券商月度金股，一般1日~3日内更新当月数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

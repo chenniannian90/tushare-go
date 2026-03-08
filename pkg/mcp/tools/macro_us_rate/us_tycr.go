@@ -15,11 +15,12 @@ import (
 // registerUsTycr registers the tool
 func (r *Macro_us_rateTools) registerUsTycr() {
 	inputSchema, _ := jsonschema.For[UsTycrInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "macro_us_rate.us_tycr",
 		Description: "获取美国每日国债收益率曲线利率",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

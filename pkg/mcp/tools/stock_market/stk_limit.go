@@ -15,11 +15,12 @@ import (
 // registerStkLimit registers the tool
 func (r *Stock_marketTools) registerStkLimit() {
 	inputSchema, _ := jsonschema.For[StkLimitInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.stk_limit",
 		Description: "获取全市场（包含A/B股和基金）每日涨跌停价格，包括涨停价格，跌停价格等，每个交易日8点40左右更新当日股票涨跌停价格。",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

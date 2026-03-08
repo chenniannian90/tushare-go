@@ -15,11 +15,12 @@ import (
 // registerCbPriceChg registers the tool
 func (r *BondTools) registerCbPriceChg() {
 	inputSchema, _ := jsonschema.For[CbPriceChgInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "bond.cb_price_chg",
 		Description: "获取可转债转股价变动",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

@@ -15,11 +15,12 @@ import (
 // registerMoneyflowHsgt registers the tool
 func (r *Stock_fund_flowTools) registerMoneyflowHsgt() {
 	inputSchema, _ := jsonschema.For[MoneyflowHsgtInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_fund_flow.moneyflow_hsgt",
 		Description: "获取沪股通、深股通、港股通每日资金流向数据，每次最多返回300条记录，总量不限制。 积分要求：2000积分起，5000积分每分钟可提取500次",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

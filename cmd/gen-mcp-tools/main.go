@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"text/template"
 )
@@ -63,12 +64,13 @@ type FieldInfo struct {
 
 // FieldWithGoType represents a field with Go type information
 type FieldWithGoType struct {
-	Name            string
-	JSONName        string
-	GoType          string
-	Description     string
-	StructFieldName string
-	Required        bool
+	Name                 string
+	JSONName             string
+	GoType               string
+	Description          string
+	SanitizedDescription string // Sanitized version for struct tags
+	StructFieldName      string
+	Required             bool
 }
 
 func main() {
@@ -423,6 +425,56 @@ func (g *MCPGenerator) cleanMCPDescription(desc string) string {
 	if len(runes) > 300 {
 		cleaned = string(runes[:297]) + "..."
 	}
+
+	return cleaned
+}
+
+// sanitizeStructTagDescription sanitizes descriptions for use in struct tags
+// Removes or replaces characters that break the jsonschema parser
+func (g *MCPGenerator) sanitizeStructTagDescription(desc string) string {
+	if desc == "" {
+		return desc
+	}
+
+	// First apply the basic cleaning
+	cleaned := g.cleanMCPDescription(desc)
+
+	// Remove characters that break jsonschema parsing:
+	// - Single quotes (') - these cause "tag must not begin with 'WORD='" errors
+	// - Double quotes (") - can break struct tag parsing
+	// - Backslashes (\) - can cause escape issues
+	// - Parentheses when containing quotes - e.g., （例如：cont='CU'）
+	// - Equals signs in examples - e.g., "cont=CU" causes "tag must not begin with 'WORD='" errors
+	cleaned = strings.ReplaceAll(cleaned, "'", "")           // Remove single quotes
+	cleaned = strings.ReplaceAll(cleaned, `"`, "")           // Remove double quotes
+	cleaned = strings.ReplaceAll(cleaned, "\\", "")          // Remove backslashes
+	cleaned = strings.ReplaceAll(cleaned, "（", "(")         // Convert Chinese parens
+	cleaned = strings.ReplaceAll(cleaned, "）", ")")         // Convert Chinese parens
+
+	// Remove entire example patterns like (例如：cont='CU') or (例如：exchange='DCE')
+	// These patterns cause the jsonschema parser to fail with "tag must not begin with 'WORD='" errors
+	cleaned = strings.ReplaceAll(cleaned, "（例如：", "")
+	cleaned = strings.ReplaceAll(cleaned, "（格式：", "")
+	cleaned = strings.ReplaceAll(cleaned, "(例如：", "")
+	cleaned = strings.ReplaceAll(cleaned, "(格式：", "")
+
+	// Remove any remaining text that looks like examples
+	// Pattern: remove anything like "xxx=yyy" where xxx is alphanumeric and yyy can contain various chars
+	// This handles cases like "cont=CU" or "exchange=DCE"
+	// Use a simpler pattern that matches word=word patterns
+	examplePattern := `[a-zA-Z0-9]+=[a-zA-Z0-9,\.\s]+`
+	re := regexp.MustCompile(examplePattern)
+	cleaned = re.ReplaceAllString(cleaned, "")
+
+	// Clean up any remaining problematic patterns
+	cleaned = strings.ReplaceAll(cleaned, "(例如)", "")
+	cleaned = strings.ReplaceAll(cleaned, "(格式)", "")
+	cleaned = strings.ReplaceAll(cleaned, "（例如）", "")
+	cleaned = strings.ReplaceAll(cleaned, "（格式）", "")
+
+	// Clean up whitespace
+	cleaned = strings.TrimSpace(cleaned)
+	cleaned = strings.ReplaceAll(cleaned, "  ", " ") // Remove double spaces
 
 	return cleaned
 }
@@ -850,14 +902,14 @@ import (
 {{range .Types}}
 // {{.InputTypeName}} defines the input schema
 type {{.InputTypeName}} struct {
-{{range .Fields}}{{.FieldName}} {{.FieldType}} ` + "`json:\"{{.JSONName}},omitempty\" jsonschema:\"{{.Description}}\"`" + `
+{{range .Fields}}{{.FieldName}} {{.FieldType}} ` + "`" + `json:"{{.JSONName}},omitempty" jsonschema:"{{.SanitizedDescription}}"` + "`" + `
 {{end}}
 }
 
 // {{.OutputTypeName}} defines the output schema
 type {{.OutputTypeName}} struct {
-	Data  []{{.DataType}} ` + "`json:\"data\" jsonschema:\"{{.APIName}} data list\"`" + `
-	Total int              ` + "`json:\"total\" jsonschema:\"Total count\"`" + `
+	Data  []{{.DataType}} ` + "`" + `json:"data" jsonschema:"{{.APIName}} data list"` + "`" + `
+	Total int              ` + "`" + `json:"total" jsonschema:"Total count"` + "`" + `
 }
 {{end}}
 `
@@ -880,11 +932,12 @@ import (
 // register{{.FunctionName}} registers the tool
 func (r *{{.ClassName}}Tools) register{{.FunctionName}}() {
 	inputSchema, _ := jsonschema.For[{{.FunctionName}}Input](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "{{.ToolName}}",
 		Description: "{{.ToolDescription}}",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
@@ -1099,10 +1152,11 @@ func (g *MCPGenerator) generateTypesFile(module APIModule, className, packageNam
 		APIName        string
 		DataType       string
 		Fields         []struct {
-			FieldName    string
-			FieldType    string
-			JSONName     string
-			Description  string
+			FieldName             string
+			FieldType             string
+			JSONName              string
+			Description           string
+			SanitizedDescription  string
 		}
 	}, 0, len(module.Functions))
 
@@ -1121,23 +1175,26 @@ func (g *MCPGenerator) generateTypesFile(module APIModule, className, packageNam
 
 		// Build fields list for types.go
 		fields := make([]struct {
-			FieldName   string
-			FieldType   string
-			JSONName    string
-			Description string
+			FieldName             string
+			FieldType             string
+			JSONName              string
+			Description           string
+			SanitizedDescription  string
 		}, len(specFields))
 
 		for i, field := range specFields {
 			fields[i] = struct {
-				FieldName   string
-				FieldType   string
-				JSONName    string
-				Description string
+				FieldName             string
+				FieldType             string
+				JSONName              string
+				Description           string
+				SanitizedDescription  string
 			}{
-				FieldName:   field.Name,
-				FieldType:   field.GoType,
-				JSONName:    field.JSONName,
-				Description: field.Description,
+				FieldName:             field.Name,
+				FieldType:             field.GoType,
+				JSONName:              field.JSONName,
+				Description:           field.Description,
+				SanitizedDescription:  field.SanitizedDescription,
 			}
 		}
 
@@ -1150,10 +1207,11 @@ func (g *MCPGenerator) generateTypesFile(module APIModule, className, packageNam
 			APIName        string
 			DataType       string
 			Fields         []struct {
-				FieldName    string
-				FieldType    string
-				JSONName     string
-				Description  string
+				FieldName             string
+				FieldType             string
+				JSONName              string
+				Description           string
+				SanitizedDescription  string
 			}
 		}{
 			InputTypeName:  baseTypeName + "Input",
@@ -1180,10 +1238,11 @@ func (g *MCPGenerator) generateTypesFile(module APIModule, className, packageNam
 			APIName        string
 			DataType       string
 			Fields         []struct {
-				FieldName    string
-				FieldType    string
-				JSONName     string
-				Description  string
+				FieldName             string
+				FieldType             string
+				JSONName              string
+				Description           string
+				SanitizedDescription  string
 			}
 		}
 	}{
@@ -1236,12 +1295,13 @@ func (g *MCPGenerator) extractFieldsFromSpec(module, apiCode string) []FieldWith
 		}
 
 		field := FieldWithGoType{
-			Name:            fieldName,
-			JSONName:        param.Name,
-			GoType:          g.specTypeToGoType(param.Type),
-			Description:     param.Description,
-			StructFieldName: fieldName,
-			Required:        param.Required,
+			Name:                 fieldName,
+			JSONName:             param.Name,
+			GoType:               g.specTypeToGoType(param.Type),
+			Description:          param.Description,
+			SanitizedDescription: g.sanitizeStructTagDescription(param.Description),
+			StructFieldName:      fieldName,
+			Required:             param.Required,
 		}
 		fields = append(fields, field)
 	}

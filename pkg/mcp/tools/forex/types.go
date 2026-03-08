@@ -11,9 +11,9 @@ import (
 // FxDailyInput defines the input schema
 type FxDailyInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"TS代码"`
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（GMT，日期是格林尼治时间，比北京时间晚一天）"`
-StartDate string `json:"start_date,omitempty" jsonschema:"开始日期（GMT）"`
-EndDate string `json:"end_date,omitempty" jsonschema:"结束日期（GMT）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期(GMT，日期是格林尼治时间，比北京时间晚一天)"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期(GMT)"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期(GMT)"`
 Exchange string `json:"exchange,omitempty" jsonschema:"交易商，目前只有FXCM"`
 
 }

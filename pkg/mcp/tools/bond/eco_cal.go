@@ -15,11 +15,12 @@ import (
 // registerEcoCal registers the tool
 func (r *BondTools) registerEcoCal() {
 	inputSchema, _ := jsonschema.For[EcoCalInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "bond.eco_cal",
 		Description: "获取全球财经日历、包括经济事件数据更新",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

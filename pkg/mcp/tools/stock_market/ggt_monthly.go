@@ -15,11 +15,12 @@ import (
 // registerGgtMonthly registers the tool
 func (r *Stock_marketTools) registerGgtMonthly() {
 	inputSchema, _ := jsonschema.For[GgtMonthlyInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.ggt_monthly",
 		Description: "港股通每月成交信息，数据从2014年开始",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

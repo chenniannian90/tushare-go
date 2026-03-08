@@ -15,11 +15,12 @@ import (
 // registerSgeBasic registers the tool
 func (r *SpotTools) registerSgeBasic() {
 	inputSchema, _ := jsonschema.For[SgeBasicInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "spot.sge_basic",
 		Description: "获取上海黄金交易所现货合约基础信息",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

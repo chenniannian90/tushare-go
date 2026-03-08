@@ -15,11 +15,12 @@ import (
 // registerDailyBasic registers the tool
 func (r *Stock_marketTools) registerDailyBasic() {
 	inputSchema, _ := jsonschema.For[DailyBasicInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.daily_basic",
 		Description: "获取全部股票每日重要的基本面指标，可用于选股分析、报表展示等。单次请求最大返回6000条数据，可按日线循环提取全部历史。",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

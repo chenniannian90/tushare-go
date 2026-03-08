@@ -15,11 +15,12 @@ import (
 // registerHkAdjfactor registers the tool
 func (r *Hk_stockTools) registerHkAdjfactor() {
 	inputSchema, _ := jsonschema.For[HkAdjfactorInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "hk_stock.hk_adjfactor",
 		Description: "获取港股每日复权因子数据，每天滚动刷新",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

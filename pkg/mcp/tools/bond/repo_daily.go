@@ -15,11 +15,12 @@ import (
 // registerRepoDaily registers the tool
 func (r *BondTools) registerRepoDaily() {
 	inputSchema, _ := jsonschema.For[RepoDailyInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "bond.repo_daily",
 		Description: "债券回购日行情",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

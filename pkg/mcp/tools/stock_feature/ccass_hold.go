@@ -15,11 +15,12 @@ import (
 // registerCcassHold registers the tool
 func (r *Stock_featureTools) registerCcassHold() {
 	inputSchema, _ := jsonschema.For[CcassHoldInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_feature.ccass_hold",
 		Description: "获取中央结算系统持股汇总数据，覆盖全部历史数据，根据交易所披露时间，当日数据在下一交易日早上9点前完成入库",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

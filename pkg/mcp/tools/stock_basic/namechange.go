@@ -15,11 +15,12 @@ import (
 // registerNamechange registers the tool
 func (r *Stock_basicTools) registerNamechange() {
 	inputSchema, _ := jsonschema.For[NamechangeInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_basic.namechange",
 		Description: "历史名称变更记录",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

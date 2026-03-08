@@ -15,11 +15,12 @@ import (
 // registerFundShare registers the tool
 func (r *FundTools) registerFundShare() {
 	inputSchema, _ := jsonschema.For[FundShareInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "fund.fund_share",
 		Description: "获取基金规模数据，包含上海和深圳ETF基金",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

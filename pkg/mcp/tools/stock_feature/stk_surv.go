@@ -15,11 +15,12 @@ import (
 // registerStkSurv registers the tool
 func (r *Stock_featureTools) registerStkSurv() {
 	inputSchema, _ := jsonschema.For[StkSurvInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_feature.stk_surv",
 		Description: "获取上市公司机构调研记录数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

@@ -15,11 +15,12 @@ import (
 // registerLimitStep registers the tool
 func (r *Stock_boardTools) registerLimitStep() {
 	inputSchema, _ := jsonschema.For[LimitStepInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.limit_step",
 		Description: "获取每天连板个数晋级的股票，可以分析出每天连续涨停进阶个数，判断强势热度",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

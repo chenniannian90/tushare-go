@@ -15,11 +15,12 @@ import (
 // registerFundDaily registers the tool
 func (r *EtfTools) registerFundDaily() {
 	inputSchema, _ := jsonschema.For[FundDailyInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "etf.fund_daily",
 		Description: "获取ETF行情每日收盘后成交数据，历史超过10年",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

@@ -10,12 +10,12 @@ import (
 
 // EtfBasicInput defines the input schema
 type EtfBasicInput struct {
-TsCode string `json:"ts_code,omitempty" jsonschema:"ETF代码（带.SZ/.SH后缀的6位数字，如：159526.SZ）"`
+TsCode string `json:"ts_code,omitempty" jsonschema:"ETF代码(带.SZ/.SH后缀的6位数字，如：159526.SZ)"`
 IndexCode string `json:"index_code,omitempty" jsonschema:"跟踪指数代码"`
-ListDate string `json:"list_date,omitempty" jsonschema:"上市日期（格式：YYYYMMDD）"`
-ListStatus string `json:"list_status,omitempty" jsonschema:"上市状态（L上市 D退市 P待上市）"`
-Exchange string `json:"exchange,omitempty" jsonschema:"交易所（SH上交所 SZ深交所）"`
-Mgr string `json:"mgr,omitempty" jsonschema:"管理人（简称，e.g.华夏基金)"`
+ListDate string `json:"list_date,omitempty" jsonschema:"上市日期YYYYMMDD)"`
+ListStatus string `json:"list_status,omitempty" jsonschema:"上市状态(L上市 D退市 P待上市)"`
+Exchange string `json:"exchange,omitempty" jsonschema:"交易所(SH上交所 SZ深交所)"`
+Mgr string `json:"mgr,omitempty" jsonschema:"管理人(简称，e.g.华夏基金)"`
 
 }
 
@@ -28,8 +28,8 @@ type EtfBasicOutput struct {
 // EtfIndexInput defines the input schema
 type EtfIndexInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"指数代码"`
-PubDate string `json:"pub_date,omitempty" jsonschema:"发布日期（格式：YYYYMMDD）"`
-BaseDate string `json:"base_date,omitempty" jsonschema:"指数基期（格式：YYYYMMDD）"`
+PubDate string `json:"pub_date,omitempty" jsonschema:"发布日期YYYYMMDD)"`
+BaseDate string `json:"base_date,omitempty" jsonschema:"指数基期YYYYMMDD)"`
 
 }
 
@@ -41,11 +41,11 @@ type EtfIndexOutput struct {
 
 // EtfShareSizeInput defines the input schema
 type EtfShareSizeInput struct {
-TsCode string `json:"ts_code,omitempty" jsonschema:"基金代码 （可从ETF基础信息接口提取）"`
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（YYYYMMDD格式，下同）"`
+TsCode string `json:"ts_code,omitempty" jsonschema:"基金代码 (可从ETF基础信息接口提取)"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期(YYYYMMDD格式，下同)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
-Exchange string `json:"exchange,omitempty" jsonschema:"交易所（SSE上交所 SZSE深交所）"`
+Exchange string `json:"exchange,omitempty" jsonschema:"交易所(SSE上交所 SZSE深交所)"`
 
 }
 
@@ -57,8 +57,8 @@ type EtfShareSizeOutput struct {
 
 // FundAdjInput defines the input schema
 type FundAdjInput struct {
-TsCode string `json:"ts_code,omitempty" jsonschema:"TS基金代码（支持多只基金输入）"`
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（格式：yyyymmdd，下同）"`
+TsCode string `json:"ts_code,omitempty" jsonschema:"TS基金代码(支持多只基金输入)"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期yyyymmdd，下同)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 Offset string `json:"offset,omitempty" jsonschema:"开始行数"`
@@ -90,7 +90,7 @@ type FundDailyOutput struct {
 // RtEtfKInput defines the input schema
 type RtEtfKInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"支持通配符方式，e.g. 5*.SH、15*.SZ、159101.SZ"`
-Topic string `json:"topic,omitempty" jsonschema:"分类参数，取上海ETF时，需要输入'HQ_FND_TICK'，参考下面例子"`
+Topic string `json:"topic,omitempty" jsonschema:"分类参数，取上海ETF时，需要输入HQ_FND_TICK，参考下面例子"`
 
 }
 
@@ -102,7 +102,7 @@ type RtEtfKOutput struct {
 
 // RtMinInput defines the input schema
 type RtMinInput struct {
-Freq string `json:"freq,omitempty" jsonschema:"1MIN,5MIN,15MIN,30MIN,60MIN （大写）"`
+Freq string `json:"freq,omitempty" jsonschema:"1MIN,5MIN,15MIN,30MIN,60MIN (大写)"`
 TsCode string `json:"ts_code,omitempty" jsonschema:"支持单个和多个：589960.SH 或者 589960.SH,159100.SZ"`
 
 }
@@ -116,7 +116,7 @@ type RtMinOutput struct {
 // StkMinsInput defines the input schema
 type StkMinsInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"ETF代码，e.g. 159001.SZ"`
-Freq string `json:"freq,omitempty" jsonschema:"分钟频度（1min/5min/15min/30min/60min）"`
+Freq string `json:"freq,omitempty" jsonschema:"分钟频度(1min/5min/15min/30min/60min)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期 格式：2025-06-01 09:00:00"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束时间 格式：2025-06-20 19:00:00"`
 

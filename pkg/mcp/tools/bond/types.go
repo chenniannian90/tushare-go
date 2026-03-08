@@ -42,7 +42,7 @@ type BcOtcqtOutput struct {
 // BondBlkInput defines the input schema
 type BondBlkInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"债券代码"`
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（YYYYMMDD格式，下同）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期(YYYYMMDD格式，下同)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
@@ -57,7 +57,7 @@ type BondBlkOutput struct {
 // BondBlkDetailInput defines the input schema
 type BondBlkDetailInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"债券代码"`
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（YYYYMMDD格式，下同）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期(YYYYMMDD格式，下同)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
@@ -170,7 +170,7 @@ type CbRateOutput struct {
 // CbShareInput defines the input schema
 type CbShareInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"转债代码，支持多值输入"`
-AnnDate string `json:"ann_date,omitempty" jsonschema:"公告日期（YYYYMMDD格式，下同）"`
+AnnDate string `json:"ann_date,omitempty" jsonschema:"公告日期(YYYYMMDD格式，下同)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"公告开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"公告结束日期"`
 
@@ -184,12 +184,12 @@ type CbShareOutput struct {
 
 // EcoCalInput defines the input schema
 type EcoCalInput struct {
-Date string `json:"date,omitempty" jsonschema:"日期（YYYYMMDD格式）"`
+Date string `json:"date,omitempty" jsonschema:"日期(YYYYMMDD格式)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 Currency string `json:"currency,omitempty" jsonschema:"货币代码"`
-Country string `json:"country,omitempty" jsonschema:"国家（比如：中国、美国）"`
-Event string `json:"event,omitempty" jsonschema:"事件 （支持模糊匹配： *非农*）"`
+Country string `json:"country,omitempty" jsonschema:"国家(比如：中国、美国)"`
+Event string `json:"event,omitempty" jsonschema:"事件 (支持模糊匹配： *非农*)"`
 
 }
 

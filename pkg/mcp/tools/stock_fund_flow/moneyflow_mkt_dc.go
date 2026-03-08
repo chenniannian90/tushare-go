@@ -15,11 +15,12 @@ import (
 // registerMoneyflowMktDc registers the tool
 func (r *Stock_fund_flowTools) registerMoneyflowMktDc() {
 	inputSchema, _ := jsonschema.For[MoneyflowMktDcInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_fund_flow.moneyflow_mkt_dc",
 		Description: "获取东方财富大盘资金流向数据，每日盘后更新",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

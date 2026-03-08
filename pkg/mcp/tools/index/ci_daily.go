@@ -15,11 +15,12 @@ import (
 // registerCiDaily registers the tool
 func (r *IndexTools) registerCiDaily() {
 	inputSchema, _ := jsonschema.For[CiDailyInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "index.ci_daily",
 		Description: "获取中信行业指数日线行情",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

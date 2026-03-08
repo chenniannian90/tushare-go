@@ -15,11 +15,12 @@ import (
 // registerFutWsr registers the tool
 func (r *FuturesTools) registerFutWsr() {
 	inputSchema, _ := jsonschema.For[FutWsrInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "futures.fut_wsr",
 		Description: "获取仓单日报数据，了解各仓库/厂库的仓单变化",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

@@ -15,11 +15,12 @@ import (
 // registerFutDaily registers the tool
 func (r *FuturesTools) registerFutDaily() {
 	inputSchema, _ := jsonschema.For[FutDailyInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "futures.fut_daily",
 		Description: "期货日线行情数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

@@ -15,11 +15,12 @@ import (
 // registerGgtTop10 registers the tool
 func (r *Stock_marketTools) registerGgtTop10() {
 	inputSchema, _ := jsonschema.For[GgtTop10Input](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.ggt_top10",
 		Description: "获取港股通每日成交数据，其中包括沪市、深市详细数据，每天18~20点之间完成当日更新",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

@@ -15,11 +15,12 @@ import (
 // registerCbBasic registers the tool
 func (r *BondTools) registerCbBasic() {
 	inputSchema, _ := jsonschema.For[CbBasicInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "bond.cb_basic",
 		Description: "获取可转债基本信息",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

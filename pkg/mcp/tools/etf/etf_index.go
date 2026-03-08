@@ -15,11 +15,12 @@ import (
 // registerEtfIndex registers the tool
 func (r *EtfTools) registerEtfIndex() {
 	inputSchema, _ := jsonschema.For[EtfIndexInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "etf.etf_index",
 		Description: "获取ETF基准指数列表信息",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

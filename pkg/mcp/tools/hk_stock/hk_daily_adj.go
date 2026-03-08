@@ -15,11 +15,12 @@ import (
 // registerHkDailyAdj registers the tool
 func (r *Hk_stockTools) registerHkDailyAdj() {
 	inputSchema, _ := jsonschema.For[HkDailyAdjInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "hk_stock.hk_daily_adj",
 		Description: "获取港股复权行情，提供股票股本、市值和成交及换手多个数据指标",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

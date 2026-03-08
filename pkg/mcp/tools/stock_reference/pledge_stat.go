@@ -15,11 +15,12 @@ import (
 // registerPledgeStat registers the tool
 func (r *Stock_referenceTools) registerPledgeStat() {
 	inputSchema, _ := jsonschema.For[PledgeStatInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_reference.pledge_stat",
 		Description: "获取股票质押统计数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

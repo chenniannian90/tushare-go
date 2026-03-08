@@ -15,11 +15,12 @@ import (
 // registerHkIncome registers the tool
 func (r *Hk_stockTools) registerHkIncome() {
 	inputSchema, _ := jsonschema.For[HkIncomeInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "hk_stock.hk_income",
 		Description: "获取港股上市公司财务利润表数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

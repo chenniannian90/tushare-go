@@ -15,11 +15,12 @@ import (
 // registerStkAuction registers the tool
 func (r *Stock_boardTools) registerStkAuction() {
 	inputSchema, _ := jsonschema.For[StkAuctionInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.stk_auction",
 		Description: "获取当日个股和ETF的集合竞价成交情况，每天9点25~29分之间可以获取当日的集合竞价成交数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

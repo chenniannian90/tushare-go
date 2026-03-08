@@ -10,7 +10,7 @@ import (
 
 // CnCpiInput defines the input schema
 type CnCpiInput struct {
-M string `json:"m,omitempty" jsonschema:"月份（YYYYMM，下同），支持多个月份同时输入，逗号分隔"`
+M string `json:"m,omitempty" jsonschema:"月份(YYYYMM，下同)，支持多个月份同时输入，逗号分隔"`
 StartM string `json:"start_m,omitempty" jsonschema:"开始月份"`
 EndM string `json:"end_m,omitempty" jsonschema:"结束月份"`
 
@@ -24,7 +24,7 @@ type CnCpiOutput struct {
 
 // CnPpiInput defines the input schema
 type CnPpiInput struct {
-M string `json:"m,omitempty" jsonschema:"月份（YYYYMM，下同），支持多个月份同时输入，逗号分隔"`
+M string `json:"m,omitempty" jsonschema:"月份(YYYYMM，下同)，支持多个月份同时输入，逗号分隔"`
 StartM string `json:"start_m,omitempty" jsonschema:"开始月份"`
 EndM string `json:"end_m,omitempty" jsonschema:"结束月份"`
 

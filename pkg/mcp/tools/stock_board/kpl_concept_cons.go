@@ -15,11 +15,12 @@ import (
 // registerKplConceptCons registers the tool
 func (r *Stock_boardTools) registerKplConceptCons() {
 	inputSchema, _ := jsonschema.For[KplConceptConsInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.kpl_concept_cons",
 		Description: "获取开盘啦概念题材的成分股",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

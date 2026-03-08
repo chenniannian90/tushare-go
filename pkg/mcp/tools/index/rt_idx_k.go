@@ -15,11 +15,12 @@ import (
 // registerRtIdxK registers the tool
 func (r *IndexTools) registerRtIdxK() {
 	inputSchema, _ := jsonschema.For[RtIdxKInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "index.rt_idx_k",
 		Description: "获取交易所指数实时日线行情，支持按代码或代码通配符一次性提取全部交易所指数实时日k线行情",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

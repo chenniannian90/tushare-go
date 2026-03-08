@@ -15,11 +15,12 @@ import (
 // registerWzIndex registers the tool
 func (r *Macro_interest_rateTools) registerWzIndex() {
 	inputSchema, _ := jsonschema.For[WzIndexInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "macro_interest_rate.wz_index",
 		Description: "温州民间借贷利率，即温州指数",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

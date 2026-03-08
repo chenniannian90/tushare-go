@@ -15,11 +15,12 @@ import (
 // registerTdxDaily registers the tool
 func (r *Stock_boardTools) registerTdxDaily() {
 	inputSchema, _ := jsonschema.For[TdxDailyInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.tdx_daily",
 		Description: "获取通达信各板块行情，包括成交和估值等数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

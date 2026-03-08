@@ -15,11 +15,12 @@ import (
 // registerCnPmi registers the tool
 func (r *Macro_businessTools) registerCnPmi() {
 	inputSchema, _ := jsonschema.For[CnPmiInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "macro_business.cn_pmi",
 		Description: "采购经理人指数",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

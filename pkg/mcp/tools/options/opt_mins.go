@@ -15,11 +15,12 @@ import (
 // registerOptMins registers the tool
 func (r *OptionsTools) registerOptMins() {
 	inputSchema, _ := jsonschema.For[OptMinsInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "options.opt_mins",
 		Description: "获取全市场期权合约分钟数据，支持1min/5min/15min/30min/60min行情，提供Python SDK和 http Restful API两种方式。",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

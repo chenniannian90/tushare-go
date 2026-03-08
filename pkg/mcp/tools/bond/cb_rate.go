@@ -15,11 +15,12 @@ import (
 // registerCbRate registers the tool
 func (r *BondTools) registerCbRate() {
 	inputSchema, _ := jsonschema.For[CbRateInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "bond.cb_rate",
 		Description: "获取可转债票面利率",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

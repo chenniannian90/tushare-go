@@ -15,11 +15,12 @@ import (
 // registerFinaMainbz registers the tool
 func (r *Stock_financialTools) registerFinaMainbz() {
 	inputSchema, _ := jsonschema.For[FinaMainbzInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_financial.fina_mainbz",
 		Description: "获得上市公司主营业务构成，分地区和产品两种方式",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

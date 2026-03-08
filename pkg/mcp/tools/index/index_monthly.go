@@ -15,11 +15,12 @@ import (
 // registerIndexMonthly registers the tool
 func (r *IndexTools) registerIndexMonthly() {
 	inputSchema, _ := jsonschema.For[IndexMonthlyInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "index.index_monthly",
 		Description: "获取指数月线行情,每月更新一次",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

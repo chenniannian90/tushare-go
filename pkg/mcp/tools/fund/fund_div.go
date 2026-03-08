@@ -15,11 +15,12 @@ import (
 // registerFundDiv registers the tool
 func (r *FundTools) registerFundDiv() {
 	inputSchema, _ := jsonschema.For[FundDivInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "fund.fund_div",
 		Description: "获取公募基金分红数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

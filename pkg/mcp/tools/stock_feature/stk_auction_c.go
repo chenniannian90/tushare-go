@@ -15,11 +15,12 @@ import (
 // registerStkAuctionC registers the tool
 func (r *Stock_featureTools) registerStkAuctionC() {
 	inputSchema, _ := jsonschema.For[StkAuctionCInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_feature.stk_auction_c",
 		Description: "股票收盘15:00集合竞价数据，每天盘后更新",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

@@ -15,11 +15,12 @@ import (
 // registerIndexBasic registers the tool
 func (r *IndexTools) registerIndexBasic() {
 	inputSchema, _ := jsonschema.For[IndexBasicInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "index.index_basic",
 		Description: "获取指数基础信息。",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

@@ -15,11 +15,12 @@ import (
 // registerForecast registers the tool
 func (r *Stock_financialTools) registerForecast() {
 	inputSchema, _ := jsonschema.For[ForecastInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_financial.forecast",
 		Description: "获取业绩预告数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

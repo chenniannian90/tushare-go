@@ -15,11 +15,12 @@ import (
 // registerFtLimit registers the tool
 func (r *FuturesTools) registerFtLimit() {
 	inputSchema, _ := jsonschema.For[FtLimitInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "futures.ft_limit",
 		Description: "获取所有期货合约每天的涨跌停价格及最低保证金率，数据开始于2005年。",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

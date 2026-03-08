@@ -11,7 +11,7 @@ import (
 // HkAdjfactorInput defines the input schema
 type HkAdjfactorInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（格式：YYYYMMDD，下同）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期YYYYMMDD，下同)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
@@ -26,10 +26,10 @@ type HkAdjfactorOutput struct {
 // HkBalancesheetInput defines the input schema
 type HkBalancesheetInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
-Period string `json:"period,omitempty" jsonschema:"报告期(格式：YYYYMMDD）"`
-IndName string `json:"ind_name,omitempty" jsonschema:"指标名（如：应收帐款）"`
-StartDate string `json:"start_date,omitempty" jsonschema:"报告期开始日期（格式：YYYYMMDD）"`
-EndDate string `json:"end_date,omitempty" jsonschema:"报告结束始日期（格式：YYYYMMDD）"`
+Period string `json:"period,omitempty" jsonschema:"报告期YYYYMMDD)"`
+IndName string `json:"ind_name,omitempty" jsonschema:"指标名(如：应收帐款)"`
+StartDate string `json:"start_date,omitempty" jsonschema:"报告期开始日期YYYYMMDD)"`
+EndDate string `json:"end_date,omitempty" jsonschema:"报告结束始日期YYYYMMDD)"`
 
 }
 
@@ -55,10 +55,10 @@ type HkBasicOutput struct {
 // HkCashflowInput defines the input schema
 type HkCashflowInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
-Period string `json:"period,omitempty" jsonschema:"报告期(格式：YYYYMMDD）"`
-IndName string `json:"ind_name,omitempty" jsonschema:"指标名（如：新增贷款）"`
-StartDate string `json:"start_date,omitempty" jsonschema:"报告期开始日期（格式：YYYYMMDD）"`
-EndDate string `json:"end_date,omitempty" jsonschema:"报告结束始日期（格式：YYYYMMDD）"`
+Period string `json:"period,omitempty" jsonschema:"报告期YYYYMMDD)"`
+IndName string `json:"ind_name,omitempty" jsonschema:"指标名(如：新增贷款)"`
+StartDate string `json:"start_date,omitempty" jsonschema:"报告期开始日期YYYYMMDD)"`
+EndDate string `json:"end_date,omitempty" jsonschema:"报告结束始日期YYYYMMDD)"`
 
 }
 
@@ -85,10 +85,10 @@ type HkDailyOutput struct {
 
 // HkDailyAdjInput defines the input schema
 type HkDailyAdjInput struct {
-TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码（e.g. 00001.HK）"`
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（YYYYMMDD）"`
-StartDate string `json:"start_date,omitempty" jsonschema:"开始日期（YYYYMMDD）"`
-EndDate string `json:"end_date,omitempty" jsonschema:"结束日期（YYYYMMDD）"`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码(e.g. 00001.HK)"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期(YYYYMMDD)"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期(YYYYMMDD)"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期(YYYYMMDD)"`
 
 }
 
@@ -101,10 +101,10 @@ type HkDailyAdjOutput struct {
 // HkFinaIndicatorInput defines the input schema
 type HkFinaIndicatorInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
-Period string `json:"period,omitempty" jsonschema:"报告期(格式：YYYYMMDD）"`
-ReportType string `json:"report_type,omitempty" jsonschema:"报告期类型（Q1一季报Q2半年报Q3三季报Q4年报）"`
-StartDate string `json:"start_date,omitempty" jsonschema:"报告期开始日期(格式：YYYYMMDD）"`
-EndDate string `json:"end_date,omitempty" jsonschema:"报告结束日期(格式：YYYYMMDD）"`
+Period string `json:"period,omitempty" jsonschema:"报告期YYYYMMDD)"`
+ReportType string `json:"report_type,omitempty" jsonschema:"报告期类型(Q1一季报Q2半年报Q3三季报Q4年报)"`
+StartDate string `json:"start_date,omitempty" jsonschema:"报告期开始日期YYYYMMDD)"`
+EndDate string `json:"end_date,omitempty" jsonschema:"报告结束日期YYYYMMDD)"`
 
 }
 
@@ -117,10 +117,10 @@ type HkFinaIndicatorOutput struct {
 // HkIncomeInput defines the input schema
 type HkIncomeInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
-Period string `json:"period,omitempty" jsonschema:"报告期(格式：YYYYMMDD）"`
-IndName string `json:"ind_name,omitempty" jsonschema:"指标名（如：营业额）"`
-StartDate string `json:"start_date,omitempty" jsonschema:"报告期开始日期（格式：YYYYMMDD）"`
-EndDate string `json:"end_date,omitempty" jsonschema:"报告结束始日期（格式：YYYYMMDD）"`
+Period string `json:"period,omitempty" jsonschema:"报告期YYYYMMDD)"`
+IndName string `json:"ind_name,omitempty" jsonschema:"指标名(如：营业额)"`
+StartDate string `json:"start_date,omitempty" jsonschema:"报告期开始日期YYYYMMDD)"`
+EndDate string `json:"end_date,omitempty" jsonschema:"报告结束始日期YYYYMMDD)"`
 
 }
 
@@ -133,7 +133,7 @@ type HkIncomeOutput struct {
 // HkMinsInput defines the input schema
 type HkMinsInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码，e.g.00001.HK"`
-Freq string `json:"freq,omitempty" jsonschema:"分钟频度（1min/5min/15min/30min/60min）"`
+Freq string `json:"freq,omitempty" jsonschema:"分钟频度(1min/5min/15min/30min/60min)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期 格式：2023-03-13 09:00:00"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束时间 格式：2023-03-13 19:00:00"`
 
@@ -149,7 +149,7 @@ type HkMinsOutput struct {
 type HkTradecalInput struct {
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
-IsOpen string `json:"is_open,omitempty" jsonschema:"是否交易 '0'休市 '1'交易"`
+IsOpen string `json:"is_open,omitempty" jsonschema:"是否交易 0休市 1交易"`
 
 }
 

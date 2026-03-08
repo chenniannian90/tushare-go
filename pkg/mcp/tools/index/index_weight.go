@@ -15,11 +15,12 @@ import (
 // registerIndexWeight registers the tool
 func (r *IndexTools) registerIndexWeight() {
 	inputSchema, _ := jsonschema.For[IndexWeightInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "index.index_weight",
 		Description: "获取各类指数成分和权重，月度数据 ，建议输入参数里开始日期和结束日分别输入当月第一天和最后一天的日期。来源：指数公司网站公开数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

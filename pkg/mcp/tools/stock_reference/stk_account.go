@@ -15,11 +15,12 @@ import (
 // registerStkAccount registers the tool
 func (r *Stock_referenceTools) registerStkAccount() {
 	inputSchema, _ := jsonschema.For[StkAccountInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_reference.stk_account",
 		Description: "获取股票账户开户数据，统计周期为一周",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

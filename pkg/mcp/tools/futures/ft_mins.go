@@ -15,11 +15,12 @@ import (
 // registerFtMins registers the tool
 func (r *FuturesTools) registerFtMins() {
 	inputSchema, _ := jsonschema.For[FtMinsInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "futures.ft_mins",
 		Description: "获取全市场期货合约分钟数据，支持1min/5min/15min/30min/60min行情，提供Python SDK和 http Restful API两种方式，如果需要主力合约分钟，请先通过主力mapping接口获取对应的合约代码后提取分钟。",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

@@ -15,11 +15,12 @@ import (
 // registerCnM registers the tool
 func (r *Macro_money_supplyTools) registerCnM() {
 	inputSchema, _ := jsonschema.For[CnMInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "macro_money_supply.cn_m",
 		Description: "获取货币供应量之月度数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

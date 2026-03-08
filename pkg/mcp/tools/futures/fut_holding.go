@@ -15,11 +15,12 @@ import (
 // registerFutHolding registers the tool
 func (r *FuturesTools) registerFutHolding() {
 	inputSchema, _ := jsonschema.For[FutHoldingInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "futures.fut_holding",
 		Description: "获取每日成交持仓排名数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

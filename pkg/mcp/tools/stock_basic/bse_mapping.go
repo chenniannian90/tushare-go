@@ -15,11 +15,12 @@ import (
 // registerBseMapping registers the tool
 func (r *Stock_basicTools) registerBseMapping() {
 	inputSchema, _ := jsonschema.For[BseMappingInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_basic.bse_mapping",
 		Description: "获取北交所股票代码变更后新旧代码映射表数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

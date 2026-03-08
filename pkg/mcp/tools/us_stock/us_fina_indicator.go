@@ -15,11 +15,12 @@ import (
 // registerUsFinaIndicator registers the tool
 func (r *Us_stockTools) registerUsFinaIndicator() {
 	inputSchema, _ := jsonschema.For[UsFinaIndicatorInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "us_stock.us_fina_indicator",
 		Description: "获取美股上市公司财务指标数据，目前只覆盖主要美股和中概股。为避免服务器压力，现阶段每次请求最多返回200条记录，可通过设置日期多次请求获取更多数据。",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

@@ -15,11 +15,12 @@ import (
 // registerIndexMemberAll registers the tool
 func (r *IndexTools) registerIndexMemberAll() {
 	inputSchema, _ := jsonschema.For[IndexMemberAllInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "index.index_member_all",
 		Description: "按三级分类提取申万行业成分，可提供某个分类的所有成分，也可按股票代码提取所属分类，参数灵活",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

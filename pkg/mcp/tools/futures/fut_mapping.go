@@ -15,11 +15,12 @@ import (
 // registerFutMapping registers the tool
 func (r *FuturesTools) registerFutMapping() {
 	inputSchema, _ := jsonschema.For[FutMappingInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "futures.fut_mapping",
 		Description: "获取期货主力（或连续）合约与月合约映射数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

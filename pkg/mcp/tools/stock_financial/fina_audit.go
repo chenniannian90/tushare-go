@@ -15,11 +15,12 @@ import (
 // registerFinaAudit registers the tool
 func (r *Stock_financialTools) registerFinaAudit() {
 	inputSchema, _ := jsonschema.For[FinaAuditInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_financial.fina_audit",
 		Description: "获取上市公司定期财务审计意见数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

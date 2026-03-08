@@ -15,11 +15,12 @@ import (
 // registerMoneyflowIndThs registers the tool
 func (r *Stock_fund_flowTools) registerMoneyflowIndThs() {
 	inputSchema, _ := jsonschema.For[MoneyflowIndThsInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_fund_flow.moneyflow_ind_ths",
 		Description: "获取同花顺行业资金流向，每日盘后更新",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

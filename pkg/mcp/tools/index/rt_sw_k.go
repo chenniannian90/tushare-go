@@ -15,11 +15,12 @@ import (
 // registerRtSwK registers the tool
 func (r *IndexTools) registerRtSwK() {
 	inputSchema, _ := jsonschema.For[RtSwKInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "index.rt_sw_k",
 		Description: "获取申万行业指数的最新截面数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

@@ -15,11 +15,12 @@ import (
 // registerUsIncome registers the tool
 func (r *Us_stockTools) registerUsIncome() {
 	inputSchema, _ := jsonschema.For[UsIncomeInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "us_stock.us_income",
 		Description: "获取美股上市公司财务利润表数据（目前只覆盖主要美股和中概股）",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

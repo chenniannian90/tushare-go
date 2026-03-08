@@ -15,11 +15,12 @@ import (
 // registerDcDaily registers the tool
 func (r *Stock_boardTools) registerDcDaily() {
 	inputSchema, _ := jsonschema.For[DcDailyInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.dc_daily",
 		Description: "获取东财概念板块、行业指数板块、地域板块行情数据，历史数据开始于2020年",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

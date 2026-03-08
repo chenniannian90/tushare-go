@@ -15,11 +15,12 @@ import (
 // registerStkWeeklyMonthly registers the tool
 func (r *Stock_marketTools) registerStkWeeklyMonthly() {
 	inputSchema, _ := jsonschema.For[StkWeeklyMonthlyInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.stk_weekly_monthly",
 		Description: "股票周/月线行情(每日更新)",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

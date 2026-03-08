@@ -15,11 +15,12 @@ import (
 // registerThsHot registers the tool
 func (r *Stock_boardTools) registerThsHot() {
 	inputSchema, _ := jsonschema.For[ThsHotInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.ths_hot",
 		Description: "获取同花顺App热榜数据，包括热股、概念板块、ETF、可转债、港美股等等，每日盘中提取4次，收盘后4次，最晚22点提取一次。",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

@@ -15,11 +15,12 @@ import (
 // registerStkAccountOld registers the tool
 func (r *Stock_referenceTools) registerStkAccountOld() {
 	inputSchema, _ := jsonschema.For[StkAccountOldInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_reference.stk_account_old",
 		Description: "获取股票账户开户数据旧版格式数据，数据从2008年1月开始，到2015年5月29，新数据请通过股票开户数据获取。",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

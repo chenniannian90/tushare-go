@@ -15,11 +15,12 @@ import (
 // registerStkRewards registers the tool
 func (r *Stock_basicTools) registerStkRewards() {
 	inputSchema, _ := jsonschema.For[StkRewardsInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_basic.stk_rewards",
 		Description: "获取上市公司管理层薪酬和持股",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

@@ -15,11 +15,12 @@ import (
 // registerCnPpi registers the tool
 func (r *Macro_priceTools) registerCnPpi() {
 	inputSchema, _ := jsonschema.For[CnPpiInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "macro_price.cn_ppi",
 		Description: "获取PPI工业生产者出厂价格指数数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

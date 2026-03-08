@@ -15,11 +15,12 @@ import (
 // registerStkHoldertrade registers the tool
 func (r *Stock_referenceTools) registerStkHoldertrade() {
 	inputSchema, _ := jsonschema.For[StkHoldertradeInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_reference.stk_holdertrade",
 		Description: "获取上市公司增减持数据，了解重要股东近期及历史上的股份增减变化",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

@@ -15,11 +15,12 @@ import (
 // registerTeleplayRecord registers the tool
 func (r *Industry_tmtTools) registerTeleplayRecord() {
 	inputSchema, _ := jsonschema.For[TeleplayRecordInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "industry_tmt.teleplay_record",
 		Description: "获取2009年以来全国拍摄制作电视剧备案公示数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

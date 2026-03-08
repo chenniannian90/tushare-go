@@ -15,11 +15,12 @@ import (
 // registerTradeCal registers the tool
 func (r *FuturesTools) registerTradeCal() {
 	inputSchema, _ := jsonschema.For[TradeCalInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "futures.trade_cal",
 		Description: "获取各大期货交易所交易日历数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

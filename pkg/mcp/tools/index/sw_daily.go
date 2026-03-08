@@ -15,11 +15,12 @@ import (
 // registerSwDaily registers the tool
 func (r *IndexTools) registerSwDaily() {
 	inputSchema, _ := jsonschema.For[SwDailyInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "index.sw_daily",
 		Description: "获取申万行业日线行情（默认是申万2021版行情）",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

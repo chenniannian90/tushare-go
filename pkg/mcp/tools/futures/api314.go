@@ -15,11 +15,12 @@ import (
 // registerApi314 registers the tool
 func (r *FuturesTools) registerApi314() {
 	inputSchema, _ := jsonschema.For[Api314Input](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "futures.api314",
 		Description: "Retrieve api314 data from Tushare futures API",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

@@ -15,11 +15,12 @@ import (
 // registerUsTrltr registers the tool
 func (r *Macro_us_rateTools) registerUsTrltr() {
 	inputSchema, _ := jsonschema.For[UsTrltrInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "macro_us_rate.us_trltr",
 		Description: "国债实际长期利率平均值",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

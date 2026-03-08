@@ -15,11 +15,12 @@ import (
 // registerNpr registers the tool
 func (r *Llm_corpusTools) registerNpr() {
 	inputSchema, _ := jsonschema.For[NprInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "llm_corpus.npr",
 		Description: "获取国家行政机关公开披露的各类法规、条例政策、批复、通知等文本数据。",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

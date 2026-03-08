@@ -10,10 +10,10 @@ import (
 
 // CnMInput defines the input schema
 type CnMInput struct {
-M string `json:"m,omitempty" jsonschema:"月度（202001表示，2020年1月）"`
+M string `json:"m,omitempty" jsonschema:"月度(202001表示，2020年1月)"`
 StartM string `json:"start_m,omitempty" jsonschema:"开始月度"`
 EndM string `json:"end_m,omitempty" jsonschema:"结束月度"`
-Fields string `json:"fields,omitempty" jsonschema:"指定输出字段（e.g. fields='month,m0,m1,m2'）"`
+Fields string `json:"fields,omitempty" jsonschema:"指定输出字段(e.g. )"`
 
 }
 

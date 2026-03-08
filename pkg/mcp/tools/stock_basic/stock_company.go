@@ -15,11 +15,12 @@ import (
 // registerStockCompany registers the tool
 func (r *Stock_basicTools) registerStockCompany() {
 	inputSchema, _ := jsonschema.For[StockCompanyInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_basic.stock_company",
 		Description: "获取上市公司基础信息，单次提取4500条，可以根据交易所分批提取",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

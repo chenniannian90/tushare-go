@@ -15,11 +15,12 @@ import (
 // registerSlbSec registers the tool
 func (r *Stock_marginTools) registerSlbSec() {
 	inputSchema, _ := jsonschema.For[SlbSecInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_margin.slb_sec",
 		Description: "转融通转融券交易汇总",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

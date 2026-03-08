@@ -15,11 +15,12 @@ import (
 // registerCctvNews registers the tool
 func (r *Llm_corpusTools) registerCctvNews() {
 	inputSchema, _ := jsonschema.For[CctvNewsInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "llm_corpus.cctv_news",
 		Description: "获取新闻联播文字稿数据，数据开始于2017年。",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

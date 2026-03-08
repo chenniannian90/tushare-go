@@ -10,7 +10,7 @@ import (
 
 // BrokerRecommendInput defines the input schema
 type BrokerRecommendInput struct {
-Month string `json:"month,omitempty" jsonschema:"月度（YYYYMM）"`
+Month string `json:"month,omitempty" jsonschema:"月度(YYYYMM)"`
 
 }
 
@@ -23,7 +23,7 @@ type BrokerRecommendOutput struct {
 // CcassHoldInput defines the input schema
 type CcassHoldInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码 (e.g. 605009.SH)"`
-HkCode string `json:"hk_code,omitempty" jsonschema:"港交所代码 （e.g. 95009）"`
+HkCode string `json:"hk_code,omitempty" jsonschema:"港交所代码 (e.g. 95009)"`
 TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期(YYYYMMDD格式，下同)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
@@ -39,7 +39,7 @@ type CcassHoldOutput struct {
 // CcassHoldDetailInput defines the input schema
 type CcassHoldDetailInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码 (e.g. 605009.SH)"`
-HkCode string `json:"hk_code,omitempty" jsonschema:"港交所代码 （e.g. 95009）"`
+HkCode string `json:"hk_code,omitempty" jsonschema:"港交所代码 (e.g. 95009)"`
 TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期(YYYYMMDD格式，下同)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
@@ -55,7 +55,7 @@ type CcassHoldDetailOutput struct {
 // CyqChipsInput defines the input schema
 type CyqChipsInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（YYYYMMDD）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期(YYYYMMDD)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
@@ -70,7 +70,7 @@ type CyqChipsOutput struct {
 // CyqPerfInput defines the input schema
 type CyqPerfInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（YYYYMMDD）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期(YYYYMMDD)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
@@ -89,7 +89,7 @@ TsCode string `json:"ts_code,omitempty" jsonschema:"TS股票代码"`
 TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
-Exchange string `json:"exchange,omitempty" jsonschema:"类型：SH沪股通（北向）SZ深股通（北向）HK港股通（南向持股）"`
+Exchange string `json:"exchange,omitempty" jsonschema:"类型：SH沪股通(北向)SZ深股通(北向)HK港股通(南向持股)"`
 
 }
 
@@ -116,9 +116,9 @@ type ReportRcOutput struct {
 
 // StkAhComparisonInput defines the input schema
 type StkAhComparisonInput struct {
-HkCode string `json:"hk_code,omitempty" jsonschema:"港股股票代码（xxxxx.HK)"`
+HkCode string `json:"hk_code,omitempty" jsonschema:"港股股票代码(xxxxx.HK)"`
 TsCode string `json:"ts_code,omitempty" jsonschema:"A股票代码(xxxxxx.SH/SZ/BJ)"`
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（格式：YYYYMMDD下同）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期YYYYMMDD下同)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
@@ -163,7 +163,7 @@ type StkAuctionOOutput struct {
 // StkFactorProInput defines the input schema
 type StkFactorProInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期(格式：yyyymmdd，下同)"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期yyyymmdd，下同)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
@@ -178,7 +178,7 @@ type StkFactorProOutput struct {
 // StkNineturnInput defines the input schema
 type StkNineturnInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期 （格式：YYYY-MM-DD HH:MM:SS)"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期 YYYY-MM-DD HH:MM:SS)"`
 Freq string `json:"freq,omitempty" jsonschema:"频率(日daily)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始时间"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束时间"`

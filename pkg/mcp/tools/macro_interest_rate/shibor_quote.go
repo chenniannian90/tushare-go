@@ -15,11 +15,12 @@ import (
 // registerShiborQuote registers the tool
 func (r *Macro_interest_rateTools) registerShiborQuote() {
 	inputSchema, _ := jsonschema.For[ShiborQuoteInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "macro_interest_rate.shibor_quote",
 		Description: "Shibor报价数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

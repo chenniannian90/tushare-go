@@ -15,11 +15,12 @@ import (
 // registerUsTbr registers the tool
 func (r *Macro_us_rateTools) registerUsTbr() {
 	inputSchema, _ := jsonschema.For[UsTbrInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "macro_us_rate.us_tbr",
 		Description: "获取美国短期国债利率数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

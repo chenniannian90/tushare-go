@@ -15,11 +15,12 @@ import (
 // registerWeekly registers the tool
 func (r *Stock_marketTools) registerWeekly() {
 	inputSchema, _ := jsonschema.For[WeeklyInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.weekly",
 		Description: "获取A股周线行情，本接口每周最后一个交易日更新，如需要使用每天更新的周线数据，请使用日度更新的周线行情接口。",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

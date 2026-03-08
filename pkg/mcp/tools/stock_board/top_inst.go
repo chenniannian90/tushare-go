@@ -15,11 +15,12 @@ import (
 // registerTopInst registers the tool
 func (r *Stock_boardTools) registerTopInst() {
 	inputSchema, _ := jsonschema.For[TopInstInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.top_inst",
 		Description: "龙虎榜机构成交明细",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

@@ -15,11 +15,12 @@ import (
 // registerFilmRecord registers the tool
 func (r *Industry_tmtTools) registerFilmRecord() {
 	inputSchema, _ := jsonschema.For[FilmRecordInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "industry_tmt.film_record",
 		Description: "获取全国电影剧本备案的公示数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

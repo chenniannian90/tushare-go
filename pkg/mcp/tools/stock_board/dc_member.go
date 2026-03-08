@@ -15,11 +15,12 @@ import (
 // registerDcMember registers the tool
 func (r *Stock_boardTools) registerDcMember() {
 	inputSchema, _ := jsonschema.For[DcMemberInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.dc_member",
 		Description: "获取东方财富板块每日成分数据，可以根据概念板块代码和交易日期，获取历史成分",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

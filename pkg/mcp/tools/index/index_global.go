@@ -15,11 +15,12 @@ import (
 // registerIndexGlobal registers the tool
 func (r *IndexTools) registerIndexGlobal() {
 	inputSchema, _ := jsonschema.For[IndexGlobalInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "index.index_global",
 		Description: "获取国际主要指数日线行情",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

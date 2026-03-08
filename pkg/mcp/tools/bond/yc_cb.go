@@ -15,11 +15,12 @@ import (
 // registerYcCb registers the tool
 func (r *BondTools) registerYcCb() {
 	inputSchema, _ := jsonschema.For[YcCbInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "bond.yc_cb",
 		Description: "获取中债收益率曲线，目前可获取中债国债收益率曲线即期和到期收益率曲线数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

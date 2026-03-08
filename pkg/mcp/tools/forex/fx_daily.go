@@ -15,11 +15,12 @@ import (
 // registerFxDaily registers the tool
 func (r *ForexTools) registerFxDaily() {
 	inputSchema, _ := jsonschema.For[FxDailyInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "forex.fx_daily",
 		Description: "获取外汇日线行情",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

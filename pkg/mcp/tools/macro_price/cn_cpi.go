@@ -15,11 +15,12 @@ import (
 // registerCnCpi registers the tool
 func (r *Macro_priceTools) registerCnCpi() {
 	inputSchema, _ := jsonschema.For[CnCpiInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "macro_price.cn_cpi",
 		Description: "获取CPI居民消费价格数据，包括全国、城市和农村的数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

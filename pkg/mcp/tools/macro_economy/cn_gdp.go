@@ -15,11 +15,12 @@ import (
 // registerCnGdp registers the tool
 func (r *Macro_economyTools) registerCnGdp() {
 	inputSchema, _ := jsonschema.For[CnGdpInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "macro_economy.cn_gdp",
 		Description: "获取国民经济之GDP数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

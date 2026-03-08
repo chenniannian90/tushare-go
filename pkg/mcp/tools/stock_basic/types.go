@@ -78,7 +78,7 @@ type StOutput struct {
 // StkManagersInput defines the input schema
 type StkManagersInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码，支持单个或多个股票输入"`
-AnnDate string `json:"ann_date,omitempty" jsonschema:"公告日期（YYYYMMDD格式，下同）"`
+AnnDate string `json:"ann_date,omitempty" jsonschema:"公告日期(YYYYMMDD格式，下同)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"公告开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"公告结束日期"`
 
@@ -122,7 +122,7 @@ type StkRewardsOutput struct {
 type StockBasicInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"TS股票代码(格式说明)"`
 Name string `json:"name,omitempty" jsonschema:"名称"`
-Market string `json:"market,omitempty" jsonschema:"市场类别 （主板/创业板/科创板/CDR/北交所）"`
+Market string `json:"market,omitempty" jsonschema:"市场类别 (主板/创业板/科创板/CDR/北交所)"`
 ListStatus string `json:"list_status,omitempty" jsonschema:"上市状态 L上市 D退市 P暂停上市 G过会未交易，默认是L"`
 Exchange string `json:"exchange,omitempty" jsonschema:"交易所 SSE上交所 SZSE深交所 BSE北交所"`
 IsHs string `json:"is_hs,omitempty" jsonschema:"是否沪深港通标的，N否 H沪股通 S深股通"`
@@ -149,8 +149,8 @@ type StockCompanyOutput struct {
 // StockHsgtInput defines the input schema
 type StockHsgtInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（格式：YYYYMMDD）"`
-Type string `json:"type,omitempty" jsonschema:"类型（参考下表）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期YYYYMMDD)"`
+Type string `json:"type,omitempty" jsonschema:"类型(参考下表)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始时间"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束时间"`
 
@@ -165,7 +165,7 @@ type StockHsgtOutput struct {
 // StockStInput defines the input schema
 type StockStInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（格式：YYYYMMDD下同）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期YYYYMMDD下同)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始时间"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束时间"`
 
@@ -180,9 +180,9 @@ type StockStOutput struct {
 // TradeCalInput defines the input schema
 type TradeCalInput struct {
 Exchange string `json:"exchange,omitempty" jsonschema:"交易所 SSE上交所,SZSE深交所,CFFEX 中金所,SHFE 上期所,CZCE 郑商所,DCE 大商所,INE 上能源"`
-StartDate string `json:"start_date,omitempty" jsonschema:"开始日期 （格式：YYYYMMDD 下同）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期 YYYYMMDD 下同)"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
-IsOpen string `json:"is_open,omitempty" jsonschema:"是否交易 '0'休市 '1'交易"`
+IsOpen string `json:"is_open,omitempty" jsonschema:"是否交易 0休市 1交易"`
 
 }
 

@@ -15,11 +15,12 @@ import (
 // registerCyqChips registers the tool
 func (r *Stock_featureTools) registerCyqChips() {
 	inputSchema, _ := jsonschema.For[CyqChipsInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_feature.cyq_chips",
 		Description: "获取A股每日的筹码分布情况，提供各价位占比，数据从2018年开始，每天18~19点之间更新当日数据 来源：Tushare社区",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

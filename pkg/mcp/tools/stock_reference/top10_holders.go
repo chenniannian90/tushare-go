@@ -15,11 +15,12 @@ import (
 // registerTop10Holders registers the tool
 func (r *Stock_referenceTools) registerTop10Holders() {
 	inputSchema, _ := jsonschema.For[Top10HoldersInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_reference.top10_holders",
 		Description: "获取上市公司前十大股东数据，包括持有数量和比例等信息",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

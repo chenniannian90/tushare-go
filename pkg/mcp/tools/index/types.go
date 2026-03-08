@@ -11,7 +11,7 @@ import (
 // CiDailyInput defines the input schema
 type CiDailyInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"行业代码"`
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（YYYYMMDD格式，下同）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期(YYYYMMDD格式，下同)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
@@ -29,7 +29,7 @@ L1Code string `json:"l1_code,omitempty" jsonschema:"一级行业代码"`
 L2Code string `json:"l2_code,omitempty" jsonschema:"二级行业代码"`
 L3Code string `json:"l3_code,omitempty" jsonschema:"三级行业代码"`
 TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
-IsNew string `json:"is_new,omitempty" jsonschema:"是否最新（默认为“Y是”）"`
+IsNew string `json:"is_new,omitempty" jsonschema:"是否最新(默认为“Y是”)"`
 
 }
 
@@ -41,9 +41,9 @@ type CiIndexMemberOutput struct {
 
 // DailyInfoInput defines the input schema
 type DailyInfoInput struct {
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（YYYYMMDD格式，下同）"`
-TsCode string `json:"ts_code,omitempty" jsonschema:"板块代码（请参阅下方列表）"`
-Exchange string `json:"exchange,omitempty" jsonschema:"股票市场（SH上交所 SZ深交所）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期(YYYYMMDD格式，下同)"`
+TsCode string `json:"ts_code,omitempty" jsonschema:"板块代码(请参阅下方列表)"`
+Exchange string `json:"exchange,omitempty" jsonschema:"股票市场(SH上交所 SZ深交所)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 Fields string `json:"fields,omitempty" jsonschema:"指定提取字段"`
@@ -74,7 +74,7 @@ type IdxFactorProOutput struct {
 // IdxMinsInput defines the input schema
 type IdxMinsInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"指数代码，e.g. 000001.SH"`
-Freq string `json:"freq,omitempty" jsonschema:"分钟频度（1min/5min/15min/30min/60min）"`
+Freq string `json:"freq,omitempty" jsonschema:"分钟频度(1min/5min/15min/30min/60min)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期 格式：2023-08-25 09:00:00"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束时间 格式：2023-08-25 19:00:00"`
 
@@ -105,9 +105,9 @@ type IndexBasicOutput struct {
 // IndexClassifyInput defines the input schema
 type IndexClassifyInput struct {
 IndexCode string `json:"index_code,omitempty" jsonschema:"指数代码"`
-Level string `json:"level,omitempty" jsonschema:"行业分级（L1/L2/L3）"`
-ParentCode string `json:"parent_code,omitempty" jsonschema:"父级代码（一级为0）"`
-Src string `json:"src,omitempty" jsonschema:"指数来源（SW2014：申万2014年版本，SW2021：申万2021年版本）"`
+Level string `json:"level,omitempty" jsonschema:"行业分级(L1/L2/L3)"`
+ParentCode string `json:"parent_code,omitempty" jsonschema:"父级代码(一级为0)"`
+Src string `json:"src,omitempty" jsonschema:"指数来源(SW2014：申万2014年版本，SW2021：申万2021年版本)"`
 
 }
 
@@ -120,7 +120,7 @@ type IndexClassifyOutput struct {
 // IndexDailyInput defines the input schema
 type IndexDailyInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"指数代码，来源指数基础信息接口"`
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期 （日期格式：YYYYMMDD，下同）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期 (日期格式：YYYYMMDD，下同)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
@@ -134,7 +134,7 @@ type IndexDailyOutput struct {
 
 // IndexDailybasicInput defines the input schema
 type IndexDailybasicInput struct {
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期 （格式：YYYYMMDD，比如20181018，下同）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期 YYYYMMDD，比如20181018，下同)"`
 TsCode string `json:"ts_code,omitempty" jsonschema:"TS代码"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
@@ -168,7 +168,7 @@ L1Code string `json:"l1_code,omitempty" jsonschema:"一级行业代码"`
 L2Code string `json:"l2_code,omitempty" jsonschema:"二级行业代码"`
 L3Code string `json:"l3_code,omitempty" jsonschema:"三级行业代码"`
 TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
-IsNew string `json:"is_new,omitempty" jsonschema:"是否最新（默认为“Y是”）"`
+IsNew string `json:"is_new,omitempty" jsonschema:"是否最新(默认为“Y是”)"`
 
 }
 
@@ -211,7 +211,7 @@ type IndexWeeklyOutput struct {
 // IndexWeightInput defines the input schema
 type IndexWeightInput struct {
 IndexCode string `json:"index_code,omitempty" jsonschema:"指数代码，来源指数基础信息接口"`
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（格式YYYYMMDD，下同）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期(格式YYYYMMDD，下同)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
@@ -237,7 +237,7 @@ type RtIdxKOutput struct {
 
 // RtIdxMinInput defines the input schema
 type RtIdxMinInput struct {
-Freq string `json:"freq,omitempty" jsonschema:"1MIN,5MIN,15MIN,30MIN,60MIN （大写）"`
+Freq string `json:"freq,omitempty" jsonschema:"1MIN,5MIN,15MIN,30MIN,60MIN (大写)"`
 TsCode string `json:"ts_code,omitempty" jsonschema:"支持单个和多个：000001.SH 或者 000001.SH,399300.SZ"`
 
 }
@@ -277,7 +277,7 @@ type SwDailyOutput struct {
 
 // SzDailyInfoInput defines the input schema
 type SzDailyInfoInput struct {
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（YYYYMMDD格式，下同）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期(YYYYMMDD格式，下同)"`
 TsCode string `json:"ts_code,omitempty" jsonschema:"板块代码"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`

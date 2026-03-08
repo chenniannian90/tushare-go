@@ -15,11 +15,12 @@ import (
 // registerTmtTwincome registers the tool
 func (r *Industry_tmtTools) registerTmtTwincome() {
 	inputSchema, _ := jsonschema.For[TmtTwincomeInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "industry_tmt.tmt_twincome",
 		Description: "获取台湾TMT电子产业领域各类产品月度营收数据。",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

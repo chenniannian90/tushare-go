@@ -15,11 +15,12 @@ import (
 // registerFutTick registers the tool
 func (r *FuturesTools) registerFutTick() {
 	inputSchema, _ := jsonschema.For[FutTickInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "futures.fut_tick",
 		Description: "Retrieve fut tick data from Tushare futures API",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

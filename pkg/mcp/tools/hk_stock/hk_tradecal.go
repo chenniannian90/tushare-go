@@ -15,11 +15,12 @@ import (
 // registerHkTradecal registers the tool
 func (r *Hk_stockTools) registerHkTradecal() {
 	inputSchema, _ := jsonschema.For[HkTradecalInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "hk_stock.hk_tradecal",
 		Description: "获取交易日历",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

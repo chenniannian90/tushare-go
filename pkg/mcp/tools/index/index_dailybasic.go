@@ -15,11 +15,12 @@ import (
 // registerIndexDailybasic registers the tool
 func (r *IndexTools) registerIndexDailybasic() {
 	inputSchema, _ := jsonschema.For[IndexDailybasicInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "index.index_dailybasic",
 		Description: "目前只提供上证综指，深证成指，上证50，中证500，中小板指，创业板指的每日指标数据数据来源：Tushare社区统计计算数据历史：从2004年1月开始提供数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

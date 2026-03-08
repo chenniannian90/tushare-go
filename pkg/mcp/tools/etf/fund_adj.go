@@ -15,11 +15,12 @@ import (
 // registerFundAdj registers the tool
 func (r *EtfTools) registerFundAdj() {
 	inputSchema, _ := jsonschema.For[FundAdjInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "etf.fund_adj",
 		Description: "获取基金复权因子，用于计算基金复权行情",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

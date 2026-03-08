@@ -15,11 +15,12 @@ import (
 // registerAnnsD registers the tool
 func (r *Llm_corpusTools) registerAnnsD() {
 	inputSchema, _ := jsonschema.For[AnnsDInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "llm_corpus.anns_d",
 		Description: "获取全量公告数据，提供pdf下载URL",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

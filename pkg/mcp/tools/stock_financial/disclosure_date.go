@@ -15,11 +15,12 @@ import (
 // registerDisclosureDate registers the tool
 func (r *Stock_financialTools) registerDisclosureDate() {
 	inputSchema, _ := jsonschema.For[DisclosureDateInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_financial.disclosure_date",
 		Description: "获取财报披露计划日期",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

@@ -15,11 +15,12 @@ import (
 // registerStockHsgt registers the tool
 func (r *Stock_basicTools) registerStockHsgt() {
 	inputSchema, _ := jsonschema.For[StockHsgtInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_basic.stock_hsgt",
 		Description: "获取沪深港通股票列表",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

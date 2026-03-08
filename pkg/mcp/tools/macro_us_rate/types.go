@@ -13,7 +13,7 @@ type UsTbrInput struct {
 Date string `json:"date,omitempty" jsonschema:"日期"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期(YYYYMMDD格式)"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
-Fields string `json:"fields,omitempty" jsonschema:"指定输出字段(e.g. fields='w4_bd,w52_ce')"`
+Fields string `json:"fields,omitempty" jsonschema:"指定输出字段(e.g. _bd,w52_ce)"`
 
 }
 
@@ -55,7 +55,7 @@ type UsTrltrOutput struct {
 
 // UsTrycrInput defines the input schema
 type UsTrycrInput struct {
-Date string `json:"date,omitempty" jsonschema:"日期 （YYYYMMDD格式，下同）"`
+Date string `json:"date,omitempty" jsonschema:"日期 (YYYYMMDD格式，下同)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 Fields string `json:"fields,omitempty" jsonschema:"指定输出字段"`
@@ -70,10 +70,10 @@ type UsTrycrOutput struct {
 
 // UsTycrInput defines the input schema
 type UsTycrInput struct {
-Date string `json:"date,omitempty" jsonschema:"日期 （YYYYMMDD格式，下同）"`
+Date string `json:"date,omitempty" jsonschema:"日期 (YYYYMMDD格式，下同)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
-Fields string `json:"fields,omitempty" jsonschema:"指定输出字段（e.g. fields='m1,y1'）"`
+Fields string `json:"fields,omitempty" jsonschema:"指定输出字段(e.g. )"`
 
 }
 

@@ -15,11 +15,12 @@ import (
 // registerRtIdxMin registers the tool
 func (r *IndexTools) registerRtIdxMin() {
 	inputSchema, _ := jsonschema.For[RtIdxMinInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "index.rt_idx_min",
 		Description: "获取交易所指数实时分钟数据，包括1~60min",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

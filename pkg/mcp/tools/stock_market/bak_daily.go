@@ -15,11 +15,12 @@ import (
 // registerBakDaily registers the tool
 func (r *Stock_marketTools) registerBakDaily() {
 	inputSchema, _ := jsonschema.For[BakDailyInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.bak_daily",
 		Description: "获取备用行情，包括特定的行情指标(数据从2017年中左右开始，早期有几天数据缺失，近期正常)",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

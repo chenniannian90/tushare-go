@@ -15,11 +15,12 @@ import (
 // registerCashflow registers the tool
 func (r *Stock_financialTools) registerCashflow() {
 	inputSchema, _ := jsonschema.For[CashflowInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_financial.cashflow",
 		Description: "获取上市公司现金流量表",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

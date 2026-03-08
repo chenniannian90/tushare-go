@@ -15,11 +15,12 @@ import (
 // registerMajorNews registers the tool
 func (r *Llm_corpusTools) registerMajorNews() {
 	inputSchema, _ := jsonschema.For[MajorNewsInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "llm_corpus.major_news",
 		Description: "获取长篇通讯信息，覆盖主要新闻资讯网站，提供超过8年历史新闻。",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

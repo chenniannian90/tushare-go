@@ -15,11 +15,12 @@ import (
 // registerGgtDaily registers the tool
 func (r *Stock_marketTools) registerGgtDaily() {
 	inputSchema, _ := jsonschema.For[GgtDailyInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.ggt_daily",
 		Description: "获取港股通每日成交信息，数据从2014年开始",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

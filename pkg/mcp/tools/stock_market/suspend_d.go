@@ -15,11 +15,12 @@ import (
 // registerSuspendD registers the tool
 func (r *Stock_marketTools) registerSuspendD() {
 	inputSchema, _ := jsonschema.For[SuspendDInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.suspend_d",
 		Description: "按日期方式获取股票每日停复牌信息",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

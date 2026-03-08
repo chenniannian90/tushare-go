@@ -15,11 +15,12 @@ import (
 // registerFundNav registers the tool
 func (r *FundTools) registerFundNav() {
 	inputSchema, _ := jsonschema.For[FundNavInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "fund.fund_nav",
 		Description: "获取公募基金净值数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

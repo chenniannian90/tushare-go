@@ -15,11 +15,12 @@ import (
 // registerRepurchase registers the tool
 func (r *Stock_referenceTools) registerRepurchase() {
 	inputSchema, _ := jsonschema.For[RepurchaseInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_reference.repurchase",
 		Description: "获取上市公司回购股票数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

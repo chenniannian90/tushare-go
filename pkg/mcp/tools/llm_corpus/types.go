@@ -11,7 +11,7 @@ import (
 // AnnsDInput defines the input schema
 type AnnsDInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
-AnnDate string `json:"ann_date,omitempty" jsonschema:"公告日期（yyyymmdd格式，下同）"`
+AnnDate string `json:"ann_date,omitempty" jsonschema:"公告日期(yyyymmdd格式，下同)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"公告开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"公告结束日期"`
 
@@ -25,7 +25,7 @@ type AnnsDOutput struct {
 
 // CctvNewsInput defines the input schema
 type CctvNewsInput struct {
-Date string `json:"date,omitempty" jsonschema:"日期（输入格式：YYYYMMDD 比如：20181211）"`
+Date string `json:"date,omitempty" jsonschema:"日期(输入格式：YYYYMMDD 比如：20181211)"`
 
 }
 
@@ -38,11 +38,11 @@ type CctvNewsOutput struct {
 // IrmQaShInput defines the input schema
 type IrmQaShInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（格式YYYYMMDD，下同）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期(格式YYYYMMDD，下同)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
-PubDateStart string `json:"pub_date_start,omitempty" jsonschema:"发布开始日期(格式：2025-06-03 16:43:03)"`
-PubDateEnd string `json:"pub_date_end,omitempty" jsonschema:"发布结束日期(格式：2025-06-03 18:43:23)"`
+PubDateStart string `json:"pub_date_start,omitempty" jsonschema:"发布开始日期2025-06-03 16:43:03)"`
+PubDateEnd string `json:"pub_date_end,omitempty" jsonschema:"发布结束日期2025-06-03 18:43:23)"`
 
 }
 
@@ -55,11 +55,11 @@ type IrmQaShOutput struct {
 // IrmQaSzInput defines the input schema
 type IrmQaSzInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（格式YYYYMMDD，下同）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期(格式YYYYMMDD，下同)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
-PubDateStart string `json:"pub_date_start,omitempty" jsonschema:"发布开始日期(格式：2025-06-03 16:43:03)"`
-PubDateEnd string `json:"pub_date_end,omitempty" jsonschema:"发布结束日期(格式：2025-06-03 18:43:23)"`
+PubDateStart string `json:"pub_date_start,omitempty" jsonschema:"发布开始日期2025-06-03 16:43:03)"`
+PubDateEnd string `json:"pub_date_end,omitempty" jsonschema:"发布结束日期2025-06-03 18:43:23)"`
 
 }
 
@@ -71,7 +71,7 @@ type IrmQaSzOutput struct {
 
 // MajorNewsInput defines the input schema
 type MajorNewsInput struct {
-Src string `json:"src,omitempty" jsonschema:"新闻来源（新华网、凤凰财经、同花顺、新浪财经、华尔街见闻、中证网、财新网、第一财经、财联社）"`
+Src string `json:"src,omitempty" jsonschema:"新闻来源(新华网、凤凰财经、同花顺、新浪财经、华尔街见闻、中证网、财新网、第一财经、财联社)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"新闻发布开始时间，e.g. 2018-11-21 00:00:00"`
 EndDate string `json:"end_date,omitempty" jsonschema:"新闻发布结束时间，e.g. 2018-11-22 00:00:00"`
 
@@ -85,7 +85,7 @@ type MajorNewsOutput struct {
 
 // NewsInput defines the input schema
 type NewsInput struct {
-StartDate string `json:"start_date,omitempty" jsonschema:"开始日期(格式：2018-11-20 09:00:00）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期2018-11-20 09:00:00)"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 Src string `json:"src,omitempty" jsonschema:"新闻来源 见下表"`
 
@@ -114,7 +114,7 @@ type NprOutput struct {
 
 // ResearchReportInput defines the input schema
 type ResearchReportInput struct {
-TradeDate string `json:"trade_date,omitempty" jsonschema:"研报日期（格式：YYYYMMDD，下同）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"研报日期YYYYMMDD，下同)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"研报开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"研报结束日期"`
 ReportType string `json:"report_type,omitempty" jsonschema:"研报类别：个股研报/行业研报"`

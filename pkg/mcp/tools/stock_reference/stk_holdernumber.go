@@ -15,11 +15,12 @@ import (
 // registerStkHoldernumber registers the tool
 func (r *Stock_referenceTools) registerStkHoldernumber() {
 	inputSchema, _ := jsonschema.For[StkHoldernumberInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_reference.stk_holdernumber",
 		Description: "获取上市公司股东户数数据，数据不定期公布",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

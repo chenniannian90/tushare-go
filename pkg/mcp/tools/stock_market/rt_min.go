@@ -15,11 +15,12 @@ import (
 // registerRtMin registers the tool
 func (r *Stock_marketTools) registerRtMin() {
 	inputSchema, _ := jsonschema.For[RtMinInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.rt_min",
 		Description: "获取全A股票实时分钟数据，包括1~60min",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

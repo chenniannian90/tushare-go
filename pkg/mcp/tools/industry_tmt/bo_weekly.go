@@ -15,11 +15,12 @@ import (
 // registerBoWeekly registers the tool
 func (r *Industry_tmtTools) registerBoWeekly() {
 	inputSchema, _ := jsonschema.For[BoWeeklyInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "industry_tmt.bo_weekly",
 		Description: "获取周度票房数据数据更新：本周更新上一周数据数据历史： 数据从2008年第一周开始，超过10年历史数据。数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

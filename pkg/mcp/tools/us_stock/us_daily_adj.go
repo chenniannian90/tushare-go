@@ -15,11 +15,12 @@ import (
 // registerUsDailyAdj registers the tool
 func (r *Us_stockTools) registerUsDailyAdj() {
 	inputSchema, _ := jsonschema.For[UsDailyAdjInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "us_stock.us_daily_adj",
 		Description: "获取美股复权行情，支持美股全市场股票，提供股本、市值、复权因子和成交信息等多个数据指标",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

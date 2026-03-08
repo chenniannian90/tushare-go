@@ -15,11 +15,12 @@ import (
 // registerHkMins registers the tool
 func (r *Hk_stockTools) registerHkMins() {
 	inputSchema, _ := jsonschema.For[HkMinsInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "hk_stock.hk_mins",
 		Description: "港股分钟数据，支持1min/5min/15min/30min/60min行情，提供Python SDK和 http Restful API两种方式",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

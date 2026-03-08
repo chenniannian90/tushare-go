@@ -15,11 +15,12 @@ import (
 // registerHmDetail registers the tool
 func (r *Stock_boardTools) registerHmDetail() {
 	inputSchema, _ := jsonschema.For[HmDetailInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.hm_detail",
 		Description: "获取每日游资交易明细，数据开始于2022年8。游资分类名录，请点击游资名录",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

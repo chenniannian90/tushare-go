@@ -15,11 +15,12 @@ import (
 // registerRtK registers the tool
 func (r *Stock_marketTools) registerRtK() {
 	inputSchema, _ := jsonschema.For[RtKInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.rt_k",
 		Description: "获取实时日k线行情，支持按股票代码及股票代码通配符一次性提取全部股票实时日k线行情",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

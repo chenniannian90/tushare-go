@@ -15,11 +15,12 @@ import (
 // registerRealtimeList registers the tool
 func (r *Stock_marketTools) registerRealtimeList() {
 	inputSchema, _ := jsonschema.For[RealtimeListInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.realtime_list",
 		Description: "本接口是tushare org版实时接口的顺延，数据来自网络，且不进入tushare服务器，属于爬虫接口，数据包括该股票当日开盘以来的所有分笔成交数据。",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

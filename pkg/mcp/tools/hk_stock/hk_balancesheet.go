@@ -15,11 +15,12 @@ import (
 // registerHkBalancesheet registers the tool
 func (r *Hk_stockTools) registerHkBalancesheet() {
 	inputSchema, _ := jsonschema.For[HkBalancesheetInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "hk_stock.hk_balancesheet",
 		Description: "获取港股上市公司资产负债表",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

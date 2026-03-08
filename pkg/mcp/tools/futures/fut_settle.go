@@ -15,11 +15,12 @@ import (
 // registerFutSettle registers the tool
 func (r *FuturesTools) registerFutSettle() {
 	inputSchema, _ := jsonschema.For[FutSettleInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "futures.fut_settle",
 		Description: "获取每日结算参数数据，包括交易和交割费率等",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

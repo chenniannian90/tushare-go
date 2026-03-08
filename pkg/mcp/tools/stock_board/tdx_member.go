@@ -15,11 +15,12 @@ import (
 // registerTdxMember registers the tool
 func (r *Stock_boardTools) registerTdxMember() {
 	inputSchema, _ := jsonschema.For[TdxMemberInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.tdx_member",
 		Description: "获取通达信各板块成分股信息",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

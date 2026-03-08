@@ -10,7 +10,7 @@ import (
 
 // SgeBasicInput defines the input schema
 type SgeBasicInput struct {
-TsCode string `json:"ts_code,omitempty" jsonschema:"合约代码 （支持多个，逗号分隔，不输入为获取全部）"`
+TsCode string `json:"ts_code,omitempty" jsonschema:"合约代码 (支持多个，逗号分隔，不输入为获取全部)"`
 
 }
 

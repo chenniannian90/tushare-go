@@ -15,11 +15,12 @@ import (
 // registerBondBlkDetail registers the tool
 func (r *BondTools) registerBondBlkDetail() {
 	inputSchema, _ := jsonschema.For[BondBlkDetailInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "bond.bond_blk_detail",
 		Description: "获取沪深交易所债券大宗交易数据，可以通过数据工具调试和查看数据。",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

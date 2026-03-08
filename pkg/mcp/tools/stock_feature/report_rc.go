@@ -15,11 +15,12 @@ import (
 // registerReportRc registers the tool
 func (r *Stock_featureTools) registerReportRc() {
 	inputSchema, _ := jsonschema.For[ReportRcInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_feature.report_rc",
 		Description: "获取券商（卖方）每天研报的盈利预测数据，数据从2010年开始，每晚19~22点更新当日数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

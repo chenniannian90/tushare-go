@@ -15,11 +15,12 @@ import (
 // registerShareFloat registers the tool
 func (r *Stock_referenceTools) registerShareFloat() {
 	inputSchema, _ := jsonschema.For[ShareFloatInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_reference.share_float",
 		Description: "获取限售股解禁",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

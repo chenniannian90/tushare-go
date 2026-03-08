@@ -15,11 +15,12 @@ import (
 // registerDividend registers the tool
 func (r *Stock_financialTools) registerDividend() {
 	inputSchema, _ := jsonschema.For[DividendInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_financial.dividend",
 		Description: "分红送股数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

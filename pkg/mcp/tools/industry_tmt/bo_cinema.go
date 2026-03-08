@@ -15,11 +15,12 @@ import (
 // registerBoCinema registers the tool
 func (r *Industry_tmtTools) registerBoCinema() {
 	inputSchema, _ := jsonschema.For[BoCinemaInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "industry_tmt.bo_cinema",
 		Description: "获取每日各影院的票房数据数据历史： 数据从2018年9月开始，更多历史数据正在补充数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

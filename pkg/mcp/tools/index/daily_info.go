@@ -15,11 +15,12 @@ import (
 // registerDailyInfo registers the tool
 func (r *IndexTools) registerDailyInfo() {
 	inputSchema, _ := jsonschema.For[DailyInfoInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "index.daily_info",
 		Description: "获取交易所股票交易统计，包括各板块明细",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

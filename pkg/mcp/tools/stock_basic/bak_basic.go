@@ -15,11 +15,12 @@ import (
 // registerBakBasic registers the tool
 func (r *Stock_basicTools) registerBakBasic() {
 	inputSchema, _ := jsonschema.For[BakBasicInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_basic.bak_basic",
 		Description: "获取备用基础列表，数据从2016年开始",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

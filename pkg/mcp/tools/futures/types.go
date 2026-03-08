@@ -22,11 +22,11 @@ type Api314Output struct {
 // FtLimitInput defines the input schema
 type FtLimitInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"合约代码"`
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（格式：YYYYMMDD）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期YYYYMMDD)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
-Cont string `json:"cont,omitempty" jsonschema:"合约代码（例如：cont='CU')"`
-Exchange string `json:"exchange,omitempty" jsonschema:"交易所代码 （例如：exchange='DCE')"`
+Cont string `json:"cont,omitempty" jsonschema:"合约代码)"`
+Exchange string `json:"exchange,omitempty" jsonschema:"交易所代码 )"`
 
 }
 
@@ -39,7 +39,7 @@ type FtLimitOutput struct {
 // FtMinsInput defines the input schema
 type FtMinsInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码，e.g.CU2310.SHF"`
-Freq string `json:"freq,omitempty" jsonschema:"分钟频度（1min/5min/15min/30min/60min）"`
+Freq string `json:"freq,omitempty" jsonschema:"分钟频度(1min/5min/15min/30min/60min)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期 格式：2023-08-25 09:00:00"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束时间 格式：2023-08-25 19:00:00"`
 
@@ -56,7 +56,7 @@ type FutBasicInput struct {
 Exchange string `json:"exchange,omitempty" jsonschema:"交易所代码 CFFEX-中金所 DCE-大商所 CZCE-郑商所 SHFE-上期所 INE-上海国际能源交易中心 GFEX-广州期货交易所"`
 FutType string `json:"fut_type,omitempty" jsonschema:"合约类型 (1 普通合约 2主力与连续合约 默认取全部)"`
 FutCode string `json:"fut_code,omitempty" jsonschema:"标准合约代码，如白银AG、AP鲜苹果等"`
-ListDate string `json:"list_date,omitempty" jsonschema:"上市开始日期(格式YYYYMMDD，从某日开始以来所有合约）"`
+ListDate string `json:"list_date,omitempty" jsonschema:"上市开始日期(格式YYYYMMDD，从某日开始以来所有合约)"`
 
 }
 
@@ -84,7 +84,7 @@ type FutDailyOutput struct {
 
 // FutHoldingInput defines the input schema
 type FutHoldingInput struct {
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期 （trade_date/symbol至少输入一个参数）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期 (trade_date/symbol至少输入一个参数)"`
 Symbol string `json:"symbol,omitempty" jsonschema:"合约或产品代码"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期(YYYYMMDD格式，下同)"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
@@ -115,7 +115,7 @@ type FutMappingOutput struct {
 
 // FutSettleInput defines the input schema
 type FutSettleInput struct {
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期 （trade_date/ts_code至少需要输入一个参数）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期 (trade_date/ts_code至少需要输入一个参数)"`
 TsCode string `json:"ts_code,omitempty" jsonschema:"合约代码"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期(YYYYMMDD格式，下同)"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
@@ -142,12 +142,12 @@ type FutTickOutput struct {
 
 // FutWeeklyDetailInput defines the input schema
 type FutWeeklyDetailInput struct {
-Week string `json:"week,omitempty" jsonschema:"周期（每年第几周，e.g. 202001 表示2020第1周）"`
-Prd string `json:"prd,omitempty" jsonschema:"期货品种（支持多品种输入，逗号分隔）"`
+Week string `json:"week,omitempty" jsonschema:"周期(每年第几周，e.g. 202001 表示2020第1周)"`
+Prd string `json:"prd,omitempty" jsonschema:"期货品种(支持多品种输入，逗号分隔)"`
 StartWeek string `json:"start_week,omitempty" jsonschema:"开始周期"`
 EndWeek string `json:"end_week,omitempty" jsonschema:"结束周期"`
-Exchange string `json:"exchange,omitempty" jsonschema:"交易所（请参考交易所说明）"`
-Fields string `json:"fields,omitempty" jsonschema:"提取的字段，e.g. fields='prd,name,vol'"`
+Exchange string `json:"exchange,omitempty" jsonschema:"交易所(请参考交易所说明)"`
+Fields string `json:"fields,omitempty" jsonschema:"提取的字段，e.g."`
 
 }
 
@@ -192,8 +192,8 @@ type FutWsrOutput struct {
 
 // IndexDailyInput defines the input schema
 type IndexDailyInput struct {
-TsCode string `json:"ts_code,omitempty" jsonschema:"指数代码（南华期货指数以 .NH 结尾，具体请参考本文最下方）"`
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期 （日期格式：YYYYMMDD，下同）"`
+TsCode string `json:"ts_code,omitempty" jsonschema:"指数代码(南华期货指数以 .NH 结尾，具体请参考本文最下方)"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期 (日期格式：YYYYMMDD，下同)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
@@ -208,8 +208,8 @@ type IndexDailyOutput struct {
 // RtFutMinInput defines the input schema
 type RtFutMinInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码，e.g.CU2310.SHF，仅支持一次一个合约的回放"`
-Freq string `json:"freq,omitempty" jsonschema:"分钟频度（1MIN/5MIN/15MIN/30MIN/60MIN）"`
-DateStr string `json:"date_str,omitempty" jsonschema:"回放日期（格式：YYYY-MM-DD，默认为交易当日，支持回溯一天）"`
+Freq string `json:"freq,omitempty" jsonschema:"分钟频度(1MIN/5MIN/15MIN/30MIN/60MIN)"`
+DateStr string `json:"date_str,omitempty" jsonschema:"回放日期YYYY-MM-DD，默认为交易当日，支持回溯一天)"`
 
 }
 
@@ -221,7 +221,7 @@ type RtFutMinOutput struct {
 
 // TradeCalInput defines the input schema
 type TradeCalInput struct {
-Exchange string `json:"exchange,omitempty" jsonschema:"交易所 SHFE 上期所 DCE 大商所 CFFEX中金所  CZCE郑商所 INE上海国际能源交易所"`
+Exchange string `json:"exchange,omitempty" jsonschema:"交易所 SHFE 上期所 DCE 大商所 CFFEX中金所 CZCE郑商所 INE上海国际能源交易所"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 IsOpen int `json:"is_open,omitempty" jsonschema:"是否交易 0休市 1交易"`

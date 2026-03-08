@@ -10,9 +10,9 @@ import (
 
 // CnPmiInput defines the input schema
 type CnPmiInput struct {
-M string `json:"m,omitempty" jsonschema:"月度（202401表示，2024年1月）"`
+M string `json:"m,omitempty" jsonschema:"月度(202401表示，2024年1月)"`
 StartM string `json:"start_m,omitempty" jsonschema:"开始月度"`
-EndM string `json:"end_m,omitempty" jsonschema:"结束月度（e.g. fields='month,pmi010000,pmi010400'）"`
+EndM string `json:"end_m,omitempty" jsonschema:"结束月度(e.g. )"`
 
 }
 

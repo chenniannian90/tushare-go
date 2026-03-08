@@ -15,11 +15,12 @@ import (
 // registerResearchReport registers the tool
 func (r *Llm_corpusTools) registerResearchReport() {
 	inputSchema, _ := jsonschema.For[ResearchReportInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "llm_corpus.research_report",
 		Description: "获取券商研究报告-个股、行业等，历史数据从20170101开始提供，增量每天两次更新",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

@@ -15,11 +15,12 @@ import (
 // registerKplList registers the tool
 func (r *Stock_boardTools) registerKplList() {
 	inputSchema, _ := jsonschema.For[KplListInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.kpl_list",
 		Description: "获取开盘啦涨停、跌停、炸板等榜单数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

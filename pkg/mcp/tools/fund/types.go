@@ -11,7 +11,7 @@ import (
 // FundBasicInput defines the input schema
 type FundBasicInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"基金代码"`
-Market string `json:"market,omitempty" jsonschema:"交易市场: E场内 O场外（默认E）"`
+Market string `json:"market,omitempty" jsonschema:"交易市场: E场内 O场外(默认E)"`
 Status string `json:"status,omitempty" jsonschema:"存续状态 D摘牌 I发行 L上市中"`
 
 }
@@ -35,7 +35,7 @@ type FundCompanyOutput struct {
 
 // FundDivInput defines the input schema
 type FundDivInput struct {
-AnnDate string `json:"ann_date,omitempty" jsonschema:"公告日（以下参数四选一）"`
+AnnDate string `json:"ann_date,omitempty" jsonschema:"公告日(以下参数四选一)"`
 ExDate string `json:"ex_date,omitempty" jsonschema:"除息日"`
 PayDate string `json:"pay_date,omitempty" jsonschema:"派息日"`
 TsCode string `json:"ts_code,omitempty" jsonschema:"基金代码"`
@@ -81,8 +81,8 @@ type FundManagerOutput struct {
 
 // FundNavInput defines the input schema
 type FundNavInput struct {
-TsCode string `json:"ts_code,omitempty" jsonschema:"TS基金代码 （二选一）"`
-NavDate string `json:"nav_date,omitempty" jsonschema:"净值日期 （二选一）"`
+TsCode string `json:"ts_code,omitempty" jsonschema:"TS基金代码 (二选一)"`
+NavDate string `json:"nav_date,omitempty" jsonschema:"净值日期 (二选一)"`
 Market string `json:"market,omitempty" jsonschema:"E场内 O场外"`
 StartDate string `json:"start_date,omitempty" jsonschema:"净值开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"净值结束日期"`
@@ -99,10 +99,10 @@ type FundNavOutput struct {
 type FundPortfolioInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"基金代码 (ts_code,ann_date,period至少输入一个参数)"`
 Symbol string `json:"symbol,omitempty" jsonschema:"股票代码"`
-AnnDate string `json:"ann_date,omitempty" jsonschema:"公告日期（YYYYMMDD格式）"`
-Period string `json:"period,omitempty" jsonschema:"季度（每个季度最后一天的日期，比如20131231表示2013年年报）"`
-StartDate string `json:"start_date,omitempty" jsonschema:"报告期开始日期（YYYYMMDD格式）"`
-EndDate string `json:"end_date,omitempty" jsonschema:"报告期结束日期（YYYYMMDD格式）"`
+AnnDate string `json:"ann_date,omitempty" jsonschema:"公告日期(YYYYMMDD格式)"`
+Period string `json:"period,omitempty" jsonschema:"季度(每个季度最后一天的日期，比如20131231表示2013年年报)"`
+StartDate string `json:"start_date,omitempty" jsonschema:"报告期开始日期(YYYYMMDD格式)"`
+EndDate string `json:"end_date,omitempty" jsonschema:"报告期结束日期(YYYYMMDD格式)"`
 
 }
 
@@ -118,7 +118,7 @@ TsCode string `json:"ts_code,omitempty" jsonschema:"TS基金代码"`
 TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
-Market string `json:"market,omitempty" jsonschema:"市场代码（SH上交所 ，SZ深交所）"`
+Market string `json:"market,omitempty" jsonschema:"市场代码(SH上交所 ，SZ深交所)"`
 
 }
 

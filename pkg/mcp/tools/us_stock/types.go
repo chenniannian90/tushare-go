@@ -11,7 +11,7 @@ import (
 // UsAdjfactorInput defines the input schema
 type UsAdjfactorInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（格式：YYYYMMDD，下同）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期YYYYMMDD，下同)"`
 StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
@@ -26,11 +26,11 @@ type UsAdjfactorOutput struct {
 // UsBalancesheetInput defines the input schema
 type UsBalancesheetInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
-Period string `json:"period,omitempty" jsonschema:"报告期（格式：YYYYMMDD，每个季度最后一天的日期，如20241231)"`
-IndName string `json:"ind_name,omitempty" jsonschema:"指标名(如：新增借款）"`
+Period string `json:"period,omitempty" jsonschema:"报告期YYYYMMDD，每个季度最后一天的日期，如20241231)"`
+IndName string `json:"ind_name,omitempty" jsonschema:"指标名(如：新增借款)"`
 ReportType string `json:"report_type,omitempty" jsonschema:"报告期类型(Q1一季报Q2半年报Q3三季报Q4年报)"`
-StartDate string `json:"start_date,omitempty" jsonschema:"报告期开始时间（格式：YYYYMMDD）"`
-EndDate string `json:"end_date,omitempty" jsonschema:"报告结束始时间（格式：YYYYMMDD）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"报告期开始时间YYYYMMDD)"`
+EndDate string `json:"end_date,omitempty" jsonschema:"报告结束始时间YYYYMMDD)"`
 
 }
 
@@ -58,11 +58,11 @@ type UsBasicOutput struct {
 // UsCashflowInput defines the input schema
 type UsCashflowInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
-Period string `json:"period,omitempty" jsonschema:"报告期（格式：YYYYMMDD，每个季度最后一天的日期，如20241231)"`
-IndName string `json:"ind_name,omitempty" jsonschema:"指标名(如：新增借款）"`
+Period string `json:"period,omitempty" jsonschema:"报告期YYYYMMDD，每个季度最后一天的日期，如20241231)"`
+IndName string `json:"ind_name,omitempty" jsonschema:"指标名(如：新增借款)"`
 ReportType string `json:"report_type,omitempty" jsonschema:"报告期类型(Q1一季报Q2半年报Q3三季报Q4年报)"`
-StartDate string `json:"start_date,omitempty" jsonschema:"报告期开始时间（格式：YYYYMMDD）"`
-EndDate string `json:"end_date,omitempty" jsonschema:"报告结束始时间（格式：YYYYMMDD）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"报告期开始时间YYYYMMDD)"`
+EndDate string `json:"end_date,omitempty" jsonschema:"报告结束始时间YYYYMMDD)"`
 
 }
 
@@ -74,10 +74,10 @@ type UsCashflowOutput struct {
 
 // UsDailyInput defines the input schema
 type UsDailyInput struct {
-TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码（e.g. AAPL）"`
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（YYYYMMDD）"`
-StartDate string `json:"start_date,omitempty" jsonschema:"开始日期（YYYYMMDD）"`
-EndDate string `json:"end_date,omitempty" jsonschema:"结束日期（YYYYMMDD）"`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码(e.g. AAPL)"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期(YYYYMMDD)"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期(YYYYMMDD)"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期(YYYYMMDD)"`
 
 }
 
@@ -89,11 +89,11 @@ type UsDailyOutput struct {
 
 // UsDailyAdjInput defines the input schema
 type UsDailyAdjInput struct {
-TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码（e.g. AAPL）"`
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（YYYYMMDD）"`
-StartDate string `json:"start_date,omitempty" jsonschema:"开始日期（YYYYMMDD）"`
-EndDate string `json:"end_date,omitempty" jsonschema:"结束日期（YYYYMMDD）"`
-Exchange string `json:"exchange,omitempty" jsonschema:"交易所（NAS/NYS/OTC)"`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码(e.g. AAPL)"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期(YYYYMMDD)"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期(YYYYMMDD)"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期(YYYYMMDD)"`
+Exchange string `json:"exchange,omitempty" jsonschema:"交易所(NAS/NYS/OTC)"`
 Offset int `json:"offset,omitempty" jsonschema:"开始行数"`
 Limit int `json:"limit,omitempty" jsonschema:"每页行数行数"`
 
@@ -108,10 +108,10 @@ type UsDailyAdjOutput struct {
 // UsFinaIndicatorInput defines the input schema
 type UsFinaIndicatorInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
-Period string `json:"period,omitempty" jsonschema:"报告期（格式：YYYYMMDD，每个季度最后一天的日期，如20241231)"`
+Period string `json:"period,omitempty" jsonschema:"报告期YYYYMMDD，每个季度最后一天的日期，如20241231)"`
 ReportType string `json:"report_type,omitempty" jsonschema:"报告期类型(Q1一季报Q2半年报Q3三季报Q4年报)"`
-StartDate string `json:"start_date,omitempty" jsonschema:"报告期开始时间（格式：YYYYMMDD）"`
-EndDate string `json:"end_date,omitempty" jsonschema:"报告结束始时间（格式：YYYYMMDD）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"报告期开始时间YYYYMMDD)"`
+EndDate string `json:"end_date,omitempty" jsonschema:"报告结束始时间YYYYMMDD)"`
 
 }
 
@@ -124,11 +124,11 @@ type UsFinaIndicatorOutput struct {
 // UsIncomeInput defines the input schema
 type UsIncomeInput struct {
 TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
-Period string `json:"period,omitempty" jsonschema:"报告期（格式：YYYYMMDD，每个季度最后一天的日期，如20241231)"`
-IndName string `json:"ind_name,omitempty" jsonschema:"指标名(如：新增借款）"`
+Period string `json:"period,omitempty" jsonschema:"报告期YYYYMMDD，每个季度最后一天的日期，如20241231)"`
+IndName string `json:"ind_name,omitempty" jsonschema:"指标名(如：新增借款)"`
 ReportType string `json:"report_type,omitempty" jsonschema:"报告期类型(Q1一季报Q2半年报Q3三季报Q4年报)"`
-StartDate string `json:"start_date,omitempty" jsonschema:"报告期开始时间（格式：YYYYMMDD）"`
-EndDate string `json:"end_date,omitempty" jsonschema:"报告结束始时间（格式：YYYYMMDD）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"报告期开始时间YYYYMMDD)"`
+EndDate string `json:"end_date,omitempty" jsonschema:"报告结束始时间YYYYMMDD)"`
 
 }
 

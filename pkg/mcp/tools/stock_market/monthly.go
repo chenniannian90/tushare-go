@@ -15,11 +15,12 @@ import (
 // registerMonthly registers the tool
 func (r *Stock_marketTools) registerMonthly() {
 	inputSchema, _ := jsonschema.For[MonthlyInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.monthly",
 		Description: "获取A股月线数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

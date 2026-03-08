@@ -15,11 +15,12 @@ import (
 // registerThsMember registers the tool
 func (r *Stock_boardTools) registerThsMember() {
 	inputSchema, _ := jsonschema.For[ThsMemberInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.ths_member",
 		Description: "获取同花顺概念板块成分列表注：数据版权归属同花顺，如做商业用途，请主动联系同花顺。",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

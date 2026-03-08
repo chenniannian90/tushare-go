@@ -15,11 +15,12 @@ import (
 // registerUsAdjfactor registers the tool
 func (r *Us_stockTools) registerUsAdjfactor() {
 	inputSchema, _ := jsonschema.For[UsAdjfactorInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "us_stock.us_adjfactor",
 		Description: "获取美股每日复权因子数据，在每天美股收盘后滚动刷新",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

@@ -15,11 +15,12 @@ import (
 // registerHkHold registers the tool
 func (r *Stock_featureTools) registerHkHold() {
 	inputSchema, _ := jsonschema.For[HkHoldInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_feature.hk_hold",
 		Description: "获取沪深港股通持股明细，数据来源港交所。",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

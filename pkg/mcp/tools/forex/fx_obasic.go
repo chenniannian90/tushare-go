@@ -15,11 +15,12 @@ import (
 // registerFxObasic registers the tool
 func (r *ForexTools) registerFxObasic() {
 	inputSchema, _ := jsonschema.For[FxObasicInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "forex.fx_obasic",
 		Description: "获取海外外汇基础信息，目前只有FXCM交易商的数据数量：单次可提取全部数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

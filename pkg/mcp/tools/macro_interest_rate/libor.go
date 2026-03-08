@@ -15,11 +15,12 @@ import (
 // registerLibor registers the tool
 func (r *Macro_interest_rateTools) registerLibor() {
 	inputSchema, _ := jsonschema.For[LiborInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "macro_interest_rate.libor",
 		Description: "Libor拆借利率",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

@@ -15,11 +15,12 @@ import (
 // registerHkBasic registers the tool
 func (r *Hk_stockTools) registerHkBasic() {
 	inputSchema, _ := jsonschema.For[HkBasicInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "hk_stock.hk_basic",
 		Description: "获取港股列表信息数量：单次可提取全部在交易的港股列表数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

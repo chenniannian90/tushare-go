@@ -15,11 +15,12 @@ import (
 // registerHmList registers the tool
 func (r *Stock_boardTools) registerHmList() {
 	inputSchema, _ := jsonschema.For[HmListInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.hm_list",
 		Description: "获取游资分类名录信息",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

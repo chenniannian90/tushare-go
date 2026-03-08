@@ -15,11 +15,12 @@ import (
 // registerNewShare registers the tool
 func (r *Stock_basicTools) registerNewShare() {
 	inputSchema, _ := jsonschema.For[NewShareInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_basic.new_share",
 		Description: "获取新股上市列表数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

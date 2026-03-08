@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"log/slog"
 	"syscall"
 	"time"
 
@@ -60,12 +61,21 @@ func NewServer(cfg *config.ServerConfig, client *sdk.Client) (*Server, error) {
 
 // createMCPService creates a single MCP service
 func createMCPService(name string, svcConfig config.ServiceConfig, client *sdk.Client, categories []string) (*mcpService, error) {
-	// Create MCP server with version information
+	// Create MCP server with version information and explicit options
 	impl := &mcpsdk.Implementation{
 		Name:    "tushare-mcp-" + name,
 		Version: Version,
 	}
-	mcpServer := mcpsdk.NewServer(impl, nil)
+
+	// Create explicit server options to ensure proper initialization
+	opts := &mcpsdk.ServerOptions{
+		// Provide a discard logger to avoid any logging issues
+		Logger: slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{
+			Level: slog.LevelError, // Only log errors
+		})),
+	}
+
+	mcpServer := mcpsdk.NewServer(impl, opts)
 
 	// Register tools based on provided categories
 	if err := registerToolsForService(mcpServer, categories, client); err != nil {

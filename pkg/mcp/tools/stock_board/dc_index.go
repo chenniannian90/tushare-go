@@ -15,11 +15,12 @@ import (
 // registerDcIndex registers the tool
 func (r *Stock_boardTools) registerDcIndex() {
 	inputSchema, _ := jsonschema.For[DcIndexInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.dc_index",
 		Description: "获取东方财富每个交易日的概念板块数据，支持按日期查询",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

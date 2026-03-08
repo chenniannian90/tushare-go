@@ -10,7 +10,7 @@ import (
 
 // SfMonthInput defines the input schema
 type SfMonthInput struct {
-M string `json:"m,omitempty" jsonschema:"月份（YYYYMM，下同），支持多个月份同时输入，逗号分隔"`
+M string `json:"m,omitempty" jsonschema:"月份(YYYYMM，下同)，支持多个月份同时输入，逗号分隔"`
 StartM string `json:"start_m,omitempty" jsonschema:"开始月份"`
 EndM string `json:"end_m,omitempty" jsonschema:"结束月份"`
 

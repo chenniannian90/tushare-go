@@ -15,11 +15,12 @@ import (
 // registerStkManagers registers the tool
 func (r *Stock_basicTools) registerStkManagers() {
 	inputSchema, _ := jsonschema.For[StkManagersInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_basic.stk_managers",
 		Description: "获取上市公司管理层",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

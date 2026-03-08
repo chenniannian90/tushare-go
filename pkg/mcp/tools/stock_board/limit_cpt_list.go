@@ -15,11 +15,12 @@ import (
 // registerLimitCptList registers the tool
 func (r *Stock_boardTools) registerLimitCptList() {
 	inputSchema, _ := jsonschema.For[LimitCptListInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.limit_cpt_list",
 		Description: "获取每天涨停股票最多最强的概念板块，可以分析强势板块的轮动，判断资金动向",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

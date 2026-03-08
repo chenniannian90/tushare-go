@@ -15,11 +15,12 @@ import (
 // registerIrmQaSz registers the tool
 func (r *Llm_corpusTools) registerIrmQaSz() {
 	inputSchema, _ := jsonschema.For[IrmQaSzInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "llm_corpus.irm_qa_sz",
 		Description: "互动易是由深交所官方推出,供投资者与上市公司直接沟通的平台,一站式公司资讯汇集,提供第一手的互动问答、投资者关系信息、公司声音等内容。",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

@@ -15,11 +15,12 @@ import (
 // registerStkAhComparison registers the tool
 func (r *Stock_featureTools) registerStkAhComparison() {
 	inputSchema, _ := jsonschema.For[StkAhComparisonInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_feature.stk_ah_comparison",
 		Description: "AH股比价数据，可根据交易日期获取历史",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

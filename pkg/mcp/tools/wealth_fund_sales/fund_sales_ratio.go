@@ -15,11 +15,12 @@ import (
 // registerFundSalesRatio registers the tool
 func (r *Wealth_fund_salesTools) registerFundSalesRatio() {
 	inputSchema, _ := jsonschema.For[FundSalesRatioInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "wealth_fund_sales.fund_sales_ratio",
 		Description: "获取各渠道公募基金销售保有规模占比数据，年度更新",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

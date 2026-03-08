@@ -15,11 +15,12 @@ import (
 // registerStkPremarket registers the tool
 func (r *Stock_basicTools) registerStkPremarket() {
 	inputSchema, _ := jsonschema.For[StkPremarketInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_basic.stk_premarket",
 		Description: "每日开盘前获取当日股票的股本情况，包括总股本和流通股本，涨跌停价格等。",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

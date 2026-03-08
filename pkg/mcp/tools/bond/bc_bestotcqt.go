@@ -15,11 +15,12 @@ import (
 // registerBcBestotcqt registers the tool
 func (r *BondTools) registerBcBestotcqt() {
 	inputSchema, _ := jsonschema.For[BcBestotcqtInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "bond.bc_bestotcqt",
 		Description: "柜台流通式债券最优报价",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

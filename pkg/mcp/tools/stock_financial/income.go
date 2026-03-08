@@ -15,11 +15,12 @@ import (
 // registerIncome registers the tool
 func (r *Stock_financialTools) registerIncome() {
 	inputSchema, _ := jsonschema.For[IncomeInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_financial.income",
 		Description: "获取上市公司财务利润表数据",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

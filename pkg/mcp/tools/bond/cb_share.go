@@ -15,11 +15,12 @@ import (
 // registerCbShare registers the tool
 func (r *BondTools) registerCbShare() {
 	inputSchema, _ := jsonschema.For[CbShareInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "bond.cb_share",
 		Description: "获取可转债转股结果",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

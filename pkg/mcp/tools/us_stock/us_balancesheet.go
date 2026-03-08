@@ -15,11 +15,12 @@ import (
 // registerUsBalancesheet registers the tool
 func (r *Us_stockTools) registerUsBalancesheet() {
 	inputSchema, _ := jsonschema.For[UsBalancesheetInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "us_stock.us_balancesheet",
 		Description: "获取美股上市公司资产负债表（目前只覆盖主要美股和中概股）",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {

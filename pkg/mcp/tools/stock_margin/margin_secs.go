@@ -15,11 +15,12 @@ import (
 // registerMarginSecs registers the tool
 func (r *Stock_marginTools) registerMarginSecs() {
 	inputSchema, _ := jsonschema.For[MarginSecsInput](nil)
+	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
 		Name:        "stock_margin.margin_secs",
 		Description: "获取沪深京三大交易所融资融券标的（包括ETF），每天盘前更新",
-		InputSchema: inputSchema,
+		InputSchema: json.RawMessage(schemaJSON),
 	}
 
 	handler := func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
