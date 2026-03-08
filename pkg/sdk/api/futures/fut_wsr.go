@@ -67,34 +67,69 @@ func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutW
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "fut_wsr", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "fut_wsr", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FutWsrItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 trade_date 的简单类型
-		tradeDate, ok := item["trade_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeDate string
+		if v, ok := item["trade_date"].(string); ok {
+			tradeDate = v
+		} else if v, ok := item["trade_date"].(float64); ok {
+			tradeDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_date"].(int); ok {
+			tradeDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 symbol 的简单类型
-		symbol, ok := item["symbol"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var symbol string
+		if v, ok := item["symbol"].(string); ok {
+			symbol = v
+		} else if v, ok := item["symbol"].(float64); ok {
+			symbol = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["symbol"].(int); ok {
+			symbol = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 symbol 类型")
 		}
 		// 处理 fut_name 的简单类型
-		futName, ok := item["fut_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var futName string
+		if v, ok := item["fut_name"].(string); ok {
+			futName = v
+		} else if v, ok := item["fut_name"].(float64); ok {
+			futName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["fut_name"].(int); ok {
+			futName = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 fut_name 类型")
 		}
 		// 处理 warehouse 的简单类型
-		warehouse, ok := item["warehouse"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var warehouse string
+		if v, ok := item["warehouse"].(string); ok {
+			warehouse = v
+		} else if v, ok := item["warehouse"].(float64); ok {
+			warehouse = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["warehouse"].(int); ok {
+			warehouse = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 warehouse 类型")
 		}
 		// 处理 wh_id 的简单类型
-		whId, ok := item["wh_id"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var whId string
+		if v, ok := item["wh_id"].(string); ok {
+			whId = v
+		} else if v, ok := item["wh_id"].(float64); ok {
+			whId = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["wh_id"].(int); ok {
+			whId = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 wh_id 类型")
 		}
 		// 处理 pre_vol 的简单类型
@@ -113,28 +148,63 @@ func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutW
 			return nil, fmt.Errorf("无效的 vol_chg 类型")
 		}
 		// 处理 area 的简单类型
-		area, ok := item["area"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var area string
+		if v, ok := item["area"].(string); ok {
+			area = v
+		} else if v, ok := item["area"].(float64); ok {
+			area = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["area"].(int); ok {
+			area = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 area 类型")
 		}
 		// 处理 year 的简单类型
-		year, ok := item["year"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var year string
+		if v, ok := item["year"].(string); ok {
+			year = v
+		} else if v, ok := item["year"].(float64); ok {
+			year = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["year"].(int); ok {
+			year = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 year 类型")
 		}
 		// 处理 grade 的简单类型
-		grade, ok := item["grade"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var grade string
+		if v, ok := item["grade"].(string); ok {
+			grade = v
+		} else if v, ok := item["grade"].(float64); ok {
+			grade = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["grade"].(int); ok {
+			grade = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 grade 类型")
 		}
 		// 处理 brand 的简单类型
-		brand, ok := item["brand"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var brand string
+		if v, ok := item["brand"].(string); ok {
+			brand = v
+		} else if v, ok := item["brand"].(float64); ok {
+			brand = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["brand"].(int); ok {
+			brand = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 brand 类型")
 		}
 		// 处理 place 的简单类型
-		place, ok := item["place"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var place string
+		if v, ok := item["place"].(string); ok {
+			place = v
+		} else if v, ok := item["place"].(float64); ok {
+			place = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["place"].(int); ok {
+			place = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 place 类型")
 		}
 		// 处理 pd 的简单类型
@@ -143,18 +213,39 @@ func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutW
 			return nil, fmt.Errorf("无效的 pd 类型")
 		}
 		// 处理 is_ct 的简单类型
-		isCt, ok := item["is_ct"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var isCt string
+		if v, ok := item["is_ct"].(string); ok {
+			isCt = v
+		} else if v, ok := item["is_ct"].(float64); ok {
+			isCt = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["is_ct"].(int); ok {
+			isCt = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 is_ct 类型")
 		}
 		// 处理 unit 的简单类型
-		unit, ok := item["unit"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var unit string
+		if v, ok := item["unit"].(string); ok {
+			unit = v
+		} else if v, ok := item["unit"].(float64); ok {
+			unit = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["unit"].(int); ok {
+			unit = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 unit 类型")
 		}
 		// 处理 exchange 的简单类型
-		exchange, ok := item["exchange"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var exchange string
+		if v, ok := item["exchange"].(string); ok {
+			exchange = v
+		} else if v, ok := item["exchange"].(float64); ok {
+			exchange = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["exchange"].(int); ok {
+			exchange = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 exchange 类型")
 		}
 		items[i] = FutWsrItem{

@@ -119,69 +119,153 @@ func UsFinaIndicator(ctx context.Context, client *sdk.Client, req *UsFinaIndicat
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "us_fina_indicator", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "us_fina_indicator", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]UsFinaIndicatorItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 end_date 的简单类型
-		endDate, ok := item["end_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var endDate string
+		if v, ok := item["end_date"].(string); ok {
+			endDate = v
+		} else if v, ok := item["end_date"].(float64); ok {
+			endDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["end_date"].(int); ok {
+			endDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 end_date 类型")
 		}
 		// 处理 ind_type 的简单类型
-		indType, ok := item["ind_type"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var indType string
+		if v, ok := item["ind_type"].(string); ok {
+			indType = v
+		} else if v, ok := item["ind_type"].(float64); ok {
+			indType = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ind_type"].(int); ok {
+			indType = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ind_type 类型")
 		}
 		// 处理 security_name_abbr 的简单类型
-		securityNameAbbr, ok := item["security_name_abbr"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var securityNameAbbr string
+		if v, ok := item["security_name_abbr"].(string); ok {
+			securityNameAbbr = v
+		} else if v, ok := item["security_name_abbr"].(float64); ok {
+			securityNameAbbr = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["security_name_abbr"].(int); ok {
+			securityNameAbbr = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 security_name_abbr 类型")
 		}
 		// 处理 accounting_standards 的简单类型
-		accountingStandards, ok := item["accounting_standards"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var accountingStandards string
+		if v, ok := item["accounting_standards"].(string); ok {
+			accountingStandards = v
+		} else if v, ok := item["accounting_standards"].(float64); ok {
+			accountingStandards = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["accounting_standards"].(int); ok {
+			accountingStandards = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 accounting_standards 类型")
 		}
 		// 处理 notice_date 的简单类型
-		noticeDate, ok := item["notice_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var noticeDate string
+		if v, ok := item["notice_date"].(string); ok {
+			noticeDate = v
+		} else if v, ok := item["notice_date"].(float64); ok {
+			noticeDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["notice_date"].(int); ok {
+			noticeDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 notice_date 类型")
 		}
 		// 处理 start_date 的简单类型
-		startDate, ok := item["start_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var startDate string
+		if v, ok := item["start_date"].(string); ok {
+			startDate = v
+		} else if v, ok := item["start_date"].(float64); ok {
+			startDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["start_date"].(int); ok {
+			startDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 start_date 类型")
 		}
 		// 处理 std_report_date 的简单类型
-		stdReportDate, ok := item["std_report_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var stdReportDate string
+		if v, ok := item["std_report_date"].(string); ok {
+			stdReportDate = v
+		} else if v, ok := item["std_report_date"].(float64); ok {
+			stdReportDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["std_report_date"].(int); ok {
+			stdReportDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 std_report_date 类型")
 		}
 		// 处理 financial_date 的简单类型
-		financialDate, ok := item["financial_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var financialDate string
+		if v, ok := item["financial_date"].(string); ok {
+			financialDate = v
+		} else if v, ok := item["financial_date"].(float64); ok {
+			financialDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["financial_date"].(int); ok {
+			financialDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 financial_date 类型")
 		}
 		// 处理 currency 的简单类型
-		currency, ok := item["currency"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var currency string
+		if v, ok := item["currency"].(string); ok {
+			currency = v
+		} else if v, ok := item["currency"].(float64); ok {
+			currency = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["currency"].(int); ok {
+			currency = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 currency 类型")
 		}
 		// 处理 date_type 的简单类型
-		dateType, ok := item["date_type"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var dateType string
+		if v, ok := item["date_type"].(string); ok {
+			dateType = v
+		} else if v, ok := item["date_type"].(float64); ok {
+			dateType = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["date_type"].(int); ok {
+			dateType = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 date_type 类型")
 		}
 		// 处理 report_type 的简单类型
-		reportType, ok := item["report_type"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var reportType string
+		if v, ok := item["report_type"].(string); ok {
+			reportType = v
+		} else if v, ok := item["report_type"].(float64); ok {
+			reportType = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["report_type"].(int); ok {
+			reportType = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 report_type 类型")
 		}
 		// 处理 operate_income 的简单类型
@@ -340,8 +424,15 @@ func UsFinaIndicator(ctx context.Context, client *sdk.Client, req *UsFinaIndicat
 			return nil, fmt.Errorf("无效的 speed_ratio_yoy 类型")
 		}
 		// 处理 currency_abbr 的简单类型
-		currencyAbbr, ok := item["currency_abbr"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var currencyAbbr string
+		if v, ok := item["currency_abbr"].(string); ok {
+			currencyAbbr = v
+		} else if v, ok := item["currency_abbr"].(float64); ok {
+			currencyAbbr = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["currency_abbr"].(int); ok {
+			currencyAbbr = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 currency_abbr 类型")
 		}
 		// 处理 total_income 的简单类型

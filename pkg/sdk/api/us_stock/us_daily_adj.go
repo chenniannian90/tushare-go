@@ -77,19 +77,33 @@ func UsDailyAdj(ctx context.Context, client *sdk.Client, req *UsDailyAdjRequest)
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "us_daily_adj", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "us_daily_adj", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]UsDailyAdjItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 trade_date 的简单类型
-		tradeDate, ok := item["trade_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeDate string
+		if v, ok := item["trade_date"].(string); ok {
+			tradeDate = v
+		} else if v, ok := item["trade_date"].(float64); ok {
+			tradeDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_date"].(int); ok {
+			tradeDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 close 的简单类型
@@ -173,8 +187,15 @@ func UsDailyAdj(ctx context.Context, client *sdk.Client, req *UsDailyAdjRequest)
 			return nil, fmt.Errorf("无效的 total_mv 类型")
 		}
 		// 处理 exchange 的简单类型
-		exchange, ok := item["exchange"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var exchange string
+		if v, ok := item["exchange"].(string); ok {
+			exchange = v
+		} else if v, ok := item["exchange"].(float64); ok {
+			exchange = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["exchange"].(int); ok {
+			exchange = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 exchange 类型")
 		}
 		items[i] = UsDailyAdjItem{

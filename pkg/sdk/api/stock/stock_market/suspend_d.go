@@ -54,29 +54,57 @@ func SuspendD(ctx context.Context, client *sdk.Client, req *SuspendDRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "suspend_d", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "suspend_d", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]SuspendDItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 trade_date 的简单类型
-		tradeDate, ok := item["trade_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeDate string
+		if v, ok := item["trade_date"].(string); ok {
+			tradeDate = v
+		} else if v, ok := item["trade_date"].(float64); ok {
+			tradeDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_date"].(int); ok {
+			tradeDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 suspend_timing 的简单类型
-		suspendTiming, ok := item["suspend_timing"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var suspendTiming string
+		if v, ok := item["suspend_timing"].(string); ok {
+			suspendTiming = v
+		} else if v, ok := item["suspend_timing"].(float64); ok {
+			suspendTiming = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["suspend_timing"].(int); ok {
+			suspendTiming = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 suspend_timing 类型")
 		}
 		// 处理 suspend_type 的简单类型
-		suspendType, ok := item["suspend_type"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var suspendType string
+		if v, ok := item["suspend_type"].(string); ok {
+			suspendType = v
+		} else if v, ok := item["suspend_type"].(float64); ok {
+			suspendType = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["suspend_type"].(int); ok {
+			suspendType = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 suspend_type 类型")
 		}
 		items[i] = SuspendDItem{

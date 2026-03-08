@@ -68,69 +68,153 @@ func EtfBasic(ctx context.Context, client *sdk.Client, req *EtfBasicRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "etf_basic", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "etf_basic", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]EtfBasicItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 csname 的简单类型
-		csname, ok := item["csname"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var csname string
+		if v, ok := item["csname"].(string); ok {
+			csname = v
+		} else if v, ok := item["csname"].(float64); ok {
+			csname = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["csname"].(int); ok {
+			csname = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 csname 类型")
 		}
 		// 处理 extname 的简单类型
-		extname, ok := item["extname"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var extname string
+		if v, ok := item["extname"].(string); ok {
+			extname = v
+		} else if v, ok := item["extname"].(float64); ok {
+			extname = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["extname"].(int); ok {
+			extname = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 extname 类型")
 		}
 		// 处理 cname 的简单类型
-		cname, ok := item["cname"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var cname string
+		if v, ok := item["cname"].(string); ok {
+			cname = v
+		} else if v, ok := item["cname"].(float64); ok {
+			cname = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["cname"].(int); ok {
+			cname = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 cname 类型")
 		}
 		// 处理 index_code 的简单类型
-		indexCode, ok := item["index_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var indexCode string
+		if v, ok := item["index_code"].(string); ok {
+			indexCode = v
+		} else if v, ok := item["index_code"].(float64); ok {
+			indexCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["index_code"].(int); ok {
+			indexCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 index_code 类型")
 		}
 		// 处理 index_name 的简单类型
-		indexName, ok := item["index_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var indexName string
+		if v, ok := item["index_name"].(string); ok {
+			indexName = v
+		} else if v, ok := item["index_name"].(float64); ok {
+			indexName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["index_name"].(int); ok {
+			indexName = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 index_name 类型")
 		}
 		// 处理 setup_date 的简单类型
-		setupDate, ok := item["setup_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var setupDate string
+		if v, ok := item["setup_date"].(string); ok {
+			setupDate = v
+		} else if v, ok := item["setup_date"].(float64); ok {
+			setupDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["setup_date"].(int); ok {
+			setupDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 setup_date 类型")
 		}
 		// 处理 list_date 的简单类型
-		listDate, ok := item["list_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var listDate string
+		if v, ok := item["list_date"].(string); ok {
+			listDate = v
+		} else if v, ok := item["list_date"].(float64); ok {
+			listDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["list_date"].(int); ok {
+			listDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 list_date 类型")
 		}
 		// 处理 list_status 的简单类型
-		listStatus, ok := item["list_status"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var listStatus string
+		if v, ok := item["list_status"].(string); ok {
+			listStatus = v
+		} else if v, ok := item["list_status"].(float64); ok {
+			listStatus = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["list_status"].(int); ok {
+			listStatus = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 list_status 类型")
 		}
 		// 处理 exchange 的简单类型
-		exchange, ok := item["exchange"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var exchange string
+		if v, ok := item["exchange"].(string); ok {
+			exchange = v
+		} else if v, ok := item["exchange"].(float64); ok {
+			exchange = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["exchange"].(int); ok {
+			exchange = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 exchange 类型")
 		}
 		// 处理 mgr_name 的简单类型
-		mgrName, ok := item["mgr_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var mgrName string
+		if v, ok := item["mgr_name"].(string); ok {
+			mgrName = v
+		} else if v, ok := item["mgr_name"].(float64); ok {
+			mgrName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["mgr_name"].(int); ok {
+			mgrName = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 mgr_name 类型")
 		}
 		// 处理 custod_name 的简单类型
-		custodName, ok := item["custod_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var custodName string
+		if v, ok := item["custod_name"].(string); ok {
+			custodName = v
+		} else if v, ok := item["custod_name"].(float64); ok {
+			custodName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["custod_name"].(int); ok {
+			custodName = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 custod_name 类型")
 		}
 		// 处理 mgt_fee 的简单类型
@@ -139,8 +223,15 @@ func EtfBasic(ctx context.Context, client *sdk.Client, req *EtfBasicRequest) ([]
 			return nil, fmt.Errorf("无效的 mgt_fee 类型")
 		}
 		// 处理 etf_type 的简单类型
-		etfType, ok := item["etf_type"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var etfType string
+		if v, ok := item["etf_type"].(string); ok {
+			etfType = v
+		} else if v, ok := item["etf_type"].(float64); ok {
+			etfType = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["etf_type"].(int); ok {
+			etfType = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 etf_type 类型")
 		}
 		items[i] = EtfBasicItem{

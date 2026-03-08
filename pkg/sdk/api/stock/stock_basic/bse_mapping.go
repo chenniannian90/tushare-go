@@ -42,29 +42,57 @@ func BseMapping(ctx context.Context, client *sdk.Client, req *BseMappingRequest)
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "bse_mapping", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "bse_mapping", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]BseMappingItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 name 的简单类型
-		name, ok := item["name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var name string
+		if v, ok := item["name"].(string); ok {
+			name = v
+		} else if v, ok := item["name"].(float64); ok {
+			name = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["name"].(int); ok {
+			name = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 o_code 的简单类型
-		oCode, ok := item["o_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var oCode string
+		if v, ok := item["o_code"].(string); ok {
+			oCode = v
+		} else if v, ok := item["o_code"].(float64); ok {
+			oCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["o_code"].(int); ok {
+			oCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 o_code 类型")
 		}
 		// 处理 n_code 的简单类型
-		nCode, ok := item["n_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var nCode string
+		if v, ok := item["n_code"].(string); ok {
+			nCode = v
+		} else if v, ok := item["n_code"].(float64); ok {
+			nCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["n_code"].(int); ok {
+			nCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 n_code 类型")
 		}
 		// 处理 list_date 的简单类型
-		listDate, ok := item["list_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var listDate string
+		if v, ok := item["list_date"].(string); ok {
+			listDate = v
+		} else if v, ok := item["list_date"].(float64); ok {
+			listDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["list_date"].(int); ok {
+			listDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 list_date 类型")
 		}
 		items[i] = BseMappingItem{

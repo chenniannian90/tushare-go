@@ -51,34 +51,69 @@ func Repurchase(ctx context.Context, client *sdk.Client, req *RepurchaseRequest)
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "repurchase", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "repurchase", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]RepurchaseItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 ann_date 的简单类型
-		annDate, ok := item["ann_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var annDate string
+		if v, ok := item["ann_date"].(string); ok {
+			annDate = v
+		} else if v, ok := item["ann_date"].(float64); ok {
+			annDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ann_date"].(int); ok {
+			annDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ann_date 类型")
 		}
 		// 处理 end_date 的简单类型
-		endDate, ok := item["end_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var endDate string
+		if v, ok := item["end_date"].(string); ok {
+			endDate = v
+		} else if v, ok := item["end_date"].(float64); ok {
+			endDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["end_date"].(int); ok {
+			endDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 end_date 类型")
 		}
 		// 处理 proc 的简单类型
-		proc, ok := item["proc"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var proc string
+		if v, ok := item["proc"].(string); ok {
+			proc = v
+		} else if v, ok := item["proc"].(float64); ok {
+			proc = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["proc"].(int); ok {
+			proc = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 proc 类型")
 		}
 		// 处理 exp_date 的简单类型
-		expDate, ok := item["exp_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var expDate string
+		if v, ok := item["exp_date"].(string); ok {
+			expDate = v
+		} else if v, ok := item["exp_date"].(float64); ok {
+			expDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["exp_date"].(int); ok {
+			expDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 exp_date 类型")
 		}
 		// 处理 vol 的简单类型

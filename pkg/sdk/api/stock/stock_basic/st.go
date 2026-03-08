@@ -49,44 +49,93 @@ func St(ctx context.Context, client *sdk.Client, req *StRequest) ([]StItem, erro
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "st", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "st", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]StItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 name 的简单类型
-		name, ok := item["name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var name string
+		if v, ok := item["name"].(string); ok {
+			name = v
+		} else if v, ok := item["name"].(float64); ok {
+			name = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["name"].(int); ok {
+			name = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 pub_date 的简单类型
-		pubDate, ok := item["pub_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var pubDate string
+		if v, ok := item["pub_date"].(string); ok {
+			pubDate = v
+		} else if v, ok := item["pub_date"].(float64); ok {
+			pubDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["pub_date"].(int); ok {
+			pubDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 pub_date 类型")
 		}
 		// 处理 imp_date 的简单类型
-		impDate, ok := item["imp_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var impDate string
+		if v, ok := item["imp_date"].(string); ok {
+			impDate = v
+		} else if v, ok := item["imp_date"].(float64); ok {
+			impDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["imp_date"].(int); ok {
+			impDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 imp_date 类型")
 		}
 		// 处理 st_tpye 的简单类型
-		stTpye, ok := item["st_tpye"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var stTpye string
+		if v, ok := item["st_tpye"].(string); ok {
+			stTpye = v
+		} else if v, ok := item["st_tpye"].(float64); ok {
+			stTpye = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["st_tpye"].(int); ok {
+			stTpye = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 st_tpye 类型")
 		}
 		// 处理 st_reason 的简单类型
-		stReason, ok := item["st_reason"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var stReason string
+		if v, ok := item["st_reason"].(string); ok {
+			stReason = v
+		} else if v, ok := item["st_reason"].(float64); ok {
+			stReason = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["st_reason"].(int); ok {
+			stReason = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 st_reason 类型")
 		}
 		// 处理 st_explain 的简单类型
-		stExplain, ok := item["st_explain"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var stExplain string
+		if v, ok := item["st_explain"].(string); ok {
+			stExplain = v
+		} else if v, ok := item["st_explain"].(float64); ok {
+			stExplain = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["st_explain"].(int); ok {
+			stExplain = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 st_explain 类型")
 		}
 		items[i] = StItem{

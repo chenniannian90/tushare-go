@@ -33,7 +33,7 @@ func RealtimeList(ctx context.Context, client *sdk.Client, req *RealtimeListRequ
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "realtime_list", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "realtime_list", params, fields, &result); err != nil {
 		return nil, err
 	}
 	// No response fields defined, return empty items

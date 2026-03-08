@@ -64,19 +64,33 @@ func ShiborQuote(ctx context.Context, client *sdk.Client, req *ShiborQuoteReques
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "shibor_quote", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "shibor_quote", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]ShiborQuoteItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 date 的简单类型
-		date, ok := item["date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var date string
+		if v, ok := item["date"].(string); ok {
+			date = v
+		} else if v, ok := item["date"].(float64); ok {
+			date = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["date"].(int); ok {
+			date = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 date 类型")
 		}
 		// 处理 bank 的简单类型
-		bank, ok := item["bank"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var bank string
+		if v, ok := item["bank"].(string); ok {
+			bank = v
+		} else if v, ok := item["bank"].(float64); ok {
+			bank = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["bank"].(int); ok {
+			bank = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 bank 类型")
 		}
 		// 处理 on_b 的简单类型

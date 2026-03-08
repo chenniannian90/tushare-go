@@ -63,14 +63,21 @@ func StkNineturn(ctx context.Context, client *sdk.Client, req *StkNineturnReques
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "stk_nineturn", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "stk_nineturn", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]StkNineturnItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 trade_date 的简单类型
@@ -79,8 +86,15 @@ func StkNineturn(ctx context.Context, client *sdk.Client, req *StkNineturnReques
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 freq 的简单类型
-		freq, ok := item["freq"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var freq string
+		if v, ok := item["freq"].(string); ok {
+			freq = v
+		} else if v, ok := item["freq"].(float64); ok {
+			freq = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["freq"].(int); ok {
+			freq = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 freq 类型")
 		}
 		// 处理 open 的简单类型
@@ -124,13 +138,27 @@ func StkNineturn(ctx context.Context, client *sdk.Client, req *StkNineturnReques
 			return nil, fmt.Errorf("无效的 down_count 类型")
 		}
 		// 处理 nine_up_turn 的简单类型
-		nineUpTurn, ok := item["nine_up_turn"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var nineUpTurn string
+		if v, ok := item["nine_up_turn"].(string); ok {
+			nineUpTurn = v
+		} else if v, ok := item["nine_up_turn"].(float64); ok {
+			nineUpTurn = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["nine_up_turn"].(int); ok {
+			nineUpTurn = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 nine_up_turn 类型")
 		}
 		// 处理 nine_down_turn 的简单类型
-		nineDownTurn, ok := item["nine_down_turn"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var nineDownTurn string
+		if v, ok := item["nine_down_turn"].(string); ok {
+			nineDownTurn = v
+		} else if v, ok := item["nine_down_turn"].(float64); ok {
+			nineDownTurn = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["nine_down_turn"].(int); ok {
+			nineDownTurn = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 nine_down_turn 类型")
 		}
 		items[i] = StkNineturnItem{

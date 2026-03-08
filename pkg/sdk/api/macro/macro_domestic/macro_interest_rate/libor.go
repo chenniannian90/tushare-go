@@ -55,19 +55,33 @@ func Libor(ctx context.Context, client *sdk.Client, req *LiborRequest) ([]LiborI
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "libor", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "libor", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]LiborItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 date 的简单类型
-		date, ok := item["date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var date string
+		if v, ok := item["date"].(string); ok {
+			date = v
+		} else if v, ok := item["date"].(float64); ok {
+			date = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["date"].(int); ok {
+			date = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 date 类型")
 		}
 		// 处理 curr_type 的简单类型
-		currType, ok := item["curr_type"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var currType string
+		if v, ok := item["curr_type"].(string); ok {
+			currType = v
+		} else if v, ok := item["curr_type"].(float64); ok {
+			currType = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["curr_type"].(int); ok {
+			currType = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 curr_type 类型")
 		}
 		// 处理 on 的简单类型

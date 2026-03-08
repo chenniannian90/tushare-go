@@ -54,29 +54,57 @@ func FxObasic(ctx context.Context, client *sdk.Client, req *FxObasicRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "fx_obasic", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "fx_obasic", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FxObasicItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 name 的简单类型
-		name, ok := item["name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var name string
+		if v, ok := item["name"].(string); ok {
+			name = v
+		} else if v, ok := item["name"].(float64); ok {
+			name = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["name"].(int); ok {
+			name = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 classify 的简单类型
-		classify, ok := item["classify"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var classify string
+		if v, ok := item["classify"].(string); ok {
+			classify = v
+		} else if v, ok := item["classify"].(float64); ok {
+			classify = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["classify"].(int); ok {
+			classify = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 classify 类型")
 		}
 		// 处理 exchange 的简单类型
-		exchange, ok := item["exchange"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var exchange string
+		if v, ok := item["exchange"].(string); ok {
+			exchange = v
+		} else if v, ok := item["exchange"].(float64); ok {
+			exchange = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["exchange"].(int); ok {
+			exchange = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 exchange 类型")
 		}
 		// 处理 min_unit 的简单类型
@@ -110,13 +138,27 @@ func FxObasic(ctx context.Context, client *sdk.Client, req *FxObasicRequest) ([]
 			return nil, fmt.Errorf("无效的 min_stop_distance 类型")
 		}
 		// 处理 trading_hours 的简单类型
-		tradingHours, ok := item["trading_hours"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradingHours string
+		if v, ok := item["trading_hours"].(string); ok {
+			tradingHours = v
+		} else if v, ok := item["trading_hours"].(float64); ok {
+			tradingHours = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trading_hours"].(int); ok {
+			tradingHours = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 trading_hours 类型")
 		}
 		// 处理 break_time 的简单类型
-		breakTime, ok := item["break_time"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var breakTime string
+		if v, ok := item["break_time"].(string); ok {
+			breakTime = v
+		} else if v, ok := item["break_time"].(float64); ok {
+			breakTime = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["break_time"].(int); ok {
+			breakTime = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 break_time 类型")
 		}
 		items[i] = FxObasicItem{

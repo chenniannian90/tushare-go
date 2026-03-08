@@ -81,24 +81,45 @@ func CbIssue(ctx context.Context, client *sdk.Client, req *CbIssueRequest) ([]Cb
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "cb_issue", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "cb_issue", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]CbIssueItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 ann_date 的简单类型
-		annDate, ok := item["ann_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var annDate string
+		if v, ok := item["ann_date"].(string); ok {
+			annDate = v
+		} else if v, ok := item["ann_date"].(float64); ok {
+			annDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ann_date"].(int); ok {
+			annDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ann_date 类型")
 		}
 		// 处理 res_ann_date 的简单类型
-		resAnnDate, ok := item["res_ann_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var resAnnDate string
+		if v, ok := item["res_ann_date"].(string); ok {
+			resAnnDate = v
+		} else if v, ok := item["res_ann_date"].(float64); ok {
+			resAnnDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["res_ann_date"].(int); ok {
+			resAnnDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 res_ann_date 类型")
 		}
 		// 处理 plan_issue_size 的简单类型
@@ -117,8 +138,15 @@ func CbIssue(ctx context.Context, client *sdk.Client, req *CbIssueRequest) ([]Cb
 			return nil, fmt.Errorf("无效的 issue_price 类型")
 		}
 		// 处理 issue_type 的简单类型
-		issueType, ok := item["issue_type"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var issueType string
+		if v, ok := item["issue_type"].(string); ok {
+			issueType = v
+		} else if v, ok := item["issue_type"].(float64); ok {
+			issueType = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["issue_type"].(int); ok {
+			issueType = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 issue_type 类型")
 		}
 		// 处理 issue_cost 的简单类型
@@ -127,18 +155,39 @@ func CbIssue(ctx context.Context, client *sdk.Client, req *CbIssueRequest) ([]Cb
 			return nil, fmt.Errorf("无效的 issue_cost 类型")
 		}
 		// 处理 onl_code 的简单类型
-		onlCode, ok := item["onl_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var onlCode string
+		if v, ok := item["onl_code"].(string); ok {
+			onlCode = v
+		} else if v, ok := item["onl_code"].(float64); ok {
+			onlCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["onl_code"].(int); ok {
+			onlCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 onl_code 类型")
 		}
 		// 处理 onl_name 的简单类型
-		onlName, ok := item["onl_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var onlName string
+		if v, ok := item["onl_name"].(string); ok {
+			onlName = v
+		} else if v, ok := item["onl_name"].(float64); ok {
+			onlName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["onl_name"].(int); ok {
+			onlName = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 onl_name 类型")
 		}
 		// 处理 onl_date 的简单类型
-		onlDate, ok := item["onl_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var onlDate string
+		if v, ok := item["onl_date"].(string); ok {
+			onlDate = v
+		} else if v, ok := item["onl_date"].(float64); ok {
+			onlDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["onl_date"].(int); ok {
+			onlDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 onl_date 类型")
 		}
 		// 处理 onl_size 的简单类型
@@ -167,28 +216,63 @@ func CbIssue(ctx context.Context, client *sdk.Client, req *CbIssueRequest) ([]Cb
 			return nil, fmt.Errorf("无效的 onl_winning_rate 类型")
 		}
 		// 处理 shd_ration_code 的简单类型
-		shdRationCode, ok := item["shd_ration_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var shdRationCode string
+		if v, ok := item["shd_ration_code"].(string); ok {
+			shdRationCode = v
+		} else if v, ok := item["shd_ration_code"].(float64); ok {
+			shdRationCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["shd_ration_code"].(int); ok {
+			shdRationCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 shd_ration_code 类型")
 		}
 		// 处理 shd_ration_name 的简单类型
-		shdRationName, ok := item["shd_ration_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var shdRationName string
+		if v, ok := item["shd_ration_name"].(string); ok {
+			shdRationName = v
+		} else if v, ok := item["shd_ration_name"].(float64); ok {
+			shdRationName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["shd_ration_name"].(int); ok {
+			shdRationName = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 shd_ration_name 类型")
 		}
 		// 处理 shd_ration_date 的简单类型
-		shdRationDate, ok := item["shd_ration_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var shdRationDate string
+		if v, ok := item["shd_ration_date"].(string); ok {
+			shdRationDate = v
+		} else if v, ok := item["shd_ration_date"].(float64); ok {
+			shdRationDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["shd_ration_date"].(int); ok {
+			shdRationDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 shd_ration_date 类型")
 		}
 		// 处理 shd_ration_record_date 的简单类型
-		shdRationRecordDate, ok := item["shd_ration_record_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var shdRationRecordDate string
+		if v, ok := item["shd_ration_record_date"].(string); ok {
+			shdRationRecordDate = v
+		} else if v, ok := item["shd_ration_record_date"].(float64); ok {
+			shdRationRecordDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["shd_ration_record_date"].(int); ok {
+			shdRationRecordDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 shd_ration_record_date 类型")
 		}
 		// 处理 shd_ration_pay_date 的简单类型
-		shdRationPayDate, ok := item["shd_ration_pay_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var shdRationPayDate string
+		if v, ok := item["shd_ration_pay_date"].(string); ok {
+			shdRationPayDate = v
+		} else if v, ok := item["shd_ration_pay_date"].(float64); ok {
+			shdRationPayDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["shd_ration_pay_date"].(int); ok {
+			shdRationPayDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 shd_ration_pay_date 类型")
 		}
 		// 处理 shd_ration_price 的简单类型
@@ -252,8 +336,15 @@ func CbIssue(ctx context.Context, client *sdk.Client, req *CbIssueRequest) ([]Cb
 			return nil, fmt.Errorf("无效的 offl_winning_rate 类型")
 		}
 		// 处理 lead_underwriter 的简单类型
-		leadUnderwriter, ok := item["lead_underwriter"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var leadUnderwriter string
+		if v, ok := item["lead_underwriter"].(string); ok {
+			leadUnderwriter = v
+		} else if v, ok := item["lead_underwriter"].(float64); ok {
+			leadUnderwriter = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["lead_underwriter"].(int); ok {
+			leadUnderwriter = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 lead_underwriter 类型")
 		}
 		// 处理 lead_underwriter_vol 的简单类型

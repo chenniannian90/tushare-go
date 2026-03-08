@@ -46,29 +46,57 @@ func News(ctx context.Context, client *sdk.Client, req *NewsRequest) ([]NewsItem
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "news", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "news", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]NewsItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 datetime 的简单类型
-		datetime, ok := item["datetime"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var datetime string
+		if v, ok := item["datetime"].(string); ok {
+			datetime = v
+		} else if v, ok := item["datetime"].(float64); ok {
+			datetime = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["datetime"].(int); ok {
+			datetime = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 datetime 类型")
 		}
 		// 处理 content 的简单类型
-		content, ok := item["content"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var content string
+		if v, ok := item["content"].(string); ok {
+			content = v
+		} else if v, ok := item["content"].(float64); ok {
+			content = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["content"].(int); ok {
+			content = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 content 类型")
 		}
 		// 处理 title 的简单类型
-		title, ok := item["title"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var title string
+		if v, ok := item["title"].(string); ok {
+			title = v
+		} else if v, ok := item["title"].(float64); ok {
+			title = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["title"].(int); ok {
+			title = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 title 类型")
 		}
 		// 处理 channels 的简单类型
-		channels, ok := item["channels"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var channels string
+		if v, ok := item["channels"].(string); ok {
+			channels = v
+		} else if v, ok := item["channels"].(float64); ok {
+			channels = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["channels"].(int); ok {
+			channels = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 channels 类型")
 		}
 		items[i] = NewsItem{

@@ -52,24 +52,45 @@ func RtFutMin(ctx context.Context, client *sdk.Client, req *RtFutMinRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "rt_fut_min", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "rt_fut_min", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]RtFutMinItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 code 的简单类型
-		code, ok := item["code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var code string
+		if v, ok := item["code"].(string); ok {
+			code = v
+		} else if v, ok := item["code"].(float64); ok {
+			code = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["code"].(int); ok {
+			code = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 code 类型")
 		}
 		// 处理 freq 的简单类型
-		freq, ok := item["freq"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var freq string
+		if v, ok := item["freq"].(string); ok {
+			freq = v
+		} else if v, ok := item["freq"].(float64); ok {
+			freq = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["freq"].(int); ok {
+			freq = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 freq 类型")
 		}
 		// 处理 time 的简单类型
-		time, ok := item["time"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var time string
+		if v, ok := item["time"].(string); ok {
+			time = v
+		} else if v, ok := item["time"].(float64); ok {
+			time = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["time"].(int); ok {
+			time = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 time 类型")
 		}
 		// 处理 open 的简单类型

@@ -49,7 +49,7 @@ func HsgtTop10(ctx context.Context, client *sdk.Client, req *HsgtTop10Request) (
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "hsgt_top10", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "hsgt_top10", params, fields, &result); err != nil {
 		return nil, err
 	}
 	// No response fields defined, return empty items

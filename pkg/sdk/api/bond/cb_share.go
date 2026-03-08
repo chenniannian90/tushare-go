@@ -61,29 +61,57 @@ func CbShare(ctx context.Context, client *sdk.Client, req *CbShareRequest) ([]Cb
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "cb_share", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "cb_share", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]CbShareItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 bond_short_name 的简单类型
-		bondShortName, ok := item["bond_short_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var bondShortName string
+		if v, ok := item["bond_short_name"].(string); ok {
+			bondShortName = v
+		} else if v, ok := item["bond_short_name"].(float64); ok {
+			bondShortName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["bond_short_name"].(int); ok {
+			bondShortName = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 bond_short_name 类型")
 		}
 		// 处理 publish_date 的简单类型
-		publishDate, ok := item["publish_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var publishDate string
+		if v, ok := item["publish_date"].(string); ok {
+			publishDate = v
+		} else if v, ok := item["publish_date"].(float64); ok {
+			publishDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["publish_date"].(int); ok {
+			publishDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 publish_date 类型")
 		}
 		// 处理 end_date 的简单类型
-		endDate, ok := item["end_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var endDate string
+		if v, ok := item["end_date"].(string); ok {
+			endDate = v
+		} else if v, ok := item["end_date"].(float64); ok {
+			endDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["end_date"].(int); ok {
+			endDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 end_date 类型")
 		}
 		// 处理 issue_size 的简单类型

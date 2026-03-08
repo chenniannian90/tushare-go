@@ -72,29 +72,57 @@ func FutWeeklyMonthly(ctx context.Context, client *sdk.Client, req *FutWeeklyMon
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "fut_weekly_monthly", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "fut_weekly_monthly", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FutWeeklyMonthlyItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 trade_date 的简单类型
-		tradeDate, ok := item["trade_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeDate string
+		if v, ok := item["trade_date"].(string); ok {
+			tradeDate = v
+		} else if v, ok := item["trade_date"].(float64); ok {
+			tradeDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_date"].(int); ok {
+			tradeDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 end_date 的简单类型
-		endDate, ok := item["end_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var endDate string
+		if v, ok := item["end_date"].(string); ok {
+			endDate = v
+		} else if v, ok := item["end_date"].(float64); ok {
+			endDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["end_date"].(int); ok {
+			endDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 end_date 类型")
 		}
 		// 处理 freq 的简单类型
-		freq, ok := item["freq"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var freq string
+		if v, ok := item["freq"].(string); ok {
+			freq = v
+		} else if v, ok := item["freq"].(float64); ok {
+			freq = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["freq"].(int); ok {
+			freq = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 freq 类型")
 		}
 		// 处理 open 的简单类型
@@ -153,8 +181,15 @@ func FutWeeklyMonthly(ctx context.Context, client *sdk.Client, req *FutWeeklyMon
 			return nil, fmt.Errorf("无效的 oi_chg 类型")
 		}
 		// 处理 exchange 的简单类型
-		exchange, ok := item["exchange"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var exchange string
+		if v, ok := item["exchange"].(string); ok {
+			exchange = v
+		} else if v, ok := item["exchange"].(float64); ok {
+			exchange = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["exchange"].(int); ok {
+			exchange = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 exchange 类型")
 		}
 		// 处理 change1 的简单类型

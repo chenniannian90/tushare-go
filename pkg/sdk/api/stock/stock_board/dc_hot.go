@@ -58,29 +58,57 @@ func DcHot(ctx context.Context, client *sdk.Client, req *DcHotRequest) ([]DcHotI
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "dc_hot", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "dc_hot", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]DcHotItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 trade_date 的简单类型
-		tradeDate, ok := item["trade_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeDate string
+		if v, ok := item["trade_date"].(string); ok {
+			tradeDate = v
+		} else if v, ok := item["trade_date"].(float64); ok {
+			tradeDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_date"].(int); ok {
+			tradeDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 data_type 的简单类型
-		dataType, ok := item["data_type"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var dataType string
+		if v, ok := item["data_type"].(string); ok {
+			dataType = v
+		} else if v, ok := item["data_type"].(float64); ok {
+			dataType = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["data_type"].(int); ok {
+			dataType = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 data_type 类型")
 		}
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 ts_name 的简单类型
-		tsName, ok := item["ts_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsName string
+		if v, ok := item["ts_name"].(string); ok {
+			tsName = v
+		} else if v, ok := item["ts_name"].(float64); ok {
+			tsName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_name"].(int); ok {
+			tsName = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_name 类型")
 		}
 		// 处理 rank 的简单类型
@@ -99,8 +127,15 @@ func DcHot(ctx context.Context, client *sdk.Client, req *DcHotRequest) ([]DcHotI
 			return nil, fmt.Errorf("无效的 current_price 类型")
 		}
 		// 处理 rank_time 的简单类型
-		rankTime, ok := item["rank_time"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var rankTime string
+		if v, ok := item["rank_time"].(string); ok {
+			rankTime = v
+		} else if v, ok := item["rank_time"].(float64); ok {
+			rankTime = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["rank_time"].(int); ok {
+			rankTime = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 rank_time 类型")
 		}
 		items[i] = DcHotItem{

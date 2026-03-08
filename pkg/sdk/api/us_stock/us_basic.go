@@ -52,39 +52,81 @@ func UsBasic(ctx context.Context, client *sdk.Client, req *UsBasicRequest) ([]Us
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "us_basic", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "us_basic", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]UsBasicItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 name 的简单类型
-		name, ok := item["name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var name string
+		if v, ok := item["name"].(string); ok {
+			name = v
+		} else if v, ok := item["name"].(float64); ok {
+			name = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["name"].(int); ok {
+			name = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 enname 的简单类型
-		enname, ok := item["enname"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var enname string
+		if v, ok := item["enname"].(string); ok {
+			enname = v
+		} else if v, ok := item["enname"].(float64); ok {
+			enname = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["enname"].(int); ok {
+			enname = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 enname 类型")
 		}
 		// 处理 classify 的简单类型
-		classify, ok := item["classify"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var classify string
+		if v, ok := item["classify"].(string); ok {
+			classify = v
+		} else if v, ok := item["classify"].(float64); ok {
+			classify = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["classify"].(int); ok {
+			classify = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 classify 类型")
 		}
 		// 处理 list_date 的简单类型
-		listDate, ok := item["list_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var listDate string
+		if v, ok := item["list_date"].(string); ok {
+			listDate = v
+		} else if v, ok := item["list_date"].(float64); ok {
+			listDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["list_date"].(int); ok {
+			listDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 list_date 类型")
 		}
 		// 处理 delist_date 的简单类型
-		delistDate, ok := item["delist_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var delistDate string
+		if v, ok := item["delist_date"].(string); ok {
+			delistDate = v
+		} else if v, ok := item["delist_date"].(float64); ok {
+			delistDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["delist_date"].(int); ok {
+			delistDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 delist_date 类型")
 		}
 		items[i] = UsBasicItem{

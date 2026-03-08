@@ -45,7 +45,7 @@ func DailyBasic(ctx context.Context, client *sdk.Client, req *DailyBasicRequest)
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "daily_basic", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "daily_basic", params, fields, &result); err != nil {
 		return nil, err
 	}
 	// No response fields defined, return empty items

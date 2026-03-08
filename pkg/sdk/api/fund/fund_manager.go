@@ -60,59 +60,129 @@ func FundManager(ctx context.Context, client *sdk.Client, req *FundManagerReques
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "fund_manager", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "fund_manager", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FundManagerItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 ann_date 的简单类型
-		annDate, ok := item["ann_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var annDate string
+		if v, ok := item["ann_date"].(string); ok {
+			annDate = v
+		} else if v, ok := item["ann_date"].(float64); ok {
+			annDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ann_date"].(int); ok {
+			annDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ann_date 类型")
 		}
 		// 处理 name 的简单类型
-		name, ok := item["name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var name string
+		if v, ok := item["name"].(string); ok {
+			name = v
+		} else if v, ok := item["name"].(float64); ok {
+			name = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["name"].(int); ok {
+			name = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 gender 的简单类型
-		gender, ok := item["gender"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var gender string
+		if v, ok := item["gender"].(string); ok {
+			gender = v
+		} else if v, ok := item["gender"].(float64); ok {
+			gender = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["gender"].(int); ok {
+			gender = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 gender 类型")
 		}
 		// 处理 birth_year 的简单类型
-		birthYear, ok := item["birth_year"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var birthYear string
+		if v, ok := item["birth_year"].(string); ok {
+			birthYear = v
+		} else if v, ok := item["birth_year"].(float64); ok {
+			birthYear = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["birth_year"].(int); ok {
+			birthYear = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 birth_year 类型")
 		}
 		// 处理 edu 的简单类型
-		edu, ok := item["edu"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var edu string
+		if v, ok := item["edu"].(string); ok {
+			edu = v
+		} else if v, ok := item["edu"].(float64); ok {
+			edu = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["edu"].(int); ok {
+			edu = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 edu 类型")
 		}
 		// 处理 nationality 的简单类型
-		nationality, ok := item["nationality"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var nationality string
+		if v, ok := item["nationality"].(string); ok {
+			nationality = v
+		} else if v, ok := item["nationality"].(float64); ok {
+			nationality = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["nationality"].(int); ok {
+			nationality = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 nationality 类型")
 		}
 		// 处理 begin_date 的简单类型
-		beginDate, ok := item["begin_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var beginDate string
+		if v, ok := item["begin_date"].(string); ok {
+			beginDate = v
+		} else if v, ok := item["begin_date"].(float64); ok {
+			beginDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["begin_date"].(int); ok {
+			beginDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 begin_date 类型")
 		}
 		// 处理 end_date 的简单类型
-		endDate, ok := item["end_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var endDate string
+		if v, ok := item["end_date"].(string); ok {
+			endDate = v
+		} else if v, ok := item["end_date"].(float64); ok {
+			endDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["end_date"].(int); ok {
+			endDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 end_date 类型")
 		}
 		// 处理 resume 的简单类型
-		resume, ok := item["resume"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var resume string
+		if v, ok := item["resume"].(string); ok {
+			resume = v
+		} else if v, ok := item["resume"].(float64); ok {
+			resume = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["resume"].(int); ok {
+			resume = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 resume 类型")
 		}
 		items[i] = FundManagerItem{

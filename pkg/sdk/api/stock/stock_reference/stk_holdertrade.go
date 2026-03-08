@@ -67,34 +67,69 @@ func StkHoldertrade(ctx context.Context, client *sdk.Client, req *StkHoldertrade
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "stk_holdertrade", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "stk_holdertrade", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]StkHoldertradeItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 ann_date 的简单类型
-		annDate, ok := item["ann_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var annDate string
+		if v, ok := item["ann_date"].(string); ok {
+			annDate = v
+		} else if v, ok := item["ann_date"].(float64); ok {
+			annDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ann_date"].(int); ok {
+			annDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ann_date 类型")
 		}
 		// 处理 holder_name 的简单类型
-		holderName, ok := item["holder_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var holderName string
+		if v, ok := item["holder_name"].(string); ok {
+			holderName = v
+		} else if v, ok := item["holder_name"].(float64); ok {
+			holderName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["holder_name"].(int); ok {
+			holderName = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 holder_name 类型")
 		}
 		// 处理 holder_type 的简单类型
-		holderType, ok := item["holder_type"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var holderType string
+		if v, ok := item["holder_type"].(string); ok {
+			holderType = v
+		} else if v, ok := item["holder_type"].(float64); ok {
+			holderType = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["holder_type"].(int); ok {
+			holderType = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 holder_type 类型")
 		}
 		// 处理 in_de 的简单类型
-		inDe, ok := item["in_de"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var inDe string
+		if v, ok := item["in_de"].(string); ok {
+			inDe = v
+		} else if v, ok := item["in_de"].(float64); ok {
+			inDe = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["in_de"].(int); ok {
+			inDe = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 in_de 类型")
 		}
 		// 处理 change_vol 的简单类型
@@ -128,13 +163,27 @@ func StkHoldertrade(ctx context.Context, client *sdk.Client, req *StkHoldertrade
 			return nil, fmt.Errorf("无效的 total_share 类型")
 		}
 		// 处理 begin_date 的简单类型
-		beginDate, ok := item["begin_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var beginDate string
+		if v, ok := item["begin_date"].(string); ok {
+			beginDate = v
+		} else if v, ok := item["begin_date"].(float64); ok {
+			beginDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["begin_date"].(int); ok {
+			beginDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 begin_date 类型")
 		}
 		// 处理 close_date 的简单类型
-		closeDate, ok := item["close_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var closeDate string
+		if v, ok := item["close_date"].(string); ok {
+			closeDate = v
+		} else if v, ok := item["close_date"].(float64); ok {
+			closeDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["close_date"].(int); ok {
+			closeDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 close_date 类型")
 		}
 		items[i] = StkHoldertradeItem{

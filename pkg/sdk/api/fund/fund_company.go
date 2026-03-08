@@ -48,64 +48,141 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "fund_company", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "fund_company", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FundCompanyItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 name 的简单类型
-		name, ok := item["name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var name string
+		if v, ok := item["name"].(string); ok {
+			name = v
+		} else if v, ok := item["name"].(float64); ok {
+			name = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["name"].(int); ok {
+			name = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 shortname 的简单类型
-		shortname, ok := item["shortname"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var shortname string
+		if v, ok := item["shortname"].(string); ok {
+			shortname = v
+		} else if v, ok := item["shortname"].(float64); ok {
+			shortname = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["shortname"].(int); ok {
+			shortname = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 shortname 类型")
 		}
 		// 处理 short_enname 的简单类型
-		shortEnname, ok := item["short_enname"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var shortEnname string
+		if v, ok := item["short_enname"].(string); ok {
+			shortEnname = v
+		} else if v, ok := item["short_enname"].(float64); ok {
+			shortEnname = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["short_enname"].(int); ok {
+			shortEnname = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 short_enname 类型")
 		}
 		// 处理 province 的简单类型
-		province, ok := item["province"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var province string
+		if v, ok := item["province"].(string); ok {
+			province = v
+		} else if v, ok := item["province"].(float64); ok {
+			province = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["province"].(int); ok {
+			province = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 province 类型")
 		}
 		// 处理 city 的简单类型
-		city, ok := item["city"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var city string
+		if v, ok := item["city"].(string); ok {
+			city = v
+		} else if v, ok := item["city"].(float64); ok {
+			city = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["city"].(int); ok {
+			city = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 city 类型")
 		}
 		// 处理 address 的简单类型
-		address, ok := item["address"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var address string
+		if v, ok := item["address"].(string); ok {
+			address = v
+		} else if v, ok := item["address"].(float64); ok {
+			address = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["address"].(int); ok {
+			address = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 address 类型")
 		}
 		// 处理 phone 的简单类型
-		phone, ok := item["phone"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var phone string
+		if v, ok := item["phone"].(string); ok {
+			phone = v
+		} else if v, ok := item["phone"].(float64); ok {
+			phone = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["phone"].(int); ok {
+			phone = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 phone 类型")
 		}
 		// 处理 office 的简单类型
-		office, ok := item["office"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var office string
+		if v, ok := item["office"].(string); ok {
+			office = v
+		} else if v, ok := item["office"].(float64); ok {
+			office = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["office"].(int); ok {
+			office = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 office 类型")
 		}
 		// 处理 website 的简单类型
-		website, ok := item["website"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var website string
+		if v, ok := item["website"].(string); ok {
+			website = v
+		} else if v, ok := item["website"].(float64); ok {
+			website = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["website"].(int); ok {
+			website = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 website 类型")
 		}
 		// 处理 chairman 的简单类型
-		chairman, ok := item["chairman"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var chairman string
+		if v, ok := item["chairman"].(string); ok {
+			chairman = v
+		} else if v, ok := item["chairman"].(float64); ok {
+			chairman = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["chairman"].(int); ok {
+			chairman = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 chairman 类型")
 		}
 		// 处理 manager 的简单类型
-		manager, ok := item["manager"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var manager string
+		if v, ok := item["manager"].(string); ok {
+			manager = v
+		} else if v, ok := item["manager"].(float64); ok {
+			manager = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["manager"].(int); ok {
+			manager = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 manager 类型")
 		}
 		// 处理 reg_capital 的简单类型
@@ -114,13 +191,27 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 			return nil, fmt.Errorf("无效的 reg_capital 类型")
 		}
 		// 处理 setup_date 的简单类型
-		setupDate, ok := item["setup_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var setupDate string
+		if v, ok := item["setup_date"].(string); ok {
+			setupDate = v
+		} else if v, ok := item["setup_date"].(float64); ok {
+			setupDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["setup_date"].(int); ok {
+			setupDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 setup_date 类型")
 		}
 		// 处理 end_date 的简单类型
-		endDate, ok := item["end_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var endDate string
+		if v, ok := item["end_date"].(string); ok {
+			endDate = v
+		} else if v, ok := item["end_date"].(float64); ok {
+			endDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["end_date"].(int); ok {
+			endDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 end_date 类型")
 		}
 		// 处理 employees 的简单类型
@@ -129,18 +220,39 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 			return nil, fmt.Errorf("无效的 employees 类型")
 		}
 		// 处理 main_business 的简单类型
-		mainBusiness, ok := item["main_business"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var mainBusiness string
+		if v, ok := item["main_business"].(string); ok {
+			mainBusiness = v
+		} else if v, ok := item["main_business"].(float64); ok {
+			mainBusiness = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["main_business"].(int); ok {
+			mainBusiness = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 main_business 类型")
 		}
 		// 处理 org_code 的简单类型
-		orgCode, ok := item["org_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var orgCode string
+		if v, ok := item["org_code"].(string); ok {
+			orgCode = v
+		} else if v, ok := item["org_code"].(float64); ok {
+			orgCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["org_code"].(int); ok {
+			orgCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 org_code 类型")
 		}
 		// 处理 credit_code 的简单类型
-		creditCode, ok := item["credit_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var creditCode string
+		if v, ok := item["credit_code"].(string); ok {
+			creditCode = v
+		} else if v, ok := item["credit_code"].(float64); ok {
+			creditCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["credit_code"].(int); ok {
+			creditCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 credit_code 类型")
 		}
 		items[i] = FundCompanyItem{

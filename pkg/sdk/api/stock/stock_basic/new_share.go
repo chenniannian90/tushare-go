@@ -50,34 +50,69 @@ func NewShare(ctx context.Context, client *sdk.Client, req *NewShareRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "new_share", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "new_share", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]NewShareItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 sub_code 的简单类型
-		subCode, ok := item["sub_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var subCode string
+		if v, ok := item["sub_code"].(string); ok {
+			subCode = v
+		} else if v, ok := item["sub_code"].(float64); ok {
+			subCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["sub_code"].(int); ok {
+			subCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 sub_code 类型")
 		}
 		// 处理 name 的简单类型
-		name, ok := item["name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var name string
+		if v, ok := item["name"].(string); ok {
+			name = v
+		} else if v, ok := item["name"].(float64); ok {
+			name = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["name"].(int); ok {
+			name = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 ipo_date 的简单类型
-		ipoDate, ok := item["ipo_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var ipoDate string
+		if v, ok := item["ipo_date"].(string); ok {
+			ipoDate = v
+		} else if v, ok := item["ipo_date"].(float64); ok {
+			ipoDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ipo_date"].(int); ok {
+			ipoDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ipo_date 类型")
 		}
 		// 处理 issue_date 的简单类型
-		issueDate, ok := item["issue_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var issueDate string
+		if v, ok := item["issue_date"].(string); ok {
+			issueDate = v
+		} else if v, ok := item["issue_date"].(float64); ok {
+			issueDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["issue_date"].(int); ok {
+			issueDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 issue_date 类型")
 		}
 		// 处理 amount 的简单类型

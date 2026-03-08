@@ -58,24 +58,45 @@ func RepoDaily(ctx context.Context, client *sdk.Client, req *RepoDailyRequest) (
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "repo_daily", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "repo_daily", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]RepoDailyItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 trade_date 的简单类型
-		tradeDate, ok := item["trade_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeDate string
+		if v, ok := item["trade_date"].(string); ok {
+			tradeDate = v
+		} else if v, ok := item["trade_date"].(float64); ok {
+			tradeDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_date"].(int); ok {
+			tradeDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 repo_maturity 的简单类型
-		repoMaturity, ok := item["repo_maturity"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var repoMaturity string
+		if v, ok := item["repo_maturity"].(string); ok {
+			repoMaturity = v
+		} else if v, ok := item["repo_maturity"].(float64); ok {
+			repoMaturity = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["repo_maturity"].(int); ok {
+			repoMaturity = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 repo_maturity 类型")
 		}
 		// 处理 pre_close 的简单类型

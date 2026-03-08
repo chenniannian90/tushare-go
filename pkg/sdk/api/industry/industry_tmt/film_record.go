@@ -51,54 +51,117 @@ func FilmRecord(ctx context.Context, client *sdk.Client, req *FilmRecordRequest)
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "film_record", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "film_record", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FilmRecordItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 rec_no 的简单类型
-		recNo, ok := item["rec_no"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var recNo string
+		if v, ok := item["rec_no"].(string); ok {
+			recNo = v
+		} else if v, ok := item["rec_no"].(float64); ok {
+			recNo = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["rec_no"].(int); ok {
+			recNo = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 rec_no 类型")
 		}
 		// 处理 film_name 的简单类型
-		filmName, ok := item["film_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var filmName string
+		if v, ok := item["film_name"].(string); ok {
+			filmName = v
+		} else if v, ok := item["film_name"].(float64); ok {
+			filmName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["film_name"].(int); ok {
+			filmName = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 film_name 类型")
 		}
 		// 处理 rec_org 的简单类型
-		recOrg, ok := item["rec_org"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var recOrg string
+		if v, ok := item["rec_org"].(string); ok {
+			recOrg = v
+		} else if v, ok := item["rec_org"].(float64); ok {
+			recOrg = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["rec_org"].(int); ok {
+			recOrg = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 rec_org 类型")
 		}
 		// 处理 script_writer 的简单类型
-		scriptWriter, ok := item["script_writer"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var scriptWriter string
+		if v, ok := item["script_writer"].(string); ok {
+			scriptWriter = v
+		} else if v, ok := item["script_writer"].(float64); ok {
+			scriptWriter = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["script_writer"].(int); ok {
+			scriptWriter = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 script_writer 类型")
 		}
 		// 处理 rec_result 的简单类型
-		recResult, ok := item["rec_result"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var recResult string
+		if v, ok := item["rec_result"].(string); ok {
+			recResult = v
+		} else if v, ok := item["rec_result"].(float64); ok {
+			recResult = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["rec_result"].(int); ok {
+			recResult = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 rec_result 类型")
 		}
 		// 处理 rec_area 的简单类型
-		recArea, ok := item["rec_area"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var recArea string
+		if v, ok := item["rec_area"].(string); ok {
+			recArea = v
+		} else if v, ok := item["rec_area"].(float64); ok {
+			recArea = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["rec_area"].(int); ok {
+			recArea = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 rec_area 类型")
 		}
 		// 处理 classified 的简单类型
-		classified, ok := item["classified"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var classified string
+		if v, ok := item["classified"].(string); ok {
+			classified = v
+		} else if v, ok := item["classified"].(float64); ok {
+			classified = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["classified"].(int); ok {
+			classified = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 classified 类型")
 		}
 		// 处理 date_range 的简单类型
-		dateRange, ok := item["date_range"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var dateRange string
+		if v, ok := item["date_range"].(string); ok {
+			dateRange = v
+		} else if v, ok := item["date_range"].(float64); ok {
+			dateRange = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["date_range"].(int); ok {
+			dateRange = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 date_range 类型")
 		}
 		// 处理 ann_date 的简单类型
-		annDate, ok := item["ann_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var annDate string
+		if v, ok := item["ann_date"].(string); ok {
+			annDate = v
+		} else if v, ok := item["ann_date"].(float64); ok {
+			annDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ann_date"].(int); ok {
+			annDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ann_date 类型")
 		}
 		items[i] = FilmRecordItem{

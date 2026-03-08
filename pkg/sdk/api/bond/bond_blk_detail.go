@@ -54,24 +54,45 @@ func BondBlkDetail(ctx context.Context, client *sdk.Client, req *BondBlkDetailRe
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "bond_blk_detail", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "bond_blk_detail", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]BondBlkDetailItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 trade_date 的简单类型
-		tradeDate, ok := item["trade_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeDate string
+		if v, ok := item["trade_date"].(string); ok {
+			tradeDate = v
+		} else if v, ok := item["trade_date"].(float64); ok {
+			tradeDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_date"].(int); ok {
+			tradeDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 name 的简单类型
-		name, ok := item["name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var name string
+		if v, ok := item["name"].(string); ok {
+			name = v
+		} else if v, ok := item["name"].(float64); ok {
+			name = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["name"].(int); ok {
+			name = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 price 的简单类型
@@ -90,13 +111,27 @@ func BondBlkDetail(ctx context.Context, client *sdk.Client, req *BondBlkDetailRe
 			return nil, fmt.Errorf("无效的 amount 类型")
 		}
 		// 处理 buy_dp 的简单类型
-		buyDp, ok := item["buy_dp"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var buyDp string
+		if v, ok := item["buy_dp"].(string); ok {
+			buyDp = v
+		} else if v, ok := item["buy_dp"].(float64); ok {
+			buyDp = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["buy_dp"].(int); ok {
+			buyDp = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 buy_dp 类型")
 		}
 		// 处理 sell_dp 的简单类型
-		sellDp, ok := item["sell_dp"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var sellDp string
+		if v, ok := item["sell_dp"].(string); ok {
+			sellDp = v
+		} else if v, ok := item["sell_dp"].(float64); ok {
+			sellDp = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["sell_dp"].(int); ok {
+			sellDp = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 sell_dp 类型")
 		}
 		items[i] = BondBlkDetailItem{

@@ -45,24 +45,45 @@ func ThsMember(ctx context.Context, client *sdk.Client, req *ThsMemberRequest) (
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "ths_member", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "ths_member", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]ThsMemberItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 con_code 的简单类型
-		conCode, ok := item["con_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var conCode string
+		if v, ok := item["con_code"].(string); ok {
+			conCode = v
+		} else if v, ok := item["con_code"].(float64); ok {
+			conCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["con_code"].(int); ok {
+			conCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 con_code 类型")
 		}
 		// 处理 con_name 的简单类型
-		conName, ok := item["con_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var conName string
+		if v, ok := item["con_name"].(string); ok {
+			conName = v
+		} else if v, ok := item["con_name"].(float64); ok {
+			conName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["con_name"].(int); ok {
+			conName = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 con_name 类型")
 		}
 		// 处理 weight 的简单类型
@@ -71,18 +92,39 @@ func ThsMember(ctx context.Context, client *sdk.Client, req *ThsMemberRequest) (
 			return nil, fmt.Errorf("无效的 weight 类型")
 		}
 		// 处理 in_date 的简单类型
-		inDate, ok := item["in_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var inDate string
+		if v, ok := item["in_date"].(string); ok {
+			inDate = v
+		} else if v, ok := item["in_date"].(float64); ok {
+			inDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["in_date"].(int); ok {
+			inDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 in_date 类型")
 		}
 		// 处理 out_date 的简单类型
-		outDate, ok := item["out_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var outDate string
+		if v, ok := item["out_date"].(string); ok {
+			outDate = v
+		} else if v, ok := item["out_date"].(float64); ok {
+			outDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["out_date"].(int); ok {
+			outDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 out_date 类型")
 		}
 		// 处理 is_new 的简单类型
-		isNew, ok := item["is_new"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var isNew string
+		if v, ok := item["is_new"].(string); ok {
+			isNew = v
+		} else if v, ok := item["is_new"].(float64); ok {
+			isNew = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["is_new"].(int); ok {
+			isNew = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 is_new 类型")
 		}
 		items[i] = ThsMemberItem{

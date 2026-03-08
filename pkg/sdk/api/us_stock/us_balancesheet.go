@@ -61,34 +61,69 @@ func UsBalancesheet(ctx context.Context, client *sdk.Client, req *UsBalancesheet
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "us_balancesheet", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "us_balancesheet", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]UsBalancesheetItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 end_date 的简单类型
-		endDate, ok := item["end_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var endDate string
+		if v, ok := item["end_date"].(string); ok {
+			endDate = v
+		} else if v, ok := item["end_date"].(float64); ok {
+			endDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["end_date"].(int); ok {
+			endDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 end_date 类型")
 		}
 		// 处理 ind_type 的简单类型
-		indType, ok := item["ind_type"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var indType string
+		if v, ok := item["ind_type"].(string); ok {
+			indType = v
+		} else if v, ok := item["ind_type"].(float64); ok {
+			indType = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ind_type"].(int); ok {
+			indType = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ind_type 类型")
 		}
 		// 处理 name 的简单类型
-		name, ok := item["name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var name string
+		if v, ok := item["name"].(string); ok {
+			name = v
+		} else if v, ok := item["name"].(float64); ok {
+			name = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["name"].(int); ok {
+			name = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 ind_name 的简单类型
-		indName, ok := item["ind_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var indName string
+		if v, ok := item["ind_name"].(string); ok {
+			indName = v
+		} else if v, ok := item["ind_name"].(float64); ok {
+			indName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ind_name"].(int); ok {
+			indName = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ind_name 类型")
 		}
 		// 处理 ind_value 的简单类型
@@ -97,8 +132,15 @@ func UsBalancesheet(ctx context.Context, client *sdk.Client, req *UsBalancesheet
 			return nil, fmt.Errorf("无效的 ind_value 类型")
 		}
 		// 处理 report_type 的简单类型
-		reportType, ok := item["report_type"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var reportType string
+		if v, ok := item["report_type"].(string); ok {
+			reportType = v
+		} else if v, ok := item["report_type"].(float64); ok {
+			reportType = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["report_type"].(int); ok {
+			reportType = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 report_type 类型")
 		}
 		items[i] = UsBalancesheetItem{

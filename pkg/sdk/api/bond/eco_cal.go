@@ -62,49 +62,105 @@ func EcoCal(ctx context.Context, client *sdk.Client, req *EcoCalRequest) ([]EcoC
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "eco_cal", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "eco_cal", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]EcoCalItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 date 的简单类型
-		date, ok := item["date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var date string
+		if v, ok := item["date"].(string); ok {
+			date = v
+		} else if v, ok := item["date"].(float64); ok {
+			date = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["date"].(int); ok {
+			date = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 date 类型")
 		}
 		// 处理 time 的简单类型
-		time, ok := item["time"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var time string
+		if v, ok := item["time"].(string); ok {
+			time = v
+		} else if v, ok := item["time"].(float64); ok {
+			time = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["time"].(int); ok {
+			time = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 time 类型")
 		}
 		// 处理 currency 的简单类型
-		currency, ok := item["currency"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var currency string
+		if v, ok := item["currency"].(string); ok {
+			currency = v
+		} else if v, ok := item["currency"].(float64); ok {
+			currency = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["currency"].(int); ok {
+			currency = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 currency 类型")
 		}
 		// 处理 country 的简单类型
-		country, ok := item["country"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var country string
+		if v, ok := item["country"].(string); ok {
+			country = v
+		} else if v, ok := item["country"].(float64); ok {
+			country = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["country"].(int); ok {
+			country = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 country 类型")
 		}
 		// 处理 event 的简单类型
-		event, ok := item["event"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var event string
+		if v, ok := item["event"].(string); ok {
+			event = v
+		} else if v, ok := item["event"].(float64); ok {
+			event = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["event"].(int); ok {
+			event = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 event 类型")
 		}
 		// 处理 value 的简单类型
-		value, ok := item["value"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var value string
+		if v, ok := item["value"].(string); ok {
+			value = v
+		} else if v, ok := item["value"].(float64); ok {
+			value = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["value"].(int); ok {
+			value = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 value 类型")
 		}
 		// 处理 pre_value 的简单类型
-		preValue, ok := item["pre_value"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var preValue string
+		if v, ok := item["pre_value"].(string); ok {
+			preValue = v
+		} else if v, ok := item["pre_value"].(float64); ok {
+			preValue = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["pre_value"].(int); ok {
+			preValue = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 pre_value 类型")
 		}
 		// 处理 fore_value 的简单类型
-		foreValue, ok := item["fore_value"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var foreValue string
+		if v, ok := item["fore_value"].(string); ok {
+			foreValue = v
+		} else if v, ok := item["fore_value"].(float64); ok {
+			foreValue = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["fore_value"].(int); ok {
+			foreValue = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 fore_value 类型")
 		}
 		items[i] = EcoCalItem{

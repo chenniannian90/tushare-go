@@ -48,24 +48,45 @@ func SgeBasic(ctx context.Context, client *sdk.Client, req *SgeBasicRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "sge_basic", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "sge_basic", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]SgeBasicItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 ts_name 的简单类型
-		tsName, ok := item["ts_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsName string
+		if v, ok := item["ts_name"].(string); ok {
+			tsName = v
+		} else if v, ok := item["ts_name"].(float64); ok {
+			tsName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_name"].(int); ok {
+			tsName = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_name 类型")
 		}
 		// 处理 trade_type 的简单类型
-		tradeType, ok := item["trade_type"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeType string
+		if v, ok := item["trade_type"].(string); ok {
+			tradeType = v
+		} else if v, ok := item["trade_type"].(float64); ok {
+			tradeType = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_type"].(int); ok {
+			tradeType = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 trade_type 类型")
 		}
 		// 处理 t_unit 的简单类型
@@ -99,8 +120,15 @@ func SgeBasic(ctx context.Context, client *sdk.Client, req *SgeBasicRequest) ([]
 			return nil, fmt.Errorf("无效的 max_vol 类型")
 		}
 		// 处理 trade_mode 的简单类型
-		tradeMode, ok := item["trade_mode"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeMode string
+		if v, ok := item["trade_mode"].(string); ok {
+			tradeMode = v
+		} else if v, ok := item["trade_mode"].(float64); ok {
+			tradeMode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_mode"].(int); ok {
+			tradeMode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 trade_mode 类型")
 		}
 		// 处理 margin_rate 的简单类型
@@ -114,13 +142,27 @@ func SgeBasic(ctx context.Context, client *sdk.Client, req *SgeBasicRequest) ([]
 			return nil, fmt.Errorf("无效的 liq_rate 类型")
 		}
 		// 处理 trade_time 的简单类型
-		tradeTime, ok := item["trade_time"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeTime string
+		if v, ok := item["trade_time"].(string); ok {
+			tradeTime = v
+		} else if v, ok := item["trade_time"].(float64); ok {
+			tradeTime = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_time"].(int); ok {
+			tradeTime = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 trade_time 类型")
 		}
 		// 处理 list_date 的简单类型
-		listDate, ok := item["list_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var listDate string
+		if v, ok := item["list_date"].(string); ok {
+			listDate = v
+		} else if v, ok := item["list_date"].(float64); ok {
+			listDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["list_date"].(int); ok {
+			listDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 list_date 类型")
 		}
 		items[i] = SgeBasicItem{

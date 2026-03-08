@@ -59,24 +59,45 @@ func FundNav(ctx context.Context, client *sdk.Client, req *FundNavRequest) ([]Fu
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "fund_nav", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "fund_nav", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FundNavItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 ann_date 的简单类型
-		annDate, ok := item["ann_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var annDate string
+		if v, ok := item["ann_date"].(string); ok {
+			annDate = v
+		} else if v, ok := item["ann_date"].(float64); ok {
+			annDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ann_date"].(int); ok {
+			annDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ann_date 类型")
 		}
 		// 处理 nav_date 的简单类型
-		navDate, ok := item["nav_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var navDate string
+		if v, ok := item["nav_date"].(string); ok {
+			navDate = v
+		} else if v, ok := item["nav_date"].(float64); ok {
+			navDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["nav_date"].(int); ok {
+			navDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 nav_date 类型")
 		}
 		// 处理 unit_nav 的简单类型

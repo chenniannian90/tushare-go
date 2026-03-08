@@ -48,24 +48,45 @@ func PledgeDetail(ctx context.Context, client *sdk.Client, req *PledgeDetailRequ
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "pledge_detail", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "pledge_detail", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]PledgeDetailItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 ann_date 的简单类型
-		annDate, ok := item["ann_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var annDate string
+		if v, ok := item["ann_date"].(string); ok {
+			annDate = v
+		} else if v, ok := item["ann_date"].(float64); ok {
+			annDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ann_date"].(int); ok {
+			annDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ann_date 类型")
 		}
 		// 处理 holder_name 的简单类型
-		holderName, ok := item["holder_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var holderName string
+		if v, ok := item["holder_name"].(string); ok {
+			holderName = v
+		} else if v, ok := item["holder_name"].(float64); ok {
+			holderName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["holder_name"].(int); ok {
+			holderName = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 holder_name 类型")
 		}
 		// 处理 pledge_amount 的简单类型
@@ -74,28 +95,63 @@ func PledgeDetail(ctx context.Context, client *sdk.Client, req *PledgeDetailRequ
 			return nil, fmt.Errorf("无效的 pledge_amount 类型")
 		}
 		// 处理 start_date 的简单类型
-		startDate, ok := item["start_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var startDate string
+		if v, ok := item["start_date"].(string); ok {
+			startDate = v
+		} else if v, ok := item["start_date"].(float64); ok {
+			startDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["start_date"].(int); ok {
+			startDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 start_date 类型")
 		}
 		// 处理 end_date 的简单类型
-		endDate, ok := item["end_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var endDate string
+		if v, ok := item["end_date"].(string); ok {
+			endDate = v
+		} else if v, ok := item["end_date"].(float64); ok {
+			endDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["end_date"].(int); ok {
+			endDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 end_date 类型")
 		}
 		// 处理 is_release 的简单类型
-		isRelease, ok := item["is_release"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var isRelease string
+		if v, ok := item["is_release"].(string); ok {
+			isRelease = v
+		} else if v, ok := item["is_release"].(float64); ok {
+			isRelease = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["is_release"].(int); ok {
+			isRelease = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 is_release 类型")
 		}
 		// 处理 release_date 的简单类型
-		releaseDate, ok := item["release_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var releaseDate string
+		if v, ok := item["release_date"].(string); ok {
+			releaseDate = v
+		} else if v, ok := item["release_date"].(float64); ok {
+			releaseDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["release_date"].(int); ok {
+			releaseDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 release_date 类型")
 		}
 		// 处理 pledgor 的简单类型
-		pledgor, ok := item["pledgor"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var pledgor string
+		if v, ok := item["pledgor"].(string); ok {
+			pledgor = v
+		} else if v, ok := item["pledgor"].(float64); ok {
+			pledgor = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["pledgor"].(int); ok {
+			pledgor = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 pledgor 类型")
 		}
 		// 处理 holding_amount 的简单类型
@@ -119,8 +175,15 @@ func PledgeDetail(ctx context.Context, client *sdk.Client, req *PledgeDetailRequ
 			return nil, fmt.Errorf("无效的 h_total_ratio 类型")
 		}
 		// 处理 is_buyback 的简单类型
-		isBuyback, ok := item["is_buyback"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var isBuyback string
+		if v, ok := item["is_buyback"].(string); ok {
+			isBuyback = v
+		} else if v, ok := item["is_buyback"].(float64); ok {
+			isBuyback = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["is_buyback"].(int); ok {
+			isBuyback = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 is_buyback 类型")
 		}
 		items[i] = PledgeDetailItem{

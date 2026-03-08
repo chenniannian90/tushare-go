@@ -45,24 +45,45 @@ func RtSwK(ctx context.Context, client *sdk.Client, req *RtSwKRequest) ([]RtSwKI
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "rt_sw_k", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "rt_sw_k", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]RtSwKItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 name 的简单类型
-		name, ok := item["name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var name string
+		if v, ok := item["name"].(string); ok {
+			name = v
+		} else if v, ok := item["name"].(float64); ok {
+			name = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["name"].(int); ok {
+			name = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 trade_time 的简单类型
-		tradeTime, ok := item["trade_time"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeTime string
+		if v, ok := item["trade_time"].(string); ok {
+			tradeTime = v
+		} else if v, ok := item["trade_time"].(float64); ok {
+			tradeTime = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_time"].(int); ok {
+			tradeTime = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 trade_time 类型")
 		}
 		// 处理 close 的简单类型

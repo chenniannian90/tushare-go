@@ -156,44 +156,93 @@ func Income(ctx context.Context, client *sdk.Client, req *IncomeRequest) ([]Inco
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "income", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "income", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]IncomeItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 ann_date 的简单类型
-		annDate, ok := item["ann_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var annDate string
+		if v, ok := item["ann_date"].(string); ok {
+			annDate = v
+		} else if v, ok := item["ann_date"].(float64); ok {
+			annDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ann_date"].(int); ok {
+			annDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ann_date 类型")
 		}
 		// 处理 f_ann_date 的简单类型
-		fAnnDate, ok := item["f_ann_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var fAnnDate string
+		if v, ok := item["f_ann_date"].(string); ok {
+			fAnnDate = v
+		} else if v, ok := item["f_ann_date"].(float64); ok {
+			fAnnDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["f_ann_date"].(int); ok {
+			fAnnDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 f_ann_date 类型")
 		}
 		// 处理 end_date 的简单类型
-		endDate, ok := item["end_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var endDate string
+		if v, ok := item["end_date"].(string); ok {
+			endDate = v
+		} else if v, ok := item["end_date"].(float64); ok {
+			endDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["end_date"].(int); ok {
+			endDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 end_date 类型")
 		}
 		// 处理 report_type 的简单类型
-		reportType, ok := item["report_type"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var reportType string
+		if v, ok := item["report_type"].(string); ok {
+			reportType = v
+		} else if v, ok := item["report_type"].(float64); ok {
+			reportType = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["report_type"].(int); ok {
+			reportType = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 report_type 类型")
 		}
 		// 处理 comp_type 的简单类型
-		compType, ok := item["comp_type"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var compType string
+		if v, ok := item["comp_type"].(string); ok {
+			compType = v
+		} else if v, ok := item["comp_type"].(float64); ok {
+			compType = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["comp_type"].(int); ok {
+			compType = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 comp_type 类型")
 		}
 		// 处理 end_type 的简单类型
-		endType, ok := item["end_type"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var endType string
+		if v, ok := item["end_type"].(string); ok {
+			endType = v
+		} else if v, ok := item["end_type"].(float64); ok {
+			endType = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["end_type"].(int); ok {
+			endType = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 end_type 类型")
 		}
 		// 处理 basic_eps 的简单类型
@@ -627,8 +676,15 @@ func Income(ctx context.Context, client *sdk.Client, req *IncomeRequest) ([]Inco
 			return nil, fmt.Errorf("无效的 end_net_profit 类型")
 		}
 		// 处理 update_flag 的简单类型
-		updateFlag, ok := item["update_flag"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var updateFlag string
+		if v, ok := item["update_flag"].(string); ok {
+			updateFlag = v
+		} else if v, ok := item["update_flag"].(float64); ok {
+			updateFlag = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["update_flag"].(int); ok {
+			updateFlag = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 update_flag 类型")
 		}
 		items[i] = IncomeItem{

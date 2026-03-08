@@ -57,34 +57,69 @@ func CbCall(ctx context.Context, client *sdk.Client, req *CbCallRequest) ([]CbCa
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "cb_call", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "cb_call", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]CbCallItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 call_type 的简单类型
-		callType, ok := item["call_type"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var callType string
+		if v, ok := item["call_type"].(string); ok {
+			callType = v
+		} else if v, ok := item["call_type"].(float64); ok {
+			callType = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["call_type"].(int); ok {
+			callType = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 call_type 类型")
 		}
 		// 处理 is_call 的简单类型
-		isCall, ok := item["is_call"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var isCall string
+		if v, ok := item["is_call"].(string); ok {
+			isCall = v
+		} else if v, ok := item["is_call"].(float64); ok {
+			isCall = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["is_call"].(int); ok {
+			isCall = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 is_call 类型")
 		}
 		// 处理 ann_date 的简单类型
-		annDate, ok := item["ann_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var annDate string
+		if v, ok := item["ann_date"].(string); ok {
+			annDate = v
+		} else if v, ok := item["ann_date"].(float64); ok {
+			annDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ann_date"].(int); ok {
+			annDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ann_date 类型")
 		}
 		// 处理 call_date 的简单类型
-		callDate, ok := item["call_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var callDate string
+		if v, ok := item["call_date"].(string); ok {
+			callDate = v
+		} else if v, ok := item["call_date"].(float64); ok {
+			callDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["call_date"].(int); ok {
+			callDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 call_date 类型")
 		}
 		// 处理 call_price 的简单类型
@@ -108,13 +143,27 @@ func CbCall(ctx context.Context, client *sdk.Client, req *CbCallRequest) ([]CbCa
 			return nil, fmt.Errorf("无效的 call_amount 类型")
 		}
 		// 处理 payment_date 的简单类型
-		paymentDate, ok := item["payment_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var paymentDate string
+		if v, ok := item["payment_date"].(string); ok {
+			paymentDate = v
+		} else if v, ok := item["payment_date"].(float64); ok {
+			paymentDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["payment_date"].(int); ok {
+			paymentDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 payment_date 类型")
 		}
 		// 处理 call_reg_date 的简单类型
-		callRegDate, ok := item["call_reg_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var callRegDate string
+		if v, ok := item["call_reg_date"].(string); ok {
+			callRegDate = v
+		} else if v, ok := item["call_reg_date"].(float64); ok {
+			callRegDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["call_reg_date"].(int); ok {
+			callRegDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 call_reg_date 类型")
 		}
 		items[i] = CbCallItem{

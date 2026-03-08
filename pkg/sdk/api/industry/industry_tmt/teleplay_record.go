@@ -63,74 +63,165 @@ func TeleplayRecord(ctx context.Context, client *sdk.Client, req *TeleplayRecord
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "teleplay_record", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "teleplay_record", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]TeleplayRecordItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 name 的简单类型
-		name, ok := item["name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var name string
+		if v, ok := item["name"].(string); ok {
+			name = v
+		} else if v, ok := item["name"].(float64); ok {
+			name = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["name"].(int); ok {
+			name = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 classify 的简单类型
-		classify, ok := item["classify"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var classify string
+		if v, ok := item["classify"].(string); ok {
+			classify = v
+		} else if v, ok := item["classify"].(float64); ok {
+			classify = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["classify"].(int); ok {
+			classify = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 classify 类型")
 		}
 		// 处理 types 的简单类型
-		types, ok := item["types"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var types string
+		if v, ok := item["types"].(string); ok {
+			types = v
+		} else if v, ok := item["types"].(float64); ok {
+			types = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["types"].(int); ok {
+			types = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 types 类型")
 		}
 		// 处理 org 的简单类型
-		org, ok := item["org"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var org string
+		if v, ok := item["org"].(string); ok {
+			org = v
+		} else if v, ok := item["org"].(float64); ok {
+			org = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["org"].(int); ok {
+			org = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 org 类型")
 		}
 		// 处理 report_date 的简单类型
-		reportDate, ok := item["report_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var reportDate string
+		if v, ok := item["report_date"].(string); ok {
+			reportDate = v
+		} else if v, ok := item["report_date"].(float64); ok {
+			reportDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["report_date"].(int); ok {
+			reportDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 report_date 类型")
 		}
 		// 处理 license_key 的简单类型
-		licenseKey, ok := item["license_key"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var licenseKey string
+		if v, ok := item["license_key"].(string); ok {
+			licenseKey = v
+		} else if v, ok := item["license_key"].(float64); ok {
+			licenseKey = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["license_key"].(int); ok {
+			licenseKey = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 license_key 类型")
 		}
 		// 处理 episodes 的简单类型
-		episodes, ok := item["episodes"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var episodes string
+		if v, ok := item["episodes"].(string); ok {
+			episodes = v
+		} else if v, ok := item["episodes"].(float64); ok {
+			episodes = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["episodes"].(int); ok {
+			episodes = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 episodes 类型")
 		}
 		// 处理 shooting_date 的简单类型
-		shootingDate, ok := item["shooting_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var shootingDate string
+		if v, ok := item["shooting_date"].(string); ok {
+			shootingDate = v
+		} else if v, ok := item["shooting_date"].(float64); ok {
+			shootingDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["shooting_date"].(int); ok {
+			shootingDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 shooting_date 类型")
 		}
 		// 处理 prod_cycle 的简单类型
-		prodCycle, ok := item["prod_cycle"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var prodCycle string
+		if v, ok := item["prod_cycle"].(string); ok {
+			prodCycle = v
+		} else if v, ok := item["prod_cycle"].(float64); ok {
+			prodCycle = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["prod_cycle"].(int); ok {
+			prodCycle = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 prod_cycle 类型")
 		}
 		// 处理 content 的简单类型
-		content, ok := item["content"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var content string
+		if v, ok := item["content"].(string); ok {
+			content = v
+		} else if v, ok := item["content"].(float64); ok {
+			content = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["content"].(int); ok {
+			content = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 content 类型")
 		}
 		// 处理 pro_opi 的简单类型
-		proOpi, ok := item["pro_opi"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var proOpi string
+		if v, ok := item["pro_opi"].(string); ok {
+			proOpi = v
+		} else if v, ok := item["pro_opi"].(float64); ok {
+			proOpi = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["pro_opi"].(int); ok {
+			proOpi = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 pro_opi 类型")
 		}
 		// 处理 dept_opi 的简单类型
-		deptOpi, ok := item["dept_opi"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var deptOpi string
+		if v, ok := item["dept_opi"].(string); ok {
+			deptOpi = v
+		} else if v, ok := item["dept_opi"].(float64); ok {
+			deptOpi = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["dept_opi"].(int); ok {
+			deptOpi = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 dept_opi 类型")
 		}
 		// 处理 remarks 的简单类型
-		remarks, ok := item["remarks"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var remarks string
+		if v, ok := item["remarks"].(string); ok {
+			remarks = v
+		} else if v, ok := item["remarks"].(float64); ok {
+			remarks = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["remarks"].(int); ok {
+			remarks = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 remarks 类型")
 		}
 		items[i] = TeleplayRecordItem{

@@ -71,24 +71,45 @@ func FutWeeklyDetail(ctx context.Context, client *sdk.Client, req *FutWeeklyDeta
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "fut_weekly_detail", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "fut_weekly_detail", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FutWeeklyDetailItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 exchange 的简单类型
-		exchange, ok := item["exchange"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var exchange string
+		if v, ok := item["exchange"].(string); ok {
+			exchange = v
+		} else if v, ok := item["exchange"].(float64); ok {
+			exchange = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["exchange"].(int); ok {
+			exchange = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 exchange 类型")
 		}
 		// 处理 prd 的简单类型
-		prd, ok := item["prd"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var prd string
+		if v, ok := item["prd"].(string); ok {
+			prd = v
+		} else if v, ok := item["prd"].(float64); ok {
+			prd = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["prd"].(int); ok {
+			prd = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 prd 类型")
 		}
 		// 处理 name 的简单类型
-		name, ok := item["name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var name string
+		if v, ok := item["name"].(string); ok {
+			name = v
+		} else if v, ok := item["name"].(float64); ok {
+			name = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["name"].(int); ok {
+			name = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 vol 的简单类型
@@ -152,13 +173,27 @@ func FutWeeklyDetail(ctx context.Context, client *sdk.Client, req *FutWeeklyDeta
 			return nil, fmt.Errorf("无效的 close_wow 类型")
 		}
 		// 处理 week 的简单类型
-		week, ok := item["week"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var week string
+		if v, ok := item["week"].(string); ok {
+			week = v
+		} else if v, ok := item["week"].(float64); ok {
+			week = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["week"].(int); ok {
+			week = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 week 类型")
 		}
 		// 处理 week_date 的简单类型
-		weekDate, ok := item["week_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var weekDate string
+		if v, ok := item["week_date"].(string); ok {
+			weekDate = v
+		} else if v, ok := item["week_date"].(float64); ok {
+			weekDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["week_date"].(int); ok {
+			weekDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 week_date 类型")
 		}
 		items[i] = FutWeeklyDetailItem{

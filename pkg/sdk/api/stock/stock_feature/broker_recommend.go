@@ -38,29 +38,57 @@ func BrokerRecommend(ctx context.Context, client *sdk.Client, req *BrokerRecomme
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "broker_recommend", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "broker_recommend", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]BrokerRecommendItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 month 的简单类型
-		month, ok := item["month"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var month string
+		if v, ok := item["month"].(string); ok {
+			month = v
+		} else if v, ok := item["month"].(float64); ok {
+			month = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["month"].(int); ok {
+			month = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 month 类型")
 		}
 		// 处理 broker 的简单类型
-		broker, ok := item["broker"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var broker string
+		if v, ok := item["broker"].(string); ok {
+			broker = v
+		} else if v, ok := item["broker"].(float64); ok {
+			broker = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["broker"].(int); ok {
+			broker = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 broker 类型")
 		}
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 name 的简单类型
-		name, ok := item["name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var name string
+		if v, ok := item["name"].(string); ok {
+			name = v
+		} else if v, ok := item["name"].(float64); ok {
+			name = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["name"].(int); ok {
+			name = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		items[i] = BrokerRecommendItem{

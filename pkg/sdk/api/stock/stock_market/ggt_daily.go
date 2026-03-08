@@ -47,14 +47,21 @@ func GgtDaily(ctx context.Context, client *sdk.Client, req *GgtDailyRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "ggt_daily", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "ggt_daily", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]GgtDailyItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 trade_date 的简单类型
-		tradeDate, ok := item["trade_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeDate string
+		if v, ok := item["trade_date"].(string); ok {
+			tradeDate = v
+		} else if v, ok := item["trade_date"].(float64); ok {
+			tradeDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_date"].(int); ok {
+			tradeDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 buy_amount 的简单类型

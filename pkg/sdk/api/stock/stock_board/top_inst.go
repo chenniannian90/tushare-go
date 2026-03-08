@@ -48,29 +48,57 @@ func TopInst(ctx context.Context, client *sdk.Client, req *TopInstRequest) ([]To
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "top_inst", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "top_inst", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]TopInstItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 trade_date 的简单类型
-		tradeDate, ok := item["trade_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeDate string
+		if v, ok := item["trade_date"].(string); ok {
+			tradeDate = v
+		} else if v, ok := item["trade_date"].(float64); ok {
+			tradeDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_date"].(int); ok {
+			tradeDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 exalter 的简单类型
-		exalter, ok := item["exalter"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var exalter string
+		if v, ok := item["exalter"].(string); ok {
+			exalter = v
+		} else if v, ok := item["exalter"].(float64); ok {
+			exalter = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["exalter"].(int); ok {
+			exalter = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 exalter 类型")
 		}
 		// 处理 side 的简单类型
-		side, ok := item["side"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var side string
+		if v, ok := item["side"].(string); ok {
+			side = v
+		} else if v, ok := item["side"].(float64); ok {
+			side = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["side"].(int); ok {
+			side = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 side 类型")
 		}
 		// 处理 buy 的简单类型
@@ -99,8 +127,15 @@ func TopInst(ctx context.Context, client *sdk.Client, req *TopInstRequest) ([]To
 			return nil, fmt.Errorf("无效的 net_buy 类型")
 		}
 		// 处理 reason 的简单类型
-		reason, ok := item["reason"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var reason string
+		if v, ok := item["reason"].(string); ok {
+			reason = v
+		} else if v, ok := item["reason"].(float64); ok {
+			reason = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["reason"].(int); ok {
+			reason = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 reason 类型")
 		}
 		items[i] = TopInstItem{

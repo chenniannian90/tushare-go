@@ -49,7 +49,7 @@ func GgtTop10(ctx context.Context, client *sdk.Client, req *GgtTop10Request) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "ggt_top10", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "ggt_top10", params, fields, &result); err != nil {
 		return nil, err
 	}
 	// No response fields defined, return empty items

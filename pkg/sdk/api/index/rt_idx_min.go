@@ -46,14 +46,21 @@ func RtIdxMin(ctx context.Context, client *sdk.Client, req *RtIdxMinRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "rt_idx_min", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "rt_idx_min", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]RtIdxMinItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 time 的简单类型

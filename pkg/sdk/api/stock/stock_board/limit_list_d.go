@@ -72,29 +72,57 @@ func LimitListD(ctx context.Context, client *sdk.Client, req *LimitListDRequest)
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "limit_list_d", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "limit_list_d", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]LimitListDItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 trade_date 的简单类型
-		tradeDate, ok := item["trade_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeDate string
+		if v, ok := item["trade_date"].(string); ok {
+			tradeDate = v
+		} else if v, ok := item["trade_date"].(float64); ok {
+			tradeDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_date"].(int); ok {
+			tradeDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 industry 的简单类型
-		industry, ok := item["industry"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var industry string
+		if v, ok := item["industry"].(string); ok {
+			industry = v
+		} else if v, ok := item["industry"].(float64); ok {
+			industry = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["industry"].(int); ok {
+			industry = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 industry 类型")
 		}
 		// 处理 name 的简单类型
-		name, ok := item["name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var name string
+		if v, ok := item["name"].(string); ok {
+			name = v
+		} else if v, ok := item["name"].(float64); ok {
+			name = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["name"].(int); ok {
+			name = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 close 的简单类型
@@ -138,13 +166,27 @@ func LimitListD(ctx context.Context, client *sdk.Client, req *LimitListDRequest)
 			return nil, fmt.Errorf("无效的 fd_amount 类型")
 		}
 		// 处理 first_time 的简单类型
-		firstTime, ok := item["first_time"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var firstTime string
+		if v, ok := item["first_time"].(string); ok {
+			firstTime = v
+		} else if v, ok := item["first_time"].(float64); ok {
+			firstTime = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["first_time"].(int); ok {
+			firstTime = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 first_time 类型")
 		}
 		// 处理 last_time 的简单类型
-		lastTime, ok := item["last_time"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var lastTime string
+		if v, ok := item["last_time"].(string); ok {
+			lastTime = v
+		} else if v, ok := item["last_time"].(float64); ok {
+			lastTime = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["last_time"].(int); ok {
+			lastTime = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 last_time 类型")
 		}
 		// 处理 open_times 的简单类型
@@ -153,8 +195,15 @@ func LimitListD(ctx context.Context, client *sdk.Client, req *LimitListDRequest)
 			return nil, fmt.Errorf("无效的 open_times 类型")
 		}
 		// 处理 up_stat 的简单类型
-		upStat, ok := item["up_stat"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var upStat string
+		if v, ok := item["up_stat"].(string); ok {
+			upStat = v
+		} else if v, ok := item["up_stat"].(float64); ok {
+			upStat = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["up_stat"].(int); ok {
+			upStat = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 up_stat 类型")
 		}
 		// 处理 limit_times 的简单类型
@@ -163,8 +212,15 @@ func LimitListD(ctx context.Context, client *sdk.Client, req *LimitListDRequest)
 			return nil, fmt.Errorf("无效的 limit_times 类型")
 		}
 		// 处理 limit 的简单类型
-		limit, ok := item["limit"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var limit string
+		if v, ok := item["limit"].(string); ok {
+			limit = v
+		} else if v, ok := item["limit"].(float64); ok {
+			limit = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["limit"].(int); ok {
+			limit = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 limit 类型")
 		}
 		items[i] = LimitListDItem{

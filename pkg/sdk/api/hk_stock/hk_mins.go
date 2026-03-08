@@ -54,19 +54,33 @@ func HkMins(ctx context.Context, client *sdk.Client, req *HkMinsRequest) ([]HkMi
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "hk_mins", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "hk_mins", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]HkMinsItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 trade_time 的简单类型
-		tradeTime, ok := item["trade_time"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeTime string
+		if v, ok := item["trade_time"].(string); ok {
+			tradeTime = v
+		} else if v, ok := item["trade_time"].(float64); ok {
+			tradeTime = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_time"].(int); ok {
+			tradeTime = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 trade_time 类型")
 		}
 		// 处理 open 的简单类型

@@ -58,24 +58,45 @@ func EtfShareSize(ctx context.Context, client *sdk.Client, req *EtfShareSizeRequ
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "etf_share_size", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "etf_share_size", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]EtfShareSizeItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 trade_date 的简单类型
-		tradeDate, ok := item["trade_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeDate string
+		if v, ok := item["trade_date"].(string); ok {
+			tradeDate = v
+		} else if v, ok := item["trade_date"].(float64); ok {
+			tradeDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_date"].(int); ok {
+			tradeDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 etf_name 的简单类型
-		etfName, ok := item["etf_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var etfName string
+		if v, ok := item["etf_name"].(string); ok {
+			etfName = v
+		} else if v, ok := item["etf_name"].(float64); ok {
+			etfName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["etf_name"].(int); ok {
+			etfName = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 etf_name 类型")
 		}
 		// 处理 total_share 的简单类型
@@ -99,8 +120,15 @@ func EtfShareSize(ctx context.Context, client *sdk.Client, req *EtfShareSizeRequ
 			return nil, fmt.Errorf("无效的 close 类型")
 		}
 		// 处理 exchange 的简单类型
-		exchange, ok := item["exchange"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var exchange string
+		if v, ok := item["exchange"].(string); ok {
+			exchange = v
+		} else if v, ok := item["exchange"].(float64); ok {
+			exchange = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["exchange"].(int); ok {
+			exchange = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 exchange 类型")
 		}
 		items[i] = EtfShareSizeItem{

@@ -84,19 +84,33 @@ func TdxDaily(ctx context.Context, client *sdk.Client, req *TdxDailyRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "tdx_daily", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "tdx_daily", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]TdxDailyItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 trade_date 的简单类型
-		tradeDate, ok := item["trade_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeDate string
+		if v, ok := item["trade_date"].(string); ok {
+			tradeDate = v
+		} else if v, ok := item["trade_date"].(float64); ok {
+			tradeDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_date"].(int); ok {
+			tradeDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 close 的简单类型
@@ -145,8 +159,15 @@ func TdxDaily(ctx context.Context, client *sdk.Client, req *TdxDailyRequest) ([]
 			return nil, fmt.Errorf("无效的 amount 类型")
 		}
 		// 处理 rise 的简单类型
-		rise, ok := item["rise"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var rise string
+		if v, ok := item["rise"].(string); ok {
+			rise = v
+		} else if v, ok := item["rise"].(float64); ok {
+			rise = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["rise"].(int); ok {
+			rise = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 rise 类型")
 		}
 		// 处理 vol_ratio 的简单类型
@@ -230,13 +251,27 @@ func TdxDaily(ctx context.Context, client *sdk.Client, req *TdxDailyRequest) ([]
 			return nil, fmt.Errorf("无效的 1year 类型")
 		}
 		// 处理 pe 的简单类型
-		pe, ok := item["pe"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var pe string
+		if v, ok := item["pe"].(string); ok {
+			pe = v
+		} else if v, ok := item["pe"].(float64); ok {
+			pe = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["pe"].(int); ok {
+			pe = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 pe 类型")
 		}
 		// 处理 pb 的简单类型
-		pb, ok := item["pb"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var pb string
+		if v, ok := item["pb"].(string); ok {
+			pb = v
+		} else if v, ok := item["pb"].(float64); ok {
+			pb = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["pb"].(int); ok {
+			pb = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 pb 类型")
 		}
 		// 处理 float_mv 的简单类型

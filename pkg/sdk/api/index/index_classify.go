@@ -53,44 +53,93 @@ func IndexClassify(ctx context.Context, client *sdk.Client, req *IndexClassifyRe
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "index_classify", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "index_classify", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]IndexClassifyItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 index_code 的简单类型
-		indexCode, ok := item["index_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var indexCode string
+		if v, ok := item["index_code"].(string); ok {
+			indexCode = v
+		} else if v, ok := item["index_code"].(float64); ok {
+			indexCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["index_code"].(int); ok {
+			indexCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 index_code 类型")
 		}
 		// 处理 industry_name 的简单类型
-		industryName, ok := item["industry_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var industryName string
+		if v, ok := item["industry_name"].(string); ok {
+			industryName = v
+		} else if v, ok := item["industry_name"].(float64); ok {
+			industryName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["industry_name"].(int); ok {
+			industryName = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 industry_name 类型")
 		}
 		// 处理 parent_code 的简单类型
-		parentCode, ok := item["parent_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var parentCode string
+		if v, ok := item["parent_code"].(string); ok {
+			parentCode = v
+		} else if v, ok := item["parent_code"].(float64); ok {
+			parentCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["parent_code"].(int); ok {
+			parentCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 parent_code 类型")
 		}
 		// 处理 level 的简单类型
-		level, ok := item["level"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var level string
+		if v, ok := item["level"].(string); ok {
+			level = v
+		} else if v, ok := item["level"].(float64); ok {
+			level = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["level"].(int); ok {
+			level = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 level 类型")
 		}
 		// 处理 industry_code 的简单类型
-		industryCode, ok := item["industry_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var industryCode string
+		if v, ok := item["industry_code"].(string); ok {
+			industryCode = v
+		} else if v, ok := item["industry_code"].(float64); ok {
+			industryCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["industry_code"].(int); ok {
+			industryCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 industry_code 类型")
 		}
 		// 处理 is_pub 的简单类型
-		isPub, ok := item["is_pub"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var isPub string
+		if v, ok := item["is_pub"].(string); ok {
+			isPub = v
+		} else if v, ok := item["is_pub"].(float64); ok {
+			isPub = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["is_pub"].(int); ok {
+			isPub = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 is_pub 类型")
 		}
 		// 处理 src 的简单类型
-		src, ok := item["src"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var src string
+		if v, ok := item["src"].(string); ok {
+			src = v
+		} else if v, ok := item["src"].(float64); ok {
+			src = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["src"].(int); ok {
+			src = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 src 类型")
 		}
 		items[i] = IndexClassifyItem{

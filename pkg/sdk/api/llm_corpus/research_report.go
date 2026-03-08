@@ -68,59 +68,129 @@ func ResearchReport(ctx context.Context, client *sdk.Client, req *ResearchReport
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "research_report", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "research_report", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]ResearchReportItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 trade_date 的简单类型
-		tradeDate, ok := item["trade_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeDate string
+		if v, ok := item["trade_date"].(string); ok {
+			tradeDate = v
+		} else if v, ok := item["trade_date"].(float64); ok {
+			tradeDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_date"].(int); ok {
+			tradeDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 abstr 的简单类型
-		abstr, ok := item["abstr"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var abstr string
+		if v, ok := item["abstr"].(string); ok {
+			abstr = v
+		} else if v, ok := item["abstr"].(float64); ok {
+			abstr = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["abstr"].(int); ok {
+			abstr = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 abstr 类型")
 		}
 		// 处理 title 的简单类型
-		title, ok := item["title"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var title string
+		if v, ok := item["title"].(string); ok {
+			title = v
+		} else if v, ok := item["title"].(float64); ok {
+			title = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["title"].(int); ok {
+			title = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 title 类型")
 		}
 		// 处理 report_type 的简单类型
-		reportType, ok := item["report_type"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var reportType string
+		if v, ok := item["report_type"].(string); ok {
+			reportType = v
+		} else if v, ok := item["report_type"].(float64); ok {
+			reportType = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["report_type"].(int); ok {
+			reportType = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 report_type 类型")
 		}
 		// 处理 author 的简单类型
-		author, ok := item["author"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var author string
+		if v, ok := item["author"].(string); ok {
+			author = v
+		} else if v, ok := item["author"].(float64); ok {
+			author = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["author"].(int); ok {
+			author = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 author 类型")
 		}
 		// 处理 name 的简单类型
-		name, ok := item["name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var name string
+		if v, ok := item["name"].(string); ok {
+			name = v
+		} else if v, ok := item["name"].(float64); ok {
+			name = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["name"].(int); ok {
+			name = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 inst_csname 的简单类型
-		instCsname, ok := item["inst_csname"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var instCsname string
+		if v, ok := item["inst_csname"].(string); ok {
+			instCsname = v
+		} else if v, ok := item["inst_csname"].(float64); ok {
+			instCsname = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["inst_csname"].(int); ok {
+			instCsname = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 inst_csname 类型")
 		}
 		// 处理 ind_name 的简单类型
-		indName, ok := item["ind_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var indName string
+		if v, ok := item["ind_name"].(string); ok {
+			indName = v
+		} else if v, ok := item["ind_name"].(float64); ok {
+			indName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ind_name"].(int); ok {
+			indName = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ind_name 类型")
 		}
 		// 处理 url 的简单类型
-		url, ok := item["url"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var url string
+		if v, ok := item["url"].(string); ok {
+			url = v
+		} else if v, ok := item["url"].(float64); ok {
+			url = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["url"].(int); ok {
+			url = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 url 类型")
 		}
 		items[i] = ResearchReportItem{

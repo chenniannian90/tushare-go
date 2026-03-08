@@ -48,7 +48,7 @@ func FundSalesVol(ctx context.Context, client *sdk.Client, req *FundSalesVolRequ
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "fund_sales_vol", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "fund_sales_vol", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FundSalesVolItem, len(result.Items))
@@ -59,13 +59,27 @@ func FundSalesVol(ctx context.Context, client *sdk.Client, req *FundSalesVolRequ
 			return nil, fmt.Errorf("无效的 year 类型")
 		}
 		// 处理 quarter 的简单类型
-		quarter, ok := item["quarter"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var quarter string
+		if v, ok := item["quarter"].(string); ok {
+			quarter = v
+		} else if v, ok := item["quarter"].(float64); ok {
+			quarter = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["quarter"].(int); ok {
+			quarter = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 quarter 类型")
 		}
 		// 处理 inst_name 的简单类型
-		instName, ok := item["inst_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var instName string
+		if v, ok := item["inst_name"].(string); ok {
+			instName = v
+		} else if v, ok := item["inst_name"].(float64); ok {
+			instName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["inst_name"].(int); ok {
+			instName = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 inst_name 类型")
 		}
 		// 处理 fund_scale 的简单类型

@@ -78,24 +78,45 @@ func LimitListThs(ctx context.Context, client *sdk.Client, req *LimitListThsRequ
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "limit_list_ths", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "limit_list_ths", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]LimitListThsItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 trade_date 的简单类型
-		tradeDate, ok := item["trade_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeDate string
+		if v, ok := item["trade_date"].(string); ok {
+			tradeDate = v
+		} else if v, ok := item["trade_date"].(float64); ok {
+			tradeDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_date"].(int); ok {
+			tradeDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 name 的简单类型
-		name, ok := item["name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var name string
+		if v, ok := item["name"].(string); ok {
+			name = v
+		} else if v, ok := item["name"].(float64); ok {
+			name = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["name"].(int); ok {
+			name = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 price 的简单类型
@@ -114,43 +135,99 @@ func LimitListThs(ctx context.Context, client *sdk.Client, req *LimitListThsRequ
 			return nil, fmt.Errorf("无效的 open_num 类型")
 		}
 		// 处理 lu_desc 的简单类型
-		luDesc, ok := item["lu_desc"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var luDesc string
+		if v, ok := item["lu_desc"].(string); ok {
+			luDesc = v
+		} else if v, ok := item["lu_desc"].(float64); ok {
+			luDesc = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["lu_desc"].(int); ok {
+			luDesc = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 lu_desc 类型")
 		}
 		// 处理 limit_type 的简单类型
-		limitType, ok := item["limit_type"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var limitType string
+		if v, ok := item["limit_type"].(string); ok {
+			limitType = v
+		} else if v, ok := item["limit_type"].(float64); ok {
+			limitType = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["limit_type"].(int); ok {
+			limitType = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 limit_type 类型")
 		}
 		// 处理 tag 的简单类型
-		tag, ok := item["tag"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tag string
+		if v, ok := item["tag"].(string); ok {
+			tag = v
+		} else if v, ok := item["tag"].(float64); ok {
+			tag = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["tag"].(int); ok {
+			tag = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 tag 类型")
 		}
 		// 处理 status 的简单类型
-		status, ok := item["status"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var status string
+		if v, ok := item["status"].(string); ok {
+			status = v
+		} else if v, ok := item["status"].(float64); ok {
+			status = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["status"].(int); ok {
+			status = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 status 类型")
 		}
 		// 处理 first_lu_time 的简单类型
-		firstLuTime, ok := item["first_lu_time"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var firstLuTime string
+		if v, ok := item["first_lu_time"].(string); ok {
+			firstLuTime = v
+		} else if v, ok := item["first_lu_time"].(float64); ok {
+			firstLuTime = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["first_lu_time"].(int); ok {
+			firstLuTime = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 first_lu_time 类型")
 		}
 		// 处理 last_lu_time 的简单类型
-		lastLuTime, ok := item["last_lu_time"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var lastLuTime string
+		if v, ok := item["last_lu_time"].(string); ok {
+			lastLuTime = v
+		} else if v, ok := item["last_lu_time"].(float64); ok {
+			lastLuTime = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["last_lu_time"].(int); ok {
+			lastLuTime = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 last_lu_time 类型")
 		}
 		// 处理 first_ld_time 的简单类型
-		firstLdTime, ok := item["first_ld_time"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var firstLdTime string
+		if v, ok := item["first_ld_time"].(string); ok {
+			firstLdTime = v
+		} else if v, ok := item["first_ld_time"].(float64); ok {
+			firstLdTime = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["first_ld_time"].(int); ok {
+			firstLdTime = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 first_ld_time 类型")
 		}
 		// 处理 last_ld_time 的简单类型
-		lastLdTime, ok := item["last_ld_time"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var lastLdTime string
+		if v, ok := item["last_ld_time"].(string); ok {
+			lastLdTime = v
+		} else if v, ok := item["last_ld_time"].(float64); ok {
+			lastLdTime = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["last_ld_time"].(int); ok {
+			lastLdTime = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 last_ld_time 类型")
 		}
 		// 处理 limit_order 的简单类型
@@ -199,8 +276,15 @@ func LimitListThs(ctx context.Context, client *sdk.Client, req *LimitListThsRequ
 			return nil, fmt.Errorf("无效的 sum_float 类型")
 		}
 		// 处理 market_type 的简单类型
-		marketType, ok := item["market_type"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var marketType string
+		if v, ok := item["market_type"].(string); ok {
+			marketType = v
+		} else if v, ok := item["market_type"].(float64); ok {
+			marketType = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["market_type"].(int); ok {
+			marketType = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 market_type 类型")
 		}
 		items[i] = LimitListThsItem{

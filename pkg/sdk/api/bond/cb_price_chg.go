@@ -41,29 +41,57 @@ func CbPriceChg(ctx context.Context, client *sdk.Client, req *CbPriceChgRequest)
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "cb_price_chg", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "cb_price_chg", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]CbPriceChgItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 bond_short_name 的简单类型
-		bondShortName, ok := item["bond_short_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var bondShortName string
+		if v, ok := item["bond_short_name"].(string); ok {
+			bondShortName = v
+		} else if v, ok := item["bond_short_name"].(float64); ok {
+			bondShortName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["bond_short_name"].(int); ok {
+			bondShortName = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 bond_short_name 类型")
 		}
 		// 处理 publish_date 的简单类型
-		publishDate, ok := item["publish_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var publishDate string
+		if v, ok := item["publish_date"].(string); ok {
+			publishDate = v
+		} else if v, ok := item["publish_date"].(float64); ok {
+			publishDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["publish_date"].(int); ok {
+			publishDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 publish_date 类型")
 		}
 		// 处理 change_date 的简单类型
-		changeDate, ok := item["change_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var changeDate string
+		if v, ok := item["change_date"].(string); ok {
+			changeDate = v
+		} else if v, ok := item["change_date"].(float64); ok {
+			changeDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["change_date"].(int); ok {
+			changeDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 change_date 类型")
 		}
 		// 处理 convert_price_initial 的简单类型

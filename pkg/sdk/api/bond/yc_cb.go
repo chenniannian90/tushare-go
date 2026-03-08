@@ -60,29 +60,57 @@ func YcCb(ctx context.Context, client *sdk.Client, req *YcCbRequest) ([]YcCbItem
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "yc_cb", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "yc_cb", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]YcCbItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 trade_date 的简单类型
-		tradeDate, ok := item["trade_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeDate string
+		if v, ok := item["trade_date"].(string); ok {
+			tradeDate = v
+		} else if v, ok := item["trade_date"].(float64); ok {
+			tradeDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_date"].(int); ok {
+			tradeDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 curve_name 的简单类型
-		curveName, ok := item["curve_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var curveName string
+		if v, ok := item["curve_name"].(string); ok {
+			curveName = v
+		} else if v, ok := item["curve_name"].(float64); ok {
+			curveName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["curve_name"].(int); ok {
+			curveName = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 curve_name 类型")
 		}
 		// 处理 curve_type 的简单类型
-		curveType, ok := item["curve_type"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var curveType string
+		if v, ok := item["curve_type"].(string); ok {
+			curveType = v
+		} else if v, ok := item["curve_type"].(float64); ok {
+			curveType = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["curve_type"].(int); ok {
+			curveType = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 curve_type 类型")
 		}
 		// 处理 curve_term 的简单类型

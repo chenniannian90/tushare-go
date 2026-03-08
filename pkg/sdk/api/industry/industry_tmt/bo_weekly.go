@@ -44,19 +44,33 @@ func BoWeekly(ctx context.Context, client *sdk.Client, req *BoWeeklyRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "bo_weekly", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "bo_weekly", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]BoWeeklyItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 date 的简单类型
-		date, ok := item["date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var date string
+		if v, ok := item["date"].(string); ok {
+			date = v
+		} else if v, ok := item["date"].(float64); ok {
+			date = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["date"].(int); ok {
+			date = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 date 类型")
 		}
 		// 处理 name 的简单类型
-		name, ok := item["name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var name string
+		if v, ok := item["name"].(string); ok {
+			name = v
+		} else if v, ok := item["name"].(float64); ok {
+			name = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["name"].(int); ok {
+			name = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 avg_price 的简单类型

@@ -62,34 +62,69 @@ func FutBasic(ctx context.Context, client *sdk.Client, req *FutBasicRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "fut_basic", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "fut_basic", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FutBasicItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 symbol 的简单类型
-		symbol, ok := item["symbol"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var symbol string
+		if v, ok := item["symbol"].(string); ok {
+			symbol = v
+		} else if v, ok := item["symbol"].(float64); ok {
+			symbol = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["symbol"].(int); ok {
+			symbol = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 symbol 类型")
 		}
 		// 处理 exchange 的简单类型
-		exchange, ok := item["exchange"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var exchange string
+		if v, ok := item["exchange"].(string); ok {
+			exchange = v
+		} else if v, ok := item["exchange"].(float64); ok {
+			exchange = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["exchange"].(int); ok {
+			exchange = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 exchange 类型")
 		}
 		// 处理 name 的简单类型
-		name, ok := item["name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var name string
+		if v, ok := item["name"].(string); ok {
+			name = v
+		} else if v, ok := item["name"].(float64); ok {
+			name = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["name"].(int); ok {
+			name = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 fut_code 的简单类型
-		futCode, ok := item["fut_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var futCode string
+		if v, ok := item["fut_code"].(string); ok {
+			futCode = v
+		} else if v, ok := item["fut_code"].(float64); ok {
+			futCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["fut_code"].(int); ok {
+			futCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 fut_code 类型")
 		}
 		// 处理 multiplier 的简单类型
@@ -98,8 +133,15 @@ func FutBasic(ctx context.Context, client *sdk.Client, req *FutBasicRequest) ([]
 			return nil, fmt.Errorf("无效的 multiplier 类型")
 		}
 		// 处理 trade_unit 的简单类型
-		tradeUnit, ok := item["trade_unit"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeUnit string
+		if v, ok := item["trade_unit"].(string); ok {
+			tradeUnit = v
+		} else if v, ok := item["trade_unit"].(float64); ok {
+			tradeUnit = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_unit"].(int); ok {
+			tradeUnit = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 trade_unit 类型")
 		}
 		// 处理 per_unit 的简单类型
@@ -108,43 +150,99 @@ func FutBasic(ctx context.Context, client *sdk.Client, req *FutBasicRequest) ([]
 			return nil, fmt.Errorf("无效的 per_unit 类型")
 		}
 		// 处理 quote_unit 的简单类型
-		quoteUnit, ok := item["quote_unit"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var quoteUnit string
+		if v, ok := item["quote_unit"].(string); ok {
+			quoteUnit = v
+		} else if v, ok := item["quote_unit"].(float64); ok {
+			quoteUnit = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["quote_unit"].(int); ok {
+			quoteUnit = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 quote_unit 类型")
 		}
 		// 处理 quote_unit_desc 的简单类型
-		quoteUnitDesc, ok := item["quote_unit_desc"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var quoteUnitDesc string
+		if v, ok := item["quote_unit_desc"].(string); ok {
+			quoteUnitDesc = v
+		} else if v, ok := item["quote_unit_desc"].(float64); ok {
+			quoteUnitDesc = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["quote_unit_desc"].(int); ok {
+			quoteUnitDesc = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 quote_unit_desc 类型")
 		}
 		// 处理 d_mode_desc 的简单类型
-		dModeDesc, ok := item["d_mode_desc"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var dModeDesc string
+		if v, ok := item["d_mode_desc"].(string); ok {
+			dModeDesc = v
+		} else if v, ok := item["d_mode_desc"].(float64); ok {
+			dModeDesc = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["d_mode_desc"].(int); ok {
+			dModeDesc = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 d_mode_desc 类型")
 		}
 		// 处理 list_date 的简单类型
-		listDate, ok := item["list_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var listDate string
+		if v, ok := item["list_date"].(string); ok {
+			listDate = v
+		} else if v, ok := item["list_date"].(float64); ok {
+			listDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["list_date"].(int); ok {
+			listDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 list_date 类型")
 		}
 		// 处理 delist_date 的简单类型
-		delistDate, ok := item["delist_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var delistDate string
+		if v, ok := item["delist_date"].(string); ok {
+			delistDate = v
+		} else if v, ok := item["delist_date"].(float64); ok {
+			delistDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["delist_date"].(int); ok {
+			delistDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 delist_date 类型")
 		}
 		// 处理 d_month 的简单类型
-		dMonth, ok := item["d_month"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var dMonth string
+		if v, ok := item["d_month"].(string); ok {
+			dMonth = v
+		} else if v, ok := item["d_month"].(float64); ok {
+			dMonth = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["d_month"].(int); ok {
+			dMonth = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 d_month 类型")
 		}
 		// 处理 last_ddate 的简单类型
-		lastDdate, ok := item["last_ddate"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var lastDdate string
+		if v, ok := item["last_ddate"].(string); ok {
+			lastDdate = v
+		} else if v, ok := item["last_ddate"].(float64); ok {
+			lastDdate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["last_ddate"].(int); ok {
+			lastDdate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 last_ddate 类型")
 		}
 		// 处理 trade_time_desc 的简单类型
-		tradeTimeDesc, ok := item["trade_time_desc"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeTimeDesc string
+		if v, ok := item["trade_time_desc"].(string); ok {
+			tradeTimeDesc = v
+		} else if v, ok := item["trade_time_desc"].(float64); ok {
+			tradeTimeDesc = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_time_desc"].(int); ok {
+			tradeTimeDesc = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 trade_time_desc 类型")
 		}
 		items[i] = FutBasicItem{

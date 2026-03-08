@@ -50,14 +50,21 @@ func UsTltr(ctx context.Context, client *sdk.Client, req *UsTltrRequest) ([]UsTl
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "us_tltr", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "us_tltr", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]UsTltrItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 date 的简单类型
-		date, ok := item["date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var date string
+		if v, ok := item["date"].(string); ok {
+			date = v
+		} else if v, ok := item["date"].(float64); ok {
+			date = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["date"].(int); ok {
+			date = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 date 类型")
 		}
 		// 处理 ltc 的简单类型

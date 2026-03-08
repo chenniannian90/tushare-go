@@ -61,7 +61,7 @@ func {{Title .APICode}}(ctx context.Context, client *sdk.Client, req *{{Title .A
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "{{.APICode}}", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "{{.APICode}}", params, fields, &result); err != nil {
 		return nil, err
 	}
 
@@ -110,6 +110,18 @@ func {{Title .APICode}}(ctx context.Context, client *sdk.Client, req *{{Title .A
 		{{- if eq $f.Name "type"}}
 		typeValue, ok := item["{{$f.Name}}"].({{goType $f.Type}})
 		if !ok {
+			return nil, fmt.Errorf("无效的 {{$f.Name}} 类型")
+		}
+		{{- else if eq $f.Type "str" "string"}}
+		// 对 string 类型尝试多种转换
+		var {{lowerCamel $f.Name}} string
+		if v, ok := item["{{$f.Name}}"].(string); ok {
+			{{lowerCamel $f.Name}} = v
+		} else if v, ok := item["{{$f.Name}}"].(float64); ok {
+			{{lowerCamel $f.Name}} = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["{{$f.Name}}"].(int); ok {
+			{{lowerCamel $f.Name}} = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 {{$f.Name}} 类型")
 		}
 		{{- else}}

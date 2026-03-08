@@ -53,7 +53,7 @@ func Npr(ctx context.Context, client *sdk.Client, req *NprRequest) ([]NprItem, e
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "npr", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "npr", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]NprItem, len(result.Items))
@@ -64,33 +64,75 @@ func Npr(ctx context.Context, client *sdk.Client, req *NprRequest) ([]NprItem, e
 			return nil, fmt.Errorf("无效的 pubtime 类型")
 		}
 		// 处理 title 的简单类型
-		title, ok := item["title"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var title string
+		if v, ok := item["title"].(string); ok {
+			title = v
+		} else if v, ok := item["title"].(float64); ok {
+			title = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["title"].(int); ok {
+			title = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 title 类型")
 		}
 		// 处理 url 的简单类型
-		url, ok := item["url"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var url string
+		if v, ok := item["url"].(string); ok {
+			url = v
+		} else if v, ok := item["url"].(float64); ok {
+			url = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["url"].(int); ok {
+			url = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 url 类型")
 		}
 		// 处理 content_html 的简单类型
-		contentHtml, ok := item["content_html"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var contentHtml string
+		if v, ok := item["content_html"].(string); ok {
+			contentHtml = v
+		} else if v, ok := item["content_html"].(float64); ok {
+			contentHtml = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["content_html"].(int); ok {
+			contentHtml = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 content_html 类型")
 		}
 		// 处理 pcode 的简单类型
-		pcode, ok := item["pcode"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var pcode string
+		if v, ok := item["pcode"].(string); ok {
+			pcode = v
+		} else if v, ok := item["pcode"].(float64); ok {
+			pcode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["pcode"].(int); ok {
+			pcode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 pcode 类型")
 		}
 		// 处理 puborg 的简单类型
-		puborg, ok := item["puborg"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var puborg string
+		if v, ok := item["puborg"].(string); ok {
+			puborg = v
+		} else if v, ok := item["puborg"].(float64); ok {
+			puborg = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["puborg"].(int); ok {
+			puborg = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 puborg 类型")
 		}
 		// 处理 ptype 的简单类型
-		ptype, ok := item["ptype"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var ptype string
+		if v, ok := item["ptype"].(string); ok {
+			ptype = v
+		} else if v, ok := item["ptype"].(float64); ok {
+			ptype = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ptype"].(int); ok {
+			ptype = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ptype 类型")
 		}
 		items[i] = NprItem{

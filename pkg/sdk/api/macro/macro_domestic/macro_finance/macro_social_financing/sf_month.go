@@ -46,14 +46,21 @@ func SfMonth(ctx context.Context, client *sdk.Client, req *SfMonthRequest) ([]Sf
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "sf_month", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "sf_month", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]SfMonthItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 month 的简单类型
-		month, ok := item["month"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var month string
+		if v, ok := item["month"].(string); ok {
+			month = v
+		} else if v, ok := item["month"].(float64); ok {
+			month = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["month"].(int); ok {
+			month = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 month 类型")
 		}
 		// 处理 inc_month 的简单类型

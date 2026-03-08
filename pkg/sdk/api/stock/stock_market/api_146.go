@@ -57,7 +57,7 @@ func Api146(ctx context.Context, client *sdk.Client, req *Api146Request) ([]Api1
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "api_146", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "api_146", params, fields, &result); err != nil {
 		return nil, err
 	}
 	// No response fields defined, return empty items

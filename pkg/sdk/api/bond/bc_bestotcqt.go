@@ -57,39 +57,81 @@ func BcBestotcqt(ctx context.Context, client *sdk.Client, req *BcBestotcqtReques
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "bc_bestotcqt", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "bc_bestotcqt", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]BcBestotcqtItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 trade_date 的简单类型
-		tradeDate, ok := item["trade_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeDate string
+		if v, ok := item["trade_date"].(string); ok {
+			tradeDate = v
+		} else if v, ok := item["trade_date"].(float64); ok {
+			tradeDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_date"].(int); ok {
+			tradeDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 name 的简单类型
-		name, ok := item["name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var name string
+		if v, ok := item["name"].(string); ok {
+			name = v
+		} else if v, ok := item["name"].(float64); ok {
+			name = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["name"].(int); ok {
+			name = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 remain_maturity 的简单类型
-		remainMaturity, ok := item["remain_maturity"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var remainMaturity string
+		if v, ok := item["remain_maturity"].(string); ok {
+			remainMaturity = v
+		} else if v, ok := item["remain_maturity"].(float64); ok {
+			remainMaturity = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["remain_maturity"].(int); ok {
+			remainMaturity = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 remain_maturity 类型")
 		}
 		// 处理 bond_type 的简单类型
-		bondType, ok := item["bond_type"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var bondType string
+		if v, ok := item["bond_type"].(string); ok {
+			bondType = v
+		} else if v, ok := item["bond_type"].(float64); ok {
+			bondType = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["bond_type"].(int); ok {
+			bondType = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 bond_type 类型")
 		}
 		// 处理 best_buy_bank 的简单类型
-		bestBuyBank, ok := item["best_buy_bank"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var bestBuyBank string
+		if v, ok := item["best_buy_bank"].(string); ok {
+			bestBuyBank = v
+		} else if v, ok := item["best_buy_bank"].(float64); ok {
+			bestBuyBank = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["best_buy_bank"].(int); ok {
+			bestBuyBank = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 best_buy_bank 类型")
 		}
 		// 处理 best_buy_yield 的简单类型
@@ -103,8 +145,15 @@ func BcBestotcqt(ctx context.Context, client *sdk.Client, req *BcBestotcqtReques
 			return nil, fmt.Errorf("无效的 best_buy_price 类型")
 		}
 		// 处理 best_sell_bank 的简单类型
-		bestSellBank, ok := item["best_sell_bank"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var bestSellBank string
+		if v, ok := item["best_sell_bank"].(string); ok {
+			bestSellBank = v
+		} else if v, ok := item["best_sell_bank"].(float64); ok {
+			bestSellBank = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["best_sell_bank"].(int); ok {
+			bestSellBank = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 best_sell_bank 类型")
 		}
 		// 处理 best_sell_yield 的简单类型

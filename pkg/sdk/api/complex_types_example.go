@@ -37,7 +37,7 @@ func ComplexTypesExample(ctx context.Context, client *sdk.Client, req *ComplexTy
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "complex_types_example", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "complex_types_example", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]ComplexTypesExampleItem, len(result.Items))

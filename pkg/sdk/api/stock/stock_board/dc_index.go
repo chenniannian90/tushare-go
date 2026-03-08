@@ -67,34 +67,69 @@ func DcIndex(ctx context.Context, client *sdk.Client, req *DcIndexRequest) ([]Dc
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "dc_index", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "dc_index", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]DcIndexItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 trade_date 的简单类型
-		tradeDate, ok := item["trade_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeDate string
+		if v, ok := item["trade_date"].(string); ok {
+			tradeDate = v
+		} else if v, ok := item["trade_date"].(float64); ok {
+			tradeDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_date"].(int); ok {
+			tradeDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 name 的简单类型
-		name, ok := item["name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var name string
+		if v, ok := item["name"].(string); ok {
+			name = v
+		} else if v, ok := item["name"].(float64); ok {
+			name = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["name"].(int); ok {
+			name = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 leading 的简单类型
-		leading, ok := item["leading"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var leading string
+		if v, ok := item["leading"].(string); ok {
+			leading = v
+		} else if v, ok := item["leading"].(float64); ok {
+			leading = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["leading"].(int); ok {
+			leading = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 leading 类型")
 		}
 		// 处理 leading_code 的简单类型
-		leadingCode, ok := item["leading_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var leadingCode string
+		if v, ok := item["leading_code"].(string); ok {
+			leadingCode = v
+		} else if v, ok := item["leading_code"].(float64); ok {
+			leadingCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["leading_code"].(int); ok {
+			leadingCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 leading_code 类型")
 		}
 		// 处理 pct_change 的简单类型
@@ -128,13 +163,27 @@ func DcIndex(ctx context.Context, client *sdk.Client, req *DcIndexRequest) ([]Dc
 			return nil, fmt.Errorf("无效的 down_num 类型")
 		}
 		// 处理 idx_type 的简单类型
-		idxType, ok := item["idx_type"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var idxType string
+		if v, ok := item["idx_type"].(string); ok {
+			idxType = v
+		} else if v, ok := item["idx_type"].(float64); ok {
+			idxType = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["idx_type"].(int); ok {
+			idxType = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 idx_type 类型")
 		}
 		// 处理 level 的简单类型
-		level, ok := item["level"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var level string
+		if v, ok := item["level"].(string); ok {
+			level = v
+		} else if v, ok := item["level"].(float64); ok {
+			level = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["level"].(int); ok {
+			level = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 level 类型")
 		}
 		items[i] = DcIndexItem{

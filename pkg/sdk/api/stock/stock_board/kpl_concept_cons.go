@@ -49,39 +49,81 @@ func KplConceptCons(ctx context.Context, client *sdk.Client, req *KplConceptCons
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "kpl_concept_cons", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "kpl_concept_cons", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]KplConceptConsItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 name 的简单类型
-		name, ok := item["name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var name string
+		if v, ok := item["name"].(string); ok {
+			name = v
+		} else if v, ok := item["name"].(float64); ok {
+			name = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["name"].(int); ok {
+			name = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 con_name 的简单类型
-		conName, ok := item["con_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var conName string
+		if v, ok := item["con_name"].(string); ok {
+			conName = v
+		} else if v, ok := item["con_name"].(float64); ok {
+			conName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["con_name"].(int); ok {
+			conName = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 con_name 类型")
 		}
 		// 处理 con_code 的简单类型
-		conCode, ok := item["con_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var conCode string
+		if v, ok := item["con_code"].(string); ok {
+			conCode = v
+		} else if v, ok := item["con_code"].(float64); ok {
+			conCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["con_code"].(int); ok {
+			conCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 con_code 类型")
 		}
 		// 处理 trade_date 的简单类型
-		tradeDate, ok := item["trade_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeDate string
+		if v, ok := item["trade_date"].(string); ok {
+			tradeDate = v
+		} else if v, ok := item["trade_date"].(float64); ok {
+			tradeDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_date"].(int); ok {
+			tradeDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 desc 的简单类型
-		desc, ok := item["desc"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var desc string
+		if v, ok := item["desc"].(string); ok {
+			desc = v
+		} else if v, ok := item["desc"].(float64); ok {
+			desc = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["desc"].(int); ok {
+			desc = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 desc 类型")
 		}
 		// 处理 hot_num 的简单类型

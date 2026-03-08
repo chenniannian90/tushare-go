@@ -37,7 +37,7 @@ func RealtimeQuote(ctx context.Context, client *sdk.Client, req *RealtimeQuoteRe
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "realtime_quote", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "realtime_quote", params, fields, &result); err != nil {
 		return nil, err
 	}
 	// No response fields defined, return empty items

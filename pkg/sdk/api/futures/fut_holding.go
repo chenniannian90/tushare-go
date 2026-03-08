@@ -60,24 +60,45 @@ func FutHolding(ctx context.Context, client *sdk.Client, req *FutHoldingRequest)
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "fut_holding", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "fut_holding", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FutHoldingItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 trade_date 的简单类型
-		tradeDate, ok := item["trade_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeDate string
+		if v, ok := item["trade_date"].(string); ok {
+			tradeDate = v
+		} else if v, ok := item["trade_date"].(float64); ok {
+			tradeDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_date"].(int); ok {
+			tradeDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 symbol 的简单类型
-		symbol, ok := item["symbol"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var symbol string
+		if v, ok := item["symbol"].(string); ok {
+			symbol = v
+		} else if v, ok := item["symbol"].(float64); ok {
+			symbol = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["symbol"].(int); ok {
+			symbol = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 symbol 类型")
 		}
 		// 处理 broker 的简单类型
-		broker, ok := item["broker"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var broker string
+		if v, ok := item["broker"].(string); ok {
+			broker = v
+		} else if v, ok := item["broker"].(float64); ok {
+			broker = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["broker"].(int); ok {
+			broker = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 broker 类型")
 		}
 		// 处理 vol 的简单类型
@@ -111,8 +132,15 @@ func FutHolding(ctx context.Context, client *sdk.Client, req *FutHoldingRequest)
 			return nil, fmt.Errorf("无效的 short_chg 类型")
 		}
 		// 处理 exchange 的简单类型
-		exchange, ok := item["exchange"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var exchange string
+		if v, ok := item["exchange"].(string); ok {
+			exchange = v
+		} else if v, ok := item["exchange"].(float64); ok {
+			exchange = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["exchange"].(int); ok {
+			exchange = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 exchange 类型")
 		}
 		items[i] = FutHoldingItem{

@@ -37,19 +37,33 @@ func HmList(ctx context.Context, client *sdk.Client, req *HmListRequest) ([]HmLi
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "hm_list", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "hm_list", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]HmListItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 name 的简单类型
-		name, ok := item["name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var name string
+		if v, ok := item["name"].(string); ok {
+			name = v
+		} else if v, ok := item["name"].(float64); ok {
+			name = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["name"].(int); ok {
+			name = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 desc 的简单类型
-		desc, ok := item["desc"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var desc string
+		if v, ok := item["desc"].(string); ok {
+			desc = v
+		} else if v, ok := item["desc"].(float64); ok {
+			desc = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["desc"].(int); ok {
+			desc = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 desc 类型")
 		}
 		// 处理 orgs 的简单类型

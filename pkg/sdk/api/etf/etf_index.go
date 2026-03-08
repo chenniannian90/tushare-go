@@ -50,39 +50,81 @@ func EtfIndex(ctx context.Context, client *sdk.Client, req *EtfIndexRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "etf_index", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "etf_index", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]EtfIndexItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 indx_name 的简单类型
-		indxName, ok := item["indx_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var indxName string
+		if v, ok := item["indx_name"].(string); ok {
+			indxName = v
+		} else if v, ok := item["indx_name"].(float64); ok {
+			indxName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["indx_name"].(int); ok {
+			indxName = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 indx_name 类型")
 		}
 		// 处理 indx_csname 的简单类型
-		indxCsname, ok := item["indx_csname"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var indxCsname string
+		if v, ok := item["indx_csname"].(string); ok {
+			indxCsname = v
+		} else if v, ok := item["indx_csname"].(float64); ok {
+			indxCsname = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["indx_csname"].(int); ok {
+			indxCsname = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 indx_csname 类型")
 		}
 		// 处理 pub_party_name 的简单类型
-		pubPartyName, ok := item["pub_party_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var pubPartyName string
+		if v, ok := item["pub_party_name"].(string); ok {
+			pubPartyName = v
+		} else if v, ok := item["pub_party_name"].(float64); ok {
+			pubPartyName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["pub_party_name"].(int); ok {
+			pubPartyName = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 pub_party_name 类型")
 		}
 		// 处理 pub_date 的简单类型
-		pubDate, ok := item["pub_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var pubDate string
+		if v, ok := item["pub_date"].(string); ok {
+			pubDate = v
+		} else if v, ok := item["pub_date"].(float64); ok {
+			pubDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["pub_date"].(int); ok {
+			pubDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 pub_date 类型")
 		}
 		// 处理 base_date 的简单类型
-		baseDate, ok := item["base_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var baseDate string
+		if v, ok := item["base_date"].(string); ok {
+			baseDate = v
+		} else if v, ok := item["base_date"].(float64); ok {
+			baseDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["base_date"].(int); ok {
+			baseDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 base_date 类型")
 		}
 		// 处理 bp 的简单类型
@@ -91,8 +133,15 @@ func EtfIndex(ctx context.Context, client *sdk.Client, req *EtfIndexRequest) ([]
 			return nil, fmt.Errorf("无效的 bp 类型")
 		}
 		// 处理 adj_circle 的简单类型
-		adjCircle, ok := item["adj_circle"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var adjCircle string
+		if v, ok := item["adj_circle"].(string); ok {
+			adjCircle = v
+		} else if v, ok := item["adj_circle"].(float64); ok {
+			adjCircle = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["adj_circle"].(int); ok {
+			adjCircle = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 adj_circle 类型")
 		}
 		items[i] = EtfIndexItem{

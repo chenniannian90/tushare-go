@@ -57,24 +57,45 @@ func ShareFloat(ctx context.Context, client *sdk.Client, req *ShareFloatRequest)
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "share_float", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "share_float", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]ShareFloatItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 ann_date 的简单类型
-		annDate, ok := item["ann_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var annDate string
+		if v, ok := item["ann_date"].(string); ok {
+			annDate = v
+		} else if v, ok := item["ann_date"].(float64); ok {
+			annDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ann_date"].(int); ok {
+			annDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ann_date 类型")
 		}
 		// 处理 float_date 的简单类型
-		floatDate, ok := item["float_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var floatDate string
+		if v, ok := item["float_date"].(string); ok {
+			floatDate = v
+		} else if v, ok := item["float_date"].(float64); ok {
+			floatDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["float_date"].(int); ok {
+			floatDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 float_date 类型")
 		}
 		// 处理 float_share 的简单类型
@@ -88,13 +109,27 @@ func ShareFloat(ctx context.Context, client *sdk.Client, req *ShareFloatRequest)
 			return nil, fmt.Errorf("无效的 float_ratio 类型")
 		}
 		// 处理 holder_name 的简单类型
-		holderName, ok := item["holder_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var holderName string
+		if v, ok := item["holder_name"].(string); ok {
+			holderName = v
+		} else if v, ok := item["holder_name"].(float64); ok {
+			holderName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["holder_name"].(int); ok {
+			holderName = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 holder_name 类型")
 		}
 		// 处理 share_type 的简单类型
-		shareType, ok := item["share_type"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var shareType string
+		if v, ok := item["share_type"].(string); ok {
+			shareType = v
+		} else if v, ok := item["share_type"].(float64); ok {
+			shareType = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["share_type"].(int); ok {
+			shareType = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 share_type 类型")
 		}
 		items[i] = ShareFloatItem{

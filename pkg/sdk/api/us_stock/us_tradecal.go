@@ -45,24 +45,45 @@ func UsTradecal(ctx context.Context, client *sdk.Client, req *UsTradecalRequest)
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "us_tradecal", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "us_tradecal", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]UsTradecalItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 cal_date 的简单类型
-		calDate, ok := item["cal_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var calDate string
+		if v, ok := item["cal_date"].(string); ok {
+			calDate = v
+		} else if v, ok := item["cal_date"].(float64); ok {
+			calDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["cal_date"].(int); ok {
+			calDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 cal_date 类型")
 		}
 		// 处理 is_open 的简单类型
-		isOpen, ok := item["is_open"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var isOpen string
+		if v, ok := item["is_open"].(string); ok {
+			isOpen = v
+		} else if v, ok := item["is_open"].(float64); ok {
+			isOpen = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["is_open"].(int); ok {
+			isOpen = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 is_open 类型")
 		}
 		// 处理 pretrade_date 的简单类型
-		pretradeDate, ok := item["pretrade_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var pretradeDate string
+		if v, ok := item["pretrade_date"].(string); ok {
+			pretradeDate = v
+		} else if v, ok := item["pretrade_date"].(float64); ok {
+			pretradeDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["pretrade_date"].(int); ok {
+			pretradeDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 pretrade_date 类型")
 		}
 		items[i] = UsTradecalItem{

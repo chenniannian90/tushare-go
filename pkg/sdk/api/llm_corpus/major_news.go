@@ -46,29 +46,57 @@ func MajorNews(ctx context.Context, client *sdk.Client, req *MajorNewsRequest) (
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "major_news", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "major_news", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]MajorNewsItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 title 的简单类型
-		title, ok := item["title"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var title string
+		if v, ok := item["title"].(string); ok {
+			title = v
+		} else if v, ok := item["title"].(float64); ok {
+			title = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["title"].(int); ok {
+			title = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 title 类型")
 		}
 		// 处理 content 的简单类型
-		content, ok := item["content"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var content string
+		if v, ok := item["content"].(string); ok {
+			content = v
+		} else if v, ok := item["content"].(float64); ok {
+			content = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["content"].(int); ok {
+			content = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 content 类型")
 		}
 		// 处理 pub_time 的简单类型
-		pubTime, ok := item["pub_time"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var pubTime string
+		if v, ok := item["pub_time"].(string); ok {
+			pubTime = v
+		} else if v, ok := item["pub_time"].(float64); ok {
+			pubTime = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["pub_time"].(int); ok {
+			pubTime = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 pub_time 类型")
 		}
 		// 处理 src 的简单类型
-		src, ok := item["src"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var src string
+		if v, ok := item["src"].(string); ok {
+			src = v
+		} else if v, ok := item["src"].(float64); ok {
+			src = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["src"].(int); ok {
+			src = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 src 类型")
 		}
 		items[i] = MajorNewsItem{

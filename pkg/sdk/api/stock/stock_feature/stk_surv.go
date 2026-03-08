@@ -56,54 +56,117 @@ func StkSurv(ctx context.Context, client *sdk.Client, req *StkSurvRequest) ([]St
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "stk_surv", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "stk_surv", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]StkSurvItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 name 的简单类型
-		name, ok := item["name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var name string
+		if v, ok := item["name"].(string); ok {
+			name = v
+		} else if v, ok := item["name"].(float64); ok {
+			name = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["name"].(int); ok {
+			name = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 surv_date 的简单类型
-		survDate, ok := item["surv_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var survDate string
+		if v, ok := item["surv_date"].(string); ok {
+			survDate = v
+		} else if v, ok := item["surv_date"].(float64); ok {
+			survDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["surv_date"].(int); ok {
+			survDate = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 surv_date 类型")
 		}
 		// 处理 fund_visitors 的简单类型
-		fundVisitors, ok := item["fund_visitors"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var fundVisitors string
+		if v, ok := item["fund_visitors"].(string); ok {
+			fundVisitors = v
+		} else if v, ok := item["fund_visitors"].(float64); ok {
+			fundVisitors = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["fund_visitors"].(int); ok {
+			fundVisitors = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 fund_visitors 类型")
 		}
 		// 处理 rece_place 的简单类型
-		recePlace, ok := item["rece_place"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var recePlace string
+		if v, ok := item["rece_place"].(string); ok {
+			recePlace = v
+		} else if v, ok := item["rece_place"].(float64); ok {
+			recePlace = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["rece_place"].(int); ok {
+			recePlace = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 rece_place 类型")
 		}
 		// 处理 rece_mode 的简单类型
-		receMode, ok := item["rece_mode"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var receMode string
+		if v, ok := item["rece_mode"].(string); ok {
+			receMode = v
+		} else if v, ok := item["rece_mode"].(float64); ok {
+			receMode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["rece_mode"].(int); ok {
+			receMode = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 rece_mode 类型")
 		}
 		// 处理 rece_org 的简单类型
-		receOrg, ok := item["rece_org"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var receOrg string
+		if v, ok := item["rece_org"].(string); ok {
+			receOrg = v
+		} else if v, ok := item["rece_org"].(float64); ok {
+			receOrg = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["rece_org"].(int); ok {
+			receOrg = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 rece_org 类型")
 		}
 		// 处理 org_type 的简单类型
-		orgType, ok := item["org_type"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var orgType string
+		if v, ok := item["org_type"].(string); ok {
+			orgType = v
+		} else if v, ok := item["org_type"].(float64); ok {
+			orgType = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["org_type"].(int); ok {
+			orgType = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 org_type 类型")
 		}
 		// 处理 comp_rece 的简单类型
-		compRece, ok := item["comp_rece"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var compRece string
+		if v, ok := item["comp_rece"].(string); ok {
+			compRece = v
+		} else if v, ok := item["comp_rece"].(float64); ok {
+			compRece = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["comp_rece"].(int); ok {
+			compRece = fmt.Sprintf("%d", v)
+		} else {
 			return nil, fmt.Errorf("无效的 comp_rece 类型")
 		}
 		// 处理 content 的简单类型
