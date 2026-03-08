@@ -14,8 +14,6 @@ func main() {
 	// Parse command-line flags
 	showVersion := flag.Bool("version", false, "Show version information")
 	configPath := flag.String("config", "", "Path to configuration file (JSON)")
-	transport := flag.String("transport", "stdio", "Transport type: stdio or http (overridden by config file)")
-	addr := flag.String("addr", ":8080", "HTTP server address (for http transport) (overridden by config file)")
 	flag.Parse()
 
 	// Show version information if requested
@@ -37,8 +35,7 @@ func main() {
 		}
 		log.Printf("Loaded configuration from: %s", *configPath)
 	} else {
-		// Use default configuration with command-line overrides
-		serverConfig = config.DefaultConfig(*transport, *addr)
+		log.Fatal("Configuration file is required. Please specify using --config flag")
 	}
 
 	// Determine token for client creation
