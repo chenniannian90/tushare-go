@@ -4,7 +4,9 @@ package futures
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -82,6 +84,16 @@ func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutW
 		} else if v, ok := item["trade_date"].(int); ok {
 			tradeDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["trade_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fut_wsr")
+			log.Printf("字段: trade_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["trade_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 symbol 的简单类型
@@ -94,6 +106,16 @@ func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutW
 		} else if v, ok := item["symbol"].(int); ok {
 			symbol = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["symbol"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fut_wsr")
+			log.Printf("字段: symbol")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["symbol"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 symbol 类型")
 		}
 		// 处理 fut_name 的简单类型
@@ -106,6 +128,16 @@ func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutW
 		} else if v, ok := item["fut_name"].(int); ok {
 			futName = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["fut_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fut_wsr")
+			log.Printf("字段: fut_name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["fut_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 fut_name 类型")
 		}
 		// 处理 warehouse 的简单类型
@@ -118,6 +150,16 @@ func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutW
 		} else if v, ok := item["warehouse"].(int); ok {
 			warehouse = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["warehouse"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fut_wsr")
+			log.Printf("字段: warehouse")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["warehouse"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 warehouse 类型")
 		}
 		// 处理 wh_id 的简单类型
@@ -130,6 +172,16 @@ func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutW
 		} else if v, ok := item["wh_id"].(int); ok {
 			whId = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["wh_id"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fut_wsr")
+			log.Printf("字段: wh_id")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["wh_id"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 wh_id 类型")
 		}
 		// 处理 pre_vol 的简单类型
@@ -157,6 +209,16 @@ func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutW
 		} else if v, ok := item["area"].(int); ok {
 			area = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["area"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fut_wsr")
+			log.Printf("字段: area")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["area"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 area 类型")
 		}
 		// 处理 year 的简单类型
@@ -169,6 +231,16 @@ func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutW
 		} else if v, ok := item["year"].(int); ok {
 			year = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["year"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fut_wsr")
+			log.Printf("字段: year")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["year"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 year 类型")
 		}
 		// 处理 grade 的简单类型
@@ -181,6 +253,16 @@ func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutW
 		} else if v, ok := item["grade"].(int); ok {
 			grade = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["grade"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fut_wsr")
+			log.Printf("字段: grade")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["grade"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 grade 类型")
 		}
 		// 处理 brand 的简单类型
@@ -193,6 +275,16 @@ func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutW
 		} else if v, ok := item["brand"].(int); ok {
 			brand = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["brand"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fut_wsr")
+			log.Printf("字段: brand")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["brand"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 brand 类型")
 		}
 		// 处理 place 的简单类型
@@ -205,6 +297,16 @@ func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutW
 		} else if v, ok := item["place"].(int); ok {
 			place = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["place"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fut_wsr")
+			log.Printf("字段: place")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["place"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 place 类型")
 		}
 		// 处理 pd 的简单类型
@@ -222,6 +324,16 @@ func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutW
 		} else if v, ok := item["is_ct"].(int); ok {
 			isCt = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["is_ct"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fut_wsr")
+			log.Printf("字段: is_ct")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["is_ct"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 is_ct 类型")
 		}
 		// 处理 unit 的简单类型
@@ -234,6 +346,16 @@ func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutW
 		} else if v, ok := item["unit"].(int); ok {
 			unit = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["unit"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fut_wsr")
+			log.Printf("字段: unit")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["unit"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 unit 类型")
 		}
 		// 处理 exchange 的简单类型
@@ -246,6 +368,16 @@ func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutW
 		} else if v, ok := item["exchange"].(int); ok {
 			exchange = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["exchange"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fut_wsr")
+			log.Printf("字段: exchange")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["exchange"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 exchange 类型")
 		}
 		items[i] = FutWsrItem{

@@ -4,7 +4,9 @@ package stock_board
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -52,6 +54,16 @@ func HmList(ctx context.Context, client *sdk.Client, req *HmListRequest) ([]HmLi
 		} else if v, ok := item["name"].(int); ok {
 			name = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hm_list")
+			log.Printf("字段: name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 desc 的简单类型
@@ -64,6 +76,16 @@ func HmList(ctx context.Context, client *sdk.Client, req *HmListRequest) ([]HmLi
 		} else if v, ok := item["desc"].(int); ok {
 			desc = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["desc"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hm_list")
+			log.Printf("字段: desc")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["desc"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 desc 类型")
 		}
 		// 处理 orgs 的简单类型

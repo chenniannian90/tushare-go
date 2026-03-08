@@ -137,6 +137,17 @@ var templateFuncs = template.FuncMap{
 	"arrayElemType": getArrayType,
 	"fullArrayType": getFullArrayType,
 	"toGoFieldName":  toGoFieldName,
+	"hasStringFields": hasStringFields,
+}
+
+// hasStringFields checks if any field is a string type
+func hasStringFields(fields []ParamField) bool {
+	for _, f := range fields {
+		if strings.ToLower(f.Type) == "str" || strings.ToLower(f.Type) == "string" {
+			return true
+		}
+	}
+	return false
 }
 
 // Generate generates API wrapper code from a spec

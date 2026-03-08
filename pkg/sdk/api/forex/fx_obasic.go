@@ -4,7 +4,9 @@ package forex
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -69,6 +71,16 @@ func FxObasic(ctx context.Context, client *sdk.Client, req *FxObasicRequest) ([]
 		} else if v, ok := item["ts_code"].(int); ok {
 			tsCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fx_obasic")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 name 的简单类型
@@ -81,6 +93,16 @@ func FxObasic(ctx context.Context, client *sdk.Client, req *FxObasicRequest) ([]
 		} else if v, ok := item["name"].(int); ok {
 			name = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fx_obasic")
+			log.Printf("字段: name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 classify 的简单类型
@@ -93,6 +115,16 @@ func FxObasic(ctx context.Context, client *sdk.Client, req *FxObasicRequest) ([]
 		} else if v, ok := item["classify"].(int); ok {
 			classify = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["classify"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fx_obasic")
+			log.Printf("字段: classify")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["classify"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 classify 类型")
 		}
 		// 处理 exchange 的简单类型
@@ -105,6 +137,16 @@ func FxObasic(ctx context.Context, client *sdk.Client, req *FxObasicRequest) ([]
 		} else if v, ok := item["exchange"].(int); ok {
 			exchange = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["exchange"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fx_obasic")
+			log.Printf("字段: exchange")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["exchange"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 exchange 类型")
 		}
 		// 处理 min_unit 的简单类型
@@ -147,6 +189,16 @@ func FxObasic(ctx context.Context, client *sdk.Client, req *FxObasicRequest) ([]
 		} else if v, ok := item["trading_hours"].(int); ok {
 			tradingHours = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["trading_hours"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fx_obasic")
+			log.Printf("字段: trading_hours")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["trading_hours"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 trading_hours 类型")
 		}
 		// 处理 break_time 的简单类型
@@ -159,6 +211,16 @@ func FxObasic(ctx context.Context, client *sdk.Client, req *FxObasicRequest) ([]
 		} else if v, ok := item["break_time"].(int); ok {
 			breakTime = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["break_time"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fx_obasic")
+			log.Printf("字段: break_time")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["break_time"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 break_time 类型")
 		}
 		items[i] = FxObasicItem{

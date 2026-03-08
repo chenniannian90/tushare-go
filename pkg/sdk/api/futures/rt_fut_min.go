@@ -4,7 +4,9 @@ package futures
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -67,6 +69,16 @@ func RtFutMin(ctx context.Context, client *sdk.Client, req *RtFutMinRequest) ([]
 		} else if v, ok := item["code"].(int); ok {
 			code = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: rt_fut_min")
+			log.Printf("字段: code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 code 类型")
 		}
 		// 处理 freq 的简单类型
@@ -79,6 +91,16 @@ func RtFutMin(ctx context.Context, client *sdk.Client, req *RtFutMinRequest) ([]
 		} else if v, ok := item["freq"].(int); ok {
 			freq = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["freq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: rt_fut_min")
+			log.Printf("字段: freq")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["freq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 freq 类型")
 		}
 		// 处理 time 的简单类型
@@ -91,6 +113,16 @@ func RtFutMin(ctx context.Context, client *sdk.Client, req *RtFutMinRequest) ([]
 		} else if v, ok := item["time"].(int); ok {
 			time = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["time"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: rt_fut_min")
+			log.Printf("字段: time")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["time"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 time 类型")
 		}
 		// 处理 open 的简单类型

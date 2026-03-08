@@ -4,7 +4,9 @@ package stock_board
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -64,6 +66,16 @@ func KplConceptCons(ctx context.Context, client *sdk.Client, req *KplConceptCons
 		} else if v, ok := item["ts_code"].(int); ok {
 			tsCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: kpl_concept_cons")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 name 的简单类型
@@ -76,6 +88,16 @@ func KplConceptCons(ctx context.Context, client *sdk.Client, req *KplConceptCons
 		} else if v, ok := item["name"].(int); ok {
 			name = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: kpl_concept_cons")
+			log.Printf("字段: name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 con_name 的简单类型
@@ -88,6 +110,16 @@ func KplConceptCons(ctx context.Context, client *sdk.Client, req *KplConceptCons
 		} else if v, ok := item["con_name"].(int); ok {
 			conName = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["con_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: kpl_concept_cons")
+			log.Printf("字段: con_name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["con_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 con_name 类型")
 		}
 		// 处理 con_code 的简单类型
@@ -100,6 +132,16 @@ func KplConceptCons(ctx context.Context, client *sdk.Client, req *KplConceptCons
 		} else if v, ok := item["con_code"].(int); ok {
 			conCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["con_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: kpl_concept_cons")
+			log.Printf("字段: con_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["con_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 con_code 类型")
 		}
 		// 处理 trade_date 的简单类型
@@ -112,6 +154,16 @@ func KplConceptCons(ctx context.Context, client *sdk.Client, req *KplConceptCons
 		} else if v, ok := item["trade_date"].(int); ok {
 			tradeDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["trade_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: kpl_concept_cons")
+			log.Printf("字段: trade_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["trade_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 desc 的简单类型
@@ -124,6 +176,16 @@ func KplConceptCons(ctx context.Context, client *sdk.Client, req *KplConceptCons
 		} else if v, ok := item["desc"].(int); ok {
 			desc = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["desc"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: kpl_concept_cons")
+			log.Printf("字段: desc")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["desc"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 desc 类型")
 		}
 		// 处理 hot_num 的简单类型

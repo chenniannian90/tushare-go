@@ -4,7 +4,9 @@ package index
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -68,6 +70,16 @@ func IndexClassify(ctx context.Context, client *sdk.Client, req *IndexClassifyRe
 		} else if v, ok := item["index_code"].(int); ok {
 			indexCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["index_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: index_classify")
+			log.Printf("字段: index_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["index_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 index_code 类型")
 		}
 		// 处理 industry_name 的简单类型
@@ -80,6 +92,16 @@ func IndexClassify(ctx context.Context, client *sdk.Client, req *IndexClassifyRe
 		} else if v, ok := item["industry_name"].(int); ok {
 			industryName = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["industry_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: index_classify")
+			log.Printf("字段: industry_name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["industry_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 industry_name 类型")
 		}
 		// 处理 parent_code 的简单类型
@@ -92,6 +114,16 @@ func IndexClassify(ctx context.Context, client *sdk.Client, req *IndexClassifyRe
 		} else if v, ok := item["parent_code"].(int); ok {
 			parentCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["parent_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: index_classify")
+			log.Printf("字段: parent_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["parent_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 parent_code 类型")
 		}
 		// 处理 level 的简单类型
@@ -104,6 +136,16 @@ func IndexClassify(ctx context.Context, client *sdk.Client, req *IndexClassifyRe
 		} else if v, ok := item["level"].(int); ok {
 			level = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["level"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: index_classify")
+			log.Printf("字段: level")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["level"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 level 类型")
 		}
 		// 处理 industry_code 的简单类型
@@ -116,6 +158,16 @@ func IndexClassify(ctx context.Context, client *sdk.Client, req *IndexClassifyRe
 		} else if v, ok := item["industry_code"].(int); ok {
 			industryCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["industry_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: index_classify")
+			log.Printf("字段: industry_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["industry_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 industry_code 类型")
 		}
 		// 处理 is_pub 的简单类型
@@ -128,6 +180,16 @@ func IndexClassify(ctx context.Context, client *sdk.Client, req *IndexClassifyRe
 		} else if v, ok := item["is_pub"].(int); ok {
 			isPub = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["is_pub"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: index_classify")
+			log.Printf("字段: is_pub")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["is_pub"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 is_pub 类型")
 		}
 		// 处理 src 的简单类型
@@ -140,6 +202,16 @@ func IndexClassify(ctx context.Context, client *sdk.Client, req *IndexClassifyRe
 		} else if v, ok := item["src"].(int); ok {
 			src = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["src"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: index_classify")
+			log.Printf("字段: src")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["src"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 src 类型")
 		}
 		items[i] = IndexClassifyItem{

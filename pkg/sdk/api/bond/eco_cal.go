@@ -4,7 +4,9 @@ package bond
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -77,6 +79,16 @@ func EcoCal(ctx context.Context, client *sdk.Client, req *EcoCalRequest) ([]EcoC
 		} else if v, ok := item["date"].(int); ok {
 			date = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: eco_cal")
+			log.Printf("字段: date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 date 类型")
 		}
 		// 处理 time 的简单类型
@@ -89,6 +101,16 @@ func EcoCal(ctx context.Context, client *sdk.Client, req *EcoCalRequest) ([]EcoC
 		} else if v, ok := item["time"].(int); ok {
 			time = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["time"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: eco_cal")
+			log.Printf("字段: time")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["time"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 time 类型")
 		}
 		// 处理 currency 的简单类型
@@ -101,6 +123,16 @@ func EcoCal(ctx context.Context, client *sdk.Client, req *EcoCalRequest) ([]EcoC
 		} else if v, ok := item["currency"].(int); ok {
 			currency = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["currency"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: eco_cal")
+			log.Printf("字段: currency")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["currency"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 currency 类型")
 		}
 		// 处理 country 的简单类型
@@ -113,6 +145,16 @@ func EcoCal(ctx context.Context, client *sdk.Client, req *EcoCalRequest) ([]EcoC
 		} else if v, ok := item["country"].(int); ok {
 			country = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["country"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: eco_cal")
+			log.Printf("字段: country")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["country"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 country 类型")
 		}
 		// 处理 event 的简单类型
@@ -125,6 +167,16 @@ func EcoCal(ctx context.Context, client *sdk.Client, req *EcoCalRequest) ([]EcoC
 		} else if v, ok := item["event"].(int); ok {
 			event = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["event"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: eco_cal")
+			log.Printf("字段: event")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["event"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 event 类型")
 		}
 		// 处理 value 的简单类型
@@ -137,6 +189,16 @@ func EcoCal(ctx context.Context, client *sdk.Client, req *EcoCalRequest) ([]EcoC
 		} else if v, ok := item["value"].(int); ok {
 			value = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["value"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: eco_cal")
+			log.Printf("字段: value")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["value"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 value 类型")
 		}
 		// 处理 pre_value 的简单类型
@@ -149,6 +211,16 @@ func EcoCal(ctx context.Context, client *sdk.Client, req *EcoCalRequest) ([]EcoC
 		} else if v, ok := item["pre_value"].(int); ok {
 			preValue = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["pre_value"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: eco_cal")
+			log.Printf("字段: pre_value")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["pre_value"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 pre_value 类型")
 		}
 		// 处理 fore_value 的简单类型
@@ -161,6 +233,16 @@ func EcoCal(ctx context.Context, client *sdk.Client, req *EcoCalRequest) ([]EcoC
 		} else if v, ok := item["fore_value"].(int); ok {
 			foreValue = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["fore_value"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: eco_cal")
+			log.Printf("字段: fore_value")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["fore_value"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 fore_value 类型")
 		}
 		items[i] = EcoCalItem{

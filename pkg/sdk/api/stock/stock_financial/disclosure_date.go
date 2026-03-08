@@ -4,7 +4,9 @@ package stock_financial
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -71,6 +73,16 @@ func DisclosureDate(ctx context.Context, client *sdk.Client, req *DisclosureDate
 		} else if v, ok := item["ts_code"].(int); ok {
 			tsCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: disclosure_date")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 ann_date 的简单类型
@@ -83,6 +95,16 @@ func DisclosureDate(ctx context.Context, client *sdk.Client, req *DisclosureDate
 		} else if v, ok := item["ann_date"].(int); ok {
 			annDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ann_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: disclosure_date")
+			log.Printf("字段: ann_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ann_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ann_date 类型")
 		}
 		// 处理 end_date 的简单类型
@@ -95,6 +117,16 @@ func DisclosureDate(ctx context.Context, client *sdk.Client, req *DisclosureDate
 		} else if v, ok := item["end_date"].(int); ok {
 			endDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["end_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: disclosure_date")
+			log.Printf("字段: end_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["end_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 end_date 类型")
 		}
 		// 处理 pre_date 的简单类型
@@ -107,6 +139,16 @@ func DisclosureDate(ctx context.Context, client *sdk.Client, req *DisclosureDate
 		} else if v, ok := item["pre_date"].(int); ok {
 			preDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["pre_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: disclosure_date")
+			log.Printf("字段: pre_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["pre_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 pre_date 类型")
 		}
 		// 处理 actual_date 的简单类型
@@ -119,6 +161,16 @@ func DisclosureDate(ctx context.Context, client *sdk.Client, req *DisclosureDate
 		} else if v, ok := item["actual_date"].(int); ok {
 			actualDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["actual_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: disclosure_date")
+			log.Printf("字段: actual_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["actual_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 actual_date 类型")
 		}
 		// 处理 modify_date 的简单类型
@@ -131,6 +183,16 @@ func DisclosureDate(ctx context.Context, client *sdk.Client, req *DisclosureDate
 		} else if v, ok := item["modify_date"].(int); ok {
 			modifyDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["modify_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: disclosure_date")
+			log.Printf("字段: modify_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["modify_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 modify_date 类型")
 		}
 		items[i] = DisclosureDateItem{

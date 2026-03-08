@@ -4,7 +4,9 @@ package stock_board
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -87,6 +89,16 @@ func LimitListD(ctx context.Context, client *sdk.Client, req *LimitListDRequest)
 		} else if v, ok := item["trade_date"].(int); ok {
 			tradeDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["trade_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: limit_list_d")
+			log.Printf("字段: trade_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["trade_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 ts_code 的简单类型
@@ -99,6 +111,16 @@ func LimitListD(ctx context.Context, client *sdk.Client, req *LimitListDRequest)
 		} else if v, ok := item["ts_code"].(int); ok {
 			tsCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: limit_list_d")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 industry 的简单类型
@@ -111,6 +133,16 @@ func LimitListD(ctx context.Context, client *sdk.Client, req *LimitListDRequest)
 		} else if v, ok := item["industry"].(int); ok {
 			industry = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["industry"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: limit_list_d")
+			log.Printf("字段: industry")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["industry"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 industry 类型")
 		}
 		// 处理 name 的简单类型
@@ -123,6 +155,16 @@ func LimitListD(ctx context.Context, client *sdk.Client, req *LimitListDRequest)
 		} else if v, ok := item["name"].(int); ok {
 			name = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: limit_list_d")
+			log.Printf("字段: name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 close 的简单类型
@@ -175,6 +217,16 @@ func LimitListD(ctx context.Context, client *sdk.Client, req *LimitListDRequest)
 		} else if v, ok := item["first_time"].(int); ok {
 			firstTime = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["first_time"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: limit_list_d")
+			log.Printf("字段: first_time")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["first_time"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 first_time 类型")
 		}
 		// 处理 last_time 的简单类型
@@ -187,6 +239,16 @@ func LimitListD(ctx context.Context, client *sdk.Client, req *LimitListDRequest)
 		} else if v, ok := item["last_time"].(int); ok {
 			lastTime = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["last_time"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: limit_list_d")
+			log.Printf("字段: last_time")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["last_time"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 last_time 类型")
 		}
 		// 处理 open_times 的简单类型
@@ -204,6 +266,16 @@ func LimitListD(ctx context.Context, client *sdk.Client, req *LimitListDRequest)
 		} else if v, ok := item["up_stat"].(int); ok {
 			upStat = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["up_stat"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: limit_list_d")
+			log.Printf("字段: up_stat")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["up_stat"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 up_stat 类型")
 		}
 		// 处理 limit_times 的简单类型
@@ -221,6 +293,16 @@ func LimitListD(ctx context.Context, client *sdk.Client, req *LimitListDRequest)
 		} else if v, ok := item["limit"].(int); ok {
 			limit = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["limit"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: limit_list_d")
+			log.Printf("字段: limit")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["limit"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 limit 类型")
 		}
 		items[i] = LimitListDItem{

@@ -4,7 +4,9 @@ package hk_stock
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -152,6 +154,16 @@ func HkFinaIndicator(ctx context.Context, client *sdk.Client, req *HkFinaIndicat
 		} else if v, ok := item["ts_code"].(int); ok {
 			tsCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hk_fina_indicator")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 name 的简单类型
@@ -164,6 +176,16 @@ func HkFinaIndicator(ctx context.Context, client *sdk.Client, req *HkFinaIndicat
 		} else if v, ok := item["name"].(int); ok {
 			name = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hk_fina_indicator")
+			log.Printf("字段: name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 end_date 的简单类型
@@ -176,6 +198,16 @@ func HkFinaIndicator(ctx context.Context, client *sdk.Client, req *HkFinaIndicat
 		} else if v, ok := item["end_date"].(int); ok {
 			endDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["end_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hk_fina_indicator")
+			log.Printf("字段: end_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["end_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 end_date 类型")
 		}
 		// 处理 ind_type 的简单类型
@@ -188,6 +220,16 @@ func HkFinaIndicator(ctx context.Context, client *sdk.Client, req *HkFinaIndicat
 		} else if v, ok := item["ind_type"].(int); ok {
 			indType = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ind_type"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hk_fina_indicator")
+			log.Printf("字段: ind_type")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ind_type"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ind_type 类型")
 		}
 		// 处理 report_type 的简单类型
@@ -200,6 +242,16 @@ func HkFinaIndicator(ctx context.Context, client *sdk.Client, req *HkFinaIndicat
 		} else if v, ok := item["report_type"].(int); ok {
 			reportType = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["report_type"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hk_fina_indicator")
+			log.Printf("字段: report_type")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["report_type"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 report_type 类型")
 		}
 		// 处理 std_report_date 的简单类型
@@ -212,6 +264,16 @@ func HkFinaIndicator(ctx context.Context, client *sdk.Client, req *HkFinaIndicat
 		} else if v, ok := item["std_report_date"].(int); ok {
 			stdReportDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["std_report_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hk_fina_indicator")
+			log.Printf("字段: std_report_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["std_report_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 std_report_date 类型")
 		}
 		// 处理 per_netcash_operate 的简单类型
@@ -449,6 +511,16 @@ func HkFinaIndicator(ctx context.Context, client *sdk.Client, req *HkFinaIndicat
 		} else if v, ok := item["report_date_sq"].(int); ok {
 			reportDateSq = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["report_date_sq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hk_fina_indicator")
+			log.Printf("字段: report_date_sq")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["report_date_sq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 report_date_sq 类型")
 		}
 		// 处理 report_type_sq 的简单类型
@@ -461,6 +533,16 @@ func HkFinaIndicator(ctx context.Context, client *sdk.Client, req *HkFinaIndicat
 		} else if v, ok := item["report_type_sq"].(int); ok {
 			reportTypeSq = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["report_type_sq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hk_fina_indicator")
+			log.Printf("字段: report_type_sq")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["report_type_sq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 report_type_sq 类型")
 		}
 		// 处理 operate_income_sq 的简单类型
@@ -533,6 +615,16 @@ func HkFinaIndicator(ctx context.Context, client *sdk.Client, req *HkFinaIndicat
 		} else if v, ok := item["currency"].(int); ok {
 			currency = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["currency"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hk_fina_indicator")
+			log.Printf("字段: currency")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["currency"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 currency 类型")
 		}
 		// 处理 is_cny_code 的简单类型
@@ -555,6 +647,16 @@ func HkFinaIndicator(ctx context.Context, client *sdk.Client, req *HkFinaIndicat
 		} else if v, ok := item["org_type"].(int); ok {
 			orgType = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["org_type"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hk_fina_indicator")
+			log.Printf("字段: org_type")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["org_type"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 org_type 类型")
 		}
 		// 处理 premium_income 的简单类型

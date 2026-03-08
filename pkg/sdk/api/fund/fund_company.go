@@ -4,7 +4,9 @@ package fund
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -63,6 +65,16 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		} else if v, ok := item["name"].(int); ok {
 			name = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fund_company")
+			log.Printf("字段: name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 shortname 的简单类型
@@ -75,6 +87,16 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		} else if v, ok := item["shortname"].(int); ok {
 			shortname = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["shortname"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fund_company")
+			log.Printf("字段: shortname")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["shortname"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 shortname 类型")
 		}
 		// 处理 short_enname 的简单类型
@@ -87,6 +109,16 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		} else if v, ok := item["short_enname"].(int); ok {
 			shortEnname = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["short_enname"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fund_company")
+			log.Printf("字段: short_enname")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["short_enname"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 short_enname 类型")
 		}
 		// 处理 province 的简单类型
@@ -99,6 +131,16 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		} else if v, ok := item["province"].(int); ok {
 			province = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["province"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fund_company")
+			log.Printf("字段: province")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["province"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 province 类型")
 		}
 		// 处理 city 的简单类型
@@ -111,6 +153,16 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		} else if v, ok := item["city"].(int); ok {
 			city = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["city"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fund_company")
+			log.Printf("字段: city")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["city"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 city 类型")
 		}
 		// 处理 address 的简单类型
@@ -123,6 +175,16 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		} else if v, ok := item["address"].(int); ok {
 			address = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["address"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fund_company")
+			log.Printf("字段: address")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["address"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 address 类型")
 		}
 		// 处理 phone 的简单类型
@@ -135,6 +197,16 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		} else if v, ok := item["phone"].(int); ok {
 			phone = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["phone"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fund_company")
+			log.Printf("字段: phone")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["phone"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 phone 类型")
 		}
 		// 处理 office 的简单类型
@@ -147,6 +219,16 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		} else if v, ok := item["office"].(int); ok {
 			office = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["office"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fund_company")
+			log.Printf("字段: office")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["office"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 office 类型")
 		}
 		// 处理 website 的简单类型
@@ -159,6 +241,16 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		} else if v, ok := item["website"].(int); ok {
 			website = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["website"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fund_company")
+			log.Printf("字段: website")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["website"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 website 类型")
 		}
 		// 处理 chairman 的简单类型
@@ -171,6 +263,16 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		} else if v, ok := item["chairman"].(int); ok {
 			chairman = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["chairman"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fund_company")
+			log.Printf("字段: chairman")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["chairman"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 chairman 类型")
 		}
 		// 处理 manager 的简单类型
@@ -183,6 +285,16 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		} else if v, ok := item["manager"].(int); ok {
 			manager = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["manager"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fund_company")
+			log.Printf("字段: manager")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["manager"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 manager 类型")
 		}
 		// 处理 reg_capital 的简单类型
@@ -200,6 +312,16 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		} else if v, ok := item["setup_date"].(int); ok {
 			setupDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["setup_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fund_company")
+			log.Printf("字段: setup_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["setup_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 setup_date 类型")
 		}
 		// 处理 end_date 的简单类型
@@ -212,6 +334,16 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		} else if v, ok := item["end_date"].(int); ok {
 			endDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["end_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fund_company")
+			log.Printf("字段: end_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["end_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 end_date 类型")
 		}
 		// 处理 employees 的简单类型
@@ -229,6 +361,16 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		} else if v, ok := item["main_business"].(int); ok {
 			mainBusiness = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["main_business"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fund_company")
+			log.Printf("字段: main_business")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["main_business"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 main_business 类型")
 		}
 		// 处理 org_code 的简单类型
@@ -241,6 +383,16 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		} else if v, ok := item["org_code"].(int); ok {
 			orgCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["org_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fund_company")
+			log.Printf("字段: org_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["org_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 org_code 类型")
 		}
 		// 处理 credit_code 的简单类型
@@ -253,6 +405,16 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		} else if v, ok := item["credit_code"].(int); ok {
 			creditCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["credit_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fund_company")
+			log.Printf("字段: credit_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["credit_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 credit_code 类型")
 		}
 		items[i] = FundCompanyItem{

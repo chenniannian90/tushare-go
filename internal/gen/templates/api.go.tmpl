@@ -4,7 +4,11 @@ package {{.PackageName}}
 
 import (
 	"context"
-	{{- if gt (len .ResponseFields) 0}}
+	{{- if and (gt (len .ResponseFields) 0) (hasStringFields .ResponseFields)}}
+	"encoding/json"
+	"fmt"
+	"log"
+	{{- else if gt (len .ResponseFields) 0}}
 	"fmt"
 	{{- end}}
 
@@ -122,6 +126,16 @@ func {{Title .APICode}}(ctx context.Context, client *sdk.Client, req *{{Title .A
 		} else if v, ok := item["{{$f.Name}}"].(int); ok {
 			{{lowerCamel $f.Name}} = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["{{$f.Name}}"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: {{$.APICode}}")
+			log.Printf("字段: {{$f.Name}}")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["{{$f.Name}}"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 {{$f.Name}} 类型")
 		}
 		{{- else}}

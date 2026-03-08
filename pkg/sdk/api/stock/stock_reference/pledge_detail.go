@@ -4,7 +4,9 @@ package stock_reference
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -63,6 +65,16 @@ func PledgeDetail(ctx context.Context, client *sdk.Client, req *PledgeDetailRequ
 		} else if v, ok := item["ts_code"].(int); ok {
 			tsCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: pledge_detail")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 ann_date 的简单类型
@@ -75,6 +87,16 @@ func PledgeDetail(ctx context.Context, client *sdk.Client, req *PledgeDetailRequ
 		} else if v, ok := item["ann_date"].(int); ok {
 			annDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ann_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: pledge_detail")
+			log.Printf("字段: ann_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ann_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ann_date 类型")
 		}
 		// 处理 holder_name 的简单类型
@@ -87,6 +109,16 @@ func PledgeDetail(ctx context.Context, client *sdk.Client, req *PledgeDetailRequ
 		} else if v, ok := item["holder_name"].(int); ok {
 			holderName = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["holder_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: pledge_detail")
+			log.Printf("字段: holder_name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["holder_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 holder_name 类型")
 		}
 		// 处理 pledge_amount 的简单类型
@@ -104,6 +136,16 @@ func PledgeDetail(ctx context.Context, client *sdk.Client, req *PledgeDetailRequ
 		} else if v, ok := item["start_date"].(int); ok {
 			startDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["start_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: pledge_detail")
+			log.Printf("字段: start_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["start_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 start_date 类型")
 		}
 		// 处理 end_date 的简单类型
@@ -116,6 +158,16 @@ func PledgeDetail(ctx context.Context, client *sdk.Client, req *PledgeDetailRequ
 		} else if v, ok := item["end_date"].(int); ok {
 			endDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["end_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: pledge_detail")
+			log.Printf("字段: end_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["end_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 end_date 类型")
 		}
 		// 处理 is_release 的简单类型
@@ -128,6 +180,16 @@ func PledgeDetail(ctx context.Context, client *sdk.Client, req *PledgeDetailRequ
 		} else if v, ok := item["is_release"].(int); ok {
 			isRelease = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["is_release"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: pledge_detail")
+			log.Printf("字段: is_release")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["is_release"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 is_release 类型")
 		}
 		// 处理 release_date 的简单类型
@@ -140,6 +202,16 @@ func PledgeDetail(ctx context.Context, client *sdk.Client, req *PledgeDetailRequ
 		} else if v, ok := item["release_date"].(int); ok {
 			releaseDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["release_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: pledge_detail")
+			log.Printf("字段: release_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["release_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 release_date 类型")
 		}
 		// 处理 pledgor 的简单类型
@@ -152,6 +224,16 @@ func PledgeDetail(ctx context.Context, client *sdk.Client, req *PledgeDetailRequ
 		} else if v, ok := item["pledgor"].(int); ok {
 			pledgor = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["pledgor"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: pledge_detail")
+			log.Printf("字段: pledgor")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["pledgor"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 pledgor 类型")
 		}
 		// 处理 holding_amount 的简单类型
@@ -184,6 +266,16 @@ func PledgeDetail(ctx context.Context, client *sdk.Client, req *PledgeDetailRequ
 		} else if v, ok := item["is_buyback"].(int); ok {
 			isBuyback = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["is_buyback"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: pledge_detail")
+			log.Printf("字段: is_buyback")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["is_buyback"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 is_buyback 类型")
 		}
 		items[i] = PledgeDetailItem{

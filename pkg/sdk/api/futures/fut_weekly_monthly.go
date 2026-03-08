@@ -4,7 +4,9 @@ package futures
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -87,6 +89,16 @@ func FutWeeklyMonthly(ctx context.Context, client *sdk.Client, req *FutWeeklyMon
 		} else if v, ok := item["ts_code"].(int); ok {
 			tsCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fut_weekly_monthly")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 trade_date 的简单类型
@@ -99,6 +111,16 @@ func FutWeeklyMonthly(ctx context.Context, client *sdk.Client, req *FutWeeklyMon
 		} else if v, ok := item["trade_date"].(int); ok {
 			tradeDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["trade_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fut_weekly_monthly")
+			log.Printf("字段: trade_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["trade_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 end_date 的简单类型
@@ -111,6 +133,16 @@ func FutWeeklyMonthly(ctx context.Context, client *sdk.Client, req *FutWeeklyMon
 		} else if v, ok := item["end_date"].(int); ok {
 			endDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["end_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fut_weekly_monthly")
+			log.Printf("字段: end_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["end_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 end_date 类型")
 		}
 		// 处理 freq 的简单类型
@@ -123,6 +155,16 @@ func FutWeeklyMonthly(ctx context.Context, client *sdk.Client, req *FutWeeklyMon
 		} else if v, ok := item["freq"].(int); ok {
 			freq = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["freq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fut_weekly_monthly")
+			log.Printf("字段: freq")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["freq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 freq 类型")
 		}
 		// 处理 open 的简单类型
@@ -190,6 +232,16 @@ func FutWeeklyMonthly(ctx context.Context, client *sdk.Client, req *FutWeeklyMon
 		} else if v, ok := item["exchange"].(int); ok {
 			exchange = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["exchange"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fut_weekly_monthly")
+			log.Printf("字段: exchange")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["exchange"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 exchange 类型")
 		}
 		// 处理 change1 的简单类型

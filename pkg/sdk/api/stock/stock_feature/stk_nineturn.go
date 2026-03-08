@@ -4,7 +4,9 @@ package stock_feature
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -78,6 +80,16 @@ func StkNineturn(ctx context.Context, client *sdk.Client, req *StkNineturnReques
 		} else if v, ok := item["ts_code"].(int); ok {
 			tsCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_nineturn")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 trade_date 的简单类型
@@ -95,6 +107,16 @@ func StkNineturn(ctx context.Context, client *sdk.Client, req *StkNineturnReques
 		} else if v, ok := item["freq"].(int); ok {
 			freq = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["freq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_nineturn")
+			log.Printf("字段: freq")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["freq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 freq 类型")
 		}
 		// 处理 open 的简单类型
@@ -147,6 +169,16 @@ func StkNineturn(ctx context.Context, client *sdk.Client, req *StkNineturnReques
 		} else if v, ok := item["nine_up_turn"].(int); ok {
 			nineUpTurn = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["nine_up_turn"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_nineturn")
+			log.Printf("字段: nine_up_turn")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["nine_up_turn"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 nine_up_turn 类型")
 		}
 		// 处理 nine_down_turn 的简单类型
@@ -159,6 +191,16 @@ func StkNineturn(ctx context.Context, client *sdk.Client, req *StkNineturnReques
 		} else if v, ok := item["nine_down_turn"].(int); ok {
 			nineDownTurn = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["nine_down_turn"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_nineturn")
+			log.Printf("字段: nine_down_turn")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["nine_down_turn"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 nine_down_turn 类型")
 		}
 		items[i] = StkNineturnItem{

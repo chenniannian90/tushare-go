@@ -4,7 +4,9 @@ package llm_corpus
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -67,6 +69,16 @@ func AnnsD(ctx context.Context, client *sdk.Client, req *AnnsDRequest) ([]AnnsDI
 		} else if v, ok := item["ann_date"].(int); ok {
 			annDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ann_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: anns_d")
+			log.Printf("字段: ann_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ann_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ann_date 类型")
 		}
 		// 处理 ts_code 的简单类型
@@ -79,6 +91,16 @@ func AnnsD(ctx context.Context, client *sdk.Client, req *AnnsDRequest) ([]AnnsDI
 		} else if v, ok := item["ts_code"].(int); ok {
 			tsCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: anns_d")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 name 的简单类型
@@ -91,6 +113,16 @@ func AnnsD(ctx context.Context, client *sdk.Client, req *AnnsDRequest) ([]AnnsDI
 		} else if v, ok := item["name"].(int); ok {
 			name = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: anns_d")
+			log.Printf("字段: name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 title 的简单类型
@@ -103,6 +135,16 @@ func AnnsD(ctx context.Context, client *sdk.Client, req *AnnsDRequest) ([]AnnsDI
 		} else if v, ok := item["title"].(int); ok {
 			title = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["title"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: anns_d")
+			log.Printf("字段: title")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["title"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 title 类型")
 		}
 		// 处理 url 的简单类型
@@ -115,6 +157,16 @@ func AnnsD(ctx context.Context, client *sdk.Client, req *AnnsDRequest) ([]AnnsDI
 		} else if v, ok := item["url"].(int); ok {
 			url = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["url"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: anns_d")
+			log.Printf("字段: url")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["url"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 url 类型")
 		}
 		// 处理 rec_time 的简单类型

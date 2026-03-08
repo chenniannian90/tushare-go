@@ -4,7 +4,9 @@ package stock_feature
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -84,6 +86,16 @@ func ReportRc(ctx context.Context, client *sdk.Client, req *ReportRcRequest) ([]
 		} else if v, ok := item["ts_code"].(int); ok {
 			tsCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: report_rc")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 name 的简单类型
@@ -96,6 +108,16 @@ func ReportRc(ctx context.Context, client *sdk.Client, req *ReportRcRequest) ([]
 		} else if v, ok := item["name"].(int); ok {
 			name = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: report_rc")
+			log.Printf("字段: name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 report_date 的简单类型
@@ -108,6 +130,16 @@ func ReportRc(ctx context.Context, client *sdk.Client, req *ReportRcRequest) ([]
 		} else if v, ok := item["report_date"].(int); ok {
 			reportDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["report_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: report_rc")
+			log.Printf("字段: report_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["report_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 report_date 类型")
 		}
 		// 处理 report_title 的简单类型
@@ -120,6 +152,16 @@ func ReportRc(ctx context.Context, client *sdk.Client, req *ReportRcRequest) ([]
 		} else if v, ok := item["report_title"].(int); ok {
 			reportTitle = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["report_title"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: report_rc")
+			log.Printf("字段: report_title")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["report_title"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 report_title 类型")
 		}
 		// 处理 report_type 的简单类型
@@ -132,6 +174,16 @@ func ReportRc(ctx context.Context, client *sdk.Client, req *ReportRcRequest) ([]
 		} else if v, ok := item["report_type"].(int); ok {
 			reportType = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["report_type"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: report_rc")
+			log.Printf("字段: report_type")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["report_type"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 report_type 类型")
 		}
 		// 处理 classify 的简单类型
@@ -144,6 +196,16 @@ func ReportRc(ctx context.Context, client *sdk.Client, req *ReportRcRequest) ([]
 		} else if v, ok := item["classify"].(int); ok {
 			classify = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["classify"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: report_rc")
+			log.Printf("字段: classify")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["classify"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 classify 类型")
 		}
 		// 处理 org_name 的简单类型
@@ -156,6 +218,16 @@ func ReportRc(ctx context.Context, client *sdk.Client, req *ReportRcRequest) ([]
 		} else if v, ok := item["org_name"].(int); ok {
 			orgName = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["org_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: report_rc")
+			log.Printf("字段: org_name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["org_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 org_name 类型")
 		}
 		// 处理 author_name 的简单类型
@@ -168,6 +240,16 @@ func ReportRc(ctx context.Context, client *sdk.Client, req *ReportRcRequest) ([]
 		} else if v, ok := item["author_name"].(int); ok {
 			authorName = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["author_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: report_rc")
+			log.Printf("字段: author_name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["author_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 author_name 类型")
 		}
 		// 处理 quarter 的简单类型
@@ -180,6 +262,16 @@ func ReportRc(ctx context.Context, client *sdk.Client, req *ReportRcRequest) ([]
 		} else if v, ok := item["quarter"].(int); ok {
 			quarter = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["quarter"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: report_rc")
+			log.Printf("字段: quarter")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["quarter"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 quarter 类型")
 		}
 		// 处理 op_rt 的简单类型
@@ -237,6 +329,16 @@ func ReportRc(ctx context.Context, client *sdk.Client, req *ReportRcRequest) ([]
 		} else if v, ok := item["rating"].(int); ok {
 			rating = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["rating"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: report_rc")
+			log.Printf("字段: rating")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["rating"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 rating 类型")
 		}
 		// 处理 max_price 的简单类型
@@ -259,6 +361,16 @@ func ReportRc(ctx context.Context, client *sdk.Client, req *ReportRcRequest) ([]
 		} else if v, ok := item["imp_dg"].(int); ok {
 			impDg = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["imp_dg"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: report_rc")
+			log.Printf("字段: imp_dg")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["imp_dg"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 imp_dg 类型")
 		}
 		// 处理 create_time 的简单类型

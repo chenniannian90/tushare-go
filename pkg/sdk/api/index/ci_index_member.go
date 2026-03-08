@@ -4,7 +4,9 @@ package index
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -76,6 +78,16 @@ func CiIndexMember(ctx context.Context, client *sdk.Client, req *CiIndexMemberRe
 		} else if v, ok := item["l1_code"].(int); ok {
 			l1Code = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["l1_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ci_index_member")
+			log.Printf("字段: l1_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["l1_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 l1_code 类型")
 		}
 		// 处理 l1_name 的简单类型
@@ -88,6 +100,16 @@ func CiIndexMember(ctx context.Context, client *sdk.Client, req *CiIndexMemberRe
 		} else if v, ok := item["l1_name"].(int); ok {
 			l1Name = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["l1_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ci_index_member")
+			log.Printf("字段: l1_name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["l1_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 l1_name 类型")
 		}
 		// 处理 l2_code 的简单类型
@@ -100,6 +122,16 @@ func CiIndexMember(ctx context.Context, client *sdk.Client, req *CiIndexMemberRe
 		} else if v, ok := item["l2_code"].(int); ok {
 			l2Code = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["l2_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ci_index_member")
+			log.Printf("字段: l2_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["l2_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 l2_code 类型")
 		}
 		// 处理 l2_name 的简单类型
@@ -112,6 +144,16 @@ func CiIndexMember(ctx context.Context, client *sdk.Client, req *CiIndexMemberRe
 		} else if v, ok := item["l2_name"].(int); ok {
 			l2Name = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["l2_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ci_index_member")
+			log.Printf("字段: l2_name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["l2_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 l2_name 类型")
 		}
 		// 处理 l3_code 的简单类型
@@ -124,6 +166,16 @@ func CiIndexMember(ctx context.Context, client *sdk.Client, req *CiIndexMemberRe
 		} else if v, ok := item["l3_code"].(int); ok {
 			l3Code = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["l3_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ci_index_member")
+			log.Printf("字段: l3_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["l3_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 l3_code 类型")
 		}
 		// 处理 l3_name 的简单类型
@@ -136,6 +188,16 @@ func CiIndexMember(ctx context.Context, client *sdk.Client, req *CiIndexMemberRe
 		} else if v, ok := item["l3_name"].(int); ok {
 			l3Name = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["l3_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ci_index_member")
+			log.Printf("字段: l3_name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["l3_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 l3_name 类型")
 		}
 		// 处理 ts_code 的简单类型
@@ -148,6 +210,16 @@ func CiIndexMember(ctx context.Context, client *sdk.Client, req *CiIndexMemberRe
 		} else if v, ok := item["ts_code"].(int); ok {
 			tsCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ci_index_member")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 name 的简单类型
@@ -160,6 +232,16 @@ func CiIndexMember(ctx context.Context, client *sdk.Client, req *CiIndexMemberRe
 		} else if v, ok := item["name"].(int); ok {
 			name = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ci_index_member")
+			log.Printf("字段: name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 in_date 的简单类型
@@ -172,6 +254,16 @@ func CiIndexMember(ctx context.Context, client *sdk.Client, req *CiIndexMemberRe
 		} else if v, ok := item["in_date"].(int); ok {
 			inDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["in_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ci_index_member")
+			log.Printf("字段: in_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["in_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 in_date 类型")
 		}
 		// 处理 out_date 的简单类型
@@ -184,6 +276,16 @@ func CiIndexMember(ctx context.Context, client *sdk.Client, req *CiIndexMemberRe
 		} else if v, ok := item["out_date"].(int); ok {
 			outDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["out_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ci_index_member")
+			log.Printf("字段: out_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["out_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 out_date 类型")
 		}
 		// 处理 is_new 的简单类型
@@ -196,6 +298,16 @@ func CiIndexMember(ctx context.Context, client *sdk.Client, req *CiIndexMemberRe
 		} else if v, ok := item["is_new"].(int); ok {
 			isNew = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["is_new"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ci_index_member")
+			log.Printf("字段: is_new")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["is_new"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 is_new 类型")
 		}
 		items[i] = CiIndexMemberItem{

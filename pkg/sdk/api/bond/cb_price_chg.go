@@ -4,7 +4,9 @@ package bond
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -56,6 +58,16 @@ func CbPriceChg(ctx context.Context, client *sdk.Client, req *CbPriceChgRequest)
 		} else if v, ok := item["ts_code"].(int); ok {
 			tsCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_price_chg")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 bond_short_name 的简单类型
@@ -68,6 +80,16 @@ func CbPriceChg(ctx context.Context, client *sdk.Client, req *CbPriceChgRequest)
 		} else if v, ok := item["bond_short_name"].(int); ok {
 			bondShortName = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["bond_short_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_price_chg")
+			log.Printf("字段: bond_short_name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["bond_short_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 bond_short_name 类型")
 		}
 		// 处理 publish_date 的简单类型
@@ -80,6 +102,16 @@ func CbPriceChg(ctx context.Context, client *sdk.Client, req *CbPriceChgRequest)
 		} else if v, ok := item["publish_date"].(int); ok {
 			publishDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["publish_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_price_chg")
+			log.Printf("字段: publish_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["publish_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 publish_date 类型")
 		}
 		// 处理 change_date 的简单类型
@@ -92,6 +124,16 @@ func CbPriceChg(ctx context.Context, client *sdk.Client, req *CbPriceChgRequest)
 		} else if v, ok := item["change_date"].(int); ok {
 			changeDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["change_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_price_chg")
+			log.Printf("字段: change_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["change_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 change_date 类型")
 		}
 		// 处理 convert_price_initial 的简单类型

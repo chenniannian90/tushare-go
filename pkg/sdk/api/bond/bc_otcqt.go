@@ -4,7 +4,9 @@ package bond
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -78,6 +80,16 @@ func BcOtcqt(ctx context.Context, client *sdk.Client, req *BcOtcqtRequest) ([]Bc
 		} else if v, ok := item["trade_date"].(int); ok {
 			tradeDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["trade_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: bc_otcqt")
+			log.Printf("字段: trade_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["trade_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 qt_time 的简单类型
@@ -90,6 +102,16 @@ func BcOtcqt(ctx context.Context, client *sdk.Client, req *BcOtcqtRequest) ([]Bc
 		} else if v, ok := item["qt_time"].(int); ok {
 			qtTime = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["qt_time"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: bc_otcqt")
+			log.Printf("字段: qt_time")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["qt_time"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 qt_time 类型")
 		}
 		// 处理 bank 的简单类型
@@ -102,6 +124,16 @@ func BcOtcqt(ctx context.Context, client *sdk.Client, req *BcOtcqtRequest) ([]Bc
 		} else if v, ok := item["bank"].(int); ok {
 			bank = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["bank"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: bc_otcqt")
+			log.Printf("字段: bank")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["bank"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 bank 类型")
 		}
 		// 处理 ts_code 的简单类型
@@ -114,6 +146,16 @@ func BcOtcqt(ctx context.Context, client *sdk.Client, req *BcOtcqtRequest) ([]Bc
 		} else if v, ok := item["ts_code"].(int); ok {
 			tsCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: bc_otcqt")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 name 的简单类型
@@ -126,6 +168,16 @@ func BcOtcqt(ctx context.Context, client *sdk.Client, req *BcOtcqtRequest) ([]Bc
 		} else if v, ok := item["name"].(int); ok {
 			name = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: bc_otcqt")
+			log.Printf("字段: name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 maturity 的简单类型
@@ -138,6 +190,16 @@ func BcOtcqt(ctx context.Context, client *sdk.Client, req *BcOtcqtRequest) ([]Bc
 		} else if v, ok := item["maturity"].(int); ok {
 			maturity = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["maturity"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: bc_otcqt")
+			log.Printf("字段: maturity")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["maturity"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 maturity 类型")
 		}
 		// 处理 remain_maturity 的简单类型
@@ -150,6 +212,16 @@ func BcOtcqt(ctx context.Context, client *sdk.Client, req *BcOtcqtRequest) ([]Bc
 		} else if v, ok := item["remain_maturity"].(int); ok {
 			remainMaturity = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["remain_maturity"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: bc_otcqt")
+			log.Printf("字段: remain_maturity")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["remain_maturity"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 remain_maturity 类型")
 		}
 		// 处理 bond_type 的简单类型
@@ -162,6 +234,16 @@ func BcOtcqt(ctx context.Context, client *sdk.Client, req *BcOtcqtRequest) ([]Bc
 		} else if v, ok := item["bond_type"].(int); ok {
 			bondType = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["bond_type"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: bc_otcqt")
+			log.Printf("字段: bond_type")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["bond_type"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 bond_type 类型")
 		}
 		// 处理 coupon_rate 的简单类型

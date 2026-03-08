@@ -4,7 +4,9 @@ package stock_basic
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -65,6 +67,16 @@ func TradeCal(ctx context.Context, client *sdk.Client, req *TradeCalRequest) ([]
 		} else if v, ok := item["exchange"].(int); ok {
 			exchange = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["exchange"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: trade_cal")
+			log.Printf("字段: exchange")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["exchange"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 exchange 类型")
 		}
 		// 处理 cal_date 的简单类型
@@ -77,6 +89,16 @@ func TradeCal(ctx context.Context, client *sdk.Client, req *TradeCalRequest) ([]
 		} else if v, ok := item["cal_date"].(int); ok {
 			calDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["cal_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: trade_cal")
+			log.Printf("字段: cal_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["cal_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 cal_date 类型")
 		}
 		// 处理 is_open 的简单类型
@@ -89,6 +111,16 @@ func TradeCal(ctx context.Context, client *sdk.Client, req *TradeCalRequest) ([]
 		} else if v, ok := item["is_open"].(int); ok {
 			isOpen = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["is_open"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: trade_cal")
+			log.Printf("字段: is_open")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["is_open"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 is_open 类型")
 		}
 		// 处理 pretrade_date 的简单类型
@@ -101,6 +133,16 @@ func TradeCal(ctx context.Context, client *sdk.Client, req *TradeCalRequest) ([]
 		} else if v, ok := item["pretrade_date"].(int); ok {
 			pretradeDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["pretrade_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: trade_cal")
+			log.Printf("字段: pretrade_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["pretrade_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 pretrade_date 类型")
 		}
 		items[i] = TradeCalItem{

@@ -4,7 +4,9 @@ package bond
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -75,6 +77,16 @@ func YcCb(ctx context.Context, client *sdk.Client, req *YcCbRequest) ([]YcCbItem
 		} else if v, ok := item["trade_date"].(int); ok {
 			tradeDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["trade_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: yc_cb")
+			log.Printf("字段: trade_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["trade_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 ts_code 的简单类型
@@ -87,6 +99,16 @@ func YcCb(ctx context.Context, client *sdk.Client, req *YcCbRequest) ([]YcCbItem
 		} else if v, ok := item["ts_code"].(int); ok {
 			tsCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: yc_cb")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 curve_name 的简单类型
@@ -99,6 +121,16 @@ func YcCb(ctx context.Context, client *sdk.Client, req *YcCbRequest) ([]YcCbItem
 		} else if v, ok := item["curve_name"].(int); ok {
 			curveName = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["curve_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: yc_cb")
+			log.Printf("字段: curve_name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["curve_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 curve_name 类型")
 		}
 		// 处理 curve_type 的简单类型
@@ -111,6 +143,16 @@ func YcCb(ctx context.Context, client *sdk.Client, req *YcCbRequest) ([]YcCbItem
 		} else if v, ok := item["curve_type"].(int); ok {
 			curveType = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["curve_type"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: yc_cb")
+			log.Printf("字段: curve_type")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["curve_type"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 curve_type 类型")
 		}
 		// 处理 curve_term 的简单类型

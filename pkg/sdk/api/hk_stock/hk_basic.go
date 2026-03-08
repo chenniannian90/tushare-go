@@ -4,7 +4,9 @@ package hk_stock
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -65,6 +67,16 @@ func HkBasic(ctx context.Context, client *sdk.Client, req *HkBasicRequest) ([]Hk
 		} else if v, ok := item["ts_code"].(int); ok {
 			tsCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hk_basic")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 name 的简单类型
@@ -77,6 +89,16 @@ func HkBasic(ctx context.Context, client *sdk.Client, req *HkBasicRequest) ([]Hk
 		} else if v, ok := item["name"].(int); ok {
 			name = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hk_basic")
+			log.Printf("字段: name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 fullname 的简单类型
@@ -89,6 +111,16 @@ func HkBasic(ctx context.Context, client *sdk.Client, req *HkBasicRequest) ([]Hk
 		} else if v, ok := item["fullname"].(int); ok {
 			fullname = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["fullname"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hk_basic")
+			log.Printf("字段: fullname")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["fullname"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 fullname 类型")
 		}
 		// 处理 enname 的简单类型
@@ -101,6 +133,16 @@ func HkBasic(ctx context.Context, client *sdk.Client, req *HkBasicRequest) ([]Hk
 		} else if v, ok := item["enname"].(int); ok {
 			enname = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["enname"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hk_basic")
+			log.Printf("字段: enname")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["enname"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 enname 类型")
 		}
 		// 处理 cn_spell 的简单类型
@@ -113,6 +155,16 @@ func HkBasic(ctx context.Context, client *sdk.Client, req *HkBasicRequest) ([]Hk
 		} else if v, ok := item["cn_spell"].(int); ok {
 			cnSpell = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["cn_spell"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hk_basic")
+			log.Printf("字段: cn_spell")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["cn_spell"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 cn_spell 类型")
 		}
 		// 处理 market 的简单类型
@@ -125,6 +177,16 @@ func HkBasic(ctx context.Context, client *sdk.Client, req *HkBasicRequest) ([]Hk
 		} else if v, ok := item["market"].(int); ok {
 			market = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["market"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hk_basic")
+			log.Printf("字段: market")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["market"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 market 类型")
 		}
 		// 处理 list_status 的简单类型
@@ -137,6 +199,16 @@ func HkBasic(ctx context.Context, client *sdk.Client, req *HkBasicRequest) ([]Hk
 		} else if v, ok := item["list_status"].(int); ok {
 			listStatus = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["list_status"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hk_basic")
+			log.Printf("字段: list_status")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["list_status"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 list_status 类型")
 		}
 		// 处理 list_date 的简单类型
@@ -149,6 +221,16 @@ func HkBasic(ctx context.Context, client *sdk.Client, req *HkBasicRequest) ([]Hk
 		} else if v, ok := item["list_date"].(int); ok {
 			listDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["list_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hk_basic")
+			log.Printf("字段: list_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["list_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 list_date 类型")
 		}
 		// 处理 delist_date 的简单类型
@@ -161,6 +243,16 @@ func HkBasic(ctx context.Context, client *sdk.Client, req *HkBasicRequest) ([]Hk
 		} else if v, ok := item["delist_date"].(int); ok {
 			delistDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["delist_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hk_basic")
+			log.Printf("字段: delist_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["delist_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 delist_date 类型")
 		}
 		// 处理 trade_unit 的简单类型
@@ -178,6 +270,16 @@ func HkBasic(ctx context.Context, client *sdk.Client, req *HkBasicRequest) ([]Hk
 		} else if v, ok := item["isin"].(int); ok {
 			isin = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["isin"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hk_basic")
+			log.Printf("字段: isin")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["isin"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 isin 类型")
 		}
 		// 处理 curr_type 的简单类型
@@ -190,6 +292,16 @@ func HkBasic(ctx context.Context, client *sdk.Client, req *HkBasicRequest) ([]Hk
 		} else if v, ok := item["curr_type"].(int); ok {
 			currType = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["curr_type"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hk_basic")
+			log.Printf("字段: curr_type")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["curr_type"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 curr_type 类型")
 		}
 		items[i] = HkBasicItem{

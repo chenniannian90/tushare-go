@@ -4,7 +4,9 @@ package stock_basic
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -64,6 +66,16 @@ func St(ctx context.Context, client *sdk.Client, req *StRequest) ([]StItem, erro
 		} else if v, ok := item["ts_code"].(int); ok {
 			tsCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: st")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 name 的简单类型
@@ -76,6 +88,16 @@ func St(ctx context.Context, client *sdk.Client, req *StRequest) ([]StItem, erro
 		} else if v, ok := item["name"].(int); ok {
 			name = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: st")
+			log.Printf("字段: name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 pub_date 的简单类型
@@ -88,6 +110,16 @@ func St(ctx context.Context, client *sdk.Client, req *StRequest) ([]StItem, erro
 		} else if v, ok := item["pub_date"].(int); ok {
 			pubDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["pub_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: st")
+			log.Printf("字段: pub_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["pub_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 pub_date 类型")
 		}
 		// 处理 imp_date 的简单类型
@@ -100,6 +132,16 @@ func St(ctx context.Context, client *sdk.Client, req *StRequest) ([]StItem, erro
 		} else if v, ok := item["imp_date"].(int); ok {
 			impDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["imp_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: st")
+			log.Printf("字段: imp_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["imp_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 imp_date 类型")
 		}
 		// 处理 st_tpye 的简单类型
@@ -112,6 +154,16 @@ func St(ctx context.Context, client *sdk.Client, req *StRequest) ([]StItem, erro
 		} else if v, ok := item["st_tpye"].(int); ok {
 			stTpye = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["st_tpye"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: st")
+			log.Printf("字段: st_tpye")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["st_tpye"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 st_tpye 类型")
 		}
 		// 处理 st_reason 的简单类型
@@ -124,6 +176,16 @@ func St(ctx context.Context, client *sdk.Client, req *StRequest) ([]StItem, erro
 		} else if v, ok := item["st_reason"].(int); ok {
 			stReason = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["st_reason"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: st")
+			log.Printf("字段: st_reason")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["st_reason"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 st_reason 类型")
 		}
 		// 处理 st_explain 的简单类型
@@ -136,6 +198,16 @@ func St(ctx context.Context, client *sdk.Client, req *StRequest) ([]StItem, erro
 		} else if v, ok := item["st_explain"].(int); ok {
 			stExplain = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["st_explain"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: st")
+			log.Printf("字段: st_explain")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["st_explain"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 st_explain 类型")
 		}
 		items[i] = StItem{

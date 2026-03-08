@@ -4,7 +4,9 @@ package stock_basic
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -73,6 +75,16 @@ func StkManagers(ctx context.Context, client *sdk.Client, req *StkManagersReques
 		} else if v, ok := item["ts_code"].(int); ok {
 			tsCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_managers")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 ann_date 的简单类型
@@ -85,6 +97,16 @@ func StkManagers(ctx context.Context, client *sdk.Client, req *StkManagersReques
 		} else if v, ok := item["ann_date"].(int); ok {
 			annDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ann_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_managers")
+			log.Printf("字段: ann_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ann_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ann_date 类型")
 		}
 		// 处理 name 的简单类型
@@ -97,6 +119,16 @@ func StkManagers(ctx context.Context, client *sdk.Client, req *StkManagersReques
 		} else if v, ok := item["name"].(int); ok {
 			name = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_managers")
+			log.Printf("字段: name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 gender 的简单类型
@@ -109,6 +141,16 @@ func StkManagers(ctx context.Context, client *sdk.Client, req *StkManagersReques
 		} else if v, ok := item["gender"].(int); ok {
 			gender = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["gender"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_managers")
+			log.Printf("字段: gender")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["gender"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 gender 类型")
 		}
 		// 处理 lev 的简单类型
@@ -121,6 +163,16 @@ func StkManagers(ctx context.Context, client *sdk.Client, req *StkManagersReques
 		} else if v, ok := item["lev"].(int); ok {
 			lev = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["lev"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_managers")
+			log.Printf("字段: lev")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["lev"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 lev 类型")
 		}
 		// 处理 title 的简单类型
@@ -133,6 +185,16 @@ func StkManagers(ctx context.Context, client *sdk.Client, req *StkManagersReques
 		} else if v, ok := item["title"].(int); ok {
 			title = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["title"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_managers")
+			log.Printf("字段: title")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["title"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 title 类型")
 		}
 		// 处理 edu 的简单类型
@@ -145,6 +207,16 @@ func StkManagers(ctx context.Context, client *sdk.Client, req *StkManagersReques
 		} else if v, ok := item["edu"].(int); ok {
 			edu = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["edu"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_managers")
+			log.Printf("字段: edu")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["edu"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 edu 类型")
 		}
 		// 处理 national 的简单类型
@@ -157,6 +229,16 @@ func StkManagers(ctx context.Context, client *sdk.Client, req *StkManagersReques
 		} else if v, ok := item["national"].(int); ok {
 			national = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["national"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_managers")
+			log.Printf("字段: national")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["national"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 national 类型")
 		}
 		// 处理 birthday 的简单类型
@@ -169,6 +251,16 @@ func StkManagers(ctx context.Context, client *sdk.Client, req *StkManagersReques
 		} else if v, ok := item["birthday"].(int); ok {
 			birthday = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["birthday"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_managers")
+			log.Printf("字段: birthday")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["birthday"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 birthday 类型")
 		}
 		// 处理 begin_date 的简单类型
@@ -181,6 +273,16 @@ func StkManagers(ctx context.Context, client *sdk.Client, req *StkManagersReques
 		} else if v, ok := item["begin_date"].(int); ok {
 			beginDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["begin_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_managers")
+			log.Printf("字段: begin_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["begin_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 begin_date 类型")
 		}
 		// 处理 end_date 的简单类型
@@ -193,6 +295,16 @@ func StkManagers(ctx context.Context, client *sdk.Client, req *StkManagersReques
 		} else if v, ok := item["end_date"].(int); ok {
 			endDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["end_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_managers")
+			log.Printf("字段: end_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["end_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 end_date 类型")
 		}
 		// 处理 resume 的简单类型
@@ -205,6 +317,16 @@ func StkManagers(ctx context.Context, client *sdk.Client, req *StkManagersReques
 		} else if v, ok := item["resume"].(int); ok {
 			resume = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["resume"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_managers")
+			log.Printf("字段: resume")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["resume"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 resume 类型")
 		}
 		items[i] = StkManagersItem{

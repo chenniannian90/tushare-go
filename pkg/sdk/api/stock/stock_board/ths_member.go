@@ -4,7 +4,9 @@ package stock_board
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -60,6 +62,16 @@ func ThsMember(ctx context.Context, client *sdk.Client, req *ThsMemberRequest) (
 		} else if v, ok := item["ts_code"].(int); ok {
 			tsCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ths_member")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 con_code 的简单类型
@@ -72,6 +84,16 @@ func ThsMember(ctx context.Context, client *sdk.Client, req *ThsMemberRequest) (
 		} else if v, ok := item["con_code"].(int); ok {
 			conCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["con_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ths_member")
+			log.Printf("字段: con_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["con_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 con_code 类型")
 		}
 		// 处理 con_name 的简单类型
@@ -84,6 +106,16 @@ func ThsMember(ctx context.Context, client *sdk.Client, req *ThsMemberRequest) (
 		} else if v, ok := item["con_name"].(int); ok {
 			conName = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["con_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ths_member")
+			log.Printf("字段: con_name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["con_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 con_name 类型")
 		}
 		// 处理 weight 的简单类型
@@ -101,6 +133,16 @@ func ThsMember(ctx context.Context, client *sdk.Client, req *ThsMemberRequest) (
 		} else if v, ok := item["in_date"].(int); ok {
 			inDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["in_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ths_member")
+			log.Printf("字段: in_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["in_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 in_date 类型")
 		}
 		// 处理 out_date 的简单类型
@@ -113,6 +155,16 @@ func ThsMember(ctx context.Context, client *sdk.Client, req *ThsMemberRequest) (
 		} else if v, ok := item["out_date"].(int); ok {
 			outDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["out_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ths_member")
+			log.Printf("字段: out_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["out_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 out_date 类型")
 		}
 		// 处理 is_new 的简单类型
@@ -125,6 +177,16 @@ func ThsMember(ctx context.Context, client *sdk.Client, req *ThsMemberRequest) (
 		} else if v, ok := item["is_new"].(int); ok {
 			isNew = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["is_new"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ths_member")
+			log.Printf("字段: is_new")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["is_new"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 is_new 类型")
 		}
 		items[i] = ThsMemberItem{

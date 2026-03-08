@@ -4,7 +4,9 @@ package stock_board
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -72,6 +74,16 @@ func ThsHot(ctx context.Context, client *sdk.Client, req *ThsHotRequest) ([]ThsH
 		} else if v, ok := item["trade_date"].(int); ok {
 			tradeDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["trade_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ths_hot")
+			log.Printf("字段: trade_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["trade_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 data_type 的简单类型
@@ -84,6 +96,16 @@ func ThsHot(ctx context.Context, client *sdk.Client, req *ThsHotRequest) ([]ThsH
 		} else if v, ok := item["data_type"].(int); ok {
 			dataType = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["data_type"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ths_hot")
+			log.Printf("字段: data_type")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["data_type"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 data_type 类型")
 		}
 		// 处理 ts_code 的简单类型
@@ -96,6 +118,16 @@ func ThsHot(ctx context.Context, client *sdk.Client, req *ThsHotRequest) ([]ThsH
 		} else if v, ok := item["ts_code"].(int); ok {
 			tsCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ths_hot")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 ts_name 的简单类型
@@ -108,6 +140,16 @@ func ThsHot(ctx context.Context, client *sdk.Client, req *ThsHotRequest) ([]ThsH
 		} else if v, ok := item["ts_name"].(int); ok {
 			tsName = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ths_hot")
+			log.Printf("字段: ts_name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_name 类型")
 		}
 		// 处理 rank 的简单类型
@@ -135,6 +177,16 @@ func ThsHot(ctx context.Context, client *sdk.Client, req *ThsHotRequest) ([]ThsH
 		} else if v, ok := item["concept"].(int); ok {
 			concept = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["concept"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ths_hot")
+			log.Printf("字段: concept")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["concept"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 concept 类型")
 		}
 		// 处理 rank_reason 的简单类型
@@ -147,6 +199,16 @@ func ThsHot(ctx context.Context, client *sdk.Client, req *ThsHotRequest) ([]ThsH
 		} else if v, ok := item["rank_reason"].(int); ok {
 			rankReason = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["rank_reason"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ths_hot")
+			log.Printf("字段: rank_reason")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["rank_reason"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 rank_reason 类型")
 		}
 		// 处理 hot 的简单类型
@@ -164,6 +226,16 @@ func ThsHot(ctx context.Context, client *sdk.Client, req *ThsHotRequest) ([]ThsH
 		} else if v, ok := item["rank_time"].(int); ok {
 			rankTime = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["rank_time"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ths_hot")
+			log.Printf("字段: rank_time")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["rank_time"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 rank_time 类型")
 		}
 		items[i] = ThsHotItem{

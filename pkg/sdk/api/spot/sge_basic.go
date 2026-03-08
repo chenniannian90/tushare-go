@@ -4,7 +4,9 @@ package spot
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -63,6 +65,16 @@ func SgeBasic(ctx context.Context, client *sdk.Client, req *SgeBasicRequest) ([]
 		} else if v, ok := item["ts_code"].(int); ok {
 			tsCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: sge_basic")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 ts_name 的简单类型
@@ -75,6 +87,16 @@ func SgeBasic(ctx context.Context, client *sdk.Client, req *SgeBasicRequest) ([]
 		} else if v, ok := item["ts_name"].(int); ok {
 			tsName = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: sge_basic")
+			log.Printf("字段: ts_name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_name 类型")
 		}
 		// 处理 trade_type 的简单类型
@@ -87,6 +109,16 @@ func SgeBasic(ctx context.Context, client *sdk.Client, req *SgeBasicRequest) ([]
 		} else if v, ok := item["trade_type"].(int); ok {
 			tradeType = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["trade_type"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: sge_basic")
+			log.Printf("字段: trade_type")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["trade_type"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 trade_type 类型")
 		}
 		// 处理 t_unit 的简单类型
@@ -129,6 +161,16 @@ func SgeBasic(ctx context.Context, client *sdk.Client, req *SgeBasicRequest) ([]
 		} else if v, ok := item["trade_mode"].(int); ok {
 			tradeMode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["trade_mode"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: sge_basic")
+			log.Printf("字段: trade_mode")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["trade_mode"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 trade_mode 类型")
 		}
 		// 处理 margin_rate 的简单类型
@@ -151,6 +193,16 @@ func SgeBasic(ctx context.Context, client *sdk.Client, req *SgeBasicRequest) ([]
 		} else if v, ok := item["trade_time"].(int); ok {
 			tradeTime = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["trade_time"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: sge_basic")
+			log.Printf("字段: trade_time")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["trade_time"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 trade_time 类型")
 		}
 		// 处理 list_date 的简单类型
@@ -163,6 +215,16 @@ func SgeBasic(ctx context.Context, client *sdk.Client, req *SgeBasicRequest) ([]
 		} else if v, ok := item["list_date"].(int); ok {
 			listDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["list_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: sge_basic")
+			log.Printf("字段: list_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["list_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 list_date 类型")
 		}
 		items[i] = SgeBasicItem{

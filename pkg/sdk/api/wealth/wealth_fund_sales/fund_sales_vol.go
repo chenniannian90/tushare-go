@@ -4,7 +4,9 @@ package wealth_fund_sales
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -68,6 +70,16 @@ func FundSalesVol(ctx context.Context, client *sdk.Client, req *FundSalesVolRequ
 		} else if v, ok := item["quarter"].(int); ok {
 			quarter = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["quarter"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fund_sales_vol")
+			log.Printf("字段: quarter")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["quarter"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 quarter 类型")
 		}
 		// 处理 inst_name 的简单类型
@@ -80,6 +92,16 @@ func FundSalesVol(ctx context.Context, client *sdk.Client, req *FundSalesVolRequ
 		} else if v, ok := item["inst_name"].(int); ok {
 			instName = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["inst_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fund_sales_vol")
+			log.Printf("字段: inst_name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["inst_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 inst_name 类型")
 		}
 		// 处理 fund_scale 的简单类型

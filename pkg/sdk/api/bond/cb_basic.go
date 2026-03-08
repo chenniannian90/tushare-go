@@ -4,7 +4,9 @@ package bond
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -93,6 +95,16 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		} else if v, ok := item["ts_code"].(int); ok {
 			tsCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_basic")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 bond_full_name 的简单类型
@@ -105,6 +117,16 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		} else if v, ok := item["bond_full_name"].(int); ok {
 			bondFullName = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["bond_full_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_basic")
+			log.Printf("字段: bond_full_name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["bond_full_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 bond_full_name 类型")
 		}
 		// 处理 bond_short_name 的简单类型
@@ -117,6 +139,16 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		} else if v, ok := item["bond_short_name"].(int); ok {
 			bondShortName = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["bond_short_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_basic")
+			log.Printf("字段: bond_short_name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["bond_short_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 bond_short_name 类型")
 		}
 		// 处理 cb_code 的简单类型
@@ -129,6 +161,16 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		} else if v, ok := item["cb_code"].(int); ok {
 			cbCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["cb_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_basic")
+			log.Printf("字段: cb_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["cb_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 cb_code 类型")
 		}
 		// 处理 stk_code 的简单类型
@@ -141,6 +183,16 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		} else if v, ok := item["stk_code"].(int); ok {
 			stkCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["stk_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_basic")
+			log.Printf("字段: stk_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["stk_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 stk_code 类型")
 		}
 		// 处理 stk_short_name 的简单类型
@@ -153,6 +205,16 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		} else if v, ok := item["stk_short_name"].(int); ok {
 			stkShortName = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["stk_short_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_basic")
+			log.Printf("字段: stk_short_name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["stk_short_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 stk_short_name 类型")
 		}
 		// 处理 maturity 的简单类型
@@ -190,6 +252,16 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		} else if v, ok := item["value_date"].(int); ok {
 			valueDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["value_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_basic")
+			log.Printf("字段: value_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["value_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 value_date 类型")
 		}
 		// 处理 maturity_date 的简单类型
@@ -202,6 +274,16 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		} else if v, ok := item["maturity_date"].(int); ok {
 			maturityDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["maturity_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_basic")
+			log.Printf("字段: maturity_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["maturity_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 maturity_date 类型")
 		}
 		// 处理 rate_type 的简单类型
@@ -214,6 +296,16 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		} else if v, ok := item["rate_type"].(int); ok {
 			rateType = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["rate_type"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_basic")
+			log.Printf("字段: rate_type")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["rate_type"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 rate_type 类型")
 		}
 		// 处理 coupon_rate 的简单类型
@@ -241,6 +333,16 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		} else if v, ok := item["list_date"].(int); ok {
 			listDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["list_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_basic")
+			log.Printf("字段: list_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["list_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 list_date 类型")
 		}
 		// 处理 delist_date 的简单类型
@@ -253,6 +355,16 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		} else if v, ok := item["delist_date"].(int); ok {
 			delistDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["delist_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_basic")
+			log.Printf("字段: delist_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["delist_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 delist_date 类型")
 		}
 		// 处理 exchange 的简单类型
@@ -265,6 +377,16 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		} else if v, ok := item["exchange"].(int); ok {
 			exchange = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["exchange"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_basic")
+			log.Printf("字段: exchange")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["exchange"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 exchange 类型")
 		}
 		// 处理 conv_start_date 的简单类型
@@ -277,6 +399,16 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		} else if v, ok := item["conv_start_date"].(int); ok {
 			convStartDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["conv_start_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_basic")
+			log.Printf("字段: conv_start_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["conv_start_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 conv_start_date 类型")
 		}
 		// 处理 conv_end_date 的简单类型
@@ -289,6 +421,16 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		} else if v, ok := item["conv_end_date"].(int); ok {
 			convEndDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["conv_end_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_basic")
+			log.Printf("字段: conv_end_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["conv_end_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 conv_end_date 类型")
 		}
 		// 处理 conv_stop_date 的简单类型
@@ -301,6 +443,16 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		} else if v, ok := item["conv_stop_date"].(int); ok {
 			convStopDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["conv_stop_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_basic")
+			log.Printf("字段: conv_stop_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["conv_stop_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 conv_stop_date 类型")
 		}
 		// 处理 first_conv_price 的简单类型
@@ -323,6 +475,16 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		} else if v, ok := item["rate_clause"].(int); ok {
 			rateClause = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["rate_clause"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_basic")
+			log.Printf("字段: rate_clause")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["rate_clause"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 rate_clause 类型")
 		}
 		// 处理 put_clause 的简单类型
@@ -335,6 +497,16 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		} else if v, ok := item["put_clause"].(int); ok {
 			putClause = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["put_clause"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_basic")
+			log.Printf("字段: put_clause")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["put_clause"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 put_clause 类型")
 		}
 		// 处理 maturity_put_price 的简单类型
@@ -347,6 +519,16 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		} else if v, ok := item["maturity_put_price"].(int); ok {
 			maturityPutPrice = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["maturity_put_price"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_basic")
+			log.Printf("字段: maturity_put_price")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["maturity_put_price"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 maturity_put_price 类型")
 		}
 		// 处理 call_clause 的简单类型
@@ -359,6 +541,16 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		} else if v, ok := item["call_clause"].(int); ok {
 			callClause = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["call_clause"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_basic")
+			log.Printf("字段: call_clause")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["call_clause"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 call_clause 类型")
 		}
 		// 处理 reset_clause 的简单类型
@@ -371,6 +563,16 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		} else if v, ok := item["reset_clause"].(int); ok {
 			resetClause = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["reset_clause"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_basic")
+			log.Printf("字段: reset_clause")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["reset_clause"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 reset_clause 类型")
 		}
 		// 处理 conv_clause 的简单类型
@@ -383,6 +585,16 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		} else if v, ok := item["conv_clause"].(int); ok {
 			convClause = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["conv_clause"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_basic")
+			log.Printf("字段: conv_clause")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["conv_clause"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 conv_clause 类型")
 		}
 		// 处理 guarantor 的简单类型
@@ -395,6 +607,16 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		} else if v, ok := item["guarantor"].(int); ok {
 			guarantor = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["guarantor"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_basic")
+			log.Printf("字段: guarantor")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["guarantor"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 guarantor 类型")
 		}
 		// 处理 guarantee_type 的简单类型
@@ -407,6 +629,16 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		} else if v, ok := item["guarantee_type"].(int); ok {
 			guaranteeType = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["guarantee_type"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_basic")
+			log.Printf("字段: guarantee_type")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["guarantee_type"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 guarantee_type 类型")
 		}
 		// 处理 issue_rating 的简单类型
@@ -419,6 +651,16 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		} else if v, ok := item["issue_rating"].(int); ok {
 			issueRating = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["issue_rating"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_basic")
+			log.Printf("字段: issue_rating")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["issue_rating"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 issue_rating 类型")
 		}
 		// 处理 newest_rating 的简单类型
@@ -431,6 +673,16 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		} else if v, ok := item["newest_rating"].(int); ok {
 			newestRating = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["newest_rating"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_basic")
+			log.Printf("字段: newest_rating")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["newest_rating"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 newest_rating 类型")
 		}
 		// 处理 rating_comp 的简单类型
@@ -443,6 +695,16 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		} else if v, ok := item["rating_comp"].(int); ok {
 			ratingComp = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["rating_comp"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_basic")
+			log.Printf("字段: rating_comp")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["rating_comp"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 rating_comp 类型")
 		}
 		items[i] = CbBasicItem{

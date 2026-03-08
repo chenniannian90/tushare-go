@@ -4,7 +4,9 @@ package options
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -83,6 +85,16 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		} else if v, ok := item["ts_code"].(int); ok {
 			tsCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: opt_basic")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 exchange 的简单类型
@@ -95,6 +107,16 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		} else if v, ok := item["exchange"].(int); ok {
 			exchange = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["exchange"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: opt_basic")
+			log.Printf("字段: exchange")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["exchange"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 exchange 类型")
 		}
 		// 处理 name 的简单类型
@@ -107,6 +129,16 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		} else if v, ok := item["name"].(int); ok {
 			name = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: opt_basic")
+			log.Printf("字段: name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 per_unit 的简单类型
@@ -119,6 +151,16 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		} else if v, ok := item["per_unit"].(int); ok {
 			perUnit = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["per_unit"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: opt_basic")
+			log.Printf("字段: per_unit")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["per_unit"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 per_unit 类型")
 		}
 		// 处理 opt_code 的简单类型
@@ -131,6 +173,16 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		} else if v, ok := item["opt_code"].(int); ok {
 			optCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["opt_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: opt_basic")
+			log.Printf("字段: opt_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["opt_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 opt_code 类型")
 		}
 		// 处理 opt_type 的简单类型
@@ -143,6 +195,16 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		} else if v, ok := item["opt_type"].(int); ok {
 			optType = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["opt_type"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: opt_basic")
+			log.Printf("字段: opt_type")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["opt_type"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 opt_type 类型")
 		}
 		// 处理 call_put 的简单类型
@@ -155,6 +217,16 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		} else if v, ok := item["call_put"].(int); ok {
 			callPut = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["call_put"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: opt_basic")
+			log.Printf("字段: call_put")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["call_put"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 call_put 类型")
 		}
 		// 处理 exercise_type 的简单类型
@@ -167,6 +239,16 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		} else if v, ok := item["exercise_type"].(int); ok {
 			exerciseType = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["exercise_type"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: opt_basic")
+			log.Printf("字段: exercise_type")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["exercise_type"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 exercise_type 类型")
 		}
 		// 处理 exercise_price 的简单类型
@@ -184,6 +266,16 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		} else if v, ok := item["s_month"].(int); ok {
 			sMonth = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["s_month"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: opt_basic")
+			log.Printf("字段: s_month")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["s_month"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 s_month 类型")
 		}
 		// 处理 maturity_date 的简单类型
@@ -196,6 +288,16 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		} else if v, ok := item["maturity_date"].(int); ok {
 			maturityDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["maturity_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: opt_basic")
+			log.Printf("字段: maturity_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["maturity_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 maturity_date 类型")
 		}
 		// 处理 list_price 的简单类型
@@ -213,6 +315,16 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		} else if v, ok := item["list_date"].(int); ok {
 			listDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["list_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: opt_basic")
+			log.Printf("字段: list_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["list_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 list_date 类型")
 		}
 		// 处理 delist_date 的简单类型
@@ -225,6 +337,16 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		} else if v, ok := item["delist_date"].(int); ok {
 			delistDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["delist_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: opt_basic")
+			log.Printf("字段: delist_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["delist_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 delist_date 类型")
 		}
 		// 处理 last_edate 的简单类型
@@ -237,6 +359,16 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		} else if v, ok := item["last_edate"].(int); ok {
 			lastEdate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["last_edate"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: opt_basic")
+			log.Printf("字段: last_edate")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["last_edate"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 last_edate 类型")
 		}
 		// 处理 last_ddate 的简单类型
@@ -249,6 +381,16 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		} else if v, ok := item["last_ddate"].(int); ok {
 			lastDdate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["last_ddate"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: opt_basic")
+			log.Printf("字段: last_ddate")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["last_ddate"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 last_ddate 类型")
 		}
 		// 处理 quote_unit 的简单类型
@@ -261,6 +403,16 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		} else if v, ok := item["quote_unit"].(int); ok {
 			quoteUnit = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["quote_unit"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: opt_basic")
+			log.Printf("字段: quote_unit")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["quote_unit"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 quote_unit 类型")
 		}
 		// 处理 min_price_chg 的简单类型
@@ -273,6 +425,16 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		} else if v, ok := item["min_price_chg"].(int); ok {
 			minPriceChg = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["min_price_chg"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: opt_basic")
+			log.Printf("字段: min_price_chg")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["min_price_chg"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 min_price_chg 类型")
 		}
 		items[i] = OptBasicItem{

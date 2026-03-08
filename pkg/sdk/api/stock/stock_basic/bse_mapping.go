@@ -4,7 +4,9 @@ package stock_basic
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -57,6 +59,16 @@ func BseMapping(ctx context.Context, client *sdk.Client, req *BseMappingRequest)
 		} else if v, ok := item["name"].(int); ok {
 			name = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: bse_mapping")
+			log.Printf("字段: name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 o_code 的简单类型
@@ -69,6 +81,16 @@ func BseMapping(ctx context.Context, client *sdk.Client, req *BseMappingRequest)
 		} else if v, ok := item["o_code"].(int); ok {
 			oCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["o_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: bse_mapping")
+			log.Printf("字段: o_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["o_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 o_code 类型")
 		}
 		// 处理 n_code 的简单类型
@@ -81,6 +103,16 @@ func BseMapping(ctx context.Context, client *sdk.Client, req *BseMappingRequest)
 		} else if v, ok := item["n_code"].(int); ok {
 			nCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["n_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: bse_mapping")
+			log.Printf("字段: n_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["n_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 n_code 类型")
 		}
 		// 处理 list_date 的简单类型
@@ -93,6 +125,16 @@ func BseMapping(ctx context.Context, client *sdk.Client, req *BseMappingRequest)
 		} else if v, ok := item["list_date"].(int); ok {
 			listDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["list_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: bse_mapping")
+			log.Printf("字段: list_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["list_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 list_date 类型")
 		}
 		items[i] = BseMappingItem{

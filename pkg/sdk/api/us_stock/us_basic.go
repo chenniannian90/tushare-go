@@ -4,7 +4,9 @@ package us_stock
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -67,6 +69,16 @@ func UsBasic(ctx context.Context, client *sdk.Client, req *UsBasicRequest) ([]Us
 		} else if v, ok := item["ts_code"].(int); ok {
 			tsCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: us_basic")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 name 的简单类型
@@ -79,6 +91,16 @@ func UsBasic(ctx context.Context, client *sdk.Client, req *UsBasicRequest) ([]Us
 		} else if v, ok := item["name"].(int); ok {
 			name = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: us_basic")
+			log.Printf("字段: name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 enname 的简单类型
@@ -91,6 +113,16 @@ func UsBasic(ctx context.Context, client *sdk.Client, req *UsBasicRequest) ([]Us
 		} else if v, ok := item["enname"].(int); ok {
 			enname = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["enname"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: us_basic")
+			log.Printf("字段: enname")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["enname"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 enname 类型")
 		}
 		// 处理 classify 的简单类型
@@ -103,6 +135,16 @@ func UsBasic(ctx context.Context, client *sdk.Client, req *UsBasicRequest) ([]Us
 		} else if v, ok := item["classify"].(int); ok {
 			classify = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["classify"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: us_basic")
+			log.Printf("字段: classify")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["classify"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 classify 类型")
 		}
 		// 处理 list_date 的简单类型
@@ -115,6 +157,16 @@ func UsBasic(ctx context.Context, client *sdk.Client, req *UsBasicRequest) ([]Us
 		} else if v, ok := item["list_date"].(int); ok {
 			listDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["list_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: us_basic")
+			log.Printf("字段: list_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["list_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 list_date 类型")
 		}
 		// 处理 delist_date 的简单类型
@@ -127,6 +179,16 @@ func UsBasic(ctx context.Context, client *sdk.Client, req *UsBasicRequest) ([]Us
 		} else if v, ok := item["delist_date"].(int); ok {
 			delistDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["delist_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: us_basic")
+			log.Printf("字段: delist_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["delist_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 delist_date 类型")
 		}
 		items[i] = UsBasicItem{

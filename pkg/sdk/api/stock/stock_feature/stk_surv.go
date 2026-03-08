@@ -4,7 +4,9 @@ package stock_feature
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -71,6 +73,16 @@ func StkSurv(ctx context.Context, client *sdk.Client, req *StkSurvRequest) ([]St
 		} else if v, ok := item["ts_code"].(int); ok {
 			tsCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_surv")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 name 的简单类型
@@ -83,6 +95,16 @@ func StkSurv(ctx context.Context, client *sdk.Client, req *StkSurvRequest) ([]St
 		} else if v, ok := item["name"].(int); ok {
 			name = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_surv")
+			log.Printf("字段: name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 surv_date 的简单类型
@@ -95,6 +117,16 @@ func StkSurv(ctx context.Context, client *sdk.Client, req *StkSurvRequest) ([]St
 		} else if v, ok := item["surv_date"].(int); ok {
 			survDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["surv_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_surv")
+			log.Printf("字段: surv_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["surv_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 surv_date 类型")
 		}
 		// 处理 fund_visitors 的简单类型
@@ -107,6 +139,16 @@ func StkSurv(ctx context.Context, client *sdk.Client, req *StkSurvRequest) ([]St
 		} else if v, ok := item["fund_visitors"].(int); ok {
 			fundVisitors = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["fund_visitors"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_surv")
+			log.Printf("字段: fund_visitors")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["fund_visitors"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 fund_visitors 类型")
 		}
 		// 处理 rece_place 的简单类型
@@ -119,6 +161,16 @@ func StkSurv(ctx context.Context, client *sdk.Client, req *StkSurvRequest) ([]St
 		} else if v, ok := item["rece_place"].(int); ok {
 			recePlace = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["rece_place"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_surv")
+			log.Printf("字段: rece_place")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["rece_place"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 rece_place 类型")
 		}
 		// 处理 rece_mode 的简单类型
@@ -131,6 +183,16 @@ func StkSurv(ctx context.Context, client *sdk.Client, req *StkSurvRequest) ([]St
 		} else if v, ok := item["rece_mode"].(int); ok {
 			receMode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["rece_mode"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_surv")
+			log.Printf("字段: rece_mode")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["rece_mode"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 rece_mode 类型")
 		}
 		// 处理 rece_org 的简单类型
@@ -143,6 +205,16 @@ func StkSurv(ctx context.Context, client *sdk.Client, req *StkSurvRequest) ([]St
 		} else if v, ok := item["rece_org"].(int); ok {
 			receOrg = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["rece_org"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_surv")
+			log.Printf("字段: rece_org")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["rece_org"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 rece_org 类型")
 		}
 		// 处理 org_type 的简单类型
@@ -155,6 +227,16 @@ func StkSurv(ctx context.Context, client *sdk.Client, req *StkSurvRequest) ([]St
 		} else if v, ok := item["org_type"].(int); ok {
 			orgType = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["org_type"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_surv")
+			log.Printf("字段: org_type")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["org_type"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 org_type 类型")
 		}
 		// 处理 comp_rece 的简单类型
@@ -167,6 +249,16 @@ func StkSurv(ctx context.Context, client *sdk.Client, req *StkSurvRequest) ([]St
 		} else if v, ok := item["comp_rece"].(int); ok {
 			compRece = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["comp_rece"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_surv")
+			log.Printf("字段: comp_rece")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["comp_rece"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 comp_rece 类型")
 		}
 		// 处理 content 的简单类型

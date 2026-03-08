@@ -4,7 +4,9 @@ package futures
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -86,6 +88,16 @@ func FutWeeklyDetail(ctx context.Context, client *sdk.Client, req *FutWeeklyDeta
 		} else if v, ok := item["exchange"].(int); ok {
 			exchange = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["exchange"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fut_weekly_detail")
+			log.Printf("字段: exchange")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["exchange"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 exchange 类型")
 		}
 		// 处理 prd 的简单类型
@@ -98,6 +110,16 @@ func FutWeeklyDetail(ctx context.Context, client *sdk.Client, req *FutWeeklyDeta
 		} else if v, ok := item["prd"].(int); ok {
 			prd = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["prd"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fut_weekly_detail")
+			log.Printf("字段: prd")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["prd"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 prd 类型")
 		}
 		// 处理 name 的简单类型
@@ -110,6 +132,16 @@ func FutWeeklyDetail(ctx context.Context, client *sdk.Client, req *FutWeeklyDeta
 		} else if v, ok := item["name"].(int); ok {
 			name = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fut_weekly_detail")
+			log.Printf("字段: name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 vol 的简单类型
@@ -182,6 +214,16 @@ func FutWeeklyDetail(ctx context.Context, client *sdk.Client, req *FutWeeklyDeta
 		} else if v, ok := item["week"].(int); ok {
 			week = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["week"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fut_weekly_detail")
+			log.Printf("字段: week")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["week"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 week 类型")
 		}
 		// 处理 week_date 的简单类型
@@ -194,6 +236,16 @@ func FutWeeklyDetail(ctx context.Context, client *sdk.Client, req *FutWeeklyDeta
 		} else if v, ok := item["week_date"].(int); ok {
 			weekDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["week_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fut_weekly_detail")
+			log.Printf("字段: week_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["week_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 week_date 类型")
 		}
 		items[i] = FutWeeklyDetailItem{

@@ -4,7 +4,9 @@ package llm_corpus
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -73,6 +75,16 @@ func Npr(ctx context.Context, client *sdk.Client, req *NprRequest) ([]NprItem, e
 		} else if v, ok := item["title"].(int); ok {
 			title = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["title"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: npr")
+			log.Printf("字段: title")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["title"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 title 类型")
 		}
 		// 处理 url 的简单类型
@@ -85,6 +97,16 @@ func Npr(ctx context.Context, client *sdk.Client, req *NprRequest) ([]NprItem, e
 		} else if v, ok := item["url"].(int); ok {
 			url = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["url"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: npr")
+			log.Printf("字段: url")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["url"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 url 类型")
 		}
 		// 处理 content_html 的简单类型
@@ -97,6 +119,16 @@ func Npr(ctx context.Context, client *sdk.Client, req *NprRequest) ([]NprItem, e
 		} else if v, ok := item["content_html"].(int); ok {
 			contentHtml = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["content_html"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: npr")
+			log.Printf("字段: content_html")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["content_html"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 content_html 类型")
 		}
 		// 处理 pcode 的简单类型
@@ -109,6 +141,16 @@ func Npr(ctx context.Context, client *sdk.Client, req *NprRequest) ([]NprItem, e
 		} else if v, ok := item["pcode"].(int); ok {
 			pcode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["pcode"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: npr")
+			log.Printf("字段: pcode")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["pcode"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 pcode 类型")
 		}
 		// 处理 puborg 的简单类型
@@ -121,6 +163,16 @@ func Npr(ctx context.Context, client *sdk.Client, req *NprRequest) ([]NprItem, e
 		} else if v, ok := item["puborg"].(int); ok {
 			puborg = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["puborg"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: npr")
+			log.Printf("字段: puborg")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["puborg"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 puborg 类型")
 		}
 		// 处理 ptype 的简单类型
@@ -133,6 +185,16 @@ func Npr(ctx context.Context, client *sdk.Client, req *NprRequest) ([]NprItem, e
 		} else if v, ok := item["ptype"].(int); ok {
 			ptype = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ptype"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: npr")
+			log.Printf("字段: ptype")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ptype"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ptype 类型")
 		}
 		items[i] = NprItem{

@@ -4,7 +4,9 @@ package stock_board
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -89,6 +91,16 @@ func KplList(ctx context.Context, client *sdk.Client, req *KplListRequest) ([]Kp
 		} else if v, ok := item["ts_code"].(int); ok {
 			tsCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: kpl_list")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 name 的简单类型
@@ -101,6 +113,16 @@ func KplList(ctx context.Context, client *sdk.Client, req *KplListRequest) ([]Kp
 		} else if v, ok := item["name"].(int); ok {
 			name = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: kpl_list")
+			log.Printf("字段: name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 trade_date 的简单类型
@@ -113,6 +135,16 @@ func KplList(ctx context.Context, client *sdk.Client, req *KplListRequest) ([]Kp
 		} else if v, ok := item["trade_date"].(int); ok {
 			tradeDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["trade_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: kpl_list")
+			log.Printf("字段: trade_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["trade_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 lu_time 的简单类型
@@ -125,6 +157,16 @@ func KplList(ctx context.Context, client *sdk.Client, req *KplListRequest) ([]Kp
 		} else if v, ok := item["lu_time"].(int); ok {
 			luTime = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["lu_time"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: kpl_list")
+			log.Printf("字段: lu_time")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["lu_time"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 lu_time 类型")
 		}
 		// 处理 ld_time 的简单类型
@@ -137,6 +179,16 @@ func KplList(ctx context.Context, client *sdk.Client, req *KplListRequest) ([]Kp
 		} else if v, ok := item["ld_time"].(int); ok {
 			ldTime = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ld_time"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: kpl_list")
+			log.Printf("字段: ld_time")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ld_time"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ld_time 类型")
 		}
 		// 处理 open_time 的简单类型
@@ -149,6 +201,16 @@ func KplList(ctx context.Context, client *sdk.Client, req *KplListRequest) ([]Kp
 		} else if v, ok := item["open_time"].(int); ok {
 			openTime = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["open_time"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: kpl_list")
+			log.Printf("字段: open_time")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["open_time"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 open_time 类型")
 		}
 		// 处理 last_time 的简单类型
@@ -161,6 +223,16 @@ func KplList(ctx context.Context, client *sdk.Client, req *KplListRequest) ([]Kp
 		} else if v, ok := item["last_time"].(int); ok {
 			lastTime = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["last_time"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: kpl_list")
+			log.Printf("字段: last_time")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["last_time"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 last_time 类型")
 		}
 		// 处理 lu_desc 的简单类型
@@ -173,6 +245,16 @@ func KplList(ctx context.Context, client *sdk.Client, req *KplListRequest) ([]Kp
 		} else if v, ok := item["lu_desc"].(int); ok {
 			luDesc = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["lu_desc"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: kpl_list")
+			log.Printf("字段: lu_desc")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["lu_desc"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 lu_desc 类型")
 		}
 		// 处理 tag 的简单类型
@@ -185,6 +267,16 @@ func KplList(ctx context.Context, client *sdk.Client, req *KplListRequest) ([]Kp
 		} else if v, ok := item["tag"].(int); ok {
 			tag = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["tag"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: kpl_list")
+			log.Printf("字段: tag")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["tag"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 tag 类型")
 		}
 		// 处理 theme 的简单类型
@@ -197,6 +289,16 @@ func KplList(ctx context.Context, client *sdk.Client, req *KplListRequest) ([]Kp
 		} else if v, ok := item["theme"].(int); ok {
 			theme = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["theme"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: kpl_list")
+			log.Printf("字段: theme")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["theme"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 theme 类型")
 		}
 		// 处理 net_change 的简单类型
@@ -219,6 +321,16 @@ func KplList(ctx context.Context, client *sdk.Client, req *KplListRequest) ([]Kp
 		} else if v, ok := item["status"].(int); ok {
 			status = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["status"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: kpl_list")
+			log.Printf("字段: status")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["status"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 status 类型")
 		}
 		// 处理 bid_change 的简单类型

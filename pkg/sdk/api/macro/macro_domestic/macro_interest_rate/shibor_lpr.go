@@ -4,7 +4,9 @@ package macro_interest_rate
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -60,6 +62,16 @@ func ShiborLpr(ctx context.Context, client *sdk.Client, req *ShiborLprRequest) (
 		} else if v, ok := item["date"].(int); ok {
 			date = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: shibor_lpr")
+			log.Printf("字段: date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 date 类型")
 		}
 		// 处理 1y 的简单类型

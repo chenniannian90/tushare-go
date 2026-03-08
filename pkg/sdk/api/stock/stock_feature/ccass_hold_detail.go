@@ -4,7 +4,9 @@ package stock_feature
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -72,6 +74,16 @@ func CcassHoldDetail(ctx context.Context, client *sdk.Client, req *CcassHoldDeta
 		} else if v, ok := item["trade_date"].(int); ok {
 			tradeDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["trade_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ccass_hold_detail")
+			log.Printf("字段: trade_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["trade_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 ts_code 的简单类型
@@ -84,6 +96,16 @@ func CcassHoldDetail(ctx context.Context, client *sdk.Client, req *CcassHoldDeta
 		} else if v, ok := item["ts_code"].(int); ok {
 			tsCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ccass_hold_detail")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 name 的简单类型
@@ -96,6 +118,16 @@ func CcassHoldDetail(ctx context.Context, client *sdk.Client, req *CcassHoldDeta
 		} else if v, ok := item["name"].(int); ok {
 			name = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ccass_hold_detail")
+			log.Printf("字段: name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 col_participant_id 的简单类型
@@ -108,6 +140,16 @@ func CcassHoldDetail(ctx context.Context, client *sdk.Client, req *CcassHoldDeta
 		} else if v, ok := item["col_participant_id"].(int); ok {
 			colParticipantId = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["col_participant_id"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ccass_hold_detail")
+			log.Printf("字段: col_participant_id")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["col_participant_id"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 col_participant_id 类型")
 		}
 		// 处理 col_participant_name 的简单类型
@@ -120,6 +162,16 @@ func CcassHoldDetail(ctx context.Context, client *sdk.Client, req *CcassHoldDeta
 		} else if v, ok := item["col_participant_name"].(int); ok {
 			colParticipantName = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["col_participant_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ccass_hold_detail")
+			log.Printf("字段: col_participant_name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["col_participant_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 col_participant_name 类型")
 		}
 		// 处理 col_shareholding 的简单类型
@@ -132,6 +184,16 @@ func CcassHoldDetail(ctx context.Context, client *sdk.Client, req *CcassHoldDeta
 		} else if v, ok := item["col_shareholding"].(int); ok {
 			colShareholding = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["col_shareholding"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ccass_hold_detail")
+			log.Printf("字段: col_shareholding")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["col_shareholding"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 col_shareholding 类型")
 		}
 		// 处理 col_shareholding_percent 的简单类型
@@ -144,6 +206,16 @@ func CcassHoldDetail(ctx context.Context, client *sdk.Client, req *CcassHoldDeta
 		} else if v, ok := item["col_shareholding_percent"].(int); ok {
 			colShareholdingPercent = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["col_shareholding_percent"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ccass_hold_detail")
+			log.Printf("字段: col_shareholding_percent")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["col_shareholding_percent"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 col_shareholding_percent 类型")
 		}
 		items[i] = CcassHoldDetailItem{

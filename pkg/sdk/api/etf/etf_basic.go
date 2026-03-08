@@ -4,7 +4,9 @@ package etf
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -83,6 +85,16 @@ func EtfBasic(ctx context.Context, client *sdk.Client, req *EtfBasicRequest) ([]
 		} else if v, ok := item["ts_code"].(int); ok {
 			tsCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: etf_basic")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 csname 的简单类型
@@ -95,6 +107,16 @@ func EtfBasic(ctx context.Context, client *sdk.Client, req *EtfBasicRequest) ([]
 		} else if v, ok := item["csname"].(int); ok {
 			csname = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["csname"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: etf_basic")
+			log.Printf("字段: csname")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["csname"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 csname 类型")
 		}
 		// 处理 extname 的简单类型
@@ -107,6 +129,16 @@ func EtfBasic(ctx context.Context, client *sdk.Client, req *EtfBasicRequest) ([]
 		} else if v, ok := item["extname"].(int); ok {
 			extname = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["extname"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: etf_basic")
+			log.Printf("字段: extname")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["extname"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 extname 类型")
 		}
 		// 处理 cname 的简单类型
@@ -119,6 +151,16 @@ func EtfBasic(ctx context.Context, client *sdk.Client, req *EtfBasicRequest) ([]
 		} else if v, ok := item["cname"].(int); ok {
 			cname = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["cname"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: etf_basic")
+			log.Printf("字段: cname")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["cname"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 cname 类型")
 		}
 		// 处理 index_code 的简单类型
@@ -131,6 +173,16 @@ func EtfBasic(ctx context.Context, client *sdk.Client, req *EtfBasicRequest) ([]
 		} else if v, ok := item["index_code"].(int); ok {
 			indexCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["index_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: etf_basic")
+			log.Printf("字段: index_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["index_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 index_code 类型")
 		}
 		// 处理 index_name 的简单类型
@@ -143,6 +195,16 @@ func EtfBasic(ctx context.Context, client *sdk.Client, req *EtfBasicRequest) ([]
 		} else if v, ok := item["index_name"].(int); ok {
 			indexName = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["index_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: etf_basic")
+			log.Printf("字段: index_name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["index_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 index_name 类型")
 		}
 		// 处理 setup_date 的简单类型
@@ -155,6 +217,16 @@ func EtfBasic(ctx context.Context, client *sdk.Client, req *EtfBasicRequest) ([]
 		} else if v, ok := item["setup_date"].(int); ok {
 			setupDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["setup_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: etf_basic")
+			log.Printf("字段: setup_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["setup_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 setup_date 类型")
 		}
 		// 处理 list_date 的简单类型
@@ -167,6 +239,16 @@ func EtfBasic(ctx context.Context, client *sdk.Client, req *EtfBasicRequest) ([]
 		} else if v, ok := item["list_date"].(int); ok {
 			listDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["list_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: etf_basic")
+			log.Printf("字段: list_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["list_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 list_date 类型")
 		}
 		// 处理 list_status 的简单类型
@@ -179,6 +261,16 @@ func EtfBasic(ctx context.Context, client *sdk.Client, req *EtfBasicRequest) ([]
 		} else if v, ok := item["list_status"].(int); ok {
 			listStatus = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["list_status"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: etf_basic")
+			log.Printf("字段: list_status")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["list_status"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 list_status 类型")
 		}
 		// 处理 exchange 的简单类型
@@ -191,6 +283,16 @@ func EtfBasic(ctx context.Context, client *sdk.Client, req *EtfBasicRequest) ([]
 		} else if v, ok := item["exchange"].(int); ok {
 			exchange = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["exchange"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: etf_basic")
+			log.Printf("字段: exchange")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["exchange"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 exchange 类型")
 		}
 		// 处理 mgr_name 的简单类型
@@ -203,6 +305,16 @@ func EtfBasic(ctx context.Context, client *sdk.Client, req *EtfBasicRequest) ([]
 		} else if v, ok := item["mgr_name"].(int); ok {
 			mgrName = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["mgr_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: etf_basic")
+			log.Printf("字段: mgr_name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["mgr_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 mgr_name 类型")
 		}
 		// 处理 custod_name 的简单类型
@@ -215,6 +327,16 @@ func EtfBasic(ctx context.Context, client *sdk.Client, req *EtfBasicRequest) ([]
 		} else if v, ok := item["custod_name"].(int); ok {
 			custodName = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["custod_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: etf_basic")
+			log.Printf("字段: custod_name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["custod_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 custod_name 类型")
 		}
 		// 处理 mgt_fee 的简单类型
@@ -232,6 +354,16 @@ func EtfBasic(ctx context.Context, client *sdk.Client, req *EtfBasicRequest) ([]
 		} else if v, ok := item["etf_type"].(int); ok {
 			etfType = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["etf_type"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: etf_basic")
+			log.Printf("字段: etf_type")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["etf_type"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 etf_type 类型")
 		}
 		items[i] = EtfBasicItem{

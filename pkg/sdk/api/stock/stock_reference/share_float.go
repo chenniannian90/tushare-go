@@ -4,7 +4,9 @@ package stock_reference
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -72,6 +74,16 @@ func ShareFloat(ctx context.Context, client *sdk.Client, req *ShareFloatRequest)
 		} else if v, ok := item["ts_code"].(int); ok {
 			tsCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: share_float")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 ann_date 的简单类型
@@ -84,6 +96,16 @@ func ShareFloat(ctx context.Context, client *sdk.Client, req *ShareFloatRequest)
 		} else if v, ok := item["ann_date"].(int); ok {
 			annDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ann_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: share_float")
+			log.Printf("字段: ann_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ann_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ann_date 类型")
 		}
 		// 处理 float_date 的简单类型
@@ -96,6 +118,16 @@ func ShareFloat(ctx context.Context, client *sdk.Client, req *ShareFloatRequest)
 		} else if v, ok := item["float_date"].(int); ok {
 			floatDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["float_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: share_float")
+			log.Printf("字段: float_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["float_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 float_date 类型")
 		}
 		// 处理 float_share 的简单类型
@@ -118,6 +150,16 @@ func ShareFloat(ctx context.Context, client *sdk.Client, req *ShareFloatRequest)
 		} else if v, ok := item["holder_name"].(int); ok {
 			holderName = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["holder_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: share_float")
+			log.Printf("字段: holder_name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["holder_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 holder_name 类型")
 		}
 		// 处理 share_type 的简单类型
@@ -130,6 +172,16 @@ func ShareFloat(ctx context.Context, client *sdk.Client, req *ShareFloatRequest)
 		} else if v, ok := item["share_type"].(int); ok {
 			shareType = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["share_type"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: share_float")
+			log.Printf("字段: share_type")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["share_type"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 share_type 类型")
 		}
 		items[i] = ShareFloatItem{

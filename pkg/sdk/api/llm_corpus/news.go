@@ -4,7 +4,9 @@ package llm_corpus
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -61,6 +63,16 @@ func News(ctx context.Context, client *sdk.Client, req *NewsRequest) ([]NewsItem
 		} else if v, ok := item["datetime"].(int); ok {
 			datetime = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["datetime"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: news")
+			log.Printf("字段: datetime")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["datetime"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 datetime 类型")
 		}
 		// 处理 content 的简单类型
@@ -73,6 +85,16 @@ func News(ctx context.Context, client *sdk.Client, req *NewsRequest) ([]NewsItem
 		} else if v, ok := item["content"].(int); ok {
 			content = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["content"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: news")
+			log.Printf("字段: content")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["content"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 content 类型")
 		}
 		// 处理 title 的简单类型
@@ -85,6 +107,16 @@ func News(ctx context.Context, client *sdk.Client, req *NewsRequest) ([]NewsItem
 		} else if v, ok := item["title"].(int); ok {
 			title = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["title"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: news")
+			log.Printf("字段: title")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["title"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 title 类型")
 		}
 		// 处理 channels 的简单类型
@@ -97,6 +129,16 @@ func News(ctx context.Context, client *sdk.Client, req *NewsRequest) ([]NewsItem
 		} else if v, ok := item["channels"].(int); ok {
 			channels = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["channels"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: news")
+			log.Printf("字段: channels")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["channels"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 channels 类型")
 		}
 		items[i] = NewsItem{

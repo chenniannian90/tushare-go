@@ -4,7 +4,9 @@ package stock_basic
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -65,6 +67,16 @@ func NewShare(ctx context.Context, client *sdk.Client, req *NewShareRequest) ([]
 		} else if v, ok := item["ts_code"].(int); ok {
 			tsCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: new_share")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 sub_code 的简单类型
@@ -77,6 +89,16 @@ func NewShare(ctx context.Context, client *sdk.Client, req *NewShareRequest) ([]
 		} else if v, ok := item["sub_code"].(int); ok {
 			subCode = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["sub_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: new_share")
+			log.Printf("字段: sub_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["sub_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 sub_code 类型")
 		}
 		// 处理 name 的简单类型
@@ -89,6 +111,16 @@ func NewShare(ctx context.Context, client *sdk.Client, req *NewShareRequest) ([]
 		} else if v, ok := item["name"].(int); ok {
 			name = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: new_share")
+			log.Printf("字段: name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 ipo_date 的简单类型
@@ -101,6 +133,16 @@ func NewShare(ctx context.Context, client *sdk.Client, req *NewShareRequest) ([]
 		} else if v, ok := item["ipo_date"].(int); ok {
 			ipoDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ipo_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: new_share")
+			log.Printf("字段: ipo_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ipo_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ipo_date 类型")
 		}
 		// 处理 issue_date 的简单类型
@@ -113,6 +155,16 @@ func NewShare(ctx context.Context, client *sdk.Client, req *NewShareRequest) ([]
 		} else if v, ok := item["issue_date"].(int); ok {
 			issueDate = fmt.Sprintf("%d", v)
 		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["issue_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: new_share")
+			log.Printf("字段: issue_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["issue_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 issue_date 类型")
 		}
 		// 处理 amount 的简单类型
