@@ -54,7 +54,7 @@ func StkHoldernumber(ctx context.Context, client *sdk.Client, req *StkHoldernumb
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "stk_holdernumber", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "stk_holdernumber", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]StkHoldernumberItem, len(result.Items))

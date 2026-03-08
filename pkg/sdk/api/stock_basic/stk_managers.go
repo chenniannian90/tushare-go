@@ -58,7 +58,7 @@ func StkManagers(ctx context.Context, client *sdk.Client, req *StkManagersReques
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "stk_managers", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "stk_managers", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]StkManagersItem, len(result.Items))

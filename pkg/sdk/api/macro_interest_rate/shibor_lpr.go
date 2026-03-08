@@ -45,7 +45,7 @@ func ShiborLpr(ctx context.Context, client *sdk.Client, req *ShiborLprRequest) (
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "shibor_lpr", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "shibor_lpr", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]ShiborLprItem, len(result.Items))

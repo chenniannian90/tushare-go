@@ -46,7 +46,7 @@ func UsTrltr(ctx context.Context, client *sdk.Client, req *UsTrltrRequest) ([]Us
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "us_trltr", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "us_trltr", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]UsTrltrItem, len(result.Items))

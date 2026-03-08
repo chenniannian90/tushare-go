@@ -71,7 +71,7 @@ func CnPpi(ctx context.Context, client *sdk.Client, req *CnPpiRequest) ([]CnPpiI
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "cn_ppi", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "cn_ppi", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]CnPpiItem, len(result.Items))

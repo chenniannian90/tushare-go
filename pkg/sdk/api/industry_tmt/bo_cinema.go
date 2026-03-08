@@ -43,7 +43,7 @@ func BoCinema(ctx context.Context, client *sdk.Client, req *BoCinemaRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "bo_cinema", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "bo_cinema", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]BoCinemaItem, len(result.Items))

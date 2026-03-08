@@ -37,7 +37,7 @@ func CctvNews(ctx context.Context, client *sdk.Client, req *CctvNewsRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "cctv_news", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "cctv_news", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]CctvNewsItem, len(result.Items))

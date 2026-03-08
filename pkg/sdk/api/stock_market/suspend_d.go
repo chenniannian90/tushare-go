@@ -54,7 +54,7 @@ func SuspendD(ctx context.Context, client *sdk.Client, req *SuspendDRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "suspend_d", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "suspend_d", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]SuspendDItem, len(result.Items))

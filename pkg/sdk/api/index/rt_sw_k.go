@@ -45,7 +45,7 @@ func RtSwK(ctx context.Context, client *sdk.Client, req *RtSwKRequest) ([]RtSwKI
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "rt_sw_k", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "rt_sw_k", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]RtSwKItem, len(result.Items))

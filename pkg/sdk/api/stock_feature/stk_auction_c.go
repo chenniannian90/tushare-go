@@ -55,7 +55,7 @@ func StkAuctionC(ctx context.Context, client *sdk.Client, req *StkAuctionCReques
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "stk_auction_c", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "stk_auction_c", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]StkAuctionCItem, len(result.Items))

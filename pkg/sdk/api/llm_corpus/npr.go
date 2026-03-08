@@ -53,7 +53,7 @@ func Npr(ctx context.Context, client *sdk.Client, req *NprRequest) ([]NprItem, e
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "npr", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "npr", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]NprItem, len(result.Items))

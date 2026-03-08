@@ -57,7 +57,7 @@ func CbCall(ctx context.Context, client *sdk.Client, req *CbCallRequest) ([]CbCa
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "cb_call", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "cb_call", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]CbCallItem, len(result.Items))

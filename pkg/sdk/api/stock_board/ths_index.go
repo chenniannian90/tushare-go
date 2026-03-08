@@ -48,7 +48,7 @@ func ThsIndex(ctx context.Context, client *sdk.Client, req *ThsIndexRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "ths_index", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "ths_index", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]ThsIndexItem, len(result.Items))

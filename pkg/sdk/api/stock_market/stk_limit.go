@@ -51,7 +51,7 @@ func StkLimit(ctx context.Context, client *sdk.Client, req *StkLimitRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "stk_limit", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "stk_limit", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]StkLimitItem, len(result.Items))

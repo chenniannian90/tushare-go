@@ -56,7 +56,7 @@ func FutTick(ctx context.Context, client *sdk.Client, req *FutTickRequest) ([]Fu
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "fut_tick", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "fut_tick", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FutTickItem, len(result.Items))

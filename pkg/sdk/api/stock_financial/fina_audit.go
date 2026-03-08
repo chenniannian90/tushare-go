@@ -49,7 +49,7 @@ func FinaAudit(ctx context.Context, client *sdk.Client, req *FinaAuditRequest) (
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "fina_audit", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "fina_audit", params, fields, &result); err != nil {
 		return nil, err
 	}
 	// No response fields defined, return empty items

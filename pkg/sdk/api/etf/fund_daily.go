@@ -57,7 +57,7 @@ func FundDaily(ctx context.Context, client *sdk.Client, req *FundDailyRequest) (
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "fund_daily", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "fund_daily", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FundDailyItem, len(result.Items))

@@ -62,7 +62,7 @@ func BakBasic(ctx context.Context, client *sdk.Client, req *BakBasicRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "bak_basic", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "bak_basic", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]BakBasicItem, len(result.Items))

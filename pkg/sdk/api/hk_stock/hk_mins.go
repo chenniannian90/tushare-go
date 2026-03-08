@@ -54,7 +54,7 @@ func HkMins(ctx context.Context, client *sdk.Client, req *HkMinsRequest) ([]HkMi
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "hk_mins", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "hk_mins", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]HkMinsItem, len(result.Items))

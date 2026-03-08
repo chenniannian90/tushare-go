@@ -67,7 +67,7 @@ func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutW
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "fut_wsr", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "fut_wsr", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FutWsrItem, len(result.Items))

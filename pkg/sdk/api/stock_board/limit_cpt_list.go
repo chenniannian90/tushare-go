@@ -55,7 +55,7 @@ func LimitCptList(ctx context.Context, client *sdk.Client, req *LimitCptListRequ
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "limit_cpt_list", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "limit_cpt_list", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]LimitCptListItem, len(result.Items))

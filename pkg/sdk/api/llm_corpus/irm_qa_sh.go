@@ -60,7 +60,7 @@ func IrmQaSh(ctx context.Context, client *sdk.Client, req *IrmQaShRequest) ([]Ir
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "irm_qa_sh", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "irm_qa_sh", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]IrmQaShItem, len(result.Items))

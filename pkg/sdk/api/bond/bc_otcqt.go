@@ -63,7 +63,7 @@ func BcOtcqt(ctx context.Context, client *sdk.Client, req *BcOtcqtRequest) ([]Bc
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "bc_otcqt", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "bc_otcqt", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]BcOtcqtItem, len(result.Items))

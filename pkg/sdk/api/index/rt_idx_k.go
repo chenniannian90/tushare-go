@@ -44,7 +44,7 @@ func RtIdxK(ctx context.Context, client *sdk.Client, req *RtIdxKRequest) ([]RtId
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "rt_idx_k", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "rt_idx_k", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]RtIdxKItem, len(result.Items))

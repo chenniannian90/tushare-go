@@ -42,7 +42,7 @@ func TdxMember(ctx context.Context, client *sdk.Client, req *TdxMemberRequest) (
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "tdx_member", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "tdx_member", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]TdxMemberItem, len(result.Items))

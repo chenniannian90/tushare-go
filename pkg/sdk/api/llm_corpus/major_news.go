@@ -46,7 +46,7 @@ func MajorNews(ctx context.Context, client *sdk.Client, req *MajorNewsRequest) (
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "major_news", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "major_news", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]MajorNewsItem, len(result.Items))

@@ -53,7 +53,7 @@ func BlockTrade(ctx context.Context, client *sdk.Client, req *BlockTradeRequest)
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "block_trade", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "block_trade", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]BlockTradeItem, len(result.Items))

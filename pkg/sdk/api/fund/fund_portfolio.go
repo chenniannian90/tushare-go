@@ -62,7 +62,7 @@ func FundPortfolio(ctx context.Context, client *sdk.Client, req *FundPortfolioRe
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "fund_portfolio", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "fund_portfolio", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FundPortfolioItem, len(result.Items))

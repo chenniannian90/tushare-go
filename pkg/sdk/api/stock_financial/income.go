@@ -156,7 +156,7 @@ func Income(ctx context.Context, client *sdk.Client, req *IncomeRequest) ([]Inco
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "income", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "income", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]IncomeItem, len(result.Items))

@@ -69,7 +69,7 @@ func ReportRc(ctx context.Context, client *sdk.Client, req *ReportRcRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "report_rc", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "report_rc", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]ReportRcItem, len(result.Items))

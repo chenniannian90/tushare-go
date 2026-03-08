@@ -51,7 +51,7 @@ func FilmRecord(ctx context.Context, client *sdk.Client, req *FilmRecordRequest)
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "film_record", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "film_record", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FilmRecordItem, len(result.Items))

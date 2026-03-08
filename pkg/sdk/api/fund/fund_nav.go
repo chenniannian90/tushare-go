@@ -59,7 +59,7 @@ func FundNav(ctx context.Context, client *sdk.Client, req *FundNavRequest) ([]Fu
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "fund_nav", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "fund_nav", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FundNavItem, len(result.Items))

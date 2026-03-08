@@ -51,7 +51,7 @@ func GgtMonthly(ctx context.Context, client *sdk.Client, req *GgtMonthlyRequest)
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "ggt_monthly", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "ggt_monthly", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]GgtMonthlyItem, len(result.Items))

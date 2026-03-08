@@ -49,7 +49,7 @@ func RtK(ctx context.Context, client *sdk.Client, req *RtKRequest) ([]RtKItem, e
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "rt_k", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "rt_k", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]RtKItem, len(result.Items))

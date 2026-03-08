@@ -54,7 +54,7 @@ func MarginSecs(ctx context.Context, client *sdk.Client, req *MarginSecsRequest)
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "margin_secs", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "margin_secs", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]MarginSecsItem, len(result.Items))

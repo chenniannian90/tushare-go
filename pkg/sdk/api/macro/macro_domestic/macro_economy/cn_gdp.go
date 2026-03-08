@@ -53,7 +53,7 @@ func CnGdp(ctx context.Context, client *sdk.Client, req *CnGdpRequest) ([]CnGdpI
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "cn_gdp", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "cn_gdp", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]CnGdpItem, len(result.Items))

@@ -61,7 +61,7 @@ func CbShare(ctx context.Context, client *sdk.Client, req *CbShareRequest) ([]Cb
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "cb_share", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "cb_share", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]CbShareItem, len(result.Items))

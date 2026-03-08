@@ -57,7 +57,7 @@ func CyqPerf(ctx context.Context, client *sdk.Client, req *CyqPerfRequest) ([]Cy
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "cyq_perf", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "cyq_perf", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]CyqPerfItem, len(result.Items))

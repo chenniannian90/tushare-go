@@ -45,7 +45,7 @@ func AdjFactor(ctx context.Context, client *sdk.Client, req *AdjFactorRequest) (
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "adj_factor", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "adj_factor", params, fields, &result); err != nil {
 		return nil, err
 	}
 	// No response fields defined, return empty items

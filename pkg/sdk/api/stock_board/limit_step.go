@@ -54,7 +54,7 @@ func LimitStep(ctx context.Context, client *sdk.Client, req *LimitStepRequest) (
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "limit_step", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "limit_step", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]LimitStepItem, len(result.Items))

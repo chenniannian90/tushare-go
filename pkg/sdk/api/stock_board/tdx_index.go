@@ -51,7 +51,7 @@ func TdxIndex(ctx context.Context, client *sdk.Client, req *TdxIndexRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "tdx_index", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "tdx_index", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]TdxIndexItem, len(result.Items))

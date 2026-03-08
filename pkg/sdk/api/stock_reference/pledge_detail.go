@@ -48,7 +48,7 @@ func PledgeDetail(ctx context.Context, client *sdk.Client, req *PledgeDetailRequ
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "pledge_detail", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "pledge_detail", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]PledgeDetailItem, len(result.Items))

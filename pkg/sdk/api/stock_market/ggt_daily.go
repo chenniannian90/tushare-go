@@ -47,7 +47,7 @@ func GgtDaily(ctx context.Context, client *sdk.Client, req *GgtDailyRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "ggt_daily", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "ggt_daily", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]GgtDailyItem, len(result.Items))

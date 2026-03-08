@@ -163,7 +163,7 @@ func Cashflow(ctx context.Context, client *sdk.Client, req *CashflowRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "cashflow", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "cashflow", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]CashflowItem, len(result.Items))

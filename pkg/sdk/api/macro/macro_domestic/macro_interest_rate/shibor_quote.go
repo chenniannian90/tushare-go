@@ -62,7 +62,7 @@ func ShiborQuote(ctx context.Context, client *sdk.Client, req *ShiborQuoteReques
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "shibor_quote", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "shibor_quote", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]ShiborQuoteItem, len(result.Items))

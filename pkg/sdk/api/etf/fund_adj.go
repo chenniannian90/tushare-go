@@ -57,7 +57,7 @@ func FundAdj(ctx context.Context, client *sdk.Client, req *FundAdjRequest) ([]Fu
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "fund_adj", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "fund_adj", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FundAdjItem, len(result.Items))

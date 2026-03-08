@@ -48,7 +48,7 @@ func TopInst(ctx context.Context, client *sdk.Client, req *TopInstRequest) ([]To
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "top_inst", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "top_inst", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]TopInstItem, len(result.Items))

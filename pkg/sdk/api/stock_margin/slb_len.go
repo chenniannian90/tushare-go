@@ -48,7 +48,7 @@ func SlbLen(ctx context.Context, client *sdk.Client, req *SlbLenRequest) ([]SlbL
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "slb_len", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "slb_len", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]SlbLenItem, len(result.Items))

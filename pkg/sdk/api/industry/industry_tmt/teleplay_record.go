@@ -61,7 +61,7 @@ func TeleplayRecord(ctx context.Context, client *sdk.Client, req *TeleplayRecord
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "teleplay_record", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "teleplay_record", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]TeleplayRecordItem, len(result.Items))

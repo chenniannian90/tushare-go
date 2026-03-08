@@ -52,7 +52,7 @@ func SlbSecDetail(ctx context.Context, client *sdk.Client, req *SlbSecDetailRequ
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "slb_sec_detail", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "slb_sec_detail", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]SlbSecDetailItem, len(result.Items))

@@ -71,7 +71,7 @@ func StockBasic(ctx context.Context, client *sdk.Client, req *StockBasicRequest)
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "stock_basic", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "stock_basic", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]StockBasicItem, len(result.Items))

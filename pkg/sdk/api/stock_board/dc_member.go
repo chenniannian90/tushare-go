@@ -46,7 +46,7 @@ func DcMember(ctx context.Context, client *sdk.Client, req *DcMemberRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "dc_member", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "dc_member", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]DcMemberItem, len(result.Items))

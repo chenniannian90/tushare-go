@@ -45,7 +45,7 @@ func Margin(ctx context.Context, client *sdk.Client, req *MarginRequest) ([]Marg
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "margin", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "margin", params, fields, &result); err != nil {
 		return nil, err
 	}
 	// No response fields defined, return empty items

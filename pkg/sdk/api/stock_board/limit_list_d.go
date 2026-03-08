@@ -72,7 +72,7 @@ func LimitListD(ctx context.Context, client *sdk.Client, req *LimitListDRequest)
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "limit_list_d", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "limit_list_d", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]LimitListDItem, len(result.Items))

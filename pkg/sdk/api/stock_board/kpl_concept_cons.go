@@ -49,7 +49,7 @@ func KplConceptCons(ctx context.Context, client *sdk.Client, req *KplConceptCons
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "kpl_concept_cons", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "kpl_concept_cons", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]KplConceptConsItem, len(result.Items))

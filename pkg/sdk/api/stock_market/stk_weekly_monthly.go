@@ -63,7 +63,7 @@ func StkWeeklyMonthly(ctx context.Context, client *sdk.Client, req *StkWeeklyMon
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "stk_weekly_monthly", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "stk_weekly_monthly", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]StkWeeklyMonthlyItem, len(result.Items))

@@ -46,7 +46,7 @@ func RtIdxMin(ctx context.Context, client *sdk.Client, req *RtIdxMinRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "rt_idx_min", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "rt_idx_min", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]RtIdxMinItem, len(result.Items))

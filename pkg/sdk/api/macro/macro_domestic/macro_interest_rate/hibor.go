@@ -49,7 +49,7 @@ func Hibor(ctx context.Context, client *sdk.Client, req *HiborRequest) ([]HiborI
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "hibor", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "hibor", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]HiborItem, len(result.Items))

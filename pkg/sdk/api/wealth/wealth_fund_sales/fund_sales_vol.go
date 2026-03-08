@@ -46,7 +46,7 @@ func FundSalesVol(ctx context.Context, client *sdk.Client, req *FundSalesVolRequ
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "fund_sales_vol", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "fund_sales_vol", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FundSalesVolItem, len(result.Items))

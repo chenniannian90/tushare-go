@@ -55,7 +55,7 @@ func OptMins(ctx context.Context, client *sdk.Client, req *OptMinsRequest) ([]Op
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "opt_mins", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "opt_mins", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]OptMinsItem, len(result.Items))

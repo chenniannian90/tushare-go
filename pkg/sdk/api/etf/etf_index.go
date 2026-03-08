@@ -50,7 +50,7 @@ func EtfIndex(ctx context.Context, client *sdk.Client, req *EtfIndexRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "etf_index", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "etf_index", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]EtfIndexItem, len(result.Items))

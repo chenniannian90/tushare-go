@@ -51,7 +51,7 @@ func StockSt(ctx context.Context, client *sdk.Client, req *StockStRequest) ([]St
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "stock_st", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "stock_st", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]StockStItem, len(result.Items))

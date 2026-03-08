@@ -44,7 +44,7 @@ func BoDaily(ctx context.Context, client *sdk.Client, req *BoDailyRequest) ([]Bo
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "bo_daily", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "bo_daily", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]BoDailyItem, len(result.Items))

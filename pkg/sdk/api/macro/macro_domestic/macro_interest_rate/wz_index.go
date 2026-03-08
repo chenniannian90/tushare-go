@@ -53,7 +53,7 @@ func WzIndex(ctx context.Context, client *sdk.Client, req *WzIndexRequest) ([]Wz
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "wz_index", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "wz_index", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]WzIndexItem, len(result.Items))

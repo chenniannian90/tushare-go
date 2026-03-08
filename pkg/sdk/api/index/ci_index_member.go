@@ -61,7 +61,7 @@ func CiIndexMember(ctx context.Context, client *sdk.Client, req *CiIndexMemberRe
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "ci_index_member", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "ci_index_member", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]CiIndexMemberItem, len(result.Items))

@@ -54,7 +54,7 @@ func CnM(ctx context.Context, client *sdk.Client, req *CnMRequest) ([]CnMItem, e
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "cn_m", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "cn_m", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]CnMItem, len(result.Items))

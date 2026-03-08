@@ -57,7 +57,7 @@ func UsTbr(ctx context.Context, client *sdk.Client, req *UsTbrRequest) ([]UsTbrI
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "us_tbr", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "us_tbr", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]UsTbrItem, len(result.Items))

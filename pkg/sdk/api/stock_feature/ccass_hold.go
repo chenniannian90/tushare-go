@@ -56,7 +56,7 @@ func CcassHold(ctx context.Context, client *sdk.Client, req *CcassHoldRequest) (
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "ccass_hold", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "ccass_hold", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]CcassHoldItem, len(result.Items))

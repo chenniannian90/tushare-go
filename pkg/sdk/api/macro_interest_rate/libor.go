@@ -55,7 +55,7 @@ func Libor(ctx context.Context, client *sdk.Client, req *LiborRequest) ([]LiborI
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "libor", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "libor", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]LiborItem, len(result.Items))

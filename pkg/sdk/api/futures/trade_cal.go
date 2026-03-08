@@ -50,7 +50,7 @@ func TradeCal(ctx context.Context, client *sdk.Client, req *TradeCalRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "trade_cal", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "trade_cal", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]TradeCalItem, len(result.Items))

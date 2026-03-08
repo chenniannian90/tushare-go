@@ -56,7 +56,7 @@ func StkSurv(ctx context.Context, client *sdk.Client, req *StkSurvRequest) ([]St
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "stk_surv", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "stk_surv", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]StkSurvItem, len(result.Items))

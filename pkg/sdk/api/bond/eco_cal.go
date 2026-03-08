@@ -62,7 +62,7 @@ func EcoCal(ctx context.Context, client *sdk.Client, req *EcoCalRequest) ([]EcoC
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "eco_cal", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "eco_cal", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]EcoCalItem, len(result.Items))

@@ -60,7 +60,7 @@ func ThsDaily(ctx context.Context, client *sdk.Client, req *ThsDailyRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "ths_daily", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "ths_daily", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]ThsDailyItem, len(result.Items))

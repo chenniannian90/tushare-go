@@ -81,7 +81,7 @@ func CbIssue(ctx context.Context, client *sdk.Client, req *CbIssueRequest) ([]Cb
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "cb_issue", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "cb_issue", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]CbIssueItem, len(result.Items))

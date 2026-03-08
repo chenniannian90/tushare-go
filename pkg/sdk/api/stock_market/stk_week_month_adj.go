@@ -71,7 +71,7 @@ func StkWeekMonthAdj(ctx context.Context, client *sdk.Client, req *StkWeekMonthA
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "stk_week_month_adj", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "stk_week_month_adj", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]StkWeekMonthAdjItem, len(result.Items))

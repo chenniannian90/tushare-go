@@ -58,7 +58,7 @@ func DcHot(ctx context.Context, client *sdk.Client, req *DcHotRequest) ([]DcHotI
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "dc_hot", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "dc_hot", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]DcHotItem, len(result.Items))

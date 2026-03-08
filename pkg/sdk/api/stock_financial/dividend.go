@@ -66,7 +66,7 @@ func Dividend(ctx context.Context, client *sdk.Client, req *DividendRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "dividend", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "dividend", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]DividendItem, len(result.Items))

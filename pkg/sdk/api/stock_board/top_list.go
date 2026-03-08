@@ -53,7 +53,7 @@ func TopList(ctx context.Context, client *sdk.Client, req *TopListRequest) ([]To
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "top_list", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "top_list", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]TopListItem, len(result.Items))

@@ -216,7 +216,7 @@ func Balancesheet(ctx context.Context, client *sdk.Client, req *BalancesheetRequ
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "balancesheet", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "balancesheet", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]BalancesheetItem, len(result.Items))

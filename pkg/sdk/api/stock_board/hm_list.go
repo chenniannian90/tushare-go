@@ -37,7 +37,7 @@ func HmList(ctx context.Context, client *sdk.Client, req *HmListRequest) ([]HmLi
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "hm_list", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "hm_list", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]HmListItem, len(result.Items))

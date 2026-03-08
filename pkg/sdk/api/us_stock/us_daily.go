@@ -62,7 +62,7 @@ func UsDaily(ctx context.Context, client *sdk.Client, req *UsDailyRequest) ([]Us
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "us_daily", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "us_daily", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]UsDailyItem, len(result.Items))

@@ -51,7 +51,7 @@ func Repurchase(ctx context.Context, client *sdk.Client, req *RepurchaseRequest)
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "repurchase", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "repurchase", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]RepurchaseItem, len(result.Items))

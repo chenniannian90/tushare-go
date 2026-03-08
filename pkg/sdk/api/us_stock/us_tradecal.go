@@ -45,7 +45,7 @@ func UsTradecal(ctx context.Context, client *sdk.Client, req *UsTradecalRequest)
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "us_tradecal", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "us_tradecal", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]UsTradecalItem, len(result.Items))

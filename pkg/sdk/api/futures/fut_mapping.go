@@ -49,7 +49,7 @@ func FutMapping(ctx context.Context, client *sdk.Client, req *FutMappingRequest)
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "fut_mapping", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "fut_mapping", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FutMappingItem, len(result.Items))

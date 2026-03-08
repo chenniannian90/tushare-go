@@ -60,7 +60,7 @@ func SgeDaily(ctx context.Context, client *sdk.Client, req *SgeDailyRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "sge_daily", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "sge_daily", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]SgeDailyItem, len(result.Items))

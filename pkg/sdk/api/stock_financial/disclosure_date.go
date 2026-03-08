@@ -56,7 +56,7 @@ func DisclosureDate(ctx context.Context, client *sdk.Client, req *DisclosureDate
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "disclosure_date", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "disclosure_date", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]DisclosureDateItem, len(result.Items))

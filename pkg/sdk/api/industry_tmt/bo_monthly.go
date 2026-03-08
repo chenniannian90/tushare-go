@@ -44,7 +44,7 @@ func BoMonthly(ctx context.Context, client *sdk.Client, req *BoMonthlyRequest) (
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "bo_monthly", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "bo_monthly", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]BoMonthlyItem, len(result.Items))

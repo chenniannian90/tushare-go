@@ -57,7 +57,7 @@ func IndexWeekly(ctx context.Context, client *sdk.Client, req *IndexWeeklyReques
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "index_weekly", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "index_weekly", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]IndexWeeklyItem, len(result.Items))

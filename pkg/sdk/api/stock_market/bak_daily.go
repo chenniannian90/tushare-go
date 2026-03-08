@@ -85,7 +85,7 @@ func BakDaily(ctx context.Context, client *sdk.Client, req *BakDailyRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "bak_daily", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "bak_daily", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]BakDailyItem, len(result.Items))

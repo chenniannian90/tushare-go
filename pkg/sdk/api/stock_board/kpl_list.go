@@ -74,7 +74,7 @@ func KplList(ctx context.Context, client *sdk.Client, req *KplListRequest) ([]Kp
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "kpl_list", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "kpl_list", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]KplListItem, len(result.Items))

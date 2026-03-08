@@ -135,7 +135,7 @@ func IdxFactorPro(ctx context.Context, client *sdk.Client, req *IdxFactorProRequ
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "idx_factor_pro", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "idx_factor_pro", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]IdxFactorProItem, len(result.Items))

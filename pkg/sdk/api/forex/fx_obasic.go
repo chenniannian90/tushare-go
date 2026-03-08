@@ -54,7 +54,7 @@ func FxObasic(ctx context.Context, client *sdk.Client, req *FxObasicRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "fx_obasic", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "fx_obasic", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FxObasicItem, len(result.Items))

@@ -67,7 +67,7 @@ func FundBasic(ctx context.Context, client *sdk.Client, req *FundBasicRequest) (
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "fund_basic", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "fund_basic", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FundBasicItem, len(result.Items))

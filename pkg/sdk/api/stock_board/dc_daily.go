@@ -62,7 +62,7 @@ func DcDaily(ctx context.Context, client *sdk.Client, req *DcDailyRequest) ([]Dc
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "dc_daily", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "dc_daily", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]DcDailyItem, len(result.Items))

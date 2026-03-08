@@ -58,7 +58,7 @@ func UsTycr(ctx context.Context, client *sdk.Client, req *UsTycrRequest) ([]UsTy
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "us_tycr", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "us_tycr", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]UsTycrItem, len(result.Items))

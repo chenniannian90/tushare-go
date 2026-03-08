@@ -61,7 +61,7 @@ func IndexMemberAll(ctx context.Context, client *sdk.Client, req *IndexMemberAll
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "index_member_all", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "index_member_all", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]IndexMemberAllItem, len(result.Items))

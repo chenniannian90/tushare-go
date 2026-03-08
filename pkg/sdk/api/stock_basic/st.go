@@ -49,7 +49,7 @@ func St(ctx context.Context, client *sdk.Client, req *StRequest) ([]StItem, erro
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "st", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "st", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]StItem, len(result.Items))

@@ -61,7 +61,7 @@ func StkAhComparison(ctx context.Context, client *sdk.Client, req *StkAhComparis
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "stk_ah_comparison", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "stk_ah_comparison", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]StkAhComparisonItem, len(result.Items))

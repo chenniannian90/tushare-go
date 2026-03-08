@@ -67,7 +67,7 @@ func DcIndex(ctx context.Context, client *sdk.Client, req *DcIndexRequest) ([]Dc
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "dc_index", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "dc_index", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]DcIndexItem, len(result.Items))

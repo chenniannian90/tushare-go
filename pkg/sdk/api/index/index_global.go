@@ -58,7 +58,7 @@ func IndexGlobal(ctx context.Context, client *sdk.Client, req *IndexGlobalReques
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "index_global", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "index_global", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]IndexGlobalItem, len(result.Items))

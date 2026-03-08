@@ -49,7 +49,7 @@ func Top10Holders(ctx context.Context, client *sdk.Client, req *Top10HoldersRequ
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "top10_holders", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "top10_holders", params, fields, &result); err != nil {
 		return nil, err
 	}
 	// No response fields defined, return empty items

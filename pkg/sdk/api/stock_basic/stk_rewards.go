@@ -45,7 +45,7 @@ func StkRewards(ctx context.Context, client *sdk.Client, req *StkRewardsRequest)
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "stk_rewards", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "stk_rewards", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]StkRewardsItem, len(result.Items))

@@ -53,7 +53,7 @@ func SlbSec(ctx context.Context, client *sdk.Client, req *SlbSecRequest) ([]SlbS
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "slb_sec", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "slb_sec", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]SlbSecItem, len(result.Items))

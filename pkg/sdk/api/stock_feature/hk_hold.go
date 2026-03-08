@@ -61,7 +61,7 @@ func HkHold(ctx context.Context, client *sdk.Client, req *HkHoldRequest) ([]HkHo
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "hk_hold", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "hk_hold", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]HkHoldItem, len(result.Items))

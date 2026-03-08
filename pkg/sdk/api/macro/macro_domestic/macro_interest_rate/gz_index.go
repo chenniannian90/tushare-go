@@ -47,7 +47,7 @@ func GzIndex(ctx context.Context, client *sdk.Client, req *GzIndexRequest) ([]Gz
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "gz_index", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "gz_index", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]GzIndexItem, len(result.Items))

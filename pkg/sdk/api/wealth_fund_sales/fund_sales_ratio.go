@@ -40,7 +40,7 @@ func FundSalesRatio(ctx context.Context, client *sdk.Client, req *FundSalesRatio
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "fund_sales_ratio", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "fund_sales_ratio", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FundSalesRatioItem, len(result.Items))

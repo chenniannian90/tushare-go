@@ -45,7 +45,7 @@ func ThsMember(ctx context.Context, client *sdk.Client, req *ThsMemberRequest) (
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "ths_member", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "ths_member", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]ThsMemberItem, len(result.Items))

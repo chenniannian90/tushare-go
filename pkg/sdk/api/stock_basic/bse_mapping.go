@@ -42,7 +42,7 @@ func BseMapping(ctx context.Context, client *sdk.Client, req *BseMappingRequest)
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "bse_mapping", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "bse_mapping", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]BseMappingItem, len(result.Items))

@@ -63,7 +63,7 @@ func StkNineturn(ctx context.Context, client *sdk.Client, req *StkNineturnReques
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "stk_nineturn", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "stk_nineturn", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]StkNineturnItem, len(result.Items))

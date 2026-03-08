@@ -66,7 +66,7 @@ func Moneyflow(ctx context.Context, client *sdk.Client, req *MoneyflowRequest) (
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "moneyflow", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "moneyflow", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]MoneyflowItem, len(result.Items))

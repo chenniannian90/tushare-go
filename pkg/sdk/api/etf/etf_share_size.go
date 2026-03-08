@@ -58,7 +58,7 @@ func EtfShareSize(ctx context.Context, client *sdk.Client, req *EtfShareSizeRequ
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "etf_share_size", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "etf_share_size", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]EtfShareSizeItem, len(result.Items))

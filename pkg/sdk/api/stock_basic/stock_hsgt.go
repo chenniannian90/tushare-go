@@ -55,7 +55,7 @@ func StockHsgt(ctx context.Context, client *sdk.Client, req *StockHsgtRequest) (
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "stock_hsgt", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "stock_hsgt", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]StockHsgtItem, len(result.Items))

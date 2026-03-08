@@ -77,7 +77,7 @@ func UsDailyAdj(ctx context.Context, client *sdk.Client, req *UsDailyAdjRequest)
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "us_daily_adj", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "us_daily_adj", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]UsDailyAdjItem, len(result.Items))

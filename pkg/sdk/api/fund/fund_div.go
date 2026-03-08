@@ -62,7 +62,7 @@ func FundDiv(ctx context.Context, client *sdk.Client, req *FundDivRequest) ([]Fu
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "fund_div", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "fund_div", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FundDivItem, len(result.Items))

@@ -52,7 +52,7 @@ func RtFutMin(ctx context.Context, client *sdk.Client, req *RtFutMinRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "rt_fut_min", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "rt_fut_min", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]RtFutMinItem, len(result.Items))

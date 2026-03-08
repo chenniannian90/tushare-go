@@ -66,7 +66,7 @@ func FutDaily(ctx context.Context, client *sdk.Client, req *FutDailyRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "fut_daily", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "fut_daily", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]FutDailyItem, len(result.Items))

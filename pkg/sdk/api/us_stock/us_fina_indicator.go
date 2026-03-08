@@ -119,7 +119,7 @@ func UsFinaIndicator(ctx context.Context, client *sdk.Client, req *UsFinaIndicat
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "us_fina_indicator", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "us_fina_indicator", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]UsFinaIndicatorItem, len(result.Items))

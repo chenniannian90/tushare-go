@@ -50,7 +50,7 @@ func CyqChips(ctx context.Context, client *sdk.Client, req *CyqChipsRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "cyq_chips", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "cyq_chips", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]CyqChipsItem, len(result.Items))

@@ -52,7 +52,7 @@ func UsBasic(ctx context.Context, client *sdk.Client, req *UsBasicRequest) ([]Us
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "us_basic", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "us_basic", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]UsBasicItem, len(result.Items))

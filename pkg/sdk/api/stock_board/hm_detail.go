@@ -59,7 +59,7 @@ func HmDetail(ctx context.Context, client *sdk.Client, req *HmDetailRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "hm_detail", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "hm_detail", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]HmDetailItem, len(result.Items))

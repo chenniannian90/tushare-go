@@ -78,7 +78,7 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "cb_basic", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "cb_basic", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]CbBasicItem, len(result.Items))

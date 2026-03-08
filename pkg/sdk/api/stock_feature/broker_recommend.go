@@ -38,7 +38,7 @@ func BrokerRecommend(ctx context.Context, client *sdk.Client, req *BrokerRecomme
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "broker_recommend", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "broker_recommend", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]BrokerRecommendItem, len(result.Items))

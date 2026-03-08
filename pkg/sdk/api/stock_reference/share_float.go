@@ -57,7 +57,7 @@ func ShareFloat(ctx context.Context, client *sdk.Client, req *ShareFloatRequest)
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	if err := client.CallAPI(ctx, "share_float", params, fields, &result); err != nil {
+	if err := client.CallAPIFlexible(ctx, "share_float", params, fields, &result); err != nil {
 		return nil, err
 	}
 	items := make([]ShareFloatItem, len(result.Items))
