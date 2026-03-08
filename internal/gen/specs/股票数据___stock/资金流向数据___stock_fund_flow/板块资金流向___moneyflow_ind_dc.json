@@ -1,7 +1,7 @@
 {
   "api_name": "板块资金流向（DC）",
   "api_code": "moneyflow_ind_dc",
-  "description": "",
+  "description": "获取东方财富板块资金流向，每天盘后更新",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=344",
     "name": "板块资金流向（DC）",

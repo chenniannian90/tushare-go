@@ -18,7 +18,7 @@ func (r *EtfTools) registerStkMins() {
 
 	tool := &mcp.Tool{
 		Name:        "etf.stk_mins",
-		Description: "Retrieve stkmins data from Tushare etf API",
+		Description: "获取ETF分钟数据，支持1min/5min/15min/30min/60min行情，提供Python SDK和 http Restful API两种方式",
 		InputSchema: inputSchema,
 	}
 

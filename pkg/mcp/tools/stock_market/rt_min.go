@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_market "tushare-go/pkg/sdk/api/stock/stock_market"
+	stock_market "tushare-go/pkg/sdk/api/stock_market"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -18,7 +18,7 @@ func (r *Stock_marketTools) registerRtMin() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.rt_min",
-		Description: "Retrieve rtmin data from Tushare stock market API",
+		Description: "获取全A股票实时分钟数据，包括1~60min",
 		InputSchema: inputSchema,
 	}
 
@@ -31,13 +31,13 @@ func (r *Stock_marketTools) registerRtMin() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_market.RtMinRequest{
+		apiReq := &stock_market.RtMinRequest{
 Freq: input.Freq,
 TsCode: input.TsCode,
 
 		}
 
-		items, err := stock_stock_market.RtMin(ctx, r.client, apiReq)
+		items, err := stock_market.RtMin(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

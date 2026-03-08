@@ -33,6 +33,8 @@ type BcBestotcqtItem struct {
 }
 
 // BcBestotcqt 调用 柜台流通式债券最优报价 API
+// 柜台流通式债券最优报价
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func BcBestotcqt(ctx context.Context, client *sdk.Client, req *BcBestotcqtRequest) ([]BcBestotcqtItem, error) {
 	params := map[string]interface{}{}
 	if req.TradeDate != "" {

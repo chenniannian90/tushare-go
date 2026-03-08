@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_financial "tushare-go/pkg/sdk/api/stock/stock_financial"
+	stock_financial "tushare-go/pkg/sdk/api/stock_financial"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -18,7 +18,7 @@ func (r *Stock_financialTools) registerBalancesheet() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_financial.balancesheet",
-		Description: "Retrieve balancesheet data from Tushare stock financial API",
+		Description: "获取上市公司资产负债表",
 		InputSchema: inputSchema,
 	}
 
@@ -31,7 +31,7 @@ func (r *Stock_financialTools) registerBalancesheet() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_financial.BalancesheetRequest{
+		apiReq := &stock_financial.BalancesheetRequest{
 TsCode: input.TsCode,
 AnnDate: input.AnnDate,
 StartDate: input.StartDate,
@@ -42,7 +42,7 @@ CompType: input.CompType,
 
 		}
 
-		items, err := stock_stock_financial.Balancesheet(ctx, r.client, apiReq)
+		items, err := stock_financial.Balancesheet(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

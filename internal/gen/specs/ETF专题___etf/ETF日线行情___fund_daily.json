@@ -1,7 +1,7 @@
 {
   "api_name": "ETF日线行情",
   "api_code": "fund_daily",
-  "description": "",
+  "description": "获取ETF行情每日收盘后成交数据，历史超过10年",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=127",
     "name": "ETF日线行情",

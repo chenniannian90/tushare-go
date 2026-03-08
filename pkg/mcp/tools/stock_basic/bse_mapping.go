@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_basic "tushare-go/pkg/sdk/api/stock/stock_basic"
+	stock_basic "tushare-go/pkg/sdk/api/stock_basic"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -31,13 +31,13 @@ func (r *Stock_basicTools) registerBseMapping() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_basic.BseMappingRequest{
+		apiReq := &stock_basic.BseMappingRequest{
 OCode: input.OCode,
 NCode: input.NCode,
 
 		}
 
-		items, err := stock_stock_basic.BseMapping(ctx, r.client, apiReq)
+		items, err := stock_basic.BseMapping(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

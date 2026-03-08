@@ -38,6 +38,8 @@ type DailyInfoItem struct {
 }
 
 // DailyInfo 调用 沪深市场每日交易统计 API
+// 获取交易所股票交易统计，包括各板块明细
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func DailyInfo(ctx context.Context, client *sdk.Client, req *DailyInfoRequest) ([]DailyInfoItem, error) {
 	params := map[string]interface{}{}
 	if req.TradeDate != "" {

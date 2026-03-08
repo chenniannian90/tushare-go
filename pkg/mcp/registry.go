@@ -40,7 +40,15 @@ func (r *ToolRegistry) GetTools() []common.Tool {
 func (r *ToolRegistry) CallTool(ctx context.Context, toolName string, args map[string]interface{}) (*common.ToolResult, error) {
 	_, exists := r.tools[toolName]
 	if !exists {
-		return nil, fmt.Errorf("tool not found: %s", toolName)
+		// Return a message instead of an error for unknown tools
+		return &common.ToolResult{
+			Content: []common.Content{
+				{
+					Type: "text",
+					Text: fmt.Sprintf("Tool not found: %s", toolName),
+				},
+			},
+		}, nil
 	}
 
 	// For now, return a simple result

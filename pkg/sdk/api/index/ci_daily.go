@@ -33,6 +33,8 @@ type CiDailyItem struct {
 }
 
 // CiDaily 调用 中信行业指数日行情 API
+// 获取中信行业指数日线行情
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func CiDaily(ctx context.Context, client *sdk.Client, req *CiDailyRequest) ([]CiDailyItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

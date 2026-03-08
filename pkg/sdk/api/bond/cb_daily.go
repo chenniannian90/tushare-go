@@ -37,6 +37,8 @@ type CbDailyItem struct {
 }
 
 // CbDaily 调用 可转债行情 API
+// 获取可转债行情
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func CbDaily(ctx context.Context, client *sdk.Client, req *CbDailyRequest) ([]CbDailyItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

@@ -29,6 +29,8 @@ type RtIdxKItem struct {
 }
 
 // RtIdxK 调用 指数实时日线 API
+// 获取交易所指数实时日线行情，支持按代码或代码通配符一次性提取全部交易所指数实时日k线行情
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func RtIdxK(ctx context.Context, client *sdk.Client, req *RtIdxKRequest) ([]RtIdxKItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

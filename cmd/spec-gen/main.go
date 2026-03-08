@@ -279,7 +279,8 @@ func fetchAPIDetails(url string) (*APIDetails, error) {
 			}
 		}
 		if strings.Contains(text, "描述：") && details.Description == "" {
-			re := regexp.MustCompile(`描述：(.+?)(?:权限：|限量：|积分：|接口：|$)`)
+			// Use [\s\S]+? to match across lines (including newlines)
+			re := regexp.MustCompile(`描述：([\s\S]+?)(?:权限：|限量：|积分：|接口：|$)`)
 			matches := re.FindStringSubmatch(text)
 			if len(matches) > 1 {
 				details.Description = strings.TrimSpace(matches[1])

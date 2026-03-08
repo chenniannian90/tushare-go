@@ -235,6 +235,21 @@ claude mcp add --transport http tushare-macro-interest-rate http://localhost:808
 claude mcp add --transport http tushare-macro-price http://localhost:8080/api/v1/macro_price --header "X-API-Key:YOUR_TOKEN" --scope project
 ```
 
+#### 货币供应量
+```bash
+claude mcp add --transport http tushare-macro-money-supply http://localhost:8080/api/v1/macro_money_supply --header "X-API-Key:YOUR_TOKEN" --scope project
+```
+
+#### 社融增量
+```bash
+claude mcp add --transport http tushare-macro-social-financing http://localhost:8080/api/v1/macro_social_financing --header "X-API-Key:YOUR_TOKEN" --scope project
+```
+
+#### 美国利率
+```bash
+claude mcp add --transport http tushare-macro-us-rate http://localhost:8080/api/v1/macro_us_rate --header "X-API-Key:YOUR_TOKEN" --scope project
+```
+
 ---
 
 ### 🏢 行业数据
@@ -307,11 +322,11 @@ curl -X POST http://localhost:8080/api/v1/hk_stock?tool=hk_basic \
 - **港股数据**: 1 个服务（统一端点）
 - **美股数据**: 1 个服务
 - **LLM 语料**: 1 个服务
-- **宏观经济**: 4 个服务
+- **宏观经济**: 7 个服务
 - **行业数据**: 1 个服务
 - **财富基金**: 1 个服务
 
-**总计**: 26 个 MCP 服务端点
+**总计**: 28 个 MCP 服务端点
 
 ---
 
@@ -356,6 +371,9 @@ claude mcp add --transport http tushare-macro-business ${BASE_URL}/api/v1/macro_
 claude mcp add --transport http tushare-macro-economy ${BASE_URL}/api/v1/macro_economy --header "X-API-Key:${API_KEY}" --scope project
 claude mcp add --transport http tushare-macro-interest-rate ${BASE_URL}/api/v1/macro_interest_rate --header "X-API-Key:${API_KEY}" --scope project
 claude mcp add --transport http tushare-macro-price ${BASE_URL}/api/v1/macro_price --header "X-API-Key:${API_KEY}" --scope project
+claude mcp add --transport http tushare-macro-money-supply ${BASE_URL}/api/v1/macro_money_supply --header "X-API-Key:${API_KEY}" --scope project
+claude mcp add --transport http tushare-macro-social-financing ${BASE_URL}/api/v1/macro_social_financing --header "X-API-Key:${API_KEY}" --scope project
+claude mcp add --transport http tushare-macro-us-rate ${BASE_URL}/api/v1/macro_us_rate --header "X-API-Key:${API_KEY}" --scope project
 
 # 其他
 claude mcp add --transport http tushare-llm-corpus ${BASE_URL}/api/v1/llm_corpus --header "X-API-Key:${API_KEY}" --scope project

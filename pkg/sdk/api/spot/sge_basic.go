@@ -33,6 +33,8 @@ type SgeBasicItem struct {
 }
 
 // SgeBasic 调用 上海黄金基础信息 API
+// 获取上海黄金交易所现货合约基础信息
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func SgeBasic(ctx context.Context, client *sdk.Client, req *SgeBasicRequest) ([]SgeBasicItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

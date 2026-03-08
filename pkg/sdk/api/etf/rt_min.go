@@ -28,6 +28,8 @@ type RtMinItem struct {
 }
 
 // RtMin 调用 ETF实时分钟 API
+// 获取ETF实时分钟数据，包括1~60min
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func RtMin(ctx context.Context, client *sdk.Client, req *RtMinRequest) ([]RtMinItem, error) {
 	params := map[string]interface{}{}
 	if req.Freq != "" {

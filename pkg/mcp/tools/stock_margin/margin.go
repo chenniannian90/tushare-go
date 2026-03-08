@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_margin "tushare-go/pkg/sdk/api/stock/stock_margin"
+	stock_margin "tushare-go/pkg/sdk/api/stock_margin"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -31,7 +31,7 @@ func (r *Stock_marginTools) registerMargin() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_margin.MarginRequest{
+		apiReq := &stock_margin.MarginRequest{
 TradeDate: input.TradeDate,
 StartDate: input.StartDate,
 EndDate: input.EndDate,
@@ -39,7 +39,7 @@ ExchangeId: input.ExchangeId,
 
 		}
 
-		items, err := stock_stock_margin.Margin(ctx, r.client, apiReq)
+		items, err := stock_margin.Margin(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

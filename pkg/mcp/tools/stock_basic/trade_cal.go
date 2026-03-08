@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_basic "tushare-go/pkg/sdk/api/stock/stock_basic"
+	stock_basic "tushare-go/pkg/sdk/api/stock_basic"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -18,7 +18,7 @@ func (r *Stock_basicTools) registerTradeCal() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_basic.trade_cal",
-		Description: "获取各大期货交易所交易日历数据",
+		Description: "获取各大交易所交易日历数据,默认提取的是上交所",
 		InputSchema: inputSchema,
 	}
 
@@ -31,7 +31,7 @@ func (r *Stock_basicTools) registerTradeCal() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_basic.TradeCalRequest{
+		apiReq := &stock_basic.TradeCalRequest{
 Exchange: input.Exchange,
 StartDate: input.StartDate,
 EndDate: input.EndDate,
@@ -39,7 +39,7 @@ IsOpen: input.IsOpen,
 
 		}
 
-		items, err := stock_stock_basic.TradeCal(ctx, r.client, apiReq)
+		items, err := stock_basic.TradeCal(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

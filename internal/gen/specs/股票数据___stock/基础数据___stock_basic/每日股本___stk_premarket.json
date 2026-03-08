@@ -1,7 +1,7 @@
 {
   "api_name": "每日股本（盘前）",
   "api_code": "stk_premarket",
-  "description": "",
+  "description": "每日开盘前获取当日股票的股本情况，包括总股本和流通股本，涨跌停价格等。",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=329",
     "name": "每日股本（盘前）",

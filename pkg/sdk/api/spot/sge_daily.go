@@ -36,6 +36,8 @@ type SgeDailyItem struct {
 }
 
 // SgeDaily 调用 上海黄金现货日行情 API
+// 获取上海黄金交易所现货合约日线行情
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func SgeDaily(ctx context.Context, client *sdk.Client, req *SgeDailyRequest) ([]SgeDailyItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

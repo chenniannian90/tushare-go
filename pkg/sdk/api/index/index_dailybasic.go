@@ -34,6 +34,8 @@ type IndexDailybasicItem struct {
 }
 
 // IndexDailybasic 调用 大盘指数每日指标 API
+// 目前只提供上证综指，深证成指，上证50，中证500，中小板指，创业板指的每日指标数据数据来源：Tushare社区统计计算数据历史：从2004年1月开始提供数据
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func IndexDailybasic(ctx context.Context, client *sdk.Client, req *IndexDailybasicRequest) ([]IndexDailybasicItem, error) {
 	params := map[string]interface{}{}
 	if req.TradeDate != "" {

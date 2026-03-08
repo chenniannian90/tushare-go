@@ -29,6 +29,8 @@ type NprItem struct {
 }
 
 // Npr 调用 国家政策库 API
+// 获取国家行政机关公开披露的各类法规、条例政策、批复、通知等文本数据。
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func Npr(ctx context.Context, client *sdk.Client, req *NprRequest) ([]NprItem, error) {
 	params := map[string]interface{}{}
 	if req.Org != "" {

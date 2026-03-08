@@ -3,23 +3,23 @@
 package macro_economytools
 
 import (
-	macro_macro_domestic_macro_economy "tushare-go/pkg/sdk/api/macro/macro_domestic/macro_economy"
+	macro_economy "tushare-go/pkg/sdk/api/macro_economy"
 
 )
 
 
 // CnGdpInput defines the input schema
 type CnGdpInput struct {
-Q string `json:q,omitempty jsonschema:季度（2019Q1表示，2019年第一季度）`
-StartQ string `json:start_q,omitempty jsonschema:开始季度`
-EndQ string `json:end_q,omitempty jsonschema:结束季度`
-Fields string `json:fields,omitempty jsonschema:指定输出字段（e.g. fields='quarter,gdp,gdp_yoy'）`
+Q string `json:"q,omitempty" jsonschema:"季度（2019Q1表示，2019年第一季度）"`
+StartQ string `json:"start_q,omitempty" jsonschema:"开始季度"`
+EndQ string `json:"end_q,omitempty" jsonschema:"结束季度"`
+Fields string `json:"fields,omitempty" jsonschema:"指定输出字段（e.g. fields='quarter,gdp,gdp_yoy'）"`
 
 }
 
 // CnGdpOutput defines the output schema
 type CnGdpOutput struct {
-	Data  []macro_macro_domestic_macro_economy.CnGdpItem `json:data jsonschema:cn_gdp data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []macro_economy.CnGdpItem `json:"data" jsonschema:"cn_gdp data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 

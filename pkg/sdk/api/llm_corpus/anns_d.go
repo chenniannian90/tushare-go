@@ -28,6 +28,8 @@ type AnnsDItem struct {
 }
 
 // AnnsD 调用 上市公司公告 API
+// 获取全量公告数据，提供pdf下载URL
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func AnnsD(ctx context.Context, client *sdk.Client, req *AnnsDRequest) ([]AnnsDItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

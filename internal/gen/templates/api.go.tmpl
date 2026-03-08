@@ -8,13 +8,13 @@ import (
 	"fmt"
 	{{- end}}
 
-	"github.com/chenniannian90/tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk"
 )
 
 // {{Title .APICode}}Request 表示 {{.APIName}} API 的请求
 type {{Title .APICode}}Request struct {
 	{{- range $i, $p := .RequestParams}}
-	{{Title $p.Name}} {{goType $p.Type}} `json:"{{$p.Name}},omitempty"` // {{$p.Description}}
+	{{toGoFieldName $p.Name}} {{goType $p.Type}} `json:"{{$p.Name}},omitempty"` // {{$p.Description}}
 	{{- end}}
 }
 
@@ -30,24 +30,26 @@ type {{Title .APICode}}Item struct {
 }
 
 // {{Title .APICode}} 调用 {{.APIName}} API
+// {{.Description}}
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func {{Title .APICode}}(ctx context.Context, client *sdk.Client, req *{{Title .APICode}}Request) ([]{{Title .APICode}}Item, error) {
 	params := map[string]interface{}{}
 	{{- range $p := .RequestParams}}
 	{{- if eq $p.Type "bool" "boolean"}}
-	if req.{{Title $p.Name}} {
-		params["{{$p.Name}}"] = req.{{Title $p.Name}}
+	if req.{{toGoFieldName $p.Name}} {
+		params["{{$p.Name}}"] = req.{{toGoFieldName $p.Name}}
 	}
 	{{- else if eq $p.Type "int" "integer"}}
-	if req.{{Title $p.Name}} != 0 {
-		params["{{$p.Name}}"] = req.{{Title $p.Name}}
+	if req.{{toGoFieldName $p.Name}} != 0 {
+		params["{{$p.Name}}"] = req.{{toGoFieldName $p.Name}}
 	}
 	{{- else if eq $p.Type "float" "float64" "double"}}
-	if req.{{Title $p.Name}} != 0 {
-		params["{{$p.Name}}"] = req.{{Title $p.Name}}
+	if req.{{toGoFieldName $p.Name}} != 0 {
+		params["{{$p.Name}}"] = req.{{toGoFieldName $p.Name}}
 	}
 	{{- else}}
-	if req.{{Title $p.Name}} != "" {
-		params["{{$p.Name}}"] = req.{{Title $p.Name}}
+	if req.{{toGoFieldName $p.Name}} != "" {
+		params["{{$p.Name}}"] = req.{{toGoFieldName $p.Name}}
 	}
 	{{- end}}
 	{{- end}}

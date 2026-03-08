@@ -1,7 +1,7 @@
 {
   "api_name": "港股财务指标数据",
   "api_code": "hk_fina_indicator",
-  "description": "",
+  "description": "获取港股上市公司财务指标数据，为避免服务器压力，现阶段每次请求最多返回200条记录，可通过设置日期多次请求获取更多数据。",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=388",
     "name": "港股财务指标数据",

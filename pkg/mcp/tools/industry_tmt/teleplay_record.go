@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	industry_industry_tmt "tushare-go/pkg/sdk/api/industry/industry_tmt"
+	industry_tmt "tushare-go/pkg/sdk/api/industry_tmt"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -31,7 +31,7 @@ func (r *Industry_tmtTools) registerTeleplayRecord() {
 			}, nil
 		}
 
-		apiReq := &industry_industry_tmt.TeleplayRecordRequest{
+		apiReq := &industry_tmt.TeleplayRecordRequest{
 ReportDate: input.ReportDate,
 StartDate: input.StartDate,
 EndDate: input.EndDate,
@@ -40,7 +40,7 @@ Name: input.Name,
 
 		}
 
-		items, err := industry_industry_tmt.TeleplayRecord(ctx, r.client, apiReq)
+		items, err := industry_tmt.TeleplayRecord(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

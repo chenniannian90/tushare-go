@@ -1,7 +1,7 @@
 {
   "api_name": "ETF实时日线",
   "api_code": "rt_etf_k",
-  "description": "",
+  "description": "获取ETF实时日k线行情，支持按ETF代码或代码通配符一次性提取全部ETF实时日k线行情",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=400",
     "name": "ETF实时日线",

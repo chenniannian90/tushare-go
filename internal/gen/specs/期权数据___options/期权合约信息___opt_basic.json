@@ -1,7 +1,7 @@
 {
   "api_name": "期权合约信息",
   "api_code": "opt_basic",
-  "description": "",
+  "description": "获取期权合约信息",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=158",
     "name": "期权合约信息",

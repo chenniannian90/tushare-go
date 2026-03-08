@@ -31,6 +31,8 @@ type EtfShareSizeItem struct {
 }
 
 // EtfShareSize 调用 ETF份额规模 API
+// 获取沪深ETF每日份额和规模数据，能体现规模份额的变化，掌握ETF资金动向，同时提供每日净值和收盘价；数据指标是分批入库，建议在每日19点后提取；另外，涉及海外的ETF数据更新会晚一些属于正常情况。
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func EtfShareSize(ctx context.Context, client *sdk.Client, req *EtfShareSizeRequest) ([]EtfShareSizeItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

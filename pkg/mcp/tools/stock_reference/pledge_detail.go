@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_reference "tushare-go/pkg/sdk/api/stock/stock_reference"
+	stock_reference "tushare-go/pkg/sdk/api/stock_reference"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -18,7 +18,7 @@ func (r *Stock_referenceTools) registerPledgeDetail() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_reference.pledge_detail",
-		Description: "Retrieve pledgedetail data from Tushare stock reference API",
+		Description: "获取股票质押明细数据",
 		InputSchema: inputSchema,
 	}
 
@@ -31,12 +31,12 @@ func (r *Stock_referenceTools) registerPledgeDetail() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_reference.PledgeDetailRequest{
+		apiReq := &stock_reference.PledgeDetailRequest{
 TsCode: input.TsCode,
 
 		}
 
-		items, err := stock_stock_reference.PledgeDetail(ctx, r.client, apiReq)
+		items, err := stock_reference.PledgeDetail(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

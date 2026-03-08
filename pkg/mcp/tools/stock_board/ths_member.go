@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_board "tushare-go/pkg/sdk/api/stock/stock_board"
+	stock_board "tushare-go/pkg/sdk/api/stock_board"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -18,7 +18,7 @@ func (r *Stock_boardTools) registerThsMember() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.ths_member",
-		Description: "Retrieve thsmember data from Tushare stock board API",
+		Description: "获取同花顺概念板块成分列表注：数据版权归属同花顺，如做商业用途，请主动联系同花顺。",
 		InputSchema: inputSchema,
 	}
 
@@ -31,13 +31,13 @@ func (r *Stock_boardTools) registerThsMember() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_board.ThsMemberRequest{
+		apiReq := &stock_board.ThsMemberRequest{
 TsCode: input.TsCode,
 ConCode: input.ConCode,
 
 		}
 
-		items, err := stock_stock_board.ThsMember(ctx, r.client, apiReq)
+		items, err := stock_board.ThsMember(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

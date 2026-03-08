@@ -1,7 +1,7 @@
 {
   "api_name": "每日筹码分布",
   "api_code": "cyq_chips",
-  "description": "",
+  "description": "获取A股每日的筹码分布情况，提供各价位占比，数据从2018年开始，每天18~19点之间更新当日数据\n来源：Tushare社区",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=294",
     "name": "每日筹码分布",

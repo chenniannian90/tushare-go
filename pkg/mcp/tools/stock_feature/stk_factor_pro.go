@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_feature "tushare-go/pkg/sdk/api/stock/stock_feature"
+	stock_feature "tushare-go/pkg/sdk/api/stock_feature"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -18,7 +18,7 @@ func (r *Stock_featureTools) registerStkFactorPro() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_feature.stk_factor_pro",
-		Description: "Retrieve stkfactorpro data from Tushare stock feature API",
+		Description: "获取股票每日技术面因子数据，用于跟踪股票当前走势情况，数据由Tushare社区自产，覆盖全历史；输出参数_bfq表示不复权，_qfq表示前复权 _hfq表示后复权，描述中说明了因子的默认传参，如需要特殊参数或者更多因子可以联系管理员评估",
 		InputSchema: inputSchema,
 	}
 
@@ -31,7 +31,7 @@ func (r *Stock_featureTools) registerStkFactorPro() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_feature.StkFactorProRequest{
+		apiReq := &stock_feature.StkFactorProRequest{
 TsCode: input.TsCode,
 TradeDate: input.TradeDate,
 StartDate: input.StartDate,
@@ -39,7 +39,7 @@ EndDate: input.EndDate,
 
 		}
 
-		items, err := stock_stock_feature.StkFactorPro(ctx, r.client, apiReq)
+		items, err := stock_feature.StkFactorPro(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

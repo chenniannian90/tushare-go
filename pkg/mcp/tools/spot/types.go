@@ -10,28 +10,28 @@ import (
 
 // SgeBasicInput defines the input schema
 type SgeBasicInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:合约代码 （支持多个，逗号分隔，不输入为获取全部）`
+TsCode string `json:"ts_code,omitempty" jsonschema:"合约代码 （支持多个，逗号分隔，不输入为获取全部）"`
 
 }
 
 // SgeBasicOutput defines the output schema
 type SgeBasicOutput struct {
-	Data  []spot.SgeBasicItem `json:data jsonschema:sge_basic data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []spot.SgeBasicItem `json:"data" jsonschema:"sge_basic data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // SgeDailyInput defines the input schema
 type SgeDailyInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:合约代码，可通过基础信息获得`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+TsCode string `json:"ts_code,omitempty" jsonschema:"合约代码，可通过基础信息获得"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // SgeDailyOutput defines the output schema
 type SgeDailyOutput struct {
-	Data  []spot.SgeDailyItem `json:data jsonschema:sge_daily data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []spot.SgeDailyItem `json:"data" jsonschema:"sge_daily data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 

@@ -29,6 +29,8 @@ type EtfIndexItem struct {
 }
 
 // EtfIndex 调用 ETF基准指数 API
+// 获取ETF基准指数列表信息
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func EtfIndex(ctx context.Context, client *sdk.Client, req *EtfIndexRequest) ([]EtfIndexItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

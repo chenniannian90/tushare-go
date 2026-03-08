@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_board "tushare-go/pkg/sdk/api/stock/stock_board"
+	stock_board "tushare-go/pkg/sdk/api/stock_board"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -18,7 +18,7 @@ func (r *Stock_boardTools) registerTopInst() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.top_inst",
-		Description: "Retrieve topinst data from Tushare stock board API",
+		Description: "龙虎榜机构成交明细",
 		InputSchema: inputSchema,
 	}
 
@@ -31,13 +31,13 @@ func (r *Stock_boardTools) registerTopInst() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_board.TopInstRequest{
+		apiReq := &stock_board.TopInstRequest{
 TradeDate: input.TradeDate,
 TsCode: input.TsCode,
 
 		}
 
-		items, err := stock_stock_board.TopInst(ctx, r.client, apiReq)
+		items, err := stock_board.TopInst(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

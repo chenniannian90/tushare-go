@@ -1,4 +1,4 @@
-.PHONY: test build clean gen gen-specs examples fix-encoding run-examples version lint lint-fix fmt vet
+.PHONY: test build clean gen gen-specs gen-mcp gen-all verify examples fix-encoding run-examples version lint lint-fix fmt vet
 
 # Version information
 VERSION ?= $(shell git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0-dev")
@@ -27,6 +27,9 @@ build-gen:
 build-spec-gen:
 	go build $(LDFLAGS) -o bin/spec-gen ./cmd/spec-gen
 
+build-mcp-tools:
+	@echo "MCP tools are run directly without building"
+
 # Show version information
 version:
 	@echo "Version: $(VERSION)"
@@ -39,6 +42,22 @@ gen: build-gen
 
 gen-specs: build-spec-gen
 	./bin/spec-gen docs/api-directory.json internal/gen/specs
+
+gen-mcp:
+	@echo "🔨 Generating MCP tools from updated specs..."
+	go run cmd/gen-mcp-tools/main.go -optimized
+
+gen-all: gen-specs gen gen-mcp
+	@echo "✅ All code generation completed successfully!"
+	@echo "   - Spec files regenerated with updated descriptions"
+	@echo "   - API code regenerated from updated specs"
+	@echo "   - MCP tools regenerated with updated descriptions"
+
+verify: verify-generation
+
+verify-generation:
+	@echo "🔍 Verifying code generation quality..."
+	@./scripts/verify_generation.sh
 
 examples: build-examples
 

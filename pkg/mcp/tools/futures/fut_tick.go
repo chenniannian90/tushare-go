@@ -18,7 +18,7 @@ func (r *FuturesTools) registerFutTick() {
 
 	tool := &mcp.Tool{
 		Name:        "futures.fut_tick",
-		Description: "Retrieve futtick data from Tushare futures API",
+		Description: "Retrieve fut tick data from Tushare futures API",
 		InputSchema: inputSchema,
 	}
 

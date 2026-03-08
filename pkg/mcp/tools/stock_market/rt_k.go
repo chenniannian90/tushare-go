@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_market "tushare-go/pkg/sdk/api/stock/stock_market"
+	stock_market "tushare-go/pkg/sdk/api/stock_market"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -18,7 +18,7 @@ func (r *Stock_marketTools) registerRtK() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.rt_k",
-		Description: "Retrieve rtk data from Tushare stock market API",
+		Description: "获取实时日k线行情，支持按股票代码及股票代码通配符一次性提取全部股票实时日k线行情",
 		InputSchema: inputSchema,
 	}
 
@@ -31,12 +31,12 @@ func (r *Stock_marketTools) registerRtK() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_market.RtKRequest{
+		apiReq := &stock_market.RtKRequest{
 TsCode: input.TsCode,
 
 		}
 
-		items, err := stock_stock_market.RtK(ctx, r.client, apiReq)
+		items, err := stock_market.RtK(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

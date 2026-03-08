@@ -1,7 +1,7 @@
 {
   "api_name": "东财概念和行业指数行情",
   "api_code": "dc_daily",
-  "description": "",
+  "description": "获取东财概念板块、行业指数板块、地域板块行情数据，历史数据开始于2020年",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=382",
     "name": "东财概念和行业指数行情",

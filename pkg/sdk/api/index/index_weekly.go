@@ -33,6 +33,8 @@ type IndexWeeklyItem struct {
 }
 
 // IndexWeekly 调用 指数周线行情 API
+// 获取指数周线行情
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func IndexWeekly(ctx context.Context, client *sdk.Client, req *IndexWeeklyRequest) ([]IndexWeeklyItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

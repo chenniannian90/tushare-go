@@ -38,6 +38,8 @@ type EtfBasicItem struct {
 }
 
 // EtfBasic 调用 ETF基本信息 API
+// 获取国内ETF基础信息，包括了QDII。数据来源与沪深交易所公开披露信息。
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func EtfBasic(ctx context.Context, client *sdk.Client, req *EtfBasicRequest) ([]EtfBasicItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

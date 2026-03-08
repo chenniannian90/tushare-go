@@ -1,7 +1,7 @@
 {
   "api_name": "涨停最强板块统计",
   "api_code": "limit_cpt_list",
-  "description": "",
+  "description": "获取每天涨停股票最多最强的概念板块，可以分析强势板块的轮动，判断资金动向",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=357",
     "name": "涨停最强板块统计",

@@ -110,6 +110,8 @@ type HkFinaIndicatorItem struct {
 }
 
 // HkFinaIndicator 调用 港股财务指标数据 API
+// 获取港股上市公司财务指标数据，为避免服务器压力，现阶段每次请求最多返回200条记录，可通过设置日期多次请求获取更多数据。
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func HkFinaIndicator(ctx context.Context, client *sdk.Client, req *HkFinaIndicatorRequest) ([]HkFinaIndicatorItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

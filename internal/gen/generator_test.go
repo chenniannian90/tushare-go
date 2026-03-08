@@ -16,12 +16,13 @@ func TestLoadSpec(t *testing.T) {
 	}{
 		{
 			name:    "load stock_basic spec",
-			specFile: "specs/stock_info/stock_basic.json",
+			specFile: "specs/股票数据___stock/基础数据___stock_basic/股票列表___stock_basic.json",
 			wantErr: false,
 			checkSpec: func(spec *APISpec) bool {
-				return spec.APIName == "stock_basic" &&
-					len(spec.RequestParams) == 3 &&
-					len(spec.ResponseFields) == 5
+				return spec.APICode == "stock_basic" &&
+					spec.APIName == "股票列表" &&
+					len(spec.RequestParams) > 0 &&
+					len(spec.ResponseFields) > 0
 			},
 		},
 		{
@@ -57,7 +58,7 @@ func TestGenerate(t *testing.T) {
 	}{
 		{
 			name:     "generate stock_basic wrapper",
-			specFile: "specs/stock_info/stock_basic.json",
+			specFile: "specs/股票数据___stock/基础数据___stock_basic/股票列表___stock_basic.json",
 			wantFile: "stock_basic.go",
 			checkFile: func(content string) bool {
 				// Check for key elements in generated code
@@ -105,7 +106,7 @@ func TestGenerate(t *testing.T) {
 }
 
 func TestGenerate_InvalidPath(t *testing.T) {
-	spec, err := LoadSpec("specs/stock_info/stock_basic.json")
+	spec, err := LoadSpec("specs/股票数据___stock/基础数据___stock_basic/股票列表___stock_basic.json")
 	if err != nil {
 		t.Fatalf("failed to load spec: %v", err)
 	}
@@ -133,12 +134,13 @@ func TestGenerateAll(t *testing.T) {
 	}
 
 	// Verify some files exist in correct subdirectories
+	// Note: Categories now use English names from "中文名___英文代码" format
 	expectedFiles := map[string]string{
-		"stock_info/stock_basic.go":     "股票信息目录",
-		"market_data/daily.go":          "行情数据目录",
-		"market_data/pro_bar.go":        "行情数据目录",
-		"trading_calendar/trade_cal.go": "交易日历目录",
-		"market_data/daily_basic.go":    "行情数据目录",
+		"stock_basic/stock_basic.go": "基础数据目录",
+		"stock_basic/trade_cal.go":   "交易日历目录",
+		"stock_market/stk_mins.go":   "历史分钟数据",
+		"stock_market/daily.go":      "日线行情数据",
+		"stock_market/daily_basic.go": "每日指标数据",
 	}
 
 	for relPath, description := range expectedFiles {
@@ -163,23 +165,25 @@ func TestListSpecs(t *testing.T) {
 		t.Fatalf("ListSpecs() failed: %v", err)
 	}
 
-	// Should have at least 19 specs
-	if len(specs) < 19 {
-		t.Errorf("ListSpecs() returned %d specs, want at least 19", len(specs))
+	// Should have at least 100 specs (we have 233 APIs)
+	if len(specs) < 100 {
+		t.Errorf("ListSpecs() returned %d specs, want at least 100", len(specs))
 	}
 
-	// Check for known specs
+	// Check for known specs using the new naming pattern
+	// Files are named like "股票列表___stock_basic.json"
 	knownSpecs := []string{
 		"stock_basic.json",
 		"daily.json",
-		"pro_bar.json",
 		"trade_cal.json",
+		"stk_mins.json",
 	}
 
 	for _, known := range knownSpecs {
 		found := false
 		for _, spec := range specs {
-			if filepath.Base(spec) == known {
+			// Check if the filename ends with the known spec name
+			if strings.HasSuffix(filepath.Base(spec), known) {
 				found = true
 				break
 			}

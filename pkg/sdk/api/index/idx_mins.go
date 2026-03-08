@@ -30,6 +30,8 @@ type IdxMinsItem struct {
 }
 
 // IdxMins 调用 指数历史分钟 API
+// 获取交易所指数分钟数据，支持1min/5min/15min/30min/60min行情，提供Python SDK和 http Restful API两种方式
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func IdxMins(ctx context.Context, client *sdk.Client, req *IdxMinsRequest) ([]IdxMinsItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

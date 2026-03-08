@@ -57,6 +57,8 @@ type CbBasicItem struct {
 }
 
 // CbBasic 调用 可转债基础信息 API
+// 获取可转债基本信息
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]CbBasicItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

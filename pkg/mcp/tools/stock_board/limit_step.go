@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_board "tushare-go/pkg/sdk/api/stock/stock_board"
+	stock_board "tushare-go/pkg/sdk/api/stock_board"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -31,7 +31,7 @@ func (r *Stock_boardTools) registerLimitStep() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_board.LimitStepRequest{
+		apiReq := &stock_board.LimitStepRequest{
 TradeDate: input.TradeDate,
 TsCode: input.TsCode,
 StartDate: input.StartDate,
@@ -40,7 +40,7 @@ Nums: input.Nums,
 
 		}
 
-		items, err := stock_stock_board.LimitStep(ctx, r.client, apiReq)
+		items, err := stock_board.LimitStep(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

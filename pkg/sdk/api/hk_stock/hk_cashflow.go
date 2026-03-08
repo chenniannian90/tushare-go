@@ -28,6 +28,8 @@ type HkCashflowItem struct {
 }
 
 // HkCashflow 调用 港股现金流量表 API
+// 获取港股上市公司现金流量表数据
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func HkCashflow(ctx context.Context, client *sdk.Client, req *HkCashflowRequest) ([]HkCashflowItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

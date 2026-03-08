@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_financial "tushare-go/pkg/sdk/api/stock/stock_financial"
+	stock_financial "tushare-go/pkg/sdk/api/stock_financial"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -31,7 +31,7 @@ func (r *Stock_financialTools) registerDividend() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_financial.DividendRequest{
+		apiReq := &stock_financial.DividendRequest{
 TsCode: input.TsCode,
 AnnDate: input.AnnDate,
 RecordDate: input.RecordDate,
@@ -40,7 +40,7 @@ ImpAnnDate: input.ImpAnnDate,
 
 		}
 
-		items, err := stock_stock_financial.Dividend(ctx, r.client, apiReq)
+		items, err := stock_financial.Dividend(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

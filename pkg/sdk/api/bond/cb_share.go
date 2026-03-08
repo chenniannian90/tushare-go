@@ -37,6 +37,8 @@ type CbShareItem struct {
 }
 
 // CbShare 调用 可转债转股结果 API
+// 获取可转债转股结果
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func CbShare(ctx context.Context, client *sdk.Client, req *CbShareRequest) ([]CbShareItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

@@ -44,6 +44,8 @@ type UsDailyAdjItem struct {
 }
 
 // UsDailyAdj 调用 美股复权行情 API
+// 获取美股复权行情，支持美股全市场股票，提供股本、市值、复权因子和成交信息等多个数据指标
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func UsDailyAdj(ctx context.Context, client *sdk.Client, req *UsDailyAdjRequest) ([]UsDailyAdjItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

@@ -42,6 +42,8 @@ type FutWeeklyMonthlyItem struct {
 }
 
 // FutWeeklyMonthly 调用 期货周/月线行情(每日更新) API
+// 期货周/月线行情(每日更新)
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func FutWeeklyMonthly(ctx context.Context, client *sdk.Client, req *FutWeeklyMonthlyRequest) ([]FutWeeklyMonthlyItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

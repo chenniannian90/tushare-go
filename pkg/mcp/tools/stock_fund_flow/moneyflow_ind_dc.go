@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_fund_flow "tushare-go/pkg/sdk/api/stock/stock_fund_flow"
+	stock_fund_flow "tushare-go/pkg/sdk/api/stock_fund_flow"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -18,7 +18,7 @@ func (r *Stock_fund_flowTools) registerMoneyflowIndDc() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_fund_flow.moneyflow_ind_dc",
-		Description: "Retrieve moneyflowinddc data from Tushare stock fund flow API",
+		Description: "获取东方财富板块资金流向，每天盘后更新",
 		InputSchema: inputSchema,
 	}
 
@@ -31,7 +31,7 @@ func (r *Stock_fund_flowTools) registerMoneyflowIndDc() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_fund_flow.MoneyflowIndDcRequest{
+		apiReq := &stock_fund_flow.MoneyflowIndDcRequest{
 TsCode: input.TsCode,
 TradeDate: input.TradeDate,
 StartDate: input.StartDate,
@@ -40,7 +40,7 @@ ContentType: input.ContentType,
 
 		}
 
-		items, err := stock_stock_fund_flow.MoneyflowIndDc(ctx, r.client, apiReq)
+		items, err := stock_fund_flow.MoneyflowIndDc(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

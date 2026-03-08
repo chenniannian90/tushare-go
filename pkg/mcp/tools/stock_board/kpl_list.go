@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_board "tushare-go/pkg/sdk/api/stock/stock_board"
+	stock_board "tushare-go/pkg/sdk/api/stock_board"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -18,7 +18,7 @@ func (r *Stock_boardTools) registerKplList() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.kpl_list",
-		Description: "Retrieve kpllist data from Tushare stock board API",
+		Description: "获取开盘啦涨停、跌停、炸板等榜单数据",
 		InputSchema: inputSchema,
 	}
 
@@ -31,7 +31,7 @@ func (r *Stock_boardTools) registerKplList() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_board.KplListRequest{
+		apiReq := &stock_board.KplListRequest{
 TsCode: input.TsCode,
 TradeDate: input.TradeDate,
 Tag: input.Tag,
@@ -40,7 +40,7 @@ EndDate: input.EndDate,
 
 		}
 
-		items, err := stock_stock_board.KplList(ctx, r.client, apiReq)
+		items, err := stock_board.KplList(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

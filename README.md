@@ -9,7 +9,7 @@
 - ✅ MCP服务器，用于Claude桌面版集成
 - ✅ 全面的测试覆盖率（≥80%）
 - ✅ 零外部依赖（除MCP SDK外）
-- ✅ 生产就绪，包含26个完整实现的工具模块
+- ✅ 生���就绪，包含28个完整实现的工具模块
 - ✅ **链式调用客户端，统一的API访问入口**
 - ✅ **优化后的代码结构，简洁高效**
 - ✅ **API Token 认证，支持多用户访问控制**
@@ -29,6 +29,48 @@ echo "replace tushare-go => /path/to/tushare-go" >> go.mod
 ```
 
 ## 快速开始
+
+### 代码生成
+
+本项目使用自动化代码生成工具来维护API封装和MCP工具。所有代码生成都基于Tushare官方文档。
+
+#### 一键重新生成
+
+```bash
+# 重新生成所有内容（spec文件、API代码、MCP工具）
+make gen-all
+
+# 验证生成质量
+make verify
+```
+
+#### 分步生成
+
+```bash
+# 1. 从Tushare文档生成spec文件（包含API元数据和描述）
+make gen-specs
+
+# 2. 从spec文件生成API代码
+make gen
+
+# 3. 从API代码生成MCP工具
+make gen-mcp
+```
+
+#### 生成流程
+
+```
+Tushare文档 → Spec文件 → API代码 → MCP工具
+     ↓           ↓          ↓         ↓
+  spec-gen  generator  gen-mcp-tools
+```
+
+**关键修复**：
+- ✅ Spec生成器修复了正则表达式，能正确提取跨行描述文本
+- ✅ API模板包含完整描述字段，函数注释包含详细说明
+- ✅ MCP工具自动从spec文件读取描述作为工具说明
+
+详细信息请查看 [GENERATION.md](GENERATION.md)
 
 ### SDK使用
 
@@ -343,7 +385,7 @@ tushare-go/
 │   │   ├── apis/           # 链式调用接口
 │   │   └── api/            # API 实现
 │   └── mcp/                # MCP服务器
-│       └── tools/          # MCP工具模块（26个）
+│       └── tools/          # MCP工具模块（28个）
 ├── config.example.json     # 配置文件示例
 └── go.mod
 ```

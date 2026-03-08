@@ -1,7 +1,7 @@
 {
   "api_name": "美股资产负债表",
   "api_code": "us_balancesheet",
-  "description": "",
+  "description": "获取美股上市公司资产负债表（目前只覆盖主要美股和中概股）",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=395",
     "name": "美股资产负债表",

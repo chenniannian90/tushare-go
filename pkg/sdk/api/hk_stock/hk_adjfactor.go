@@ -26,6 +26,8 @@ type HkAdjfactorItem struct {
 }
 
 // HkAdjfactor 调用 港股复权因子 API
+// 获取港股每日复权因子数据，每天滚动刷新
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func HkAdjfactor(ctx context.Context, client *sdk.Client, req *HkAdjfactorRequest) ([]HkAdjfactorItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

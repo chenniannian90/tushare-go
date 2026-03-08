@@ -31,6 +31,8 @@ type OptMinsItem struct {
 }
 
 // OptMins 调用 期权分钟行情 API
+// 获取全市场期权合约分钟数据，支持1min/5min/15min/30min/60min行情，提供Python SDK和 http Restful API两种方式。
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func OptMins(ctx context.Context, client *sdk.Client, req *OptMinsRequest) ([]OptMinsItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

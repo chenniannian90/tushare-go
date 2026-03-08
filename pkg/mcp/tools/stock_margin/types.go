@@ -3,113 +3,113 @@
 package stock_margintools
 
 import (
-	stock_stock_margin "tushare-go/pkg/sdk/api/stock/stock_margin"
+	stock_margin "tushare-go/pkg/sdk/api/stock_margin"
 
 )
 
 
 // MarginInput defines the input schema
 type MarginInput struct {
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期（格式：YYYYMMDD，下同）`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
-ExchangeId string `json:exchange_id,omitempty jsonschema:交易所代码（SSE上交所SZSE深交所BSE北交所）`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（格式：YYYYMMDD，下同）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
+ExchangeId string `json:"exchange_id,omitempty" jsonschema:"交易所代码（SSE上交所SZSE深交所BSE北交所）"`
 
 }
 
 // MarginOutput defines the output schema
 type MarginOutput struct {
-	Data  []stock_stock_margin.MarginItem `json:data jsonschema:margin data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_margin.MarginItem `json:"data" jsonschema:"margin data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // MarginDetailInput defines the input schema
 type MarginDetailInput struct {
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期（格式：YYYYMMDD，下同）`
-TsCode string `json:ts_code,omitempty jsonschema:TS代码`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（格式：YYYYMMDD，下同）"`
+TsCode string `json:"ts_code,omitempty" jsonschema:"TS代码"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // MarginDetailOutput defines the output schema
 type MarginDetailOutput struct {
-	Data  []stock_stock_margin.MarginDetailItem `json:data jsonschema:margin_detail data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_margin.MarginDetailItem `json:"data" jsonschema:"margin_detail data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // MarginSecsInput defines the input schema
 type MarginSecsInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:标的代码`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日`
-Exchange string `json:exchange,omitempty jsonschema:交易所（SSE上交所 SZSE深交所 BSE北交所）`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+TsCode string `json:"ts_code,omitempty" jsonschema:"标的代码"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日"`
+Exchange string `json:"exchange,omitempty" jsonschema:"交易所（SSE上交所 SZSE深交所 BSE北交所）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // MarginSecsOutput defines the output schema
 type MarginSecsOutput struct {
-	Data  []stock_stock_margin.MarginSecsItem `json:data jsonschema:margin_secs data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_margin.MarginSecsItem `json:"data" jsonschema:"margin_secs data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // SlbLenInput defines the input schema
 type SlbLenInput struct {
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期（YYYYMMDD格式，下同）`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（YYYYMMDD格式，下同）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // SlbLenOutput defines the output schema
 type SlbLenOutput struct {
-	Data  []stock_stock_margin.SlbLenItem `json:data jsonschema:slb_len data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_margin.SlbLenItem `json:"data" jsonschema:"slb_len data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // SlbLenMmInput defines the input schema
 type SlbLenMmInput struct {
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期（YYYYMMDD格式，下同）`
-TsCode string `json:ts_code,omitempty jsonschema:股票代码`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（YYYYMMDD格式，下同）"`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // SlbLenMmOutput defines the output schema
 type SlbLenMmOutput struct {
-	Data  []stock_stock_margin.SlbLenMmItem `json:data jsonschema:slb_len_mm data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_margin.SlbLenMmItem `json:"data" jsonschema:"slb_len_mm data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // SlbSecInput defines the input schema
 type SlbSecInput struct {
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期（YYYYMMDD格式，下同）`
-TsCode string `json:ts_code,omitempty jsonschema:股票代码`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（YYYYMMDD格式，下同）"`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // SlbSecOutput defines the output schema
 type SlbSecOutput struct {
-	Data  []stock_stock_margin.SlbSecItem `json:data jsonschema:slb_sec data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_margin.SlbSecItem `json:"data" jsonschema:"slb_sec data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // SlbSecDetailInput defines the input schema
 type SlbSecDetailInput struct {
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期（YYYYMMDD格式，下同）`
-TsCode string `json:ts_code,omitempty jsonschema:股票代码`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（YYYYMMDD格式，下同）"`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // SlbSecDetailOutput defines the output schema
 type SlbSecDetailOutput struct {
-	Data  []stock_stock_margin.SlbSecDetailItem `json:data jsonschema:slb_sec_detail data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_margin.SlbSecDetailItem `json:"data" jsonschema:"slb_sec_detail data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 

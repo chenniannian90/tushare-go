@@ -3,206 +3,206 @@
 package stock_featuretools
 
 import (
-	stock_stock_feature "tushare-go/pkg/sdk/api/stock/stock_feature"
+	stock_feature "tushare-go/pkg/sdk/api/stock_feature"
 
 )
 
 
 // BrokerRecommendInput defines the input schema
 type BrokerRecommendInput struct {
-Month string `json:month,omitempty jsonschema:月度（YYYYMM）`
+Month string `json:"month,omitempty" jsonschema:"月度（YYYYMM）"`
 
 }
 
 // BrokerRecommendOutput defines the output schema
 type BrokerRecommendOutput struct {
-	Data  []stock_stock_feature.BrokerRecommendItem `json:data jsonschema:broker_recommend data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_feature.BrokerRecommendItem `json:"data" jsonschema:"broker_recommend data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // CcassHoldInput defines the input schema
 type CcassHoldInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码 (e.g. 605009.SH)`
-HkCode string `json:hk_code,omitempty jsonschema:港交所代码 （e.g. 95009）`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期(YYYYMMDD格式，下同)`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码 (e.g. 605009.SH)"`
+HkCode string `json:"hk_code,omitempty" jsonschema:"港交所代码 （e.g. 95009）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期(YYYYMMDD格式，下同)"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // CcassHoldOutput defines the output schema
 type CcassHoldOutput struct {
-	Data  []stock_stock_feature.CcassHoldItem `json:data jsonschema:ccass_hold data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_feature.CcassHoldItem `json:"data" jsonschema:"ccass_hold data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // CcassHoldDetailInput defines the input schema
 type CcassHoldDetailInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码 (e.g. 605009.SH)`
-HkCode string `json:hk_code,omitempty jsonschema:港交所代码 （e.g. 95009）`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期(YYYYMMDD格式，下同)`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码 (e.g. 605009.SH)"`
+HkCode string `json:"hk_code,omitempty" jsonschema:"港交所代码 （e.g. 95009）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期(YYYYMMDD格式，下同)"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // CcassHoldDetailOutput defines the output schema
 type CcassHoldDetailOutput struct {
-	Data  []stock_stock_feature.CcassHoldDetailItem `json:data jsonschema:ccass_hold_detail data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_feature.CcassHoldDetailItem `json:"data" jsonschema:"ccass_hold_detail data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // CyqChipsInput defines the input schema
 type CyqChipsInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期（YYYYMMDD）`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（YYYYMMDD）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // CyqChipsOutput defines the output schema
 type CyqChipsOutput struct {
-	Data  []stock_stock_feature.CyqChipsItem `json:data jsonschema:cyq_chips data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_feature.CyqChipsItem `json:"data" jsonschema:"cyq_chips data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // CyqPerfInput defines the input schema
 type CyqPerfInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期（YYYYMMDD）`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（YYYYMMDD）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // CyqPerfOutput defines the output schema
 type CyqPerfOutput struct {
-	Data  []stock_stock_feature.CyqPerfItem `json:data jsonschema:cyq_perf data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_feature.CyqPerfItem `json:"data" jsonschema:"cyq_perf data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // HkHoldInput defines the input schema
 type HkHoldInput struct {
-Code string `json:code,omitempty jsonschema:交易所代码`
-TsCode string `json:ts_code,omitempty jsonschema:TS股票代码`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
-Exchange string `json:exchange,omitempty jsonschema:类型：SH沪股通（北向）SZ深股通（北向）HK港股通（南向持股）`
+Code string `json:"code,omitempty" jsonschema:"交易所代码"`
+TsCode string `json:"ts_code,omitempty" jsonschema:"TS股票代码"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
+Exchange string `json:"exchange,omitempty" jsonschema:"类型：SH沪股通（北向）SZ深股通（北向）HK港股通（南向持股）"`
 
 }
 
 // HkHoldOutput defines the output schema
 type HkHoldOutput struct {
-	Data  []stock_stock_feature.HkHoldItem `json:data jsonschema:hk_hold data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_feature.HkHoldItem `json:"data" jsonschema:"hk_hold data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // ReportRcInput defines the input schema
 type ReportRcInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码`
-ReportDate string `json:report_date,omitempty jsonschema:报告日期`
-StartDate string `json:start_date,omitempty jsonschema:报告开始日期`
-EndDate string `json:end_date,omitempty jsonschema:报告结束日期`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
+ReportDate string `json:"report_date,omitempty" jsonschema:"报告日期"`
+StartDate string `json:"start_date,omitempty" jsonschema:"报告开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"报告结束日期"`
 
 }
 
 // ReportRcOutput defines the output schema
 type ReportRcOutput struct {
-	Data  []stock_stock_feature.ReportRcItem `json:data jsonschema:report_rc data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_feature.ReportRcItem `json:"data" jsonschema:"report_rc data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // StkAhComparisonInput defines the input schema
 type StkAhComparisonInput struct {
-HkCode string `json:hk_code,omitempty jsonschema:港股股票代码（xxxxx.HK)`
-TsCode string `json:ts_code,omitempty jsonschema:A股票代码(xxxxxx.SH/SZ/BJ)`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期（格式：YYYYMMDD下同）`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+HkCode string `json:"hk_code,omitempty" jsonschema:"港股股票代码（xxxxx.HK)"`
+TsCode string `json:"ts_code,omitempty" jsonschema:"A股票代码(xxxxxx.SH/SZ/BJ)"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（格式：YYYYMMDD下同）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // StkAhComparisonOutput defines the output schema
 type StkAhComparisonOutput struct {
-	Data  []stock_stock_feature.StkAhComparisonItem `json:data jsonschema:stk_ah_comparison data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_feature.StkAhComparisonItem `json:"data" jsonschema:"stk_ah_comparison data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // StkAuctionCInput defines the input schema
 type StkAuctionCInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期(YYYYMMDD)`
-StartDate string `json:start_date,omitempty jsonschema:开始日期(YYYYMMDD)`
-EndDate string `json:end_date,omitempty jsonschema:结束日期(YYYYMMDD)`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期(YYYYMMDD)"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期(YYYYMMDD)"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期(YYYYMMDD)"`
 
 }
 
 // StkAuctionCOutput defines the output schema
 type StkAuctionCOutput struct {
-	Data  []stock_stock_feature.StkAuctionCItem `json:data jsonschema:stk_auction_c data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_feature.StkAuctionCItem `json:"data" jsonschema:"stk_auction_c data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // StkAuctionOInput defines the input schema
 type StkAuctionOInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期(YYYYMMDD)`
-StartDate string `json:start_date,omitempty jsonschema:开始日期(YYYYMMDD)`
-EndDate string `json:end_date,omitempty jsonschema:结束日期(YYYYMMDD)`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期(YYYYMMDD)"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期(YYYYMMDD)"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期(YYYYMMDD)"`
 
 }
 
 // StkAuctionOOutput defines the output schema
 type StkAuctionOOutput struct {
-	Data  []stock_stock_feature.StkAuctionOItem `json:data jsonschema:stk_auction_o data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_feature.StkAuctionOItem `json:"data" jsonschema:"stk_auction_o data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // StkFactorProInput defines the input schema
 type StkFactorProInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期(格式：yyyymmdd，下同)`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期(格式：yyyymmdd，下同)"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // StkFactorProOutput defines the output schema
 type StkFactorProOutput struct {
-	Data  []stock_stock_feature.StkFactorProItem `json:data jsonschema:stk_factor_pro data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_feature.StkFactorProItem `json:"data" jsonschema:"stk_factor_pro data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // StkNineturnInput defines the input schema
 type StkNineturnInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期 （格式：YYYY-MM-DD HH:MM:SS)`
-Freq string `json:freq,omitempty jsonschema:频率(日daily)`
-StartDate string `json:start_date,omitempty jsonschema:开始时间`
-EndDate string `json:end_date,omitempty jsonschema:结束时间`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期 （格式：YYYY-MM-DD HH:MM:SS)"`
+Freq string `json:"freq,omitempty" jsonschema:"频率(日daily)"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始时间"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束时间"`
 
 }
 
 // StkNineturnOutput defines the output schema
 type StkNineturnOutput struct {
-	Data  []stock_stock_feature.StkNineturnItem `json:data jsonschema:stk_nineturn data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_feature.StkNineturnItem `json:"data" jsonschema:"stk_nineturn data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // StkSurvInput defines the input schema
 type StkSurvInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码`
-TradeDate string `json:trade_date,omitempty jsonschema:调研日期`
-StartDate string `json:start_date,omitempty jsonschema:调研开始日期`
-EndDate string `json:end_date,omitempty jsonschema:调研结束日期`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"调研日期"`
+StartDate string `json:"start_date,omitempty" jsonschema:"调研开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"调研结束日期"`
 
 }
 
 // StkSurvOutput defines the output schema
 type StkSurvOutput struct {
-	Data  []stock_stock_feature.StkSurvItem `json:data jsonschema:stk_surv data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_feature.StkSurvItem `json:"data" jsonschema:"stk_surv data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 

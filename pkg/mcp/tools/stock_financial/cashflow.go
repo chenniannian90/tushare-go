@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_financial "tushare-go/pkg/sdk/api/stock/stock_financial"
+	stock_financial "tushare-go/pkg/sdk/api/stock_financial"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -18,7 +18,7 @@ func (r *Stock_financialTools) registerCashflow() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_financial.cashflow",
-		Description: "Retrieve cashflow data from Tushare stock financial API",
+		Description: "获取上市公司现金流量表",
 		InputSchema: inputSchema,
 	}
 
@@ -31,7 +31,7 @@ func (r *Stock_financialTools) registerCashflow() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_financial.CashflowRequest{
+		apiReq := &stock_financial.CashflowRequest{
 TsCode: input.TsCode,
 AnnDate: input.AnnDate,
 FAnnDate: input.FAnnDate,
@@ -44,7 +44,7 @@ IsCalc: input.IsCalc,
 
 		}
 
-		items, err := stock_stock_financial.Cashflow(ctx, r.client, apiReq)
+		items, err := stock_financial.Cashflow(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

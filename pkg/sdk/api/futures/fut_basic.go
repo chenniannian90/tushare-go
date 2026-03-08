@@ -38,6 +38,8 @@ type FutBasicItem struct {
 }
 
 // FutBasic 调用 合约信息 API
+// 获取期货合约列表数据
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func FutBasic(ctx context.Context, client *sdk.Client, req *FutBasicRequest) ([]FutBasicItem, error) {
 	params := map[string]interface{}{}
 	if req.Exchange != "" {

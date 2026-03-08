@@ -3,36 +3,36 @@
 package macro_pricetools
 
 import (
-	macro_macro_domestic_macro_price "tushare-go/pkg/sdk/api/macro/macro_domestic/macro_price"
+	macro_price "tushare-go/pkg/sdk/api/macro_price"
 
 )
 
 
 // CnCpiInput defines the input schema
 type CnCpiInput struct {
-M string `json:m,omitempty jsonschema:月份（YYYYMM，下同），支持多个月份同时输入，逗号分隔`
-StartM string `json:start_m,omitempty jsonschema:开始月份`
-EndM string `json:end_m,omitempty jsonschema:结束月份`
+M string `json:"m,omitempty" jsonschema:"月份（YYYYMM，下同），支持多个月份同时输入，逗号分隔"`
+StartM string `json:"start_m,omitempty" jsonschema:"开始月份"`
+EndM string `json:"end_m,omitempty" jsonschema:"结束月份"`
 
 }
 
 // CnCpiOutput defines the output schema
 type CnCpiOutput struct {
-	Data  []macro_macro_domestic_macro_price.CnCpiItem `json:data jsonschema:cn_cpi data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []macro_price.CnCpiItem `json:"data" jsonschema:"cn_cpi data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // CnPpiInput defines the input schema
 type CnPpiInput struct {
-M string `json:m,omitempty jsonschema:月份（YYYYMM，下同），支持多个月份同时输入，逗号分隔`
-StartM string `json:start_m,omitempty jsonschema:开始月份`
-EndM string `json:end_m,omitempty jsonschema:结束月份`
+M string `json:"m,omitempty" jsonschema:"月份（YYYYMM，下同），支持多个月份同时输入，逗号分隔"`
+StartM string `json:"start_m,omitempty" jsonschema:"开始月份"`
+EndM string `json:"end_m,omitempty" jsonschema:"结束月份"`
 
 }
 
 // CnPpiOutput defines the output schema
 type CnPpiOutput struct {
-	Data  []macro_macro_domestic_macro_price.CnPpiItem `json:data jsonschema:cn_ppi data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []macro_price.CnPpiItem `json:"data" jsonschema:"cn_ppi data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 

@@ -1,7 +1,7 @@
 {
   "api_name": "资产负债表",
   "api_code": "balancesheet",
-  "description": "",
+  "description": "获取上市公司资产负债表",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=36",
     "name": "资产负债表",

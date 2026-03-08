@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_market "tushare-go/pkg/sdk/api/stock/stock_market"
+	stock_market "tushare-go/pkg/sdk/api/stock_market"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -31,7 +31,7 @@ func (r *Stock_marketTools) registerBakDaily() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_market.BakDailyRequest{
+		apiReq := &stock_market.BakDailyRequest{
 TsCode: input.TsCode,
 TradeDate: input.TradeDate,
 StartDate: input.StartDate,
@@ -41,7 +41,7 @@ Limit: input.Limit,
 
 		}
 
-		items, err := stock_stock_market.BakDaily(ctx, r.client, apiReq)
+		items, err := stock_market.BakDaily(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

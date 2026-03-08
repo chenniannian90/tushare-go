@@ -18,7 +18,7 @@ func (r *Llm_corpusTools) registerCctvNews() {
 
 	tool := &mcp.Tool{
 		Name:        "llm_corpus.cctv_news",
-		Description: "Retrieve cctvnews data from Tushare llm corpus API",
+		Description: "获取新闻联播文字稿数据，数据开始于2017年。",
 		InputSchema: inputSchema,
 	}
 

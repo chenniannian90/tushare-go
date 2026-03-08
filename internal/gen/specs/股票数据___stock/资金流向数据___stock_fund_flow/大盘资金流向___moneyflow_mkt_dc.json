@@ -1,7 +1,7 @@
 {
   "api_name": "大盘资金流向（DC）",
   "api_code": "moneyflow_mkt_dc",
-  "description": "",
+  "description": "获取东方财富大盘资金流向数据，每日盘后更新",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=345",
     "name": "大盘资金流向（DC）",

@@ -112,6 +112,8 @@ type FundFactorProItem struct {
 }
 
 // FundFactorPro 调用 基金技术面因子(专业版) API
+// 获取场内基金每日技术面因子数据，用于跟踪场内基金当前走势情况，数据由Tushare社区自产，覆盖全历史；输出参数_bfq表示不复权，描述中说明了因子的默认传参，如需要特殊参数或者更多因子可以联系管理员评估
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func FundFactorPro(ctx context.Context, client *sdk.Client, req *FundFactorProRequest) ([]FundFactorProItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

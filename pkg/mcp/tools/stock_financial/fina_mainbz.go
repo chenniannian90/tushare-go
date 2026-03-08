@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_financial "tushare-go/pkg/sdk/api/stock/stock_financial"
+	stock_financial "tushare-go/pkg/sdk/api/stock_financial"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -31,7 +31,7 @@ func (r *Stock_financialTools) registerFinaMainbz() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_financial.FinaMainbzRequest{
+		apiReq := &stock_financial.FinaMainbzRequest{
 TsCode: input.TsCode,
 Period: input.Period,
 Type: input.Type,
@@ -40,7 +40,7 @@ EndDate: input.EndDate,
 
 		}
 
-		items, err := stock_stock_financial.FinaMainbz(ctx, r.client, apiReq)
+		items, err := stock_financial.FinaMainbz(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

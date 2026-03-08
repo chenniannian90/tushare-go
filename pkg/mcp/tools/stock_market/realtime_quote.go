@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_market "tushare-go/pkg/sdk/api/stock/stock_market"
+	stock_market "tushare-go/pkg/sdk/api/stock_market"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -31,13 +31,13 @@ func (r *Stock_marketTools) registerRealtimeQuote() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_market.RealtimeQuoteRequest{
+		apiReq := &stock_market.RealtimeQuoteRequest{
 TsCode: input.TsCode,
 Src: input.Src,
 
 		}
 
-		items, err := stock_stock_market.RealtimeQuote(ctx, r.client, apiReq)
+		items, err := stock_market.RealtimeQuote(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

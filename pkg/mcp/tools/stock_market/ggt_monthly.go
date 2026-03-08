@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_market "tushare-go/pkg/sdk/api/stock/stock_market"
+	stock_market "tushare-go/pkg/sdk/api/stock_market"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -31,14 +31,14 @@ func (r *Stock_marketTools) registerGgtMonthly() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_market.GgtMonthlyRequest{
+		apiReq := &stock_market.GgtMonthlyRequest{
 Month: input.Month,
 StartMonth: input.StartMonth,
 EndMonth: input.EndMonth,
 
 		}
 
-		items, err := stock_stock_market.GgtMonthly(ctx, r.client, apiReq)
+		items, err := stock_market.GgtMonthly(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

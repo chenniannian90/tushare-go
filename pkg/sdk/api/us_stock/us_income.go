@@ -31,6 +31,8 @@ type UsIncomeItem struct {
 }
 
 // UsIncome 调用 美股利润表 API
+// 获取美股上市公司财务利润表数据（目前只覆盖主要美股和中概股）
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func UsIncome(ctx context.Context, client *sdk.Client, req *UsIncomeRequest) ([]UsIncomeItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

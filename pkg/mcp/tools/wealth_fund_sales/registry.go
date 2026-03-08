@@ -20,6 +20,7 @@ func NewWealth_fund_salesTools(server *mcp.Server, client *sdk.Client) *Wealth_f
 
 // RegisterAll registers all tools
 func (r *Wealth_fund_salesTools) RegisterAll() {
+	r.registerFundSalesRatio()
 	r.registerFundSalesVol()
 
 }

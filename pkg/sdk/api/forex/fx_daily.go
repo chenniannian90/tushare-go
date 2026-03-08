@@ -35,6 +35,8 @@ type FxDailyItem struct {
 }
 
 // FxDaily 调用 外汇日线行情 API
+// 获取外汇日线行情
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func FxDaily(ctx context.Context, client *sdk.Client, req *FxDailyRequest) ([]FxDailyItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

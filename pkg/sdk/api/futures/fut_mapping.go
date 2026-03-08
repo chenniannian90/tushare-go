@@ -25,6 +25,8 @@ type FutMappingItem struct {
 }
 
 // FutMapping 调用 期货主力与连续合约 API
+// 获取期货主力（或连续）合约与月合约映射数据
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func FutMapping(ctx context.Context, client *sdk.Client, req *FutMappingRequest) ([]FutMappingItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

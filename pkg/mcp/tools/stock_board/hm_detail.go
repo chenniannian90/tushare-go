@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_board "tushare-go/pkg/sdk/api/stock/stock_board"
+	stock_board "tushare-go/pkg/sdk/api/stock_board"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -31,7 +31,7 @@ func (r *Stock_boardTools) registerHmDetail() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_board.HmDetailRequest{
+		apiReq := &stock_board.HmDetailRequest{
 TradeDate: input.TradeDate,
 TsCode: input.TsCode,
 HmName: input.HmName,
@@ -40,7 +40,7 @@ EndDate: input.EndDate,
 
 		}
 
-		items, err := stock_stock_board.HmDetail(ctx, r.client, apiReq)
+		items, err := stock_board.HmDetail(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

@@ -1,7 +1,7 @@
 {
   "api_name": "申万实时行情",
   "api_code": "rt_sw_k",
-  "description": "",
+  "description": "获取申万行业指数的最新截面数据",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=417",
     "name": "申万实时行情",

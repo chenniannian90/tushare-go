@@ -3,170 +3,170 @@
 package stock_referencetools
 
 import (
-	stock_stock_reference "tushare-go/pkg/sdk/api/stock/stock_reference"
+	stock_reference "tushare-go/pkg/sdk/api/stock_reference"
 
 )
 
 
 // BlockTradeInput defines the input schema
 type BlockTradeInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:TS代码（股票代码和日期至少输入一个参数）`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期（格式：YYYYMMDD，下同）`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+TsCode string `json:"ts_code,omitempty" jsonschema:"TS代码（股票代码和日期至少输入一个参数）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（格式：YYYYMMDD，下同）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // BlockTradeOutput defines the output schema
 type BlockTradeOutput struct {
-	Data  []stock_stock_reference.BlockTradeItem `json:data jsonschema:block_trade data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_reference.BlockTradeItem `json:"data" jsonschema:"block_trade data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // PledgeDetailInput defines the input schema
 type PledgeDetailInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
 
 }
 
 // PledgeDetailOutput defines the output schema
 type PledgeDetailOutput struct {
-	Data  []stock_stock_reference.PledgeDetailItem `json:data jsonschema:pledge_detail data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_reference.PledgeDetailItem `json:"data" jsonschema:"pledge_detail data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // PledgeStatInput defines the input schema
 type PledgeStatInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码`
-EndDate string `json:end_date,omitempty jsonschema:截止日期`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
+EndDate string `json:"end_date,omitempty" jsonschema:"截止日期"`
 
 }
 
 // PledgeStatOutput defines the output schema
 type PledgeStatOutput struct {
-	Data  []stock_stock_reference.PledgeStatItem `json:data jsonschema:pledge_stat data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_reference.PledgeStatItem `json:"data" jsonschema:"pledge_stat data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // RepurchaseInput defines the input schema
 type RepurchaseInput struct {
-AnnDate string `json:ann_date,omitempty jsonschema:公告日期（任意填参数，如果都不填，单次默认返回2000条）`
-StartDate string `json:start_date,omitempty jsonschema:公告开始日期`
-EndDate string `json:end_date,omitempty jsonschema:公告结束日期`
+AnnDate string `json:"ann_date,omitempty" jsonschema:"公告日期（任意填参数，如果都不填，单次默认返回2000条）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"公告开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"公告结束日期"`
 
 }
 
 // RepurchaseOutput defines the output schema
 type RepurchaseOutput struct {
-	Data  []stock_stock_reference.RepurchaseItem `json:data jsonschema:repurchase data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_reference.RepurchaseItem `json:"data" jsonschema:"repurchase data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // ShareFloatInput defines the input schema
 type ShareFloatInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:TS股票代码`
-AnnDate string `json:ann_date,omitempty jsonschema:公告日期（日期格式：YYYYMMDD，下同）`
-FloatDate string `json:float_date,omitempty jsonschema:解禁日期`
-StartDate string `json:start_date,omitempty jsonschema:解禁开始日期`
-EndDate string `json:end_date,omitempty jsonschema:解禁结束日期`
+TsCode string `json:"ts_code,omitempty" jsonschema:"TS股票代码"`
+AnnDate string `json:"ann_date,omitempty" jsonschema:"公告日期（日期格式：YYYYMMDD，下同）"`
+FloatDate string `json:"float_date,omitempty" jsonschema:"解禁日期"`
+StartDate string `json:"start_date,omitempty" jsonschema:"解禁开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"解禁结束日期"`
 
 }
 
 // ShareFloatOutput defines the output schema
 type ShareFloatOutput struct {
-	Data  []stock_stock_reference.ShareFloatItem `json:data jsonschema:share_float data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_reference.ShareFloatItem `json:"data" jsonschema:"share_float data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // StkAccountInput defines the input schema
 type StkAccountInput struct {
-Date string `json:date,omitempty jsonschema:日期`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+Date string `json:"date,omitempty" jsonschema:"日期"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // StkAccountOutput defines the output schema
 type StkAccountOutput struct {
-	Data  []stock_stock_reference.StkAccountItem `json:data jsonschema:stk_account data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_reference.StkAccountItem `json:"data" jsonschema:"stk_account data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // StkAccountOldInput defines the input schema
 type StkAccountOldInput struct {
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // StkAccountOldOutput defines the output schema
 type StkAccountOldOutput struct {
-	Data  []stock_stock_reference.StkAccountOldItem `json:data jsonschema:stk_account_old data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_reference.StkAccountOldItem `json:"data" jsonschema:"stk_account_old data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // StkHoldernumberInput defines the input schema
 type StkHoldernumberInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:TS股票代码`
-AnnDate string `json:ann_date,omitempty jsonschema:公告日期`
-Enddate string `json:enddate,omitempty jsonschema:截止日期`
-StartDate string `json:start_date,omitempty jsonschema:公告开始日期`
-EndDate string `json:end_date,omitempty jsonschema:公告结束日期`
+TsCode string `json:"ts_code,omitempty" jsonschema:"TS股票代码"`
+AnnDate string `json:"ann_date,omitempty" jsonschema:"公告日期"`
+Enddate string `json:"enddate,omitempty" jsonschema:"截止日期"`
+StartDate string `json:"start_date,omitempty" jsonschema:"公告开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"公告结束日期"`
 
 }
 
 // StkHoldernumberOutput defines the output schema
 type StkHoldernumberOutput struct {
-	Data  []stock_stock_reference.StkHoldernumberItem `json:data jsonschema:stk_holdernumber data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_reference.StkHoldernumberItem `json:"data" jsonschema:"stk_holdernumber data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // StkHoldertradeInput defines the input schema
 type StkHoldertradeInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:TS股票代码`
-AnnDate string `json:ann_date,omitempty jsonschema:公告日期`
-StartDate string `json:start_date,omitempty jsonschema:公告开始日期`
-EndDate string `json:end_date,omitempty jsonschema:公告结束日期`
-TradeType string `json:trade_type,omitempty jsonschema:交易类型IN增持DE减持`
-HolderType string `json:holder_type,omitempty jsonschema:股东类型C公司P个人G高管`
+TsCode string `json:"ts_code,omitempty" jsonschema:"TS股票代码"`
+AnnDate string `json:"ann_date,omitempty" jsonschema:"公告日期"`
+StartDate string `json:"start_date,omitempty" jsonschema:"公告开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"公告结束日期"`
+TradeType string `json:"trade_type,omitempty" jsonschema:"交易类型IN增持DE减持"`
+HolderType string `json:"holder_type,omitempty" jsonschema:"股东类型C公司P个人G高管"`
 
 }
 
 // StkHoldertradeOutput defines the output schema
 type StkHoldertradeOutput struct {
-	Data  []stock_stock_reference.StkHoldertradeItem `json:data jsonschema:stk_holdertrade data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_reference.StkHoldertradeItem `json:"data" jsonschema:"stk_holdertrade data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // Top10FloatholdersInput defines the input schema
 type Top10FloatholdersInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:TS代码`
-Period string `json:period,omitempty jsonschema:报告期（YYYYMMDD格式，一般为每个季度最后一天）`
-AnnDate string `json:ann_date,omitempty jsonschema:公告日期`
-StartDate string `json:start_date,omitempty jsonschema:报告期开始日期`
-EndDate string `json:end_date,omitempty jsonschema:报告期结束日期`
+TsCode string `json:"ts_code,omitempty" jsonschema:"TS代码"`
+Period string `json:"period,omitempty" jsonschema:"报告期（YYYYMMDD格式，一般为每个季度最后一天）"`
+AnnDate string `json:"ann_date,omitempty" jsonschema:"公告日期"`
+StartDate string `json:"start_date,omitempty" jsonschema:"报告期开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"报告期结束日期"`
 
 }
 
 // Top10FloatholdersOutput defines the output schema
 type Top10FloatholdersOutput struct {
-	Data  []stock_stock_reference.Top10FloatholdersItem `json:data jsonschema:top10_floatholders data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_reference.Top10FloatholdersItem `json:"data" jsonschema:"top10_floatholders data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // Top10HoldersInput defines the input schema
 type Top10HoldersInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:TS代码`
-Period string `json:period,omitempty jsonschema:报告期（YYYYMMDD格式，一般为每个季度最后一天）`
-AnnDate string `json:ann_date,omitempty jsonschema:公告日期`
-StartDate string `json:start_date,omitempty jsonschema:报告期开始日期`
-EndDate string `json:end_date,omitempty jsonschema:报告期结束日期`
+TsCode string `json:"ts_code,omitempty" jsonschema:"TS代码"`
+Period string `json:"period,omitempty" jsonschema:"报告期（YYYYMMDD格式，一般为每个季度最后一天）"`
+AnnDate string `json:"ann_date,omitempty" jsonschema:"公告日期"`
+StartDate string `json:"start_date,omitempty" jsonschema:"报告期开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"报告期结束日期"`
 
 }
 
 // Top10HoldersOutput defines the output schema
 type Top10HoldersOutput struct {
-	Data  []stock_stock_reference.Top10HoldersItem `json:data jsonschema:top10_holders data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_reference.Top10HoldersItem `json:"data" jsonschema:"top10_holders data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 

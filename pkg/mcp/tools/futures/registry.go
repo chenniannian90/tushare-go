@@ -20,6 +20,7 @@ func NewFuturesTools(server *mcp.Server, client *sdk.Client) *FuturesTools {
 
 // RegisterAll registers all tools
 func (r *FuturesTools) RegisterAll() {
+	r.registerApi314()
 	r.registerFtLimit()
 	r.registerFtMins()
 	r.registerFutBasic()

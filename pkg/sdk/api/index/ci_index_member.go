@@ -34,6 +34,8 @@ type CiIndexMemberItem struct {
 }
 
 // CiIndexMember 调用 中信行业成分 API
+// 按三级分类提取中信行业成分，可提供某个分类的所有成分，也可按股票代码提取所属分类，参数灵活
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func CiIndexMember(ctx context.Context, client *sdk.Client, req *CiIndexMemberRequest) ([]CiIndexMemberItem, error) {
 	params := map[string]interface{}{}
 	if req.L1Code != "" {

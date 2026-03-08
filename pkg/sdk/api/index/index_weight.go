@@ -21,6 +21,8 @@ type IndexWeightItem struct {
 }
 
 // IndexWeight 调用 指数成分和权重 API
+// 获取各类指数成分和权重，月度数据 ，建议输入参数里开始日期和结束日分别输入当月第一天和最后一天的日期。来源：指数公司网站公开数据
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func IndexWeight(ctx context.Context, client *sdk.Client, req *IndexWeightRequest) ([]IndexWeightItem, error) {
 	params := map[string]interface{}{}
 	if req.IndexCode != "" {

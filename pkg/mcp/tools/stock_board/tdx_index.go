@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_board "tushare-go/pkg/sdk/api/stock/stock_board"
+	stock_board "tushare-go/pkg/sdk/api/stock_board"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -31,14 +31,14 @@ func (r *Stock_boardTools) registerTdxIndex() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_board.TdxIndexRequest{
+		apiReq := &stock_board.TdxIndexRequest{
 TsCode: input.TsCode,
 TradeDate: input.TradeDate,
 IdxType: input.IdxType,
 
 		}
 
-		items, err := stock_stock_board.TdxIndex(ctx, r.client, apiReq)
+		items, err := stock_board.TdxIndex(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

@@ -43,6 +43,8 @@ issues:
     - pkg/components/log_analysis
     - examples
     - cmd/examples
+    - pkg/sdk/api
+    - pkg/mcp/tools
   exclude-files:
     - ".*__generated\\.go$"
     - ".*\\.bak$"

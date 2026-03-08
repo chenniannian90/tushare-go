@@ -26,6 +26,8 @@ type TradeCalItem struct {
 }
 
 // TradeCal 调用 交易日历 API
+// 获取各大期货交易所交易日历数据
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func TradeCal(ctx context.Context, client *sdk.Client, req *TradeCalRequest) ([]TradeCalItem, error) {
 	params := map[string]interface{}{}
 	if req.Exchange != "" {

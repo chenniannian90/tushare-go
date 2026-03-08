@@ -1,7 +1,7 @@
 {
   "api_name": "国家政策库",
   "api_code": "npr",
-  "description": "",
+  "description": "获取国家行政机关公开披露的各类法规、条例政策、批复、通知等文本数据。",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=406",
     "name": "国家政策库",

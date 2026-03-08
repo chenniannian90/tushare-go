@@ -30,6 +30,8 @@ type StkMinsItem struct {
 }
 
 // StkMins 调用 ETF历史分钟 API
+// 获取ETF分钟数据，支持1min/5min/15min/30min/60min行情，提供Python SDK和 http Restful API两种方式
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func StkMins(ctx context.Context, client *sdk.Client, req *StkMinsRequest) ([]StkMinsItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

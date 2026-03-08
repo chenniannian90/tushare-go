@@ -36,6 +36,8 @@ type OptDailyItem struct {
 }
 
 // OptDaily 调用 期权日线行情 API
+// 获取期权日线行情
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func OptDaily(ctx context.Context, client *sdk.Client, req *OptDailyRequest) ([]OptDailyItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

@@ -33,6 +33,8 @@ type FundManagerItem struct {
 }
 
 // FundManager 调用 基金经理 API
+// 获取公募基金经理数据，包括基金经理简历等数据
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func FundManager(ctx context.Context, client *sdk.Client, req *FundManagerRequest) ([]FundManagerItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

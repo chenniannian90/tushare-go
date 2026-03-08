@@ -92,6 +92,8 @@ type UsFinaIndicatorItem struct {
 }
 
 // UsFinaIndicator 调用 美股财务指标数据 API
+// 获取美股上市公司财务指标数据，目前只覆盖主要美股和中概股。为避免服务器压力，现阶段每次请求最多返回200条记录，可通过设置日期多次请求获取更多数据。
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func UsFinaIndicator(ctx context.Context, client *sdk.Client, req *UsFinaIndicatorRequest) ([]UsFinaIndicatorItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

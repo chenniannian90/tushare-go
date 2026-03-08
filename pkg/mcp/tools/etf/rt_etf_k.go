@@ -18,7 +18,7 @@ func (r *EtfTools) registerRtEtfK() {
 
 	tool := &mcp.Tool{
 		Name:        "etf.rt_etf_k",
-		Description: "Retrieve rtetfk data from Tushare etf API",
+		Description: "获取ETF实时日k线行情，支持按ETF代码或代码通配符一次性提取全部ETF实时日k线行情",
 		InputSchema: inputSchema,
 	}
 

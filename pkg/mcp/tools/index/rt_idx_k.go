@@ -18,7 +18,7 @@ func (r *IndexTools) registerRtIdxK() {
 
 	tool := &mcp.Tool{
 		Name:        "index.rt_idx_k",
-		Description: "Retrieve rtidxk data from Tushare index API",
+		Description: "获取交易所指数实时日线行情，支持按代码或代码通配符一次性提取全部交易所指数实时日k线行情",
 		InputSchema: inputSchema,
 	}
 

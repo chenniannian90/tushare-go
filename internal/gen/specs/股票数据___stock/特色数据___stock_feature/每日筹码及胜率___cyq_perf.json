@@ -1,7 +1,7 @@
 {
   "api_name": "每日筹码及胜率",
   "api_code": "cyq_perf",
-  "description": "",
+  "description": "获取A股每日筹码平均成本和胜率情况，每天18~19点左右更新，数据从2018年开始\n来源：Tushare社区",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=293",
     "name": "每日筹码及胜率",

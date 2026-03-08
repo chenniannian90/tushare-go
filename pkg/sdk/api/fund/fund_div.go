@@ -38,6 +38,8 @@ type FundDivItem struct {
 }
 
 // FundDiv 调用 基金分红 API
+// 获取公募基金分红数据
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func FundDiv(ctx context.Context, client *sdk.Client, req *FundDivRequest) ([]FundDivItem, error) {
 	params := map[string]interface{}{}
 	if req.AnnDate != "" {

@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_reference "tushare-go/pkg/sdk/api/stock/stock_reference"
+	stock_reference "tushare-go/pkg/sdk/api/stock_reference"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -31,7 +31,7 @@ func (r *Stock_referenceTools) registerShareFloat() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_reference.ShareFloatRequest{
+		apiReq := &stock_reference.ShareFloatRequest{
 TsCode: input.TsCode,
 AnnDate: input.AnnDate,
 FloatDate: input.FloatDate,
@@ -40,7 +40,7 @@ EndDate: input.EndDate,
 
 		}
 
-		items, err := stock_stock_reference.ShareFloat(ctx, r.client, apiReq)
+		items, err := stock_reference.ShareFloat(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

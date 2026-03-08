@@ -33,6 +33,8 @@ type FundDailyItem struct {
 }
 
 // FundDaily 调用 ETF日线行情 API
+// 获取ETF行情每日收盘后成交数据，历史超过10年
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func FundDaily(ctx context.Context, client *sdk.Client, req *FundDailyRequest) ([]FundDailyItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

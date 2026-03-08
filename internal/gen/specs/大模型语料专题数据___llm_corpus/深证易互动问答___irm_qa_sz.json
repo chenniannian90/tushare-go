@@ -33,13 +33,13 @@
       "required": false
     },
     {
-      "name": "pub_date",
+      "name": "pub_date_start",
       "type": "str",
       "description": "发布开始日期(格式：2025-06-03 16:43:03)",
       "required": false
     },
     {
-      "name": "pub_date",
+      "name": "pub_date_end",
       "type": "str",
       "description": "发布结束日期(格式：2025-06-03 18:43:23)",
       "required": false

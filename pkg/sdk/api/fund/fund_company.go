@@ -36,6 +36,8 @@ type FundCompanyItem struct {
 }
 
 // FundCompany 调用 基金管理人 API
+// 获取公募基金管理人列表
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyRequest) ([]FundCompanyItem, error) {
 	params := map[string]interface{}{}
 

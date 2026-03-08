@@ -26,6 +26,8 @@ type FundShareItem struct {
 }
 
 // FundShare 调用 基金规模 API
+// 获取基金规模数据，包含上海和深圳ETF基金
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func FundShare(ctx context.Context, client *sdk.Client, req *FundShareRequest) ([]FundShareItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

@@ -18,7 +18,7 @@ func (r *EtfTools) registerFundAdj() {
 
 	tool := &mcp.Tool{
 		Name:        "etf.fund_adj",
-		Description: "Retrieve fundadj data from Tushare etf API",
+		Description: "获取基金复权因子，用于计算基金复权行情",
 		InputSchema: inputSchema,
 	}
 

@@ -1,7 +1,7 @@
 {
   "api_name": "股权质押明细数据",
   "api_code": "pledge_detail",
-  "description": "",
+  "description": "获取股票质押明细数据",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=111",
     "name": "股权质押明细数据",

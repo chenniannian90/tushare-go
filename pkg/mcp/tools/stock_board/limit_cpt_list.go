@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_board "tushare-go/pkg/sdk/api/stock/stock_board"
+	stock_board "tushare-go/pkg/sdk/api/stock_board"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -18,7 +18,7 @@ func (r *Stock_boardTools) registerLimitCptList() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.limit_cpt_list",
-		Description: "Retrieve limitcptlist data from Tushare stock board API",
+		Description: "获取每天涨停股票最多最强的概念板块，可以分析强势板块的轮动，判断资金动向",
 		InputSchema: inputSchema,
 	}
 
@@ -31,7 +31,7 @@ func (r *Stock_boardTools) registerLimitCptList() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_board.LimitCptListRequest{
+		apiReq := &stock_board.LimitCptListRequest{
 TradeDate: input.TradeDate,
 TsCode: input.TsCode,
 StartDate: input.StartDate,
@@ -39,7 +39,7 @@ EndDate: input.EndDate,
 
 		}
 
-		items, err := stock_stock_board.LimitCptList(ctx, r.client, apiReq)
+		items, err := stock_board.LimitCptList(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

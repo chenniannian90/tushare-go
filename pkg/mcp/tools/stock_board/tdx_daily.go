@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_board "tushare-go/pkg/sdk/api/stock/stock_board"
+	stock_board "tushare-go/pkg/sdk/api/stock_board"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -18,7 +18,7 @@ func (r *Stock_boardTools) registerTdxDaily() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.tdx_daily",
-		Description: "Retrieve tdxdaily data from Tushare stock board API",
+		Description: "获取通达信各板块行情，包括成交和估值等数据",
 		InputSchema: inputSchema,
 	}
 
@@ -31,7 +31,7 @@ func (r *Stock_boardTools) registerTdxDaily() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_board.TdxDailyRequest{
+		apiReq := &stock_board.TdxDailyRequest{
 TsCode: input.TsCode,
 TradeDate: input.TradeDate,
 StartDate: input.StartDate,
@@ -39,7 +39,7 @@ EndDate: input.EndDate,
 
 		}
 
-		items, err := stock_stock_board.TdxDaily(ctx, r.client, apiReq)
+		items, err := stock_board.TdxDaily(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

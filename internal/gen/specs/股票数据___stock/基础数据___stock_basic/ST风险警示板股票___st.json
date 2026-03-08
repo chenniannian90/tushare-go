@@ -1,7 +1,7 @@
 {
   "api_name": "ST风险警示板股票",
   "api_code": "st",
-  "description": "",
+  "description": "ST风险警示板股票列表",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=423",
     "name": "ST风险警示板股票",

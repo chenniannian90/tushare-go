@@ -10,16 +10,16 @@ import (
 
 // FundBasicInput defines the input schema
 type FundBasicInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:基金代码`
-Market string `json:market,omitempty jsonschema:交易市场: E场内 O场外（默认E）`
-Status string `json:status,omitempty jsonschema:存续状态 D摘牌 I发行 L上市中`
+TsCode string `json:"ts_code,omitempty" jsonschema:"基金代码"`
+Market string `json:"market,omitempty" jsonschema:"交易市场: E场内 O场外（默认E）"`
+Status string `json:"status,omitempty" jsonschema:"存续状态 D摘牌 I发行 L上市中"`
 
 }
 
 // FundBasicOutput defines the output schema
 type FundBasicOutput struct {
-	Data  []fund.FundBasicItem `json:data jsonschema:fund_basic data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []fund.FundBasicItem `json:"data" jsonschema:"fund_basic data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // FundCompanyInput defines the input schema
@@ -29,102 +29,102 @@ type FundCompanyInput struct {
 
 // FundCompanyOutput defines the output schema
 type FundCompanyOutput struct {
-	Data  []fund.FundCompanyItem `json:data jsonschema:fund_company data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []fund.FundCompanyItem `json:"data" jsonschema:"fund_company data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // FundDivInput defines the input schema
 type FundDivInput struct {
-AnnDate string `json:ann_date,omitempty jsonschema:公告日（以下参数四选一）`
-ExDate string `json:ex_date,omitempty jsonschema:除息日`
-PayDate string `json:pay_date,omitempty jsonschema:派息日`
-TsCode string `json:ts_code,omitempty jsonschema:基金代码`
+AnnDate string `json:"ann_date,omitempty" jsonschema:"公告日（以下参数四选一）"`
+ExDate string `json:"ex_date,omitempty" jsonschema:"除息日"`
+PayDate string `json:"pay_date,omitempty" jsonschema:"派息日"`
+TsCode string `json:"ts_code,omitempty" jsonschema:"基金代码"`
 
 }
 
 // FundDivOutput defines the output schema
 type FundDivOutput struct {
-	Data  []fund.FundDivItem `json:data jsonschema:fund_div data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []fund.FundDivItem `json:"data" jsonschema:"fund_div data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // FundFactorProInput defines the input schema
 type FundFactorProInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:基金代码`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期`
+TsCode string `json:"ts_code,omitempty" jsonschema:"基金代码"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期"`
 
 }
 
 // FundFactorProOutput defines the output schema
 type FundFactorProOutput struct {
-	Data  []fund.FundFactorProItem `json:data jsonschema:fund_factor_pro data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []fund.FundFactorProItem `json:"data" jsonschema:"fund_factor_pro data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // FundManagerInput defines the input schema
 type FundManagerInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:基金代码，支持多只基金，逗号分隔`
-AnnDate string `json:ann_date,omitempty jsonschema:公告日期，格式：YYYYMMDD`
-Name string `json:name,omitempty jsonschema:基金经理姓名`
-Offset string `json:offset,omitempty jsonschema:开始行数`
-Limit int `json:limit,omitempty jsonschema:每页行数`
+TsCode string `json:"ts_code,omitempty" jsonschema:"基金代码，支持多只基金，逗号分隔"`
+AnnDate string `json:"ann_date,omitempty" jsonschema:"公告日期，格式：YYYYMMDD"`
+Name string `json:"name,omitempty" jsonschema:"基金经理姓名"`
+Offset string `json:"offset,omitempty" jsonschema:"开始行数"`
+Limit int `json:"limit,omitempty" jsonschema:"每页行数"`
 
 }
 
 // FundManagerOutput defines the output schema
 type FundManagerOutput struct {
-	Data  []fund.FundManagerItem `json:data jsonschema:fund_manager data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []fund.FundManagerItem `json:"data" jsonschema:"fund_manager data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // FundNavInput defines the input schema
 type FundNavInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:TS基金代码 （二选一）`
-NavDate string `json:nav_date,omitempty jsonschema:净值日期 （二选一）`
-Market string `json:market,omitempty jsonschema:E场内 O场外`
-StartDate string `json:start_date,omitempty jsonschema:净值开始日期`
-EndDate string `json:end_date,omitempty jsonschema:净值结束日期`
+TsCode string `json:"ts_code,omitempty" jsonschema:"TS基金代码 （二选一）"`
+NavDate string `json:"nav_date,omitempty" jsonschema:"净值日期 （二选一）"`
+Market string `json:"market,omitempty" jsonschema:"E场内 O场外"`
+StartDate string `json:"start_date,omitempty" jsonschema:"净值开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"净值结束日期"`
 
 }
 
 // FundNavOutput defines the output schema
 type FundNavOutput struct {
-	Data  []fund.FundNavItem `json:data jsonschema:fund_nav data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []fund.FundNavItem `json:"data" jsonschema:"fund_nav data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // FundPortfolioInput defines the input schema
 type FundPortfolioInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:基金代码 (ts_code,ann_date,period至少输入一个参数)`
-Symbol string `json:symbol,omitempty jsonschema:股票代码`
-AnnDate string `json:ann_date,omitempty jsonschema:公告日期（YYYYMMDD格式）`
-Period string `json:period,omitempty jsonschema:季度（每个季度最后一天的日期，比如20131231表示2013年年报）`
-StartDate string `json:start_date,omitempty jsonschema:报告期开始日期（YYYYMMDD格式）`
-EndDate string `json:end_date,omitempty jsonschema:报告期结束日期（YYYYMMDD格式）`
+TsCode string `json:"ts_code,omitempty" jsonschema:"基金代码 (ts_code,ann_date,period至少输入一个参数)"`
+Symbol string `json:"symbol,omitempty" jsonschema:"股票代码"`
+AnnDate string `json:"ann_date,omitempty" jsonschema:"公告日期（YYYYMMDD格式）"`
+Period string `json:"period,omitempty" jsonschema:"季度（每个季度最后一天的日期，比如20131231表示2013年年报）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"报告期开始日期（YYYYMMDD格式）"`
+EndDate string `json:"end_date,omitempty" jsonschema:"报告期结束日期（YYYYMMDD格式）"`
 
 }
 
 // FundPortfolioOutput defines the output schema
 type FundPortfolioOutput struct {
-	Data  []fund.FundPortfolioItem `json:data jsonschema:fund_portfolio data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []fund.FundPortfolioItem `json:"data" jsonschema:"fund_portfolio data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // FundShareInput defines the input schema
 type FundShareInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:TS基金代码`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
-Market string `json:market,omitempty jsonschema:市场代码（SH上交所 ，SZ深交所）`
+TsCode string `json:"ts_code,omitempty" jsonschema:"TS基金代码"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
+Market string `json:"market,omitempty" jsonschema:"市场代码（SH上交所 ，SZ深交所）"`
 
 }
 
 // FundShareOutput defines the output schema
 type FundShareOutput struct {
-	Data  []fund.FundShareItem `json:data jsonschema:fund_share data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []fund.FundShareItem `json:"data" jsonschema:"fund_share data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 

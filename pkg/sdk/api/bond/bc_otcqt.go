@@ -36,6 +36,8 @@ type BcOtcqtItem struct {
 }
 
 // BcOtcqt 调用 柜台流通式债券报价 API
+// 柜台流通式债券报价
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func BcOtcqt(ctx context.Context, client *sdk.Client, req *BcOtcqtRequest) ([]BcOtcqtItem, error) {
 	params := map[string]interface{}{}
 	if req.TradeDate != "" {

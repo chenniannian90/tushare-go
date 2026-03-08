@@ -40,6 +40,8 @@ type HkDailyAdjItem struct {
 }
 
 // HkDailyAdj 调用 港股复权行情 API
+// 获取港股复权行情，提供股票股本、市值和成交及换手多个数据指标
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func HkDailyAdj(ctx context.Context, client *sdk.Client, req *HkDailyAdjRequest) ([]HkDailyAdjItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

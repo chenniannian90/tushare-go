@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_feature "tushare-go/pkg/sdk/api/stock/stock_feature"
+	stock_feature "tushare-go/pkg/sdk/api/stock_feature"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -18,7 +18,7 @@ func (r *Stock_featureTools) registerCyqChips() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_feature.cyq_chips",
-		Description: "Retrieve cyqchips data from Tushare stock feature API",
+		Description: "获取A股每日的筹码分布情况，提供各价位占比，数据从2018年开始，每天18~19点之间更新当日数据 来源：Tushare社区",
 		InputSchema: inputSchema,
 	}
 
@@ -31,7 +31,7 @@ func (r *Stock_featureTools) registerCyqChips() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_feature.CyqChipsRequest{
+		apiReq := &stock_feature.CyqChipsRequest{
 TsCode: input.TsCode,
 TradeDate: input.TradeDate,
 StartDate: input.StartDate,
@@ -39,7 +39,7 @@ EndDate: input.EndDate,
 
 		}
 
-		items, err := stock_stock_feature.CyqChips(ctx, r.client, apiReq)
+		items, err := stock_feature.CyqChips(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

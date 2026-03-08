@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_fund_flow "tushare-go/pkg/sdk/api/stock/stock_fund_flow"
+	stock_fund_flow "tushare-go/pkg/sdk/api/stock_fund_flow"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -31,7 +31,7 @@ func (r *Stock_fund_flowTools) registerMoneyflowDc() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_fund_flow.MoneyflowDcRequest{
+		apiReq := &stock_fund_flow.MoneyflowDcRequest{
 TsCode: input.TsCode,
 TradeDate: input.TradeDate,
 StartDate: input.StartDate,
@@ -39,7 +39,7 @@ EndDate: input.EndDate,
 
 		}
 
-		items, err := stock_stock_fund_flow.MoneyflowDc(ctx, r.client, apiReq)
+		items, err := stock_fund_flow.MoneyflowDc(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

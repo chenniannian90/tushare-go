@@ -30,6 +30,8 @@ type HkMinsItem struct {
 }
 
 // HkMins 调用 港股分钟行情 API
+// 港股分钟数据，支持1min/5min/15min/30min/60min行情，提供Python SDK和 http Restful API两种方式
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func HkMins(ctx context.Context, client *sdk.Client, req *HkMinsRequest) ([]HkMinsItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

@@ -39,6 +39,8 @@ type FutDailyItem struct {
 }
 
 // FutDaily 调用 日线行情 API
+// 期货日线行情数据
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func FutDaily(ctx context.Context, client *sdk.Client, req *FutDailyRequest) ([]FutDailyItem, error) {
 	params := map[string]interface{}{}
 	if req.TradeDate != "" {

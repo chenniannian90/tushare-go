@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	macro_macro_domestic_macro_price "tushare-go/pkg/sdk/api/macro/macro_domestic/macro_price"
+	macro_price "tushare-go/pkg/sdk/api/macro_price"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -31,14 +31,14 @@ func (r *Macro_priceTools) registerCnCpi() {
 			}, nil
 		}
 
-		apiReq := &macro_macro_domestic_macro_price.CnCpiRequest{
+		apiReq := &macro_price.CnCpiRequest{
 M: input.M,
 StartM: input.StartM,
 EndM: input.EndM,
 
 		}
 
-		items, err := macro_macro_domestic_macro_price.CnCpi(ctx, r.client, apiReq)
+		items, err := macro_price.CnCpi(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

@@ -1,7 +1,7 @@
 {
   "api_name": "龙虎榜机构交易单",
   "api_code": "top_inst",
-  "description": "",
+  "description": "龙虎榜机构成交明细",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=107",
     "name": "龙虎榜机构交易单",

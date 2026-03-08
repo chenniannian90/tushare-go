@@ -1,7 +1,7 @@
 {
   "api_name": "券商研究报告",
   "api_code": "research_report",
-  "description": "",
+  "description": "获取券商研究报告-个股、行业等，历史数据从20170101开始提供，增量每天两次更新",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=415",
     "name": "券商研究报告",

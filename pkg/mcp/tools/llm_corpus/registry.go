@@ -22,6 +22,8 @@ func NewLlm_corpusTools(server *mcp.Server, client *sdk.Client) *Llm_corpusTools
 func (r *Llm_corpusTools) RegisterAll() {
 	r.registerAnnsD()
 	r.registerCctvNews()
+	r.registerIrmQaSh()
+	r.registerIrmQaSz()
 	r.registerMajorNews()
 	r.registerNews()
 	r.registerNpr()

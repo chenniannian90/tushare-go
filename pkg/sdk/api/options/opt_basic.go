@@ -41,6 +41,8 @@ type OptBasicItem struct {
 }
 
 // OptBasic 调用 期权合约信息 API
+// 获取期权合约信息
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]OptBasicItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

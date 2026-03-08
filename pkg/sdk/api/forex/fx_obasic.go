@@ -33,6 +33,8 @@ type FxObasicItem struct {
 }
 
 // FxObasic 调用 外汇基础信息（海外） API
+// 获取海外外汇基础信息，目前只有FXCM交易商的数据数量：单次可提取全部数据
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func FxObasic(ctx context.Context, client *sdk.Client, req *FxObasicRequest) ([]FxObasicItem, error) {
 	params := map[string]interface{}{}
 	if req.Exchange != "" {

@@ -81,22 +81,36 @@ func toPascalCase(s string) string {
 		if word == "" {
 			continue
 		}
+
+		// Convert string to rune slice for proper Unicode handling
+		runes := []rune(word)
+		if len(runes) == 0 {
+			continue
+		}
+
 		// Handle words starting with numbers
-		if word[0] >= '0' && word[0] <= '9' {
+		if runes[0] >= '0' && runes[0] <= '9' {
 			// For first word starting with number, add "Field" prefix
-			// For subsequent words, just capitalize first letter
 			if i == 0 {
 				result.WriteString("Field")
-				result.WriteString(strings.ToUpper(word[:1]))
-				result.WriteString(word[1:])
-			} else {
-				result.WriteString(strings.ToUpper(word[:1]))
-				result.WriteString(word[1:])
 			}
+			// Append the word as-is
+			result.WriteString(word)
 		} else {
-			// Capitalize first letter, keep rest as is
-			result.WriteString(strings.ToUpper(word[:1]))
-			result.WriteString(word[1:])
+			// Capitalize first rune, keep rest as is
+			// Use Unicode-aware case conversion
+			first := runes[0]
+			rest := runes[1:]
+
+			// Convert first rune to uppercase
+			if first >= 'a' && first <= 'z' {
+				first = first - 'a' + 'A'
+			}
+
+			result.WriteRune(first)
+			for _, r := range rest {
+				result.WriteRune(r)
+			}
 		}
 	}
 
@@ -122,6 +136,7 @@ var templateFuncs = template.FuncMap{
 	"isObject":      isObjectType,
 	"arrayElemType": getArrayType,
 	"fullArrayType": getFullArrayType,
+	"toGoFieldName":  toGoFieldName,
 }
 
 // Generate generates API wrapper code from a spec
@@ -140,11 +155,15 @@ func Generate(spec *APISpec, outputPath string) error {
 	packageName := extractPackageName(outputPath)
 
 	// Create template data with package name
+	// Clean description to avoid code generation issues
+	cleanSpec := *spec
+	cleanSpec.Description = cleanDescription(spec.Description)
+
 	templateData := struct {
 		*APISpec
 		PackageName string
 	}{
-		APISpec:     spec,
+		APISpec:     &cleanSpec,
 		PackageName: packageName,
 	}
 
@@ -263,7 +282,12 @@ func GenerateAll(outputDir string) (int, error) {
 		}
 
 		// Generate output filename with subdirectory
-		outputFile := filepath.Join(outputDir, subDir, toSnakeCase(spec.APIName)+".go")
+		// Use APICode (English) instead of APIName (Chinese) for filename
+		filename := spec.APICode
+		if filename == "" {
+			filename = toSnakeCase(spec.APIName)
+		}
+		outputFile := filepath.Join(outputDir, subDir, filename+".go")
 
 		// Generate code
 		if err := Generate(spec, outputFile); err != nil {
@@ -278,6 +302,16 @@ func GenerateAll(outputDir string) (int, error) {
 
 // categoryToDir maps Chinese category names to English directory names
 func categoryToDir(category string) string {
+	// Handle format "中文名___英文代码" (e.g., "基础数据___stock_basic")
+	if strings.Contains(category, "___") {
+		parts := strings.Split(category, "___")
+		if len(parts) >= 2 {
+			// Return the English code part as directory name
+			return parts[len(parts)-1]
+		}
+	}
+
+	// Fallback mapping for old format (纯中文分类名)
 	categoryMap := map[string]string{
 		"行情数据": "market_data",
 		"股票信息": "stock_info",
@@ -290,6 +324,7 @@ func categoryToDir(category string) string {
 	if dir, ok := categoryMap[category]; ok {
 		return dir
 	}
+
 	// 默认返回 "other" 如果没有匹配的分类
 	return "other"
 }
@@ -304,4 +339,58 @@ func toSnakeCase(s string) string {
 		result.WriteRune(r)
 	}
 	return strings.ToLower(result.String())
+}
+
+// cleanDescription cleans the description string for use in code generation
+func cleanDescription(desc string) string {
+	if desc == "" {
+		return desc
+	}
+
+	// Remove newlines and replace with space
+	cleaned := strings.ReplaceAll(desc, "\n", " ")
+	cleaned = strings.ReplaceAll(cleaned, "\r", " ")
+
+	// Remove excessive whitespace
+	cleaned = strings.TrimSpace(cleaned)
+
+	// Truncate if too long (max 200 characters for code comments)
+	// Ensure we don't cut in the middle of a UTF-8 character
+	if len(cleaned) > 200 {
+		// Convert to runes to handle multi-byte characters properly
+		runes := []rune(cleaned)
+		if len(runes) > 197 { // Leave room for "..."
+			cleaned = string(runes[:197]) + "..."
+		}
+	}
+
+	return cleaned
+}
+
+// toGoFieldName converts a field name to a valid Go identifier
+// For Chinese field names, it uses the JSON field name (usually pinyin or English)
+func toGoFieldName(fieldName string) string {
+	if fieldName == "" {
+		return fieldName
+	}
+
+	// Check if field name contains Chinese characters
+	if hasChinese(fieldName) {
+		// For Chinese field names, use "Field" prefix to make it valid Go identifier
+		// and avoid UTF-8 encoding issues
+		return "Field_" + fieldName
+	}
+
+	// For English field names, use standard PascalCase
+	return toPascalCase(fieldName)
+}
+
+// hasChinese checks if a string contains Chinese characters
+func hasChinese(s string) bool {
+	for _, r := range s {
+		if r >= 0x4E00 && r <= 0x9FFF {
+			return true
+		}
+	}
+	return false
 }

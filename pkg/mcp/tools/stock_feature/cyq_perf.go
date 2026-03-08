@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_feature "tushare-go/pkg/sdk/api/stock/stock_feature"
+	stock_feature "tushare-go/pkg/sdk/api/stock_feature"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -18,7 +18,7 @@ func (r *Stock_featureTools) registerCyqPerf() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_feature.cyq_perf",
-		Description: "Retrieve cyqperf data from Tushare stock feature API",
+		Description: "获取A股每日筹码平均成本和胜率情况，每天18~19点左右更新，数据从2018年开始 来源：Tushare社区",
 		InputSchema: inputSchema,
 	}
 
@@ -31,7 +31,7 @@ func (r *Stock_featureTools) registerCyqPerf() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_feature.CyqPerfRequest{
+		apiReq := &stock_feature.CyqPerfRequest{
 TsCode: input.TsCode,
 TradeDate: input.TradeDate,
 StartDate: input.StartDate,
@@ -39,7 +39,7 @@ EndDate: input.EndDate,
 
 		}
 
-		items, err := stock_stock_feature.CyqPerf(ctx, r.client, apiReq)
+		items, err := stock_feature.CyqPerf(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

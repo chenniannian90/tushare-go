@@ -18,7 +18,7 @@ func (r *IndexTools) registerIdxMins() {
 
 	tool := &mcp.Tool{
 		Name:        "index.idx_mins",
-		Description: "Retrieve idxmins data from Tushare index API",
+		Description: "获取交易所指数分钟数据，支持1min/5min/15min/30min/60min行情，提供Python SDK和 http Restful API两种方式",
 		InputSchema: inputSchema,
 	}
 

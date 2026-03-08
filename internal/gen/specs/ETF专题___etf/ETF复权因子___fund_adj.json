@@ -1,7 +1,7 @@
 {
   "api_name": "ETF复权因子",
   "api_code": "fund_adj",
-  "description": "",
+  "description": "获取基金复权因子，用于计算基金复权行情",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=199",
     "name": "ETF复权因子",

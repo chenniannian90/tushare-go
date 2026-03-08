@@ -1,7 +1,7 @@
 {
   "api_name": "题材成分（开盘啦）",
   "api_code": "kpl_concept_cons",
-  "description": "",
+  "description": "获取开盘啦概念题材的成分股",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=351",
     "name": "题材成分（开盘啦）",

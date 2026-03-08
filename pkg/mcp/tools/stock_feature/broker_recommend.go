@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_feature "tushare-go/pkg/sdk/api/stock/stock_feature"
+	stock_feature "tushare-go/pkg/sdk/api/stock_feature"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -31,12 +31,12 @@ func (r *Stock_featureTools) registerBrokerRecommend() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_feature.BrokerRecommendRequest{
+		apiReq := &stock_feature.BrokerRecommendRequest{
 Month: input.Month,
 
 		}
 
-		items, err := stock_stock_feature.BrokerRecommend(ctx, r.client, apiReq)
+		items, err := stock_feature.BrokerRecommend(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

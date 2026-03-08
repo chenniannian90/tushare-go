@@ -111,6 +111,8 @@ type CbFactorProItem struct {
 }
 
 // CbFactorPro 调用 可转债技术面因子(专业版) API
+// 获取可转债每日技术面因子数据，用于跟踪可转债当前走势情况，数据由Tushare社区自产，覆盖全历史；输出参数_bfq表示不复权，_qfq表示前复权 _hfq表示后复权，描述中说明了因子的默认传参，如需要特殊参数或者更多因子可以联系管理员评估
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func CbFactorPro(ctx context.Context, client *sdk.Client, req *CbFactorProRequest) ([]CbFactorProItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

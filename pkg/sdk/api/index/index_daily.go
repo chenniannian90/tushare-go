@@ -21,6 +21,8 @@ type IndexDailyItem struct {
 }
 
 // IndexDaily 调用 指数日线行情 API
+// 获取指数每日行情，还可以通过bar接口获取。由于服务器压力，目前规则是单次调取最多取8000行记录，可以设置start和end日期补全。指数行情也可以通过通用行情接口获取数据．
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func IndexDaily(ctx context.Context, client *sdk.Client, req *IndexDailyRequest) ([]IndexDailyItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

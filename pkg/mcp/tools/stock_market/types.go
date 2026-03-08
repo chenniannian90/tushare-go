@@ -3,24 +3,24 @@
 package stock_markettools
 
 import (
-	stock_stock_market "tushare-go/pkg/sdk/api/stock/stock_market"
+	stock_market "tushare-go/pkg/sdk/api/stock_market"
 
 )
 
 
 // AdjFactorInput defines the input schema
 type AdjFactorInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期(YYYYMMDD，下同)`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期(YYYYMMDD，下同)"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // AdjFactorOutput defines the output schema
 type AdjFactorOutput struct {
-	Data  []stock_stock_market.AdjFactorItem `json:data jsonschema:adj_factor data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_market.AdjFactorItem `json:"data" jsonschema:"adj_factor data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // Api109Input defines the input schema
@@ -30,8 +30,8 @@ type Api109Input struct {
 
 // Api109Output defines the output schema
 type Api109Output struct {
-	Data  []stock_stock_market.Api109Item `json:data jsonschema:api109 data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_market.Api109Item `json:"data" jsonschema:"api109 data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // Api146Input defines the input schema
@@ -41,285 +41,285 @@ type Api146Input struct {
 
 // Api146Output defines the output schema
 type Api146Output struct {
-	Data  []stock_stock_market.Api146Item `json:data jsonschema:api146 data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_market.Api146Item `json:"data" jsonschema:"api146 data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // BakDailyInput defines the input schema
 type BakDailyInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
-Offset string `json:offset,omitempty jsonschema:开始行数`
-Limit string `json:limit,omitempty jsonschema:最大行数`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
+Offset string `json:"offset,omitempty" jsonschema:"开始行数"`
+Limit string `json:"limit,omitempty" jsonschema:"最大行数"`
 
 }
 
 // BakDailyOutput defines the output schema
 type BakDailyOutput struct {
-	Data  []stock_stock_market.BakDailyItem `json:data jsonschema:bak_daily data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_market.BakDailyItem `json:"data" jsonschema:"bak_daily data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // DailyInput defines the input schema
 type DailyInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码（支持多个股票同时提取，逗号分隔）`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期（YYYYMMDD）`
-StartDate string `json:start_date,omitempty jsonschema:开始日期(YYYYMMDD)`
-EndDate string `json:end_date,omitempty jsonschema:结束日期(YYYYMMDD)`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码（支持多个股票同时提取，逗号分隔）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（YYYYMMDD）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期(YYYYMMDD)"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期(YYYYMMDD)"`
 
 }
 
 // DailyOutput defines the output schema
 type DailyOutput struct {
-	Data  []stock_stock_market.DailyItem `json:data jsonschema:daily data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_market.DailyItem `json:"data" jsonschema:"daily data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // DailyBasicInput defines the input schema
 type DailyBasicInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码（二选一）`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期 （二选一）`
-StartDate string `json:start_date,omitempty jsonschema:开始日期(YYYYMMDD)`
-EndDate string `json:end_date,omitempty jsonschema:结束日期(YYYYMMDD)`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码（二选一）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期 （二选一）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期(YYYYMMDD)"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期(YYYYMMDD)"`
 
 }
 
 // DailyBasicOutput defines the output schema
 type DailyBasicOutput struct {
-	Data  []stock_stock_market.DailyBasicItem `json:data jsonschema:daily_basic data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_market.DailyBasicItem `json:"data" jsonschema:"daily_basic data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // GgtDailyInput defines the input schema
 type GgtDailyInput struct {
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期 （格式YYYYMMDD，下同。支持单日和多日输入）`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期 （格式YYYYMMDD，下同。支持单日和多日输入）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // GgtDailyOutput defines the output schema
 type GgtDailyOutput struct {
-	Data  []stock_stock_market.GgtDailyItem `json:data jsonschema:ggt_daily data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_market.GgtDailyItem `json:"data" jsonschema:"ggt_daily data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // GgtMonthlyInput defines the input schema
 type GgtMonthlyInput struct {
-Month string `json:month,omitempty jsonschema:月度（格式YYYYMM，下同，支持多个输入）`
-StartMonth string `json:start_month,omitempty jsonschema:开始月度`
-EndMonth string `json:end_month,omitempty jsonschema:结束月度`
+Month string `json:"month,omitempty" jsonschema:"月度（格式YYYYMM，下同，支持多个输入）"`
+StartMonth string `json:"start_month,omitempty" jsonschema:"开始月度"`
+EndMonth string `json:"end_month,omitempty" jsonschema:"结束月度"`
 
 }
 
 // GgtMonthlyOutput defines the output schema
 type GgtMonthlyOutput struct {
-	Data  []stock_stock_market.GgtMonthlyItem `json:data jsonschema:ggt_monthly data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_market.GgtMonthlyItem `json:"data" jsonschema:"ggt_monthly data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // GgtTop10Input defines the input schema
 type GgtTop10Input struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码（二选一）`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期（二选一）`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
-MarketType string `json:market_type,omitempty jsonschema:市场类型 2：港股通（沪） 4：港股通（深）`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码（二选一）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（二选一）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
+MarketType string `json:"market_type,omitempty" jsonschema:"市场类型 2：港股通（沪） 4：港股通（深）"`
 
 }
 
 // GgtTop10Output defines the output schema
 type GgtTop10Output struct {
-	Data  []stock_stock_market.GgtTop10Item `json:data jsonschema:ggt_top10 data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_market.GgtTop10Item `json:"data" jsonschema:"ggt_top10 data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // HsgtTop10Input defines the input schema
 type HsgtTop10Input struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码（二选一）`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期（二选一）`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
-MarketType string `json:market_type,omitempty jsonschema:市场类型（1：沪市 3：深市）`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码（二选一）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（二选一）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
+MarketType string `json:"market_type,omitempty" jsonschema:"市场类型（1：沪市 3：深市）"`
 
 }
 
 // HsgtTop10Output defines the output schema
 type HsgtTop10Output struct {
-	Data  []stock_stock_market.HsgtTop10Item `json:data jsonschema:hsgt_top10 data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_market.HsgtTop10Item `json:"data" jsonschema:"hsgt_top10 data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // MonthlyInput defines the input schema
 type MonthlyInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:TS代码 （ts_code,trade_date两个参数任选一）`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期 （每月最后一个交易日日期，YYYYMMDD格式）`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+TsCode string `json:"ts_code,omitempty" jsonschema:"TS代码 （ts_code,trade_date两个参数任选一）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期 （每月最后一个交易日日期，YYYYMMDD格式）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // MonthlyOutput defines the output schema
 type MonthlyOutput struct {
-	Data  []stock_stock_market.MonthlyItem `json:data jsonschema:monthly data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_market.MonthlyItem `json:"data" jsonschema:"monthly data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // RealtimeListInput defines the input schema
 type RealtimeListInput struct {
-Src string `json:src,omitempty jsonschema:数据源 （sina-新浪 dc-东方财富，默认dc）`
+Src string `json:"src,omitempty" jsonschema:"数据源 （sina-新浪 dc-东方财富，默认dc）"`
 
 }
 
 // RealtimeListOutput defines the output schema
 type RealtimeListOutput struct {
-	Data  []stock_stock_market.RealtimeListItem `json:data jsonschema:realtime_list data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_market.RealtimeListItem `json:"data" jsonschema:"realtime_list data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // RealtimeQuoteInput defines the input schema
 type RealtimeQuoteInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码，需按tushare股票和指数标准代码输入，比如：000001.SZ表示平安银行，000001.SH表示上证指数`
-Src string `json:src,omitempty jsonschema:数据源 （sina-新浪 dc-东方财富，默认sina）`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码，需按tushare股票和指数标准代码输入，比如：000001.SZ表示平安银行，000001.SH表示上证指数"`
+Src string `json:"src,omitempty" jsonschema:"数据源 （sina-新浪 dc-东方财富，默认sina）"`
 
 }
 
 // RealtimeQuoteOutput defines the output schema
 type RealtimeQuoteOutput struct {
-	Data  []stock_stock_market.RealtimeQuoteItem `json:data jsonschema:realtime_quote data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_market.RealtimeQuoteItem `json:"data" jsonschema:"realtime_quote data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // RealtimeTickInput defines the input schema
 type RealtimeTickInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码，需按tushare股票代码标准输入，比如：000001.SZ表示平安银行，600000.SH表示浦发银行，单次只能输入一个股票`
-Src string `json:src,omitempty jsonschema:数据源 （sina-新浪 dc-东方财富，默认sina）`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码，需按tushare股票代码标准输入，比如：000001.SZ表示平安银行，600000.SH表示浦发银行，单次只能输入一个股票"`
+Src string `json:"src,omitempty" jsonschema:"数据源 （sina-新浪 dc-东方财富，默认sina）"`
 
 }
 
 // RealtimeTickOutput defines the output schema
 type RealtimeTickOutput struct {
-	Data  []stock_stock_market.RealtimeTickItem `json:data jsonschema:realtime_tick data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_market.RealtimeTickItem `json:"data" jsonschema:"realtime_tick data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // RtKInput defines the input schema
 type RtKInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:支持通配符方式，e.g. 所有上交所股票：6*.SH、所有创业板股票3*.SZ、所有科创板股票688*.SH，或单个股票600000.SH`
+TsCode string `json:"ts_code,omitempty" jsonschema:"支持通配符方式，e.g. 所有上交所股票：6*.SH、所有创业板股票3*.SZ、所有科创板股票688*.SH，或单个股票600000.SH"`
 
 }
 
 // RtKOutput defines the output schema
 type RtKOutput struct {
-	Data  []stock_stock_market.RtKItem `json:data jsonschema:rt_k data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_market.RtKItem `json:"data" jsonschema:"rt_k data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // RtMinInput defines the input schema
 type RtMinInput struct {
-Freq string `json:freq,omitempty jsonschema:1MIN,5MIN,15MIN,30MIN,60MIN （大写）`
-TsCode string `json:ts_code,omitempty jsonschema:支持单个和多个：589960.SH 或者 589960.SH,159100.SZ`
+Freq string `json:"freq,omitempty" jsonschema:"1MIN,5MIN,15MIN,30MIN,60MIN （大写）"`
+TsCode string `json:"ts_code,omitempty" jsonschema:"支持单个和多个：600000.SH 或者 600000.SH,000001.SZ"`
 
 }
 
 // RtMinOutput defines the output schema
 type RtMinOutput struct {
-	Data  []stock_stock_market.RtMinItem `json:data jsonschema:rt_min data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_market.RtMinItem `json:"data" jsonschema:"rt_min data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // StkLimitInput defines the input schema
 type StkLimitInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // StkLimitOutput defines the output schema
 type StkLimitOutput struct {
-	Data  []stock_stock_market.StkLimitItem `json:data jsonschema:stk_limit data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_market.StkLimitItem `json:"data" jsonschema:"stk_limit data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // StkMinsInput defines the input schema
 type StkMinsInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:ETF代码，e.g. 159001.SZ`
-Freq string `json:freq,omitempty jsonschema:分钟频度（1min/5min/15min/30min/60min）`
-StartDate string `json:start_date,omitempty jsonschema:开始日期 格式：2025-06-01 09:00:00`
-EndDate string `json:end_date,omitempty jsonschema:结束时间 格式：2025-06-20 19:00:00`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码，e.g. 600000.SH"`
+Freq string `json:"freq,omitempty" jsonschema:"分钟频度（1min/5min/15min/30min/60min）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期 格式：2023-08-25 09:00:00"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束时间 格式：2023-08-25 19:00:00"`
 
 }
 
 // StkMinsOutput defines the output schema
 type StkMinsOutput struct {
-	Data  []stock_stock_market.StkMinsItem `json:data jsonschema:stk_mins data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_market.StkMinsItem `json:"data" jsonschema:"stk_mins data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // StkWeekMonthAdjInput defines the input schema
 type StkWeekMonthAdjInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:TS代码`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期（格式：YYYYMMDD，每周或每月最后一天的日期）`
-StartDate string `json:start_date,omitempty jsonschema:开始交易日期`
-EndDate string `json:end_date,omitempty jsonschema:结束交易日期`
-Freq string `json:freq,omitempty jsonschema:频率week周，month月`
+TsCode string `json:"ts_code,omitempty" jsonschema:"TS代码"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（格式：YYYYMMDD，每周或每月最后一天的日期）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始交易日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束交易日期"`
+Freq string `json:"freq,omitempty" jsonschema:"频率week周，month月"`
 
 }
 
 // StkWeekMonthAdjOutput defines the output schema
 type StkWeekMonthAdjOutput struct {
-	Data  []stock_stock_market.StkWeekMonthAdjItem `json:data jsonschema:stk_week_month_adj data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_market.StkWeekMonthAdjItem `json:"data" jsonschema:"stk_week_month_adj data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // StkWeeklyMonthlyInput defines the input schema
 type StkWeeklyMonthlyInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:TS代码`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期(格式：YYYYMMDD，每周或每月最后一天的日期）`
-StartDate string `json:start_date,omitempty jsonschema:开始交易日期`
-EndDate string `json:end_date,omitempty jsonschema:结束交易日期`
-Freq string `json:freq,omitempty jsonschema:频率week周，month月`
+TsCode string `json:"ts_code,omitempty" jsonschema:"TS代码"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期(格式：YYYYMMDD，每周或每月最后一天的日期）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始交易日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束交易日期"`
+Freq string `json:"freq,omitempty" jsonschema:"频率week周，month月"`
 
 }
 
 // StkWeeklyMonthlyOutput defines the output schema
 type StkWeeklyMonthlyOutput struct {
-	Data  []stock_stock_market.StkWeeklyMonthlyItem `json:data jsonschema:stk_weekly_monthly data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_market.StkWeeklyMonthlyItem `json:"data" jsonschema:"stk_weekly_monthly data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // SuspendDInput defines the input schema
 type SuspendDInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码(可输入多值)`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日日期`
-StartDate string `json:start_date,omitempty jsonschema:停复牌查询开始日期`
-EndDate string `json:end_date,omitempty jsonschema:停复牌查询结束日期`
-SuspendType string `json:suspend_type,omitempty jsonschema:停复牌类型：S-停牌,R-复牌`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码(可输入多值)"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日日期"`
+StartDate string `json:"start_date,omitempty" jsonschema:"停复牌查询开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"停复牌查询结束日期"`
+SuspendType string `json:"suspend_type,omitempty" jsonschema:"停复牌类型：S-停牌,R-复牌"`
 
 }
 
 // SuspendDOutput defines the output schema
 type SuspendDOutput struct {
-	Data  []stock_stock_market.SuspendDItem `json:data jsonschema:suspend_d data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_market.SuspendDItem `json:"data" jsonschema:"suspend_d data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // WeeklyInput defines the input schema
 type WeeklyInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:TS代码 （ts_code,trade_date两个参数任选一）`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期 （每周最后一个交易日期，YYYYMMDD格式）`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+TsCode string `json:"ts_code,omitempty" jsonschema:"TS代码 （ts_code,trade_date两个参数任选一）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期 （每周最后一个交易日期，YYYYMMDD格式）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // WeeklyOutput defines the output schema
 type WeeklyOutput struct {
-	Data  []stock_stock_market.WeeklyItem `json:data jsonschema:weekly data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_market.WeeklyItem `json:"data" jsonschema:"weekly data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 

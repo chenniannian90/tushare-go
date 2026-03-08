@@ -25,6 +25,8 @@ type MajorNewsItem struct {
 }
 
 // MajorNews 调用 新闻通讯（长篇） API
+// 获取长篇通讯信息，覆盖主要新闻资讯网站，提供超过8年历史新闻。
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func MajorNews(ctx context.Context, client *sdk.Client, req *MajorNewsRequest) ([]MajorNewsItem, error) {
 	params := map[string]interface{}{}
 	if req.Src != "" {

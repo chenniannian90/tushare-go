@@ -27,6 +27,8 @@ type FundAdjItem struct {
 }
 
 // FundAdj 调用 ETF复权因子 API
+// 获取基金复权因子，用于计算基金复权行情
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func FundAdj(ctx context.Context, client *sdk.Client, req *FundAdjRequest) ([]FundAdjItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

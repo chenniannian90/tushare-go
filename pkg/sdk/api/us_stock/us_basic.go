@@ -28,6 +28,8 @@ type UsBasicItem struct {
 }
 
 // UsBasic 调用 美股基础信息 API
+// 获取美股列表信息
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func UsBasic(ctx context.Context, client *sdk.Client, req *UsBasicRequest) ([]UsBasicItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

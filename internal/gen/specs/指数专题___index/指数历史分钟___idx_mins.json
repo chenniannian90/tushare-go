@@ -1,7 +1,7 @@
 {
   "api_name": "指数历史分钟",
   "api_code": "idx_mins",
-  "description": "",
+  "description": "获取交易所指数分钟数据，支持1min/5min/15min/30min/60min行情，提供Python SDK和 http Restful API两种方式",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=419",
     "name": "指数历史分钟",

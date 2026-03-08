@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_basic "tushare-go/pkg/sdk/api/stock/stock_basic"
+	stock_basic "tushare-go/pkg/sdk/api/stock_basic"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -31,7 +31,7 @@ func (r *Stock_basicTools) registerStockHsgt() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_basic.StockHsgtRequest{
+		apiReq := &stock_basic.StockHsgtRequest{
 TsCode: input.TsCode,
 TradeDate: input.TradeDate,
 Type: input.Type,
@@ -40,7 +40,7 @@ EndDate: input.EndDate,
 
 		}
 
-		items, err := stock_stock_basic.StockHsgt(ctx, r.client, apiReq)
+		items, err := stock_basic.StockHsgt(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

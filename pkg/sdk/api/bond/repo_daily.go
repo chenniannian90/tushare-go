@@ -34,6 +34,8 @@ type RepoDailyItem struct {
 }
 
 // RepoDaily 调用 债券回购日行情 API
+// 债券回购日行情
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func RepoDaily(ctx context.Context, client *sdk.Client, req *RepoDailyRequest) ([]RepoDailyItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

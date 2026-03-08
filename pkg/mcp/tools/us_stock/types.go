@@ -10,145 +10,145 @@ import (
 
 // UsAdjfactorInput defines the input schema
 type UsAdjfactorInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期（格式：YYYYMMDD，下同）`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（格式：YYYYMMDD，下同）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // UsAdjfactorOutput defines the output schema
 type UsAdjfactorOutput struct {
-	Data  []us_stock.UsAdjfactorItem `json:data jsonschema:us_adjfactor data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []us_stock.UsAdjfactorItem `json:"data" jsonschema:"us_adjfactor data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // UsBalancesheetInput defines the input schema
 type UsBalancesheetInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码`
-Period string `json:period,omitempty jsonschema:报告期（格式：YYYYMMDD，每个季度最后一天的日期，如20241231)`
-IndName string `json:ind_name,omitempty jsonschema:指标名(如：新增借款）`
-ReportType string `json:report_type,omitempty jsonschema:报告期类型(Q1一季报Q2半年报Q3三季报Q4年报)`
-StartDate string `json:start_date,omitempty jsonschema:报告期开始时间（格式：YYYYMMDD）`
-EndDate string `json:end_date,omitempty jsonschema:报告结束始时间（格式：YYYYMMDD）`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
+Period string `json:"period,omitempty" jsonschema:"报告期（格式：YYYYMMDD，每个季度最后一天的日期，如20241231)"`
+IndName string `json:"ind_name,omitempty" jsonschema:"指标名(如：新增借款）"`
+ReportType string `json:"report_type,omitempty" jsonschema:"报告期类型(Q1一季报Q2半年报Q3三季报Q4年报)"`
+StartDate string `json:"start_date,omitempty" jsonschema:"报告期开始时间（格式：YYYYMMDD）"`
+EndDate string `json:"end_date,omitempty" jsonschema:"报告结束始时间（格式：YYYYMMDD）"`
 
 }
 
 // UsBalancesheetOutput defines the output schema
 type UsBalancesheetOutput struct {
-	Data  []us_stock.UsBalancesheetItem `json:data jsonschema:us_balancesheet data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []us_stock.UsBalancesheetItem `json:"data" jsonschema:"us_balancesheet data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // UsBasicInput defines the input schema
 type UsBasicInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码`
-Classify string `json:classify,omitempty jsonschema:股票分类`
-Offset string `json:offset,omitempty jsonschema:开始行数`
-Limit string `json:limit,omitempty jsonschema:每页最大行数`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
+Classify string `json:"classify,omitempty" jsonschema:"股票分类"`
+Offset string `json:"offset,omitempty" jsonschema:"开始行数"`
+Limit string `json:"limit,omitempty" jsonschema:"每页最大行数"`
 
 }
 
 // UsBasicOutput defines the output schema
 type UsBasicOutput struct {
-	Data  []us_stock.UsBasicItem `json:data jsonschema:us_basic data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []us_stock.UsBasicItem `json:"data" jsonschema:"us_basic data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // UsCashflowInput defines the input schema
 type UsCashflowInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码`
-Period string `json:period,omitempty jsonschema:报告期（格式：YYYYMMDD，每个季度最后一天的日期，如20241231)`
-IndName string `json:ind_name,omitempty jsonschema:指标名(如：新增借款）`
-ReportType string `json:report_type,omitempty jsonschema:报告期类型(Q1一季报Q2半年报Q3三季报Q4年报)`
-StartDate string `json:start_date,omitempty jsonschema:报告期开始时间（格式：YYYYMMDD）`
-EndDate string `json:end_date,omitempty jsonschema:报告结束始时间（格式：YYYYMMDD）`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
+Period string `json:"period,omitempty" jsonschema:"报告期（格式：YYYYMMDD，每个季度最后一天的日期，如20241231)"`
+IndName string `json:"ind_name,omitempty" jsonschema:"指标名(如：新增借款）"`
+ReportType string `json:"report_type,omitempty" jsonschema:"报告期类型(Q1一季报Q2半年报Q3三季报Q4年报)"`
+StartDate string `json:"start_date,omitempty" jsonschema:"报告期开始时间（格式：YYYYMMDD）"`
+EndDate string `json:"end_date,omitempty" jsonschema:"报告结束始时间（格式：YYYYMMDD）"`
 
 }
 
 // UsCashflowOutput defines the output schema
 type UsCashflowOutput struct {
-	Data  []us_stock.UsCashflowItem `json:data jsonschema:us_cashflow data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []us_stock.UsCashflowItem `json:"data" jsonschema:"us_cashflow data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // UsDailyInput defines the input schema
 type UsDailyInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码（e.g. AAPL）`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期（YYYYMMDD）`
-StartDate string `json:start_date,omitempty jsonschema:开始日期（YYYYMMDD）`
-EndDate string `json:end_date,omitempty jsonschema:结束日期（YYYYMMDD）`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码（e.g. AAPL）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（YYYYMMDD）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期（YYYYMMDD）"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期（YYYYMMDD）"`
 
 }
 
 // UsDailyOutput defines the output schema
 type UsDailyOutput struct {
-	Data  []us_stock.UsDailyItem `json:data jsonschema:us_daily data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []us_stock.UsDailyItem `json:"data" jsonschema:"us_daily data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // UsDailyAdjInput defines the input schema
 type UsDailyAdjInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码（e.g. AAPL）`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期（YYYYMMDD）`
-StartDate string `json:start_date,omitempty jsonschema:开始日期（YYYYMMDD）`
-EndDate string `json:end_date,omitempty jsonschema:结束日期（YYYYMMDD）`
-Exchange string `json:exchange,omitempty jsonschema:交易所（NAS/NYS/OTC)`
-Offset int `json:offset,omitempty jsonschema:开始行数`
-Limit int `json:limit,omitempty jsonschema:每页行数行数`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码（e.g. AAPL）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（YYYYMMDD）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期（YYYYMMDD）"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期（YYYYMMDD）"`
+Exchange string `json:"exchange,omitempty" jsonschema:"交易所（NAS/NYS/OTC)"`
+Offset int `json:"offset,omitempty" jsonschema:"开始行数"`
+Limit int `json:"limit,omitempty" jsonschema:"每页行数行数"`
 
 }
 
 // UsDailyAdjOutput defines the output schema
 type UsDailyAdjOutput struct {
-	Data  []us_stock.UsDailyAdjItem `json:data jsonschema:us_daily_adj data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []us_stock.UsDailyAdjItem `json:"data" jsonschema:"us_daily_adj data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // UsFinaIndicatorInput defines the input schema
 type UsFinaIndicatorInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码`
-Period string `json:period,omitempty jsonschema:报告期（格式：YYYYMMDD，每个季度最后一天的日期，如20241231)`
-ReportType string `json:report_type,omitempty jsonschema:报告期类型(Q1一季报Q2半年报Q3三季报Q4年报)`
-StartDate string `json:start_date,omitempty jsonschema:报告期开始时间（格式：YYYYMMDD）`
-EndDate string `json:end_date,omitempty jsonschema:报告结束始时间（格式：YYYYMMDD）`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
+Period string `json:"period,omitempty" jsonschema:"报告期（格式：YYYYMMDD，每个季度最后一天的日期，如20241231)"`
+ReportType string `json:"report_type,omitempty" jsonschema:"报告期类型(Q1一季报Q2半年报Q3三季报Q4年报)"`
+StartDate string `json:"start_date,omitempty" jsonschema:"报告期开始时间（格式：YYYYMMDD）"`
+EndDate string `json:"end_date,omitempty" jsonschema:"报告结束始时间（格式：YYYYMMDD）"`
 
 }
 
 // UsFinaIndicatorOutput defines the output schema
 type UsFinaIndicatorOutput struct {
-	Data  []us_stock.UsFinaIndicatorItem `json:data jsonschema:us_fina_indicator data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []us_stock.UsFinaIndicatorItem `json:"data" jsonschema:"us_fina_indicator data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // UsIncomeInput defines the input schema
 type UsIncomeInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码`
-Period string `json:period,omitempty jsonschema:报告期（格式：YYYYMMDD，每个季度最后一天的日期，如20241231)`
-IndName string `json:ind_name,omitempty jsonschema:指标名(如：新增借款）`
-ReportType string `json:report_type,omitempty jsonschema:报告期类型(Q1一季报Q2半年报Q3三季报Q4年报)`
-StartDate string `json:start_date,omitempty jsonschema:报告期开始时间（格式：YYYYMMDD）`
-EndDate string `json:end_date,omitempty jsonschema:报告结束始时间（格式：YYYYMMDD）`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
+Period string `json:"period,omitempty" jsonschema:"报告期（格式：YYYYMMDD，每个季度最后一天的日期，如20241231)"`
+IndName string `json:"ind_name,omitempty" jsonschema:"指标名(如：新增借款）"`
+ReportType string `json:"report_type,omitempty" jsonschema:"报告期类型(Q1一季报Q2半年报Q3三季报Q4年报)"`
+StartDate string `json:"start_date,omitempty" jsonschema:"报告期开始时间（格式：YYYYMMDD）"`
+EndDate string `json:"end_date,omitempty" jsonschema:"报告结束始时间（格式：YYYYMMDD）"`
 
 }
 
 // UsIncomeOutput defines the output schema
 type UsIncomeOutput struct {
-	Data  []us_stock.UsIncomeItem `json:data jsonschema:us_income data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []us_stock.UsIncomeItem `json:"data" jsonschema:"us_income data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // UsTradecalInput defines the input schema
 type UsTradecalInput struct {
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
-IsOpen string `json:is_open,omitempty jsonschema:是否交易`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
+IsOpen string `json:"is_open,omitempty" jsonschema:"是否交易"`
 
 }
 
 // UsTradecalOutput defines the output schema
 type UsTradecalOutput struct {
-	Data  []us_stock.UsTradecalItem `json:data jsonschema:us_tradecal data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []us_stock.UsTradecalItem `json:"data" jsonschema:"us_tradecal data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 

@@ -33,6 +33,8 @@ type HkDailyItem struct {
 }
 
 // HkDaily 调用 港股日线行情 API
+// 获取港股每日增量和历史行情，每日18点左右更新当日数据
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func HkDaily(ctx context.Context, client *sdk.Client, req *HkDailyRequest) ([]HkDailyItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

@@ -1,7 +1,7 @@
 {
   "api_name": "可转债基础信息",
   "api_code": "cb_basic",
-  "description": "",
+  "description": "获取可转债基本信息",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=185",
     "name": "可转债基础信息",

@@ -18,7 +18,7 @@ func (r *Hk_stockTools) registerHkFinaIndicator() {
 
 	tool := &mcp.Tool{
 		Name:        "hk_stock.hk_fina_indicator",
-		Description: "Retrieve hkfinaindicator data from Tushare hk stock API",
+		Description: "获取港股上市公司财务指标数据，为避免服务器压力，现阶段每次请求最多返回200条记录，可通过设置日期多次请求获取更多数据。",
 		InputSchema: inputSchema,
 	}
 

@@ -1,7 +1,7 @@
 {
   "api_name": "行业资金流向（THS）",
   "api_code": "moneyflow_ind_ths",
-  "description": "",
+  "description": "获取同花顺行业资金流向，每日盘后更新",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=343",
     "name": "行业资金流向（THS）",

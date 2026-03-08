@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	wealth_wealth_fund_sales "tushare-go/pkg/sdk/api/wealth/wealth_fund_sales"
+	wealth_fund_sales "tushare-go/pkg/sdk/api/wealth_fund_sales"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -31,14 +31,14 @@ func (r *Wealth_fund_salesTools) registerFundSalesVol() {
 			}, nil
 		}
 
-		apiReq := &wealth_wealth_fund_sales.FundSalesVolRequest{
+		apiReq := &wealth_fund_sales.FundSalesVolRequest{
 Year: input.Year,
 Quarter: input.Quarter,
 Name: input.Name,
 
 		}
 
-		items, err := wealth_wealth_fund_sales.FundSalesVol(ctx, r.client, apiReq)
+		items, err := wealth_fund_sales.FundSalesVol(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

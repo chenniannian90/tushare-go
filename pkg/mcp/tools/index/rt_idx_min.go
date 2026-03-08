@@ -18,7 +18,7 @@ func (r *IndexTools) registerRtIdxMin() {
 
 	tool := &mcp.Tool{
 		Name:        "index.rt_idx_min",
-		Description: "Retrieve rtidxmin data from Tushare index API",
+		Description: "获取交易所指数实时分钟数据，包括1~60min",
 		InputSchema: inputSchema,
 	}
 

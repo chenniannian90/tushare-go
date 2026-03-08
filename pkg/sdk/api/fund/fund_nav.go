@@ -32,6 +32,8 @@ type FundNavItem struct {
 }
 
 // FundNav 调用 基金净值 API
+// 获取公募基金净值数据
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func FundNav(ctx context.Context, client *sdk.Client, req *FundNavRequest) ([]FundNavItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

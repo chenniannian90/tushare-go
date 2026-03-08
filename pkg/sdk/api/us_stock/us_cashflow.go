@@ -31,6 +31,8 @@ type UsCashflowItem struct {
 }
 
 // UsCashflow 调用 美股现金流量表 API
+// 获取美股上市公司现金流量表数据（目前只覆盖主要美股和中概股）
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func UsCashflow(ctx context.Context, client *sdk.Client, req *UsCashflowRequest) ([]UsCashflowItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

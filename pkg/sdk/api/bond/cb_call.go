@@ -33,6 +33,8 @@ type CbCallItem struct {
 }
 
 // CbCall 调用 可转债赎回信息 API
+// 获取可转债到期赎回、强制赎回等信息。数据来源于公开披露渠道，供个人和机构研究使用，请不要用于数据商业目的。
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func CbCall(ctx context.Context, client *sdk.Client, req *CbCallRequest) ([]CbCallItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

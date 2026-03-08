@@ -29,6 +29,8 @@ type IndexClassifyItem struct {
 }
 
 // IndexClassify 调用 申万行业分类 API
+// 获取申万行业分类，可以获取申万2014年版本（28个一级分类，104个二级分类，227个三级分类）和2021年本版（31个一级分类，134个二级分类，346个三级分类）列表信息
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func IndexClassify(ctx context.Context, client *sdk.Client, req *IndexClassifyRequest) ([]IndexClassifyItem, error) {
 	params := map[string]interface{}{}
 	if req.IndexCode != "" {

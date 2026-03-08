@@ -1,0 +1,36 @@
+{
+  "api_name": "复杂类型示例",
+  "api_code": "complex_types_example",
+  "description": "这是一个用于测试复杂类型支持的示例API",
+  "request_params": [
+    {
+      "name": "include_nested",
+      "type": "bool",
+      "description": "是否包含嵌套数据",
+      "required": false
+    }
+  ],
+  "response_fields": [
+    {
+      "name": "tags",
+      "type": "array",
+      "description": "标签数组",
+      "items": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "scores",
+      "type": "array",
+      "description": "分数数组",
+      "items": {
+        "type": "float"
+      }
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "description": "元数据对象"
+    }
+  ]
+}

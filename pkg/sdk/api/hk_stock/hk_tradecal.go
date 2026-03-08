@@ -24,6 +24,8 @@ type HkTradecalItem struct {
 }
 
 // HkTradecal 调用 港股交易日历 API
+// 获取交易日历
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func HkTradecal(ctx context.Context, client *sdk.Client, req *HkTradecalRequest) ([]HkTradecalItem, error) {
 	params := map[string]interface{}{}
 	if req.StartDate != "" {

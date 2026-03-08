@@ -32,6 +32,8 @@ type FtLimitItem struct {
 }
 
 // FtLimit 调用 期货合约涨跌停价格 API
+// 获取所有期货合约每天的涨跌停价格及最低保证金率，数据开始于2005年。
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func FtLimit(ctx context.Context, client *sdk.Client, req *FtLimitRequest) ([]FtLimitItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

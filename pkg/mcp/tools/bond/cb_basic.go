@@ -18,7 +18,7 @@ func (r *BondTools) registerCbBasic() {
 
 	tool := &mcp.Tool{
 		Name:        "bond.cb_basic",
-		Description: "Retrieve cbbasic data from Tushare bond API",
+		Description: "获取可转债基本信息",
 		InputSchema: inputSchema,
 	}
 

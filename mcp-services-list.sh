@@ -100,12 +100,15 @@ run_cmd "claude mcp add --transport http tushare-spot ${BASE_URL}/spot --header 
 print_comment "# ==================== LLM语料数据 ===================="
 run_cmd "claude mcp add --transport http tushare-llm-corpus ${BASE_URL}/llm_corpus --header \"X-API-Key:${API_KEY}\" --scope project"
 
-# ==================== 宏观经济数据 (4个) ====================
-print_comment "# ==================== 宏观经济数据 (4个) ===================="
+# ==================== 宏观经济数据 (7个) ====================
+print_comment "# ==================== 宏观经济数据 (7个) ===================="
 run_cmd "claude mcp add --transport http tushare-macro-business ${BASE_URL}/macro/macro_business --header \"X-API-Key:${API_KEY}\" --scope project"
 run_cmd "claude mcp add --transport http tushare-macro-economy ${BASE_URL}/macro/macro_economy --header \"X-API-Key:${API_KEY}\" --scope project"
 run_cmd "claude mcp add --transport http tushare-macro-interest-rate ${BASE_URL}/macro/macro_interest_rate --header \"X-API-Key:${API_KEY}\" --scope project"
 run_cmd "claude mcp add --transport http tushare-macro-price ${BASE_URL}/macro/macro_price --header \"X-API-Key:${API_KEY}\" --scope project"
+run_cmd "claude mcp add --transport http tushare-macro-money-supply ${BASE_URL}/macro/macro_money_supply --header \"X-API-Key:${API_KEY}\" --scope project"
+run_cmd "claude mcp add --transport http tushare-macro-social-financing ${BASE_URL}/macro/macro_social_financing --header \"X-API-Key:${API_KEY}\" --scope project"
+run_cmd "claude mcp add --transport http tushare-macro-us-rate ${BASE_URL}/macro/macro_us_rate --header \"X-API-Key:${API_KEY}\" --scope project"
 
 # ==================== 行业数据 ====================
 print_comment "# ==================== 行业数据 ===================="
@@ -117,7 +120,7 @@ run_cmd "claude mcp add --transport http tushare-wealth-fund-sales ${BASE_URL}/w
 
 if [ "$DRY_RUN" = true ]; then
   echo ""
-  echo "# 以上为所有 25 个 Tushare MCP 服务的添加命令（仅预览，未执行）"
+  echo "# 以上为所有 28 个 Tushare MCP 服务的添加命令（仅预览，未执行）"
 else
-  echo "✅ 所有 25 个 Tushare MCP 服务已添加完成！"
+  echo "✅ 所有 28 个 Tushare MCP 服务已添加完成！"
 fi

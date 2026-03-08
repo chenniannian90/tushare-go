@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_feature "tushare-go/pkg/sdk/api/stock/stock_feature"
+	stock_feature "tushare-go/pkg/sdk/api/stock_feature"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -31,7 +31,7 @@ func (r *Stock_featureTools) registerReportRc() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_feature.ReportRcRequest{
+		apiReq := &stock_feature.ReportRcRequest{
 TsCode: input.TsCode,
 ReportDate: input.ReportDate,
 StartDate: input.StartDate,
@@ -39,7 +39,7 @@ EndDate: input.EndDate,
 
 		}
 
-		items, err := stock_stock_feature.ReportRc(ctx, r.client, apiReq)
+		items, err := stock_feature.ReportRc(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_feature "tushare-go/pkg/sdk/api/stock/stock_feature"
+	stock_feature "tushare-go/pkg/sdk/api/stock_feature"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -18,7 +18,7 @@ func (r *Stock_featureTools) registerHkHold() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_feature.hk_hold",
-		Description: "Retrieve hkhold data from Tushare stock feature API",
+		Description: "获取沪深港股通持股明细，数据来源港交所。",
 		InputSchema: inputSchema,
 	}
 
@@ -31,7 +31,7 @@ func (r *Stock_featureTools) registerHkHold() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_feature.HkHoldRequest{
+		apiReq := &stock_feature.HkHoldRequest{
 Code: input.Code,
 TsCode: input.TsCode,
 TradeDate: input.TradeDate,
@@ -41,7 +41,7 @@ Exchange: input.Exchange,
 
 		}
 
-		items, err := stock_stock_feature.HkHold(ctx, r.client, apiReq)
+		items, err := stock_feature.HkHold(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

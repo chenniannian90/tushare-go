@@ -1,7 +1,7 @@
 {
   "api_name": "指数实时分钟",
   "api_code": "rt_idx_min",
-  "description": "",
+  "description": "获取交易所指数实时分钟数据，包括1~60min",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=420",
     "name": "指数实时分钟",

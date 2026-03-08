@@ -1,7 +1,7 @@
 {
   "api_name": "沪深股通持股明细",
   "api_code": "hk_hold",
-  "description": "",
+  "description": "获取沪深港股通持股明细，数据来源港交所。",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=188",
     "name": "沪深股通持股明细",

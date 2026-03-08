@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_basic "tushare-go/pkg/sdk/api/stock/stock_basic"
+	stock_basic "tushare-go/pkg/sdk/api/stock_basic"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -31,14 +31,14 @@ func (r *Stock_basicTools) registerNamechange() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_basic.NamechangeRequest{
+		apiReq := &stock_basic.NamechangeRequest{
 TsCode: input.TsCode,
 StartDate: input.StartDate,
 EndDate: input.EndDate,
 
 		}
 
-		items, err := stock_stock_basic.Namechange(ctx, r.client, apiReq)
+		items, err := stock_basic.Namechange(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

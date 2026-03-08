@@ -30,6 +30,8 @@ type YcCbItem struct {
 }
 
 // YcCb 调用 国债收益率曲线 API
+// 获取中债收益率曲线，目前可获取中债国债收益率曲线即期和到期收益率曲线数据
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func YcCb(ctx context.Context, client *sdk.Client, req *YcCbRequest) ([]YcCbItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

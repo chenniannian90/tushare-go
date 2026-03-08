@@ -41,6 +41,8 @@ type FutWeeklyDetailItem struct {
 }
 
 // FutWeeklyDetail 调用 期货主要品种交易周报 API
+// 获取期货交易所主要品种每周交易统计信息，数据从2010年3月开始
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func FutWeeklyDetail(ctx context.Context, client *sdk.Client, req *FutWeeklyDetailRequest) ([]FutWeeklyDetailItem, error) {
 	params := map[string]interface{}{}
 	if req.Week != "" {

@@ -18,7 +18,7 @@ func (r *EtfTools) registerRtMin() {
 
 	tool := &mcp.Tool{
 		Name:        "etf.rt_min",
-		Description: "Retrieve rtmin data from Tushare etf API",
+		Description: "获取ETF实时分钟数据，包括1~60min",
 		InputSchema: inputSchema,
 	}
 

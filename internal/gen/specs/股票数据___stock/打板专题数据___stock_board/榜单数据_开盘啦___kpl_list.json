@@ -1,7 +1,7 @@
 {
   "api_name": "榜单数据（开盘啦）",
   "api_code": "kpl_list",
-  "description": "",
+  "description": "获取开盘啦涨停、跌停、炸板等榜单数据",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=347",
     "name": "榜单数据（开盘啦）",

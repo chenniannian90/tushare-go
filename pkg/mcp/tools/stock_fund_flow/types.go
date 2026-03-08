@@ -3,127 +3,127 @@
 package stock_fund_flowtools
 
 import (
-	stock_stock_fund_flow "tushare-go/pkg/sdk/api/stock/stock_fund_flow"
+	stock_fund_flow "tushare-go/pkg/sdk/api/stock_fund_flow"
 
 )
 
 
 // MoneyflowInput defines the input schema
 type MoneyflowInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码 （股票和时间参数至少输入一个）`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码 （股票和时间参数至少输入一个）"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // MoneyflowOutput defines the output schema
 type MoneyflowOutput struct {
-	Data  []stock_stock_fund_flow.MoneyflowItem `json:data jsonschema:moneyflow data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_fund_flow.MoneyflowItem `json:"data" jsonschema:"moneyflow data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // MoneyflowCntThsInput defines the input schema
 type MoneyflowCntThsInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:代码`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期(格式：YYYYMMDD，下同)`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+TsCode string `json:"ts_code,omitempty" jsonschema:"代码"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期(格式：YYYYMMDD，下同)"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // MoneyflowCntThsOutput defines the output schema
 type MoneyflowCntThsOutput struct {
-	Data  []stock_stock_fund_flow.MoneyflowCntThsItem `json:data jsonschema:moneyflow_cnt_ths data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_fund_flow.MoneyflowCntThsItem `json:"data" jsonschema:"moneyflow_cnt_ths data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // MoneyflowDcInput defines the input schema
 type MoneyflowDcInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期（YYYYMMDD格式，下同）`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（YYYYMMDD格式，下同）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // MoneyflowDcOutput defines the output schema
 type MoneyflowDcOutput struct {
-	Data  []stock_stock_fund_flow.MoneyflowDcItem `json:data jsonschema:moneyflow_dc data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_fund_flow.MoneyflowDcItem `json:"data" jsonschema:"moneyflow_dc data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // MoneyflowHsgtInput defines the input schema
 type MoneyflowHsgtInput struct {
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期 (二选一)`
-StartDate string `json:start_date,omitempty jsonschema:开始日期 (二选一)`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期 (二选一)"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期 (二选一)"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // MoneyflowHsgtOutput defines the output schema
 type MoneyflowHsgtOutput struct {
-	Data  []stock_stock_fund_flow.MoneyflowHsgtItem `json:data jsonschema:moneyflow_hsgt data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_fund_flow.MoneyflowHsgtItem `json:"data" jsonschema:"moneyflow_hsgt data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // MoneyflowIndDcInput defines the input schema
 type MoneyflowIndDcInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:代码`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期（YYYYMMDD格式，下同）`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
-ContentType string `json:content_type,omitempty jsonschema:资金类型(行业、概念、地域)`
+TsCode string `json:"ts_code,omitempty" jsonschema:"代码"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（YYYYMMDD格式，下同）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
+ContentType string `json:"content_type,omitempty" jsonschema:"资金类型(行业、概念、地域)"`
 
 }
 
 // MoneyflowIndDcOutput defines the output schema
 type MoneyflowIndDcOutput struct {
-	Data  []stock_stock_fund_flow.MoneyflowIndDcItem `json:data jsonschema:moneyflow_ind_dc data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_fund_flow.MoneyflowIndDcItem `json:"data" jsonschema:"moneyflow_ind_dc data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // MoneyflowIndThsInput defines the input schema
 type MoneyflowIndThsInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:代码`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期(YYYYMMDD格式，下同)`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+TsCode string `json:"ts_code,omitempty" jsonschema:"代码"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期(YYYYMMDD格式，下同)"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // MoneyflowIndThsOutput defines the output schema
 type MoneyflowIndThsOutput struct {
-	Data  []stock_stock_fund_flow.MoneyflowIndThsItem `json:data jsonschema:moneyflow_ind_ths data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_fund_flow.MoneyflowIndThsItem `json:"data" jsonschema:"moneyflow_ind_ths data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // MoneyflowMktDcInput defines the input schema
 type MoneyflowMktDcInput struct {
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期(YYYYMMDD格式，下同）`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期(YYYYMMDD格式，下同）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // MoneyflowMktDcOutput defines the output schema
 type MoneyflowMktDcOutput struct {
-	Data  []stock_stock_fund_flow.MoneyflowMktDcItem `json:data jsonschema:moneyflow_mkt_dc data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_fund_flow.MoneyflowMktDcItem `json:"data" jsonschema:"moneyflow_mkt_dc data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // MoneyflowThsInput defines the input schema
 type MoneyflowThsInput struct {
-TsCode string `json:ts_code,omitempty jsonschema:股票代码`
-TradeDate string `json:trade_date,omitempty jsonschema:交易日期（YYYYMMDD格式，下同）`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期（YYYYMMDD格式，下同）"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // MoneyflowThsOutput defines the output schema
 type MoneyflowThsOutput struct {
-	Data  []stock_stock_fund_flow.MoneyflowThsItem `json:data jsonschema:moneyflow_ths data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []stock_fund_flow.MoneyflowThsItem `json:"data" jsonschema:"moneyflow_ths data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 

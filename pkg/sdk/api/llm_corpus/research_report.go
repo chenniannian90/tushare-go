@@ -35,6 +35,8 @@ type ResearchReportItem struct {
 }
 
 // ResearchReport 调用 券商研究报告 API
+// 获取券商研究报告-个股、行业等，历史数据从20170101开始提供，增量每天两次更新
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func ResearchReport(ctx context.Context, client *sdk.Client, req *ResearchReportRequest) ([]ResearchReportItem, error) {
 	params := map[string]interface{}{}
 	if req.TradeDate != "" {

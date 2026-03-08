@@ -384,17 +384,73 @@ func (g *MCPGenerator) toToolName(module, function string) string {
 // toToolDescription generates a better description for the tool
 func (g *MCPGenerator) toToolDescription(module, function, apiName string) string {
 	// Try to extract description from spec file first
-	if spec := g.loadAPISpec(module, apiName); spec != nil && spec.Description != "" {
-		return spec.Description
+	spec := g.loadAPISpec(module, apiName)
+	if spec != nil {
+		// Prefer description if available
+		if spec.Description != "" {
+			// Clean the description for MCP tool usage
+			return g.cleanMCPDescription(spec.Description)
+		}
+		// Fallback to api_name (e.g., "股票列表") for better context
+		if spec.APIName != "" {
+			return g.cleanMCPDescription(spec.APIName)
+		}
 	}
 
-	// Fallback to generated description
-	functionName := strings.ReplaceAll(function, "_", " ")
-	functionName = strings.ToLower(functionName)
-
+	// Last resort: generate description from function and module names
+	functionName := g.pascalCaseToWords(function)
 	moduleName := strings.ReplaceAll(module, "_", " ")
 
-	return fmt.Sprintf("Retrieve %s data from Tushare %s API", functionName, moduleName)
+	return g.cleanMCPDescription(fmt.Sprintf("Retrieve %s data from Tushare %s API", functionName, moduleName))
+}
+
+// cleanMCPDescription cleans description for MCP tool output
+func (g *MCPGenerator) cleanMCPDescription(desc string) string {
+	if desc == "" {
+		return desc
+	}
+
+	// Remove newlines and clean whitespace
+	cleaned := strings.ReplaceAll(desc, "\n", " ")
+	cleaned = strings.ReplaceAll(cleaned, "\r", " ")
+	cleaned = strings.ReplaceAll(cleaned, "\t", " ")
+
+	// Remove excessive whitespace
+	cleaned = strings.TrimSpace(cleaned)
+
+	// Truncate if too long for MCP tool description (max 300 chars)
+	runes := []rune(cleaned)
+	if len(runes) > 300 {
+		cleaned = string(runes[:297]) + "..."
+	}
+
+	return cleaned
+}
+
+// pascalCaseToWords converts PascalCase to space-separated words
+func (g *MCPGenerator) pascalCaseToWords(s string) string {
+	var words []string
+	var currentWord strings.Builder
+
+	for i, r := range s {
+		if r >= 'A' && r <= 'Z' {
+			// If this is not the first character, start a new word
+			if i > 0 && currentWord.Len() > 0 {
+				words = append(words, strings.ToLower(currentWord.String()))
+				currentWord.Reset()
+			}
+			currentWord.WriteRune(r)
+		} else {
+			currentWord.WriteRune(r)
+		}
+	}
+
+	// Add the last word
+	if currentWord.Len() > 0 {
+		words = append(words, strings.ToLower(currentWord.String()))
+	}
+
+	return strings.Join(words, " ")
 }
 
 // loadAPISpec loads the API spec file for a given module and API code
@@ -412,8 +468,9 @@ func (g *MCPGenerator) loadAPISpec(module, apiCode string) *APISpec {
 			return nil
 		}
 
-		// Check if the filename ends with the target pattern
-		if strings.HasSuffix(filepath.Base(path), targetFilename) {
+		// Check if the filename ends with the target pattern AND contains the module name
+	// This ensures we pick the correct spec when multiple APIs have the same api_code
+		if strings.HasSuffix(filepath.Base(path), targetFilename) && strings.Contains(path, module) {
 			foundSpecFile = path
 			return filepath.SkipAll // Stop walking once we find a match
 		}
@@ -793,14 +850,14 @@ import (
 {{range .Types}}
 // {{.InputTypeName}} defines the input schema
 type {{.InputTypeName}} struct {
-{{range .Fields}}{{.FieldName}} {{.FieldType}} ` + "`json:{{.JSONName}},omitempty jsonschema:{{.Description}}`" + `
+{{range .Fields}}{{.FieldName}} {{.FieldType}} ` + "`json:\"{{.JSONName}},omitempty\" jsonschema:\"{{.Description}}\"`" + `
 {{end}}
 }
 
 // {{.OutputTypeName}} defines the output schema
 type {{.OutputTypeName}} struct {
-	Data  []{{.DataType}} ` + "`json:data jsonschema:{{.APIName}} data list`" + `
-	Total int              ` + "`json:total jsonschema:Total count`" + `
+	Data  []{{.DataType}} ` + "`json:\"data\" jsonschema:\"{{.APIName}} data list\"`" + `
+	Total int              ` + "`json:\"total\" jsonschema:\"Total count\"`" + `
 }
 {{end}}
 `
@@ -1168,18 +1225,38 @@ func (g *MCPGenerator) extractFieldsFromSpec(module, apiCode string) []FieldWith
 
 	fields := make([]FieldWithGoType, 0, len(spec.RequestParams))
 	for _, param := range spec.RequestParams {
+		// Use the same logic as API code generation
+		// For Chinese field names, use "Field_" prefix
+		// For English field names, use PascalCase
+		fieldName := param.Name
+		if g.isChinese(fieldName) {
+			fieldName = "Field_" + fieldName
+		} else {
+			fieldName = g.toPascalCase(fieldName)
+		}
+
 		field := FieldWithGoType{
-			Name:            g.toPascalCase(param.Name),
+			Name:            fieldName,
 			JSONName:        param.Name,
 			GoType:          g.specTypeToGoType(param.Type),
 			Description:     param.Description,
-			StructFieldName: g.toPascalCase(param.Name),
+			StructFieldName: fieldName,
 			Required:        param.Required,
 		}
 		fields = append(fields, field)
 	}
 
 	return fields
+}
+
+// isChinese checks if a string contains Chinese characters
+func (g *MCPGenerator) isChinese(s string) bool {
+	for _, r := range s {
+		if r >= 0x4E00 && r <= 0x9FFF {
+			return true
+		}
+	}
+	return false
 }
 
 // specTypeToGoType converts spec type to Go type

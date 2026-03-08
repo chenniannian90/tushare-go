@@ -18,7 +18,7 @@ func (r *Llm_corpusTools) registerMajorNews() {
 
 	tool := &mcp.Tool{
 		Name:        "llm_corpus.major_news",
-		Description: "Retrieve majornews data from Tushare llm corpus API",
+		Description: "获取长篇通讯信息，覆盖主要新闻资讯网站，提供超过8年历史新闻。",
 		InputSchema: inputSchema,
 	}
 

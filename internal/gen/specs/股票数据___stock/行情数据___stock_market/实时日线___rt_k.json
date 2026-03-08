@@ -1,7 +1,7 @@
 {
   "api_name": "实时日线",
   "api_code": "rt_k",
-  "description": "",
+  "description": "获取实时日k线行情，支持按股票代码及股票代码通配符一次性提取全部股票实时日k线行情",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=372",
     "name": "实时日线",

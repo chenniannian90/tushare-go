@@ -30,6 +30,8 @@ type RtSwKItem struct {
 }
 
 // RtSwK 调用 申万实时行情 API
+// 获取申万行业指数的最新截面数据
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func RtSwK(ctx context.Context, client *sdk.Client, req *RtSwKRequest) ([]RtSwKItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

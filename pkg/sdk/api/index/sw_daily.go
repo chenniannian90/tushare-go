@@ -37,6 +37,8 @@ type SwDailyItem struct {
 }
 
 // SwDaily 调用 申万行业指数日行情 API
+// 获取申万行业日线行情（默认是申万2021版行情）
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func SwDaily(ctx context.Context, client *sdk.Client, req *SwDailyRequest) ([]SwDailyItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

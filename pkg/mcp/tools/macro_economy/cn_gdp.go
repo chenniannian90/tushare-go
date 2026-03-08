@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	macro_macro_domestic_macro_economy "tushare-go/pkg/sdk/api/macro/macro_domestic/macro_economy"
+	macro_economy "tushare-go/pkg/sdk/api/macro_economy"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -31,7 +31,7 @@ func (r *Macro_economyTools) registerCnGdp() {
 			}, nil
 		}
 
-		apiReq := &macro_macro_domestic_macro_economy.CnGdpRequest{
+		apiReq := &macro_economy.CnGdpRequest{
 Q: input.Q,
 StartQ: input.StartQ,
 EndQ: input.EndQ,
@@ -39,7 +39,7 @@ Fields: input.Fields,
 
 		}
 
-		items, err := macro_macro_domestic_macro_economy.CnGdp(ctx, r.client, apiReq)
+		items, err := macro_economy.CnGdp(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

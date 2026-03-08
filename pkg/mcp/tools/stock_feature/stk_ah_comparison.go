@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_feature "tushare-go/pkg/sdk/api/stock/stock_feature"
+	stock_feature "tushare-go/pkg/sdk/api/stock_feature"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -31,7 +31,7 @@ func (r *Stock_featureTools) registerStkAhComparison() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_feature.StkAhComparisonRequest{
+		apiReq := &stock_feature.StkAhComparisonRequest{
 HkCode: input.HkCode,
 TsCode: input.TsCode,
 TradeDate: input.TradeDate,
@@ -40,7 +40,7 @@ EndDate: input.EndDate,
 
 		}
 
-		items, err := stock_stock_feature.StkAhComparison(ctx, r.client, apiReq)
+		items, err := stock_feature.StkAhComparison(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

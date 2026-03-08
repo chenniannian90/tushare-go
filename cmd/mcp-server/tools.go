@@ -12,7 +12,10 @@ import (
 	macro_businesstools "tushare-go/pkg/mcp/tools/macro_business"
 	macro_economytools "tushare-go/pkg/mcp/tools/macro_economy"
 	macro_interest_ratetools "tushare-go/pkg/mcp/tools/macro_interest_rate"
+	macro_money_supplytools "tushare-go/pkg/mcp/tools/macro_money_supply"
 	macro_pricetools "tushare-go/pkg/mcp/tools/macro_price"
+	macro_social_financingtools "tushare-go/pkg/mcp/tools/macro_social_financing"
+	macro_us_ratetools "tushare-go/pkg/mcp/tools/macro_us_rate"
 	optionstools "tushare-go/pkg/mcp/tools/options"
 	spottools "tushare-go/pkg/mcp/tools/spot"
 	stock_basictools "tushare-go/pkg/mcp/tools/stock_basic"
@@ -52,7 +55,16 @@ var toolRegistry = map[string]toolRegistrar{
 	"macro_interest_rate": func(s *mcpsdk.Server, c *sdk.Client) {
 		macro_interest_ratetools.NewMacro_interest_rateTools(s, c).RegisterAll()
 	},
+	"macro_money_supply": func(s *mcpsdk.Server, c *sdk.Client) {
+		macro_money_supplytools.NewMacro_money_supplyTools(s, c).RegisterAll()
+	},
 	"macro_price":   func(s *mcpsdk.Server, c *sdk.Client) { macro_pricetools.NewMacro_priceTools(s, c).RegisterAll() },
+	"macro_social_financing": func(s *mcpsdk.Server, c *sdk.Client) {
+		macro_social_financingtools.NewMacro_social_financingTools(s, c).RegisterAll()
+	},
+	"macro_us_rate": func(s *mcpsdk.Server, c *sdk.Client) {
+		macro_us_ratetools.NewMacro_us_rateTools(s, c).RegisterAll()
+	},
 	"options":       func(s *mcpsdk.Server, c *sdk.Client) { optionstools.NewOptionsTools(s, c).RegisterAll() },
 	"spot":          func(s *mcpsdk.Server, c *sdk.Client) { spottools.NewSpotTools(s, c).RegisterAll() },
 	"stock_basic":   func(s *mcpsdk.Server, c *sdk.Client) { stock_basictools.NewStock_basicTools(s, c).RegisterAll() },

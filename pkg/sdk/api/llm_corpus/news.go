@@ -25,6 +25,8 @@ type NewsItem struct {
 }
 
 // News 调用 新闻快讯（短讯） API
+// 获取主流新闻网站的快讯新闻数据,提供超过6年以上历史新闻。
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func News(ctx context.Context, client *sdk.Client, req *NewsRequest) ([]NewsItem, error) {
 	params := map[string]interface{}{}
 	if req.StartDate != "" {

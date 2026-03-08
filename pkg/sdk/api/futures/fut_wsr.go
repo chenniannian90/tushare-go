@@ -40,6 +40,8 @@ type FutWsrItem struct {
 }
 
 // FutWsr 调用 仓单日报 API
+// 获取仓单日报数据，了解各仓库/厂库的仓单变化
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutWsrItem, error) {
 	params := map[string]interface{}{}
 	if req.TradeDate != "" {

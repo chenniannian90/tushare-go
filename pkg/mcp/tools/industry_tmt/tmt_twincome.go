@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	industry_industry_tmt "tushare-go/pkg/sdk/api/industry/industry_tmt"
+	industry_tmt "tushare-go/pkg/sdk/api/industry_tmt"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -31,7 +31,7 @@ func (r *Industry_tmtTools) registerTmtTwincome() {
 			}, nil
 		}
 
-		apiReq := &industry_industry_tmt.TmtTwincomeRequest{
+		apiReq := &industry_tmt.TmtTwincomeRequest{
 Date: input.Date,
 Item: input.Item,
 StartDate: input.StartDate,
@@ -39,7 +39,7 @@ EndDate: input.EndDate,
 
 		}
 
-		items, err := industry_industry_tmt.TmtTwincome(ctx, r.client, apiReq)
+		items, err := industry_tmt.TmtTwincome(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

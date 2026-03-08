@@ -24,6 +24,8 @@ type UsTradecalItem struct {
 }
 
 // UsTradecal 调用 美股交易日历 API
+// 获取美股交易日历信息
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func UsTradecal(ctx context.Context, client *sdk.Client, req *UsTradecalRequest) ([]UsTradecalItem, error) {
 	params := map[string]interface{}{}
 	if req.StartDate != "" {

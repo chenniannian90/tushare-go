@@ -30,6 +30,8 @@ type BondBlkDetailItem struct {
 }
 
 // BondBlkDetail 调用 大宗交易明细 API
+// 获取沪深交易所债券大宗交易数据，可以通过数据工具调试和查看数据。
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func BondBlkDetail(ctx context.Context, client *sdk.Client, req *BondBlkDetailRequest) ([]BondBlkDetailItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

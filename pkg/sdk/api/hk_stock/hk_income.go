@@ -28,6 +28,8 @@ type HkIncomeItem struct {
 }
 
 // HkIncome 调用 港股利润表 API
+// 获取港股上市公司财务利润表数据
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func HkIncome(ctx context.Context, client *sdk.Client, req *HkIncomeRequest) ([]HkIncomeItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

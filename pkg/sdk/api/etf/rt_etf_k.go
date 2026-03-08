@@ -33,6 +33,8 @@ type RtEtfKItem struct {
 }
 
 // RtEtfK 调用 ETF实时日线 API
+// 获取ETF实时日k线行情，支持按ETF代码或代码通配符一次性提取全部ETF实时日k线行情
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func RtEtfK(ctx context.Context, client *sdk.Client, req *RtEtfKRequest) ([]RtEtfKItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

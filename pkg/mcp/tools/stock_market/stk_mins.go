@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_market "tushare-go/pkg/sdk/api/stock/stock_market"
+	stock_market "tushare-go/pkg/sdk/api/stock_market"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -18,7 +18,7 @@ func (r *Stock_marketTools) registerStkMins() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.stk_mins",
-		Description: "Retrieve stkmins data from Tushare stock market API",
+		Description: "获取A股分钟数据，支持1min/5min/15min/30min/60min行情，提供Python SDK和 http Restful API两种方式",
 		InputSchema: inputSchema,
 	}
 
@@ -31,7 +31,7 @@ func (r *Stock_marketTools) registerStkMins() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_market.StkMinsRequest{
+		apiReq := &stock_market.StkMinsRequest{
 TsCode: input.TsCode,
 Freq: input.Freq,
 StartDate: input.StartDate,
@@ -39,7 +39,7 @@ EndDate: input.EndDate,
 
 		}
 
-		items, err := stock_stock_market.StkMins(ctx, r.client, apiReq)
+		items, err := stock_market.StkMins(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

@@ -18,7 +18,7 @@ func (r *EtfTools) registerEtfShareSize() {
 
 	tool := &mcp.Tool{
 		Name:        "etf.etf_share_size",
-		Description: "Retrieve etfsharesize data from Tushare etf API",
+		Description: "获取沪深ETF每日份额和规模数据，能体现规模份额的变化，掌握ETF资金动向，同时提供每日净值和收盘价；数据指标是分批入库，建议在每日19点后提取；另外，涉及海外的ETF数据更新会晚一些属于正常情况。",
 		InputSchema: inputSchema,
 	}
 

@@ -13,7 +13,7 @@ import (
 func main() {
 	// Parse command-line flags
 	showVersion := flag.Bool("version", false, "Show version information")
-	configPath := flag.String("config", "", "Path to configuration file (JSON)")
+	configPath := flag.String("config", "config.json", "Path to configuration file (JSON)")
 	flag.Parse()
 
 	// Show version information if requested

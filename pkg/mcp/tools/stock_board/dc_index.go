@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_board "tushare-go/pkg/sdk/api/stock/stock_board"
+	stock_board "tushare-go/pkg/sdk/api/stock_board"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -18,7 +18,7 @@ func (r *Stock_boardTools) registerDcIndex() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.dc_index",
-		Description: "Retrieve dcindex data from Tushare stock board API",
+		Description: "获取东方财富每个交易日的概念板块数据，支持按日期查询",
 		InputSchema: inputSchema,
 	}
 
@@ -31,7 +31,7 @@ func (r *Stock_boardTools) registerDcIndex() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_board.DcIndexRequest{
+		apiReq := &stock_board.DcIndexRequest{
 TsCode: input.TsCode,
 Name: input.Name,
 TradeDate: input.TradeDate,
@@ -41,7 +41,7 @@ IdxType: input.IdxType,
 
 		}
 
-		items, err := stock_stock_board.DcIndex(ctx, r.client, apiReq)
+		items, err := stock_board.DcIndex(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

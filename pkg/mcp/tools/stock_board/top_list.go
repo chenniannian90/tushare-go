@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_board "tushare-go/pkg/sdk/api/stock/stock_board"
+	stock_board "tushare-go/pkg/sdk/api/stock_board"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -31,13 +31,13 @@ func (r *Stock_boardTools) registerTopList() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_board.TopListRequest{
+		apiReq := &stock_board.TopListRequest{
 TradeDate: input.TradeDate,
 TsCode: input.TsCode,
 
 		}
 
-		items, err := stock_stock_board.TopList(ctx, r.client, apiReq)
+		items, err := stock_board.TopList(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

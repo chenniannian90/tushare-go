@@ -111,6 +111,8 @@ type IdxFactorProItem struct {
 }
 
 // IdxFactorPro 调用 指数技术面因子(专业版) API
+// 获取指数每日技术面因子数据，用于跟踪指数当前走势情况，数据由Tushare社区自产，覆盖全历史；输出参数_bfq表示不复权描述中说明了因子的默认传参，如需要特殊参数或者更多因子可以联系管理员评估，指数包括大盘指数 申万行业指数 中信指数
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func IdxFactorPro(ctx context.Context, client *sdk.Client, req *IdxFactorProRequest) ([]IdxFactorProItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

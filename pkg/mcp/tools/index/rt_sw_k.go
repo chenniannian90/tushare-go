@@ -18,7 +18,7 @@ func (r *IndexTools) registerRtSwK() {
 
 	tool := &mcp.Tool{
 		Name:        "index.rt_sw_k",
-		Description: "Retrieve rtswk data from Tushare index API",
+		Description: "获取申万行业指数的最新截面数据",
 		InputSchema: inputSchema,
 	}
 

@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_board "tushare-go/pkg/sdk/api/stock/stock_board"
+	stock_board "tushare-go/pkg/sdk/api/stock_board"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -18,7 +18,7 @@ func (r *Stock_boardTools) registerKplConceptCons() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.kpl_concept_cons",
-		Description: "Retrieve kplconceptcons data from Tushare stock board API",
+		Description: "获取开盘啦概念题材的成分股",
 		InputSchema: inputSchema,
 	}
 
@@ -31,14 +31,14 @@ func (r *Stock_boardTools) registerKplConceptCons() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_board.KplConceptConsRequest{
+		apiReq := &stock_board.KplConceptConsRequest{
 TradeDate: input.TradeDate,
 TsCode: input.TsCode,
 ConCode: input.ConCode,
 
 		}
 
-		items, err := stock_stock_board.KplConceptCons(ctx, r.client, apiReq)
+		items, err := stock_board.KplConceptCons(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

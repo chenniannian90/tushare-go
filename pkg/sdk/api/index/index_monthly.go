@@ -33,6 +33,8 @@ type IndexMonthlyItem struct {
 }
 
 // IndexMonthly 调用 指数月线行情 API
+// 获取指数月线行情,每月更新一次
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func IndexMonthly(ctx context.Context, client *sdk.Client, req *IndexMonthlyRequest) ([]IndexMonthlyItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

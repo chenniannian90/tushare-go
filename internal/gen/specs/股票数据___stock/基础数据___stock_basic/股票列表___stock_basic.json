@@ -1,7 +1,7 @@
 {
   "api_name": "股票列表",
   "api_code": "stock_basic",
-  "description": "",
+  "description": "获取基础信息数据，包括股票代码、名称、上市日期、退市日期等",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=25",
     "name": "股票列表",

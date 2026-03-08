@@ -26,6 +26,8 @@ type CbPriceChgItem struct {
 }
 
 // CbPriceChg 调用 可转债转股价变动 API
+// 获取可转债转股价变动
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func CbPriceChg(ctx context.Context, client *sdk.Client, req *CbPriceChgRequest) ([]CbPriceChgItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

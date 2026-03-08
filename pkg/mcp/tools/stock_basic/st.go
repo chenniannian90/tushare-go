@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_basic "tushare-go/pkg/sdk/api/stock/stock_basic"
+	stock_basic "tushare-go/pkg/sdk/api/stock_basic"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -18,7 +18,7 @@ func (r *Stock_basicTools) registerSt() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_basic.st",
-		Description: "Retrieve st data from Tushare stock basic API",
+		Description: "ST风险警示板股票列表",
 		InputSchema: inputSchema,
 	}
 
@@ -31,14 +31,14 @@ func (r *Stock_basicTools) registerSt() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_basic.StRequest{
+		apiReq := &stock_basic.StRequest{
 TsCode: input.TsCode,
 PubDate: input.PubDate,
 ImpDate: input.ImpDate,
 
 		}
 
-		items, err := stock_stock_basic.St(ctx, r.client, apiReq)
+		items, err := stock_basic.St(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

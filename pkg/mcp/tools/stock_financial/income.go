@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_financial "tushare-go/pkg/sdk/api/stock/stock_financial"
+	stock_financial "tushare-go/pkg/sdk/api/stock_financial"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -18,7 +18,7 @@ func (r *Stock_financialTools) registerIncome() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_financial.income",
-		Description: "Retrieve income data from Tushare stock financial API",
+		Description: "获取上市公司财务利润表数据",
 		InputSchema: inputSchema,
 	}
 
@@ -31,7 +31,7 @@ func (r *Stock_financialTools) registerIncome() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_financial.IncomeRequest{
+		apiReq := &stock_financial.IncomeRequest{
 TsCode: input.TsCode,
 AnnDate: input.AnnDate,
 FAnnDate: input.FAnnDate,
@@ -43,7 +43,7 @@ CompType: input.CompType,
 
 		}
 
-		items, err := stock_stock_financial.Income(ctx, r.client, apiReq)
+		items, err := stock_financial.Income(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

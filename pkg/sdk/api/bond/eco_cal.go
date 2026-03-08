@@ -32,6 +32,8 @@ type EcoCalItem struct {
 }
 
 // EcoCal 调用 全球财经事件 API
+// 获取全球财经日历、包括经济事件数据更新
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func EcoCal(ctx context.Context, client *sdk.Client, req *EcoCalRequest) ([]EcoCalItem, error) {
 	params := map[string]interface{}{}
 	if req.Date != "" {

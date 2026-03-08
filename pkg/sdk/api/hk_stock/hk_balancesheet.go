@@ -28,6 +28,8 @@ type HkBalancesheetItem struct {
 }
 
 // HkBalancesheet 调用 港股资产负债表 API
+// 获取港股上市公司资产负债表
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func HkBalancesheet(ctx context.Context, client *sdk.Client, req *HkBalancesheetRequest) ([]HkBalancesheetItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

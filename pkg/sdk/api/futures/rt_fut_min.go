@@ -31,6 +31,8 @@ type RtFutMinItem struct {
 }
 
 // RtFutMin 调用 实时分钟行情 API
+// 获取全市场期货合约实时分钟数据，支持1min/5min/15min/30min/60min行情，提供Python SDK、 http Restful API和websocket三种方式，如果需要主力合约分钟，请先通过主力mapping接口获取对应的合约代码后提取分钟。
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func RtFutMin(ctx context.Context, client *sdk.Client, req *RtFutMinRequest) ([]RtFutMinItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

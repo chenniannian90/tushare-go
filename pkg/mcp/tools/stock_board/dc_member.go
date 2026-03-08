@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_board "tushare-go/pkg/sdk/api/stock/stock_board"
+	stock_board "tushare-go/pkg/sdk/api/stock_board"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -31,14 +31,14 @@ func (r *Stock_boardTools) registerDcMember() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_board.DcMemberRequest{
+		apiReq := &stock_board.DcMemberRequest{
 TsCode: input.TsCode,
 ConCode: input.ConCode,
 TradeDate: input.TradeDate,
 
 		}
 
-		items, err := stock_stock_board.DcMember(ctx, r.client, apiReq)
+		items, err := stock_board.DcMember(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

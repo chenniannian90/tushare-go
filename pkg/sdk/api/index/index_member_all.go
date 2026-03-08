@@ -34,6 +34,8 @@ type IndexMemberAllItem struct {
 }
 
 // IndexMemberAll 调用 申万行业成分（分级） API
+// 按三级分类提取申万行业成分，可提供某个分类的所有成分，也可按股票代码提取所属分类，参数灵活
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func IndexMemberAll(ctx context.Context, client *sdk.Client, req *IndexMemberAllRequest) ([]IndexMemberAllItem, error) {
 	params := map[string]interface{}{}
 	if req.L1Code != "" {

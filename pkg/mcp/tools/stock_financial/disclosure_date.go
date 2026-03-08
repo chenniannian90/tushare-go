@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_financial "tushare-go/pkg/sdk/api/stock/stock_financial"
+	stock_financial "tushare-go/pkg/sdk/api/stock_financial"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -31,7 +31,7 @@ func (r *Stock_financialTools) registerDisclosureDate() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_financial.DisclosureDateRequest{
+		apiReq := &stock_financial.DisclosureDateRequest{
 TsCode: input.TsCode,
 EndDate: input.EndDate,
 PreDate: input.PreDate,
@@ -40,7 +40,7 @@ ActualDate: input.ActualDate,
 
 		}
 
-		items, err := stock_stock_financial.DisclosureDate(ctx, r.client, apiReq)
+		items, err := stock_financial.DisclosureDate(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

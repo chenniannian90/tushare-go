@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	macro_macro_domestic_macro_interest_rate "tushare-go/pkg/sdk/api/macro/macro_domestic/macro_interest_rate"
+	macro_interest_rate "tushare-go/pkg/sdk/api/macro_interest_rate"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -31,14 +31,14 @@ func (r *Macro_interest_rateTools) registerHibor() {
 			}, nil
 		}
 
-		apiReq := &macro_macro_domestic_macro_interest_rate.HiborRequest{
+		apiReq := &macro_interest_rate.HiborRequest{
 Date: input.Date,
 StartDate: input.StartDate,
 EndDate: input.EndDate,
 
 		}
 
-		items, err := macro_macro_domestic_macro_interest_rate.Hibor(ctx, r.client, apiReq)
+		items, err := macro_interest_rate.Hibor(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

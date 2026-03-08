@@ -1,7 +1,7 @@
 {
   "api_name": "板块资金流向（THS)",
   "api_code": "moneyflow_cnt_ths",
-  "description": "",
+  "description": "获取同花顺概念板块每日资金流向",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=371",
     "name": "板块资金流向（THS)",

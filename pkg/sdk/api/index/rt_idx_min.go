@@ -28,6 +28,8 @@ type RtIdxMinItem struct {
 }
 
 // RtIdxMin 调用 指数实时分钟 API
+// 获取交易所指数实时分钟数据，包括1~60min
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func RtIdxMin(ctx context.Context, client *sdk.Client, req *RtIdxMinRequest) ([]RtIdxMinItem, error) {
 	params := map[string]interface{}{}
 	if req.Freq != "" {

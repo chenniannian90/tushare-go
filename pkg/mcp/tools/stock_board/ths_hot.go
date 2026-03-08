@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_board "tushare-go/pkg/sdk/api/stock/stock_board"
+	stock_board "tushare-go/pkg/sdk/api/stock_board"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -18,7 +18,7 @@ func (r *Stock_boardTools) registerThsHot() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_board.ths_hot",
-		Description: "Retrieve thshot data from Tushare stock board API",
+		Description: "获取同花顺App热榜数据，包括热股、概念板块、ETF、可转债、港美股等等，每日盘中提取4次，收盘后4次，最晚22点提取一次。",
 		InputSchema: inputSchema,
 	}
 
@@ -31,7 +31,7 @@ func (r *Stock_boardTools) registerThsHot() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_board.ThsHotRequest{
+		apiReq := &stock_board.ThsHotRequest{
 TradeDate: input.TradeDate,
 TsCode: input.TsCode,
 Market: input.Market,
@@ -39,7 +39,7 @@ IsNew: input.IsNew,
 
 		}
 
-		items, err := stock_stock_board.ThsHot(ctx, r.client, apiReq)
+		items, err := stock_board.ThsHot(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

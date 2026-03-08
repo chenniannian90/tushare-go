@@ -18,7 +18,7 @@ func (r *EtfTools) registerFundDaily() {
 
 	tool := &mcp.Tool{
 		Name:        "etf.fund_daily",
-		Description: "Retrieve funddaily data from Tushare etf API",
+		Description: "获取ETF行情每日收盘后成交数据，历史超过10年",
 		InputSchema: inputSchema,
 	}
 

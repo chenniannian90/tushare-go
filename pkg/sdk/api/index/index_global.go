@@ -34,6 +34,8 @@ type IndexGlobalItem struct {
 }
 
 // IndexGlobal 调用 国际主要指数 API
+// 获取国际主要指数日线行情
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func IndexGlobal(ctx context.Context, client *sdk.Client, req *IndexGlobalRequest) ([]IndexGlobalItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

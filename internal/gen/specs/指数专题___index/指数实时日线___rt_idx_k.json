@@ -1,7 +1,7 @@
 {
   "api_name": "指数实时日线",
   "api_code": "rt_idx_k",
-  "description": "",
+  "description": "获取交易所指数实时日线行情，支持按代码或代码通配符一次性提取全部交易所指数实时日k线行情",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=403",
     "name": "指数实时日线",

@@ -1,7 +1,7 @@
 {
   "api_name": "通达信板块行情",
   "api_code": "tdx_daily",
-  "description": "",
+  "description": "获取通达信各板块行情，包括成交和估值等数据",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=378",
     "name": "通达信板块行情",

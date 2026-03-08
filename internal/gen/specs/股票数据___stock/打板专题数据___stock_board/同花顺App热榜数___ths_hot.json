@@ -1,7 +1,7 @@
 {
   "api_name": "同花顺App热榜数",
   "api_code": "ths_hot",
-  "description": "",
+  "description": "获取同花顺App热榜数据，包括热股、概念板块、ETF、可转债、港美股等等，每日盘中提取4次，收盘后4次，最晚22点提取一次。",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=320",
     "name": "同花顺App热榜数",

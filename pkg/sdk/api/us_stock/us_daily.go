@@ -38,6 +38,8 @@ type UsDailyItem struct {
 }
 
 // UsDaily 调用 美股日线行情 API
+// 获取美股行情（未复权），包括全部股票全历史行情，以及重要的市场和估值指标
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func UsDaily(ctx context.Context, client *sdk.Client, req *UsDailyRequest) ([]UsDailyItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

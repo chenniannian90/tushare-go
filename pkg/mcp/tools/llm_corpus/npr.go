@@ -18,7 +18,7 @@ func (r *Llm_corpusTools) registerNpr() {
 
 	tool := &mcp.Tool{
 		Name:        "llm_corpus.npr",
-		Description: "Retrieve npr data from Tushare llm corpus API",
+		Description: "获取国家行政机关公开披露的各类法规、条例政策、批复、通知等文本数据。",
 		InputSchema: inputSchema,
 	}
 

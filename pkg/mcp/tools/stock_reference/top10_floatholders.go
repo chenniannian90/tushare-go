@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_reference "tushare-go/pkg/sdk/api/stock/stock_reference"
+	stock_reference "tushare-go/pkg/sdk/api/stock_reference"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -31,7 +31,7 @@ func (r *Stock_referenceTools) registerTop10Floatholders() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_reference.Top10FloatholdersRequest{
+		apiReq := &stock_reference.Top10FloatholdersRequest{
 TsCode: input.TsCode,
 Period: input.Period,
 AnnDate: input.AnnDate,
@@ -40,7 +40,7 @@ EndDate: input.EndDate,
 
 		}
 
-		items, err := stock_stock_reference.Top10Floatholders(ctx, r.client, apiReq)
+		items, err := stock_reference.Top10Floatholders(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

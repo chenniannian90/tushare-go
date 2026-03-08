@@ -22,6 +22,8 @@ type CctvNewsItem struct {
 }
 
 // CctvNews 调用 新闻联播文字稿 API
+// 获取新闻联播文字稿数据，数据开始于2017年。
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func CctvNews(ctx context.Context, client *sdk.Client, req *CctvNewsRequest) ([]CctvNewsItem, error) {
 	params := map[string]interface{}{}
 	if req.Date != "" {

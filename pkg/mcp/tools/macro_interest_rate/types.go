@@ -3,108 +3,108 @@
 package macro_interest_ratetools
 
 import (
-	macro_macro_domestic_macro_interest_rate "tushare-go/pkg/sdk/api/macro/macro_domestic/macro_interest_rate"
+	macro_interest_rate "tushare-go/pkg/sdk/api/macro_interest_rate"
 
 )
 
 
 // GzIndexInput defines the input schema
 type GzIndexInput struct {
-Date string `json:date,omitempty jsonschema:日期`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+Date string `json:"date,omitempty" jsonschema:"日期"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // GzIndexOutput defines the output schema
 type GzIndexOutput struct {
-	Data  []macro_macro_domestic_macro_interest_rate.GzIndexItem `json:data jsonschema:gz_index data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []macro_interest_rate.GzIndexItem `json:"data" jsonschema:"gz_index data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // HiborInput defines the input schema
 type HiborInput struct {
-Date string `json:date,omitempty jsonschema:日期  (日期输入格式：YYYYMMDD，下同)`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+Date string `json:"date,omitempty" jsonschema:"日期  (日期输入格式：YYYYMMDD，下同)"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // HiborOutput defines the output schema
 type HiborOutput struct {
-	Data  []macro_macro_domestic_macro_interest_rate.HiborItem `json:data jsonschema:hibor data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []macro_interest_rate.HiborItem `json:"data" jsonschema:"hibor data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // LiborInput defines the input schema
 type LiborInput struct {
-Date string `json:date,omitempty jsonschema:日期 (日期输入格式：YYYYMMDD，下同)`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
-CurrType string `json:curr_type,omitempty jsonschema:货币代码  (USD美元  EUR欧元  JPY日元  GBP英镑  CHF瑞郎，默认是USD)`
+Date string `json:"date,omitempty" jsonschema:"日期 (日期输入格式：YYYYMMDD，下同)"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
+CurrType string `json:"curr_type,omitempty" jsonschema:"货币代码  (USD美元  EUR欧元  JPY日元  GBP英镑  CHF瑞郎，默认是USD)"`
 
 }
 
 // LiborOutput defines the output schema
 type LiborOutput struct {
-	Data  []macro_macro_domestic_macro_interest_rate.LiborItem `json:data jsonschema:libor data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []macro_interest_rate.LiborItem `json:"data" jsonschema:"libor data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // ShiborInput defines the input schema
 type ShiborInput struct {
-Date string `json:date,omitempty jsonschema:日期 (日期输入格式：YYYYMMDD，下同)`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+Date string `json:"date,omitempty" jsonschema:"日期 (日期输入格式：YYYYMMDD，下同)"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // ShiborOutput defines the output schema
 type ShiborOutput struct {
-	Data  []macro_macro_domestic_macro_interest_rate.ShiborItem `json:data jsonschema:shibor data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []macro_interest_rate.ShiborItem `json:"data" jsonschema:"shibor data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // ShiborLprInput defines the input schema
 type ShiborLprInput struct {
-Date string `json:date,omitempty jsonschema:日期  (日期输入格式：YYYYMMDD，下同)`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+Date string `json:"date,omitempty" jsonschema:"日期  (日期输入格式：YYYYMMDD，下同)"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // ShiborLprOutput defines the output schema
 type ShiborLprOutput struct {
-	Data  []macro_macro_domestic_macro_interest_rate.ShiborLprItem `json:data jsonschema:shibor_lpr data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []macro_interest_rate.ShiborLprItem `json:"data" jsonschema:"shibor_lpr data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // ShiborQuoteInput defines the input schema
 type ShiborQuoteInput struct {
-Date string `json:date,omitempty jsonschema:日期 (日期输入格式：YYYYMMDD，下同)`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
-Bank string `json:bank,omitempty jsonschema:银行名称 （中文名称，例如 农业银行）`
+Date string `json:"date,omitempty" jsonschema:"日期 (日期输入格式：YYYYMMDD，下同)"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
+Bank string `json:"bank,omitempty" jsonschema:"银行名称 （中文名称，例如 农业银行）"`
 
 }
 
 // ShiborQuoteOutput defines the output schema
 type ShiborQuoteOutput struct {
-	Data  []macro_macro_domestic_macro_interest_rate.ShiborQuoteItem `json:data jsonschema:shibor_quote data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []macro_interest_rate.ShiborQuoteItem `json:"data" jsonschema:"shibor_quote data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 
 // WzIndexInput defines the input schema
 type WzIndexInput struct {
-Date string `json:date,omitempty jsonschema:日期`
-StartDate string `json:start_date,omitempty jsonschema:开始日期`
-EndDate string `json:end_date,omitempty jsonschema:结束日期`
+Date string `json:"date,omitempty" jsonschema:"日期"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 
 }
 
 // WzIndexOutput defines the output schema
 type WzIndexOutput struct {
-	Data  []macro_macro_domestic_macro_interest_rate.WzIndexItem `json:data jsonschema:wz_index data list`
-	Total int              `json:total jsonschema:Total count`
+	Data  []macro_interest_rate.WzIndexItem `json:"data" jsonschema:"wz_index data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
 }
 

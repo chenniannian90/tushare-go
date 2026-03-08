@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	stock_stock_fund_flow "tushare-go/pkg/sdk/api/stock/stock_fund_flow"
+	stock_fund_flow "tushare-go/pkg/sdk/api/stock_fund_flow"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -18,7 +18,7 @@ func (r *Stock_fund_flowTools) registerMoneyflowHsgt() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_fund_flow.moneyflow_hsgt",
-		Description: "Retrieve moneyflowhsgt data from Tushare stock fund flow API",
+		Description: "获取沪股通、深股通、港股通每日资金流向数据，每次最多返回300条记录，总量不限制。 积分要求：2000积分起，5000积分每分钟可提取500次",
 		InputSchema: inputSchema,
 	}
 
@@ -31,14 +31,14 @@ func (r *Stock_fund_flowTools) registerMoneyflowHsgt() {
 			}, nil
 		}
 
-		apiReq := &stock_stock_fund_flow.MoneyflowHsgtRequest{
+		apiReq := &stock_fund_flow.MoneyflowHsgtRequest{
 TradeDate: input.TradeDate,
 StartDate: input.StartDate,
 EndDate: input.EndDate,
 
 		}
 
-		items, err := stock_stock_fund_flow.MoneyflowHsgt(ctx, r.client, apiReq)
+		items, err := stock_fund_flow.MoneyflowHsgt(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,

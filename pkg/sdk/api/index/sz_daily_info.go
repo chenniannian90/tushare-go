@@ -31,6 +31,8 @@ type SzDailyInfoItem struct {
 }
 
 // SzDailyInfo 调用 深圳市场每日交易情况 API
+// 获取深圳市场每日交易概况
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func SzDailyInfo(ctx context.Context, client *sdk.Client, req *SzDailyInfoRequest) ([]SzDailyInfoItem, error) {
 	params := map[string]interface{}{}
 	if req.TradeDate != "" {

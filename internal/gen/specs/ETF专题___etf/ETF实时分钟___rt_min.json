@@ -1,7 +1,7 @@
 {
   "api_name": "ETF实时分钟",
   "api_code": "rt_min",
-  "description": "",
+  "description": "获取ETF实时分钟数据，包括1~60min",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=416",
     "name": "ETF实时分钟",

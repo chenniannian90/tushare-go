@@ -27,6 +27,8 @@ type RtHkKItem struct {
 }
 
 // RtHkK 调用 港股实时日线 API
+// 获取港股实时日k线行情，支持按股票代码及股票代码通配符一次性提取全部股票实时日k线行情
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func RtHkK(ctx context.Context, client *sdk.Client, req *RtHkKRequest) ([]RtHkKItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

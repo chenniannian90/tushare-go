@@ -1,7 +1,7 @@
 {
   "api_name": "同花顺行业概念成分",
   "api_code": "ths_member",
-  "description": "",
+  "description": "获取同花顺概念板块成分列表注：数据版权归属同花顺，如做商业用途，请主动联系同花顺。",
   "__describe__": {
     "url": "https://tushare.pro/document/2?doc_id=261",
     "name": "同花顺行业概念成分",

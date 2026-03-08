@@ -21,6 +21,8 @@ type IndexDailyItem struct {
 }
 
 // IndexDaily 调用 南华期货指数行情 API
+// 获取南华指数每日行情，指数行情也可以通过通用行情接口获取数据．
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func IndexDaily(ctx context.Context, client *sdk.Client, req *IndexDailyRequest) ([]IndexDailyItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

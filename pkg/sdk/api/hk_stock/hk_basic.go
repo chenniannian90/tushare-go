@@ -32,6 +32,8 @@ type HkBasicItem struct {
 }
 
 // HkBasic 调用 港股基础信息 API
+// 获取港股列表信息数量：单次可提取全部在交易的港股列表数据
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func HkBasic(ctx context.Context, client *sdk.Client, req *HkBasicRequest) ([]HkBasicItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

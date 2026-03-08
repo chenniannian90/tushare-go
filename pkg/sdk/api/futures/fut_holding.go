@@ -33,6 +33,8 @@ type FutHoldingItem struct {
 }
 
 // FutHolding 调用 每日持仓排名 API
+// 获取每日成交持仓排名数据
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func FutHolding(ctx context.Context, client *sdk.Client, req *FutHoldingRequest) ([]FutHoldingItem, error) {
 	params := map[string]interface{}{}
 	if req.TradeDate != "" {

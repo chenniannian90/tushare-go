@@ -27,6 +27,8 @@ type UsAdjfactorItem struct {
 }
 
 // UsAdjfactor 调用 美股复权因子 API
+// 获取美股每日复权因子数据，在每天美股收盘后滚动刷新
+// 注意：积分要求等使用限制请参考Tushare官方文档
 func UsAdjfactor(ctx context.Context, client *sdk.Client, req *UsAdjfactorRequest) ([]UsAdjfactorItem, error) {
 	params := map[string]interface{}{}
 	if req.TsCode != "" {

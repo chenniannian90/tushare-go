@@ -18,7 +18,7 @@ func (r *OptionsTools) registerOptBasic() {
 
 	tool := &mcp.Tool{
 		Name:        "options.opt_basic",
-		Description: "Retrieve optbasic data from Tushare options API",
+		Description: "获取期权合约信息",
 		InputSchema: inputSchema,
 	}
 

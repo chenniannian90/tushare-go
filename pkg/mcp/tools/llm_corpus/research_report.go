@@ -18,7 +18,7 @@ func (r *Llm_corpusTools) registerResearchReport() {
 
 	tool := &mcp.Tool{
 		Name:        "llm_corpus.research_report",
-		Description: "Retrieve researchreport data from Tushare llm corpus API",
+		Description: "获取券商研究报告-个股、行业等，历史数据从20170101开始提供，增量每天两次更新",
 		InputSchema: inputSchema,
 	}
 

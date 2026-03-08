@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	macro_macro_domestic_macro_business "tushare-go/pkg/sdk/api/macro/macro_domestic/macro_business"
+	macro_business "tushare-go/pkg/sdk/api/macro_business"
 	"github.com/google/jsonschema-go/jsonschema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -31,14 +31,14 @@ func (r *Macro_businessTools) registerCnPmi() {
 			}, nil
 		}
 
-		apiReq := &macro_macro_domestic_macro_business.CnPmiRequest{
+		apiReq := &macro_business.CnPmiRequest{
 M: input.M,
 StartM: input.StartM,
 EndM: input.EndM,
 
 		}
 
-		items, err := macro_macro_domestic_macro_business.CnPmi(ctx, r.client, apiReq)
+		items, err := macro_business.CnPmi(ctx, r.client, apiReq)
 		if err != nil {
 			return &mcp.CallToolResult{
 				IsError: true,
