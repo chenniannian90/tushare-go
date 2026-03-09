@@ -147,7 +147,10 @@ func HkFinaIndicator(ctx context.Context, client *sdk.Client, req *HkFinaIndicat
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -169,7 +172,10 @@ func HkFinaIndicator(ctx context.Context, client *sdk.Client, req *HkFinaIndicat
 		// 处理 name 的简单类型
 		// 对 string 类型尝试多种转换
 		var name string
-		if v, ok := item["name"].(string); ok {
+		if item["name"] == nil {
+			// 字段值为 null，使用零值
+			name = ""
+		} else if v, ok := item["name"].(string); ok {
 			name = v
 		} else if v, ok := item["name"].(float64); ok {
 			name = fmt.Sprintf("%.0f", v)
@@ -191,7 +197,10 @@ func HkFinaIndicator(ctx context.Context, client *sdk.Client, req *HkFinaIndicat
 		// 处理 end_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var endDate string
-		if v, ok := item["end_date"].(string); ok {
+		if item["end_date"] == nil {
+			// 字段值为 null，使用零值
+			endDate = ""
+		} else if v, ok := item["end_date"].(string); ok {
 			endDate = v
 		} else if v, ok := item["end_date"].(float64); ok {
 			endDate = fmt.Sprintf("%.0f", v)
@@ -213,7 +222,10 @@ func HkFinaIndicator(ctx context.Context, client *sdk.Client, req *HkFinaIndicat
 		// 处理 ind_type 的简单类型
 		// 对 string 类型尝试多种转换
 		var indType string
-		if v, ok := item["ind_type"].(string); ok {
+		if item["ind_type"] == nil {
+			// 字段值为 null，使用零值
+			indType = ""
+		} else if v, ok := item["ind_type"].(string); ok {
 			indType = v
 		} else if v, ok := item["ind_type"].(float64); ok {
 			indType = fmt.Sprintf("%.0f", v)
@@ -235,7 +247,10 @@ func HkFinaIndicator(ctx context.Context, client *sdk.Client, req *HkFinaIndicat
 		// 处理 report_type 的简单类型
 		// 对 string 类型尝试多种转换
 		var reportType string
-		if v, ok := item["report_type"].(string); ok {
+		if item["report_type"] == nil {
+			// 字段值为 null，使用零值
+			reportType = ""
+		} else if v, ok := item["report_type"].(string); ok {
 			reportType = v
 		} else if v, ok := item["report_type"].(float64); ok {
 			reportType = fmt.Sprintf("%.0f", v)
@@ -257,7 +272,10 @@ func HkFinaIndicator(ctx context.Context, client *sdk.Client, req *HkFinaIndicat
 		// 处理 std_report_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var stdReportDate string
-		if v, ok := item["std_report_date"].(string); ok {
+		if item["std_report_date"] == nil {
+			// 字段值为 null，使用零值
+			stdReportDate = ""
+		} else if v, ok := item["std_report_date"].(string); ok {
 			stdReportDate = v
 		} else if v, ok := item["std_report_date"].(float64); ok {
 			stdReportDate = fmt.Sprintf("%.0f", v)
@@ -504,7 +522,10 @@ func HkFinaIndicator(ctx context.Context, client *sdk.Client, req *HkFinaIndicat
 		// 处理 report_date_sq 的简单类型
 		// 对 string 类型尝试多种转换
 		var reportDateSq string
-		if v, ok := item["report_date_sq"].(string); ok {
+		if item["report_date_sq"] == nil {
+			// 字段值为 null，使用零值
+			reportDateSq = ""
+		} else if v, ok := item["report_date_sq"].(string); ok {
 			reportDateSq = v
 		} else if v, ok := item["report_date_sq"].(float64); ok {
 			reportDateSq = fmt.Sprintf("%.0f", v)
@@ -526,7 +547,10 @@ func HkFinaIndicator(ctx context.Context, client *sdk.Client, req *HkFinaIndicat
 		// 处理 report_type_sq 的简单类型
 		// 对 string 类型尝试多种转换
 		var reportTypeSq string
-		if v, ok := item["report_type_sq"].(string); ok {
+		if item["report_type_sq"] == nil {
+			// 字段值为 null，使用零值
+			reportTypeSq = ""
+		} else if v, ok := item["report_type_sq"].(string); ok {
 			reportTypeSq = v
 		} else if v, ok := item["report_type_sq"].(float64); ok {
 			reportTypeSq = fmt.Sprintf("%.0f", v)
@@ -608,7 +632,10 @@ func HkFinaIndicator(ctx context.Context, client *sdk.Client, req *HkFinaIndicat
 		// 处理 currency 的简单类型
 		// 对 string 类型尝试多种转换
 		var currency string
-		if v, ok := item["currency"].(string); ok {
+		if item["currency"] == nil {
+			// 字段值为 null，使用零值
+			currency = ""
+		} else if v, ok := item["currency"].(string); ok {
 			currency = v
 		} else if v, ok := item["currency"].(float64); ok {
 			currency = fmt.Sprintf("%.0f", v)
@@ -640,7 +667,10 @@ func HkFinaIndicator(ctx context.Context, client *sdk.Client, req *HkFinaIndicat
 		// 处理 org_type 的简单类型
 		// 对 string 类型尝试多种转换
 		var orgType string
-		if v, ok := item["org_type"].(string); ok {
+		if item["org_type"] == nil {
+			// 字段值为 null，使用零值
+			orgType = ""
+		} else if v, ok := item["org_type"].(string); ok {
 			orgType = v
 		} else if v, ok := item["org_type"].(float64); ok {
 			orgType = fmt.Sprintf("%.0f", v)

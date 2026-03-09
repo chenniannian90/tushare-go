@@ -60,7 +60,10 @@ func HkBasic(ctx context.Context, client *sdk.Client, req *HkBasicRequest) ([]Hk
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -82,7 +85,10 @@ func HkBasic(ctx context.Context, client *sdk.Client, req *HkBasicRequest) ([]Hk
 		// 处理 name 的简单类型
 		// 对 string 类型尝试多种转换
 		var name string
-		if v, ok := item["name"].(string); ok {
+		if item["name"] == nil {
+			// 字段值为 null，使用零值
+			name = ""
+		} else if v, ok := item["name"].(string); ok {
 			name = v
 		} else if v, ok := item["name"].(float64); ok {
 			name = fmt.Sprintf("%.0f", v)
@@ -104,7 +110,10 @@ func HkBasic(ctx context.Context, client *sdk.Client, req *HkBasicRequest) ([]Hk
 		// 处理 fullname 的简单类型
 		// 对 string 类型尝试多种转换
 		var fullname string
-		if v, ok := item["fullname"].(string); ok {
+		if item["fullname"] == nil {
+			// 字段值为 null，使用零值
+			fullname = ""
+		} else if v, ok := item["fullname"].(string); ok {
 			fullname = v
 		} else if v, ok := item["fullname"].(float64); ok {
 			fullname = fmt.Sprintf("%.0f", v)
@@ -126,7 +135,10 @@ func HkBasic(ctx context.Context, client *sdk.Client, req *HkBasicRequest) ([]Hk
 		// 处理 enname 的简单类型
 		// 对 string 类型尝试多种转换
 		var enname string
-		if v, ok := item["enname"].(string); ok {
+		if item["enname"] == nil {
+			// 字段值为 null，使用零值
+			enname = ""
+		} else if v, ok := item["enname"].(string); ok {
 			enname = v
 		} else if v, ok := item["enname"].(float64); ok {
 			enname = fmt.Sprintf("%.0f", v)
@@ -148,7 +160,10 @@ func HkBasic(ctx context.Context, client *sdk.Client, req *HkBasicRequest) ([]Hk
 		// 处理 cn_spell 的简单类型
 		// 对 string 类型尝试多种转换
 		var cnSpell string
-		if v, ok := item["cn_spell"].(string); ok {
+		if item["cn_spell"] == nil {
+			// 字段值为 null，使用零值
+			cnSpell = ""
+		} else if v, ok := item["cn_spell"].(string); ok {
 			cnSpell = v
 		} else if v, ok := item["cn_spell"].(float64); ok {
 			cnSpell = fmt.Sprintf("%.0f", v)
@@ -170,7 +185,10 @@ func HkBasic(ctx context.Context, client *sdk.Client, req *HkBasicRequest) ([]Hk
 		// 处理 market 的简单类型
 		// 对 string 类型尝试多种转换
 		var market string
-		if v, ok := item["market"].(string); ok {
+		if item["market"] == nil {
+			// 字段值为 null，使用零值
+			market = ""
+		} else if v, ok := item["market"].(string); ok {
 			market = v
 		} else if v, ok := item["market"].(float64); ok {
 			market = fmt.Sprintf("%.0f", v)
@@ -192,7 +210,10 @@ func HkBasic(ctx context.Context, client *sdk.Client, req *HkBasicRequest) ([]Hk
 		// 处理 list_status 的简单类型
 		// 对 string 类型尝试多种转换
 		var listStatus string
-		if v, ok := item["list_status"].(string); ok {
+		if item["list_status"] == nil {
+			// 字段值为 null，使用零值
+			listStatus = ""
+		} else if v, ok := item["list_status"].(string); ok {
 			listStatus = v
 		} else if v, ok := item["list_status"].(float64); ok {
 			listStatus = fmt.Sprintf("%.0f", v)
@@ -214,7 +235,10 @@ func HkBasic(ctx context.Context, client *sdk.Client, req *HkBasicRequest) ([]Hk
 		// 处理 list_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var listDate string
-		if v, ok := item["list_date"].(string); ok {
+		if item["list_date"] == nil {
+			// 字段值为 null，使用零值
+			listDate = ""
+		} else if v, ok := item["list_date"].(string); ok {
 			listDate = v
 		} else if v, ok := item["list_date"].(float64); ok {
 			listDate = fmt.Sprintf("%.0f", v)
@@ -236,7 +260,10 @@ func HkBasic(ctx context.Context, client *sdk.Client, req *HkBasicRequest) ([]Hk
 		// 处理 delist_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var delistDate string
-		if v, ok := item["delist_date"].(string); ok {
+		if item["delist_date"] == nil {
+			// 字段值为 null，使用零值
+			delistDate = ""
+		} else if v, ok := item["delist_date"].(string); ok {
 			delistDate = v
 		} else if v, ok := item["delist_date"].(float64); ok {
 			delistDate = fmt.Sprintf("%.0f", v)
@@ -263,7 +290,10 @@ func HkBasic(ctx context.Context, client *sdk.Client, req *HkBasicRequest) ([]Hk
 		// 处理 isin 的简单类型
 		// 对 string 类型尝试多种转换
 		var isin string
-		if v, ok := item["isin"].(string); ok {
+		if item["isin"] == nil {
+			// 字段值为 null，使用零值
+			isin = ""
+		} else if v, ok := item["isin"].(string); ok {
 			isin = v
 		} else if v, ok := item["isin"].(float64); ok {
 			isin = fmt.Sprintf("%.0f", v)
@@ -285,7 +315,10 @@ func HkBasic(ctx context.Context, client *sdk.Client, req *HkBasicRequest) ([]Hk
 		// 处理 curr_type 的简单类型
 		// 对 string 类型尝试多种转换
 		var currType string
-		if v, ok := item["curr_type"].(string); ok {
+		if item["curr_type"] == nil {
+			// 字段值为 null，使用零值
+			currType = ""
+		} else if v, ok := item["curr_type"].(string); ok {
 			currType = v
 		} else if v, ok := item["curr_type"].(float64); ok {
 			currType = fmt.Sprintf("%.0f", v)

@@ -4,7 +4,9 @@ package industry_tmt
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -50,13 +52,53 @@ func BoWeekly(ctx context.Context, client *sdk.Client, req *BoWeeklyRequest) ([]
 	items := make([]BoWeeklyItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 date 的简单类型
-		date, ok := item["date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var date string
+		if item["date"] == nil {
+			// 字段值为 null，使用零值
+			date = ""
+		} else if v, ok := item["date"].(string); ok {
+			date = v
+		} else if v, ok := item["date"].(float64); ok {
+			date = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["date"].(int); ok {
+			date = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: bo_weekly")
+			log.Printf("字段: date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 date 类型")
 		}
 		// 处理 name 的简单类型
-		name, ok := item["name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var name string
+		if item["name"] == nil {
+			// 字段值为 null，使用零值
+			name = ""
+		} else if v, ok := item["name"].(string); ok {
+			name = v
+		} else if v, ok := item["name"].(float64); ok {
+			name = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["name"].(int); ok {
+			name = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: bo_weekly")
+			log.Printf("字段: name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 avg_price 的简单类型
@@ -75,14 +117,30 @@ func BoWeekly(ctx context.Context, client *sdk.Client, req *BoWeeklyRequest) ([]
 			return nil, fmt.Errorf("无效的 total 类型")
 		}
 		// 处理 list_day 的简单类型
-		listDay, ok := item["list_day"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 list_day 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var listDay int
+		if item["list_day"] == nil {
+			// 字段值为 null，使用零值
+			listDay = 0
+		} else if v, ok := item["list_day"].(float64); ok {
+			listDay = int(v)
+		} else if v, ok := item["list_day"].(int); ok {
+			listDay = v
+		} else {
+			return nil, fmt.Errorf("无效的 list_day 类型，期望 int 或 float64")
 		}
 		// 处理 p_pc 的简单类型
-		pPc, ok := item["p_pc"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 p_pc 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var pPc int
+		if item["p_pc"] == nil {
+			// 字段值为 null，使用零值
+			pPc = 0
+		} else if v, ok := item["p_pc"].(float64); ok {
+			pPc = int(v)
+		} else if v, ok := item["p_pc"].(int); ok {
+			pPc = v
+		} else {
+			return nil, fmt.Errorf("无效的 p_pc 类型，期望 int 或 float64")
 		}
 		// 处理 wom_index 的简单类型
 		womIndex, ok := item["wom_index"].(float64)
@@ -95,9 +153,17 @@ func BoWeekly(ctx context.Context, client *sdk.Client, req *BoWeeklyRequest) ([]
 			return nil, fmt.Errorf("无效的 up_ratio 类型")
 		}
 		// 处理 rank 的简单类型
-		rank, ok := item["rank"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 rank 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var rank int
+		if item["rank"] == nil {
+			// 字段值为 null，使用零值
+			rank = 0
+		} else if v, ok := item["rank"].(float64); ok {
+			rank = int(v)
+		} else if v, ok := item["rank"].(int); ok {
+			rank = v
+		} else {
+			return nil, fmt.Errorf("无效的 rank 类型，期望 int 或 float64")
 		}
 		items[i] = BoWeeklyItem{
 			Date: date,

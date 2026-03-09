@@ -4,7 +4,9 @@ package stock_board
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -90,13 +92,53 @@ func TdxDaily(ctx context.Context, client *sdk.Client, req *TdxDailyRequest) ([]
 	items := make([]TdxDailyItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: tdx_daily")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 trade_date 的简单类型
-		tradeDate, ok := item["trade_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeDate string
+		if item["trade_date"] == nil {
+			// 字段值为 null，使用零值
+			tradeDate = ""
+		} else if v, ok := item["trade_date"].(string); ok {
+			tradeDate = v
+		} else if v, ok := item["trade_date"].(float64); ok {
+			tradeDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_date"].(int); ok {
+			tradeDate = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["trade_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: tdx_daily")
+			log.Printf("字段: trade_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["trade_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 close 的简单类型
@@ -145,8 +187,28 @@ func TdxDaily(ctx context.Context, client *sdk.Client, req *TdxDailyRequest) ([]
 			return nil, fmt.Errorf("无效的 amount 类型")
 		}
 		// 处理 rise 的简单类型
-		rise, ok := item["rise"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var rise string
+		if item["rise"] == nil {
+			// 字段值为 null，使用零值
+			rise = ""
+		} else if v, ok := item["rise"].(string); ok {
+			rise = v
+		} else if v, ok := item["rise"].(float64); ok {
+			rise = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["rise"].(int); ok {
+			rise = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["rise"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: tdx_daily")
+			log.Printf("字段: rise")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["rise"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 rise 类型")
 		}
 		// 处理 vol_ratio 的简单类型
@@ -165,29 +227,69 @@ func TdxDaily(ctx context.Context, client *sdk.Client, req *TdxDailyRequest) ([]
 			return nil, fmt.Errorf("无效的 swing 类型")
 		}
 		// 处理 up_num 的简单类型
-		upNum, ok := item["up_num"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 up_num 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var upNum int
+		if item["up_num"] == nil {
+			// 字段值为 null，使用零值
+			upNum = 0
+		} else if v, ok := item["up_num"].(float64); ok {
+			upNum = int(v)
+		} else if v, ok := item["up_num"].(int); ok {
+			upNum = v
+		} else {
+			return nil, fmt.Errorf("无效的 up_num 类型，期望 int 或 float64")
 		}
 		// 处理 down_num 的简单类型
-		downNum, ok := item["down_num"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 down_num 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var downNum int
+		if item["down_num"] == nil {
+			// 字段值为 null，使用零值
+			downNum = 0
+		} else if v, ok := item["down_num"].(float64); ok {
+			downNum = int(v)
+		} else if v, ok := item["down_num"].(int); ok {
+			downNum = v
+		} else {
+			return nil, fmt.Errorf("无效的 down_num 类型，期望 int 或 float64")
 		}
 		// 处理 limit_up_num 的简单类型
-		limitUpNum, ok := item["limit_up_num"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 limit_up_num 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var limitUpNum int
+		if item["limit_up_num"] == nil {
+			// 字段值为 null，使用零值
+			limitUpNum = 0
+		} else if v, ok := item["limit_up_num"].(float64); ok {
+			limitUpNum = int(v)
+		} else if v, ok := item["limit_up_num"].(int); ok {
+			limitUpNum = v
+		} else {
+			return nil, fmt.Errorf("无效的 limit_up_num 类型，期望 int 或 float64")
 		}
 		// 处理 limit_down_num 的简单类型
-		limitDownNum, ok := item["limit_down_num"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 limit_down_num 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var limitDownNum int
+		if item["limit_down_num"] == nil {
+			// 字段值为 null，使用零值
+			limitDownNum = 0
+		} else if v, ok := item["limit_down_num"].(float64); ok {
+			limitDownNum = int(v)
+		} else if v, ok := item["limit_down_num"].(int); ok {
+			limitDownNum = v
+		} else {
+			return nil, fmt.Errorf("无效的 limit_down_num 类型，期望 int 或 float64")
 		}
 		// 处理 lu_days 的简单类型
-		luDays, ok := item["lu_days"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 lu_days 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var luDays int
+		if item["lu_days"] == nil {
+			// 字段值为 null，使用零值
+			luDays = 0
+		} else if v, ok := item["lu_days"].(float64); ok {
+			luDays = int(v)
+		} else if v, ok := item["lu_days"].(int); ok {
+			luDays = v
+		} else {
+			return nil, fmt.Errorf("无效的 lu_days 类型，期望 int 或 float64")
 		}
 		// 处理 3day 的简单类型
 		field3day, ok := item["3day"].(float64)
@@ -230,13 +332,53 @@ func TdxDaily(ctx context.Context, client *sdk.Client, req *TdxDailyRequest) ([]
 			return nil, fmt.Errorf("无效的 1year 类型")
 		}
 		// 处理 pe 的简单类型
-		pe, ok := item["pe"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var pe string
+		if item["pe"] == nil {
+			// 字段值为 null，使用零值
+			pe = ""
+		} else if v, ok := item["pe"].(string); ok {
+			pe = v
+		} else if v, ok := item["pe"].(float64); ok {
+			pe = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["pe"].(int); ok {
+			pe = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["pe"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: tdx_daily")
+			log.Printf("字段: pe")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["pe"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 pe 类型")
 		}
 		// 处理 pb 的简单类型
-		pb, ok := item["pb"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var pb string
+		if item["pb"] == nil {
+			// 字段值为 null，使用零值
+			pb = ""
+		} else if v, ok := item["pb"].(string); ok {
+			pb = v
+		} else if v, ok := item["pb"].(float64); ok {
+			pb = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["pb"].(int); ok {
+			pb = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["pb"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: tdx_daily")
+			log.Printf("字段: pb")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["pb"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 pb 类型")
 		}
 		// 处理 float_mv 的简单类型

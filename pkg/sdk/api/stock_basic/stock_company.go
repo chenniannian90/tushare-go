@@ -4,7 +4,9 @@ package stock_basic
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -54,38 +56,178 @@ func StockCompany(ctx context.Context, client *sdk.Client, req *StockCompanyRequ
 	items := make([]StockCompanyItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stock_company")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 com_name 的简单类型
-		comName, ok := item["com_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var comName string
+		if item["com_name"] == nil {
+			// 字段值为 null，使用零值
+			comName = ""
+		} else if v, ok := item["com_name"].(string); ok {
+			comName = v
+		} else if v, ok := item["com_name"].(float64); ok {
+			comName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["com_name"].(int); ok {
+			comName = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["com_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stock_company")
+			log.Printf("字段: com_name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["com_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 com_name 类型")
 		}
 		// 处理 com_id 的简单类型
-		comId, ok := item["com_id"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var comId string
+		if item["com_id"] == nil {
+			// 字段值为 null，使用零值
+			comId = ""
+		} else if v, ok := item["com_id"].(string); ok {
+			comId = v
+		} else if v, ok := item["com_id"].(float64); ok {
+			comId = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["com_id"].(int); ok {
+			comId = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["com_id"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stock_company")
+			log.Printf("字段: com_id")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["com_id"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 com_id 类型")
 		}
 		// 处理 exchange 的简单类型
-		exchange, ok := item["exchange"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var exchange string
+		if item["exchange"] == nil {
+			// 字段值为 null，使用零值
+			exchange = ""
+		} else if v, ok := item["exchange"].(string); ok {
+			exchange = v
+		} else if v, ok := item["exchange"].(float64); ok {
+			exchange = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["exchange"].(int); ok {
+			exchange = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["exchange"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stock_company")
+			log.Printf("字段: exchange")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["exchange"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 exchange 类型")
 		}
 		// 处理 chairman 的简单类型
-		chairman, ok := item["chairman"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var chairman string
+		if item["chairman"] == nil {
+			// 字段值为 null，使用零值
+			chairman = ""
+		} else if v, ok := item["chairman"].(string); ok {
+			chairman = v
+		} else if v, ok := item["chairman"].(float64); ok {
+			chairman = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["chairman"].(int); ok {
+			chairman = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["chairman"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stock_company")
+			log.Printf("字段: chairman")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["chairman"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 chairman 类型")
 		}
 		// 处理 manager 的简单类型
-		manager, ok := item["manager"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var manager string
+		if item["manager"] == nil {
+			// 字段值为 null，使用零值
+			manager = ""
+		} else if v, ok := item["manager"].(string); ok {
+			manager = v
+		} else if v, ok := item["manager"].(float64); ok {
+			manager = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["manager"].(int); ok {
+			manager = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["manager"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stock_company")
+			log.Printf("字段: manager")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["manager"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 manager 类型")
 		}
 		// 处理 secretary 的简单类型
-		secretary, ok := item["secretary"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var secretary string
+		if item["secretary"] == nil {
+			// 字段值为 null，使用零值
+			secretary = ""
+		} else if v, ok := item["secretary"].(string); ok {
+			secretary = v
+		} else if v, ok := item["secretary"].(float64); ok {
+			secretary = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["secretary"].(int); ok {
+			secretary = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["secretary"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stock_company")
+			log.Printf("字段: secretary")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["secretary"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 secretary 类型")
 		}
 		// 处理 reg_capital 的简单类型
@@ -94,53 +236,241 @@ func StockCompany(ctx context.Context, client *sdk.Client, req *StockCompanyRequ
 			return nil, fmt.Errorf("无效的 reg_capital 类型")
 		}
 		// 处理 setup_date 的简单类型
-		setupDate, ok := item["setup_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var setupDate string
+		if item["setup_date"] == nil {
+			// 字段值为 null，使用零值
+			setupDate = ""
+		} else if v, ok := item["setup_date"].(string); ok {
+			setupDate = v
+		} else if v, ok := item["setup_date"].(float64); ok {
+			setupDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["setup_date"].(int); ok {
+			setupDate = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["setup_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stock_company")
+			log.Printf("字段: setup_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["setup_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 setup_date 类型")
 		}
 		// 处理 province 的简单类型
-		province, ok := item["province"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var province string
+		if item["province"] == nil {
+			// 字段值为 null，使用零值
+			province = ""
+		} else if v, ok := item["province"].(string); ok {
+			province = v
+		} else if v, ok := item["province"].(float64); ok {
+			province = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["province"].(int); ok {
+			province = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["province"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stock_company")
+			log.Printf("字段: province")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["province"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 province 类型")
 		}
 		// 处理 city 的简单类型
-		city, ok := item["city"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var city string
+		if item["city"] == nil {
+			// 字段值为 null，使用零值
+			city = ""
+		} else if v, ok := item["city"].(string); ok {
+			city = v
+		} else if v, ok := item["city"].(float64); ok {
+			city = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["city"].(int); ok {
+			city = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["city"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stock_company")
+			log.Printf("字段: city")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["city"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 city 类型")
 		}
 		// 处理 introduction 的简单类型
-		introduction, ok := item["introduction"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var introduction string
+		if item["introduction"] == nil {
+			// 字段值为 null，使用零值
+			introduction = ""
+		} else if v, ok := item["introduction"].(string); ok {
+			introduction = v
+		} else if v, ok := item["introduction"].(float64); ok {
+			introduction = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["introduction"].(int); ok {
+			introduction = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["introduction"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stock_company")
+			log.Printf("字段: introduction")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["introduction"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 introduction 类型")
 		}
 		// 处理 website 的简单类型
-		website, ok := item["website"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var website string
+		if item["website"] == nil {
+			// 字段值为 null，使用零值
+			website = ""
+		} else if v, ok := item["website"].(string); ok {
+			website = v
+		} else if v, ok := item["website"].(float64); ok {
+			website = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["website"].(int); ok {
+			website = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["website"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stock_company")
+			log.Printf("字段: website")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["website"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 website 类型")
 		}
 		// 处理 email 的简单类型
-		email, ok := item["email"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var email string
+		if item["email"] == nil {
+			// 字段值为 null，使用零值
+			email = ""
+		} else if v, ok := item["email"].(string); ok {
+			email = v
+		} else if v, ok := item["email"].(float64); ok {
+			email = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["email"].(int); ok {
+			email = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["email"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stock_company")
+			log.Printf("字段: email")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["email"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 email 类型")
 		}
 		// 处理 office 的简单类型
-		office, ok := item["office"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var office string
+		if item["office"] == nil {
+			// 字段值为 null，使用零值
+			office = ""
+		} else if v, ok := item["office"].(string); ok {
+			office = v
+		} else if v, ok := item["office"].(float64); ok {
+			office = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["office"].(int); ok {
+			office = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["office"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stock_company")
+			log.Printf("字段: office")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["office"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 office 类型")
 		}
 		// 处理 employees 的简单类型
-		employees, ok := item["employees"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 employees 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var employees int
+		if item["employees"] == nil {
+			// 字段值为 null，使用零值
+			employees = 0
+		} else if v, ok := item["employees"].(float64); ok {
+			employees = int(v)
+		} else if v, ok := item["employees"].(int); ok {
+			employees = v
+		} else {
+			return nil, fmt.Errorf("无效的 employees 类型，期望 int 或 float64")
 		}
 		// 处理 main_business 的简单类型
-		mainBusiness, ok := item["main_business"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var mainBusiness string
+		if item["main_business"] == nil {
+			// 字段值为 null，使用零值
+			mainBusiness = ""
+		} else if v, ok := item["main_business"].(string); ok {
+			mainBusiness = v
+		} else if v, ok := item["main_business"].(float64); ok {
+			mainBusiness = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["main_business"].(int); ok {
+			mainBusiness = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["main_business"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stock_company")
+			log.Printf("字段: main_business")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["main_business"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 main_business 类型")
 		}
 		// 处理 business_scope 的简单类型
-		businessScope, ok := item["business_scope"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var businessScope string
+		if item["business_scope"] == nil {
+			// 字段值为 null，使用零值
+			businessScope = ""
+		} else if v, ok := item["business_scope"].(string); ok {
+			businessScope = v
+		} else if v, ok := item["business_scope"].(float64); ok {
+			businessScope = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["business_scope"].(int); ok {
+			businessScope = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["business_scope"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stock_company")
+			log.Printf("字段: business_scope")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["business_scope"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 business_scope 类型")
 		}
 		items[i] = StockCompanyItem{

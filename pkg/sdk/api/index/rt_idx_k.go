@@ -54,7 +54,10 @@ func RtIdxK(ctx context.Context, client *sdk.Client, req *RtIdxKRequest) ([]RtId
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -76,7 +79,10 @@ func RtIdxK(ctx context.Context, client *sdk.Client, req *RtIdxKRequest) ([]RtId
 		// 处理 name 的简单类型
 		// 对 string 类型尝试多种转换
 		var name string
-		if v, ok := item["name"].(string); ok {
+		if item["name"] == nil {
+			// 字段值为 null，使用零值
+			name = ""
+		} else if v, ok := item["name"].(string); ok {
 			name = v
 		} else if v, ok := item["name"].(float64); ok {
 			name = fmt.Sprintf("%.0f", v)
@@ -98,7 +104,10 @@ func RtIdxK(ctx context.Context, client *sdk.Client, req *RtIdxKRequest) ([]RtId
 		// 处理 trade_time 的简单类型
 		// 对 string 类型尝试多种转换
 		var tradeTime string
-		if v, ok := item["trade_time"].(string); ok {
+		if item["trade_time"] == nil {
+			// 字段值为 null，使用零值
+			tradeTime = ""
+		} else if v, ok := item["trade_time"].(string); ok {
 			tradeTime = v
 		} else if v, ok := item["trade_time"].(float64); ok {
 			tradeTime = fmt.Sprintf("%.0f", v)

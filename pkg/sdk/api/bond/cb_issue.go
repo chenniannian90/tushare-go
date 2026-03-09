@@ -91,7 +91,10 @@ func CbIssue(ctx context.Context, client *sdk.Client, req *CbIssueRequest) ([]Cb
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -113,7 +116,10 @@ func CbIssue(ctx context.Context, client *sdk.Client, req *CbIssueRequest) ([]Cb
 		// 处理 ann_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var annDate string
-		if v, ok := item["ann_date"].(string); ok {
+		if item["ann_date"] == nil {
+			// 字段值为 null，使用零值
+			annDate = ""
+		} else if v, ok := item["ann_date"].(string); ok {
 			annDate = v
 		} else if v, ok := item["ann_date"].(float64); ok {
 			annDate = fmt.Sprintf("%.0f", v)
@@ -135,7 +141,10 @@ func CbIssue(ctx context.Context, client *sdk.Client, req *CbIssueRequest) ([]Cb
 		// 处理 res_ann_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var resAnnDate string
-		if v, ok := item["res_ann_date"].(string); ok {
+		if item["res_ann_date"] == nil {
+			// 字段值为 null，使用零值
+			resAnnDate = ""
+		} else if v, ok := item["res_ann_date"].(string); ok {
 			resAnnDate = v
 		} else if v, ok := item["res_ann_date"].(float64); ok {
 			resAnnDate = fmt.Sprintf("%.0f", v)
@@ -172,7 +181,10 @@ func CbIssue(ctx context.Context, client *sdk.Client, req *CbIssueRequest) ([]Cb
 		// 处理 issue_type 的简单类型
 		// 对 string 类型尝试多种转换
 		var issueType string
-		if v, ok := item["issue_type"].(string); ok {
+		if item["issue_type"] == nil {
+			// 字段值为 null，使用零值
+			issueType = ""
+		} else if v, ok := item["issue_type"].(string); ok {
 			issueType = v
 		} else if v, ok := item["issue_type"].(float64); ok {
 			issueType = fmt.Sprintf("%.0f", v)
@@ -199,7 +211,10 @@ func CbIssue(ctx context.Context, client *sdk.Client, req *CbIssueRequest) ([]Cb
 		// 处理 onl_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var onlCode string
-		if v, ok := item["onl_code"].(string); ok {
+		if item["onl_code"] == nil {
+			// 字段值为 null，使用零值
+			onlCode = ""
+		} else if v, ok := item["onl_code"].(string); ok {
 			onlCode = v
 		} else if v, ok := item["onl_code"].(float64); ok {
 			onlCode = fmt.Sprintf("%.0f", v)
@@ -221,7 +236,10 @@ func CbIssue(ctx context.Context, client *sdk.Client, req *CbIssueRequest) ([]Cb
 		// 处理 onl_name 的简单类型
 		// 对 string 类型尝试多种转换
 		var onlName string
-		if v, ok := item["onl_name"].(string); ok {
+		if item["onl_name"] == nil {
+			// 字段值为 null，使用零值
+			onlName = ""
+		} else if v, ok := item["onl_name"].(string); ok {
 			onlName = v
 		} else if v, ok := item["onl_name"].(float64); ok {
 			onlName = fmt.Sprintf("%.0f", v)
@@ -243,7 +261,10 @@ func CbIssue(ctx context.Context, client *sdk.Client, req *CbIssueRequest) ([]Cb
 		// 处理 onl_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var onlDate string
-		if v, ok := item["onl_date"].(string); ok {
+		if item["onl_date"] == nil {
+			// 字段值为 null，使用零值
+			onlDate = ""
+		} else if v, ok := item["onl_date"].(string); ok {
 			onlDate = v
 		} else if v, ok := item["onl_date"].(float64); ok {
 			onlDate = fmt.Sprintf("%.0f", v)
@@ -273,9 +294,17 @@ func CbIssue(ctx context.Context, client *sdk.Client, req *CbIssueRequest) ([]Cb
 			return nil, fmt.Errorf("无效的 onl_pch_vol 类型")
 		}
 		// 处理 onl_pch_num 的简单类型
-		onlPchNum, ok := item["onl_pch_num"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 onl_pch_num 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var onlPchNum int
+		if item["onl_pch_num"] == nil {
+			// 字段值为 null，使用零值
+			onlPchNum = 0
+		} else if v, ok := item["onl_pch_num"].(float64); ok {
+			onlPchNum = int(v)
+		} else if v, ok := item["onl_pch_num"].(int); ok {
+			onlPchNum = v
+		} else {
+			return nil, fmt.Errorf("无效的 onl_pch_num 类型，期望 int 或 float64")
 		}
 		// 处理 onl_pch_excess 的简单类型
 		onlPchExcess, ok := item["onl_pch_excess"].(float64)
@@ -290,7 +319,10 @@ func CbIssue(ctx context.Context, client *sdk.Client, req *CbIssueRequest) ([]Cb
 		// 处理 shd_ration_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var shdRationCode string
-		if v, ok := item["shd_ration_code"].(string); ok {
+		if item["shd_ration_code"] == nil {
+			// 字段值为 null，使用零值
+			shdRationCode = ""
+		} else if v, ok := item["shd_ration_code"].(string); ok {
 			shdRationCode = v
 		} else if v, ok := item["shd_ration_code"].(float64); ok {
 			shdRationCode = fmt.Sprintf("%.0f", v)
@@ -312,7 +344,10 @@ func CbIssue(ctx context.Context, client *sdk.Client, req *CbIssueRequest) ([]Cb
 		// 处理 shd_ration_name 的简单类型
 		// 对 string 类型尝试多种转换
 		var shdRationName string
-		if v, ok := item["shd_ration_name"].(string); ok {
+		if item["shd_ration_name"] == nil {
+			// 字段值为 null，使用零值
+			shdRationName = ""
+		} else if v, ok := item["shd_ration_name"].(string); ok {
 			shdRationName = v
 		} else if v, ok := item["shd_ration_name"].(float64); ok {
 			shdRationName = fmt.Sprintf("%.0f", v)
@@ -334,7 +369,10 @@ func CbIssue(ctx context.Context, client *sdk.Client, req *CbIssueRequest) ([]Cb
 		// 处理 shd_ration_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var shdRationDate string
-		if v, ok := item["shd_ration_date"].(string); ok {
+		if item["shd_ration_date"] == nil {
+			// 字段值为 null，使用零值
+			shdRationDate = ""
+		} else if v, ok := item["shd_ration_date"].(string); ok {
 			shdRationDate = v
 		} else if v, ok := item["shd_ration_date"].(float64); ok {
 			shdRationDate = fmt.Sprintf("%.0f", v)
@@ -356,7 +394,10 @@ func CbIssue(ctx context.Context, client *sdk.Client, req *CbIssueRequest) ([]Cb
 		// 处理 shd_ration_record_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var shdRationRecordDate string
-		if v, ok := item["shd_ration_record_date"].(string); ok {
+		if item["shd_ration_record_date"] == nil {
+			// 字段值为 null，使用零值
+			shdRationRecordDate = ""
+		} else if v, ok := item["shd_ration_record_date"].(string); ok {
 			shdRationRecordDate = v
 		} else if v, ok := item["shd_ration_record_date"].(float64); ok {
 			shdRationRecordDate = fmt.Sprintf("%.0f", v)
@@ -378,7 +419,10 @@ func CbIssue(ctx context.Context, client *sdk.Client, req *CbIssueRequest) ([]Cb
 		// 处理 shd_ration_pay_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var shdRationPayDate string
-		if v, ok := item["shd_ration_pay_date"].(string); ok {
+		if item["shd_ration_pay_date"] == nil {
+			// 字段值为 null，使用零值
+			shdRationPayDate = ""
+		} else if v, ok := item["shd_ration_pay_date"].(string); ok {
 			shdRationPayDate = v
 		} else if v, ok := item["shd_ration_pay_date"].(float64); ok {
 			shdRationPayDate = fmt.Sprintf("%.0f", v)
@@ -418,9 +462,17 @@ func CbIssue(ctx context.Context, client *sdk.Client, req *CbIssueRequest) ([]Cb
 			return nil, fmt.Errorf("无效的 shd_ration_vol 类型")
 		}
 		// 处理 shd_ration_num 的简单类型
-		shdRationNum, ok := item["shd_ration_num"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 shd_ration_num 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var shdRationNum int
+		if item["shd_ration_num"] == nil {
+			// 字段值为 null，使用零值
+			shdRationNum = 0
+		} else if v, ok := item["shd_ration_num"].(float64); ok {
+			shdRationNum = int(v)
+		} else if v, ok := item["shd_ration_num"].(int); ok {
+			shdRationNum = v
+		} else {
+			return nil, fmt.Errorf("无效的 shd_ration_num 类型，期望 int 或 float64")
 		}
 		// 处理 shd_ration_excess 的简单类型
 		shdRationExcess, ok := item["shd_ration_excess"].(float64)
@@ -443,9 +495,17 @@ func CbIssue(ctx context.Context, client *sdk.Client, req *CbIssueRequest) ([]Cb
 			return nil, fmt.Errorf("无效的 offl_pch_vol 类型")
 		}
 		// 处理 offl_pch_num 的简单类型
-		offlPchNum, ok := item["offl_pch_num"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 offl_pch_num 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var offlPchNum int
+		if item["offl_pch_num"] == nil {
+			// 字段值为 null，使用零值
+			offlPchNum = 0
+		} else if v, ok := item["offl_pch_num"].(float64); ok {
+			offlPchNum = int(v)
+		} else if v, ok := item["offl_pch_num"].(int); ok {
+			offlPchNum = v
+		} else {
+			return nil, fmt.Errorf("无效的 offl_pch_num 类型，期望 int 或 float64")
 		}
 		// 处理 offl_pch_excess 的简单类型
 		offlPchExcess, ok := item["offl_pch_excess"].(float64)
@@ -460,7 +520,10 @@ func CbIssue(ctx context.Context, client *sdk.Client, req *CbIssueRequest) ([]Cb
 		// 处理 lead_underwriter 的简单类型
 		// 对 string 类型尝试多种转换
 		var leadUnderwriter string
-		if v, ok := item["lead_underwriter"].(string); ok {
+		if item["lead_underwriter"] == nil {
+			// 字段值为 null，使用零值
+			leadUnderwriter = ""
+		} else if v, ok := item["lead_underwriter"].(string); ok {
 			leadUnderwriter = v
 		} else if v, ok := item["lead_underwriter"].(float64); ok {
 			leadUnderwriter = fmt.Sprintf("%.0f", v)

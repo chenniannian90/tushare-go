@@ -47,7 +47,10 @@ func CctvNews(ctx context.Context, client *sdk.Client, req *CctvNewsRequest) ([]
 		// 处理 date 的简单类型
 		// 对 string 类型尝试多种转换
 		var date string
-		if v, ok := item["date"].(string); ok {
+		if item["date"] == nil {
+			// 字段值为 null，使用零值
+			date = ""
+		} else if v, ok := item["date"].(string); ok {
 			date = v
 		} else if v, ok := item["date"].(float64); ok {
 			date = fmt.Sprintf("%.0f", v)
@@ -69,7 +72,10 @@ func CctvNews(ctx context.Context, client *sdk.Client, req *CctvNewsRequest) ([]
 		// 处理 title 的简单类型
 		// 对 string 类型尝试多种转换
 		var title string
-		if v, ok := item["title"].(string); ok {
+		if item["title"] == nil {
+			// 字段值为 null，使用零值
+			title = ""
+		} else if v, ok := item["title"].(string); ok {
 			title = v
 		} else if v, ok := item["title"].(float64); ok {
 			title = fmt.Sprintf("%.0f", v)
@@ -91,7 +97,10 @@ func CctvNews(ctx context.Context, client *sdk.Client, req *CctvNewsRequest) ([]
 		// 处理 content 的简单类型
 		// 对 string 类型尝试多种转换
 		var content string
-		if v, ok := item["content"].(string); ok {
+		if item["content"] == nil {
+			// 字段值为 null，使用零值
+			content = ""
+		} else if v, ok := item["content"].(string); ok {
 			content = v
 		} else if v, ok := item["content"].(float64); ok {
 			content = fmt.Sprintf("%.0f", v)

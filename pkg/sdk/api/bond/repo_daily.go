@@ -68,7 +68,10 @@ func RepoDaily(ctx context.Context, client *sdk.Client, req *RepoDailyRequest) (
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -90,7 +93,10 @@ func RepoDaily(ctx context.Context, client *sdk.Client, req *RepoDailyRequest) (
 		// 处理 trade_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var tradeDate string
-		if v, ok := item["trade_date"].(string); ok {
+		if item["trade_date"] == nil {
+			// 字段值为 null，使用零值
+			tradeDate = ""
+		} else if v, ok := item["trade_date"].(string); ok {
 			tradeDate = v
 		} else if v, ok := item["trade_date"].(float64); ok {
 			tradeDate = fmt.Sprintf("%.0f", v)
@@ -112,7 +118,10 @@ func RepoDaily(ctx context.Context, client *sdk.Client, req *RepoDailyRequest) (
 		// 处理 repo_maturity 的简单类型
 		// 对 string 类型尝试多种转换
 		var repoMaturity string
-		if v, ok := item["repo_maturity"].(string); ok {
+		if item["repo_maturity"] == nil {
+			// 字段值为 null，使用零值
+			repoMaturity = ""
+		} else if v, ok := item["repo_maturity"].(string); ok {
 			repoMaturity = v
 		} else if v, ok := item["repo_maturity"].(float64); ok {
 			repoMaturity = fmt.Sprintf("%.0f", v)
@@ -172,9 +181,17 @@ func RepoDaily(ctx context.Context, client *sdk.Client, req *RepoDailyRequest) (
 			return nil, fmt.Errorf("无效的 amount 类型")
 		}
 		// 处理 num 的简单类型
-		num, ok := item["num"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 num 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var num int
+		if item["num"] == nil {
+			// 字段值为 null，使用零值
+			num = 0
+		} else if v, ok := item["num"].(float64); ok {
+			num = int(v)
+		} else if v, ok := item["num"].(int); ok {
+			num = v
+		} else {
+			return nil, fmt.Errorf("无效的 num 类型，期望 int 或 float64")
 		}
 		items[i] = RepoDailyItem{
 			TsCode: tsCode,

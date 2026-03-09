@@ -88,7 +88,10 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -110,7 +113,10 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		// 处理 bond_full_name 的简单类型
 		// 对 string 类型尝试多种转换
 		var bondFullName string
-		if v, ok := item["bond_full_name"].(string); ok {
+		if item["bond_full_name"] == nil {
+			// 字段值为 null，使用零值
+			bondFullName = ""
+		} else if v, ok := item["bond_full_name"].(string); ok {
 			bondFullName = v
 		} else if v, ok := item["bond_full_name"].(float64); ok {
 			bondFullName = fmt.Sprintf("%.0f", v)
@@ -132,7 +138,10 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		// 处理 bond_short_name 的简单类型
 		// 对 string 类型尝试多种转换
 		var bondShortName string
-		if v, ok := item["bond_short_name"].(string); ok {
+		if item["bond_short_name"] == nil {
+			// 字段值为 null，使用零值
+			bondShortName = ""
+		} else if v, ok := item["bond_short_name"].(string); ok {
 			bondShortName = v
 		} else if v, ok := item["bond_short_name"].(float64); ok {
 			bondShortName = fmt.Sprintf("%.0f", v)
@@ -154,7 +163,10 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		// 处理 cb_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var cbCode string
-		if v, ok := item["cb_code"].(string); ok {
+		if item["cb_code"] == nil {
+			// 字段值为 null，使用零值
+			cbCode = ""
+		} else if v, ok := item["cb_code"].(string); ok {
 			cbCode = v
 		} else if v, ok := item["cb_code"].(float64); ok {
 			cbCode = fmt.Sprintf("%.0f", v)
@@ -176,7 +188,10 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		// 处理 stk_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var stkCode string
-		if v, ok := item["stk_code"].(string); ok {
+		if item["stk_code"] == nil {
+			// 字段值为 null，使用零值
+			stkCode = ""
+		} else if v, ok := item["stk_code"].(string); ok {
 			stkCode = v
 		} else if v, ok := item["stk_code"].(float64); ok {
 			stkCode = fmt.Sprintf("%.0f", v)
@@ -198,7 +213,10 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		// 处理 stk_short_name 的简单类型
 		// 对 string 类型尝试多种转换
 		var stkShortName string
-		if v, ok := item["stk_short_name"].(string); ok {
+		if item["stk_short_name"] == nil {
+			// 字段值为 null，使用零值
+			stkShortName = ""
+		} else if v, ok := item["stk_short_name"].(string); ok {
 			stkShortName = v
 		} else if v, ok := item["stk_short_name"].(float64); ok {
 			stkShortName = fmt.Sprintf("%.0f", v)
@@ -245,7 +263,10 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		// 处理 value_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var valueDate string
-		if v, ok := item["value_date"].(string); ok {
+		if item["value_date"] == nil {
+			// 字段值为 null，使用零值
+			valueDate = ""
+		} else if v, ok := item["value_date"].(string); ok {
 			valueDate = v
 		} else if v, ok := item["value_date"].(float64); ok {
 			valueDate = fmt.Sprintf("%.0f", v)
@@ -267,7 +288,10 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		// 处理 maturity_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var maturityDate string
-		if v, ok := item["maturity_date"].(string); ok {
+		if item["maturity_date"] == nil {
+			// 字段值为 null，使用零值
+			maturityDate = ""
+		} else if v, ok := item["maturity_date"].(string); ok {
 			maturityDate = v
 		} else if v, ok := item["maturity_date"].(float64); ok {
 			maturityDate = fmt.Sprintf("%.0f", v)
@@ -289,7 +313,10 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		// 处理 rate_type 的简单类型
 		// 对 string 类型尝试多种转换
 		var rateType string
-		if v, ok := item["rate_type"].(string); ok {
+		if item["rate_type"] == nil {
+			// 字段值为 null，使用零值
+			rateType = ""
+		} else if v, ok := item["rate_type"].(string); ok {
 			rateType = v
 		} else if v, ok := item["rate_type"].(float64); ok {
 			rateType = fmt.Sprintf("%.0f", v)
@@ -319,14 +346,25 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 			return nil, fmt.Errorf("无效的 add_rate 类型")
 		}
 		// 处理 pay_per_year 的简单类型
-		payPerYear, ok := item["pay_per_year"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 pay_per_year 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var payPerYear int
+		if item["pay_per_year"] == nil {
+			// 字段值为 null，使用零值
+			payPerYear = 0
+		} else if v, ok := item["pay_per_year"].(float64); ok {
+			payPerYear = int(v)
+		} else if v, ok := item["pay_per_year"].(int); ok {
+			payPerYear = v
+		} else {
+			return nil, fmt.Errorf("无效的 pay_per_year 类型，期望 int 或 float64")
 		}
 		// 处理 list_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var listDate string
-		if v, ok := item["list_date"].(string); ok {
+		if item["list_date"] == nil {
+			// 字段值为 null，使用零值
+			listDate = ""
+		} else if v, ok := item["list_date"].(string); ok {
 			listDate = v
 		} else if v, ok := item["list_date"].(float64); ok {
 			listDate = fmt.Sprintf("%.0f", v)
@@ -348,7 +386,10 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		// 处理 delist_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var delistDate string
-		if v, ok := item["delist_date"].(string); ok {
+		if item["delist_date"] == nil {
+			// 字段值为 null，使用零值
+			delistDate = ""
+		} else if v, ok := item["delist_date"].(string); ok {
 			delistDate = v
 		} else if v, ok := item["delist_date"].(float64); ok {
 			delistDate = fmt.Sprintf("%.0f", v)
@@ -370,7 +411,10 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		// 处理 exchange 的简单类型
 		// 对 string 类型尝试多种转换
 		var exchange string
-		if v, ok := item["exchange"].(string); ok {
+		if item["exchange"] == nil {
+			// 字段值为 null，使用零值
+			exchange = ""
+		} else if v, ok := item["exchange"].(string); ok {
 			exchange = v
 		} else if v, ok := item["exchange"].(float64); ok {
 			exchange = fmt.Sprintf("%.0f", v)
@@ -392,7 +436,10 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		// 处理 conv_start_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var convStartDate string
-		if v, ok := item["conv_start_date"].(string); ok {
+		if item["conv_start_date"] == nil {
+			// 字段值为 null，使用零值
+			convStartDate = ""
+		} else if v, ok := item["conv_start_date"].(string); ok {
 			convStartDate = v
 		} else if v, ok := item["conv_start_date"].(float64); ok {
 			convStartDate = fmt.Sprintf("%.0f", v)
@@ -414,7 +461,10 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		// 处理 conv_end_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var convEndDate string
-		if v, ok := item["conv_end_date"].(string); ok {
+		if item["conv_end_date"] == nil {
+			// 字段值为 null，使用零值
+			convEndDate = ""
+		} else if v, ok := item["conv_end_date"].(string); ok {
 			convEndDate = v
 		} else if v, ok := item["conv_end_date"].(float64); ok {
 			convEndDate = fmt.Sprintf("%.0f", v)
@@ -436,7 +486,10 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		// 处理 conv_stop_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var convStopDate string
-		if v, ok := item["conv_stop_date"].(string); ok {
+		if item["conv_stop_date"] == nil {
+			// 字段值为 null，使用零值
+			convStopDate = ""
+		} else if v, ok := item["conv_stop_date"].(string); ok {
 			convStopDate = v
 		} else if v, ok := item["conv_stop_date"].(float64); ok {
 			convStopDate = fmt.Sprintf("%.0f", v)
@@ -468,7 +521,10 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		// 处理 rate_clause 的简单类型
 		// 对 string 类型尝试多种转换
 		var rateClause string
-		if v, ok := item["rate_clause"].(string); ok {
+		if item["rate_clause"] == nil {
+			// 字段值为 null，使用零值
+			rateClause = ""
+		} else if v, ok := item["rate_clause"].(string); ok {
 			rateClause = v
 		} else if v, ok := item["rate_clause"].(float64); ok {
 			rateClause = fmt.Sprintf("%.0f", v)
@@ -490,7 +546,10 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		// 处理 put_clause 的简单类型
 		// 对 string 类型尝试多种转换
 		var putClause string
-		if v, ok := item["put_clause"].(string); ok {
+		if item["put_clause"] == nil {
+			// 字段值为 null，使用零值
+			putClause = ""
+		} else if v, ok := item["put_clause"].(string); ok {
 			putClause = v
 		} else if v, ok := item["put_clause"].(float64); ok {
 			putClause = fmt.Sprintf("%.0f", v)
@@ -512,7 +571,10 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		// 处理 maturity_put_price 的简单类型
 		// 对 string 类型尝试多种转换
 		var maturityPutPrice string
-		if v, ok := item["maturity_put_price"].(string); ok {
+		if item["maturity_put_price"] == nil {
+			// 字段值为 null，使用零值
+			maturityPutPrice = ""
+		} else if v, ok := item["maturity_put_price"].(string); ok {
 			maturityPutPrice = v
 		} else if v, ok := item["maturity_put_price"].(float64); ok {
 			maturityPutPrice = fmt.Sprintf("%.0f", v)
@@ -534,7 +596,10 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		// 处理 call_clause 的简单类型
 		// 对 string 类型尝试多种转换
 		var callClause string
-		if v, ok := item["call_clause"].(string); ok {
+		if item["call_clause"] == nil {
+			// 字段值为 null，使用零值
+			callClause = ""
+		} else if v, ok := item["call_clause"].(string); ok {
 			callClause = v
 		} else if v, ok := item["call_clause"].(float64); ok {
 			callClause = fmt.Sprintf("%.0f", v)
@@ -556,7 +621,10 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		// 处理 reset_clause 的简单类型
 		// 对 string 类型尝试多种转换
 		var resetClause string
-		if v, ok := item["reset_clause"].(string); ok {
+		if item["reset_clause"] == nil {
+			// 字段值为 null，使用零值
+			resetClause = ""
+		} else if v, ok := item["reset_clause"].(string); ok {
 			resetClause = v
 		} else if v, ok := item["reset_clause"].(float64); ok {
 			resetClause = fmt.Sprintf("%.0f", v)
@@ -578,7 +646,10 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		// 处理 conv_clause 的简单类型
 		// 对 string 类型尝试多种转换
 		var convClause string
-		if v, ok := item["conv_clause"].(string); ok {
+		if item["conv_clause"] == nil {
+			// 字段值为 null，使用零值
+			convClause = ""
+		} else if v, ok := item["conv_clause"].(string); ok {
 			convClause = v
 		} else if v, ok := item["conv_clause"].(float64); ok {
 			convClause = fmt.Sprintf("%.0f", v)
@@ -600,7 +671,10 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		// 处理 guarantor 的简单类型
 		// 对 string 类型尝试多种转换
 		var guarantor string
-		if v, ok := item["guarantor"].(string); ok {
+		if item["guarantor"] == nil {
+			// 字段值为 null，使用零值
+			guarantor = ""
+		} else if v, ok := item["guarantor"].(string); ok {
 			guarantor = v
 		} else if v, ok := item["guarantor"].(float64); ok {
 			guarantor = fmt.Sprintf("%.0f", v)
@@ -622,7 +696,10 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		// 处理 guarantee_type 的简单类型
 		// 对 string 类型尝试多种转换
 		var guaranteeType string
-		if v, ok := item["guarantee_type"].(string); ok {
+		if item["guarantee_type"] == nil {
+			// 字段值为 null，使用零值
+			guaranteeType = ""
+		} else if v, ok := item["guarantee_type"].(string); ok {
 			guaranteeType = v
 		} else if v, ok := item["guarantee_type"].(float64); ok {
 			guaranteeType = fmt.Sprintf("%.0f", v)
@@ -644,7 +721,10 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		// 处理 issue_rating 的简单类型
 		// 对 string 类型尝试多种转换
 		var issueRating string
-		if v, ok := item["issue_rating"].(string); ok {
+		if item["issue_rating"] == nil {
+			// 字段值为 null，使用零值
+			issueRating = ""
+		} else if v, ok := item["issue_rating"].(string); ok {
 			issueRating = v
 		} else if v, ok := item["issue_rating"].(float64); ok {
 			issueRating = fmt.Sprintf("%.0f", v)
@@ -666,7 +746,10 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		// 处理 newest_rating 的简单类型
 		// 对 string 类型尝试多种转换
 		var newestRating string
-		if v, ok := item["newest_rating"].(string); ok {
+		if item["newest_rating"] == nil {
+			// 字段值为 null，使用零值
+			newestRating = ""
+		} else if v, ok := item["newest_rating"].(string); ok {
 			newestRating = v
 		} else if v, ok := item["newest_rating"].(float64); ok {
 			newestRating = fmt.Sprintf("%.0f", v)
@@ -688,7 +771,10 @@ func CbBasic(ctx context.Context, client *sdk.Client, req *CbBasicRequest) ([]Cb
 		// 处理 rating_comp 的简单类型
 		// 对 string 类型尝试多种转换
 		var ratingComp string
-		if v, ok := item["rating_comp"].(string); ok {
+		if item["rating_comp"] == nil {
+			// 字段值为 null，使用零值
+			ratingComp = ""
+		} else if v, ok := item["rating_comp"].(string); ok {
 			ratingComp = v
 		} else if v, ok := item["rating_comp"].(float64); ok {
 			ratingComp = fmt.Sprintf("%.0f", v)

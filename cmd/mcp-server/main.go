@@ -8,6 +8,7 @@ import (
 
 	"tushare-go/cmd/mcp-server/config"
 	"tushare-go/pkg/sdk"
+	"tushare-go/pkg/sdk/logger"
 )
 
 func main() {
@@ -38,19 +39,35 @@ func main() {
 		log.Fatal("Configuration file is required. Please specify using --config flag")
 	}
 
+	// Initialize logging system
+	if serverConfig.Logging != nil {
+		logConfig := &logger.LogConfig{
+			Level:      serverConfig.Logging.Level,
+			Format:     serverConfig.Logging.Format,
+			Filename:   serverConfig.Logging.Filename,
+			MaxSize:    serverConfig.Logging.MaxSize,
+			MaxAge:     serverConfig.Logging.MaxAge,
+			MaxBackups: serverConfig.Logging.MaxBackups,
+			Compress:   serverConfig.Logging.Compress,
+		}
+		logger.Init(logConfig)
+		logger.Infof("Logging system initialized with config: level=%s, format=%s, file=%s",
+			logConfig.Level, logConfig.Format, logConfig.Filename)
+	}
+
 	// Determine token for client creation
 	// If api_tokens are configured in config file, use the first one as default
 	// Otherwise, require TUSHARE_TOKEN environment variable
 	var token string
 	if len(serverConfig.APITokens) > 0 {
 		token = serverConfig.APITokens[0]
-		log.Printf("Using token from configuration file (first of %d tokens)", len(serverConfig.APITokens))
+		logger.Infof("Using token from configuration file (first of %d tokens)", len(serverConfig.APITokens))
 	} else {
 		token = os.Getenv("TUSHARE_TOKEN")
 		if token == "" {
-			log.Fatal("Either TUSHARE_TOKEN environment variable or api_tokens in config file is required")
+			logger.Fatal("Either TUSHARE_TOKEN environment variable or api_tokens in config file is required")
 		}
-		log.Printf("Using token from TUSHARE_TOKEN environment variable")
+		logger.Info("Using token from TUSHARE_TOKEN environment variable")
 	}
 
 	// Create SDK client

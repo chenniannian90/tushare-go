@@ -4,7 +4,9 @@ package stock_market
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -60,13 +62,53 @@ func StkMins(ctx context.Context, client *sdk.Client, req *StkMinsRequest) ([]St
 	items := make([]StkMinsItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_mins")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 trade_time 的简单类型
-		tradeTime, ok := item["trade_time"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeTime string
+		if item["trade_time"] == nil {
+			// 字段值为 null，使用零值
+			tradeTime = ""
+		} else if v, ok := item["trade_time"].(string); ok {
+			tradeTime = v
+		} else if v, ok := item["trade_time"].(float64); ok {
+			tradeTime = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_time"].(int); ok {
+			tradeTime = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["trade_time"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_mins")
+			log.Printf("字段: trade_time")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["trade_time"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 trade_time 类型")
 		}
 		// 处理 open 的简单类型
@@ -90,9 +132,17 @@ func StkMins(ctx context.Context, client *sdk.Client, req *StkMinsRequest) ([]St
 			return nil, fmt.Errorf("无效的 low 类型")
 		}
 		// 处理 vol 的简单类型
-		vol, ok := item["vol"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 vol 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var vol int
+		if item["vol"] == nil {
+			// 字段值为 null，使用零值
+			vol = 0
+		} else if v, ok := item["vol"].(float64); ok {
+			vol = int(v)
+		} else if v, ok := item["vol"].(int); ok {
+			vol = v
+		} else {
+			return nil, fmt.Errorf("无效的 vol 类型，期望 int 或 float64")
 		}
 		// 处理 amount 的简单类型
 		amount, ok := item["amount"].(float64)

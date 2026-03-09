@@ -4,7 +4,9 @@ package wealth_fund_sales
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -54,18 +56,66 @@ func FundSalesVol(ctx context.Context, client *sdk.Client, req *FundSalesVolRequ
 	items := make([]FundSalesVolItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 year 的简单类型
-		year, ok := item["year"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 year 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var year int
+		if item["year"] == nil {
+			// 字段值为 null，使用零值
+			year = 0
+		} else if v, ok := item["year"].(float64); ok {
+			year = int(v)
+		} else if v, ok := item["year"].(int); ok {
+			year = v
+		} else {
+			return nil, fmt.Errorf("无效的 year 类型，期望 int 或 float64")
 		}
 		// 处理 quarter 的简单类型
-		quarter, ok := item["quarter"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var quarter string
+		if item["quarter"] == nil {
+			// 字段值为 null，使用零值
+			quarter = ""
+		} else if v, ok := item["quarter"].(string); ok {
+			quarter = v
+		} else if v, ok := item["quarter"].(float64); ok {
+			quarter = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["quarter"].(int); ok {
+			quarter = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["quarter"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fund_sales_vol")
+			log.Printf("字段: quarter")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["quarter"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 quarter 类型")
 		}
 		// 处理 inst_name 的简单类型
-		instName, ok := item["inst_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var instName string
+		if item["inst_name"] == nil {
+			// 字段值为 null，使用零值
+			instName = ""
+		} else if v, ok := item["inst_name"].(string); ok {
+			instName = v
+		} else if v, ok := item["inst_name"].(float64); ok {
+			instName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["inst_name"].(int); ok {
+			instName = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["inst_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fund_sales_vol")
+			log.Printf("字段: inst_name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["inst_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 inst_name 类型")
 		}
 		// 处理 fund_scale 的简单类型
@@ -79,9 +129,17 @@ func FundSalesVol(ctx context.Context, client *sdk.Client, req *FundSalesVolRequ
 			return nil, fmt.Errorf("无效的 scale 类型")
 		}
 		// 处理 rank 的简单类型
-		rank, ok := item["rank"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 rank 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var rank int
+		if item["rank"] == nil {
+			// 字段值为 null，使用零值
+			rank = 0
+		} else if v, ok := item["rank"].(float64); ok {
+			rank = int(v)
+		} else if v, ok := item["rank"].(int); ok {
+			rank = v
+		} else {
+			return nil, fmt.Errorf("无效的 rank 类型，期望 int 或 float64")
 		}
 		items[i] = FundSalesVolItem{
 			Year: year,

@@ -4,7 +4,9 @@ package macro_economy
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -61,8 +63,28 @@ func CnGdp(ctx context.Context, client *sdk.Client, req *CnGdpRequest) ([]CnGdpI
 	items := make([]CnGdpItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 quarter 的简单类型
-		quarter, ok := item["quarter"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var quarter string
+		if item["quarter"] == nil {
+			// 字段值为 null，使用零值
+			quarter = ""
+		} else if v, ok := item["quarter"].(string); ok {
+			quarter = v
+		} else if v, ok := item["quarter"].(float64); ok {
+			quarter = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["quarter"].(int); ok {
+			quarter = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["quarter"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cn_gdp")
+			log.Printf("字段: quarter")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["quarter"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 quarter 类型")
 		}
 		// 处理 gdp 的简单类型

@@ -78,7 +78,10 @@ func DailyInfo(ctx context.Context, client *sdk.Client, req *DailyInfoRequest) (
 		// 处理 trade_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var tradeDate string
-		if v, ok := item["trade_date"].(string); ok {
+		if item["trade_date"] == nil {
+			// 字段值为 null，使用零值
+			tradeDate = ""
+		} else if v, ok := item["trade_date"].(string); ok {
 			tradeDate = v
 		} else if v, ok := item["trade_date"].(float64); ok {
 			tradeDate = fmt.Sprintf("%.0f", v)
@@ -100,7 +103,10 @@ func DailyInfo(ctx context.Context, client *sdk.Client, req *DailyInfoRequest) (
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -122,7 +128,10 @@ func DailyInfo(ctx context.Context, client *sdk.Client, req *DailyInfoRequest) (
 		// 处理 ts_name 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsName string
-		if v, ok := item["ts_name"].(string); ok {
+		if item["ts_name"] == nil {
+			// 字段值为 null，使用零值
+			tsName = ""
+		} else if v, ok := item["ts_name"].(string); ok {
 			tsName = v
 		} else if v, ok := item["ts_name"].(float64); ok {
 			tsName = fmt.Sprintf("%.0f", v)
@@ -142,9 +151,17 @@ func DailyInfo(ctx context.Context, client *sdk.Client, req *DailyInfoRequest) (
 			return nil, fmt.Errorf("无效的 ts_name 类型")
 		}
 		// 处理 com_count 的简单类型
-		comCount, ok := item["com_count"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 com_count 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var comCount int
+		if item["com_count"] == nil {
+			// 字段值为 null，使用零值
+			comCount = 0
+		} else if v, ok := item["com_count"].(float64); ok {
+			comCount = int(v)
+		} else if v, ok := item["com_count"].(int); ok {
+			comCount = v
+		} else {
+			return nil, fmt.Errorf("无效的 com_count 类型，期望 int 或 float64")
 		}
 		// 处理 total_share 的简单类型
 		totalShare, ok := item["total_share"].(float64)
@@ -177,9 +194,17 @@ func DailyInfo(ctx context.Context, client *sdk.Client, req *DailyInfoRequest) (
 			return nil, fmt.Errorf("无效的 vol 类型")
 		}
 		// 处理 trans_count 的简单类型
-		transCount, ok := item["trans_count"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 trans_count 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var transCount int
+		if item["trans_count"] == nil {
+			// 字段值为 null，使用零值
+			transCount = 0
+		} else if v, ok := item["trans_count"].(float64); ok {
+			transCount = int(v)
+		} else if v, ok := item["trans_count"].(int); ok {
+			transCount = v
+		} else {
+			return nil, fmt.Errorf("无效的 trans_count 类型，期望 int 或 float64")
 		}
 		// 处理 pe 的简单类型
 		pe, ok := item["pe"].(float64)
@@ -194,7 +219,10 @@ func DailyInfo(ctx context.Context, client *sdk.Client, req *DailyInfoRequest) (
 		// 处理 exchange 的简单类型
 		// 对 string 类型尝试多种转换
 		var exchange string
-		if v, ok := item["exchange"].(string); ok {
+		if item["exchange"] == nil {
+			// 字段值为 null，使用零值
+			exchange = ""
+		} else if v, ok := item["exchange"].(string); ok {
 			exchange = v
 		} else if v, ok := item["exchange"].(float64); ok {
 			exchange = fmt.Sprintf("%.0f", v)

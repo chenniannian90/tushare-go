@@ -70,7 +70,10 @@ func YcCb(ctx context.Context, client *sdk.Client, req *YcCbRequest) ([]YcCbItem
 		// 处理 trade_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var tradeDate string
-		if v, ok := item["trade_date"].(string); ok {
+		if item["trade_date"] == nil {
+			// 字段值为 null，使用零值
+			tradeDate = ""
+		} else if v, ok := item["trade_date"].(string); ok {
 			tradeDate = v
 		} else if v, ok := item["trade_date"].(float64); ok {
 			tradeDate = fmt.Sprintf("%.0f", v)
@@ -92,7 +95,10 @@ func YcCb(ctx context.Context, client *sdk.Client, req *YcCbRequest) ([]YcCbItem
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -114,7 +120,10 @@ func YcCb(ctx context.Context, client *sdk.Client, req *YcCbRequest) ([]YcCbItem
 		// 处理 curve_name 的简单类型
 		// 对 string 类型尝试多种转换
 		var curveName string
-		if v, ok := item["curve_name"].(string); ok {
+		if item["curve_name"] == nil {
+			// 字段值为 null，使用零值
+			curveName = ""
+		} else if v, ok := item["curve_name"].(string); ok {
 			curveName = v
 		} else if v, ok := item["curve_name"].(float64); ok {
 			curveName = fmt.Sprintf("%.0f", v)
@@ -136,7 +145,10 @@ func YcCb(ctx context.Context, client *sdk.Client, req *YcCbRequest) ([]YcCbItem
 		// 处理 curve_type 的简单类型
 		// 对 string 类型尝试多种转换
 		var curveType string
-		if v, ok := item["curve_type"].(string); ok {
+		if item["curve_type"] == nil {
+			// 字段值为 null，使用零值
+			curveType = ""
+		} else if v, ok := item["curve_type"].(string); ok {
 			curveType = v
 		} else if v, ok := item["curve_type"].(float64); ok {
 			curveType = fmt.Sprintf("%.0f", v)

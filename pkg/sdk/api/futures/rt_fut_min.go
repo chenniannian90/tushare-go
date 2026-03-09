@@ -62,7 +62,10 @@ func RtFutMin(ctx context.Context, client *sdk.Client, req *RtFutMinRequest) ([]
 		// 处理 code 的简单类型
 		// 对 string 类型尝试多种转换
 		var code string
-		if v, ok := item["code"].(string); ok {
+		if item["code"] == nil {
+			// 字段值为 null，使用零值
+			code = ""
+		} else if v, ok := item["code"].(string); ok {
 			code = v
 		} else if v, ok := item["code"].(float64); ok {
 			code = fmt.Sprintf("%.0f", v)
@@ -84,7 +87,10 @@ func RtFutMin(ctx context.Context, client *sdk.Client, req *RtFutMinRequest) ([]
 		// 处理 freq 的简单类型
 		// 对 string 类型尝试多种转换
 		var freq string
-		if v, ok := item["freq"].(string); ok {
+		if item["freq"] == nil {
+			// 字段值为 null，使用零值
+			freq = ""
+		} else if v, ok := item["freq"].(string); ok {
 			freq = v
 		} else if v, ok := item["freq"].(float64); ok {
 			freq = fmt.Sprintf("%.0f", v)
@@ -106,7 +112,10 @@ func RtFutMin(ctx context.Context, client *sdk.Client, req *RtFutMinRequest) ([]
 		// 处理 time 的简单类型
 		// 对 string 类型尝试多种转换
 		var time string
-		if v, ok := item["time"].(string); ok {
+		if item["time"] == nil {
+			// 字段值为 null，使用零值
+			time = ""
+		} else if v, ok := item["time"].(string); ok {
 			time = v
 		} else if v, ok := item["time"].(float64); ok {
 			time = fmt.Sprintf("%.0f", v)
@@ -146,9 +155,17 @@ func RtFutMin(ctx context.Context, client *sdk.Client, req *RtFutMinRequest) ([]
 			return nil, fmt.Errorf("无效的 low 类型")
 		}
 		// 处理 vol 的简单类型
-		vol, ok := item["vol"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 vol 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var vol int
+		if item["vol"] == nil {
+			// 字段值为 null，使用零值
+			vol = 0
+		} else if v, ok := item["vol"].(float64); ok {
+			vol = int(v)
+		} else if v, ok := item["vol"].(int); ok {
+			vol = v
+		} else {
+			return nil, fmt.Errorf("无效的 vol 类型，期望 int 或 float64")
 		}
 		// 处理 amount 的简单类型
 		amount, ok := item["amount"].(float64)

@@ -81,7 +81,10 @@ func FutWeeklyDetail(ctx context.Context, client *sdk.Client, req *FutWeeklyDeta
 		// 处理 exchange 的简单类型
 		// 对 string 类型尝试多种转换
 		var exchange string
-		if v, ok := item["exchange"].(string); ok {
+		if item["exchange"] == nil {
+			// 字段值为 null，使用零值
+			exchange = ""
+		} else if v, ok := item["exchange"].(string); ok {
 			exchange = v
 		} else if v, ok := item["exchange"].(float64); ok {
 			exchange = fmt.Sprintf("%.0f", v)
@@ -103,7 +106,10 @@ func FutWeeklyDetail(ctx context.Context, client *sdk.Client, req *FutWeeklyDeta
 		// 处理 prd 的简单类型
 		// 对 string 类型尝试多种转换
 		var prd string
-		if v, ok := item["prd"].(string); ok {
+		if item["prd"] == nil {
+			// 字段值为 null，使用零值
+			prd = ""
+		} else if v, ok := item["prd"].(string); ok {
 			prd = v
 		} else if v, ok := item["prd"].(float64); ok {
 			prd = fmt.Sprintf("%.0f", v)
@@ -125,7 +131,10 @@ func FutWeeklyDetail(ctx context.Context, client *sdk.Client, req *FutWeeklyDeta
 		// 处理 name 的简单类型
 		// 对 string 类型尝试多种转换
 		var name string
-		if v, ok := item["name"].(string); ok {
+		if item["name"] == nil {
+			// 字段值为 null，使用零值
+			name = ""
+		} else if v, ok := item["name"].(string); ok {
 			name = v
 		} else if v, ok := item["name"].(float64); ok {
 			name = fmt.Sprintf("%.0f", v)
@@ -145,9 +154,17 @@ func FutWeeklyDetail(ctx context.Context, client *sdk.Client, req *FutWeeklyDeta
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 vol 的简单类型
-		vol, ok := item["vol"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 vol 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var vol int
+		if item["vol"] == nil {
+			// 字段值为 null，使用零值
+			vol = 0
+		} else if v, ok := item["vol"].(float64); ok {
+			vol = int(v)
+		} else if v, ok := item["vol"].(int); ok {
+			vol = v
+		} else {
+			return nil, fmt.Errorf("无效的 vol 类型，期望 int 或 float64")
 		}
 		// 处理 vol_yoy 的简单类型
 		volYoy, ok := item["vol_yoy"].(float64)
@@ -165,9 +182,17 @@ func FutWeeklyDetail(ctx context.Context, client *sdk.Client, req *FutWeeklyDeta
 			return nil, fmt.Errorf("无效的 amout_yoy 类型")
 		}
 		// 处理 cumvol 的简单类型
-		cumvol, ok := item["cumvol"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 cumvol 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var cumvol int
+		if item["cumvol"] == nil {
+			// 字段值为 null，使用零值
+			cumvol = 0
+		} else if v, ok := item["cumvol"].(float64); ok {
+			cumvol = int(v)
+		} else if v, ok := item["cumvol"].(int); ok {
+			cumvol = v
+		} else {
+			return nil, fmt.Errorf("无效的 cumvol 类型，期望 int 或 float64")
 		}
 		// 处理 cumvol_yoy 的简单类型
 		cumvolYoy, ok := item["cumvol_yoy"].(float64)
@@ -185,9 +210,17 @@ func FutWeeklyDetail(ctx context.Context, client *sdk.Client, req *FutWeeklyDeta
 			return nil, fmt.Errorf("无效的 cumamt_yoy 类型")
 		}
 		// 处理 open_interest 的简单类型
-		openInterest, ok := item["open_interest"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 open_interest 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var openInterest int
+		if item["open_interest"] == nil {
+			// 字段值为 null，使用零值
+			openInterest = 0
+		} else if v, ok := item["open_interest"].(float64); ok {
+			openInterest = int(v)
+		} else if v, ok := item["open_interest"].(int); ok {
+			openInterest = v
+		} else {
+			return nil, fmt.Errorf("无效的 open_interest 类型，期望 int 或 float64")
 		}
 		// 处理 interest_wow 的简单类型
 		interestWow, ok := item["interest_wow"].(float64)
@@ -207,7 +240,10 @@ func FutWeeklyDetail(ctx context.Context, client *sdk.Client, req *FutWeeklyDeta
 		// 处理 week 的简单类型
 		// 对 string 类型尝试多种转换
 		var week string
-		if v, ok := item["week"].(string); ok {
+		if item["week"] == nil {
+			// 字段值为 null，使用零值
+			week = ""
+		} else if v, ok := item["week"].(string); ok {
 			week = v
 		} else if v, ok := item["week"].(float64); ok {
 			week = fmt.Sprintf("%.0f", v)
@@ -229,7 +265,10 @@ func FutWeeklyDetail(ctx context.Context, client *sdk.Client, req *FutWeeklyDeta
 		// 处理 week_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var weekDate string
-		if v, ok := item["week_date"].(string); ok {
+		if item["week_date"] == nil {
+			// 字段值为 null，使用零值
+			weekDate = ""
+		} else if v, ok := item["week_date"].(string); ok {
 			weekDate = v
 		} else if v, ok := item["week_date"].(float64); ok {
 			weekDate = fmt.Sprintf("%.0f", v)

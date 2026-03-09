@@ -61,7 +61,10 @@ func RtEtfK(ctx context.Context, client *sdk.Client, req *RtEtfKRequest) ([]RtEt
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -111,34 +114,77 @@ func RtEtfK(ctx context.Context, client *sdk.Client, req *RtEtfKRequest) ([]RtEt
 			return nil, fmt.Errorf("无效的 close 类型")
 		}
 		// 处理 vol 的简单类型
-		vol, ok := item["vol"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 vol 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var vol int
+		if item["vol"] == nil {
+			// 字段值为 null，使用零值
+			vol = 0
+		} else if v, ok := item["vol"].(float64); ok {
+			vol = int(v)
+		} else if v, ok := item["vol"].(int); ok {
+			vol = v
+		} else {
+			return nil, fmt.Errorf("无效的 vol 类型，期望 int 或 float64")
 		}
 		// 处理 amount 的简单类型
-		amount, ok := item["amount"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 amount 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var amount int
+		if item["amount"] == nil {
+			// 字段值为 null，使用零值
+			amount = 0
+		} else if v, ok := item["amount"].(float64); ok {
+			amount = int(v)
+		} else if v, ok := item["amount"].(int); ok {
+			amount = v
+		} else {
+			return nil, fmt.Errorf("无效的 amount 类型，期望 int 或 float64")
 		}
 		// 处理 num 的简单类型
-		num, ok := item["num"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 num 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var num int
+		if item["num"] == nil {
+			// 字段值为 null，使用零值
+			num = 0
+		} else if v, ok := item["num"].(float64); ok {
+			num = int(v)
+		} else if v, ok := item["num"].(int); ok {
+			num = v
+		} else {
+			return nil, fmt.Errorf("无效的 num 类型，期望 int 或 float64")
 		}
 		// 处理 ask_volume1 的简单类型
-		askVolume1, ok := item["ask_volume1"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 ask_volume1 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var askVolume1 int
+		if item["ask_volume1"] == nil {
+			// 字段值为 null，使用零值
+			askVolume1 = 0
+		} else if v, ok := item["ask_volume1"].(float64); ok {
+			askVolume1 = int(v)
+		} else if v, ok := item["ask_volume1"].(int); ok {
+			askVolume1 = v
+		} else {
+			return nil, fmt.Errorf("无效的 ask_volume1 类型，期望 int 或 float64")
 		}
 		// 处理 bid_volume1 的简单类型
-		bidVolume1, ok := item["bid_volume1"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 bid_volume1 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var bidVolume1 int
+		if item["bid_volume1"] == nil {
+			// 字段值为 null，使用零值
+			bidVolume1 = 0
+		} else if v, ok := item["bid_volume1"].(float64); ok {
+			bidVolume1 = int(v)
+		} else if v, ok := item["bid_volume1"].(int); ok {
+			bidVolume1 = v
+		} else {
+			return nil, fmt.Errorf("无效的 bid_volume1 类型，期望 int 或 float64")
 		}
 		// 处理 trade_time 的简单类型
 		// 对 string 类型尝试多种转换
 		var tradeTime string
-		if v, ok := item["trade_time"].(string); ok {
+		if item["trade_time"] == nil {
+			// 字段值为 null，使用零值
+			tradeTime = ""
+		} else if v, ok := item["trade_time"].(string); ok {
 			tradeTime = v
 		} else if v, ok := item["trade_time"].(float64); ok {
 			tradeTime = fmt.Sprintf("%.0f", v)

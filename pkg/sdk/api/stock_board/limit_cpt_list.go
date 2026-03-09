@@ -4,7 +4,9 @@ package stock_board
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -61,39 +63,143 @@ func LimitCptList(ctx context.Context, client *sdk.Client, req *LimitCptListRequ
 	items := make([]LimitCptListItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: limit_cpt_list")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 name 的简单类型
-		name, ok := item["name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var name string
+		if item["name"] == nil {
+			// 字段值为 null，使用零值
+			name = ""
+		} else if v, ok := item["name"].(string); ok {
+			name = v
+		} else if v, ok := item["name"].(float64); ok {
+			name = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["name"].(int); ok {
+			name = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: limit_cpt_list")
+			log.Printf("字段: name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 trade_date 的简单类型
-		tradeDate, ok := item["trade_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeDate string
+		if item["trade_date"] == nil {
+			// 字段值为 null，使用零值
+			tradeDate = ""
+		} else if v, ok := item["trade_date"].(string); ok {
+			tradeDate = v
+		} else if v, ok := item["trade_date"].(float64); ok {
+			tradeDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_date"].(int); ok {
+			tradeDate = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["trade_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: limit_cpt_list")
+			log.Printf("字段: trade_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["trade_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 days 的简单类型
-		days, ok := item["days"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 days 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var days int
+		if item["days"] == nil {
+			// 字段值为 null，使用零值
+			days = 0
+		} else if v, ok := item["days"].(float64); ok {
+			days = int(v)
+		} else if v, ok := item["days"].(int); ok {
+			days = v
+		} else {
+			return nil, fmt.Errorf("无效的 days 类型，期望 int 或 float64")
 		}
 		// 处理 up_stat 的简单类型
-		upStat, ok := item["up_stat"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var upStat string
+		if item["up_stat"] == nil {
+			// 字段值为 null，使用零值
+			upStat = ""
+		} else if v, ok := item["up_stat"].(string); ok {
+			upStat = v
+		} else if v, ok := item["up_stat"].(float64); ok {
+			upStat = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["up_stat"].(int); ok {
+			upStat = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["up_stat"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: limit_cpt_list")
+			log.Printf("字段: up_stat")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["up_stat"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 up_stat 类型")
 		}
 		// 处理 cons_nums 的简单类型
-		consNums, ok := item["cons_nums"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 cons_nums 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var consNums int
+		if item["cons_nums"] == nil {
+			// 字段值为 null，使用零值
+			consNums = 0
+		} else if v, ok := item["cons_nums"].(float64); ok {
+			consNums = int(v)
+		} else if v, ok := item["cons_nums"].(int); ok {
+			consNums = v
+		} else {
+			return nil, fmt.Errorf("无效的 cons_nums 类型，期望 int 或 float64")
 		}
 		// 处理 up_nums 的简单类型
-		upNums, ok := item["up_nums"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 up_nums 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var upNums int
+		if item["up_nums"] == nil {
+			// 字段值为 null，使用零值
+			upNums = 0
+		} else if v, ok := item["up_nums"].(float64); ok {
+			upNums = int(v)
+		} else if v, ok := item["up_nums"].(int); ok {
+			upNums = v
+		} else {
+			return nil, fmt.Errorf("无效的 up_nums 类型，期望 int 或 float64")
 		}
 		// 处理 pct_chg 的简单类型
 		pctChg, ok := item["pct_chg"].(float64)
@@ -101,8 +207,28 @@ func LimitCptList(ctx context.Context, client *sdk.Client, req *LimitCptListRequ
 			return nil, fmt.Errorf("无效的 pct_chg 类型")
 		}
 		// 处理 rank 的简单类型
-		rank, ok := item["rank"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var rank string
+		if item["rank"] == nil {
+			// 字段值为 null，使用零值
+			rank = ""
+		} else if v, ok := item["rank"].(string); ok {
+			rank = v
+		} else if v, ok := item["rank"].(float64); ok {
+			rank = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["rank"].(int); ok {
+			rank = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["rank"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: limit_cpt_list")
+			log.Printf("字段: rank")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["rank"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 rank 类型")
 		}
 		items[i] = LimitCptListItem{

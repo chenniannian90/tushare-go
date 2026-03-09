@@ -4,6 +4,9 @@ package stock_basic
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -49,55 +52,186 @@ func NewShare(ctx context.Context, client *sdk.Client, req *NewShareRequest) ([]
 		Items  []map[string]interface{} `json:"items"`
 	}
 
-	// 使用 CallAPIFlexible 自动处���对象数组和二维数组两种格式
 	if err := client.CallAPIFlexible(ctx, "new_share", params, fields, &result); err != nil {
 		return nil, err
 	}
-
 	items := make([]NewShareItem, len(result.Items))
 	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: new_share")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 sub_code 的简单类型
+		// 对 string 类型尝试多种转换
+		var subCode string
+		if item["sub_code"] == nil {
+			// 字段值为 null，使用零值
+			subCode = ""
+		} else if v, ok := item["sub_code"].(string); ok {
+			subCode = v
+		} else if v, ok := item["sub_code"].(float64); ok {
+			subCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["sub_code"].(int); ok {
+			subCode = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["sub_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: new_share")
+			log.Printf("字段: sub_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["sub_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 sub_code 类型")
+		}
+		// 处理 name 的简单类型
+		// 对 string 类型尝试多种转换
+		var name string
+		if item["name"] == nil {
+			// 字段值为 null，使用零值
+			name = ""
+		} else if v, ok := item["name"].(string); ok {
+			name = v
+		} else if v, ok := item["name"].(float64); ok {
+			name = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["name"].(int); ok {
+			name = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: new_share")
+			log.Printf("字段: name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 name 类型")
+		}
+		// 处理 ipo_date 的简单类型
+		// 对 string 类型尝试多种转换
+		var ipoDate string
+		if item["ipo_date"] == nil {
+			// 字段值为 null，使用零值
+			ipoDate = ""
+		} else if v, ok := item["ipo_date"].(string); ok {
+			ipoDate = v
+		} else if v, ok := item["ipo_date"].(float64); ok {
+			ipoDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ipo_date"].(int); ok {
+			ipoDate = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ipo_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: new_share")
+			log.Printf("字段: ipo_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ipo_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 ipo_date 类型")
+		}
+		// 处理 issue_date 的简单类型
+		// 对 string 类型尝试多种转换
+		var issueDate string
+		if item["issue_date"] == nil {
+			// 字段值为 null，使用零值
+			issueDate = ""
+		} else if v, ok := item["issue_date"].(string); ok {
+			issueDate = v
+		} else if v, ok := item["issue_date"].(float64); ok {
+			issueDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["issue_date"].(int); ok {
+			issueDate = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["issue_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: new_share")
+			log.Printf("字段: issue_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["issue_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 issue_date 类型")
+		}
+		// 处理 amount 的简单类型
+		amount, ok := item["amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 amount 类型")
+		}
+		// 处理 market_amount 的简单类型
+		marketAmount, ok := item["market_amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 market_amount 类型")
+		}
+		// 处理 price 的简单类型
+		price, ok := item["price"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 price 类型")
+		}
+		// 处理 pe 的简单类型
+		pe, ok := item["pe"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 pe 类型")
+		}
+		// 处理 limit_amount 的简单类型
+		limitAmount, ok := item["limit_amount"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 limit_amount 类型")
+		}
+		// 处理 funds 的简单类型
+		funds, ok := item["funds"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 funds 类型")
+		}
+		// 处理 ballot 的简单类型
+		ballot, ok := item["ballot"].(float64)
+		if !ok {
+			return nil, fmt.Errorf("无效的 ballot 类型")
+		}
 		items[i] = NewShareItem{
-			TsCode:       getString(item, "ts_code"),
-			SubCode:      getString(item, "sub_code"),
-			Name:         getString(item, "name"),
-			IpoDate:      getString(item, "ipo_date"),
-			IssueDate:    getString(item, "issue_date"),
-			Amount:       getFloat64(item, "amount"),
-			MarketAmount: getFloat64(item, "market_amount"),
-			Price:        getFloat64(item, "price"),
-			Pe:           getFloat64(item, "pe"),
-			LimitAmount:  getFloat64(item, "limit_amount"),
-			Funds:        getFloat64(item, "funds"),
-			Ballot:       getFloat64(item, "ballot"),
+			TsCode: tsCode,
+			SubCode: subCode,
+			Name: name,
+			IpoDate: ipoDate,
+			IssueDate: issueDate,
+			Amount: amount,
+			MarketAmount: marketAmount,
+			Price: price,
+			Pe: pe,
+			LimitAmount: limitAmount,
+			Funds: funds,
+			Ballot: ballot,
 		}
 	}
 
 	return items, nil
-}
-
-// getString 安全地从map中获取string值，处理nil值
-func getString(m map[string]interface{}, key string) string {
-	if val, ok := m[key]; ok && val != nil {
-		if s, ok := val.(string); ok {
-			return s
-		}
-	}
-	return ""
-}
-
-// getFloat64 安全地从map中获取float64值，处理nil值
-func getFloat64(m map[string]interface{}, key string) float64 {
-	if val, ok := m[key]; ok && val != nil {
-		switch v := val.(type) {
-		case float64:
-			return v
-		case float32:
-			return float64(v)
-		case int:
-			return float64(v)
-		case int64:
-			return float64(v)
-		}
-	}
-	return 0.0
 }

@@ -72,7 +72,10 @@ func EcoCal(ctx context.Context, client *sdk.Client, req *EcoCalRequest) ([]EcoC
 		// 处理 date 的简单类型
 		// 对 string 类型尝试多种转换
 		var date string
-		if v, ok := item["date"].(string); ok {
+		if item["date"] == nil {
+			// 字段值为 null，使用零值
+			date = ""
+		} else if v, ok := item["date"].(string); ok {
 			date = v
 		} else if v, ok := item["date"].(float64); ok {
 			date = fmt.Sprintf("%.0f", v)
@@ -94,7 +97,10 @@ func EcoCal(ctx context.Context, client *sdk.Client, req *EcoCalRequest) ([]EcoC
 		// 处理 time 的简单类型
 		// 对 string 类型尝试多种转换
 		var time string
-		if v, ok := item["time"].(string); ok {
+		if item["time"] == nil {
+			// 字段值为 null，使用零值
+			time = ""
+		} else if v, ok := item["time"].(string); ok {
 			time = v
 		} else if v, ok := item["time"].(float64); ok {
 			time = fmt.Sprintf("%.0f", v)
@@ -116,7 +122,10 @@ func EcoCal(ctx context.Context, client *sdk.Client, req *EcoCalRequest) ([]EcoC
 		// 处理 currency 的简单类型
 		// 对 string 类型尝试多种转换
 		var currency string
-		if v, ok := item["currency"].(string); ok {
+		if item["currency"] == nil {
+			// 字段值为 null，使用零值
+			currency = ""
+		} else if v, ok := item["currency"].(string); ok {
 			currency = v
 		} else if v, ok := item["currency"].(float64); ok {
 			currency = fmt.Sprintf("%.0f", v)
@@ -138,7 +147,10 @@ func EcoCal(ctx context.Context, client *sdk.Client, req *EcoCalRequest) ([]EcoC
 		// 处理 country 的简单类型
 		// 对 string 类型尝试多种转换
 		var country string
-		if v, ok := item["country"].(string); ok {
+		if item["country"] == nil {
+			// 字段值为 null，使用零值
+			country = ""
+		} else if v, ok := item["country"].(string); ok {
 			country = v
 		} else if v, ok := item["country"].(float64); ok {
 			country = fmt.Sprintf("%.0f", v)
@@ -160,7 +172,10 @@ func EcoCal(ctx context.Context, client *sdk.Client, req *EcoCalRequest) ([]EcoC
 		// 处理 event 的简单类型
 		// 对 string 类型尝试多种转换
 		var event string
-		if v, ok := item["event"].(string); ok {
+		if item["event"] == nil {
+			// 字段值为 null，使用零值
+			event = ""
+		} else if v, ok := item["event"].(string); ok {
 			event = v
 		} else if v, ok := item["event"].(float64); ok {
 			event = fmt.Sprintf("%.0f", v)
@@ -182,7 +197,10 @@ func EcoCal(ctx context.Context, client *sdk.Client, req *EcoCalRequest) ([]EcoC
 		// 处理 value 的简单类型
 		// 对 string 类型尝试多种转换
 		var value string
-		if v, ok := item["value"].(string); ok {
+		if item["value"] == nil {
+			// 字段值为 null，使用零值
+			value = ""
+		} else if v, ok := item["value"].(string); ok {
 			value = v
 		} else if v, ok := item["value"].(float64); ok {
 			value = fmt.Sprintf("%.0f", v)
@@ -204,7 +222,10 @@ func EcoCal(ctx context.Context, client *sdk.Client, req *EcoCalRequest) ([]EcoC
 		// 处理 pre_value 的简单类型
 		// 对 string 类型尝试多种转换
 		var preValue string
-		if v, ok := item["pre_value"].(string); ok {
+		if item["pre_value"] == nil {
+			// 字段值为 null，使用零值
+			preValue = ""
+		} else if v, ok := item["pre_value"].(string); ok {
 			preValue = v
 		} else if v, ok := item["pre_value"].(float64); ok {
 			preValue = fmt.Sprintf("%.0f", v)
@@ -226,7 +247,10 @@ func EcoCal(ctx context.Context, client *sdk.Client, req *EcoCalRequest) ([]EcoC
 		// 处理 fore_value 的简单类型
 		// 对 string 类型尝试多种转换
 		var foreValue string
-		if v, ok := item["fore_value"].(string); ok {
+		if item["fore_value"] == nil {
+			// 字段值为 null，使用零值
+			foreValue = ""
+		} else if v, ok := item["fore_value"].(string); ok {
 			foreValue = v
 		} else if v, ok := item["fore_value"].(float64); ok {
 			foreValue = fmt.Sprintf("%.0f", v)

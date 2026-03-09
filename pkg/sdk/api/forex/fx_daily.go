@@ -72,7 +72,10 @@ func FxDaily(ctx context.Context, client *sdk.Client, req *FxDailyRequest) ([]Fx
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -94,7 +97,10 @@ func FxDaily(ctx context.Context, client *sdk.Client, req *FxDailyRequest) ([]Fx
 		// 处理 trade_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var tradeDate string
-		if v, ok := item["trade_date"].(string); ok {
+		if item["trade_date"] == nil {
+			// 字段值为 null，使用零值
+			tradeDate = ""
+		} else if v, ok := item["trade_date"].(string); ok {
 			tradeDate = v
 		} else if v, ok := item["trade_date"].(float64); ok {
 			tradeDate = fmt.Sprintf("%.0f", v)
@@ -154,14 +160,25 @@ func FxDaily(ctx context.Context, client *sdk.Client, req *FxDailyRequest) ([]Fx
 			return nil, fmt.Errorf("无效的 ask_low 类型")
 		}
 		// 处理 tick_qty 的简单类型
-		tickQty, ok := item["tick_qty"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 tick_qty 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var tickQty int
+		if item["tick_qty"] == nil {
+			// 字段值为 null，使用零值
+			tickQty = 0
+		} else if v, ok := item["tick_qty"].(float64); ok {
+			tickQty = int(v)
+		} else if v, ok := item["tick_qty"].(int); ok {
+			tickQty = v
+		} else {
+			return nil, fmt.Errorf("无效的 tick_qty 类型，期望 int 或 float64")
 		}
 		// 处理 exchange 的简单类型
 		// 对 string 类型尝试多种转换
 		var exchange string
-		if v, ok := item["exchange"].(string); ok {
+		if item["exchange"] == nil {
+			// 字段值为 null，使用零值
+			exchange = ""
+		} else if v, ok := item["exchange"].(string); ok {
 			exchange = v
 		} else if v, ok := item["exchange"].(float64); ok {
 			exchange = fmt.Sprintf("%.0f", v)

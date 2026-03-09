@@ -71,7 +71,10 @@ func IndexMemberAll(ctx context.Context, client *sdk.Client, req *IndexMemberAll
 		// 处理 l1_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var l1Code string
-		if v, ok := item["l1_code"].(string); ok {
+		if item["l1_code"] == nil {
+			// 字段值为 null，使用零值
+			l1Code = ""
+		} else if v, ok := item["l1_code"].(string); ok {
 			l1Code = v
 		} else if v, ok := item["l1_code"].(float64); ok {
 			l1Code = fmt.Sprintf("%.0f", v)
@@ -93,7 +96,10 @@ func IndexMemberAll(ctx context.Context, client *sdk.Client, req *IndexMemberAll
 		// 处理 l1_name 的简单类型
 		// 对 string 类型尝试多种转换
 		var l1Name string
-		if v, ok := item["l1_name"].(string); ok {
+		if item["l1_name"] == nil {
+			// 字段值为 null，使用零值
+			l1Name = ""
+		} else if v, ok := item["l1_name"].(string); ok {
 			l1Name = v
 		} else if v, ok := item["l1_name"].(float64); ok {
 			l1Name = fmt.Sprintf("%.0f", v)
@@ -115,7 +121,10 @@ func IndexMemberAll(ctx context.Context, client *sdk.Client, req *IndexMemberAll
 		// 处理 l2_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var l2Code string
-		if v, ok := item["l2_code"].(string); ok {
+		if item["l2_code"] == nil {
+			// 字段值为 null，使用零值
+			l2Code = ""
+		} else if v, ok := item["l2_code"].(string); ok {
 			l2Code = v
 		} else if v, ok := item["l2_code"].(float64); ok {
 			l2Code = fmt.Sprintf("%.0f", v)
@@ -137,7 +146,10 @@ func IndexMemberAll(ctx context.Context, client *sdk.Client, req *IndexMemberAll
 		// 处理 l2_name 的简单类型
 		// 对 string 类型尝试多种转换
 		var l2Name string
-		if v, ok := item["l2_name"].(string); ok {
+		if item["l2_name"] == nil {
+			// 字段值为 null，使用零值
+			l2Name = ""
+		} else if v, ok := item["l2_name"].(string); ok {
 			l2Name = v
 		} else if v, ok := item["l2_name"].(float64); ok {
 			l2Name = fmt.Sprintf("%.0f", v)
@@ -159,7 +171,10 @@ func IndexMemberAll(ctx context.Context, client *sdk.Client, req *IndexMemberAll
 		// 处理 l3_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var l3Code string
-		if v, ok := item["l3_code"].(string); ok {
+		if item["l3_code"] == nil {
+			// 字段值为 null，使用零值
+			l3Code = ""
+		} else if v, ok := item["l3_code"].(string); ok {
 			l3Code = v
 		} else if v, ok := item["l3_code"].(float64); ok {
 			l3Code = fmt.Sprintf("%.0f", v)
@@ -181,7 +196,10 @@ func IndexMemberAll(ctx context.Context, client *sdk.Client, req *IndexMemberAll
 		// 处理 l3_name 的简单类型
 		// 对 string 类型尝试多种转换
 		var l3Name string
-		if v, ok := item["l3_name"].(string); ok {
+		if item["l3_name"] == nil {
+			// 字段值为 null，使用零值
+			l3Name = ""
+		} else if v, ok := item["l3_name"].(string); ok {
 			l3Name = v
 		} else if v, ok := item["l3_name"].(float64); ok {
 			l3Name = fmt.Sprintf("%.0f", v)
@@ -203,7 +221,10 @@ func IndexMemberAll(ctx context.Context, client *sdk.Client, req *IndexMemberAll
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -225,7 +246,10 @@ func IndexMemberAll(ctx context.Context, client *sdk.Client, req *IndexMemberAll
 		// 处理 name 的简单类型
 		// 对 string 类型尝试多种转换
 		var name string
-		if v, ok := item["name"].(string); ok {
+		if item["name"] == nil {
+			// 字段值为 null，使用零值
+			name = ""
+		} else if v, ok := item["name"].(string); ok {
 			name = v
 		} else if v, ok := item["name"].(float64); ok {
 			name = fmt.Sprintf("%.0f", v)
@@ -247,7 +271,10 @@ func IndexMemberAll(ctx context.Context, client *sdk.Client, req *IndexMemberAll
 		// 处理 in_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var inDate string
-		if v, ok := item["in_date"].(string); ok {
+		if item["in_date"] == nil {
+			// 字段值为 null，使用零值
+			inDate = ""
+		} else if v, ok := item["in_date"].(string); ok {
 			inDate = v
 		} else if v, ok := item["in_date"].(float64); ok {
 			inDate = fmt.Sprintf("%.0f", v)
@@ -269,7 +296,10 @@ func IndexMemberAll(ctx context.Context, client *sdk.Client, req *IndexMemberAll
 		// 处理 out_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var outDate string
-		if v, ok := item["out_date"].(string); ok {
+		if item["out_date"] == nil {
+			// 字段值为 null，使用零值
+			outDate = ""
+		} else if v, ok := item["out_date"].(string); ok {
 			outDate = v
 		} else if v, ok := item["out_date"].(float64); ok {
 			outDate = fmt.Sprintf("%.0f", v)
@@ -291,7 +321,10 @@ func IndexMemberAll(ctx context.Context, client *sdk.Client, req *IndexMemberAll
 		// 处理 is_new 的简单类型
 		// 对 string 类型尝试多种转换
 		var isNew string
-		if v, ok := item["is_new"].(string); ok {
+		if item["is_new"] == nil {
+			// 字段值为 null，使用零值
+			isNew = ""
+		} else if v, ok := item["is_new"].(string); ok {
 			isNew = v
 		} else if v, ok := item["is_new"].(float64); ok {
 			isNew = fmt.Sprintf("%.0f", v)

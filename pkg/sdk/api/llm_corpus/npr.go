@@ -68,7 +68,10 @@ func Npr(ctx context.Context, client *sdk.Client, req *NprRequest) ([]NprItem, e
 		// 处理 title 的简单类型
 		// 对 string 类型尝试多种转换
 		var title string
-		if v, ok := item["title"].(string); ok {
+		if item["title"] == nil {
+			// 字段值为 null，使用零值
+			title = ""
+		} else if v, ok := item["title"].(string); ok {
 			title = v
 		} else if v, ok := item["title"].(float64); ok {
 			title = fmt.Sprintf("%.0f", v)
@@ -90,7 +93,10 @@ func Npr(ctx context.Context, client *sdk.Client, req *NprRequest) ([]NprItem, e
 		// 处理 url 的简单类型
 		// 对 string 类型尝试多种转换
 		var url string
-		if v, ok := item["url"].(string); ok {
+		if item["url"] == nil {
+			// 字段值为 null，使用零值
+			url = ""
+		} else if v, ok := item["url"].(string); ok {
 			url = v
 		} else if v, ok := item["url"].(float64); ok {
 			url = fmt.Sprintf("%.0f", v)
@@ -112,7 +118,10 @@ func Npr(ctx context.Context, client *sdk.Client, req *NprRequest) ([]NprItem, e
 		// 处理 content_html 的简单类型
 		// 对 string 类型尝试多种转换
 		var contentHtml string
-		if v, ok := item["content_html"].(string); ok {
+		if item["content_html"] == nil {
+			// 字段值为 null，使用零值
+			contentHtml = ""
+		} else if v, ok := item["content_html"].(string); ok {
 			contentHtml = v
 		} else if v, ok := item["content_html"].(float64); ok {
 			contentHtml = fmt.Sprintf("%.0f", v)
@@ -134,7 +143,10 @@ func Npr(ctx context.Context, client *sdk.Client, req *NprRequest) ([]NprItem, e
 		// 处理 pcode 的简单类型
 		// 对 string 类型尝试多种转换
 		var pcode string
-		if v, ok := item["pcode"].(string); ok {
+		if item["pcode"] == nil {
+			// 字段值为 null，使用零值
+			pcode = ""
+		} else if v, ok := item["pcode"].(string); ok {
 			pcode = v
 		} else if v, ok := item["pcode"].(float64); ok {
 			pcode = fmt.Sprintf("%.0f", v)
@@ -156,7 +168,10 @@ func Npr(ctx context.Context, client *sdk.Client, req *NprRequest) ([]NprItem, e
 		// 处理 puborg 的简单类型
 		// 对 string 类型尝试多种转换
 		var puborg string
-		if v, ok := item["puborg"].(string); ok {
+		if item["puborg"] == nil {
+			// 字段值为 null，使用零值
+			puborg = ""
+		} else if v, ok := item["puborg"].(string); ok {
 			puborg = v
 		} else if v, ok := item["puborg"].(float64); ok {
 			puborg = fmt.Sprintf("%.0f", v)
@@ -178,7 +193,10 @@ func Npr(ctx context.Context, client *sdk.Client, req *NprRequest) ([]NprItem, e
 		// 处理 ptype 的简单类型
 		// 对 string 类型尝试多种转换
 		var ptype string
-		if v, ok := item["ptype"].(string); ok {
+		if item["ptype"] == nil {
+			// 字段值为 null，使用零值
+			ptype = ""
+		} else if v, ok := item["ptype"].(string); ok {
 			ptype = v
 		} else if v, ok := item["ptype"].(float64); ok {
 			ptype = fmt.Sprintf("%.0f", v)

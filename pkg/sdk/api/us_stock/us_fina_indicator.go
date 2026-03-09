@@ -129,7 +129,10 @@ func UsFinaIndicator(ctx context.Context, client *sdk.Client, req *UsFinaIndicat
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -151,7 +154,10 @@ func UsFinaIndicator(ctx context.Context, client *sdk.Client, req *UsFinaIndicat
 		// 处理 end_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var endDate string
-		if v, ok := item["end_date"].(string); ok {
+		if item["end_date"] == nil {
+			// 字段值为 null，使用零值
+			endDate = ""
+		} else if v, ok := item["end_date"].(string); ok {
 			endDate = v
 		} else if v, ok := item["end_date"].(float64); ok {
 			endDate = fmt.Sprintf("%.0f", v)
@@ -173,7 +179,10 @@ func UsFinaIndicator(ctx context.Context, client *sdk.Client, req *UsFinaIndicat
 		// 处理 ind_type 的简单类型
 		// 对 string 类型尝试多种转换
 		var indType string
-		if v, ok := item["ind_type"].(string); ok {
+		if item["ind_type"] == nil {
+			// 字段值为 null，使用零值
+			indType = ""
+		} else if v, ok := item["ind_type"].(string); ok {
 			indType = v
 		} else if v, ok := item["ind_type"].(float64); ok {
 			indType = fmt.Sprintf("%.0f", v)
@@ -195,7 +204,10 @@ func UsFinaIndicator(ctx context.Context, client *sdk.Client, req *UsFinaIndicat
 		// 处理 security_name_abbr 的简单类型
 		// 对 string 类型尝试多种转换
 		var securityNameAbbr string
-		if v, ok := item["security_name_abbr"].(string); ok {
+		if item["security_name_abbr"] == nil {
+			// 字段值为 null，使用零值
+			securityNameAbbr = ""
+		} else if v, ok := item["security_name_abbr"].(string); ok {
 			securityNameAbbr = v
 		} else if v, ok := item["security_name_abbr"].(float64); ok {
 			securityNameAbbr = fmt.Sprintf("%.0f", v)
@@ -217,7 +229,10 @@ func UsFinaIndicator(ctx context.Context, client *sdk.Client, req *UsFinaIndicat
 		// 处理 accounting_standards 的简单类型
 		// 对 string 类型尝试多种转换
 		var accountingStandards string
-		if v, ok := item["accounting_standards"].(string); ok {
+		if item["accounting_standards"] == nil {
+			// 字段值为 null，使用零值
+			accountingStandards = ""
+		} else if v, ok := item["accounting_standards"].(string); ok {
 			accountingStandards = v
 		} else if v, ok := item["accounting_standards"].(float64); ok {
 			accountingStandards = fmt.Sprintf("%.0f", v)
@@ -239,7 +254,10 @@ func UsFinaIndicator(ctx context.Context, client *sdk.Client, req *UsFinaIndicat
 		// 处理 notice_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var noticeDate string
-		if v, ok := item["notice_date"].(string); ok {
+		if item["notice_date"] == nil {
+			// 字段值为 null，使用零值
+			noticeDate = ""
+		} else if v, ok := item["notice_date"].(string); ok {
 			noticeDate = v
 		} else if v, ok := item["notice_date"].(float64); ok {
 			noticeDate = fmt.Sprintf("%.0f", v)
@@ -261,7 +279,10 @@ func UsFinaIndicator(ctx context.Context, client *sdk.Client, req *UsFinaIndicat
 		// 处理 start_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var startDate string
-		if v, ok := item["start_date"].(string); ok {
+		if item["start_date"] == nil {
+			// 字段值为 null，使用零值
+			startDate = ""
+		} else if v, ok := item["start_date"].(string); ok {
 			startDate = v
 		} else if v, ok := item["start_date"].(float64); ok {
 			startDate = fmt.Sprintf("%.0f", v)
@@ -283,7 +304,10 @@ func UsFinaIndicator(ctx context.Context, client *sdk.Client, req *UsFinaIndicat
 		// 处理 std_report_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var stdReportDate string
-		if v, ok := item["std_report_date"].(string); ok {
+		if item["std_report_date"] == nil {
+			// 字段值为 null，使用零值
+			stdReportDate = ""
+		} else if v, ok := item["std_report_date"].(string); ok {
 			stdReportDate = v
 		} else if v, ok := item["std_report_date"].(float64); ok {
 			stdReportDate = fmt.Sprintf("%.0f", v)
@@ -305,7 +329,10 @@ func UsFinaIndicator(ctx context.Context, client *sdk.Client, req *UsFinaIndicat
 		// 处理 financial_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var financialDate string
-		if v, ok := item["financial_date"].(string); ok {
+		if item["financial_date"] == nil {
+			// 字段值为 null，使用零值
+			financialDate = ""
+		} else if v, ok := item["financial_date"].(string); ok {
 			financialDate = v
 		} else if v, ok := item["financial_date"].(float64); ok {
 			financialDate = fmt.Sprintf("%.0f", v)
@@ -327,7 +354,10 @@ func UsFinaIndicator(ctx context.Context, client *sdk.Client, req *UsFinaIndicat
 		// 处理 currency 的简单类型
 		// 对 string 类型尝试多种转换
 		var currency string
-		if v, ok := item["currency"].(string); ok {
+		if item["currency"] == nil {
+			// 字段值为 null，使用零值
+			currency = ""
+		} else if v, ok := item["currency"].(string); ok {
 			currency = v
 		} else if v, ok := item["currency"].(float64); ok {
 			currency = fmt.Sprintf("%.0f", v)
@@ -349,7 +379,10 @@ func UsFinaIndicator(ctx context.Context, client *sdk.Client, req *UsFinaIndicat
 		// 处理 date_type 的简单类型
 		// 对 string 类型尝试多种转换
 		var dateType string
-		if v, ok := item["date_type"].(string); ok {
+		if item["date_type"] == nil {
+			// 字段值为 null，使用零值
+			dateType = ""
+		} else if v, ok := item["date_type"].(string); ok {
 			dateType = v
 		} else if v, ok := item["date_type"].(float64); ok {
 			dateType = fmt.Sprintf("%.0f", v)
@@ -371,7 +404,10 @@ func UsFinaIndicator(ctx context.Context, client *sdk.Client, req *UsFinaIndicat
 		// 处理 report_type 的简单类型
 		// 对 string 类型尝试多种转换
 		var reportType string
-		if v, ok := item["report_type"].(string); ok {
+		if item["report_type"] == nil {
+			// 字段值为 null，使用零值
+			reportType = ""
+		} else if v, ok := item["report_type"].(string); ok {
 			reportType = v
 		} else if v, ok := item["report_type"].(float64); ok {
 			reportType = fmt.Sprintf("%.0f", v)
@@ -548,7 +584,10 @@ func UsFinaIndicator(ctx context.Context, client *sdk.Client, req *UsFinaIndicat
 		// 处理 currency_abbr 的简单类型
 		// 对 string 类型尝试多种转换
 		var currencyAbbr string
-		if v, ok := item["currency_abbr"].(string); ok {
+		if item["currency_abbr"] == nil {
+			// 字段值为 null，使用零值
+			currencyAbbr = ""
+		} else if v, ok := item["currency_abbr"].(string); ok {
 			currencyAbbr = v
 		} else if v, ok := item["currency_abbr"].(float64); ok {
 			currencyAbbr = fmt.Sprintf("%.0f", v)

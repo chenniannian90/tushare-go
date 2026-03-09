@@ -70,7 +70,10 @@ func FundManager(ctx context.Context, client *sdk.Client, req *FundManagerReques
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -92,7 +95,10 @@ func FundManager(ctx context.Context, client *sdk.Client, req *FundManagerReques
 		// 处理 ann_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var annDate string
-		if v, ok := item["ann_date"].(string); ok {
+		if item["ann_date"] == nil {
+			// 字段值为 null，使用零值
+			annDate = ""
+		} else if v, ok := item["ann_date"].(string); ok {
 			annDate = v
 		} else if v, ok := item["ann_date"].(float64); ok {
 			annDate = fmt.Sprintf("%.0f", v)
@@ -114,7 +120,10 @@ func FundManager(ctx context.Context, client *sdk.Client, req *FundManagerReques
 		// 处理 name 的简单类型
 		// 对 string 类型尝试多种转换
 		var name string
-		if v, ok := item["name"].(string); ok {
+		if item["name"] == nil {
+			// 字段值为 null，使用零值
+			name = ""
+		} else if v, ok := item["name"].(string); ok {
 			name = v
 		} else if v, ok := item["name"].(float64); ok {
 			name = fmt.Sprintf("%.0f", v)
@@ -136,7 +145,10 @@ func FundManager(ctx context.Context, client *sdk.Client, req *FundManagerReques
 		// 处理 gender 的简单类型
 		// 对 string 类型尝试多种转换
 		var gender string
-		if v, ok := item["gender"].(string); ok {
+		if item["gender"] == nil {
+			// 字段值为 null，使用零值
+			gender = ""
+		} else if v, ok := item["gender"].(string); ok {
 			gender = v
 		} else if v, ok := item["gender"].(float64); ok {
 			gender = fmt.Sprintf("%.0f", v)
@@ -158,7 +170,10 @@ func FundManager(ctx context.Context, client *sdk.Client, req *FundManagerReques
 		// 处理 birth_year 的简单类型
 		// 对 string 类型尝试多种转换
 		var birthYear string
-		if v, ok := item["birth_year"].(string); ok {
+		if item["birth_year"] == nil {
+			// 字段值为 null，使用零值
+			birthYear = ""
+		} else if v, ok := item["birth_year"].(string); ok {
 			birthYear = v
 		} else if v, ok := item["birth_year"].(float64); ok {
 			birthYear = fmt.Sprintf("%.0f", v)
@@ -180,7 +195,10 @@ func FundManager(ctx context.Context, client *sdk.Client, req *FundManagerReques
 		// 处理 edu 的简单类型
 		// 对 string 类型尝试多种转换
 		var edu string
-		if v, ok := item["edu"].(string); ok {
+		if item["edu"] == nil {
+			// 字段值为 null，使用零值
+			edu = ""
+		} else if v, ok := item["edu"].(string); ok {
 			edu = v
 		} else if v, ok := item["edu"].(float64); ok {
 			edu = fmt.Sprintf("%.0f", v)
@@ -202,7 +220,10 @@ func FundManager(ctx context.Context, client *sdk.Client, req *FundManagerReques
 		// 处理 nationality 的简单类型
 		// 对 string 类型尝试多种转换
 		var nationality string
-		if v, ok := item["nationality"].(string); ok {
+		if item["nationality"] == nil {
+			// 字段值为 null，使用零值
+			nationality = ""
+		} else if v, ok := item["nationality"].(string); ok {
 			nationality = v
 		} else if v, ok := item["nationality"].(float64); ok {
 			nationality = fmt.Sprintf("%.0f", v)
@@ -224,7 +245,10 @@ func FundManager(ctx context.Context, client *sdk.Client, req *FundManagerReques
 		// 处理 begin_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var beginDate string
-		if v, ok := item["begin_date"].(string); ok {
+		if item["begin_date"] == nil {
+			// 字段值为 null，使用零值
+			beginDate = ""
+		} else if v, ok := item["begin_date"].(string); ok {
 			beginDate = v
 		} else if v, ok := item["begin_date"].(float64); ok {
 			beginDate = fmt.Sprintf("%.0f", v)
@@ -246,7 +270,10 @@ func FundManager(ctx context.Context, client *sdk.Client, req *FundManagerReques
 		// 处理 end_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var endDate string
-		if v, ok := item["end_date"].(string); ok {
+		if item["end_date"] == nil {
+			// 字段值为 null，使用零值
+			endDate = ""
+		} else if v, ok := item["end_date"].(string); ok {
 			endDate = v
 		} else if v, ok := item["end_date"].(float64); ok {
 			endDate = fmt.Sprintf("%.0f", v)
@@ -268,7 +295,10 @@ func FundManager(ctx context.Context, client *sdk.Client, req *FundManagerReques
 		// 处理 resume 的简单类型
 		// 对 string 类型尝试多种转换
 		var resume string
-		if v, ok := item["resume"].(string); ok {
+		if item["resume"] == nil {
+			// 字段值为 null，使用零值
+			resume = ""
+		} else if v, ok := item["resume"].(string); ok {
 			resume = v
 		} else if v, ok := item["resume"].(float64); ok {
 			resume = fmt.Sprintf("%.0f", v)

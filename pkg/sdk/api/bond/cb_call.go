@@ -67,7 +67,10 @@ func CbCall(ctx context.Context, client *sdk.Client, req *CbCallRequest) ([]CbCa
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -89,7 +92,10 @@ func CbCall(ctx context.Context, client *sdk.Client, req *CbCallRequest) ([]CbCa
 		// 处理 call_type 的简单类型
 		// 对 string 类型尝试多种转换
 		var callType string
-		if v, ok := item["call_type"].(string); ok {
+		if item["call_type"] == nil {
+			// 字段值为 null，使用零值
+			callType = ""
+		} else if v, ok := item["call_type"].(string); ok {
 			callType = v
 		} else if v, ok := item["call_type"].(float64); ok {
 			callType = fmt.Sprintf("%.0f", v)
@@ -111,7 +117,10 @@ func CbCall(ctx context.Context, client *sdk.Client, req *CbCallRequest) ([]CbCa
 		// 处理 is_call 的简单类型
 		// 对 string 类型尝试多种转换
 		var isCall string
-		if v, ok := item["is_call"].(string); ok {
+		if item["is_call"] == nil {
+			// 字段值为 null，使用零值
+			isCall = ""
+		} else if v, ok := item["is_call"].(string); ok {
 			isCall = v
 		} else if v, ok := item["is_call"].(float64); ok {
 			isCall = fmt.Sprintf("%.0f", v)
@@ -133,7 +142,10 @@ func CbCall(ctx context.Context, client *sdk.Client, req *CbCallRequest) ([]CbCa
 		// 处理 ann_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var annDate string
-		if v, ok := item["ann_date"].(string); ok {
+		if item["ann_date"] == nil {
+			// 字段值为 null，使用零值
+			annDate = ""
+		} else if v, ok := item["ann_date"].(string); ok {
 			annDate = v
 		} else if v, ok := item["ann_date"].(float64); ok {
 			annDate = fmt.Sprintf("%.0f", v)
@@ -155,7 +167,10 @@ func CbCall(ctx context.Context, client *sdk.Client, req *CbCallRequest) ([]CbCa
 		// 处理 call_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var callDate string
-		if v, ok := item["call_date"].(string); ok {
+		if item["call_date"] == nil {
+			// 字段值为 null，使用零值
+			callDate = ""
+		} else if v, ok := item["call_date"].(string); ok {
 			callDate = v
 		} else if v, ok := item["call_date"].(float64); ok {
 			callDate = fmt.Sprintf("%.0f", v)
@@ -197,7 +212,10 @@ func CbCall(ctx context.Context, client *sdk.Client, req *CbCallRequest) ([]CbCa
 		// 处理 payment_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var paymentDate string
-		if v, ok := item["payment_date"].(string); ok {
+		if item["payment_date"] == nil {
+			// 字段值为 null，使用零值
+			paymentDate = ""
+		} else if v, ok := item["payment_date"].(string); ok {
 			paymentDate = v
 		} else if v, ok := item["payment_date"].(float64); ok {
 			paymentDate = fmt.Sprintf("%.0f", v)
@@ -219,7 +237,10 @@ func CbCall(ctx context.Context, client *sdk.Client, req *CbCallRequest) ([]CbCa
 		// 处理 call_reg_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var callRegDate string
-		if v, ok := item["call_reg_date"].(string); ok {
+		if item["call_reg_date"] == nil {
+			// 字段值为 null，使用零值
+			callRegDate = ""
+		} else if v, ok := item["call_reg_date"].(string); ok {
 			callRegDate = v
 		} else if v, ok := item["call_reg_date"].(float64); ok {
 			callRegDate = fmt.Sprintf("%.0f", v)

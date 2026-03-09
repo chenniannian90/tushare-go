@@ -55,7 +55,10 @@ func HkTradecal(ctx context.Context, client *sdk.Client, req *HkTradecalRequest)
 		// 处理 cal_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var calDate string
-		if v, ok := item["cal_date"].(string); ok {
+		if item["cal_date"] == nil {
+			// 字段值为 null，使用零值
+			calDate = ""
+		} else if v, ok := item["cal_date"].(string); ok {
 			calDate = v
 		} else if v, ok := item["cal_date"].(float64); ok {
 			calDate = fmt.Sprintf("%.0f", v)
@@ -77,7 +80,10 @@ func HkTradecal(ctx context.Context, client *sdk.Client, req *HkTradecalRequest)
 		// 处理 is_open 的简单类型
 		// 对 string 类型尝试多种转换
 		var isOpen string
-		if v, ok := item["is_open"].(string); ok {
+		if item["is_open"] == nil {
+			// 字段值为 null，使用零值
+			isOpen = ""
+		} else if v, ok := item["is_open"].(string); ok {
 			isOpen = v
 		} else if v, ok := item["is_open"].(float64); ok {
 			isOpen = fmt.Sprintf("%.0f", v)
@@ -99,7 +105,10 @@ func HkTradecal(ctx context.Context, client *sdk.Client, req *HkTradecalRequest)
 		// 处理 pretrade_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var pretradeDate string
-		if v, ok := item["pretrade_date"].(string); ok {
+		if item["pretrade_date"] == nil {
+			// 字段值为 null，使用零值
+			pretradeDate = ""
+		} else if v, ok := item["pretrade_date"].(string); ok {
 			pretradeDate = v
 		} else if v, ok := item["pretrade_date"].(float64); ok {
 			pretradeDate = fmt.Sprintf("%.0f", v)

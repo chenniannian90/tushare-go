@@ -77,7 +77,10 @@ func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutW
 		// 处理 trade_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var tradeDate string
-		if v, ok := item["trade_date"].(string); ok {
+		if item["trade_date"] == nil {
+			// 字段值为 null，使用零值
+			tradeDate = ""
+		} else if v, ok := item["trade_date"].(string); ok {
 			tradeDate = v
 		} else if v, ok := item["trade_date"].(float64); ok {
 			tradeDate = fmt.Sprintf("%.0f", v)
@@ -99,7 +102,10 @@ func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutW
 		// 处理 symbol 的简单类型
 		// 对 string 类型尝试多种转换
 		var symbol string
-		if v, ok := item["symbol"].(string); ok {
+		if item["symbol"] == nil {
+			// 字段值为 null，使用零值
+			symbol = ""
+		} else if v, ok := item["symbol"].(string); ok {
 			symbol = v
 		} else if v, ok := item["symbol"].(float64); ok {
 			symbol = fmt.Sprintf("%.0f", v)
@@ -121,7 +127,10 @@ func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutW
 		// 处理 fut_name 的简单类型
 		// 对 string 类型尝试多种转换
 		var futName string
-		if v, ok := item["fut_name"].(string); ok {
+		if item["fut_name"] == nil {
+			// 字段值为 null，使用零值
+			futName = ""
+		} else if v, ok := item["fut_name"].(string); ok {
 			futName = v
 		} else if v, ok := item["fut_name"].(float64); ok {
 			futName = fmt.Sprintf("%.0f", v)
@@ -143,7 +152,10 @@ func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutW
 		// 处理 warehouse 的简单类型
 		// 对 string 类型尝试多种转换
 		var warehouse string
-		if v, ok := item["warehouse"].(string); ok {
+		if item["warehouse"] == nil {
+			// 字段值为 null，使用零值
+			warehouse = ""
+		} else if v, ok := item["warehouse"].(string); ok {
 			warehouse = v
 		} else if v, ok := item["warehouse"].(float64); ok {
 			warehouse = fmt.Sprintf("%.0f", v)
@@ -165,7 +177,10 @@ func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutW
 		// 处理 wh_id 的简单类型
 		// 对 string 类型尝试多种转换
 		var whId string
-		if v, ok := item["wh_id"].(string); ok {
+		if item["wh_id"] == nil {
+			// 字段值为 null，使用零值
+			whId = ""
+		} else if v, ok := item["wh_id"].(string); ok {
 			whId = v
 		} else if v, ok := item["wh_id"].(float64); ok {
 			whId = fmt.Sprintf("%.0f", v)
@@ -185,24 +200,51 @@ func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutW
 			return nil, fmt.Errorf("无效的 wh_id 类型")
 		}
 		// 处理 pre_vol 的简单类型
-		preVol, ok := item["pre_vol"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 pre_vol 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var preVol int
+		if item["pre_vol"] == nil {
+			// 字段值为 null，使用零值
+			preVol = 0
+		} else if v, ok := item["pre_vol"].(float64); ok {
+			preVol = int(v)
+		} else if v, ok := item["pre_vol"].(int); ok {
+			preVol = v
+		} else {
+			return nil, fmt.Errorf("无效的 pre_vol 类型，期望 int 或 float64")
 		}
 		// 处理 vol 的简单类型
-		vol, ok := item["vol"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 vol 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var vol int
+		if item["vol"] == nil {
+			// 字段值为 null，使用零值
+			vol = 0
+		} else if v, ok := item["vol"].(float64); ok {
+			vol = int(v)
+		} else if v, ok := item["vol"].(int); ok {
+			vol = v
+		} else {
+			return nil, fmt.Errorf("无效的 vol 类型，期望 int 或 float64")
 		}
 		// 处理 vol_chg 的简单类型
-		volChg, ok := item["vol_chg"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 vol_chg 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var volChg int
+		if item["vol_chg"] == nil {
+			// 字段值为 null，使用零值
+			volChg = 0
+		} else if v, ok := item["vol_chg"].(float64); ok {
+			volChg = int(v)
+		} else if v, ok := item["vol_chg"].(int); ok {
+			volChg = v
+		} else {
+			return nil, fmt.Errorf("无效的 vol_chg 类型，期望 int 或 float64")
 		}
 		// 处理 area 的简单类型
 		// 对 string 类型尝试多种转换
 		var area string
-		if v, ok := item["area"].(string); ok {
+		if item["area"] == nil {
+			// 字段值为 null，使用零值
+			area = ""
+		} else if v, ok := item["area"].(string); ok {
 			area = v
 		} else if v, ok := item["area"].(float64); ok {
 			area = fmt.Sprintf("%.0f", v)
@@ -224,7 +266,10 @@ func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutW
 		// 处理 year 的简单类型
 		// 对 string 类型尝试多种转换
 		var year string
-		if v, ok := item["year"].(string); ok {
+		if item["year"] == nil {
+			// 字段值为 null，使用零值
+			year = ""
+		} else if v, ok := item["year"].(string); ok {
 			year = v
 		} else if v, ok := item["year"].(float64); ok {
 			year = fmt.Sprintf("%.0f", v)
@@ -246,7 +291,10 @@ func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutW
 		// 处理 grade 的简单类型
 		// 对 string 类型尝试多种转换
 		var grade string
-		if v, ok := item["grade"].(string); ok {
+		if item["grade"] == nil {
+			// 字段值为 null，使用零值
+			grade = ""
+		} else if v, ok := item["grade"].(string); ok {
 			grade = v
 		} else if v, ok := item["grade"].(float64); ok {
 			grade = fmt.Sprintf("%.0f", v)
@@ -268,7 +316,10 @@ func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutW
 		// 处理 brand 的简单类型
 		// 对 string 类型尝试多种转换
 		var brand string
-		if v, ok := item["brand"].(string); ok {
+		if item["brand"] == nil {
+			// 字段值为 null，使用零值
+			brand = ""
+		} else if v, ok := item["brand"].(string); ok {
 			brand = v
 		} else if v, ok := item["brand"].(float64); ok {
 			brand = fmt.Sprintf("%.0f", v)
@@ -290,7 +341,10 @@ func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutW
 		// 处理 place 的简单类型
 		// 对 string 类型尝试多种转换
 		var place string
-		if v, ok := item["place"].(string); ok {
+		if item["place"] == nil {
+			// 字段值为 null，使用零值
+			place = ""
+		} else if v, ok := item["place"].(string); ok {
 			place = v
 		} else if v, ok := item["place"].(float64); ok {
 			place = fmt.Sprintf("%.0f", v)
@@ -310,14 +364,25 @@ func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutW
 			return nil, fmt.Errorf("无效的 place 类型")
 		}
 		// 处理 pd 的简单类型
-		pd, ok := item["pd"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 pd 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var pd int
+		if item["pd"] == nil {
+			// 字段值为 null，使用零值
+			pd = 0
+		} else if v, ok := item["pd"].(float64); ok {
+			pd = int(v)
+		} else if v, ok := item["pd"].(int); ok {
+			pd = v
+		} else {
+			return nil, fmt.Errorf("无效的 pd 类型，期望 int 或 float64")
 		}
 		// 处理 is_ct 的简单类型
 		// 对 string 类型尝试多种转换
 		var isCt string
-		if v, ok := item["is_ct"].(string); ok {
+		if item["is_ct"] == nil {
+			// 字段值为 null，使用零值
+			isCt = ""
+		} else if v, ok := item["is_ct"].(string); ok {
 			isCt = v
 		} else if v, ok := item["is_ct"].(float64); ok {
 			isCt = fmt.Sprintf("%.0f", v)
@@ -339,7 +404,10 @@ func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutW
 		// 处理 unit 的简单类型
 		// 对 string 类型尝试多种转换
 		var unit string
-		if v, ok := item["unit"].(string); ok {
+		if item["unit"] == nil {
+			// 字段值为 null，使用零值
+			unit = ""
+		} else if v, ok := item["unit"].(string); ok {
 			unit = v
 		} else if v, ok := item["unit"].(float64); ok {
 			unit = fmt.Sprintf("%.0f", v)
@@ -361,7 +429,10 @@ func FutWsr(ctx context.Context, client *sdk.Client, req *FutWsrRequest) ([]FutW
 		// 处理 exchange 的简单类型
 		// 对 string 类型尝试多种转换
 		var exchange string
-		if v, ok := item["exchange"].(string); ok {
+		if item["exchange"] == nil {
+			// 字段值为 null，使用零值
+			exchange = ""
+		} else if v, ok := item["exchange"].(string); ok {
 			exchange = v
 		} else if v, ok := item["exchange"].(float64); ok {
 			exchange = fmt.Sprintf("%.0f", v)

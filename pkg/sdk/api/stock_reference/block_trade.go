@@ -4,7 +4,9 @@ package stock_reference
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -59,13 +61,53 @@ func BlockTrade(ctx context.Context, client *sdk.Client, req *BlockTradeRequest)
 	items := make([]BlockTradeItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: block_trade")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 trade_date 的简单类型
-		tradeDate, ok := item["trade_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeDate string
+		if item["trade_date"] == nil {
+			// 字段值为 null，使用零值
+			tradeDate = ""
+		} else if v, ok := item["trade_date"].(string); ok {
+			tradeDate = v
+		} else if v, ok := item["trade_date"].(float64); ok {
+			tradeDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_date"].(int); ok {
+			tradeDate = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["trade_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: block_trade")
+			log.Printf("字段: trade_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["trade_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 price 的简单类型
@@ -84,13 +126,53 @@ func BlockTrade(ctx context.Context, client *sdk.Client, req *BlockTradeRequest)
 			return nil, fmt.Errorf("无效的 amount 类型")
 		}
 		// 处理 buyer 的简单类型
-		buyer, ok := item["buyer"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var buyer string
+		if item["buyer"] == nil {
+			// 字段值为 null，使用零值
+			buyer = ""
+		} else if v, ok := item["buyer"].(string); ok {
+			buyer = v
+		} else if v, ok := item["buyer"].(float64); ok {
+			buyer = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["buyer"].(int); ok {
+			buyer = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["buyer"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: block_trade")
+			log.Printf("字段: buyer")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["buyer"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 buyer 类型")
 		}
 		// 处理 seller 的简单类型
-		seller, ok := item["seller"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var seller string
+		if item["seller"] == nil {
+			// 字段值为 null，使用零值
+			seller = ""
+		} else if v, ok := item["seller"].(string); ok {
+			seller = v
+		} else if v, ok := item["seller"].(float64); ok {
+			seller = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["seller"].(int); ok {
+			seller = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["seller"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: block_trade")
+			log.Printf("字段: seller")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["seller"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 seller 类型")
 		}
 		items[i] = BlockTradeItem{

@@ -4,7 +4,9 @@ package stock_board
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -43,13 +45,53 @@ func HmList(ctx context.Context, client *sdk.Client, req *HmListRequest) ([]HmLi
 	items := make([]HmListItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 name 的简单类型
-		name, ok := item["name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var name string
+		if item["name"] == nil {
+			// 字段值为 null，使用零值
+			name = ""
+		} else if v, ok := item["name"].(string); ok {
+			name = v
+		} else if v, ok := item["name"].(float64); ok {
+			name = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["name"].(int); ok {
+			name = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hm_list")
+			log.Printf("字段: name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 desc 的简单类型
-		desc, ok := item["desc"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var desc string
+		if item["desc"] == nil {
+			// 字段值为 null，使用零值
+			desc = ""
+		} else if v, ok := item["desc"].(string); ok {
+			desc = v
+		} else if v, ok := item["desc"].(float64); ok {
+			desc = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["desc"].(int); ok {
+			desc = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["desc"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hm_list")
+			log.Printf("字段: desc")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["desc"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 desc 类型")
 		}
 		// 处理 orgs 的简单类型

@@ -70,7 +70,10 @@ func IrmQaSh(ctx context.Context, client *sdk.Client, req *IrmQaShRequest) ([]Ir
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -92,7 +95,10 @@ func IrmQaSh(ctx context.Context, client *sdk.Client, req *IrmQaShRequest) ([]Ir
 		// 处理 name 的简单类型
 		// 对 string 类型尝试多种转换
 		var name string
-		if v, ok := item["name"].(string); ok {
+		if item["name"] == nil {
+			// 字段值为 null，使用零值
+			name = ""
+		} else if v, ok := item["name"].(string); ok {
 			name = v
 		} else if v, ok := item["name"].(float64); ok {
 			name = fmt.Sprintf("%.0f", v)
@@ -114,7 +120,10 @@ func IrmQaSh(ctx context.Context, client *sdk.Client, req *IrmQaShRequest) ([]Ir
 		// 处理 trade_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var tradeDate string
-		if v, ok := item["trade_date"].(string); ok {
+		if item["trade_date"] == nil {
+			// 字段值为 null，使用零值
+			tradeDate = ""
+		} else if v, ok := item["trade_date"].(string); ok {
 			tradeDate = v
 		} else if v, ok := item["trade_date"].(float64); ok {
 			tradeDate = fmt.Sprintf("%.0f", v)
@@ -136,7 +145,10 @@ func IrmQaSh(ctx context.Context, client *sdk.Client, req *IrmQaShRequest) ([]Ir
 		// 处理 q 的简单类型
 		// 对 string 类型尝试多种转换
 		var q string
-		if v, ok := item["q"].(string); ok {
+		if item["q"] == nil {
+			// 字段值为 null，使用零值
+			q = ""
+		} else if v, ok := item["q"].(string); ok {
 			q = v
 		} else if v, ok := item["q"].(float64); ok {
 			q = fmt.Sprintf("%.0f", v)
@@ -158,7 +170,10 @@ func IrmQaSh(ctx context.Context, client *sdk.Client, req *IrmQaShRequest) ([]Ir
 		// 处理 a 的简单类型
 		// 对 string 类型尝试多种转换
 		var a string
-		if v, ok := item["a"].(string); ok {
+		if item["a"] == nil {
+			// 字段值为 null，使用零值
+			a = ""
+		} else if v, ok := item["a"].(string); ok {
 			a = v
 		} else if v, ok := item["a"].(float64); ok {
 			a = fmt.Sprintf("%.0f", v)

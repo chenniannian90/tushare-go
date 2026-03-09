@@ -72,7 +72,10 @@ func FundDiv(ctx context.Context, client *sdk.Client, req *FundDivRequest) ([]Fu
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -94,7 +97,10 @@ func FundDiv(ctx context.Context, client *sdk.Client, req *FundDivRequest) ([]Fu
 		// 处理 ann_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var annDate string
-		if v, ok := item["ann_date"].(string); ok {
+		if item["ann_date"] == nil {
+			// 字段值为 null，使用零值
+			annDate = ""
+		} else if v, ok := item["ann_date"].(string); ok {
 			annDate = v
 		} else if v, ok := item["ann_date"].(float64); ok {
 			annDate = fmt.Sprintf("%.0f", v)
@@ -116,7 +122,10 @@ func FundDiv(ctx context.Context, client *sdk.Client, req *FundDivRequest) ([]Fu
 		// 处理 imp_anndate 的简单类型
 		// 对 string 类型尝试多种转换
 		var impAnndate string
-		if v, ok := item["imp_anndate"].(string); ok {
+		if item["imp_anndate"] == nil {
+			// 字段值为 null，使用零值
+			impAnndate = ""
+		} else if v, ok := item["imp_anndate"].(string); ok {
 			impAnndate = v
 		} else if v, ok := item["imp_anndate"].(float64); ok {
 			impAnndate = fmt.Sprintf("%.0f", v)
@@ -138,7 +147,10 @@ func FundDiv(ctx context.Context, client *sdk.Client, req *FundDivRequest) ([]Fu
 		// 处理 base_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var baseDate string
-		if v, ok := item["base_date"].(string); ok {
+		if item["base_date"] == nil {
+			// 字段值为 null，使用零值
+			baseDate = ""
+		} else if v, ok := item["base_date"].(string); ok {
 			baseDate = v
 		} else if v, ok := item["base_date"].(float64); ok {
 			baseDate = fmt.Sprintf("%.0f", v)
@@ -160,7 +172,10 @@ func FundDiv(ctx context.Context, client *sdk.Client, req *FundDivRequest) ([]Fu
 		// 处理 div_proc 的简单类型
 		// 对 string 类型尝试多种转换
 		var divProc string
-		if v, ok := item["div_proc"].(string); ok {
+		if item["div_proc"] == nil {
+			// 字段值为 null，使用零值
+			divProc = ""
+		} else if v, ok := item["div_proc"].(string); ok {
 			divProc = v
 		} else if v, ok := item["div_proc"].(float64); ok {
 			divProc = fmt.Sprintf("%.0f", v)
@@ -182,7 +197,10 @@ func FundDiv(ctx context.Context, client *sdk.Client, req *FundDivRequest) ([]Fu
 		// 处理 record_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var recordDate string
-		if v, ok := item["record_date"].(string); ok {
+		if item["record_date"] == nil {
+			// 字段值为 null，使用零值
+			recordDate = ""
+		} else if v, ok := item["record_date"].(string); ok {
 			recordDate = v
 		} else if v, ok := item["record_date"].(float64); ok {
 			recordDate = fmt.Sprintf("%.0f", v)
@@ -204,7 +222,10 @@ func FundDiv(ctx context.Context, client *sdk.Client, req *FundDivRequest) ([]Fu
 		// 处理 ex_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var exDate string
-		if v, ok := item["ex_date"].(string); ok {
+		if item["ex_date"] == nil {
+			// 字段值为 null，使用零值
+			exDate = ""
+		} else if v, ok := item["ex_date"].(string); ok {
 			exDate = v
 		} else if v, ok := item["ex_date"].(float64); ok {
 			exDate = fmt.Sprintf("%.0f", v)
@@ -226,7 +247,10 @@ func FundDiv(ctx context.Context, client *sdk.Client, req *FundDivRequest) ([]Fu
 		// 处理 pay_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var payDate string
-		if v, ok := item["pay_date"].(string); ok {
+		if item["pay_date"] == nil {
+			// 字段值为 null，使用零值
+			payDate = ""
+		} else if v, ok := item["pay_date"].(string); ok {
 			payDate = v
 		} else if v, ok := item["pay_date"].(float64); ok {
 			payDate = fmt.Sprintf("%.0f", v)
@@ -248,7 +272,10 @@ func FundDiv(ctx context.Context, client *sdk.Client, req *FundDivRequest) ([]Fu
 		// 处理 earpay_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var earpayDate string
-		if v, ok := item["earpay_date"].(string); ok {
+		if item["earpay_date"] == nil {
+			// 字段值为 null，使用零值
+			earpayDate = ""
+		} else if v, ok := item["earpay_date"].(string); ok {
 			earpayDate = v
 		} else if v, ok := item["earpay_date"].(float64); ok {
 			earpayDate = fmt.Sprintf("%.0f", v)
@@ -270,7 +297,10 @@ func FundDiv(ctx context.Context, client *sdk.Client, req *FundDivRequest) ([]Fu
 		// 处理 net_ex_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var netExDate string
-		if v, ok := item["net_ex_date"].(string); ok {
+		if item["net_ex_date"] == nil {
+			// 字段值为 null，使用零值
+			netExDate = ""
+		} else if v, ok := item["net_ex_date"].(string); ok {
 			netExDate = v
 		} else if v, ok := item["net_ex_date"].(float64); ok {
 			netExDate = fmt.Sprintf("%.0f", v)
@@ -312,7 +342,10 @@ func FundDiv(ctx context.Context, client *sdk.Client, req *FundDivRequest) ([]Fu
 		// 处理 account_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var accountDate string
-		if v, ok := item["account_date"].(string); ok {
+		if item["account_date"] == nil {
+			// 字段值为 null，使用零值
+			accountDate = ""
+		} else if v, ok := item["account_date"].(string); ok {
 			accountDate = v
 		} else if v, ok := item["account_date"].(float64); ok {
 			accountDate = fmt.Sprintf("%.0f", v)
@@ -334,7 +367,10 @@ func FundDiv(ctx context.Context, client *sdk.Client, req *FundDivRequest) ([]Fu
 		// 处理 base_year 的简单类型
 		// 对 string 类型尝试多种转换
 		var baseYear string
-		if v, ok := item["base_year"].(string); ok {
+		if item["base_year"] == nil {
+			// 字段值为 null，使用零值
+			baseYear = ""
+		} else if v, ok := item["base_year"].(string); ok {
 			baseYear = v
 		} else if v, ok := item["base_year"].(float64); ok {
 			baseYear = fmt.Sprintf("%.0f", v)

@@ -78,7 +78,10 @@ func ResearchReport(ctx context.Context, client *sdk.Client, req *ResearchReport
 		// 处理 trade_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var tradeDate string
-		if v, ok := item["trade_date"].(string); ok {
+		if item["trade_date"] == nil {
+			// 字段值为 null，使用零值
+			tradeDate = ""
+		} else if v, ok := item["trade_date"].(string); ok {
 			tradeDate = v
 		} else if v, ok := item["trade_date"].(float64); ok {
 			tradeDate = fmt.Sprintf("%.0f", v)
@@ -100,7 +103,10 @@ func ResearchReport(ctx context.Context, client *sdk.Client, req *ResearchReport
 		// 处理 abstr 的简单类型
 		// 对 string 类型尝试多种转换
 		var abstr string
-		if v, ok := item["abstr"].(string); ok {
+		if item["abstr"] == nil {
+			// 字段值为 null，使用零值
+			abstr = ""
+		} else if v, ok := item["abstr"].(string); ok {
 			abstr = v
 		} else if v, ok := item["abstr"].(float64); ok {
 			abstr = fmt.Sprintf("%.0f", v)
@@ -122,7 +128,10 @@ func ResearchReport(ctx context.Context, client *sdk.Client, req *ResearchReport
 		// 处理 title 的简单类型
 		// 对 string 类型尝试多种转换
 		var title string
-		if v, ok := item["title"].(string); ok {
+		if item["title"] == nil {
+			// 字段值为 null，使用零值
+			title = ""
+		} else if v, ok := item["title"].(string); ok {
 			title = v
 		} else if v, ok := item["title"].(float64); ok {
 			title = fmt.Sprintf("%.0f", v)
@@ -144,7 +153,10 @@ func ResearchReport(ctx context.Context, client *sdk.Client, req *ResearchReport
 		// 处理 report_type 的简单类型
 		// 对 string 类型尝试多种转换
 		var reportType string
-		if v, ok := item["report_type"].(string); ok {
+		if item["report_type"] == nil {
+			// 字段值为 null，使用零值
+			reportType = ""
+		} else if v, ok := item["report_type"].(string); ok {
 			reportType = v
 		} else if v, ok := item["report_type"].(float64); ok {
 			reportType = fmt.Sprintf("%.0f", v)
@@ -166,7 +178,10 @@ func ResearchReport(ctx context.Context, client *sdk.Client, req *ResearchReport
 		// 处理 author 的简单类型
 		// 对 string 类型尝试多种转换
 		var author string
-		if v, ok := item["author"].(string); ok {
+		if item["author"] == nil {
+			// 字段值为 null，使用零值
+			author = ""
+		} else if v, ok := item["author"].(string); ok {
 			author = v
 		} else if v, ok := item["author"].(float64); ok {
 			author = fmt.Sprintf("%.0f", v)
@@ -188,7 +203,10 @@ func ResearchReport(ctx context.Context, client *sdk.Client, req *ResearchReport
 		// 处理 name 的简单类型
 		// 对 string 类型尝试多种转换
 		var name string
-		if v, ok := item["name"].(string); ok {
+		if item["name"] == nil {
+			// 字段值为 null，使用零值
+			name = ""
+		} else if v, ok := item["name"].(string); ok {
 			name = v
 		} else if v, ok := item["name"].(float64); ok {
 			name = fmt.Sprintf("%.0f", v)
@@ -210,7 +228,10 @@ func ResearchReport(ctx context.Context, client *sdk.Client, req *ResearchReport
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -232,7 +253,10 @@ func ResearchReport(ctx context.Context, client *sdk.Client, req *ResearchReport
 		// 处理 inst_csname 的简单类型
 		// 对 string 类型尝试多种转换
 		var instCsname string
-		if v, ok := item["inst_csname"].(string); ok {
+		if item["inst_csname"] == nil {
+			// 字段值为 null，使用零值
+			instCsname = ""
+		} else if v, ok := item["inst_csname"].(string); ok {
 			instCsname = v
 		} else if v, ok := item["inst_csname"].(float64); ok {
 			instCsname = fmt.Sprintf("%.0f", v)
@@ -254,7 +278,10 @@ func ResearchReport(ctx context.Context, client *sdk.Client, req *ResearchReport
 		// 处理 ind_name 的简单类型
 		// 对 string 类型尝试多种转换
 		var indName string
-		if v, ok := item["ind_name"].(string); ok {
+		if item["ind_name"] == nil {
+			// 字段值为 null，使用零值
+			indName = ""
+		} else if v, ok := item["ind_name"].(string); ok {
 			indName = v
 		} else if v, ok := item["ind_name"].(float64); ok {
 			indName = fmt.Sprintf("%.0f", v)
@@ -276,7 +303,10 @@ func ResearchReport(ctx context.Context, client *sdk.Client, req *ResearchReport
 		// 处理 url 的简单类型
 		// 对 string 类型尝试多种转换
 		var url string
-		if v, ok := item["url"].(string); ok {
+		if item["url"] == nil {
+			// 字段值为 null，使用零值
+			url = ""
+		} else if v, ok := item["url"].(string); ok {
 			url = v
 		} else if v, ok := item["url"].(float64); ok {
 			url = fmt.Sprintf("%.0f", v)

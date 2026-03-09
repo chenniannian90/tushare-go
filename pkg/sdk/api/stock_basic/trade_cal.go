@@ -4,7 +4,9 @@ package stock_basic
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -21,7 +23,7 @@ type TradeCalRequest struct {
 type TradeCalItem struct {
 	Exchange string `json:"exchange"` // 交易所 SSE上交所 SZSE深交所
 	CalDate string `json:"cal_date"` // 日历日期
-	IsOpen string `json:"is_open"` // 是否交易 0休市 1交易
+	IsOpen int `json:"is_open"` // 是否交易 0休市 1交易
 	PretradeDate string `json:"pretrade_date"` // 上一个交易日
 }
 
@@ -46,76 +48,109 @@ func TradeCal(ctx context.Context, client *sdk.Client, req *TradeCalRequest) ([]
 	fields := []string{"exchange", "cal_date", "is_open", "pretrade_date"}
 
 	var result struct {
-		Fields []string      `json:"fields"`
-		Items  []interface{} `json:"items"` // 支持数组和对象两种格式
+		Fields []string                 `json:"fields"`
+		Items  []map[string]interface{} `json:"items"`
 	}
 
 	if err := client.CallAPIFlexible(ctx, "trade_cal", params, fields, &result); err != nil {
 		return nil, err
 	}
-
-	items := make([]TradeCalItem, 0, len(result.Items))
-
+	items := make([]TradeCalItem, len(result.Items))
 	for i, item := range result.Items {
-		var tradeCalItem TradeCalItem
-
-		// 检查items中的第一个元素类型
-		switch v := item.(type) {
-		case map[string]interface{}:
-			// 标准对象格式：{"exchange": "SSE", "cal_date": "20240101", ...}
-			exchange, ok := v["exchange"].(string)
-			if !ok {
-				return nil, fmt.Errorf("无效的 exchange 类型")
-			}
-			calDate, ok := v["cal_date"].(string)
-			if !ok {
-				return nil, fmt.Errorf("无效的 cal_date 类型")
-			}
-			isOpen, ok := v["is_open"].(string)
-			if !ok {
-				return nil, fmt.Errorf("无效的 is_open 类型")
-			}
-			pretradeDate, _ := v["pretrade_date"].(string) // 可选字段
-
-			tradeCalItem = TradeCalItem{
-				Exchange:     exchange,
-				CalDate:      calDate,
-				IsOpen:       isOpen,
-				PretradeDate: pretradeDate,
-			}
-
-		case []interface{}:
-			// 数组格式：["SSE", "20240101", "1", "20231229"] (按fields顺序)
-			if len(v) < 3 {
-				return nil, fmt.Errorf("数组格式错误：元素数量不足，期望至少3个，得到%d个", len(v))
-			}
-
-			// 按字段顺序解析：exchange, cal_date, is_open, pretrade_date
-			if exchange, ok := v[0].(string); ok {
-				tradeCalItem.Exchange = exchange
-			}
-			if calDate, ok := v[1].(string); ok {
-				tradeCalItem.CalDate = calDate
-			}
-			if len(v) > 2 {
-				switch isOpenVal := v[2].(type) {
-				case string:
-					tradeCalItem.IsOpen = isOpenVal
-				case float64:
-					tradeCalItem.IsOpen = fmt.Sprintf("%.0f", isOpenVal)
-				}
-			}
-			if len(v) >= 4 {
-				if pretradeDate, ok := v[3].(string); ok {
-					tradeCalItem.PretradeDate = pretradeDate
-				}
-			}
-
-		default:
-			return nil, fmt.Errorf("未知的items格式，第%d项: %T", i, item)
+		// 处理 exchange 的简单类型
+		// 对 string 类型尝试多种转换
+		var exchange string
+		if item["exchange"] == nil {
+			// 字段值为 null，使用零值
+			exchange = ""
+		} else if v, ok := item["exchange"].(string); ok {
+			exchange = v
+		} else if v, ok := item["exchange"].(float64); ok {
+			exchange = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["exchange"].(int); ok {
+			exchange = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["exchange"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: trade_cal")
+			log.Printf("字段: exchange")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["exchange"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 exchange 类型")
 		}
-
-		items = append(items, tradeCalItem)
+		// 处理 cal_date 的简单类型
+		// 对 string 类型尝试多种转换
+		var calDate string
+		if item["cal_date"] == nil {
+			// 字段值为 null，使用零值
+			calDate = ""
+		} else if v, ok := item["cal_date"].(string); ok {
+			calDate = v
+		} else if v, ok := item["cal_date"].(float64); ok {
+			calDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["cal_date"].(int); ok {
+			calDate = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["cal_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: trade_cal")
+			log.Printf("字段: cal_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["cal_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 cal_date 类型")
+		}
+		// 处理 is_open 的简单类型
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var isOpen int
+		if item["is_open"] == nil {
+			// 字段值为 null，使用零值
+			isOpen = 0
+		} else if v, ok := item["is_open"].(float64); ok {
+			isOpen = int(v)
+		} else if v, ok := item["is_open"].(int); ok {
+			isOpen = v
+		} else {
+			return nil, fmt.Errorf("无效的 is_open 类型，期望 int 或 float64")
+		}
+		// 处理 pretrade_date 的简单类型
+		// 对 string 类型尝试多种转换
+		var pretradeDate string
+		if item["pretrade_date"] == nil {
+			// 字段值为 null，使用零值
+			pretradeDate = ""
+		} else if v, ok := item["pretrade_date"].(string); ok {
+			pretradeDate = v
+		} else if v, ok := item["pretrade_date"].(float64); ok {
+			pretradeDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["pretrade_date"].(int); ok {
+			pretradeDate = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["pretrade_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: trade_cal")
+			log.Printf("字段: pretrade_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["pretrade_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 pretrade_date 类型")
+		}
+		items[i] = TradeCalItem{
+			Exchange: exchange,
+			CalDate: calDate,
+			IsOpen: isOpen,
+			PretradeDate: pretradeDate,
+		}
 	}
 
 	return items, nil

@@ -4,7 +4,9 @@ package stock_reference
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -53,19 +55,55 @@ func StkAccountOld(ctx context.Context, client *sdk.Client, req *StkAccountOldRe
 	items := make([]StkAccountOldItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 date 的简单类型
-		date, ok := item["date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var date string
+		if item["date"] == nil {
+			// 字段值为 null，使用零值
+			date = ""
+		} else if v, ok := item["date"].(string); ok {
+			date = v
+		} else if v, ok := item["date"].(float64); ok {
+			date = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["date"].(int); ok {
+			date = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_account_old")
+			log.Printf("字段: date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 date 类型")
 		}
 		// 处理 new_sh 的简单类型
-		newSh, ok := item["new_sh"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 new_sh 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var newSh int
+		if item["new_sh"] == nil {
+			// 字段值为 null，使用零值
+			newSh = 0
+		} else if v, ok := item["new_sh"].(float64); ok {
+			newSh = int(v)
+		} else if v, ok := item["new_sh"].(int); ok {
+			newSh = v
+		} else {
+			return nil, fmt.Errorf("无效的 new_sh 类型，期望 int 或 float64")
 		}
 		// 处理 new_sz 的简单类型
-		newSz, ok := item["new_sz"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 new_sz 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var newSz int
+		if item["new_sz"] == nil {
+			// 字段值为 null，使用零值
+			newSz = 0
+		} else if v, ok := item["new_sz"].(float64); ok {
+			newSz = int(v)
+		} else if v, ok := item["new_sz"].(int); ok {
+			newSz = v
+		} else {
+			return nil, fmt.Errorf("无效的 new_sz 类型，期望 int 或 float64")
 		}
 		// 处理 active_sh 的简单类型
 		activeSh, ok := item["active_sh"].(float64)

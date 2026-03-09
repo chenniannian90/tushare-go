@@ -56,7 +56,10 @@ func News(ctx context.Context, client *sdk.Client, req *NewsRequest) ([]NewsItem
 		// 处理 datetime 的简单类型
 		// 对 string 类型尝试多种转换
 		var datetime string
-		if v, ok := item["datetime"].(string); ok {
+		if item["datetime"] == nil {
+			// 字段值为 null，使用零值
+			datetime = ""
+		} else if v, ok := item["datetime"].(string); ok {
 			datetime = v
 		} else if v, ok := item["datetime"].(float64); ok {
 			datetime = fmt.Sprintf("%.0f", v)
@@ -78,7 +81,10 @@ func News(ctx context.Context, client *sdk.Client, req *NewsRequest) ([]NewsItem
 		// 处理 content 的简单类型
 		// 对 string 类型尝试多种转换
 		var content string
-		if v, ok := item["content"].(string); ok {
+		if item["content"] == nil {
+			// 字段值为 null，使用零值
+			content = ""
+		} else if v, ok := item["content"].(string); ok {
 			content = v
 		} else if v, ok := item["content"].(float64); ok {
 			content = fmt.Sprintf("%.0f", v)
@@ -100,7 +106,10 @@ func News(ctx context.Context, client *sdk.Client, req *NewsRequest) ([]NewsItem
 		// 处理 title 的简单类型
 		// 对 string 类型尝试多种转换
 		var title string
-		if v, ok := item["title"].(string); ok {
+		if item["title"] == nil {
+			// 字段值为 null，使用零值
+			title = ""
+		} else if v, ok := item["title"].(string); ok {
 			title = v
 		} else if v, ok := item["title"].(float64); ok {
 			title = fmt.Sprintf("%.0f", v)
@@ -122,7 +131,10 @@ func News(ctx context.Context, client *sdk.Client, req *NewsRequest) ([]NewsItem
 		// 处理 channels 的简单类型
 		// 对 string 类型尝试多种转换
 		var channels string
-		if v, ok := item["channels"].(string); ok {
+		if item["channels"] == nil {
+			// 字段值为 null，使用零值
+			channels = ""
+		} else if v, ok := item["channels"].(string); ok {
 			channels = v
 		} else if v, ok := item["channels"].(float64); ok {
 			channels = fmt.Sprintf("%.0f", v)

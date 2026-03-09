@@ -11,6 +11,17 @@ type AuthConfig struct {
 	Required bool   `json:"required"` // whether auth is required
 }
 
+// LoggingConfig defines the configuration for the logger
+type LoggingConfig struct {
+	Level      string `json:"level"`       // Log level: debug, info, warn, error
+	Format     string `json:"format"`      // Log format: json, text
+	Filename   string `json:"filename"`    // Log file path, empty means stdout
+	MaxSize    int    `json:"max_size"`    // Maximum size in megabytes
+	MaxAge     int    `json:"max_age"`     // Maximum number of days to retain old log files
+	MaxBackups int    `json:"max_backups"` // Maximum number of old log files to retain
+	Compress   bool   `json:"compress"`    // Compress rotated files
+}
+
 // ServiceConfig defines configuration for a single MCP service
 type ServiceConfig struct {
 	Name        string      `json:"name"`
@@ -28,6 +39,7 @@ type ServerConfig struct {
 	Services   map[string]ServiceConfig `json:"services"`    // named service configurations
 	GlobalAuth AuthConfig               `json:"global_auth"` // fallback auth config
 	APITokens  []string                 `json:"api_tokens"`  // list of valid api tokens for authentication
+	Logging    *LoggingConfig           `json:"logging"`     // logging configuration
 }
 
 // LoadFile loads server configuration from a JSON file

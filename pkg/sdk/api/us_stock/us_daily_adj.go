@@ -87,7 +87,10 @@ func UsDailyAdj(ctx context.Context, client *sdk.Client, req *UsDailyAdjRequest)
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -109,7 +112,10 @@ func UsDailyAdj(ctx context.Context, client *sdk.Client, req *UsDailyAdjRequest)
 		// 处理 trade_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var tradeDate string
-		if v, ok := item["trade_date"].(string); ok {
+		if item["trade_date"] == nil {
+			// 字段值为 null，使用零值
+			tradeDate = ""
+		} else if v, ok := item["trade_date"].(string); ok {
 			tradeDate = v
 		} else if v, ok := item["trade_date"].(float64); ok {
 			tradeDate = fmt.Sprintf("%.0f", v)
@@ -164,9 +170,17 @@ func UsDailyAdj(ctx context.Context, client *sdk.Client, req *UsDailyAdjRequest)
 			return nil, fmt.Errorf("无效的 pct_change 类型")
 		}
 		// 处理 vol 的简单类型
-		vol, ok := item["vol"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 vol 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var vol int
+		if item["vol"] == nil {
+			// 字段值为 null，使用零值
+			vol = 0
+		} else if v, ok := item["vol"].(float64); ok {
+			vol = int(v)
+		} else if v, ok := item["vol"].(int); ok {
+			vol = v
+		} else {
+			return nil, fmt.Errorf("无效的 vol 类型，期望 int 或 float64")
 		}
 		// 处理 amount 的简单类型
 		amount, ok := item["amount"].(float64)
@@ -189,14 +203,30 @@ func UsDailyAdj(ctx context.Context, client *sdk.Client, req *UsDailyAdjRequest)
 			return nil, fmt.Errorf("无效的 turnover_ratio 类型")
 		}
 		// 处理 free_share 的简单类型
-		freeShare, ok := item["free_share"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 free_share 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var freeShare int
+		if item["free_share"] == nil {
+			// 字段值为 null，使用零值
+			freeShare = 0
+		} else if v, ok := item["free_share"].(float64); ok {
+			freeShare = int(v)
+		} else if v, ok := item["free_share"].(int); ok {
+			freeShare = v
+		} else {
+			return nil, fmt.Errorf("无效的 free_share 类型，期望 int 或 float64")
 		}
 		// 处理 total_share 的简单类型
-		totalShare, ok := item["total_share"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 total_share 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var totalShare int
+		if item["total_share"] == nil {
+			// 字段值为 null，使用零值
+			totalShare = 0
+		} else if v, ok := item["total_share"].(float64); ok {
+			totalShare = int(v)
+		} else if v, ok := item["total_share"].(int); ok {
+			totalShare = v
+		} else {
+			return nil, fmt.Errorf("无效的 total_share 类型，期望 int 或 float64")
 		}
 		// 处理 free_mv 的简单类型
 		freeMv, ok := item["free_mv"].(float64)
@@ -211,7 +241,10 @@ func UsDailyAdj(ctx context.Context, client *sdk.Client, req *UsDailyAdjRequest)
 		// 处理 exchange 的简单类型
 		// 对 string 类型尝试多种转换
 		var exchange string
-		if v, ok := item["exchange"].(string); ok {
+		if item["exchange"] == nil {
+			// 字段值为 null，使用零值
+			exchange = ""
+		} else if v, ok := item["exchange"].(string); ok {
 			exchange = v
 		} else if v, ok := item["exchange"].(float64); ok {
 			exchange = fmt.Sprintf("%.0f", v)

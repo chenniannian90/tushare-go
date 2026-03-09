@@ -70,7 +70,10 @@ func SgeDaily(ctx context.Context, client *sdk.Client, req *SgeDailyRequest) ([]
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -92,7 +95,10 @@ func SgeDaily(ctx context.Context, client *sdk.Client, req *SgeDailyRequest) ([]
 		// 处理 trade_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var tradeDate string
-		if v, ok := item["trade_date"].(string); ok {
+		if item["trade_date"] == nil {
+			// 字段值为 null，使用零值
+			tradeDate = ""
+		} else if v, ok := item["trade_date"].(string); ok {
 			tradeDate = v
 		} else if v, ok := item["trade_date"].(float64); ok {
 			tradeDate = fmt.Sprintf("%.0f", v)
@@ -169,7 +175,10 @@ func SgeDaily(ctx context.Context, client *sdk.Client, req *SgeDailyRequest) ([]
 		// 处理 settle_dire 的简单类型
 		// 对 string 类型尝试多种转换
 		var settleDire string
-		if v, ok := item["settle_dire"].(string); ok {
+		if item["settle_dire"] == nil {
+			// 字段值为 null，使用零值
+			settleDire = ""
+		} else if v, ok := item["settle_dire"].(string); ok {
 			settleDire = v
 		} else if v, ok := item["settle_dire"].(float64); ok {
 			settleDire = fmt.Sprintf("%.0f", v)

@@ -4,7 +4,9 @@ package industry_tmt
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -69,68 +71,328 @@ func TeleplayRecord(ctx context.Context, client *sdk.Client, req *TeleplayRecord
 	items := make([]TeleplayRecordItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 name 的简单类型
-		name, ok := item["name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var name string
+		if item["name"] == nil {
+			// 字段值为 null，使用零值
+			name = ""
+		} else if v, ok := item["name"].(string); ok {
+			name = v
+		} else if v, ok := item["name"].(float64); ok {
+			name = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["name"].(int); ok {
+			name = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: teleplay_record")
+			log.Printf("字段: name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 classify 的简单类型
-		classify, ok := item["classify"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var classify string
+		if item["classify"] == nil {
+			// 字段值为 null，使用零值
+			classify = ""
+		} else if v, ok := item["classify"].(string); ok {
+			classify = v
+		} else if v, ok := item["classify"].(float64); ok {
+			classify = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["classify"].(int); ok {
+			classify = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["classify"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: teleplay_record")
+			log.Printf("字段: classify")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["classify"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 classify 类型")
 		}
 		// 处理 types 的简单类型
-		types, ok := item["types"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var types string
+		if item["types"] == nil {
+			// 字段值为 null，使用零值
+			types = ""
+		} else if v, ok := item["types"].(string); ok {
+			types = v
+		} else if v, ok := item["types"].(float64); ok {
+			types = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["types"].(int); ok {
+			types = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["types"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: teleplay_record")
+			log.Printf("字段: types")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["types"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 types 类型")
 		}
 		// 处理 org 的简单类型
-		org, ok := item["org"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var org string
+		if item["org"] == nil {
+			// 字段值为 null，使用零值
+			org = ""
+		} else if v, ok := item["org"].(string); ok {
+			org = v
+		} else if v, ok := item["org"].(float64); ok {
+			org = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["org"].(int); ok {
+			org = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["org"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: teleplay_record")
+			log.Printf("字段: org")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["org"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 org 类型")
 		}
 		// 处理 report_date 的简单类型
-		reportDate, ok := item["report_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var reportDate string
+		if item["report_date"] == nil {
+			// 字段值为 null，使用零值
+			reportDate = ""
+		} else if v, ok := item["report_date"].(string); ok {
+			reportDate = v
+		} else if v, ok := item["report_date"].(float64); ok {
+			reportDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["report_date"].(int); ok {
+			reportDate = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["report_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: teleplay_record")
+			log.Printf("字段: report_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["report_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 report_date 类型")
 		}
 		// 处理 license_key 的简单类型
-		licenseKey, ok := item["license_key"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var licenseKey string
+		if item["license_key"] == nil {
+			// 字段值为 null，使用零值
+			licenseKey = ""
+		} else if v, ok := item["license_key"].(string); ok {
+			licenseKey = v
+		} else if v, ok := item["license_key"].(float64); ok {
+			licenseKey = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["license_key"].(int); ok {
+			licenseKey = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["license_key"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: teleplay_record")
+			log.Printf("字段: license_key")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["license_key"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 license_key 类型")
 		}
 		// 处理 episodes 的简单类型
-		episodes, ok := item["episodes"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var episodes string
+		if item["episodes"] == nil {
+			// 字段值为 null，使用零值
+			episodes = ""
+		} else if v, ok := item["episodes"].(string); ok {
+			episodes = v
+		} else if v, ok := item["episodes"].(float64); ok {
+			episodes = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["episodes"].(int); ok {
+			episodes = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["episodes"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: teleplay_record")
+			log.Printf("字段: episodes")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["episodes"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 episodes 类型")
 		}
 		// 处理 shooting_date 的简单类型
-		shootingDate, ok := item["shooting_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var shootingDate string
+		if item["shooting_date"] == nil {
+			// 字段值为 null，使用零值
+			shootingDate = ""
+		} else if v, ok := item["shooting_date"].(string); ok {
+			shootingDate = v
+		} else if v, ok := item["shooting_date"].(float64); ok {
+			shootingDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["shooting_date"].(int); ok {
+			shootingDate = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["shooting_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: teleplay_record")
+			log.Printf("字段: shooting_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["shooting_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 shooting_date 类型")
 		}
 		// 处理 prod_cycle 的简单类型
-		prodCycle, ok := item["prod_cycle"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var prodCycle string
+		if item["prod_cycle"] == nil {
+			// 字段值为 null，使用零值
+			prodCycle = ""
+		} else if v, ok := item["prod_cycle"].(string); ok {
+			prodCycle = v
+		} else if v, ok := item["prod_cycle"].(float64); ok {
+			prodCycle = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["prod_cycle"].(int); ok {
+			prodCycle = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["prod_cycle"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: teleplay_record")
+			log.Printf("字段: prod_cycle")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["prod_cycle"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 prod_cycle 类型")
 		}
 		// 处理 content 的简单类型
-		content, ok := item["content"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var content string
+		if item["content"] == nil {
+			// 字段值为 null，使用零值
+			content = ""
+		} else if v, ok := item["content"].(string); ok {
+			content = v
+		} else if v, ok := item["content"].(float64); ok {
+			content = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["content"].(int); ok {
+			content = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["content"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: teleplay_record")
+			log.Printf("字段: content")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["content"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 content 类型")
 		}
 		// 处理 pro_opi 的简单类型
-		proOpi, ok := item["pro_opi"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var proOpi string
+		if item["pro_opi"] == nil {
+			// 字段值为 null，使用零值
+			proOpi = ""
+		} else if v, ok := item["pro_opi"].(string); ok {
+			proOpi = v
+		} else if v, ok := item["pro_opi"].(float64); ok {
+			proOpi = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["pro_opi"].(int); ok {
+			proOpi = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["pro_opi"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: teleplay_record")
+			log.Printf("字段: pro_opi")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["pro_opi"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 pro_opi 类型")
 		}
 		// 处理 dept_opi 的简单类型
-		deptOpi, ok := item["dept_opi"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var deptOpi string
+		if item["dept_opi"] == nil {
+			// 字段值为 null，使用零值
+			deptOpi = ""
+		} else if v, ok := item["dept_opi"].(string); ok {
+			deptOpi = v
+		} else if v, ok := item["dept_opi"].(float64); ok {
+			deptOpi = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["dept_opi"].(int); ok {
+			deptOpi = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["dept_opi"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: teleplay_record")
+			log.Printf("字段: dept_opi")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["dept_opi"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 dept_opi 类型")
 		}
 		// 处理 remarks 的简单类型
-		remarks, ok := item["remarks"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var remarks string
+		if item["remarks"] == nil {
+			// 字段值为 null，使用零值
+			remarks = ""
+		} else if v, ok := item["remarks"].(string); ok {
+			remarks = v
+		} else if v, ok := item["remarks"].(float64); ok {
+			remarks = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["remarks"].(int); ok {
+			remarks = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["remarks"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: teleplay_record")
+			log.Printf("字段: remarks")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["remarks"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 remarks 类型")
 		}
 		items[i] = TeleplayRecordItem{

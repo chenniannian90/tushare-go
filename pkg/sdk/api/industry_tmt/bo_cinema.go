@@ -4,7 +4,9 @@ package industry_tmt
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -49,19 +51,67 @@ func BoCinema(ctx context.Context, client *sdk.Client, req *BoCinemaRequest) ([]
 	items := make([]BoCinemaItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 date 的简单类型
-		date, ok := item["date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var date string
+		if item["date"] == nil {
+			// 字段值为 null，使用零值
+			date = ""
+		} else if v, ok := item["date"].(string); ok {
+			date = v
+		} else if v, ok := item["date"].(float64); ok {
+			date = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["date"].(int); ok {
+			date = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: bo_cinema")
+			log.Printf("字段: date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 date 类型")
 		}
 		// 处理 c_name 的简单类型
-		cName, ok := item["c_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var cName string
+		if item["c_name"] == nil {
+			// 字段值为 null，使用零值
+			cName = ""
+		} else if v, ok := item["c_name"].(string); ok {
+			cName = v
+		} else if v, ok := item["c_name"].(float64); ok {
+			cName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["c_name"].(int); ok {
+			cName = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["c_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: bo_cinema")
+			log.Printf("字段: c_name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["c_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 c_name 类型")
 		}
 		// 处理 aud_count 的简单类型
-		audCount, ok := item["aud_count"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 aud_count 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var audCount int
+		if item["aud_count"] == nil {
+			// 字段值为 null，使用零值
+			audCount = 0
+		} else if v, ok := item["aud_count"].(float64); ok {
+			audCount = int(v)
+		} else if v, ok := item["aud_count"].(int); ok {
+			audCount = v
+		} else {
+			return nil, fmt.Errorf("无效的 aud_count 类型，期望 int 或 float64")
 		}
 		// 处理 att_ratio 的简单类型
 		attRatio, ok := item["att_ratio"].(float64)
@@ -89,9 +139,17 @@ func BoCinema(ctx context.Context, client *sdk.Client, req *BoCinemaRequest) ([]
 			return nil, fmt.Errorf("无效的 p_pc 类型")
 		}
 		// 处理 rank 的简单类型
-		rank, ok := item["rank"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 rank 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var rank int
+		if item["rank"] == nil {
+			// 字段值为 null，使用零值
+			rank = 0
+		} else if v, ok := item["rank"].(float64); ok {
+			rank = int(v)
+		} else if v, ok := item["rank"].(int); ok {
+			rank = v
+		} else {
+			return nil, fmt.Errorf("无效的 rank 类型，期望 int 或 float64")
 		}
 		items[i] = BoCinemaItem{
 			Date: date,

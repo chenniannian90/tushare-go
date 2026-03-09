@@ -58,7 +58,10 @@ func SgeBasic(ctx context.Context, client *sdk.Client, req *SgeBasicRequest) ([]
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -80,7 +83,10 @@ func SgeBasic(ctx context.Context, client *sdk.Client, req *SgeBasicRequest) ([]
 		// 处理 ts_name 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsName string
-		if v, ok := item["ts_name"].(string); ok {
+		if item["ts_name"] == nil {
+			// 字段值为 null，使用零值
+			tsName = ""
+		} else if v, ok := item["ts_name"].(string); ok {
 			tsName = v
 		} else if v, ok := item["ts_name"].(float64); ok {
 			tsName = fmt.Sprintf("%.0f", v)
@@ -102,7 +108,10 @@ func SgeBasic(ctx context.Context, client *sdk.Client, req *SgeBasicRequest) ([]
 		// 处理 trade_type 的简单类型
 		// 对 string 类型尝试多种转换
 		var tradeType string
-		if v, ok := item["trade_type"].(string); ok {
+		if item["trade_type"] == nil {
+			// 字段值为 null，使用零值
+			tradeType = ""
+		} else if v, ok := item["trade_type"].(string); ok {
 			tradeType = v
 		} else if v, ok := item["trade_type"].(float64); ok {
 			tradeType = fmt.Sprintf("%.0f", v)
@@ -142,19 +151,38 @@ func SgeBasic(ctx context.Context, client *sdk.Client, req *SgeBasicRequest) ([]
 			return nil, fmt.Errorf("无效的 price_limit 类型")
 		}
 		// 处理 min_vol 的简单类型
-		minVol, ok := item["min_vol"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 min_vol 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var minVol int
+		if item["min_vol"] == nil {
+			// 字段值为 null，使用零值
+			minVol = 0
+		} else if v, ok := item["min_vol"].(float64); ok {
+			minVol = int(v)
+		} else if v, ok := item["min_vol"].(int); ok {
+			minVol = v
+		} else {
+			return nil, fmt.Errorf("无效的 min_vol 类型，期望 int 或 float64")
 		}
 		// 处理 max_vol 的简单类型
-		maxVol, ok := item["max_vol"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 max_vol 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var maxVol int
+		if item["max_vol"] == nil {
+			// 字段值为 null，使用零值
+			maxVol = 0
+		} else if v, ok := item["max_vol"].(float64); ok {
+			maxVol = int(v)
+		} else if v, ok := item["max_vol"].(int); ok {
+			maxVol = v
+		} else {
+			return nil, fmt.Errorf("无效的 max_vol 类型，期望 int 或 float64")
 		}
 		// 处理 trade_mode 的简单类型
 		// 对 string 类型尝试多种转换
 		var tradeMode string
-		if v, ok := item["trade_mode"].(string); ok {
+		if item["trade_mode"] == nil {
+			// 字段值为 null，使用零值
+			tradeMode = ""
+		} else if v, ok := item["trade_mode"].(string); ok {
 			tradeMode = v
 		} else if v, ok := item["trade_mode"].(float64); ok {
 			tradeMode = fmt.Sprintf("%.0f", v)
@@ -186,7 +214,10 @@ func SgeBasic(ctx context.Context, client *sdk.Client, req *SgeBasicRequest) ([]
 		// 处理 trade_time 的简单类型
 		// 对 string 类型尝试多种转换
 		var tradeTime string
-		if v, ok := item["trade_time"].(string); ok {
+		if item["trade_time"] == nil {
+			// 字段值为 null，使用零值
+			tradeTime = ""
+		} else if v, ok := item["trade_time"].(string); ok {
 			tradeTime = v
 		} else if v, ok := item["trade_time"].(float64); ok {
 			tradeTime = fmt.Sprintf("%.0f", v)
@@ -208,7 +239,10 @@ func SgeBasic(ctx context.Context, client *sdk.Client, req *SgeBasicRequest) ([]
 		// 处理 list_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var listDate string
-		if v, ok := item["list_date"].(string); ok {
+		if item["list_date"] == nil {
+			// 字段值为 null，使用零值
+			listDate = ""
+		} else if v, ok := item["list_date"].(string); ok {
 			listDate = v
 		} else if v, ok := item["list_date"].(float64); ok {
 			listDate = fmt.Sprintf("%.0f", v)

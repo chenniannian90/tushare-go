@@ -73,7 +73,10 @@ func BcOtcqt(ctx context.Context, client *sdk.Client, req *BcOtcqtRequest) ([]Bc
 		// 处理 trade_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var tradeDate string
-		if v, ok := item["trade_date"].(string); ok {
+		if item["trade_date"] == nil {
+			// 字段值为 null，使用零值
+			tradeDate = ""
+		} else if v, ok := item["trade_date"].(string); ok {
 			tradeDate = v
 		} else if v, ok := item["trade_date"].(float64); ok {
 			tradeDate = fmt.Sprintf("%.0f", v)
@@ -95,7 +98,10 @@ func BcOtcqt(ctx context.Context, client *sdk.Client, req *BcOtcqtRequest) ([]Bc
 		// 处理 qt_time 的简单类型
 		// 对 string 类型尝试多种转换
 		var qtTime string
-		if v, ok := item["qt_time"].(string); ok {
+		if item["qt_time"] == nil {
+			// 字段值为 null，使用零值
+			qtTime = ""
+		} else if v, ok := item["qt_time"].(string); ok {
 			qtTime = v
 		} else if v, ok := item["qt_time"].(float64); ok {
 			qtTime = fmt.Sprintf("%.0f", v)
@@ -117,7 +123,10 @@ func BcOtcqt(ctx context.Context, client *sdk.Client, req *BcOtcqtRequest) ([]Bc
 		// 处理 bank 的简单类型
 		// 对 string 类型尝试多种转换
 		var bank string
-		if v, ok := item["bank"].(string); ok {
+		if item["bank"] == nil {
+			// 字段值为 null，使用零值
+			bank = ""
+		} else if v, ok := item["bank"].(string); ok {
 			bank = v
 		} else if v, ok := item["bank"].(float64); ok {
 			bank = fmt.Sprintf("%.0f", v)
@@ -139,7 +148,10 @@ func BcOtcqt(ctx context.Context, client *sdk.Client, req *BcOtcqtRequest) ([]Bc
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -161,7 +173,10 @@ func BcOtcqt(ctx context.Context, client *sdk.Client, req *BcOtcqtRequest) ([]Bc
 		// 处理 name 的简单类型
 		// 对 string 类型尝试多种转换
 		var name string
-		if v, ok := item["name"].(string); ok {
+		if item["name"] == nil {
+			// 字段值为 null，使用零值
+			name = ""
+		} else if v, ok := item["name"].(string); ok {
 			name = v
 		} else if v, ok := item["name"].(float64); ok {
 			name = fmt.Sprintf("%.0f", v)
@@ -183,7 +198,10 @@ func BcOtcqt(ctx context.Context, client *sdk.Client, req *BcOtcqtRequest) ([]Bc
 		// 处理 maturity 的简单类型
 		// 对 string 类型尝试多种转换
 		var maturity string
-		if v, ok := item["maturity"].(string); ok {
+		if item["maturity"] == nil {
+			// 字段值为 null，使用零值
+			maturity = ""
+		} else if v, ok := item["maturity"].(string); ok {
 			maturity = v
 		} else if v, ok := item["maturity"].(float64); ok {
 			maturity = fmt.Sprintf("%.0f", v)
@@ -205,7 +223,10 @@ func BcOtcqt(ctx context.Context, client *sdk.Client, req *BcOtcqtRequest) ([]Bc
 		// 处理 remain_maturity 的简单类型
 		// 对 string 类型尝试多种转换
 		var remainMaturity string
-		if v, ok := item["remain_maturity"].(string); ok {
+		if item["remain_maturity"] == nil {
+			// 字段值为 null，使用零值
+			remainMaturity = ""
+		} else if v, ok := item["remain_maturity"].(string); ok {
 			remainMaturity = v
 		} else if v, ok := item["remain_maturity"].(float64); ok {
 			remainMaturity = fmt.Sprintf("%.0f", v)
@@ -227,7 +248,10 @@ func BcOtcqt(ctx context.Context, client *sdk.Client, req *BcOtcqtRequest) ([]Bc
 		// 处理 bond_type 的简单类型
 		// 对 string 类型尝试多种转换
 		var bondType string
-		if v, ok := item["bond_type"].(string); ok {
+		if item["bond_type"] == nil {
+			// 字段值为 null，使用零值
+			bondType = ""
+		} else if v, ok := item["bond_type"].(string); ok {
 			bondType = v
 		} else if v, ok := item["bond_type"].(float64); ok {
 			bondType = fmt.Sprintf("%.0f", v)

@@ -119,7 +119,10 @@ func {{Title .APICode}}(ctx context.Context, client *sdk.Client, req *{{Title .A
 		{{- else if eq $f.Type "str" "string"}}
 		// 对 string 类型尝试多种转换
 		var {{lowerCamel $f.Name}} string
-		if v, ok := item["{{$f.Name}}"].(string); ok {
+		if item["{{$f.Name}}"] == nil {
+			// 字段值为 null，使用零值
+			{{lowerCamel $f.Name}} = ""
+		} else if v, ok := item["{{$f.Name}}"].(string); ok {
 			{{lowerCamel $f.Name}} = v
 		} else if v, ok := item["{{$f.Name}}"].(float64); ok {
 			{{lowerCamel $f.Name}} = fmt.Sprintf("%.0f", v)
@@ -137,6 +140,19 @@ func {{Title .APICode}}(ctx context.Context, client *sdk.Client, req *{{Title .A
 			log.Printf("当前Item: %s", string(itemJSON))
 			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 {{$f.Name}} 类型")
+		}
+		{{- else if eq $f.Type "int"}}
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var {{lowerCamel $f.Name}} int
+		if item["{{$f.Name}}"] == nil {
+			// 字段值为 null，使用零值
+			{{lowerCamel $f.Name}} = 0
+		} else if v, ok := item["{{$f.Name}}"].(float64); ok {
+			{{lowerCamel $f.Name}} = int(v)
+		} else if v, ok := item["{{$f.Name}}"].(int); ok {
+			{{lowerCamel $f.Name}} = v
+		} else {
+			return nil, fmt.Errorf("无效的 {{$f.Name}} 类型，期望 int 或 float64")
 		}
 		{{- else}}
 		{{lowerCamel $f.Name}}, ok := item["{{$f.Name}}"].({{goType $f.Type}})

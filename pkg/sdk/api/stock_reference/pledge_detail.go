@@ -4,7 +4,9 @@ package stock_reference
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -54,18 +56,78 @@ func PledgeDetail(ctx context.Context, client *sdk.Client, req *PledgeDetailRequ
 	items := make([]PledgeDetailItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: pledge_detail")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 ann_date 的简单类型
-		annDate, ok := item["ann_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var annDate string
+		if item["ann_date"] == nil {
+			// 字段值为 null，使用零值
+			annDate = ""
+		} else if v, ok := item["ann_date"].(string); ok {
+			annDate = v
+		} else if v, ok := item["ann_date"].(float64); ok {
+			annDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ann_date"].(int); ok {
+			annDate = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ann_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: pledge_detail")
+			log.Printf("字段: ann_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ann_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ann_date 类型")
 		}
 		// 处理 holder_name 的简单类型
-		holderName, ok := item["holder_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var holderName string
+		if item["holder_name"] == nil {
+			// 字段值为 null，使用零值
+			holderName = ""
+		} else if v, ok := item["holder_name"].(string); ok {
+			holderName = v
+		} else if v, ok := item["holder_name"].(float64); ok {
+			holderName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["holder_name"].(int); ok {
+			holderName = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["holder_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: pledge_detail")
+			log.Printf("字段: holder_name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["holder_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 holder_name 类型")
 		}
 		// 处理 pledge_amount 的简单类型
@@ -74,28 +136,128 @@ func PledgeDetail(ctx context.Context, client *sdk.Client, req *PledgeDetailRequ
 			return nil, fmt.Errorf("无效的 pledge_amount 类型")
 		}
 		// 处理 start_date 的简单类型
-		startDate, ok := item["start_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var startDate string
+		if item["start_date"] == nil {
+			// 字段值为 null，使用零值
+			startDate = ""
+		} else if v, ok := item["start_date"].(string); ok {
+			startDate = v
+		} else if v, ok := item["start_date"].(float64); ok {
+			startDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["start_date"].(int); ok {
+			startDate = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["start_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: pledge_detail")
+			log.Printf("字段: start_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["start_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 start_date 类型")
 		}
 		// 处理 end_date 的简单类型
-		endDate, ok := item["end_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var endDate string
+		if item["end_date"] == nil {
+			// 字段值为 null，使用零值
+			endDate = ""
+		} else if v, ok := item["end_date"].(string); ok {
+			endDate = v
+		} else if v, ok := item["end_date"].(float64); ok {
+			endDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["end_date"].(int); ok {
+			endDate = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["end_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: pledge_detail")
+			log.Printf("字段: end_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["end_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 end_date 类型")
 		}
 		// 处理 is_release 的简单类型
-		isRelease, ok := item["is_release"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var isRelease string
+		if item["is_release"] == nil {
+			// 字段值为 null，使用零值
+			isRelease = ""
+		} else if v, ok := item["is_release"].(string); ok {
+			isRelease = v
+		} else if v, ok := item["is_release"].(float64); ok {
+			isRelease = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["is_release"].(int); ok {
+			isRelease = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["is_release"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: pledge_detail")
+			log.Printf("字段: is_release")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["is_release"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 is_release 类型")
 		}
 		// 处理 release_date 的简单类型
-		releaseDate, ok := item["release_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var releaseDate string
+		if item["release_date"] == nil {
+			// 字段值为 null，使用零值
+			releaseDate = ""
+		} else if v, ok := item["release_date"].(string); ok {
+			releaseDate = v
+		} else if v, ok := item["release_date"].(float64); ok {
+			releaseDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["release_date"].(int); ok {
+			releaseDate = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["release_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: pledge_detail")
+			log.Printf("字段: release_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["release_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 release_date 类型")
 		}
 		// 处理 pledgor 的简单类型
-		pledgor, ok := item["pledgor"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var pledgor string
+		if item["pledgor"] == nil {
+			// 字段值为 null，使用零值
+			pledgor = ""
+		} else if v, ok := item["pledgor"].(string); ok {
+			pledgor = v
+		} else if v, ok := item["pledgor"].(float64); ok {
+			pledgor = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["pledgor"].(int); ok {
+			pledgor = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["pledgor"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: pledge_detail")
+			log.Printf("字段: pledgor")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["pledgor"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 pledgor 类型")
 		}
 		// 处理 holding_amount 的简单类型
@@ -119,8 +281,28 @@ func PledgeDetail(ctx context.Context, client *sdk.Client, req *PledgeDetailRequ
 			return nil, fmt.Errorf("无效的 h_total_ratio 类型")
 		}
 		// 处理 is_buyback 的简单类型
-		isBuyback, ok := item["is_buyback"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var isBuyback string
+		if item["is_buyback"] == nil {
+			// 字段值为 null，使用零值
+			isBuyback = ""
+		} else if v, ok := item["is_buyback"].(string); ok {
+			isBuyback = v
+		} else if v, ok := item["is_buyback"].(float64); ok {
+			isBuyback = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["is_buyback"].(int); ok {
+			isBuyback = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["is_buyback"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: pledge_detail")
+			log.Printf("字段: is_buyback")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["is_buyback"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 is_buyback 类型")
 		}
 		items[i] = PledgeDetailItem{

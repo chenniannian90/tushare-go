@@ -70,7 +70,10 @@ func FutHolding(ctx context.Context, client *sdk.Client, req *FutHoldingRequest)
 		// 处理 trade_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var tradeDate string
-		if v, ok := item["trade_date"].(string); ok {
+		if item["trade_date"] == nil {
+			// 字段值为 null，使用零值
+			tradeDate = ""
+		} else if v, ok := item["trade_date"].(string); ok {
 			tradeDate = v
 		} else if v, ok := item["trade_date"].(float64); ok {
 			tradeDate = fmt.Sprintf("%.0f", v)
@@ -92,7 +95,10 @@ func FutHolding(ctx context.Context, client *sdk.Client, req *FutHoldingRequest)
 		// 处理 symbol 的简单类型
 		// 对 string 类型尝试多种转换
 		var symbol string
-		if v, ok := item["symbol"].(string); ok {
+		if item["symbol"] == nil {
+			// 字段值为 null，使用零值
+			symbol = ""
+		} else if v, ok := item["symbol"].(string); ok {
 			symbol = v
 		} else if v, ok := item["symbol"].(float64); ok {
 			symbol = fmt.Sprintf("%.0f", v)
@@ -114,7 +120,10 @@ func FutHolding(ctx context.Context, client *sdk.Client, req *FutHoldingRequest)
 		// 处理 broker 的简单类型
 		// 对 string 类型尝试多种转换
 		var broker string
-		if v, ok := item["broker"].(string); ok {
+		if item["broker"] == nil {
+			// 字段值为 null，使用零值
+			broker = ""
+		} else if v, ok := item["broker"].(string); ok {
 			broker = v
 		} else if v, ok := item["broker"].(float64); ok {
 			broker = fmt.Sprintf("%.0f", v)
@@ -134,39 +143,90 @@ func FutHolding(ctx context.Context, client *sdk.Client, req *FutHoldingRequest)
 			return nil, fmt.Errorf("无效的 broker 类型")
 		}
 		// 处理 vol 的简单类型
-		vol, ok := item["vol"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 vol 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var vol int
+		if item["vol"] == nil {
+			// 字段值为 null，使用零值
+			vol = 0
+		} else if v, ok := item["vol"].(float64); ok {
+			vol = int(v)
+		} else if v, ok := item["vol"].(int); ok {
+			vol = v
+		} else {
+			return nil, fmt.Errorf("无效的 vol 类型，期望 int 或 float64")
 		}
 		// 处理 vol_chg 的简单类型
-		volChg, ok := item["vol_chg"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 vol_chg 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var volChg int
+		if item["vol_chg"] == nil {
+			// 字段值为 null，使用零值
+			volChg = 0
+		} else if v, ok := item["vol_chg"].(float64); ok {
+			volChg = int(v)
+		} else if v, ok := item["vol_chg"].(int); ok {
+			volChg = v
+		} else {
+			return nil, fmt.Errorf("无效的 vol_chg 类型，期望 int 或 float64")
 		}
 		// 处理 long_hld 的简单类型
-		longHld, ok := item["long_hld"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 long_hld 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var longHld int
+		if item["long_hld"] == nil {
+			// 字段值为 null，使用零值
+			longHld = 0
+		} else if v, ok := item["long_hld"].(float64); ok {
+			longHld = int(v)
+		} else if v, ok := item["long_hld"].(int); ok {
+			longHld = v
+		} else {
+			return nil, fmt.Errorf("无效的 long_hld 类型，期望 int 或 float64")
 		}
 		// 处理 long_chg 的简单类型
-		longChg, ok := item["long_chg"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 long_chg 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var longChg int
+		if item["long_chg"] == nil {
+			// 字段值为 null，使用零值
+			longChg = 0
+		} else if v, ok := item["long_chg"].(float64); ok {
+			longChg = int(v)
+		} else if v, ok := item["long_chg"].(int); ok {
+			longChg = v
+		} else {
+			return nil, fmt.Errorf("无效的 long_chg 类型，期望 int 或 float64")
 		}
 		// 处理 short_hld 的简单类型
-		shortHld, ok := item["short_hld"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 short_hld 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var shortHld int
+		if item["short_hld"] == nil {
+			// 字段值为 null，使用零值
+			shortHld = 0
+		} else if v, ok := item["short_hld"].(float64); ok {
+			shortHld = int(v)
+		} else if v, ok := item["short_hld"].(int); ok {
+			shortHld = v
+		} else {
+			return nil, fmt.Errorf("无效的 short_hld 类型，期望 int 或 float64")
 		}
 		// 处理 short_chg 的简单类型
-		shortChg, ok := item["short_chg"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 short_chg 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var shortChg int
+		if item["short_chg"] == nil {
+			// 字段值为 null，使用零值
+			shortChg = 0
+		} else if v, ok := item["short_chg"].(float64); ok {
+			shortChg = int(v)
+		} else if v, ok := item["short_chg"].(int); ok {
+			shortChg = v
+		} else {
+			return nil, fmt.Errorf("无效的 short_chg 类型，期望 int 或 float64")
 		}
 		// 处理 exchange 的简单类型
 		// 对 string 类型尝试多种转换
 		var exchange string
-		if v, ok := item["exchange"].(string); ok {
+		if item["exchange"] == nil {
+			// 字段值为 null，使用零值
+			exchange = ""
+		} else if v, ok := item["exchange"].(string); ok {
 			exchange = v
 		} else if v, ok := item["exchange"].(float64); ok {
 			exchange = fmt.Sprintf("%.0f", v)

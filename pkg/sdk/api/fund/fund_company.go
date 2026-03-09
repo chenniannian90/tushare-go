@@ -58,7 +58,10 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		// 处理 name 的简单类型
 		// 对 string 类型尝试多种转换
 		var name string
-		if v, ok := item["name"].(string); ok {
+		if item["name"] == nil {
+			// 字段值为 null，使用零值
+			name = ""
+		} else if v, ok := item["name"].(string); ok {
 			name = v
 		} else if v, ok := item["name"].(float64); ok {
 			name = fmt.Sprintf("%.0f", v)
@@ -80,7 +83,10 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		// 处理 shortname 的简单类型
 		// 对 string 类型尝试多种转换
 		var shortname string
-		if v, ok := item["shortname"].(string); ok {
+		if item["shortname"] == nil {
+			// 字段值为 null，使用零值
+			shortname = ""
+		} else if v, ok := item["shortname"].(string); ok {
 			shortname = v
 		} else if v, ok := item["shortname"].(float64); ok {
 			shortname = fmt.Sprintf("%.0f", v)
@@ -102,7 +108,10 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		// 处理 short_enname 的简单类型
 		// 对 string 类型尝试多种转换
 		var shortEnname string
-		if v, ok := item["short_enname"].(string); ok {
+		if item["short_enname"] == nil {
+			// 字段值为 null，使用零值
+			shortEnname = ""
+		} else if v, ok := item["short_enname"].(string); ok {
 			shortEnname = v
 		} else if v, ok := item["short_enname"].(float64); ok {
 			shortEnname = fmt.Sprintf("%.0f", v)
@@ -124,7 +133,10 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		// 处理 province 的简单类型
 		// 对 string 类型尝试多种转换
 		var province string
-		if v, ok := item["province"].(string); ok {
+		if item["province"] == nil {
+			// 字段值为 null，使用零值
+			province = ""
+		} else if v, ok := item["province"].(string); ok {
 			province = v
 		} else if v, ok := item["province"].(float64); ok {
 			province = fmt.Sprintf("%.0f", v)
@@ -146,7 +158,10 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		// 处理 city 的简单类型
 		// 对 string 类型尝试多种转换
 		var city string
-		if v, ok := item["city"].(string); ok {
+		if item["city"] == nil {
+			// 字段值为 null，使用零值
+			city = ""
+		} else if v, ok := item["city"].(string); ok {
 			city = v
 		} else if v, ok := item["city"].(float64); ok {
 			city = fmt.Sprintf("%.0f", v)
@@ -168,7 +183,10 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		// 处理 address 的简单类型
 		// 对 string 类型尝试多种转换
 		var address string
-		if v, ok := item["address"].(string); ok {
+		if item["address"] == nil {
+			// 字段值为 null，使用零值
+			address = ""
+		} else if v, ok := item["address"].(string); ok {
 			address = v
 		} else if v, ok := item["address"].(float64); ok {
 			address = fmt.Sprintf("%.0f", v)
@@ -190,7 +208,10 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		// 处理 phone 的简单类型
 		// 对 string 类型尝试多种转换
 		var phone string
-		if v, ok := item["phone"].(string); ok {
+		if item["phone"] == nil {
+			// 字段值为 null，使用零值
+			phone = ""
+		} else if v, ok := item["phone"].(string); ok {
 			phone = v
 		} else if v, ok := item["phone"].(float64); ok {
 			phone = fmt.Sprintf("%.0f", v)
@@ -212,7 +233,10 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		// 处理 office 的简单类型
 		// 对 string 类型尝试多种转换
 		var office string
-		if v, ok := item["office"].(string); ok {
+		if item["office"] == nil {
+			// 字段值为 null，使用零值
+			office = ""
+		} else if v, ok := item["office"].(string); ok {
 			office = v
 		} else if v, ok := item["office"].(float64); ok {
 			office = fmt.Sprintf("%.0f", v)
@@ -234,7 +258,10 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		// 处理 website 的简单类型
 		// 对 string 类型尝试多种转换
 		var website string
-		if v, ok := item["website"].(string); ok {
+		if item["website"] == nil {
+			// 字段值为 null，使用零值
+			website = ""
+		} else if v, ok := item["website"].(string); ok {
 			website = v
 		} else if v, ok := item["website"].(float64); ok {
 			website = fmt.Sprintf("%.0f", v)
@@ -256,7 +283,10 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		// 处理 chairman 的简单类型
 		// 对 string 类型尝试多种转换
 		var chairman string
-		if v, ok := item["chairman"].(string); ok {
+		if item["chairman"] == nil {
+			// 字段值为 null，使用零值
+			chairman = ""
+		} else if v, ok := item["chairman"].(string); ok {
 			chairman = v
 		} else if v, ok := item["chairman"].(float64); ok {
 			chairman = fmt.Sprintf("%.0f", v)
@@ -278,7 +308,10 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		// 处理 manager 的简单类型
 		// 对 string 类型尝试多种转换
 		var manager string
-		if v, ok := item["manager"].(string); ok {
+		if item["manager"] == nil {
+			// 字段值为 null，使用零值
+			manager = ""
+		} else if v, ok := item["manager"].(string); ok {
 			manager = v
 		} else if v, ok := item["manager"].(float64); ok {
 			manager = fmt.Sprintf("%.0f", v)
@@ -305,7 +338,10 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		// 处理 setup_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var setupDate string
-		if v, ok := item["setup_date"].(string); ok {
+		if item["setup_date"] == nil {
+			// 字段值为 null，使用零值
+			setupDate = ""
+		} else if v, ok := item["setup_date"].(string); ok {
 			setupDate = v
 		} else if v, ok := item["setup_date"].(float64); ok {
 			setupDate = fmt.Sprintf("%.0f", v)
@@ -327,7 +363,10 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		// 处理 end_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var endDate string
-		if v, ok := item["end_date"].(string); ok {
+		if item["end_date"] == nil {
+			// 字段值为 null，使用零值
+			endDate = ""
+		} else if v, ok := item["end_date"].(string); ok {
 			endDate = v
 		} else if v, ok := item["end_date"].(float64); ok {
 			endDate = fmt.Sprintf("%.0f", v)
@@ -354,7 +393,10 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		// 处理 main_business 的简单类型
 		// 对 string 类型尝试多种转换
 		var mainBusiness string
-		if v, ok := item["main_business"].(string); ok {
+		if item["main_business"] == nil {
+			// 字段值为 null，使用零值
+			mainBusiness = ""
+		} else if v, ok := item["main_business"].(string); ok {
 			mainBusiness = v
 		} else if v, ok := item["main_business"].(float64); ok {
 			mainBusiness = fmt.Sprintf("%.0f", v)
@@ -376,7 +418,10 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		// 处理 org_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var orgCode string
-		if v, ok := item["org_code"].(string); ok {
+		if item["org_code"] == nil {
+			// 字段值为 null，使用零值
+			orgCode = ""
+		} else if v, ok := item["org_code"].(string); ok {
 			orgCode = v
 		} else if v, ok := item["org_code"].(float64); ok {
 			orgCode = fmt.Sprintf("%.0f", v)
@@ -398,7 +443,10 @@ func FundCompany(ctx context.Context, client *sdk.Client, req *FundCompanyReques
 		// 处理 credit_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var creditCode string
-		if v, ok := item["credit_code"].(string); ok {
+		if item["credit_code"] == nil {
+			// 字段值为 null，使用零值
+			creditCode = ""
+		} else if v, ok := item["credit_code"].(string); ok {
 			creditCode = v
 		} else if v, ok := item["credit_code"].(float64); ok {
 			creditCode = fmt.Sprintf("%.0f", v)

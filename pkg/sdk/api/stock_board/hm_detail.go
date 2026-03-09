@@ -4,7 +4,9 @@ package stock_board
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -65,18 +67,78 @@ func HmDetail(ctx context.Context, client *sdk.Client, req *HmDetailRequest) ([]
 	items := make([]HmDetailItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 trade_date 的简单类型
-		tradeDate, ok := item["trade_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeDate string
+		if item["trade_date"] == nil {
+			// 字段值为 null，使用零值
+			tradeDate = ""
+		} else if v, ok := item["trade_date"].(string); ok {
+			tradeDate = v
+		} else if v, ok := item["trade_date"].(float64); ok {
+			tradeDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_date"].(int); ok {
+			tradeDate = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["trade_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hm_detail")
+			log.Printf("字段: trade_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["trade_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hm_detail")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 ts_name 的简单类型
-		tsName, ok := item["ts_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsName string
+		if item["ts_name"] == nil {
+			// 字段值为 null，使用零值
+			tsName = ""
+		} else if v, ok := item["ts_name"].(string); ok {
+			tsName = v
+		} else if v, ok := item["ts_name"].(float64); ok {
+			tsName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_name"].(int); ok {
+			tsName = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hm_detail")
+			log.Printf("字段: ts_name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_name 类型")
 		}
 		// 处理 buy_amount 的简单类型
@@ -95,18 +157,78 @@ func HmDetail(ctx context.Context, client *sdk.Client, req *HmDetailRequest) ([]
 			return nil, fmt.Errorf("无效的 net_amount 类型")
 		}
 		// 处理 hm_name 的简单类型
-		hmName, ok := item["hm_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var hmName string
+		if item["hm_name"] == nil {
+			// 字段值为 null，使用零值
+			hmName = ""
+		} else if v, ok := item["hm_name"].(string); ok {
+			hmName = v
+		} else if v, ok := item["hm_name"].(float64); ok {
+			hmName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["hm_name"].(int); ok {
+			hmName = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["hm_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hm_detail")
+			log.Printf("字段: hm_name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["hm_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 hm_name 类型")
 		}
 		// 处理 hm_orgs 的简单类型
-		hmOrgs, ok := item["hm_orgs"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var hmOrgs string
+		if item["hm_orgs"] == nil {
+			// 字段值为 null，使用零值
+			hmOrgs = ""
+		} else if v, ok := item["hm_orgs"].(string); ok {
+			hmOrgs = v
+		} else if v, ok := item["hm_orgs"].(float64); ok {
+			hmOrgs = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["hm_orgs"].(int); ok {
+			hmOrgs = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["hm_orgs"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hm_detail")
+			log.Printf("字段: hm_orgs")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["hm_orgs"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 hm_orgs 类型")
 		}
 		// 处理 tag 的简单类型
-		tag, ok := item["tag"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tag string
+		if item["tag"] == nil {
+			// 字段值为 null，使用零值
+			tag = ""
+		} else if v, ok := item["tag"].(string); ok {
+			tag = v
+		} else if v, ok := item["tag"].(float64); ok {
+			tag = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["tag"].(int); ok {
+			tag = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["tag"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hm_detail")
+			log.Printf("字段: tag")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["tag"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 tag 类型")
 		}
 		items[i] = HmDetailItem{

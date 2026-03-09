@@ -65,7 +65,10 @@ func HkCashflow(ctx context.Context, client *sdk.Client, req *HkCashflowRequest)
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -87,7 +90,10 @@ func HkCashflow(ctx context.Context, client *sdk.Client, req *HkCashflowRequest)
 		// 处理 end_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var endDate string
-		if v, ok := item["end_date"].(string); ok {
+		if item["end_date"] == nil {
+			// 字段值为 null，使用零值
+			endDate = ""
+		} else if v, ok := item["end_date"].(string); ok {
 			endDate = v
 		} else if v, ok := item["end_date"].(float64); ok {
 			endDate = fmt.Sprintf("%.0f", v)
@@ -109,7 +115,10 @@ func HkCashflow(ctx context.Context, client *sdk.Client, req *HkCashflowRequest)
 		// 处理 name 的简单类型
 		// 对 string 类型尝试多种转换
 		var name string
-		if v, ok := item["name"].(string); ok {
+		if item["name"] == nil {
+			// 字段值为 null，使用零值
+			name = ""
+		} else if v, ok := item["name"].(string); ok {
 			name = v
 		} else if v, ok := item["name"].(float64); ok {
 			name = fmt.Sprintf("%.0f", v)
@@ -131,7 +140,10 @@ func HkCashflow(ctx context.Context, client *sdk.Client, req *HkCashflowRequest)
 		// 处理 ind_name 的简单类型
 		// 对 string 类型尝试多种转换
 		var indName string
-		if v, ok := item["ind_name"].(string); ok {
+		if item["ind_name"] == nil {
+			// 字段值为 null，使用零值
+			indName = ""
+		} else if v, ok := item["ind_name"].(string); ok {
 			indName = v
 		} else if v, ok := item["ind_name"].(float64); ok {
 			indName = fmt.Sprintf("%.0f", v)

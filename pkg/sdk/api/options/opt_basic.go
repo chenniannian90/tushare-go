@@ -78,7 +78,10 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -100,7 +103,10 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		// 处理 exchange 的简单类型
 		// 对 string 类型尝试多种转换
 		var exchange string
-		if v, ok := item["exchange"].(string); ok {
+		if item["exchange"] == nil {
+			// 字段值为 null，使用零值
+			exchange = ""
+		} else if v, ok := item["exchange"].(string); ok {
 			exchange = v
 		} else if v, ok := item["exchange"].(float64); ok {
 			exchange = fmt.Sprintf("%.0f", v)
@@ -122,7 +128,10 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		// 处理 name 的简单类型
 		// 对 string 类型尝试多种转换
 		var name string
-		if v, ok := item["name"].(string); ok {
+		if item["name"] == nil {
+			// 字段值为 null，使用零值
+			name = ""
+		} else if v, ok := item["name"].(string); ok {
 			name = v
 		} else if v, ok := item["name"].(float64); ok {
 			name = fmt.Sprintf("%.0f", v)
@@ -144,7 +153,10 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		// 处理 per_unit 的简单类型
 		// 对 string 类型尝试多种转换
 		var perUnit string
-		if v, ok := item["per_unit"].(string); ok {
+		if item["per_unit"] == nil {
+			// 字段值为 null，使用零值
+			perUnit = ""
+		} else if v, ok := item["per_unit"].(string); ok {
 			perUnit = v
 		} else if v, ok := item["per_unit"].(float64); ok {
 			perUnit = fmt.Sprintf("%.0f", v)
@@ -166,7 +178,10 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		// 处理 opt_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var optCode string
-		if v, ok := item["opt_code"].(string); ok {
+		if item["opt_code"] == nil {
+			// 字段值为 null，使用零值
+			optCode = ""
+		} else if v, ok := item["opt_code"].(string); ok {
 			optCode = v
 		} else if v, ok := item["opt_code"].(float64); ok {
 			optCode = fmt.Sprintf("%.0f", v)
@@ -188,7 +203,10 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		// 处理 opt_type 的简单类型
 		// 对 string 类型尝试多种转换
 		var optType string
-		if v, ok := item["opt_type"].(string); ok {
+		if item["opt_type"] == nil {
+			// 字段值为 null，使用零值
+			optType = ""
+		} else if v, ok := item["opt_type"].(string); ok {
 			optType = v
 		} else if v, ok := item["opt_type"].(float64); ok {
 			optType = fmt.Sprintf("%.0f", v)
@@ -210,7 +228,10 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		// 处理 call_put 的简单类型
 		// 对 string 类型尝试多种转换
 		var callPut string
-		if v, ok := item["call_put"].(string); ok {
+		if item["call_put"] == nil {
+			// 字段值为 null，使用零值
+			callPut = ""
+		} else if v, ok := item["call_put"].(string); ok {
 			callPut = v
 		} else if v, ok := item["call_put"].(float64); ok {
 			callPut = fmt.Sprintf("%.0f", v)
@@ -232,7 +253,10 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		// 处理 exercise_type 的简单类型
 		// 对 string 类型尝试多种转换
 		var exerciseType string
-		if v, ok := item["exercise_type"].(string); ok {
+		if item["exercise_type"] == nil {
+			// 字段值为 null，使用零值
+			exerciseType = ""
+		} else if v, ok := item["exercise_type"].(string); ok {
 			exerciseType = v
 		} else if v, ok := item["exercise_type"].(float64); ok {
 			exerciseType = fmt.Sprintf("%.0f", v)
@@ -259,7 +283,10 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		// 处理 s_month 的简单类型
 		// 对 string 类型尝试多种转换
 		var sMonth string
-		if v, ok := item["s_month"].(string); ok {
+		if item["s_month"] == nil {
+			// 字段值为 null，使用零值
+			sMonth = ""
+		} else if v, ok := item["s_month"].(string); ok {
 			sMonth = v
 		} else if v, ok := item["s_month"].(float64); ok {
 			sMonth = fmt.Sprintf("%.0f", v)
@@ -281,7 +308,10 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		// 处理 maturity_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var maturityDate string
-		if v, ok := item["maturity_date"].(string); ok {
+		if item["maturity_date"] == nil {
+			// 字段值为 null，使用零值
+			maturityDate = ""
+		} else if v, ok := item["maturity_date"].(string); ok {
 			maturityDate = v
 		} else if v, ok := item["maturity_date"].(float64); ok {
 			maturityDate = fmt.Sprintf("%.0f", v)
@@ -308,7 +338,10 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		// 处理 list_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var listDate string
-		if v, ok := item["list_date"].(string); ok {
+		if item["list_date"] == nil {
+			// 字段值为 null，使用零值
+			listDate = ""
+		} else if v, ok := item["list_date"].(string); ok {
 			listDate = v
 		} else if v, ok := item["list_date"].(float64); ok {
 			listDate = fmt.Sprintf("%.0f", v)
@@ -330,7 +363,10 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		// 处理 delist_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var delistDate string
-		if v, ok := item["delist_date"].(string); ok {
+		if item["delist_date"] == nil {
+			// 字段值为 null，使用零值
+			delistDate = ""
+		} else if v, ok := item["delist_date"].(string); ok {
 			delistDate = v
 		} else if v, ok := item["delist_date"].(float64); ok {
 			delistDate = fmt.Sprintf("%.0f", v)
@@ -352,7 +388,10 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		// 处理 last_edate 的简单类型
 		// 对 string 类型尝试多种转换
 		var lastEdate string
-		if v, ok := item["last_edate"].(string); ok {
+		if item["last_edate"] == nil {
+			// 字段值为 null，使用零值
+			lastEdate = ""
+		} else if v, ok := item["last_edate"].(string); ok {
 			lastEdate = v
 		} else if v, ok := item["last_edate"].(float64); ok {
 			lastEdate = fmt.Sprintf("%.0f", v)
@@ -374,7 +413,10 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		// 处理 last_ddate 的简单类型
 		// 对 string 类型尝试多种转换
 		var lastDdate string
-		if v, ok := item["last_ddate"].(string); ok {
+		if item["last_ddate"] == nil {
+			// 字段值为 null，使用零值
+			lastDdate = ""
+		} else if v, ok := item["last_ddate"].(string); ok {
 			lastDdate = v
 		} else if v, ok := item["last_ddate"].(float64); ok {
 			lastDdate = fmt.Sprintf("%.0f", v)
@@ -396,7 +438,10 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		// 处理 quote_unit 的简单类型
 		// 对 string 类型尝试多种转换
 		var quoteUnit string
-		if v, ok := item["quote_unit"].(string); ok {
+		if item["quote_unit"] == nil {
+			// 字段值为 null，使用零值
+			quoteUnit = ""
+		} else if v, ok := item["quote_unit"].(string); ok {
 			quoteUnit = v
 		} else if v, ok := item["quote_unit"].(float64); ok {
 			quoteUnit = fmt.Sprintf("%.0f", v)
@@ -418,7 +463,10 @@ func OptBasic(ctx context.Context, client *sdk.Client, req *OptBasicRequest) ([]
 		// 处理 min_price_chg 的简单类型
 		// 对 string 类型尝试多种转换
 		var minPriceChg string
-		if v, ok := item["min_price_chg"].(string); ok {
+		if item["min_price_chg"] == nil {
+			// 字段值为 null，使用零值
+			minPriceChg = ""
+		} else if v, ok := item["min_price_chg"].(string); ok {
 			minPriceChg = v
 		} else if v, ok := item["min_price_chg"].(float64); ok {
 			minPriceChg = fmt.Sprintf("%.0f", v)

@@ -4,7 +4,9 @@ package stock_reference
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -73,28 +75,128 @@ func StkHoldertrade(ctx context.Context, client *sdk.Client, req *StkHoldertrade
 	items := make([]StkHoldertradeItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_holdertrade")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 ann_date 的简单类型
-		annDate, ok := item["ann_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var annDate string
+		if item["ann_date"] == nil {
+			// 字段值为 null，使用零值
+			annDate = ""
+		} else if v, ok := item["ann_date"].(string); ok {
+			annDate = v
+		} else if v, ok := item["ann_date"].(float64); ok {
+			annDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ann_date"].(int); ok {
+			annDate = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ann_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_holdertrade")
+			log.Printf("字段: ann_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ann_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ann_date 类型")
 		}
 		// 处理 holder_name 的简单类型
-		holderName, ok := item["holder_name"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var holderName string
+		if item["holder_name"] == nil {
+			// 字段值为 null，使用零值
+			holderName = ""
+		} else if v, ok := item["holder_name"].(string); ok {
+			holderName = v
+		} else if v, ok := item["holder_name"].(float64); ok {
+			holderName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["holder_name"].(int); ok {
+			holderName = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["holder_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_holdertrade")
+			log.Printf("字段: holder_name")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["holder_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 holder_name 类型")
 		}
 		// 处理 holder_type 的简单类型
-		holderType, ok := item["holder_type"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var holderType string
+		if item["holder_type"] == nil {
+			// 字段值为 null，使用零值
+			holderType = ""
+		} else if v, ok := item["holder_type"].(string); ok {
+			holderType = v
+		} else if v, ok := item["holder_type"].(float64); ok {
+			holderType = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["holder_type"].(int); ok {
+			holderType = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["holder_type"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_holdertrade")
+			log.Printf("字段: holder_type")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["holder_type"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 holder_type 类型")
 		}
 		// 处理 in_de 的简单类型
-		inDe, ok := item["in_de"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var inDe string
+		if item["in_de"] == nil {
+			// 字段值为 null，使用零值
+			inDe = ""
+		} else if v, ok := item["in_de"].(string); ok {
+			inDe = v
+		} else if v, ok := item["in_de"].(float64); ok {
+			inDe = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["in_de"].(int); ok {
+			inDe = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["in_de"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_holdertrade")
+			log.Printf("字段: in_de")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["in_de"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 in_de 类型")
 		}
 		// 处理 change_vol 的简单类型
@@ -128,13 +230,53 @@ func StkHoldertrade(ctx context.Context, client *sdk.Client, req *StkHoldertrade
 			return nil, fmt.Errorf("无效的 total_share 类型")
 		}
 		// 处理 begin_date 的简单类型
-		beginDate, ok := item["begin_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var beginDate string
+		if item["begin_date"] == nil {
+			// 字段值为 null，使用零值
+			beginDate = ""
+		} else if v, ok := item["begin_date"].(string); ok {
+			beginDate = v
+		} else if v, ok := item["begin_date"].(float64); ok {
+			beginDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["begin_date"].(int); ok {
+			beginDate = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["begin_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_holdertrade")
+			log.Printf("字段: begin_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["begin_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 begin_date 类型")
 		}
 		// 处理 close_date 的简单类型
-		closeDate, ok := item["close_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var closeDate string
+		if item["close_date"] == nil {
+			// 字段值为 null，使用零值
+			closeDate = ""
+		} else if v, ok := item["close_date"].(string); ok {
+			closeDate = v
+		} else if v, ok := item["close_date"].(float64); ok {
+			closeDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["close_date"].(int); ok {
+			closeDate = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["close_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_holdertrade")
+			log.Printf("字段: close_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["close_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 close_date 类型")
 		}
 		items[i] = StkHoldertradeItem{

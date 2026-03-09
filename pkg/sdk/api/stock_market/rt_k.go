@@ -4,7 +4,9 @@ package stock_market
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -55,8 +57,28 @@ func RtK(ctx context.Context, client *sdk.Client, req *RtKRequest) ([]RtKItem, e
 	items := make([]RtKItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: rt_k")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 name 的简单类型
@@ -90,19 +112,43 @@ func RtK(ctx context.Context, client *sdk.Client, req *RtKRequest) ([]RtKItem, e
 			return nil, fmt.Errorf("无效的 close 类型")
 		}
 		// 处理 vol 的简单类型
-		vol, ok := item["vol"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 vol 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var vol int
+		if item["vol"] == nil {
+			// 字段值为 null，使用零值
+			vol = 0
+		} else if v, ok := item["vol"].(float64); ok {
+			vol = int(v)
+		} else if v, ok := item["vol"].(int); ok {
+			vol = v
+		} else {
+			return nil, fmt.Errorf("无效的 vol 类型，期望 int 或 float64")
 		}
 		// 处理 amount 的简单类型
-		amount, ok := item["amount"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 amount 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var amount int
+		if item["amount"] == nil {
+			// 字段值为 null，使用零值
+			amount = 0
+		} else if v, ok := item["amount"].(float64); ok {
+			amount = int(v)
+		} else if v, ok := item["amount"].(int); ok {
+			amount = v
+		} else {
+			return nil, fmt.Errorf("无效的 amount 类型，期望 int 或 float64")
 		}
 		// 处理 num 的简单类型
-		num, ok := item["num"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 num 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var num int
+		if item["num"] == nil {
+			// 字段值为 null，使用零值
+			num = 0
+		} else if v, ok := item["num"].(float64); ok {
+			num = int(v)
+		} else if v, ok := item["num"].(int); ok {
+			num = v
+		} else {
+			return nil, fmt.Errorf("无效的 num 类型，期望 int 或 float64")
 		}
 		// 处理 ask_price1 的简单类型
 		askPrice1, ok := item["ask_price1"].(float64)
@@ -110,9 +156,17 @@ func RtK(ctx context.Context, client *sdk.Client, req *RtKRequest) ([]RtKItem, e
 			return nil, fmt.Errorf("无效的 ask_price1 类型")
 		}
 		// 处理 ask_volume1 的简单类型
-		askVolume1, ok := item["ask_volume1"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 ask_volume1 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var askVolume1 int
+		if item["ask_volume1"] == nil {
+			// 字段值为 null，使用零值
+			askVolume1 = 0
+		} else if v, ok := item["ask_volume1"].(float64); ok {
+			askVolume1 = int(v)
+		} else if v, ok := item["ask_volume1"].(int); ok {
+			askVolume1 = v
+		} else {
+			return nil, fmt.Errorf("无效的 ask_volume1 类型，期望 int 或 float64")
 		}
 		// 处理 bid_price1 的简单类型
 		bidPrice1, ok := item["bid_price1"].(float64)
@@ -120,13 +174,41 @@ func RtK(ctx context.Context, client *sdk.Client, req *RtKRequest) ([]RtKItem, e
 			return nil, fmt.Errorf("无效的 bid_price1 类型")
 		}
 		// 处理 bid_volume1 的简单类型
-		bidVolume1, ok := item["bid_volume1"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 bid_volume1 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var bidVolume1 int
+		if item["bid_volume1"] == nil {
+			// 字段值为 null，使用零值
+			bidVolume1 = 0
+		} else if v, ok := item["bid_volume1"].(float64); ok {
+			bidVolume1 = int(v)
+		} else if v, ok := item["bid_volume1"].(int); ok {
+			bidVolume1 = v
+		} else {
+			return nil, fmt.Errorf("无效的 bid_volume1 类型，期望 int 或 float64")
 		}
 		// 处理 trade_time 的简单类型
-		tradeTime, ok := item["trade_time"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeTime string
+		if item["trade_time"] == nil {
+			// 字段值为 null，使用零值
+			tradeTime = ""
+		} else if v, ok := item["trade_time"].(string); ok {
+			tradeTime = v
+		} else if v, ok := item["trade_time"].(float64); ok {
+			tradeTime = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_time"].(int); ok {
+			tradeTime = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["trade_time"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: rt_k")
+			log.Printf("字段: trade_time")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["trade_time"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 trade_time 类型")
 		}
 		items[i] = RtKItem{

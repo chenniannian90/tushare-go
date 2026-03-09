@@ -63,7 +63,10 @@ func IndexClassify(ctx context.Context, client *sdk.Client, req *IndexClassifyRe
 		// 处理 index_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var indexCode string
-		if v, ok := item["index_code"].(string); ok {
+		if item["index_code"] == nil {
+			// 字段值为 null，使用零值
+			indexCode = ""
+		} else if v, ok := item["index_code"].(string); ok {
 			indexCode = v
 		} else if v, ok := item["index_code"].(float64); ok {
 			indexCode = fmt.Sprintf("%.0f", v)
@@ -85,7 +88,10 @@ func IndexClassify(ctx context.Context, client *sdk.Client, req *IndexClassifyRe
 		// 处理 industry_name 的简单类型
 		// 对 string 类型尝试多种转换
 		var industryName string
-		if v, ok := item["industry_name"].(string); ok {
+		if item["industry_name"] == nil {
+			// 字段值为 null，使用零值
+			industryName = ""
+		} else if v, ok := item["industry_name"].(string); ok {
 			industryName = v
 		} else if v, ok := item["industry_name"].(float64); ok {
 			industryName = fmt.Sprintf("%.0f", v)
@@ -107,7 +113,10 @@ func IndexClassify(ctx context.Context, client *sdk.Client, req *IndexClassifyRe
 		// 处理 parent_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var parentCode string
-		if v, ok := item["parent_code"].(string); ok {
+		if item["parent_code"] == nil {
+			// 字段值为 null，使用零值
+			parentCode = ""
+		} else if v, ok := item["parent_code"].(string); ok {
 			parentCode = v
 		} else if v, ok := item["parent_code"].(float64); ok {
 			parentCode = fmt.Sprintf("%.0f", v)
@@ -129,7 +138,10 @@ func IndexClassify(ctx context.Context, client *sdk.Client, req *IndexClassifyRe
 		// 处理 level 的简单类型
 		// 对 string 类型尝试多种转换
 		var level string
-		if v, ok := item["level"].(string); ok {
+		if item["level"] == nil {
+			// 字段值为 null，使用零值
+			level = ""
+		} else if v, ok := item["level"].(string); ok {
 			level = v
 		} else if v, ok := item["level"].(float64); ok {
 			level = fmt.Sprintf("%.0f", v)
@@ -151,7 +163,10 @@ func IndexClassify(ctx context.Context, client *sdk.Client, req *IndexClassifyRe
 		// 处理 industry_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var industryCode string
-		if v, ok := item["industry_code"].(string); ok {
+		if item["industry_code"] == nil {
+			// 字段值为 null，使用零值
+			industryCode = ""
+		} else if v, ok := item["industry_code"].(string); ok {
 			industryCode = v
 		} else if v, ok := item["industry_code"].(float64); ok {
 			industryCode = fmt.Sprintf("%.0f", v)
@@ -173,7 +188,10 @@ func IndexClassify(ctx context.Context, client *sdk.Client, req *IndexClassifyRe
 		// 处理 is_pub 的简单类型
 		// 对 string 类型尝试多种转换
 		var isPub string
-		if v, ok := item["is_pub"].(string); ok {
+		if item["is_pub"] == nil {
+			// 字段值为 null，使用零值
+			isPub = ""
+		} else if v, ok := item["is_pub"].(string); ok {
 			isPub = v
 		} else if v, ok := item["is_pub"].(float64); ok {
 			isPub = fmt.Sprintf("%.0f", v)
@@ -195,7 +213,10 @@ func IndexClassify(ctx context.Context, client *sdk.Client, req *IndexClassifyRe
 		// 处理 src 的简单类型
 		// 对 string 类型尝试多种转换
 		var src string
-		if v, ok := item["src"].(string); ok {
+		if item["src"] == nil {
+			// 字段值为 null，使用零值
+			src = ""
+		} else if v, ok := item["src"].(string); ok {
 			src = v
 		} else if v, ok := item["src"].(float64); ok {
 			src = fmt.Sprintf("%.0f", v)

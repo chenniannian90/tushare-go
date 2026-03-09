@@ -56,7 +56,10 @@ func MajorNews(ctx context.Context, client *sdk.Client, req *MajorNewsRequest) (
 		// 处理 title 的简单类型
 		// 对 string 类型尝试多种转换
 		var title string
-		if v, ok := item["title"].(string); ok {
+		if item["title"] == nil {
+			// 字段值为 null，使用零值
+			title = ""
+		} else if v, ok := item["title"].(string); ok {
 			title = v
 		} else if v, ok := item["title"].(float64); ok {
 			title = fmt.Sprintf("%.0f", v)
@@ -78,7 +81,10 @@ func MajorNews(ctx context.Context, client *sdk.Client, req *MajorNewsRequest) (
 		// 处理 content 的简单类型
 		// 对 string 类型尝试多种转换
 		var content string
-		if v, ok := item["content"].(string); ok {
+		if item["content"] == nil {
+			// 字段值为 null，使用零值
+			content = ""
+		} else if v, ok := item["content"].(string); ok {
 			content = v
 		} else if v, ok := item["content"].(float64); ok {
 			content = fmt.Sprintf("%.0f", v)
@@ -100,7 +106,10 @@ func MajorNews(ctx context.Context, client *sdk.Client, req *MajorNewsRequest) (
 		// 处理 pub_time 的简单类型
 		// 对 string 类型尝试多种转换
 		var pubTime string
-		if v, ok := item["pub_time"].(string); ok {
+		if item["pub_time"] == nil {
+			// 字段值为 null，使用零值
+			pubTime = ""
+		} else if v, ok := item["pub_time"].(string); ok {
 			pubTime = v
 		} else if v, ok := item["pub_time"].(float64); ok {
 			pubTime = fmt.Sprintf("%.0f", v)
@@ -122,7 +131,10 @@ func MajorNews(ctx context.Context, client *sdk.Client, req *MajorNewsRequest) (
 		// 处理 src 的简单类型
 		// 对 string 类型尝试多种转换
 		var src string
-		if v, ok := item["src"].(string); ok {
+		if item["src"] == nil {
+			// 字段值为 null，使用零值
+			src = ""
+		} else if v, ok := item["src"].(string); ok {
 			src = v
 		} else if v, ok := item["src"].(float64); ok {
 			src = fmt.Sprintf("%.0f", v)

@@ -51,7 +51,10 @@ func CbPriceChg(ctx context.Context, client *sdk.Client, req *CbPriceChgRequest)
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -73,7 +76,10 @@ func CbPriceChg(ctx context.Context, client *sdk.Client, req *CbPriceChgRequest)
 		// 处理 bond_short_name 的简单类型
 		// 对 string 类型尝试多种转换
 		var bondShortName string
-		if v, ok := item["bond_short_name"].(string); ok {
+		if item["bond_short_name"] == nil {
+			// 字段值为 null，使用零值
+			bondShortName = ""
+		} else if v, ok := item["bond_short_name"].(string); ok {
 			bondShortName = v
 		} else if v, ok := item["bond_short_name"].(float64); ok {
 			bondShortName = fmt.Sprintf("%.0f", v)
@@ -95,7 +101,10 @@ func CbPriceChg(ctx context.Context, client *sdk.Client, req *CbPriceChgRequest)
 		// 处理 publish_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var publishDate string
-		if v, ok := item["publish_date"].(string); ok {
+		if item["publish_date"] == nil {
+			// 字段值为 null，使用零值
+			publishDate = ""
+		} else if v, ok := item["publish_date"].(string); ok {
 			publishDate = v
 		} else if v, ok := item["publish_date"].(float64); ok {
 			publishDate = fmt.Sprintf("%.0f", v)
@@ -117,7 +126,10 @@ func CbPriceChg(ctx context.Context, client *sdk.Client, req *CbPriceChgRequest)
 		// 处理 change_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var changeDate string
-		if v, ok := item["change_date"].(string); ok {
+		if item["change_date"] == nil {
+			// 字段值为 null，使用零值
+			changeDate = ""
+		} else if v, ok := item["change_date"].(string); ok {
 			changeDate = v
 		} else if v, ok := item["change_date"].(float64); ok {
 			changeDate = fmt.Sprintf("%.0f", v)

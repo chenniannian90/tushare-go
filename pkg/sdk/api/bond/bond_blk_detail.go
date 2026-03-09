@@ -64,7 +64,10 @@ func BondBlkDetail(ctx context.Context, client *sdk.Client, req *BondBlkDetailRe
 		// 处理 trade_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var tradeDate string
-		if v, ok := item["trade_date"].(string); ok {
+		if item["trade_date"] == nil {
+			// 字段值为 null，使用零值
+			tradeDate = ""
+		} else if v, ok := item["trade_date"].(string); ok {
 			tradeDate = v
 		} else if v, ok := item["trade_date"].(float64); ok {
 			tradeDate = fmt.Sprintf("%.0f", v)
@@ -86,7 +89,10 @@ func BondBlkDetail(ctx context.Context, client *sdk.Client, req *BondBlkDetailRe
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -108,7 +114,10 @@ func BondBlkDetail(ctx context.Context, client *sdk.Client, req *BondBlkDetailRe
 		// 处理 name 的简单类型
 		// 对 string 类型尝试多种转换
 		var name string
-		if v, ok := item["name"].(string); ok {
+		if item["name"] == nil {
+			// 字段值为 null，使用零值
+			name = ""
+		} else if v, ok := item["name"].(string); ok {
 			name = v
 		} else if v, ok := item["name"].(float64); ok {
 			name = fmt.Sprintf("%.0f", v)
@@ -145,7 +154,10 @@ func BondBlkDetail(ctx context.Context, client *sdk.Client, req *BondBlkDetailRe
 		// 处理 buy_dp 的简单类型
 		// 对 string 类型尝试多种转换
 		var buyDp string
-		if v, ok := item["buy_dp"].(string); ok {
+		if item["buy_dp"] == nil {
+			// 字段值为 null，使用零值
+			buyDp = ""
+		} else if v, ok := item["buy_dp"].(string); ok {
 			buyDp = v
 		} else if v, ok := item["buy_dp"].(float64); ok {
 			buyDp = fmt.Sprintf("%.0f", v)
@@ -167,7 +179,10 @@ func BondBlkDetail(ctx context.Context, client *sdk.Client, req *BondBlkDetailRe
 		// 处理 sell_dp 的简单类型
 		// 对 string 类型尝试多种转换
 		var sellDp string
-		if v, ok := item["sell_dp"].(string); ok {
+		if item["sell_dp"] == nil {
+			// 字段值为 null，使用零值
+			sellDp = ""
+		} else if v, ok := item["sell_dp"].(string); ok {
 			sellDp = v
 		} else if v, ok := item["sell_dp"].(float64); ok {
 			sellDp = fmt.Sprintf("%.0f", v)

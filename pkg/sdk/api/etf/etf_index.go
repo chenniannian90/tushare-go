@@ -60,7 +60,10 @@ func EtfIndex(ctx context.Context, client *sdk.Client, req *EtfIndexRequest) ([]
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -82,7 +85,10 @@ func EtfIndex(ctx context.Context, client *sdk.Client, req *EtfIndexRequest) ([]
 		// 处理 indx_name 的简单类型
 		// 对 string 类型尝试多种转换
 		var indxName string
-		if v, ok := item["indx_name"].(string); ok {
+		if item["indx_name"] == nil {
+			// 字段值为 null，使用零值
+			indxName = ""
+		} else if v, ok := item["indx_name"].(string); ok {
 			indxName = v
 		} else if v, ok := item["indx_name"].(float64); ok {
 			indxName = fmt.Sprintf("%.0f", v)
@@ -104,7 +110,10 @@ func EtfIndex(ctx context.Context, client *sdk.Client, req *EtfIndexRequest) ([]
 		// 处理 indx_csname 的简单类型
 		// 对 string 类型尝试多种转换
 		var indxCsname string
-		if v, ok := item["indx_csname"].(string); ok {
+		if item["indx_csname"] == nil {
+			// 字段值为 null，使用零值
+			indxCsname = ""
+		} else if v, ok := item["indx_csname"].(string); ok {
 			indxCsname = v
 		} else if v, ok := item["indx_csname"].(float64); ok {
 			indxCsname = fmt.Sprintf("%.0f", v)
@@ -126,7 +135,10 @@ func EtfIndex(ctx context.Context, client *sdk.Client, req *EtfIndexRequest) ([]
 		// 处理 pub_party_name 的简单类型
 		// 对 string 类型尝试多种转换
 		var pubPartyName string
-		if v, ok := item["pub_party_name"].(string); ok {
+		if item["pub_party_name"] == nil {
+			// 字段值为 null，使用零值
+			pubPartyName = ""
+		} else if v, ok := item["pub_party_name"].(string); ok {
 			pubPartyName = v
 		} else if v, ok := item["pub_party_name"].(float64); ok {
 			pubPartyName = fmt.Sprintf("%.0f", v)
@@ -148,7 +160,10 @@ func EtfIndex(ctx context.Context, client *sdk.Client, req *EtfIndexRequest) ([]
 		// 处理 pub_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var pubDate string
-		if v, ok := item["pub_date"].(string); ok {
+		if item["pub_date"] == nil {
+			// 字段值为 null，使用零值
+			pubDate = ""
+		} else if v, ok := item["pub_date"].(string); ok {
 			pubDate = v
 		} else if v, ok := item["pub_date"].(float64); ok {
 			pubDate = fmt.Sprintf("%.0f", v)
@@ -170,7 +185,10 @@ func EtfIndex(ctx context.Context, client *sdk.Client, req *EtfIndexRequest) ([]
 		// 处理 base_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var baseDate string
-		if v, ok := item["base_date"].(string); ok {
+		if item["base_date"] == nil {
+			// 字段值为 null，使用零值
+			baseDate = ""
+		} else if v, ok := item["base_date"].(string); ok {
 			baseDate = v
 		} else if v, ok := item["base_date"].(float64); ok {
 			baseDate = fmt.Sprintf("%.0f", v)
@@ -197,7 +215,10 @@ func EtfIndex(ctx context.Context, client *sdk.Client, req *EtfIndexRequest) ([]
 		// 处理 adj_circle 的简单类型
 		// 对 string 类型尝试多种转换
 		var adjCircle string
-		if v, ok := item["adj_circle"].(string); ok {
+		if item["adj_circle"] == nil {
+			// 字段值为 null，使用零值
+			adjCircle = ""
+		} else if v, ok := item["adj_circle"].(string); ok {
 			adjCircle = v
 		} else if v, ok := item["adj_circle"].(float64); ok {
 			adjCircle = fmt.Sprintf("%.0f", v)

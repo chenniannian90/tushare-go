@@ -4,7 +4,9 @@ package stock_fund_flow
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -72,19 +74,67 @@ func Moneyflow(ctx context.Context, client *sdk.Client, req *MoneyflowRequest) (
 	items := make([]MoneyflowItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 ts_code 的简单类型
-		tsCode, ok := item["ts_code"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: moneyflow")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 trade_date 的简单类型
-		tradeDate, ok := item["trade_date"].(string)
-		if !ok {
+		// 对 string 类型尝试多种转换
+		var tradeDate string
+		if item["trade_date"] == nil {
+			// 字段值为 null，使用零值
+			tradeDate = ""
+		} else if v, ok := item["trade_date"].(string); ok {
+			tradeDate = v
+		} else if v, ok := item["trade_date"].(float64); ok {
+			tradeDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["trade_date"].(int); ok {
+			tradeDate = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["trade_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: moneyflow")
+			log.Printf("字段: trade_date")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["trade_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 buy_sm_vol 的简单类型
-		buySmVol, ok := item["buy_sm_vol"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 buy_sm_vol 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var buySmVol int
+		if item["buy_sm_vol"] == nil {
+			// 字段值为 null，使用零值
+			buySmVol = 0
+		} else if v, ok := item["buy_sm_vol"].(float64); ok {
+			buySmVol = int(v)
+		} else if v, ok := item["buy_sm_vol"].(int); ok {
+			buySmVol = v
+		} else {
+			return nil, fmt.Errorf("无效的 buy_sm_vol 类型，期望 int 或 float64")
 		}
 		// 处理 buy_sm_amount 的简单类型
 		buySmAmount, ok := item["buy_sm_amount"].(float64)
@@ -92,9 +142,17 @@ func Moneyflow(ctx context.Context, client *sdk.Client, req *MoneyflowRequest) (
 			return nil, fmt.Errorf("无效的 buy_sm_amount 类型")
 		}
 		// 处理 sell_sm_vol 的简单类型
-		sellSmVol, ok := item["sell_sm_vol"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 sell_sm_vol 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var sellSmVol int
+		if item["sell_sm_vol"] == nil {
+			// 字段值为 null，使用零值
+			sellSmVol = 0
+		} else if v, ok := item["sell_sm_vol"].(float64); ok {
+			sellSmVol = int(v)
+		} else if v, ok := item["sell_sm_vol"].(int); ok {
+			sellSmVol = v
+		} else {
+			return nil, fmt.Errorf("无效的 sell_sm_vol 类型，期望 int 或 float64")
 		}
 		// 处理 sell_sm_amount 的简单类型
 		sellSmAmount, ok := item["sell_sm_amount"].(float64)
@@ -102,9 +160,17 @@ func Moneyflow(ctx context.Context, client *sdk.Client, req *MoneyflowRequest) (
 			return nil, fmt.Errorf("无效的 sell_sm_amount 类型")
 		}
 		// 处理 buy_md_vol 的简单类型
-		buyMdVol, ok := item["buy_md_vol"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 buy_md_vol 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var buyMdVol int
+		if item["buy_md_vol"] == nil {
+			// 字段值为 null，使用零值
+			buyMdVol = 0
+		} else if v, ok := item["buy_md_vol"].(float64); ok {
+			buyMdVol = int(v)
+		} else if v, ok := item["buy_md_vol"].(int); ok {
+			buyMdVol = v
+		} else {
+			return nil, fmt.Errorf("无效的 buy_md_vol 类型，期望 int 或 float64")
 		}
 		// 处理 buy_md_amount 的简单类型
 		buyMdAmount, ok := item["buy_md_amount"].(float64)
@@ -112,9 +178,17 @@ func Moneyflow(ctx context.Context, client *sdk.Client, req *MoneyflowRequest) (
 			return nil, fmt.Errorf("无效的 buy_md_amount 类型")
 		}
 		// 处理 sell_md_vol 的简单类型
-		sellMdVol, ok := item["sell_md_vol"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 sell_md_vol 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var sellMdVol int
+		if item["sell_md_vol"] == nil {
+			// 字段值为 null，使用零值
+			sellMdVol = 0
+		} else if v, ok := item["sell_md_vol"].(float64); ok {
+			sellMdVol = int(v)
+		} else if v, ok := item["sell_md_vol"].(int); ok {
+			sellMdVol = v
+		} else {
+			return nil, fmt.Errorf("无效的 sell_md_vol 类型，期望 int 或 float64")
 		}
 		// 处理 sell_md_amount 的简单类型
 		sellMdAmount, ok := item["sell_md_amount"].(float64)
@@ -122,9 +196,17 @@ func Moneyflow(ctx context.Context, client *sdk.Client, req *MoneyflowRequest) (
 			return nil, fmt.Errorf("无效的 sell_md_amount 类型")
 		}
 		// 处理 buy_lg_vol 的简单类型
-		buyLgVol, ok := item["buy_lg_vol"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 buy_lg_vol 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var buyLgVol int
+		if item["buy_lg_vol"] == nil {
+			// 字段值为 null，使用零值
+			buyLgVol = 0
+		} else if v, ok := item["buy_lg_vol"].(float64); ok {
+			buyLgVol = int(v)
+		} else if v, ok := item["buy_lg_vol"].(int); ok {
+			buyLgVol = v
+		} else {
+			return nil, fmt.Errorf("无效的 buy_lg_vol 类型，期望 int 或 float64")
 		}
 		// 处理 buy_lg_amount 的简单类型
 		buyLgAmount, ok := item["buy_lg_amount"].(float64)
@@ -132,9 +214,17 @@ func Moneyflow(ctx context.Context, client *sdk.Client, req *MoneyflowRequest) (
 			return nil, fmt.Errorf("无效的 buy_lg_amount 类型")
 		}
 		// 处理 sell_lg_vol 的简单类型
-		sellLgVol, ok := item["sell_lg_vol"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 sell_lg_vol 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var sellLgVol int
+		if item["sell_lg_vol"] == nil {
+			// 字段值为 null，使用零值
+			sellLgVol = 0
+		} else if v, ok := item["sell_lg_vol"].(float64); ok {
+			sellLgVol = int(v)
+		} else if v, ok := item["sell_lg_vol"].(int); ok {
+			sellLgVol = v
+		} else {
+			return nil, fmt.Errorf("无效的 sell_lg_vol 类型，期望 int 或 float64")
 		}
 		// 处理 sell_lg_amount 的简单类型
 		sellLgAmount, ok := item["sell_lg_amount"].(float64)
@@ -142,9 +232,17 @@ func Moneyflow(ctx context.Context, client *sdk.Client, req *MoneyflowRequest) (
 			return nil, fmt.Errorf("无效的 sell_lg_amount 类型")
 		}
 		// 处理 buy_elg_vol 的简单类型
-		buyElgVol, ok := item["buy_elg_vol"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 buy_elg_vol 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var buyElgVol int
+		if item["buy_elg_vol"] == nil {
+			// 字段值为 null，使用零值
+			buyElgVol = 0
+		} else if v, ok := item["buy_elg_vol"].(float64); ok {
+			buyElgVol = int(v)
+		} else if v, ok := item["buy_elg_vol"].(int); ok {
+			buyElgVol = v
+		} else {
+			return nil, fmt.Errorf("无效的 buy_elg_vol 类型，期望 int 或 float64")
 		}
 		// 处理 buy_elg_amount 的简单类型
 		buyElgAmount, ok := item["buy_elg_amount"].(float64)
@@ -152,9 +250,17 @@ func Moneyflow(ctx context.Context, client *sdk.Client, req *MoneyflowRequest) (
 			return nil, fmt.Errorf("无效的 buy_elg_amount 类型")
 		}
 		// 处理 sell_elg_vol 的简单类型
-		sellElgVol, ok := item["sell_elg_vol"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 sell_elg_vol 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var sellElgVol int
+		if item["sell_elg_vol"] == nil {
+			// 字段值为 null，使用零值
+			sellElgVol = 0
+		} else if v, ok := item["sell_elg_vol"].(float64); ok {
+			sellElgVol = int(v)
+		} else if v, ok := item["sell_elg_vol"].(int); ok {
+			sellElgVol = v
+		} else {
+			return nil, fmt.Errorf("无效的 sell_elg_vol 类型，期望 int 或 float64")
 		}
 		// 处理 sell_elg_amount 的简单类型
 		sellElgAmount, ok := item["sell_elg_amount"].(float64)
@@ -162,9 +268,17 @@ func Moneyflow(ctx context.Context, client *sdk.Client, req *MoneyflowRequest) (
 			return nil, fmt.Errorf("无效的 sell_elg_amount 类型")
 		}
 		// 处理 net_mf_vol 的简单类型
-		netMfVol, ok := item["net_mf_vol"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 net_mf_vol 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var netMfVol int
+		if item["net_mf_vol"] == nil {
+			// 字段值为 null，使用零值
+			netMfVol = 0
+		} else if v, ok := item["net_mf_vol"].(float64); ok {
+			netMfVol = int(v)
+		} else if v, ok := item["net_mf_vol"].(int); ok {
+			netMfVol = v
+		} else {
+			return nil, fmt.Errorf("无效的 net_mf_vol 类型，期望 int 或 float64")
 		}
 		// 处理 net_mf_amount 的简单类型
 		netMfAmount, ok := item["net_mf_amount"].(float64)

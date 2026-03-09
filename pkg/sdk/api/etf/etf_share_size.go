@@ -68,7 +68,10 @@ func EtfShareSize(ctx context.Context, client *sdk.Client, req *EtfShareSizeRequ
 		// 处理 trade_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var tradeDate string
-		if v, ok := item["trade_date"].(string); ok {
+		if item["trade_date"] == nil {
+			// 字段值为 null，使用零值
+			tradeDate = ""
+		} else if v, ok := item["trade_date"].(string); ok {
 			tradeDate = v
 		} else if v, ok := item["trade_date"].(float64); ok {
 			tradeDate = fmt.Sprintf("%.0f", v)
@@ -90,7 +93,10 @@ func EtfShareSize(ctx context.Context, client *sdk.Client, req *EtfShareSizeRequ
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -112,7 +118,10 @@ func EtfShareSize(ctx context.Context, client *sdk.Client, req *EtfShareSizeRequ
 		// 处理 etf_name 的简单类型
 		// 对 string 类型尝试多种转换
 		var etfName string
-		if v, ok := item["etf_name"].(string); ok {
+		if item["etf_name"] == nil {
+			// 字段值为 null，使用零值
+			etfName = ""
+		} else if v, ok := item["etf_name"].(string); ok {
 			etfName = v
 		} else if v, ok := item["etf_name"].(float64); ok {
 			etfName = fmt.Sprintf("%.0f", v)
@@ -154,7 +163,10 @@ func EtfShareSize(ctx context.Context, client *sdk.Client, req *EtfShareSizeRequ
 		// 处理 exchange 的简单类型
 		// 对 string 类型尝试多种转换
 		var exchange string
-		if v, ok := item["exchange"].(string); ok {
+		if item["exchange"] == nil {
+			// 字段值为 null，使用零值
+			exchange = ""
+		} else if v, ok := item["exchange"].(string); ok {
 			exchange = v
 		} else if v, ok := item["exchange"].(float64); ok {
 			exchange = fmt.Sprintf("%.0f", v)

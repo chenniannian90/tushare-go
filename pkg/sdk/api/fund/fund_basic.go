@@ -77,7 +77,10 @@ func FundBasic(ctx context.Context, client *sdk.Client, req *FundBasicRequest) (
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -99,7 +102,10 @@ func FundBasic(ctx context.Context, client *sdk.Client, req *FundBasicRequest) (
 		// 处理 name 的简单类型
 		// 对 string 类型尝试多种转换
 		var name string
-		if v, ok := item["name"].(string); ok {
+		if item["name"] == nil {
+			// 字段值为 null，使用零值
+			name = ""
+		} else if v, ok := item["name"].(string); ok {
 			name = v
 		} else if v, ok := item["name"].(float64); ok {
 			name = fmt.Sprintf("%.0f", v)
@@ -121,7 +127,10 @@ func FundBasic(ctx context.Context, client *sdk.Client, req *FundBasicRequest) (
 		// 处理 management 的简单类型
 		// 对 string 类型尝试多种转换
 		var management string
-		if v, ok := item["management"].(string); ok {
+		if item["management"] == nil {
+			// 字段值为 null，使用零值
+			management = ""
+		} else if v, ok := item["management"].(string); ok {
 			management = v
 		} else if v, ok := item["management"].(float64); ok {
 			management = fmt.Sprintf("%.0f", v)
@@ -143,7 +152,10 @@ func FundBasic(ctx context.Context, client *sdk.Client, req *FundBasicRequest) (
 		// 处理 custodian 的简单类型
 		// 对 string 类型尝试多种转换
 		var custodian string
-		if v, ok := item["custodian"].(string); ok {
+		if item["custodian"] == nil {
+			// 字段值为 null，使用零值
+			custodian = ""
+		} else if v, ok := item["custodian"].(string); ok {
 			custodian = v
 		} else if v, ok := item["custodian"].(float64); ok {
 			custodian = fmt.Sprintf("%.0f", v)
@@ -165,7 +177,10 @@ func FundBasic(ctx context.Context, client *sdk.Client, req *FundBasicRequest) (
 		// 处理 fund_type 的简单类型
 		// 对 string 类型尝试多种转换
 		var fundType string
-		if v, ok := item["fund_type"].(string); ok {
+		if item["fund_type"] == nil {
+			// 字段值为 null，使用零值
+			fundType = ""
+		} else if v, ok := item["fund_type"].(string); ok {
 			fundType = v
 		} else if v, ok := item["fund_type"].(float64); ok {
 			fundType = fmt.Sprintf("%.0f", v)
@@ -187,7 +202,10 @@ func FundBasic(ctx context.Context, client *sdk.Client, req *FundBasicRequest) (
 		// 处理 found_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var foundDate string
-		if v, ok := item["found_date"].(string); ok {
+		if item["found_date"] == nil {
+			// 字段值为 null，使用零值
+			foundDate = ""
+		} else if v, ok := item["found_date"].(string); ok {
 			foundDate = v
 		} else if v, ok := item["found_date"].(float64); ok {
 			foundDate = fmt.Sprintf("%.0f", v)
@@ -209,7 +227,10 @@ func FundBasic(ctx context.Context, client *sdk.Client, req *FundBasicRequest) (
 		// 处理 due_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var dueDate string
-		if v, ok := item["due_date"].(string); ok {
+		if item["due_date"] == nil {
+			// 字段值为 null，使用零值
+			dueDate = ""
+		} else if v, ok := item["due_date"].(string); ok {
 			dueDate = v
 		} else if v, ok := item["due_date"].(float64); ok {
 			dueDate = fmt.Sprintf("%.0f", v)
@@ -231,7 +252,10 @@ func FundBasic(ctx context.Context, client *sdk.Client, req *FundBasicRequest) (
 		// 处理 list_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var listDate string
-		if v, ok := item["list_date"].(string); ok {
+		if item["list_date"] == nil {
+			// 字段值为 null，使用零值
+			listDate = ""
+		} else if v, ok := item["list_date"].(string); ok {
 			listDate = v
 		} else if v, ok := item["list_date"].(float64); ok {
 			listDate = fmt.Sprintf("%.0f", v)
@@ -253,7 +277,10 @@ func FundBasic(ctx context.Context, client *sdk.Client, req *FundBasicRequest) (
 		// 处理 issue_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var issueDate string
-		if v, ok := item["issue_date"].(string); ok {
+		if item["issue_date"] == nil {
+			// 字段值为 null，使用零值
+			issueDate = ""
+		} else if v, ok := item["issue_date"].(string); ok {
 			issueDate = v
 		} else if v, ok := item["issue_date"].(float64); ok {
 			issueDate = fmt.Sprintf("%.0f", v)
@@ -275,7 +302,10 @@ func FundBasic(ctx context.Context, client *sdk.Client, req *FundBasicRequest) (
 		// 处理 delist_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var delistDate string
-		if v, ok := item["delist_date"].(string); ok {
+		if item["delist_date"] == nil {
+			// 字段值为 null，使用零值
+			delistDate = ""
+		} else if v, ok := item["delist_date"].(string); ok {
 			delistDate = v
 		} else if v, ok := item["delist_date"].(float64); ok {
 			delistDate = fmt.Sprintf("%.0f", v)
@@ -332,7 +362,10 @@ func FundBasic(ctx context.Context, client *sdk.Client, req *FundBasicRequest) (
 		// 处理 benchmark 的简单类型
 		// 对 string 类型尝试多种转换
 		var benchmark string
-		if v, ok := item["benchmark"].(string); ok {
+		if item["benchmark"] == nil {
+			// 字段值为 null，使用零值
+			benchmark = ""
+		} else if v, ok := item["benchmark"].(string); ok {
 			benchmark = v
 		} else if v, ok := item["benchmark"].(float64); ok {
 			benchmark = fmt.Sprintf("%.0f", v)
@@ -354,7 +387,10 @@ func FundBasic(ctx context.Context, client *sdk.Client, req *FundBasicRequest) (
 		// 处理 status 的简单类型
 		// 对 string 类型尝试多种转换
 		var status string
-		if v, ok := item["status"].(string); ok {
+		if item["status"] == nil {
+			// 字段值为 null，使用零值
+			status = ""
+		} else if v, ok := item["status"].(string); ok {
 			status = v
 		} else if v, ok := item["status"].(float64); ok {
 			status = fmt.Sprintf("%.0f", v)
@@ -376,7 +412,10 @@ func FundBasic(ctx context.Context, client *sdk.Client, req *FundBasicRequest) (
 		// 处理 invest_type 的简单类型
 		// 对 string 类型尝试多种转换
 		var investType string
-		if v, ok := item["invest_type"].(string); ok {
+		if item["invest_type"] == nil {
+			// 字段值为 null，使用零值
+			investType = ""
+		} else if v, ok := item["invest_type"].(string); ok {
 			investType = v
 		} else if v, ok := item["invest_type"].(float64); ok {
 			investType = fmt.Sprintf("%.0f", v)
@@ -403,7 +442,10 @@ func FundBasic(ctx context.Context, client *sdk.Client, req *FundBasicRequest) (
 		// 处理 trustee 的简单类型
 		// 对 string 类型尝试多种转换
 		var trustee string
-		if v, ok := item["trustee"].(string); ok {
+		if item["trustee"] == nil {
+			// 字段值为 null，使用零值
+			trustee = ""
+		} else if v, ok := item["trustee"].(string); ok {
 			trustee = v
 		} else if v, ok := item["trustee"].(float64); ok {
 			trustee = fmt.Sprintf("%.0f", v)
@@ -425,7 +467,10 @@ func FundBasic(ctx context.Context, client *sdk.Client, req *FundBasicRequest) (
 		// 处理 purc_startdate 的简单类型
 		// 对 string 类型尝试多种转换
 		var purcStartdate string
-		if v, ok := item["purc_startdate"].(string); ok {
+		if item["purc_startdate"] == nil {
+			// 字段值为 null，使用零值
+			purcStartdate = ""
+		} else if v, ok := item["purc_startdate"].(string); ok {
 			purcStartdate = v
 		} else if v, ok := item["purc_startdate"].(float64); ok {
 			purcStartdate = fmt.Sprintf("%.0f", v)
@@ -447,7 +492,10 @@ func FundBasic(ctx context.Context, client *sdk.Client, req *FundBasicRequest) (
 		// 处理 redm_startdate 的简单类型
 		// 对 string 类型尝试多种转换
 		var redmStartdate string
-		if v, ok := item["redm_startdate"].(string); ok {
+		if item["redm_startdate"] == nil {
+			// 字段值为 null，使用零值
+			redmStartdate = ""
+		} else if v, ok := item["redm_startdate"].(string); ok {
 			redmStartdate = v
 		} else if v, ok := item["redm_startdate"].(float64); ok {
 			redmStartdate = fmt.Sprintf("%.0f", v)
@@ -469,7 +517,10 @@ func FundBasic(ctx context.Context, client *sdk.Client, req *FundBasicRequest) (
 		// 处理 market 的简单类型
 		// 对 string 类型尝试多种转换
 		var market string
-		if v, ok := item["market"].(string); ok {
+		if item["market"] == nil {
+			// 字段值为 null，使用零值
+			market = ""
+		} else if v, ok := item["market"].(string); ok {
 			market = v
 		} else if v, ok := item["market"].(float64); ok {
 			market = fmt.Sprintf("%.0f", v)

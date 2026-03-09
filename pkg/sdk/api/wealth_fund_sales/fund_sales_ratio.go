@@ -46,9 +46,17 @@ func FundSalesRatio(ctx context.Context, client *sdk.Client, req *FundSalesRatio
 	items := make([]FundSalesRatioItem, len(result.Items))
 	for i, item := range result.Items {
 		// 处理 year 的简单类型
-		year, ok := item["year"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 year 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var year int
+		if item["year"] == nil {
+			// 字段值为 null，使用零值
+			year = 0
+		} else if v, ok := item["year"].(float64); ok {
+			year = int(v)
+		} else if v, ok := item["year"].(int); ok {
+			year = v
+		} else {
+			return nil, fmt.Errorf("无效的 year 类型，期望 int 或 float64")
 		}
 		// 处理 bank 的简单类型
 		bank, ok := item["bank"].(float64)

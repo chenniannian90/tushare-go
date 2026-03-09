@@ -64,7 +64,10 @@ func FxObasic(ctx context.Context, client *sdk.Client, req *FxObasicRequest) ([]
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -86,7 +89,10 @@ func FxObasic(ctx context.Context, client *sdk.Client, req *FxObasicRequest) ([]
 		// 处理 name 的简单类型
 		// 对 string 类型尝试多种转换
 		var name string
-		if v, ok := item["name"].(string); ok {
+		if item["name"] == nil {
+			// 字段值为 null，使用零值
+			name = ""
+		} else if v, ok := item["name"].(string); ok {
 			name = v
 		} else if v, ok := item["name"].(float64); ok {
 			name = fmt.Sprintf("%.0f", v)
@@ -108,7 +114,10 @@ func FxObasic(ctx context.Context, client *sdk.Client, req *FxObasicRequest) ([]
 		// 处理 classify 的简单类型
 		// 对 string 类型尝试多种转换
 		var classify string
-		if v, ok := item["classify"].(string); ok {
+		if item["classify"] == nil {
+			// 字段值为 null，使用零值
+			classify = ""
+		} else if v, ok := item["classify"].(string); ok {
 			classify = v
 		} else if v, ok := item["classify"].(float64); ok {
 			classify = fmt.Sprintf("%.0f", v)
@@ -130,7 +139,10 @@ func FxObasic(ctx context.Context, client *sdk.Client, req *FxObasicRequest) ([]
 		// 处理 exchange 的简单类型
 		// 对 string 类型尝试多种转换
 		var exchange string
-		if v, ok := item["exchange"].(string); ok {
+		if item["exchange"] == nil {
+			// 字段值为 null，使用零值
+			exchange = ""
+		} else if v, ok := item["exchange"].(string); ok {
 			exchange = v
 		} else if v, ok := item["exchange"].(float64); ok {
 			exchange = fmt.Sprintf("%.0f", v)
@@ -182,7 +194,10 @@ func FxObasic(ctx context.Context, client *sdk.Client, req *FxObasicRequest) ([]
 		// 处理 trading_hours 的简单类型
 		// 对 string 类型尝试多种转换
 		var tradingHours string
-		if v, ok := item["trading_hours"].(string); ok {
+		if item["trading_hours"] == nil {
+			// 字段值为 null，使用零值
+			tradingHours = ""
+		} else if v, ok := item["trading_hours"].(string); ok {
 			tradingHours = v
 		} else if v, ok := item["trading_hours"].(float64); ok {
 			tradingHours = fmt.Sprintf("%.0f", v)
@@ -204,7 +219,10 @@ func FxObasic(ctx context.Context, client *sdk.Client, req *FxObasicRequest) ([]
 		// 处理 break_time 的简单类型
 		// 对 string 类型尝试多种转换
 		var breakTime string
-		if v, ok := item["break_time"].(string); ok {
+		if item["break_time"] == nil {
+			// 字段值为 null，使用零值
+			breakTime = ""
+		} else if v, ok := item["break_time"].(string); ok {
 			breakTime = v
 		} else if v, ok := item["break_time"].(float64); ok {
 			breakTime = fmt.Sprintf("%.0f", v)

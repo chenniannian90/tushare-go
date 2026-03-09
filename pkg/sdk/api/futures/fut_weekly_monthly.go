@@ -82,7 +82,10 @@ func FutWeeklyMonthly(ctx context.Context, client *sdk.Client, req *FutWeeklyMon
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -104,7 +107,10 @@ func FutWeeklyMonthly(ctx context.Context, client *sdk.Client, req *FutWeeklyMon
 		// 处理 trade_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var tradeDate string
-		if v, ok := item["trade_date"].(string); ok {
+		if item["trade_date"] == nil {
+			// 字段值为 null，使用零值
+			tradeDate = ""
+		} else if v, ok := item["trade_date"].(string); ok {
 			tradeDate = v
 		} else if v, ok := item["trade_date"].(float64); ok {
 			tradeDate = fmt.Sprintf("%.0f", v)
@@ -126,7 +132,10 @@ func FutWeeklyMonthly(ctx context.Context, client *sdk.Client, req *FutWeeklyMon
 		// 处理 end_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var endDate string
-		if v, ok := item["end_date"].(string); ok {
+		if item["end_date"] == nil {
+			// 字段值为 null，使用零值
+			endDate = ""
+		} else if v, ok := item["end_date"].(string); ok {
 			endDate = v
 		} else if v, ok := item["end_date"].(float64); ok {
 			endDate = fmt.Sprintf("%.0f", v)
@@ -148,7 +157,10 @@ func FutWeeklyMonthly(ctx context.Context, client *sdk.Client, req *FutWeeklyMon
 		// 处理 freq 的简单类型
 		// 对 string 类型尝试多种转换
 		var freq string
-		if v, ok := item["freq"].(string); ok {
+		if item["freq"] == nil {
+			// 字段值为 null，使用零值
+			freq = ""
+		} else if v, ok := item["freq"].(string); ok {
 			freq = v
 		} else if v, ok := item["freq"].(float64); ok {
 			freq = fmt.Sprintf("%.0f", v)
@@ -225,7 +237,10 @@ func FutWeeklyMonthly(ctx context.Context, client *sdk.Client, req *FutWeeklyMon
 		// 处理 exchange 的简单类型
 		// 对 string 类型尝试多种转换
 		var exchange string
-		if v, ok := item["exchange"].(string); ok {
+		if item["exchange"] == nil {
+			// 字段值为 null，使用零值
+			exchange = ""
+		} else if v, ok := item["exchange"].(string); ok {
 			exchange = v
 		} else if v, ok := item["exchange"].(float64); ok {
 			exchange = fmt.Sprintf("%.0f", v)

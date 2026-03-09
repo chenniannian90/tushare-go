@@ -49,7 +49,10 @@ func CbRate(ctx context.Context, client *sdk.Client, req *CbRateRequest) ([]CbRa
 		// 处理 ts_code 的简单类型
 		// 对 string 类型尝试多种转换
 		var tsCode string
-		if v, ok := item["ts_code"].(string); ok {
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
 			tsCode = v
 		} else if v, ok := item["ts_code"].(float64); ok {
 			tsCode = fmt.Sprintf("%.0f", v)
@@ -69,14 +72,25 @@ func CbRate(ctx context.Context, client *sdk.Client, req *CbRateRequest) ([]CbRa
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 rate_freq 的简单类型
-		rateFreq, ok := item["rate_freq"].(int)
-		if !ok {
-			return nil, fmt.Errorf("无效的 rate_freq 类型")
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var rateFreq int
+		if item["rate_freq"] == nil {
+			// 字段值为 null，使用零值
+			rateFreq = 0
+		} else if v, ok := item["rate_freq"].(float64); ok {
+			rateFreq = int(v)
+		} else if v, ok := item["rate_freq"].(int); ok {
+			rateFreq = v
+		} else {
+			return nil, fmt.Errorf("无效的 rate_freq 类型，期望 int 或 float64")
 		}
 		// 处理 rate_start_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var rateStartDate string
-		if v, ok := item["rate_start_date"].(string); ok {
+		if item["rate_start_date"] == nil {
+			// 字段值为 null，使用零值
+			rateStartDate = ""
+		} else if v, ok := item["rate_start_date"].(string); ok {
 			rateStartDate = v
 		} else if v, ok := item["rate_start_date"].(float64); ok {
 			rateStartDate = fmt.Sprintf("%.0f", v)
@@ -98,7 +112,10 @@ func CbRate(ctx context.Context, client *sdk.Client, req *CbRateRequest) ([]CbRa
 		// 处理 rate_end_date 的简单类型
 		// 对 string 类型尝试多种转换
 		var rateEndDate string
-		if v, ok := item["rate_end_date"].(string); ok {
+		if item["rate_end_date"] == nil {
+			// 字段值为 null，使用零值
+			rateEndDate = ""
+		} else if v, ok := item["rate_end_date"].(string); ok {
 			rateEndDate = v
 		} else if v, ok := item["rate_end_date"].(float64); ok {
 			rateEndDate = fmt.Sprintf("%.0f", v)
