@@ -16,14 +16,14 @@ type TradeCalRequest struct {
 	Exchange string `json:"exchange,omitempty"` // 交易所 SHFE 上期所 DCE 大商所 CFFEX中金所  CZCE郑商所 INE上海国际能源交易所
 	StartDate string `json:"start_date,omitempty"` // 开始日期
 	EndDate string `json:"end_date,omitempty"` // 结束日期
-	IsOpen string `json:"is_open,omitempty"` // 是否交易 0休市 1交易
+	IsOpen int `json:"is_open,omitempty"` // 是否交易 0休市 1交易
 }
 
 // TradeCalItem 表示单个 交易日历 数据项
 type TradeCalItem struct {
 	Exchange string `json:"exchange"` // 交易所 同参数部分描述
 	CalDate string `json:"cal_date"` // 日历日期
-	IsOpen string `json:"is_open"` // 是否交易 0休市 1交易
+	IsOpen int `json:"is_open"` // 是否交易 0休市 1交易
 	PretradeDate string `json:"pretrade_date"` // 上一个交易日
 }
 
@@ -41,7 +41,7 @@ func TradeCal(ctx context.Context, client *sdk.Client, req *TradeCalRequest) ([]
 	if req.EndDate != "" {
 		params["end_date"] = req.EndDate
 	}
-	if req.IsOpen != "" {
+	if req.IsOpen != 0 {
 		params["is_open"] = req.IsOpen
 	}
 
@@ -108,29 +108,17 @@ func TradeCal(ctx context.Context, client *sdk.Client, req *TradeCalRequest) ([]
 			return nil, fmt.Errorf("无效的 cal_date 类型")
 		}
 		// 处理 is_open 的简单类型
-		// 对 string 类型尝试多种转换
-		var isOpen string
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var isOpen int
 		if item["is_open"] == nil {
 			// 字段值为 null，使用零值
-			isOpen = ""
-		} else if v, ok := item["is_open"].(string); ok {
-			isOpen = v
+			isOpen = 0
 		} else if v, ok := item["is_open"].(float64); ok {
-			isOpen = fmt.Sprintf("%.0f", v)
+			isOpen = int(v)
 		} else if v, ok := item["is_open"].(int); ok {
-			isOpen = fmt.Sprintf("%d", v)
+			isOpen = v
 		} else {
-			itemJSON, _ := json.Marshal(item)
-			fieldJSON, _ := json.Marshal(item["is_open"])
-			log.Printf("=== 字段解析失败 ===")
-			log.Printf("API: trade_cal")
-			log.Printf("字段: is_open")
-			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
-			log.Printf("字段原始值: %s", string(fieldJSON))
-			log.Printf("字段实际类型: %T", item["is_open"])
-			log.Printf("当前Item: %s", string(itemJSON))
-			log.Printf("===================")
-			return nil, fmt.Errorf("无效的 is_open 类型")
+			return nil, fmt.Errorf("无效的 is_open 类型，期望 int 或 float64")
 		}
 		// 处理 pretrade_date 的简单类型
 		// 对 string 类型尝试多种转换

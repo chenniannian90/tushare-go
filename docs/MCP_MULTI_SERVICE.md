@@ -34,14 +34,8 @@ Based on `config.example.json`, the following services are configured:
 
 #### Single-Category Services (Simple paths)
 - **`/bond`**: Bond market data APIs (bond tools only)
-- **`/futures`**: Futures market data APIs (futures tools only)
-- **`/fund`**: Fund market data APIs (fund tools only)
 - **`/index`**: Index data APIs (index tools only)
-- **`/options`**: Options data APIs (options tools only)
-- **`/forex`**: Forex data APIs (forex tools only)
 - **`/hk_stock`**: Hong Kong stock APIs (hk_stock tools only)
-- **`/us_stock`**: US stock APIs (us_stock tools only)
-- **`/etf`**: ETF data APIs (etf tools only)
 - **`/spot`**: Spot data APIs (spot tools only)
 
 #### Multi-Category Services (Hierarchical paths)
@@ -54,10 +48,6 @@ Based on `config.example.json`, the following services are configured:
 - **`/stock/stock_margin`**: Stock margin APIs (stock_margin tools only)
 - **`/stock/stock_reference`**: Stock reference APIs (stock_reference tools only)
 
-- **`/macro/macro_economy`**: Macro economy APIs (macro_economy tools only)
-- **`/macro/macro_business`**: Macro business APIs (macro_business tools only)
-- **`/macro/macro_price`**: Macro price APIs (macro_price tools only)
-- **`/macro/macro_interest_rate`**: Macro interest rate APIs (macro_interest_rate tools only)
 
 ## Usage
 
@@ -83,10 +73,6 @@ curl -X POST http://localhost:8080/bond \
   -H "Content-Type: application/json" \
   -d '...'
 
-# Access futures service (futures tools only)
-curl -X POST http://localhost:8080/futures \
-  -H "Content-Type: application/json" \
-  -d '...'
 ```
 
 #### Accessing Multi-Category Services
@@ -102,10 +88,6 @@ curl -X POST http://localhost:8080/stock/stock_market \
   -H "Content-Type: application/json" \
   -d '...'
 
-# Access macro economy data (macro_economy tools only)
-curl -X POST http://localhost:8080/macro/macro_economy \
-  -H "Content-Type: application/json" \
-  -d '...'
 ```
 
 ## Configuration

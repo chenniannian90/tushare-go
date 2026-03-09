@@ -17,8 +17,7 @@ type IrmQaSzRequest struct {
 	TradeDate string `json:"trade_date,omitempty"` // 交易日期（格式YYYYMMDD，下同）
 	StartDate string `json:"start_date,omitempty"` // 开始日期
 	EndDate string `json:"end_date,omitempty"` // 结束日期
-	PubDateStart string `json:"pub_date_start,omitempty"` // 发布开始日期(格式：2025-06-03 16:43:03)
-	PubDateEnd string `json:"pub_date_end,omitempty"` // 发布结束日期(格式：2025-06-03 18:43:23)
+	AnnDate string `json:"ann_date,omitempty"` // 公告日期
 }
 
 // IrmQaSzItem 表示单个 深证易互动问答 数据项
@@ -49,11 +48,8 @@ func IrmQaSz(ctx context.Context, client *sdk.Client, req *IrmQaSzRequest) ([]Ir
 	if req.EndDate != "" {
 		params["end_date"] = req.EndDate
 	}
-	if req.PubDateStart != "" {
-		params["pub_date_start"] = req.PubDateStart
-	}
-	if req.PubDateEnd != "" {
-		params["pub_date_end"] = req.PubDateEnd
+	if req.AnnDate != "" {
+		params["ann_date"] = req.AnnDate
 	}
 
 	fields := []string{"ts_code", "name", "trade_date", "q", "a", "pub_time", "industry"}

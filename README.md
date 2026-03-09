@@ -1,10 +1,10 @@
 # Tushare Go SDK + MCP 服务器
 
-一个生产就绪的 Go SDK，用于 [Tushare Pro](https://tushare.pro)（拥有200+ API的中国金融数据平台），以及一个 MCP（模型上下文协议）服务器，将这些API暴露给Claude等AI代理。
+一个生产就绪的 Go SDK，用于 [Tushare Pro](https://tushare.pro)（拥有150+ API的中国金融数据平台），以及一个 MCP（模型上下文协议）服务器，将这些API暴露给Claude等AI代理。
 
 ## 功能特性
 
-- ✅ 针对200+ Tushare Pro REST API的类型安全Go SDK
+- ✅ 针对150+ Tushare Pro REST API的类型安全Go SDK
 - ✅ 代码生成器，可从JSON规范自动生成API封装
 - ✅ MCP服务器，用于Claude桌面版集成
 - ✅ 全面的测试覆盖率（≥80%）
@@ -162,17 +162,10 @@ func main() {
 - `Stock` - 股票相关 API（包含 Basic、Board、Market、Financial 等子接口）
 - `Bond` - 债券相关 API
 - `ETF` - ETF 相关 API
-- `Fund` - 基金相关 API
-- `Futures` - 期货相关 API
-- `Forex` - 外汇相关 API
+- `Fund` - ���金相关 API
 - `HKStock` - 港股相关 API
 - `Index` - 指数相关 API
-- `Industry` - 行业相关 API
-- `LLMCorpus` - LLM 语料相关 API
-- `Options` - 期权相关 API
-- `Spot` - 现货相关 API
 - `USStock` - 美股相关 API
-- `Wealth` - 理财相关 API
 
 ### MCP服务器与Claude桌面版
 
@@ -327,11 +320,15 @@ go run cmd/mcp-server/main.go -config config.json
 - `port`: HTTP服务器端口（默认：8080）
 - `transport`: 传输类型，可选 "stdio" 或 "http"
 - `api_tokens`: 合法的API token列表（可选，用于认证）
-- `services`: 服务配置，可以定义多个服务端点
+- `services`: ���务配置，可以定义多个服务端点
   - `all`: 所有API集合（推荐用于stdio模式）
   - `stock`: 股票市场数据API
   - `bond`: 债券市场数据API
-  - `futures`: 期货市场数据API
+  - `fund`: 基金市场数据API
+  - `etf`: ETF市场数据API
+  - `index`: 指数市场数据API
+  - `hk_stock`: 港股市场数据API
+  - `us_stock`: 美股市场数据API
   - 等等...
 - `global_auth`: 全局认证配置
 

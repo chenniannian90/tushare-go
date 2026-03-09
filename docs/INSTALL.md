@@ -250,60 +250,6 @@ claude mcp add --transport http tushare-index ${MCP_SERVER_URL}/api/v1/index --h
 claude mcp add --transport http tushare-fund ${MCP_SERVER_URL}/api/v1/fund --header "X-API-Key:${TUSHARE_TOKEN}" --scope project
 ```
 
-#### 📈 期货数据
-```bash
-claude mcp add --transport http tushare-futures ${MCP_SERVER_URL}/api/v1/futures --header "X-API-Key:${TUSHARE_TOKEN}" --scope project
-```
-
-#### 💱 外汇数据
-```bash
-claude mcp add --transport http tushare-forex ${MCP_SERVER_URL}/api/v1/forex --header "X-API-Key:${TUSHARE_TOKEN}" --scope project
-```
-
-#### 🏦 ETF 数据
-```bash
-claude mcp add --transport http tushare-etf ${MCP_SERVER_URL}/api/v1/etf --header "X-API-Key:${TUSHARE_TOKEN}" --scope project
-```
-
-#### 📝 期权数据
-```bash
-claude mcp add --transport http tushare-options ${MCP_SERVER_URL}/api/v1/options --header "X-API-Key:${TUSHARE_TOKEN}" --scope project
-```
-
-#### 🎯 现货数据
-```bash
-claude mcp add --transport http tushare-spot ${MCP_SERVER_URL}/api/v1/spot --header "X-API-Key:${TUSHARE_TOKEN}" --scope project
-```
-
-#### 🤖 LLM 语料数据
-```bash
-claude mcp add --transport http tushare-llm-corpus ${MCP_SERVER_URL}/api/v1/llm_corpus --header "X-API-Key:${TUSHARE_TOKEN}" --scope project
-```
-
-#### 🏭 宏观经济数据
-```bash
-# 商业周期
-claude mcp add --transport http tushare-macro-business ${MCP_SERVER_URL}/api/v1/macro_business --header "X-API-Key:${TUSHARE_TOKEN}" --scope project
-
-# 经济指标
-claude mcp add --transport http tushare-macro-economy ${MCP_SERVER_URL}/api/v1/macro_economy --header "X-API-Key:${TUSHARE_TOKEN}" --scope project
-
-# 利率
-claude mcp add --transport http tushare-macro-interest-rate ${MCP_SERVER_URL}/api/v1/macro_interest_rate --header "X-API-Key:${TUSHARE_TOKEN}" --scope project
-
-# 价格指数
-claude mcp add --transport http tushare-macro-price ${MCP_SERVER_URL}/api/v1/macro_price --header "X-API-Key:${TUSHARE_TOKEN}" --scope project
-```
-
-#### 🏢 行业数据
-```bash
-claude mcp add --transport http tushare-industry-tmt ${MCP_SERVER_URL}/api/v1/industry_tmt --header "X-API-Key:${TUSHARE_TOKEN}" --scope project
-```
-
-#### 💎 财富基金销售
-```bash
-claude mcp add --transport http tushare-wealth-fund-sales ${MCP_SERVER_URL}/api/v1/wealth_fund_sales --header "X-API-Key:${TUSHARE_TOKEN}" --scope project
-```
 
 ### 批量部署脚本
 
@@ -321,14 +267,11 @@ vim mcp-services-list.sh
 
 ### 服务统计
 
-共提供 **28 个 MCP 服务端点**：
 - 📈 股票相关: 8 个服务
 - 🌏 港股/美股: 2 个服务
-- 💰 债券/基金/期货: 3 个服务
-- 📊 指数/外汇/ETF/期权/现货: 5 个服务
-- 🤖 LLM 语料: 1 个服务
-- 🏭 宏观经济: 7 个服务
-- 🏢 行业/财富基金: 2 个服务
+- 💰 债券/基金: 2 个服务
+- 📊 指数/ETF: 2 个服务
+共提供 **14 个 MCP 服务端点**：
 - 🎯 主服务器: 1 个服务（推荐使用）
 
 ### 测试服务连接

@@ -15,13 +15,8 @@ pkg/
 │       ├── bond/         # 债券 API
 │       ├── etf/          # ETF API
 │       ├── fund/         # 基金 API
-│       ├── futures/      # 期货 API
-│       ├── forex/        # 外汇 API
 │       ├── hk_stock/     # 港股 API
 │       ├── index/        # 指数 API
-│       ├── llm_corpus/   # LLM 语料 API
-│       ├── options/      # 期权 API
-│       ├── spot/         # 现货 API
 │       ├── stock/        # 股票 API
 │       └── us_stock/     # 美股 API
 └── mcp/
@@ -77,17 +72,6 @@ MCP 工具使用以下命名格式：`<module>.<tool_name>`
 - `fund.fund_manager` - 基金经理
 - `fund.api359` - 基金技术面因子
 
-#### 期货工具 (futures)
-- `futures.fut_basic` - 期货合约基本信息
-- `futures.fut_daily` - 期货日线行情
-- `futures.fut_weekly` - 期货周线数据
-- `futures.fut_settlement` - 期货结算数据
-- `futures.trade_cal` - 期货交易日历
-
-#### 外汇工具 (forex)
-- `forex.api178` - 外汇基础信息_海外
-- `forex.forex_daily` - 外汇日线行情
-
 #### 港股工具 (hk_stock)
 - `hk_stock.hk_basic` - 港股基本信息
 - `hk_stock.hk_daily` - 港股日线行情
@@ -102,24 +86,6 @@ MCP 工具使用以下命名格式：`<module>.<tool_name>`
 - `index.index_weight` - 指数权重
 - `index.api358` - 指数数据
 - `index.index_weekly` - 指数周线
-
-#### LLM 语料工具 (llm_corpus)
-- `llm_corpus.announcement` - 上市公司公告
-- `llm_corpus.api143` - 新闻快��_短讯
-- `llm_corpus.api195` - 新闻通讯_长篇
-- `llm_corpus.einteraction` - 上证e互动问答
-- `llm_corpus.news_broadcast` - 新闻联播文字稿
-- `llm_corpus.policy` - 国家政策库
-- `llm_corpus.research_report` - 券商研究报告
-
-#### 期权工具 (options)
-- `options.opt_basic` - 期权基本信息
-- `options.opt_daily` - 期权日线行情
-- `options.opt_min` - 期权分钟数据
-
-#### 现货工具 (spot)
-- `spot.spot_basic` - 现货基本信息
-- `spot.spot_daily` - 现货日线行情
 
 #### 美股工具 (us_stock)
 - `us_stock.us_basic` - 美股基本信息

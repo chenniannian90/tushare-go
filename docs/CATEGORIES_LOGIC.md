@@ -80,20 +80,15 @@ for name, svc := range s.services {
 
 **会创建多个子服务的配置：**
 1. `stock` (8 categories) → 8 个独立服务
-2. `macro` (4 categories) → 4 个独立服务
 
 **会创建单个服务的配置：**
 1. `all` ([]) → 1 个服务（所有工具）
 2. `bond` (["bond"]) → 1 个服务
-3. `futures` (["futures"]) → 1 个服务
-4. `fund` (["fund"]) → 1 个服务
-5. `index` (["index"]) → 1 个服务
-6. `options` (["options"]) → 1 个服务
-7. `forex` (["forex"]) → 1 个服务
-8. `hk_stock` (["hk_stock"]) → 1 个服务
-9. `us_stock` (["us_stock"]) → 1 个服务
-10. `etf` (["etf"]) → 1 个服务
-11. `spot` (["spot"]) → 1 个服务
+3. `fund` (["fund"]) → 1 个服务
+4. `index` (["index"]) → 1 个服务
+5. `hk_stock` (["hk_stock"]) → 1 个服务
+6. `us_stock` (["us_stock"]) → 1 个服务
+7. `etf` (["etf"]) → 1 个服务
 
 ## 工具注册 (tools.go:69-94)
 

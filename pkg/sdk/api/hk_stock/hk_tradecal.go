@@ -21,7 +21,7 @@ type HkTradecalRequest struct {
 // HkTradecalItem 表示单个 港股交易日历 数据项
 type HkTradecalItem struct {
 	CalDate string `json:"cal_date"` // 日历日期
-	IsOpen string `json:"is_open"` // 是否交易 '0'休市 '1'交易
+	IsOpen int `json:"is_open"` // 是否交易 '0'休市 '1'交易
 	PretradeDate string `json:"pretrade_date"` // 上一个交易日
 }
 
@@ -78,29 +78,17 @@ func HkTradecal(ctx context.Context, client *sdk.Client, req *HkTradecalRequest)
 			return nil, fmt.Errorf("无效的 cal_date 类型")
 		}
 		// 处理 is_open 的简单类型
-		// 对 string 类型尝试多种转换
-		var isOpen string
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var isOpen int
 		if item["is_open"] == nil {
 			// 字段值为 null，使用零值
-			isOpen = ""
-		} else if v, ok := item["is_open"].(string); ok {
-			isOpen = v
+			isOpen = 0
 		} else if v, ok := item["is_open"].(float64); ok {
-			isOpen = fmt.Sprintf("%.0f", v)
+			isOpen = int(v)
 		} else if v, ok := item["is_open"].(int); ok {
-			isOpen = fmt.Sprintf("%d", v)
+			isOpen = v
 		} else {
-			itemJSON, _ := json.Marshal(item)
-			fieldJSON, _ := json.Marshal(item["is_open"])
-			log.Printf("=== 字段解析失败 ===")
-			log.Printf("API: hk_tradecal")
-			log.Printf("字段: is_open")
-			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
-			log.Printf("字段原始值: %s", string(fieldJSON))
-			log.Printf("字段实际类型: %T", item["is_open"])
-			log.Printf("当前Item: %s", string(itemJSON))
-			log.Printf("===================")
-			return nil, fmt.Errorf("无效的 is_open 类型")
+			return nil, fmt.Errorf("无效的 is_open 类型，期望 int 或 float64")
 		}
 		// 处理 pretrade_date 的简单类型
 		// 对 string 类型尝试多种转换

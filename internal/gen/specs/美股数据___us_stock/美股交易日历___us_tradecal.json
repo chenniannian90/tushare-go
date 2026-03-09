@@ -36,7 +36,7 @@
     },
     {
       "name": "is_open",
-      "type": "str",
+      "type": "int",
       "description": "是否交易 '0'休市 '1'交易",
       "default_display": true
     },
