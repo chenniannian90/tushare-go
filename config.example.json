@@ -10,7 +10,7 @@
     "all": {
       "name": "all",
       "path": "/",
-      "description": "All Tushare APIs (stock, bond, futures, etc.)",
+      "description": "All Tushare APIs (stock, bond, fund, etf, index, hk_stock, us_stock)",
       "categories": [],
       "auth": {
         "type": "none",
@@ -49,17 +49,6 @@
       }
     },
 
-    "futures": {
-      "name": "futures",
-      "path": "/futures",
-      "description": "期货市场数据API",
-      "categories": ["futures"],
-      "auth": {
-        "type": "none",
-        "required": false
-      }
-    },
-
     "fund": {
       "name": "fund",
       "path": "/fund",
@@ -76,44 +65,6 @@
       "path": "/index",
       "description": "指数数据API",
       "categories": ["index"],
-      "auth": {
-        "type": "none",
-        "required": false
-      }
-    },
-
-    "macro": {
-      "name": "macro",
-      "path": "/macro",
-      "description": "宏观经济数据API - 包含经济、商业、价格、利率等",
-      "categories": [
-        "macro_economy",
-        "macro_business",
-        "macro_price",
-        "macro_interest_rate"
-      ],
-      "auth": {
-        "type": "none",
-        "required": false
-      }
-    },
-
-    "options": {
-      "name": "options",
-      "path": "/options",
-      "description": "期权数据API",
-      "categories": ["options"],
-      "auth": {
-        "type": "none",
-        "required": false
-      }
-    },
-
-    "forex": {
-      "name": "forex",
-      "path": "/forex",
-      "description": "外汇数据API",
-      "categories": ["forex"],
       "auth": {
         "type": "none",
         "required": false
@@ -147,17 +98,6 @@
       "path": "/etf",
       "description": "ETF数据API",
       "categories": ["etf"],
-      "auth": {
-        "type": "none",
-        "required": false
-      }
-    },
-
-    "spot": {
-      "name": "spot",
-      "path": "/spot",
-      "description": "现货数据API",
-      "categories": ["spot"],
       "auth": {
         "type": "none",
         "required": false
