@@ -33,5 +33,56 @@
       "required": false
     }
   ],
-  "response_fields": null
+  "response_fields": [
+    {
+      "name": "trade_date",
+      "type": "str",
+      "description": "交易日期"
+    },
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "TS代码"
+    },
+    {
+      "name": "rzye",
+      "type": "float64",
+      "description": "融资余额(元)"
+    },
+    {
+      "name": "rqye",
+      "type": "float64",
+      "description": "融券余额(元)"
+    },
+    {
+      "name": "rzmre",
+      "type": "float64",
+      "description": "融资买入额(元)"
+    },
+    {
+      "name": "rqyl",
+      "type": "float64",
+      "description": "融券余量(股)"
+    },
+    {
+      "name": "rzche",
+      "type": "float64",
+      "description": "融资偿还额(元)"
+    },
+    {
+      "name": "rqchl",
+      "type": "float64",
+      "description": "融券偿还量(股)"
+    },
+    {
+      "name": "rqmcl",
+      "type": "float64",
+      "description": "融券卖出量(股)"
+    },
+    {
+      "name": "rzrqye",
+      "type": "float64",
+      "description": "融资融券余额(元)"
+    }
+  ]
 }
