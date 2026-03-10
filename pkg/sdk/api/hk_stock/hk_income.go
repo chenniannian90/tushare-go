@@ -163,9 +163,50 @@ func HkIncome(ctx context.Context, client *sdk.Client, req *HkIncomeRequest) ([]
 			return nil, fmt.Errorf("无效的 ind_name 类型")
 		}
 		// 处理 ind_value 的简单类型
-		indValue, ok := item["ind_value"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 ind_value 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var indValue float64
+		if item["ind_value"] == nil {
+			// 字段值为 null，使用零值
+			indValue = 0
+		} else if v, ok := item["ind_value"].(float64); ok {
+			indValue = v
+		} else if v, ok := item["ind_value"].(int); ok {
+			indValue = float64(v)
+		} else if v, ok := item["ind_value"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				indValue = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					indValue = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["ind_value"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: hk_income")
+					log.Printf("字段: ind_value")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["ind_value"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 ind_value 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ind_value"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hk_income")
+			log.Printf("字段: ind_value")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ind_value"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 ind_value 类型，期望 float64/int/string")
 		}
 		items[i] = HkIncomeItem{
 			TsCode: tsCode,

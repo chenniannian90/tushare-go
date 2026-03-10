@@ -178,14 +178,96 @@ func StkRewards(ctx context.Context, client *sdk.Client, req *StkRewardsRequest)
 			return nil, fmt.Errorf("无效的 title 类型")
 		}
 		// 处理 reward 的简单类型
-		reward, ok := item["reward"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 reward 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var reward float64
+		if item["reward"] == nil {
+			// 字段值为 null，使用零值
+			reward = 0
+		} else if v, ok := item["reward"].(float64); ok {
+			reward = v
+		} else if v, ok := item["reward"].(int); ok {
+			reward = float64(v)
+		} else if v, ok := item["reward"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				reward = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					reward = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["reward"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: stk_rewards")
+					log.Printf("字段: reward")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["reward"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 reward 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["reward"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_rewards")
+			log.Printf("字段: reward")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["reward"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 reward 类型，期望 float64/int/string")
 		}
 		// 处理 hold_vol 的简单类型
-		holdVol, ok := item["hold_vol"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 hold_vol 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var holdVol float64
+		if item["hold_vol"] == nil {
+			// 字段值为 null，使用零值
+			holdVol = 0
+		} else if v, ok := item["hold_vol"].(float64); ok {
+			holdVol = v
+		} else if v, ok := item["hold_vol"].(int); ok {
+			holdVol = float64(v)
+		} else if v, ok := item["hold_vol"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				holdVol = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					holdVol = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["hold_vol"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: stk_rewards")
+					log.Printf("字段: hold_vol")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["hold_vol"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 hold_vol 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["hold_vol"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_rewards")
+			log.Printf("字段: hold_vol")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["hold_vol"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 hold_vol 类型，期望 float64/int/string")
 		}
 		items[i] = StkRewardsItem{
 			TsCode: tsCode,

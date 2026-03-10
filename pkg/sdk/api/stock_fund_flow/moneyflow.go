@@ -137,9 +137,50 @@ func Moneyflow(ctx context.Context, client *sdk.Client, req *MoneyflowRequest) (
 			return nil, fmt.Errorf("无效的 buy_sm_vol 类型，期望 int 或 float64")
 		}
 		// 处理 buy_sm_amount 的简单类型
-		buySmAmount, ok := item["buy_sm_amount"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 buy_sm_amount 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var buySmAmount float64
+		if item["buy_sm_amount"] == nil {
+			// 字段值为 null，使用零值
+			buySmAmount = 0
+		} else if v, ok := item["buy_sm_amount"].(float64); ok {
+			buySmAmount = v
+		} else if v, ok := item["buy_sm_amount"].(int); ok {
+			buySmAmount = float64(v)
+		} else if v, ok := item["buy_sm_amount"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				buySmAmount = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					buySmAmount = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["buy_sm_amount"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: moneyflow")
+					log.Printf("字段: buy_sm_amount")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["buy_sm_amount"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 buy_sm_amount 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["buy_sm_amount"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: moneyflow")
+			log.Printf("字段: buy_sm_amount")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["buy_sm_amount"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 buy_sm_amount 类型，期望 float64/int/string")
 		}
 		// 处理 sell_sm_vol 的简单类型
 		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
@@ -155,9 +196,50 @@ func Moneyflow(ctx context.Context, client *sdk.Client, req *MoneyflowRequest) (
 			return nil, fmt.Errorf("无效的 sell_sm_vol 类型，期望 int 或 float64")
 		}
 		// 处理 sell_sm_amount 的简单类型
-		sellSmAmount, ok := item["sell_sm_amount"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 sell_sm_amount 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var sellSmAmount float64
+		if item["sell_sm_amount"] == nil {
+			// 字段值为 null，使用零值
+			sellSmAmount = 0
+		} else if v, ok := item["sell_sm_amount"].(float64); ok {
+			sellSmAmount = v
+		} else if v, ok := item["sell_sm_amount"].(int); ok {
+			sellSmAmount = float64(v)
+		} else if v, ok := item["sell_sm_amount"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				sellSmAmount = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					sellSmAmount = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["sell_sm_amount"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: moneyflow")
+					log.Printf("字段: sell_sm_amount")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["sell_sm_amount"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 sell_sm_amount 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["sell_sm_amount"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: moneyflow")
+			log.Printf("字段: sell_sm_amount")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["sell_sm_amount"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 sell_sm_amount 类型，期望 float64/int/string")
 		}
 		// 处理 buy_md_vol 的简单类型
 		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
@@ -173,9 +255,50 @@ func Moneyflow(ctx context.Context, client *sdk.Client, req *MoneyflowRequest) (
 			return nil, fmt.Errorf("无效的 buy_md_vol 类型，期望 int 或 float64")
 		}
 		// 处理 buy_md_amount 的简单类型
-		buyMdAmount, ok := item["buy_md_amount"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 buy_md_amount 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var buyMdAmount float64
+		if item["buy_md_amount"] == nil {
+			// 字段值为 null，使用零值
+			buyMdAmount = 0
+		} else if v, ok := item["buy_md_amount"].(float64); ok {
+			buyMdAmount = v
+		} else if v, ok := item["buy_md_amount"].(int); ok {
+			buyMdAmount = float64(v)
+		} else if v, ok := item["buy_md_amount"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				buyMdAmount = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					buyMdAmount = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["buy_md_amount"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: moneyflow")
+					log.Printf("字段: buy_md_amount")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["buy_md_amount"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 buy_md_amount 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["buy_md_amount"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: moneyflow")
+			log.Printf("字段: buy_md_amount")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["buy_md_amount"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 buy_md_amount 类型，期望 float64/int/string")
 		}
 		// 处理 sell_md_vol 的简单类型
 		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
@@ -191,9 +314,50 @@ func Moneyflow(ctx context.Context, client *sdk.Client, req *MoneyflowRequest) (
 			return nil, fmt.Errorf("无效的 sell_md_vol 类型，期望 int 或 float64")
 		}
 		// 处理 sell_md_amount 的简单类型
-		sellMdAmount, ok := item["sell_md_amount"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 sell_md_amount 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var sellMdAmount float64
+		if item["sell_md_amount"] == nil {
+			// 字段值为 null，使用零值
+			sellMdAmount = 0
+		} else if v, ok := item["sell_md_amount"].(float64); ok {
+			sellMdAmount = v
+		} else if v, ok := item["sell_md_amount"].(int); ok {
+			sellMdAmount = float64(v)
+		} else if v, ok := item["sell_md_amount"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				sellMdAmount = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					sellMdAmount = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["sell_md_amount"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: moneyflow")
+					log.Printf("字段: sell_md_amount")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["sell_md_amount"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 sell_md_amount 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["sell_md_amount"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: moneyflow")
+			log.Printf("字段: sell_md_amount")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["sell_md_amount"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 sell_md_amount 类型，期望 float64/int/string")
 		}
 		// 处理 buy_lg_vol 的简单类型
 		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
@@ -209,9 +373,50 @@ func Moneyflow(ctx context.Context, client *sdk.Client, req *MoneyflowRequest) (
 			return nil, fmt.Errorf("无效的 buy_lg_vol 类型，期望 int 或 float64")
 		}
 		// 处理 buy_lg_amount 的简单类型
-		buyLgAmount, ok := item["buy_lg_amount"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 buy_lg_amount 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var buyLgAmount float64
+		if item["buy_lg_amount"] == nil {
+			// 字段值为 null，使用零值
+			buyLgAmount = 0
+		} else if v, ok := item["buy_lg_amount"].(float64); ok {
+			buyLgAmount = v
+		} else if v, ok := item["buy_lg_amount"].(int); ok {
+			buyLgAmount = float64(v)
+		} else if v, ok := item["buy_lg_amount"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				buyLgAmount = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					buyLgAmount = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["buy_lg_amount"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: moneyflow")
+					log.Printf("字段: buy_lg_amount")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["buy_lg_amount"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 buy_lg_amount 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["buy_lg_amount"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: moneyflow")
+			log.Printf("字段: buy_lg_amount")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["buy_lg_amount"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 buy_lg_amount 类型，期望 float64/int/string")
 		}
 		// 处理 sell_lg_vol 的简单类型
 		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
@@ -227,9 +432,50 @@ func Moneyflow(ctx context.Context, client *sdk.Client, req *MoneyflowRequest) (
 			return nil, fmt.Errorf("无效的 sell_lg_vol 类型，期望 int 或 float64")
 		}
 		// 处理 sell_lg_amount 的简单类型
-		sellLgAmount, ok := item["sell_lg_amount"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 sell_lg_amount 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var sellLgAmount float64
+		if item["sell_lg_amount"] == nil {
+			// 字段值为 null，使用零值
+			sellLgAmount = 0
+		} else if v, ok := item["sell_lg_amount"].(float64); ok {
+			sellLgAmount = v
+		} else if v, ok := item["sell_lg_amount"].(int); ok {
+			sellLgAmount = float64(v)
+		} else if v, ok := item["sell_lg_amount"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				sellLgAmount = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					sellLgAmount = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["sell_lg_amount"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: moneyflow")
+					log.Printf("字段: sell_lg_amount")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["sell_lg_amount"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 sell_lg_amount 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["sell_lg_amount"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: moneyflow")
+			log.Printf("字段: sell_lg_amount")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["sell_lg_amount"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 sell_lg_amount 类型，期望 float64/int/string")
 		}
 		// 处理 buy_elg_vol 的简单类型
 		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
@@ -245,9 +491,50 @@ func Moneyflow(ctx context.Context, client *sdk.Client, req *MoneyflowRequest) (
 			return nil, fmt.Errorf("无效的 buy_elg_vol 类型，期望 int 或 float64")
 		}
 		// 处理 buy_elg_amount 的简单类型
-		buyElgAmount, ok := item["buy_elg_amount"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 buy_elg_amount 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var buyElgAmount float64
+		if item["buy_elg_amount"] == nil {
+			// 字段值为 null，使用零值
+			buyElgAmount = 0
+		} else if v, ok := item["buy_elg_amount"].(float64); ok {
+			buyElgAmount = v
+		} else if v, ok := item["buy_elg_amount"].(int); ok {
+			buyElgAmount = float64(v)
+		} else if v, ok := item["buy_elg_amount"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				buyElgAmount = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					buyElgAmount = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["buy_elg_amount"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: moneyflow")
+					log.Printf("字段: buy_elg_amount")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["buy_elg_amount"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 buy_elg_amount 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["buy_elg_amount"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: moneyflow")
+			log.Printf("字段: buy_elg_amount")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["buy_elg_amount"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 buy_elg_amount 类型，期望 float64/int/string")
 		}
 		// 处理 sell_elg_vol 的简单类型
 		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
@@ -263,9 +550,50 @@ func Moneyflow(ctx context.Context, client *sdk.Client, req *MoneyflowRequest) (
 			return nil, fmt.Errorf("无效的 sell_elg_vol 类型，期望 int 或 float64")
 		}
 		// 处理 sell_elg_amount 的简单类型
-		sellElgAmount, ok := item["sell_elg_amount"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 sell_elg_amount 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var sellElgAmount float64
+		if item["sell_elg_amount"] == nil {
+			// 字段值为 null，使用零值
+			sellElgAmount = 0
+		} else if v, ok := item["sell_elg_amount"].(float64); ok {
+			sellElgAmount = v
+		} else if v, ok := item["sell_elg_amount"].(int); ok {
+			sellElgAmount = float64(v)
+		} else if v, ok := item["sell_elg_amount"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				sellElgAmount = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					sellElgAmount = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["sell_elg_amount"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: moneyflow")
+					log.Printf("字段: sell_elg_amount")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["sell_elg_amount"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 sell_elg_amount 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["sell_elg_amount"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: moneyflow")
+			log.Printf("字段: sell_elg_amount")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["sell_elg_amount"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 sell_elg_amount 类型，期望 float64/int/string")
 		}
 		// 处理 net_mf_vol 的简单类型
 		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
@@ -281,9 +609,50 @@ func Moneyflow(ctx context.Context, client *sdk.Client, req *MoneyflowRequest) (
 			return nil, fmt.Errorf("无效的 net_mf_vol 类型，期望 int 或 float64")
 		}
 		// 处理 net_mf_amount 的简单类型
-		netMfAmount, ok := item["net_mf_amount"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 net_mf_amount 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var netMfAmount float64
+		if item["net_mf_amount"] == nil {
+			// 字段值为 null，使用零值
+			netMfAmount = 0
+		} else if v, ok := item["net_mf_amount"].(float64); ok {
+			netMfAmount = v
+		} else if v, ok := item["net_mf_amount"].(int); ok {
+			netMfAmount = float64(v)
+		} else if v, ok := item["net_mf_amount"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				netMfAmount = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					netMfAmount = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["net_mf_amount"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: moneyflow")
+					log.Printf("字段: net_mf_amount")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["net_mf_amount"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 net_mf_amount 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["net_mf_amount"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: moneyflow")
+			log.Printf("字段: net_mf_amount")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["net_mf_amount"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 net_mf_amount 类型，期望 float64/int/string")
 		}
 		items[i] = MoneyflowItem{
 			TsCode: tsCode,

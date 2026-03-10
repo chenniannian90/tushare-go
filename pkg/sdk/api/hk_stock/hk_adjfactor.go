@@ -108,14 +108,96 @@ func HkAdjfactor(ctx context.Context, client *sdk.Client, req *HkAdjfactorReques
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 cum_adjfactor 的简单类型
-		cumAdjfactor, ok := item["cum_adjfactor"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 cum_adjfactor 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var cumAdjfactor float64
+		if item["cum_adjfactor"] == nil {
+			// 字段值为 null，使用零值
+			cumAdjfactor = 0
+		} else if v, ok := item["cum_adjfactor"].(float64); ok {
+			cumAdjfactor = v
+		} else if v, ok := item["cum_adjfactor"].(int); ok {
+			cumAdjfactor = float64(v)
+		} else if v, ok := item["cum_adjfactor"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				cumAdjfactor = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					cumAdjfactor = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["cum_adjfactor"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: hk_adjfactor")
+					log.Printf("字段: cum_adjfactor")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["cum_adjfactor"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 cum_adjfactor 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["cum_adjfactor"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hk_adjfactor")
+			log.Printf("字段: cum_adjfactor")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["cum_adjfactor"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 cum_adjfactor 类型，期望 float64/int/string")
 		}
 		// 处理 close_price 的简单类型
-		closePrice, ok := item["close_price"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 close_price 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var closePrice float64
+		if item["close_price"] == nil {
+			// 字段值为 null，使用零值
+			closePrice = 0
+		} else if v, ok := item["close_price"].(float64); ok {
+			closePrice = v
+		} else if v, ok := item["close_price"].(int); ok {
+			closePrice = float64(v)
+		} else if v, ok := item["close_price"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				closePrice = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					closePrice = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["close_price"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: hk_adjfactor")
+					log.Printf("字段: close_price")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["close_price"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 close_price 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["close_price"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: hk_adjfactor")
+			log.Printf("字段: close_price")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["close_price"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 close_price 类型，期望 float64/int/string")
 		}
 		items[i] = HkAdjfactorItem{
 			TsCode: tsCode,

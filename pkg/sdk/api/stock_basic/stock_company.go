@@ -231,9 +231,50 @@ func StockCompany(ctx context.Context, client *sdk.Client, req *StockCompanyRequ
 			return nil, fmt.Errorf("无效的 secretary 类型")
 		}
 		// 处理 reg_capital 的简单类型
-		regCapital, ok := item["reg_capital"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 reg_capital 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var regCapital float64
+		if item["reg_capital"] == nil {
+			// 字段值为 null，使用零值
+			regCapital = 0
+		} else if v, ok := item["reg_capital"].(float64); ok {
+			regCapital = v
+		} else if v, ok := item["reg_capital"].(int); ok {
+			regCapital = float64(v)
+		} else if v, ok := item["reg_capital"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				regCapital = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					regCapital = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["reg_capital"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: stock_company")
+					log.Printf("字段: reg_capital")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["reg_capital"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 reg_capital 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["reg_capital"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stock_company")
+			log.Printf("字段: reg_capital")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["reg_capital"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 reg_capital 类型，期望 float64/int/string")
 		}
 		// 处理 setup_date 的简单类型
 		// 对 string 类型尝试多种转换

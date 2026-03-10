@@ -140,14 +140,96 @@ func ShareFloat(ctx context.Context, client *sdk.Client, req *ShareFloatRequest)
 			return nil, fmt.Errorf("无效的 float_date 类型")
 		}
 		// 处理 float_share 的简单类型
-		floatShare, ok := item["float_share"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 float_share 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var floatShare float64
+		if item["float_share"] == nil {
+			// 字段值为 null，使用零值
+			floatShare = 0
+		} else if v, ok := item["float_share"].(float64); ok {
+			floatShare = v
+		} else if v, ok := item["float_share"].(int); ok {
+			floatShare = float64(v)
+		} else if v, ok := item["float_share"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				floatShare = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					floatShare = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["float_share"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: share_float")
+					log.Printf("字段: float_share")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["float_share"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 float_share 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["float_share"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: share_float")
+			log.Printf("字段: float_share")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["float_share"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 float_share 类型，期望 float64/int/string")
 		}
 		// 处理 float_ratio 的简单类型
-		floatRatio, ok := item["float_ratio"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 float_ratio 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var floatRatio float64
+		if item["float_ratio"] == nil {
+			// 字段值为 null，使用零值
+			floatRatio = 0
+		} else if v, ok := item["float_ratio"].(float64); ok {
+			floatRatio = v
+		} else if v, ok := item["float_ratio"].(int); ok {
+			floatRatio = float64(v)
+		} else if v, ok := item["float_ratio"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				floatRatio = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					floatRatio = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["float_ratio"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: share_float")
+					log.Printf("字段: float_ratio")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["float_ratio"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 float_ratio 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["float_ratio"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: share_float")
+			log.Printf("字段: float_ratio")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["float_ratio"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 float_ratio 类型，期望 float64/int/string")
 		}
 		// 处理 holder_name 的简单类型
 		// 对 string 类型尝试多种转换

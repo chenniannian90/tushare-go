@@ -135,9 +135,50 @@ func CbRate(ctx context.Context, client *sdk.Client, req *CbRateRequest) ([]CbRa
 			return nil, fmt.Errorf("无效的 rate_end_date 类型")
 		}
 		// 处理 coupon_rate 的简单类型
-		couponRate, ok := item["coupon_rate"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 coupon_rate 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var couponRate float64
+		if item["coupon_rate"] == nil {
+			// 字段值为 null，使用零值
+			couponRate = 0
+		} else if v, ok := item["coupon_rate"].(float64); ok {
+			couponRate = v
+		} else if v, ok := item["coupon_rate"].(int); ok {
+			couponRate = float64(v)
+		} else if v, ok := item["coupon_rate"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				couponRate = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					couponRate = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["coupon_rate"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: cb_rate")
+					log.Printf("字段: coupon_rate")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["coupon_rate"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 coupon_rate 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["coupon_rate"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: cb_rate")
+			log.Printf("字段: coupon_rate")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["coupon_rate"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 coupon_rate 类型，期望 float64/int/string")
 		}
 		items[i] = CbRateItem{
 			TsCode: tsCode,

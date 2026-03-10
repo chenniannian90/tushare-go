@@ -141,24 +141,188 @@ func EtfShareSize(ctx context.Context, client *sdk.Client, req *EtfShareSizeRequ
 			return nil, fmt.Errorf("无效的 etf_name 类型")
 		}
 		// 处理 total_share 的简单类型
-		totalShare, ok := item["total_share"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 total_share 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var totalShare float64
+		if item["total_share"] == nil {
+			// 字段值为 null，使用零值
+			totalShare = 0
+		} else if v, ok := item["total_share"].(float64); ok {
+			totalShare = v
+		} else if v, ok := item["total_share"].(int); ok {
+			totalShare = float64(v)
+		} else if v, ok := item["total_share"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				totalShare = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					totalShare = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["total_share"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: etf_share_size")
+					log.Printf("字段: total_share")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["total_share"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 total_share 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["total_share"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: etf_share_size")
+			log.Printf("字段: total_share")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["total_share"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 total_share 类型，期望 float64/int/string")
 		}
 		// 处理 total_size 的简单类型
-		totalSize, ok := item["total_size"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 total_size 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var totalSize float64
+		if item["total_size"] == nil {
+			// 字段值为 null，使用零值
+			totalSize = 0
+		} else if v, ok := item["total_size"].(float64); ok {
+			totalSize = v
+		} else if v, ok := item["total_size"].(int); ok {
+			totalSize = float64(v)
+		} else if v, ok := item["total_size"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				totalSize = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					totalSize = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["total_size"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: etf_share_size")
+					log.Printf("字段: total_size")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["total_size"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 total_size 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["total_size"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: etf_share_size")
+			log.Printf("字段: total_size")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["total_size"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 total_size 类型，期望 float64/int/string")
 		}
 		// 处理 nav 的简单类型
-		nav, ok := item["nav"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 nav 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var nav float64
+		if item["nav"] == nil {
+			// 字段值为 null，使用零值
+			nav = 0
+		} else if v, ok := item["nav"].(float64); ok {
+			nav = v
+		} else if v, ok := item["nav"].(int); ok {
+			nav = float64(v)
+		} else if v, ok := item["nav"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				nav = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					nav = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["nav"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: etf_share_size")
+					log.Printf("字段: nav")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["nav"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 nav 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["nav"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: etf_share_size")
+			log.Printf("字段: nav")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["nav"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 nav 类型，期望 float64/int/string")
 		}
 		// 处理 close 的简单类型
-		close, ok := item["close"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 close 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var close float64
+		if item["close"] == nil {
+			// 字段值为 null，使用零值
+			close = 0
+		} else if v, ok := item["close"].(float64); ok {
+			close = v
+		} else if v, ok := item["close"].(int); ok {
+			close = float64(v)
+		} else if v, ok := item["close"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				close = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					close = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["close"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: etf_share_size")
+					log.Printf("字段: close")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["close"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 close 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["close"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: etf_share_size")
+			log.Printf("字段: close")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["close"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 close 类型，期望 float64/int/string")
 		}
 		// 处理 exchange 的简单类型
 		// 对 string 类型尝试多种转换

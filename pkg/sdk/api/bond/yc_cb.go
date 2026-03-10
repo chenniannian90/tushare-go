@@ -168,14 +168,96 @@ func YcCb(ctx context.Context, client *sdk.Client, req *YcCbRequest) ([]YcCbItem
 			return nil, fmt.Errorf("无效的 curve_type 类型")
 		}
 		// 处理 curve_term 的简单类型
-		curveTerm, ok := item["curve_term"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 curve_term 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var curveTerm float64
+		if item["curve_term"] == nil {
+			// 字段值为 null，使用零值
+			curveTerm = 0
+		} else if v, ok := item["curve_term"].(float64); ok {
+			curveTerm = v
+		} else if v, ok := item["curve_term"].(int); ok {
+			curveTerm = float64(v)
+		} else if v, ok := item["curve_term"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				curveTerm = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					curveTerm = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["curve_term"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: yc_cb")
+					log.Printf("字段: curve_term")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["curve_term"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 curve_term 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["curve_term"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: yc_cb")
+			log.Printf("字段: curve_term")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["curve_term"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 curve_term 类型，期望 float64/int/string")
 		}
 		// 处理 yield 的简单类型
-		yield, ok := item["yield"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 yield 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var yield float64
+		if item["yield"] == nil {
+			// 字段值为 null，使用零值
+			yield = 0
+		} else if v, ok := item["yield"].(float64); ok {
+			yield = v
+		} else if v, ok := item["yield"].(int); ok {
+			yield = float64(v)
+		} else if v, ok := item["yield"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				yield = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					yield = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["yield"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: yc_cb")
+					log.Printf("字段: yield")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["yield"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 yield 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["yield"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: yc_cb")
+			log.Printf("字段: yield")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["yield"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 yield 类型，期望 float64/int/string")
 		}
 		items[i] = YcCbItem{
 			TradeDate: tradeDate,

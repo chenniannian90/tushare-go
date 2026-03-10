@@ -106,34 +106,280 @@ func StkAccountOld(ctx context.Context, client *sdk.Client, req *StkAccountOldRe
 			return nil, fmt.Errorf("无效的 new_sz 类型，期望 int 或 float64")
 		}
 		// 处理 active_sh 的简单类型
-		activeSh, ok := item["active_sh"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 active_sh 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var activeSh float64
+		if item["active_sh"] == nil {
+			// 字段值为 null，使用零值
+			activeSh = 0
+		} else if v, ok := item["active_sh"].(float64); ok {
+			activeSh = v
+		} else if v, ok := item["active_sh"].(int); ok {
+			activeSh = float64(v)
+		} else if v, ok := item["active_sh"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				activeSh = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					activeSh = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["active_sh"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: stk_account_old")
+					log.Printf("字段: active_sh")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["active_sh"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 active_sh 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["active_sh"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_account_old")
+			log.Printf("字段: active_sh")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["active_sh"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 active_sh 类型，期望 float64/int/string")
 		}
 		// 处理 active_sz 的简单类型
-		activeSz, ok := item["active_sz"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 active_sz 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var activeSz float64
+		if item["active_sz"] == nil {
+			// 字段值为 null，使用零值
+			activeSz = 0
+		} else if v, ok := item["active_sz"].(float64); ok {
+			activeSz = v
+		} else if v, ok := item["active_sz"].(int); ok {
+			activeSz = float64(v)
+		} else if v, ok := item["active_sz"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				activeSz = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					activeSz = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["active_sz"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: stk_account_old")
+					log.Printf("字段: active_sz")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["active_sz"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 active_sz 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["active_sz"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_account_old")
+			log.Printf("字段: active_sz")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["active_sz"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 active_sz 类型，期望 float64/int/string")
 		}
 		// 处理 total_sh 的简单类型
-		totalSh, ok := item["total_sh"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 total_sh 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var totalSh float64
+		if item["total_sh"] == nil {
+			// 字段值为 null，使用零值
+			totalSh = 0
+		} else if v, ok := item["total_sh"].(float64); ok {
+			totalSh = v
+		} else if v, ok := item["total_sh"].(int); ok {
+			totalSh = float64(v)
+		} else if v, ok := item["total_sh"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				totalSh = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					totalSh = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["total_sh"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: stk_account_old")
+					log.Printf("字段: total_sh")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["total_sh"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 total_sh 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["total_sh"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_account_old")
+			log.Printf("字段: total_sh")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["total_sh"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 total_sh 类型，期望 float64/int/string")
 		}
 		// 处理 total_sz 的简单类型
-		totalSz, ok := item["total_sz"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 total_sz 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var totalSz float64
+		if item["total_sz"] == nil {
+			// 字段值为 null，使用零值
+			totalSz = 0
+		} else if v, ok := item["total_sz"].(float64); ok {
+			totalSz = v
+		} else if v, ok := item["total_sz"].(int); ok {
+			totalSz = float64(v)
+		} else if v, ok := item["total_sz"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				totalSz = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					totalSz = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["total_sz"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: stk_account_old")
+					log.Printf("字段: total_sz")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["total_sz"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 total_sz 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["total_sz"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_account_old")
+			log.Printf("字段: total_sz")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["total_sz"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 total_sz 类型，期望 float64/int/string")
 		}
 		// 处理 trade_sh 的简单类型
-		tradeSh, ok := item["trade_sh"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 trade_sh 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var tradeSh float64
+		if item["trade_sh"] == nil {
+			// 字段值为 null，使用零值
+			tradeSh = 0
+		} else if v, ok := item["trade_sh"].(float64); ok {
+			tradeSh = v
+		} else if v, ok := item["trade_sh"].(int); ok {
+			tradeSh = float64(v)
+		} else if v, ok := item["trade_sh"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				tradeSh = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					tradeSh = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["trade_sh"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: stk_account_old")
+					log.Printf("字段: trade_sh")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["trade_sh"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 trade_sh 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["trade_sh"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_account_old")
+			log.Printf("字段: trade_sh")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["trade_sh"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 trade_sh 类型，期望 float64/int/string")
 		}
 		// 处理 trade_sz 的简单类型
-		tradeSz, ok := item["trade_sz"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 trade_sz 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var tradeSz float64
+		if item["trade_sz"] == nil {
+			// 字段值为 null，使用零值
+			tradeSz = 0
+		} else if v, ok := item["trade_sz"].(float64); ok {
+			tradeSz = v
+		} else if v, ok := item["trade_sz"].(int); ok {
+			tradeSz = float64(v)
+		} else if v, ok := item["trade_sz"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				tradeSz = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					tradeSz = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["trade_sz"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: stk_account_old")
+					log.Printf("字段: trade_sz")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["trade_sz"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 trade_sz 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["trade_sz"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_account_old")
+			log.Printf("字段: trade_sz")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["trade_sz"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 trade_sz 类型，期望 float64/int/string")
 		}
 		items[i] = StkAccountOldItem{
 			Date: date,

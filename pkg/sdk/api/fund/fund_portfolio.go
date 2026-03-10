@@ -170,24 +170,188 @@ func FundPortfolio(ctx context.Context, client *sdk.Client, req *FundPortfolioRe
 			return nil, fmt.Errorf("无效的 symbol 类型")
 		}
 		// 处理 mkv 的简单类型
-		mkv, ok := item["mkv"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 mkv 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var mkv float64
+		if item["mkv"] == nil {
+			// 字段值为 null，使用零值
+			mkv = 0
+		} else if v, ok := item["mkv"].(float64); ok {
+			mkv = v
+		} else if v, ok := item["mkv"].(int); ok {
+			mkv = float64(v)
+		} else if v, ok := item["mkv"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				mkv = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					mkv = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["mkv"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: fund_portfolio")
+					log.Printf("字段: mkv")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["mkv"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 mkv 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["mkv"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fund_portfolio")
+			log.Printf("字段: mkv")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["mkv"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 mkv 类型，期望 float64/int/string")
 		}
 		// 处理 amount 的简单类型
-		amount, ok := item["amount"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 amount 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var amount float64
+		if item["amount"] == nil {
+			// 字段值为 null，使用零值
+			amount = 0
+		} else if v, ok := item["amount"].(float64); ok {
+			amount = v
+		} else if v, ok := item["amount"].(int); ok {
+			amount = float64(v)
+		} else if v, ok := item["amount"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				amount = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					amount = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["amount"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: fund_portfolio")
+					log.Printf("字段: amount")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["amount"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 amount 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["amount"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fund_portfolio")
+			log.Printf("字段: amount")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["amount"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 amount 类型，期望 float64/int/string")
 		}
 		// 处理 stk_mkv_ratio 的简单类型
-		stkMkvRatio, ok := item["stk_mkv_ratio"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 stk_mkv_ratio 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var stkMkvRatio float64
+		if item["stk_mkv_ratio"] == nil {
+			// 字段值为 null，使用零值
+			stkMkvRatio = 0
+		} else if v, ok := item["stk_mkv_ratio"].(float64); ok {
+			stkMkvRatio = v
+		} else if v, ok := item["stk_mkv_ratio"].(int); ok {
+			stkMkvRatio = float64(v)
+		} else if v, ok := item["stk_mkv_ratio"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				stkMkvRatio = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					stkMkvRatio = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["stk_mkv_ratio"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: fund_portfolio")
+					log.Printf("字段: stk_mkv_ratio")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["stk_mkv_ratio"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 stk_mkv_ratio 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["stk_mkv_ratio"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fund_portfolio")
+			log.Printf("字段: stk_mkv_ratio")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["stk_mkv_ratio"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 stk_mkv_ratio 类型，期望 float64/int/string")
 		}
 		// 处理 stk_float_ratio 的简单类型
-		stkFloatRatio, ok := item["stk_float_ratio"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 stk_float_ratio 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var stkFloatRatio float64
+		if item["stk_float_ratio"] == nil {
+			// 字段值为 null，使用零值
+			stkFloatRatio = 0
+		} else if v, ok := item["stk_float_ratio"].(float64); ok {
+			stkFloatRatio = v
+		} else if v, ok := item["stk_float_ratio"].(int); ok {
+			stkFloatRatio = float64(v)
+		} else if v, ok := item["stk_float_ratio"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				stkFloatRatio = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					stkFloatRatio = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["stk_float_ratio"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: fund_portfolio")
+					log.Printf("字段: stk_float_ratio")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["stk_float_ratio"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 stk_float_ratio 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["stk_float_ratio"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fund_portfolio")
+			log.Printf("字段: stk_float_ratio")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["stk_float_ratio"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 stk_float_ratio 类型，期望 float64/int/string")
 		}
 		items[i] = FundPortfolioItem{
 			TsCode: tsCode,

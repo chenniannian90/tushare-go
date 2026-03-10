@@ -80,24 +80,188 @@ func StkAccount(ctx context.Context, client *sdk.Client, req *StkAccountRequest)
 			return nil, fmt.Errorf("无效的 date 类型")
 		}
 		// 处理 weekly_new 的简单类型
-		weeklyNew, ok := item["weekly_new"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 weekly_new 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var weeklyNew float64
+		if item["weekly_new"] == nil {
+			// 字段值为 null，使用零值
+			weeklyNew = 0
+		} else if v, ok := item["weekly_new"].(float64); ok {
+			weeklyNew = v
+		} else if v, ok := item["weekly_new"].(int); ok {
+			weeklyNew = float64(v)
+		} else if v, ok := item["weekly_new"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				weeklyNew = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					weeklyNew = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["weekly_new"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: stk_account")
+					log.Printf("字段: weekly_new")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["weekly_new"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 weekly_new 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["weekly_new"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_account")
+			log.Printf("字段: weekly_new")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["weekly_new"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 weekly_new 类型，期望 float64/int/string")
 		}
 		// 处理 total 的简单类型
-		total, ok := item["total"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 total 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var total float64
+		if item["total"] == nil {
+			// 字段值为 null，使用零值
+			total = 0
+		} else if v, ok := item["total"].(float64); ok {
+			total = v
+		} else if v, ok := item["total"].(int); ok {
+			total = float64(v)
+		} else if v, ok := item["total"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				total = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					total = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["total"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: stk_account")
+					log.Printf("字段: total")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["total"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 total 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["total"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_account")
+			log.Printf("字段: total")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["total"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 total 类型，期望 float64/int/string")
 		}
 		// 处理 weekly_hold 的简单类型
-		weeklyHold, ok := item["weekly_hold"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 weekly_hold 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var weeklyHold float64
+		if item["weekly_hold"] == nil {
+			// 字段值为 null，使用零值
+			weeklyHold = 0
+		} else if v, ok := item["weekly_hold"].(float64); ok {
+			weeklyHold = v
+		} else if v, ok := item["weekly_hold"].(int); ok {
+			weeklyHold = float64(v)
+		} else if v, ok := item["weekly_hold"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				weeklyHold = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					weeklyHold = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["weekly_hold"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: stk_account")
+					log.Printf("字段: weekly_hold")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["weekly_hold"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 weekly_hold 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["weekly_hold"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_account")
+			log.Printf("字段: weekly_hold")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["weekly_hold"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 weekly_hold 类型，期望 float64/int/string")
 		}
 		// 处理 weekly_trade 的简单类型
-		weeklyTrade, ok := item["weekly_trade"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 weekly_trade 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var weeklyTrade float64
+		if item["weekly_trade"] == nil {
+			// 字段值为 null，使用零值
+			weeklyTrade = 0
+		} else if v, ok := item["weekly_trade"].(float64); ok {
+			weeklyTrade = v
+		} else if v, ok := item["weekly_trade"].(int); ok {
+			weeklyTrade = float64(v)
+		} else if v, ok := item["weekly_trade"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				weeklyTrade = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					weeklyTrade = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["weekly_trade"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: stk_account")
+					log.Printf("字段: weekly_trade")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["weekly_trade"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 weekly_trade 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["weekly_trade"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_account")
+			log.Printf("字段: weekly_trade")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["weekly_trade"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 weekly_trade 类型，期望 float64/int/string")
 		}
 		items[i] = StkAccountItem{
 			Date: date,

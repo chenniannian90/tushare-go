@@ -126,9 +126,50 @@ func SzDailyInfo(ctx context.Context, client *sdk.Client, req *SzDailyInfoReques
 			return nil, fmt.Errorf("无效的 count 类型，期望 int 或 float64")
 		}
 		// 处理 amount 的简单类型
-		amount, ok := item["amount"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 amount 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var amount float64
+		if item["amount"] == nil {
+			// 字段值为 null，使用零值
+			amount = 0
+		} else if v, ok := item["amount"].(float64); ok {
+			amount = v
+		} else if v, ok := item["amount"].(int); ok {
+			amount = float64(v)
+		} else if v, ok := item["amount"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				amount = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					amount = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["amount"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: sz_daily_info")
+					log.Printf("字段: amount")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["amount"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 amount 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["amount"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: sz_daily_info")
+			log.Printf("字段: amount")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["amount"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 amount 类型，期望 float64/int/string")
 		}
 		// 处理 vol 的简单类型
 		vol, ok := item["vol"].(string)
@@ -136,24 +177,188 @@ func SzDailyInfo(ctx context.Context, client *sdk.Client, req *SzDailyInfoReques
 			return nil, fmt.Errorf("无效的 vol 类型")
 		}
 		// 处理 total_share 的简单类型
-		totalShare, ok := item["total_share"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 total_share 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var totalShare float64
+		if item["total_share"] == nil {
+			// 字段值为 null，使用零值
+			totalShare = 0
+		} else if v, ok := item["total_share"].(float64); ok {
+			totalShare = v
+		} else if v, ok := item["total_share"].(int); ok {
+			totalShare = float64(v)
+		} else if v, ok := item["total_share"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				totalShare = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					totalShare = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["total_share"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: sz_daily_info")
+					log.Printf("字段: total_share")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["total_share"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 total_share 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["total_share"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: sz_daily_info")
+			log.Printf("字段: total_share")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["total_share"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 total_share 类型，期望 float64/int/string")
 		}
 		// 处理 total_mv 的简单类型
-		totalMv, ok := item["total_mv"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 total_mv 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var totalMv float64
+		if item["total_mv"] == nil {
+			// 字段值为 null，使用零值
+			totalMv = 0
+		} else if v, ok := item["total_mv"].(float64); ok {
+			totalMv = v
+		} else if v, ok := item["total_mv"].(int); ok {
+			totalMv = float64(v)
+		} else if v, ok := item["total_mv"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				totalMv = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					totalMv = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["total_mv"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: sz_daily_info")
+					log.Printf("字段: total_mv")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["total_mv"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 total_mv 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["total_mv"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: sz_daily_info")
+			log.Printf("字段: total_mv")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["total_mv"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 total_mv 类型，期望 float64/int/string")
 		}
 		// 处理 float_share 的简单类型
-		floatShare, ok := item["float_share"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 float_share 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var floatShare float64
+		if item["float_share"] == nil {
+			// 字段值为 null，使用零值
+			floatShare = 0
+		} else if v, ok := item["float_share"].(float64); ok {
+			floatShare = v
+		} else if v, ok := item["float_share"].(int); ok {
+			floatShare = float64(v)
+		} else if v, ok := item["float_share"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				floatShare = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					floatShare = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["float_share"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: sz_daily_info")
+					log.Printf("字段: float_share")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["float_share"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 float_share 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["float_share"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: sz_daily_info")
+			log.Printf("字段: float_share")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["float_share"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 float_share 类型，期望 float64/int/string")
 		}
 		// 处理 float_mv 的简单类型
-		floatMv, ok := item["float_mv"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 float_mv 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var floatMv float64
+		if item["float_mv"] == nil {
+			// 字段值为 null，使用零值
+			floatMv = 0
+		} else if v, ok := item["float_mv"].(float64); ok {
+			floatMv = v
+		} else if v, ok := item["float_mv"].(int); ok {
+			floatMv = float64(v)
+		} else if v, ok := item["float_mv"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				floatMv = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					floatMv = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["float_mv"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: sz_daily_info")
+					log.Printf("字段: float_mv")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["float_mv"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 float_mv 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["float_mv"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: sz_daily_info")
+			log.Printf("字段: float_mv")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["float_mv"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 float_mv 类型，期望 float64/int/string")
 		}
 		items[i] = SzDailyInfoItem{
 			TradeDate: tradeDate,

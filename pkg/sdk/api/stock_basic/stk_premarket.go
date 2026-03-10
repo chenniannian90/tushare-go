@@ -111,29 +111,234 @@ func StkPremarket(ctx context.Context, client *sdk.Client, req *StkPremarketRequ
 			return nil, fmt.Errorf("无效的 ts_code 类型")
 		}
 		// 处理 total_share 的简单类型
-		totalShare, ok := item["total_share"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 total_share 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var totalShare float64
+		if item["total_share"] == nil {
+			// 字段值为 null，使用零值
+			totalShare = 0
+		} else if v, ok := item["total_share"].(float64); ok {
+			totalShare = v
+		} else if v, ok := item["total_share"].(int); ok {
+			totalShare = float64(v)
+		} else if v, ok := item["total_share"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				totalShare = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					totalShare = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["total_share"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: stk_premarket")
+					log.Printf("字段: total_share")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["total_share"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 total_share 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["total_share"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_premarket")
+			log.Printf("字段: total_share")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["total_share"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 total_share 类型，期望 float64/int/string")
 		}
 		// 处理 float_share 的简单类型
-		floatShare, ok := item["float_share"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 float_share 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var floatShare float64
+		if item["float_share"] == nil {
+			// 字段值为 null，使用零值
+			floatShare = 0
+		} else if v, ok := item["float_share"].(float64); ok {
+			floatShare = v
+		} else if v, ok := item["float_share"].(int); ok {
+			floatShare = float64(v)
+		} else if v, ok := item["float_share"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				floatShare = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					floatShare = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["float_share"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: stk_premarket")
+					log.Printf("字段: float_share")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["float_share"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 float_share 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["float_share"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_premarket")
+			log.Printf("字段: float_share")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["float_share"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 float_share 类型，期望 float64/int/string")
 		}
 		// 处理 pre_close 的简单类型
-		preClose, ok := item["pre_close"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 pre_close 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var preClose float64
+		if item["pre_close"] == nil {
+			// 字段值为 null，使用零值
+			preClose = 0
+		} else if v, ok := item["pre_close"].(float64); ok {
+			preClose = v
+		} else if v, ok := item["pre_close"].(int); ok {
+			preClose = float64(v)
+		} else if v, ok := item["pre_close"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				preClose = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					preClose = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["pre_close"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: stk_premarket")
+					log.Printf("字段: pre_close")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["pre_close"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 pre_close 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["pre_close"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_premarket")
+			log.Printf("字段: pre_close")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["pre_close"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 pre_close 类型，期望 float64/int/string")
 		}
 		// 处理 up_limit 的简单类型
-		upLimit, ok := item["up_limit"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 up_limit 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var upLimit float64
+		if item["up_limit"] == nil {
+			// 字段值为 null，使用零值
+			upLimit = 0
+		} else if v, ok := item["up_limit"].(float64); ok {
+			upLimit = v
+		} else if v, ok := item["up_limit"].(int); ok {
+			upLimit = float64(v)
+		} else if v, ok := item["up_limit"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				upLimit = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					upLimit = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["up_limit"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: stk_premarket")
+					log.Printf("字段: up_limit")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["up_limit"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 up_limit 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["up_limit"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_premarket")
+			log.Printf("字段: up_limit")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["up_limit"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 up_limit 类型，期望 float64/int/string")
 		}
 		// 处理 down_limit 的简单类型
-		downLimit, ok := item["down_limit"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 down_limit 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var downLimit float64
+		if item["down_limit"] == nil {
+			// 字段值为 null，使用零值
+			downLimit = 0
+		} else if v, ok := item["down_limit"].(float64); ok {
+			downLimit = v
+		} else if v, ok := item["down_limit"].(int); ok {
+			downLimit = float64(v)
+		} else if v, ok := item["down_limit"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				downLimit = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					downLimit = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["down_limit"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: stk_premarket")
+					log.Printf("字段: down_limit")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["down_limit"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 down_limit 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["down_limit"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_premarket")
+			log.Printf("字段: down_limit")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["down_limit"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 down_limit 类型，期望 float64/int/string")
 		}
 		items[i] = StkPremarketItem{
 			TradeDate: tradeDate,

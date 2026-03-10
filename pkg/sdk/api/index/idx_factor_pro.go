@@ -193,439 +193,4006 @@ func IdxFactorPro(ctx context.Context, client *sdk.Client, req *IdxFactorProRequ
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 open 的简单类型
-		open, ok := item["open"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 open 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var open float64
+		if item["open"] == nil {
+			// 字段值为 null，使用零值
+			open = 0
+		} else if v, ok := item["open"].(float64); ok {
+			open = v
+		} else if v, ok := item["open"].(int); ok {
+			open = float64(v)
+		} else if v, ok := item["open"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				open = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					open = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["open"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: open")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["open"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 open 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["open"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: open")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["open"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 open 类型，期望 float64/int/string")
 		}
 		// 处理 high 的简单类型
-		high, ok := item["high"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 high 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var high float64
+		if item["high"] == nil {
+			// 字段值为 null，使用零值
+			high = 0
+		} else if v, ok := item["high"].(float64); ok {
+			high = v
+		} else if v, ok := item["high"].(int); ok {
+			high = float64(v)
+		} else if v, ok := item["high"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				high = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					high = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["high"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: high")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["high"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 high 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["high"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: high")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["high"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 high 类型，期望 float64/int/string")
 		}
 		// 处理 low 的简单类型
-		low, ok := item["low"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 low 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var low float64
+		if item["low"] == nil {
+			// 字段值为 null，使用零值
+			low = 0
+		} else if v, ok := item["low"].(float64); ok {
+			low = v
+		} else if v, ok := item["low"].(int); ok {
+			low = float64(v)
+		} else if v, ok := item["low"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				low = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					low = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["low"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: low")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["low"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 low 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["low"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: low")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["low"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 low 类型，期望 float64/int/string")
 		}
 		// 处理 close 的简单类型
-		close, ok := item["close"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 close 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var close float64
+		if item["close"] == nil {
+			// 字段值为 null，使用零值
+			close = 0
+		} else if v, ok := item["close"].(float64); ok {
+			close = v
+		} else if v, ok := item["close"].(int); ok {
+			close = float64(v)
+		} else if v, ok := item["close"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				close = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					close = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["close"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: close")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["close"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 close 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["close"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: close")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["close"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 close 类型，期望 float64/int/string")
 		}
 		// 处理 pre_close 的简单类型
-		preClose, ok := item["pre_close"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 pre_close 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var preClose float64
+		if item["pre_close"] == nil {
+			// 字段值为 null，使用零值
+			preClose = 0
+		} else if v, ok := item["pre_close"].(float64); ok {
+			preClose = v
+		} else if v, ok := item["pre_close"].(int); ok {
+			preClose = float64(v)
+		} else if v, ok := item["pre_close"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				preClose = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					preClose = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["pre_close"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: pre_close")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["pre_close"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 pre_close 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["pre_close"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: pre_close")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["pre_close"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 pre_close 类型，期望 float64/int/string")
 		}
 		// 处理 change 的简单类型
-		change, ok := item["change"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 change 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var change float64
+		if item["change"] == nil {
+			// 字段值为 null，使用零值
+			change = 0
+		} else if v, ok := item["change"].(float64); ok {
+			change = v
+		} else if v, ok := item["change"].(int); ok {
+			change = float64(v)
+		} else if v, ok := item["change"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				change = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					change = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["change"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: change")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["change"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 change 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["change"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: change")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["change"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 change 类型，期望 float64/int/string")
 		}
 		// 处理 pct_change 的简单类型
-		pctChange, ok := item["pct_change"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 pct_change 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var pctChange float64
+		if item["pct_change"] == nil {
+			// 字段值为 null，使用零值
+			pctChange = 0
+		} else if v, ok := item["pct_change"].(float64); ok {
+			pctChange = v
+		} else if v, ok := item["pct_change"].(int); ok {
+			pctChange = float64(v)
+		} else if v, ok := item["pct_change"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				pctChange = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					pctChange = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["pct_change"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: pct_change")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["pct_change"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 pct_change 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["pct_change"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: pct_change")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["pct_change"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 pct_change 类型，期望 float64/int/string")
 		}
 		// 处理 vol 的简单类型
-		vol, ok := item["vol"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 vol 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var vol float64
+		if item["vol"] == nil {
+			// 字段值为 null，使用零值
+			vol = 0
+		} else if v, ok := item["vol"].(float64); ok {
+			vol = v
+		} else if v, ok := item["vol"].(int); ok {
+			vol = float64(v)
+		} else if v, ok := item["vol"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				vol = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					vol = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["vol"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: vol")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["vol"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 vol 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["vol"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: vol")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["vol"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 vol 类型，期望 float64/int/string")
 		}
 		// 处理 amount 的简单类型
-		amount, ok := item["amount"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 amount 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var amount float64
+		if item["amount"] == nil {
+			// 字段值为 null，使用零值
+			amount = 0
+		} else if v, ok := item["amount"].(float64); ok {
+			amount = v
+		} else if v, ok := item["amount"].(int); ok {
+			amount = float64(v)
+		} else if v, ok := item["amount"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				amount = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					amount = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["amount"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: amount")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["amount"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 amount 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["amount"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: amount")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["amount"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 amount 类型，期望 float64/int/string")
 		}
 		// 处理 asi_bfq 的简单类型
-		asiBfq, ok := item["asi_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 asi_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var asiBfq float64
+		if item["asi_bfq"] == nil {
+			// 字段值为 null，使用零值
+			asiBfq = 0
+		} else if v, ok := item["asi_bfq"].(float64); ok {
+			asiBfq = v
+		} else if v, ok := item["asi_bfq"].(int); ok {
+			asiBfq = float64(v)
+		} else if v, ok := item["asi_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				asiBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					asiBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["asi_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: asi_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["asi_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 asi_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["asi_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: asi_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["asi_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 asi_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 asit_bfq 的简单类型
-		asitBfq, ok := item["asit_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 asit_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var asitBfq float64
+		if item["asit_bfq"] == nil {
+			// 字段值为 null，使用零值
+			asitBfq = 0
+		} else if v, ok := item["asit_bfq"].(float64); ok {
+			asitBfq = v
+		} else if v, ok := item["asit_bfq"].(int); ok {
+			asitBfq = float64(v)
+		} else if v, ok := item["asit_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				asitBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					asitBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["asit_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: asit_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["asit_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 asit_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["asit_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: asit_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["asit_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 asit_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 atr_bfq 的简单类型
-		atrBfq, ok := item["atr_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 atr_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var atrBfq float64
+		if item["atr_bfq"] == nil {
+			// 字段值为 null，使用零值
+			atrBfq = 0
+		} else if v, ok := item["atr_bfq"].(float64); ok {
+			atrBfq = v
+		} else if v, ok := item["atr_bfq"].(int); ok {
+			atrBfq = float64(v)
+		} else if v, ok := item["atr_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				atrBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					atrBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["atr_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: atr_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["atr_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 atr_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["atr_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: atr_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["atr_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 atr_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 bbi_bfq 的简单类型
-		bbiBfq, ok := item["bbi_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 bbi_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var bbiBfq float64
+		if item["bbi_bfq"] == nil {
+			// 字段值为 null，使用零值
+			bbiBfq = 0
+		} else if v, ok := item["bbi_bfq"].(float64); ok {
+			bbiBfq = v
+		} else if v, ok := item["bbi_bfq"].(int); ok {
+			bbiBfq = float64(v)
+		} else if v, ok := item["bbi_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				bbiBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					bbiBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["bbi_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: bbi_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["bbi_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 bbi_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["bbi_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: bbi_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["bbi_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 bbi_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 bias1_bfq 的简单类型
-		bias1Bfq, ok := item["bias1_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 bias1_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var bias1Bfq float64
+		if item["bias1_bfq"] == nil {
+			// 字段值为 null，使用零值
+			bias1Bfq = 0
+		} else if v, ok := item["bias1_bfq"].(float64); ok {
+			bias1Bfq = v
+		} else if v, ok := item["bias1_bfq"].(int); ok {
+			bias1Bfq = float64(v)
+		} else if v, ok := item["bias1_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				bias1Bfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					bias1Bfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["bias1_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: bias1_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["bias1_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 bias1_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["bias1_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: bias1_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["bias1_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 bias1_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 bias2_bfq 的简单类型
-		bias2Bfq, ok := item["bias2_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 bias2_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var bias2Bfq float64
+		if item["bias2_bfq"] == nil {
+			// 字段值为 null，使用零值
+			bias2Bfq = 0
+		} else if v, ok := item["bias2_bfq"].(float64); ok {
+			bias2Bfq = v
+		} else if v, ok := item["bias2_bfq"].(int); ok {
+			bias2Bfq = float64(v)
+		} else if v, ok := item["bias2_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				bias2Bfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					bias2Bfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["bias2_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: bias2_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["bias2_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 bias2_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["bias2_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: bias2_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["bias2_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 bias2_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 bias3_bfq 的简单类型
-		bias3Bfq, ok := item["bias3_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 bias3_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var bias3Bfq float64
+		if item["bias3_bfq"] == nil {
+			// 字段值为 null，使用零值
+			bias3Bfq = 0
+		} else if v, ok := item["bias3_bfq"].(float64); ok {
+			bias3Bfq = v
+		} else if v, ok := item["bias3_bfq"].(int); ok {
+			bias3Bfq = float64(v)
+		} else if v, ok := item["bias3_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				bias3Bfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					bias3Bfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["bias3_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: bias3_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["bias3_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 bias3_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["bias3_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: bias3_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["bias3_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 bias3_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 boll_lower_bfq 的简单类型
-		bollLowerBfq, ok := item["boll_lower_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 boll_lower_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var bollLowerBfq float64
+		if item["boll_lower_bfq"] == nil {
+			// 字段值为 null，使用零值
+			bollLowerBfq = 0
+		} else if v, ok := item["boll_lower_bfq"].(float64); ok {
+			bollLowerBfq = v
+		} else if v, ok := item["boll_lower_bfq"].(int); ok {
+			bollLowerBfq = float64(v)
+		} else if v, ok := item["boll_lower_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				bollLowerBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					bollLowerBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["boll_lower_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: boll_lower_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["boll_lower_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 boll_lower_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["boll_lower_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: boll_lower_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["boll_lower_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 boll_lower_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 boll_mid_bfq 的简单类型
-		bollMidBfq, ok := item["boll_mid_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 boll_mid_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var bollMidBfq float64
+		if item["boll_mid_bfq"] == nil {
+			// 字段值为 null，使用零值
+			bollMidBfq = 0
+		} else if v, ok := item["boll_mid_bfq"].(float64); ok {
+			bollMidBfq = v
+		} else if v, ok := item["boll_mid_bfq"].(int); ok {
+			bollMidBfq = float64(v)
+		} else if v, ok := item["boll_mid_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				bollMidBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					bollMidBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["boll_mid_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: boll_mid_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["boll_mid_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 boll_mid_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["boll_mid_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: boll_mid_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["boll_mid_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 boll_mid_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 boll_upper_bfq 的简单类型
-		bollUpperBfq, ok := item["boll_upper_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 boll_upper_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var bollUpperBfq float64
+		if item["boll_upper_bfq"] == nil {
+			// 字段值为 null，使用零值
+			bollUpperBfq = 0
+		} else if v, ok := item["boll_upper_bfq"].(float64); ok {
+			bollUpperBfq = v
+		} else if v, ok := item["boll_upper_bfq"].(int); ok {
+			bollUpperBfq = float64(v)
+		} else if v, ok := item["boll_upper_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				bollUpperBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					bollUpperBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["boll_upper_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: boll_upper_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["boll_upper_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 boll_upper_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["boll_upper_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: boll_upper_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["boll_upper_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 boll_upper_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 brar_ar_bfq 的简单类型
-		brarArBfq, ok := item["brar_ar_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 brar_ar_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var brarArBfq float64
+		if item["brar_ar_bfq"] == nil {
+			// 字段值为 null，使用零值
+			brarArBfq = 0
+		} else if v, ok := item["brar_ar_bfq"].(float64); ok {
+			brarArBfq = v
+		} else if v, ok := item["brar_ar_bfq"].(int); ok {
+			brarArBfq = float64(v)
+		} else if v, ok := item["brar_ar_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				brarArBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					brarArBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["brar_ar_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: brar_ar_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["brar_ar_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 brar_ar_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["brar_ar_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: brar_ar_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["brar_ar_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 brar_ar_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 brar_br_bfq 的简单类型
-		brarBrBfq, ok := item["brar_br_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 brar_br_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var brarBrBfq float64
+		if item["brar_br_bfq"] == nil {
+			// 字段值为 null，使用零值
+			brarBrBfq = 0
+		} else if v, ok := item["brar_br_bfq"].(float64); ok {
+			brarBrBfq = v
+		} else if v, ok := item["brar_br_bfq"].(int); ok {
+			brarBrBfq = float64(v)
+		} else if v, ok := item["brar_br_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				brarBrBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					brarBrBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["brar_br_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: brar_br_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["brar_br_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 brar_br_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["brar_br_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: brar_br_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["brar_br_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 brar_br_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 cci_bfq 的简单类型
-		cciBfq, ok := item["cci_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 cci_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var cciBfq float64
+		if item["cci_bfq"] == nil {
+			// 字段值为 null，使用零值
+			cciBfq = 0
+		} else if v, ok := item["cci_bfq"].(float64); ok {
+			cciBfq = v
+		} else if v, ok := item["cci_bfq"].(int); ok {
+			cciBfq = float64(v)
+		} else if v, ok := item["cci_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				cciBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					cciBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["cci_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: cci_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["cci_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 cci_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["cci_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: cci_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["cci_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 cci_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 cr_bfq 的简单类型
-		crBfq, ok := item["cr_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 cr_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var crBfq float64
+		if item["cr_bfq"] == nil {
+			// 字段值为 null，使用零值
+			crBfq = 0
+		} else if v, ok := item["cr_bfq"].(float64); ok {
+			crBfq = v
+		} else if v, ok := item["cr_bfq"].(int); ok {
+			crBfq = float64(v)
+		} else if v, ok := item["cr_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				crBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					crBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["cr_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: cr_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["cr_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 cr_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["cr_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: cr_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["cr_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 cr_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 dfma_dif_bfq 的简单类型
-		dfmaDifBfq, ok := item["dfma_dif_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 dfma_dif_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var dfmaDifBfq float64
+		if item["dfma_dif_bfq"] == nil {
+			// 字段值为 null，使用零值
+			dfmaDifBfq = 0
+		} else if v, ok := item["dfma_dif_bfq"].(float64); ok {
+			dfmaDifBfq = v
+		} else if v, ok := item["dfma_dif_bfq"].(int); ok {
+			dfmaDifBfq = float64(v)
+		} else if v, ok := item["dfma_dif_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				dfmaDifBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					dfmaDifBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["dfma_dif_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: dfma_dif_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["dfma_dif_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 dfma_dif_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["dfma_dif_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: dfma_dif_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["dfma_dif_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 dfma_dif_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 dfma_difma_bfq 的简单类型
-		dfmaDifmaBfq, ok := item["dfma_difma_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 dfma_difma_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var dfmaDifmaBfq float64
+		if item["dfma_difma_bfq"] == nil {
+			// 字段值为 null，使用零值
+			dfmaDifmaBfq = 0
+		} else if v, ok := item["dfma_difma_bfq"].(float64); ok {
+			dfmaDifmaBfq = v
+		} else if v, ok := item["dfma_difma_bfq"].(int); ok {
+			dfmaDifmaBfq = float64(v)
+		} else if v, ok := item["dfma_difma_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				dfmaDifmaBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					dfmaDifmaBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["dfma_difma_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: dfma_difma_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["dfma_difma_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 dfma_difma_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["dfma_difma_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: dfma_difma_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["dfma_difma_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 dfma_difma_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 dmi_adx_bfq 的简单类型
-		dmiAdxBfq, ok := item["dmi_adx_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 dmi_adx_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var dmiAdxBfq float64
+		if item["dmi_adx_bfq"] == nil {
+			// 字段值为 null，使用零值
+			dmiAdxBfq = 0
+		} else if v, ok := item["dmi_adx_bfq"].(float64); ok {
+			dmiAdxBfq = v
+		} else if v, ok := item["dmi_adx_bfq"].(int); ok {
+			dmiAdxBfq = float64(v)
+		} else if v, ok := item["dmi_adx_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				dmiAdxBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					dmiAdxBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["dmi_adx_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: dmi_adx_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["dmi_adx_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 dmi_adx_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["dmi_adx_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: dmi_adx_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["dmi_adx_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 dmi_adx_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 dmi_adxr_bfq 的简单类型
-		dmiAdxrBfq, ok := item["dmi_adxr_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 dmi_adxr_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var dmiAdxrBfq float64
+		if item["dmi_adxr_bfq"] == nil {
+			// 字段值为 null，使用零值
+			dmiAdxrBfq = 0
+		} else if v, ok := item["dmi_adxr_bfq"].(float64); ok {
+			dmiAdxrBfq = v
+		} else if v, ok := item["dmi_adxr_bfq"].(int); ok {
+			dmiAdxrBfq = float64(v)
+		} else if v, ok := item["dmi_adxr_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				dmiAdxrBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					dmiAdxrBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["dmi_adxr_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: dmi_adxr_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["dmi_adxr_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 dmi_adxr_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["dmi_adxr_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: dmi_adxr_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["dmi_adxr_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 dmi_adxr_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 dmi_mdi_bfq 的简单类型
-		dmiMdiBfq, ok := item["dmi_mdi_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 dmi_mdi_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var dmiMdiBfq float64
+		if item["dmi_mdi_bfq"] == nil {
+			// 字段值为 null，使用零值
+			dmiMdiBfq = 0
+		} else if v, ok := item["dmi_mdi_bfq"].(float64); ok {
+			dmiMdiBfq = v
+		} else if v, ok := item["dmi_mdi_bfq"].(int); ok {
+			dmiMdiBfq = float64(v)
+		} else if v, ok := item["dmi_mdi_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				dmiMdiBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					dmiMdiBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["dmi_mdi_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: dmi_mdi_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["dmi_mdi_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 dmi_mdi_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["dmi_mdi_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: dmi_mdi_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["dmi_mdi_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 dmi_mdi_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 dmi_pdi_bfq 的简单类型
-		dmiPdiBfq, ok := item["dmi_pdi_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 dmi_pdi_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var dmiPdiBfq float64
+		if item["dmi_pdi_bfq"] == nil {
+			// 字段值为 null，使用零值
+			dmiPdiBfq = 0
+		} else if v, ok := item["dmi_pdi_bfq"].(float64); ok {
+			dmiPdiBfq = v
+		} else if v, ok := item["dmi_pdi_bfq"].(int); ok {
+			dmiPdiBfq = float64(v)
+		} else if v, ok := item["dmi_pdi_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				dmiPdiBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					dmiPdiBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["dmi_pdi_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: dmi_pdi_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["dmi_pdi_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 dmi_pdi_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["dmi_pdi_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: dmi_pdi_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["dmi_pdi_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 dmi_pdi_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 downdays 的简单类型
-		downdays, ok := item["downdays"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 downdays 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var downdays float64
+		if item["downdays"] == nil {
+			// 字段值为 null，使用零值
+			downdays = 0
+		} else if v, ok := item["downdays"].(float64); ok {
+			downdays = v
+		} else if v, ok := item["downdays"].(int); ok {
+			downdays = float64(v)
+		} else if v, ok := item["downdays"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				downdays = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					downdays = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["downdays"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: downdays")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["downdays"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 downdays 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["downdays"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: downdays")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["downdays"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 downdays 类型，期望 float64/int/string")
 		}
 		// 处理 updays 的简单类型
-		updays, ok := item["updays"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 updays 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var updays float64
+		if item["updays"] == nil {
+			// 字段值为 null，使用零值
+			updays = 0
+		} else if v, ok := item["updays"].(float64); ok {
+			updays = v
+		} else if v, ok := item["updays"].(int); ok {
+			updays = float64(v)
+		} else if v, ok := item["updays"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				updays = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					updays = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["updays"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: updays")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["updays"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 updays 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["updays"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: updays")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["updays"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 updays 类型，期望 float64/int/string")
 		}
 		// 处理 dpo_bfq 的简单类型
-		dpoBfq, ok := item["dpo_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 dpo_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var dpoBfq float64
+		if item["dpo_bfq"] == nil {
+			// 字段值为 null，使用零值
+			dpoBfq = 0
+		} else if v, ok := item["dpo_bfq"].(float64); ok {
+			dpoBfq = v
+		} else if v, ok := item["dpo_bfq"].(int); ok {
+			dpoBfq = float64(v)
+		} else if v, ok := item["dpo_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				dpoBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					dpoBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["dpo_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: dpo_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["dpo_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 dpo_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["dpo_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: dpo_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["dpo_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 dpo_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 madpo_bfq 的简单类型
-		madpoBfq, ok := item["madpo_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 madpo_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var madpoBfq float64
+		if item["madpo_bfq"] == nil {
+			// 字段值为 null，使用零值
+			madpoBfq = 0
+		} else if v, ok := item["madpo_bfq"].(float64); ok {
+			madpoBfq = v
+		} else if v, ok := item["madpo_bfq"].(int); ok {
+			madpoBfq = float64(v)
+		} else if v, ok := item["madpo_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				madpoBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					madpoBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["madpo_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: madpo_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["madpo_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 madpo_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["madpo_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: madpo_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["madpo_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 madpo_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 ema_bfq_10 的简单类型
-		emaBfq10, ok := item["ema_bfq_10"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 ema_bfq_10 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var emaBfq10 float64
+		if item["ema_bfq_10"] == nil {
+			// 字段值为 null，使用零值
+			emaBfq10 = 0
+		} else if v, ok := item["ema_bfq_10"].(float64); ok {
+			emaBfq10 = v
+		} else if v, ok := item["ema_bfq_10"].(int); ok {
+			emaBfq10 = float64(v)
+		} else if v, ok := item["ema_bfq_10"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				emaBfq10 = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					emaBfq10 = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["ema_bfq_10"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: ema_bfq_10")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["ema_bfq_10"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 ema_bfq_10 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ema_bfq_10"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: ema_bfq_10")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ema_bfq_10"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 ema_bfq_10 类型，期望 float64/int/string")
 		}
 		// 处理 ema_bfq_20 的简单类型
-		emaBfq20, ok := item["ema_bfq_20"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 ema_bfq_20 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var emaBfq20 float64
+		if item["ema_bfq_20"] == nil {
+			// 字段值为 null，使用零值
+			emaBfq20 = 0
+		} else if v, ok := item["ema_bfq_20"].(float64); ok {
+			emaBfq20 = v
+		} else if v, ok := item["ema_bfq_20"].(int); ok {
+			emaBfq20 = float64(v)
+		} else if v, ok := item["ema_bfq_20"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				emaBfq20 = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					emaBfq20 = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["ema_bfq_20"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: ema_bfq_20")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["ema_bfq_20"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 ema_bfq_20 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ema_bfq_20"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: ema_bfq_20")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ema_bfq_20"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 ema_bfq_20 类型，期望 float64/int/string")
 		}
 		// 处理 ema_bfq_250 的简单类型
-		emaBfq250, ok := item["ema_bfq_250"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 ema_bfq_250 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var emaBfq250 float64
+		if item["ema_bfq_250"] == nil {
+			// 字段值为 null，使用零值
+			emaBfq250 = 0
+		} else if v, ok := item["ema_bfq_250"].(float64); ok {
+			emaBfq250 = v
+		} else if v, ok := item["ema_bfq_250"].(int); ok {
+			emaBfq250 = float64(v)
+		} else if v, ok := item["ema_bfq_250"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				emaBfq250 = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					emaBfq250 = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["ema_bfq_250"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: ema_bfq_250")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["ema_bfq_250"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 ema_bfq_250 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ema_bfq_250"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: ema_bfq_250")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ema_bfq_250"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 ema_bfq_250 类型，期望 float64/int/string")
 		}
 		// 处理 ema_bfq_30 的简单类型
-		emaBfq30, ok := item["ema_bfq_30"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 ema_bfq_30 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var emaBfq30 float64
+		if item["ema_bfq_30"] == nil {
+			// 字段值为 null，使用零值
+			emaBfq30 = 0
+		} else if v, ok := item["ema_bfq_30"].(float64); ok {
+			emaBfq30 = v
+		} else if v, ok := item["ema_bfq_30"].(int); ok {
+			emaBfq30 = float64(v)
+		} else if v, ok := item["ema_bfq_30"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				emaBfq30 = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					emaBfq30 = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["ema_bfq_30"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: ema_bfq_30")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["ema_bfq_30"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 ema_bfq_30 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ema_bfq_30"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: ema_bfq_30")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ema_bfq_30"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 ema_bfq_30 类型，期望 float64/int/string")
 		}
 		// 处理 ema_bfq_5 的简单类型
-		emaBfq5, ok := item["ema_bfq_5"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 ema_bfq_5 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var emaBfq5 float64
+		if item["ema_bfq_5"] == nil {
+			// 字段值为 null，使用零值
+			emaBfq5 = 0
+		} else if v, ok := item["ema_bfq_5"].(float64); ok {
+			emaBfq5 = v
+		} else if v, ok := item["ema_bfq_5"].(int); ok {
+			emaBfq5 = float64(v)
+		} else if v, ok := item["ema_bfq_5"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				emaBfq5 = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					emaBfq5 = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["ema_bfq_5"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: ema_bfq_5")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["ema_bfq_5"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 ema_bfq_5 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ema_bfq_5"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: ema_bfq_5")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ema_bfq_5"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 ema_bfq_5 类型，期望 float64/int/string")
 		}
 		// 处理 ema_bfq_60 的简单类型
-		emaBfq60, ok := item["ema_bfq_60"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 ema_bfq_60 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var emaBfq60 float64
+		if item["ema_bfq_60"] == nil {
+			// 字段值为 null，使用零值
+			emaBfq60 = 0
+		} else if v, ok := item["ema_bfq_60"].(float64); ok {
+			emaBfq60 = v
+		} else if v, ok := item["ema_bfq_60"].(int); ok {
+			emaBfq60 = float64(v)
+		} else if v, ok := item["ema_bfq_60"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				emaBfq60 = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					emaBfq60 = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["ema_bfq_60"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: ema_bfq_60")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["ema_bfq_60"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 ema_bfq_60 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ema_bfq_60"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: ema_bfq_60")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ema_bfq_60"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 ema_bfq_60 类型，期望 float64/int/string")
 		}
 		// 处理 ema_bfq_90 的简单类型
-		emaBfq90, ok := item["ema_bfq_90"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 ema_bfq_90 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var emaBfq90 float64
+		if item["ema_bfq_90"] == nil {
+			// 字段值为 null，使用零值
+			emaBfq90 = 0
+		} else if v, ok := item["ema_bfq_90"].(float64); ok {
+			emaBfq90 = v
+		} else if v, ok := item["ema_bfq_90"].(int); ok {
+			emaBfq90 = float64(v)
+		} else if v, ok := item["ema_bfq_90"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				emaBfq90 = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					emaBfq90 = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["ema_bfq_90"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: ema_bfq_90")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["ema_bfq_90"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 ema_bfq_90 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ema_bfq_90"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: ema_bfq_90")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ema_bfq_90"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 ema_bfq_90 类型，期望 float64/int/string")
 		}
 		// 处理 emv_bfq 的简单类型
-		emvBfq, ok := item["emv_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 emv_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var emvBfq float64
+		if item["emv_bfq"] == nil {
+			// 字段值为 null，使用零值
+			emvBfq = 0
+		} else if v, ok := item["emv_bfq"].(float64); ok {
+			emvBfq = v
+		} else if v, ok := item["emv_bfq"].(int); ok {
+			emvBfq = float64(v)
+		} else if v, ok := item["emv_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				emvBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					emvBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["emv_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: emv_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["emv_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 emv_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["emv_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: emv_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["emv_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 emv_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 maemv_bfq 的简单类型
-		maemvBfq, ok := item["maemv_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 maemv_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var maemvBfq float64
+		if item["maemv_bfq"] == nil {
+			// 字段值为 null，使用零值
+			maemvBfq = 0
+		} else if v, ok := item["maemv_bfq"].(float64); ok {
+			maemvBfq = v
+		} else if v, ok := item["maemv_bfq"].(int); ok {
+			maemvBfq = float64(v)
+		} else if v, ok := item["maemv_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				maemvBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					maemvBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["maemv_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: maemv_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["maemv_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 maemv_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["maemv_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: maemv_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["maemv_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 maemv_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 expma_12_bfq 的简单类型
-		expma12Bfq, ok := item["expma_12_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 expma_12_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var expma12Bfq float64
+		if item["expma_12_bfq"] == nil {
+			// 字段值为 null，使用零值
+			expma12Bfq = 0
+		} else if v, ok := item["expma_12_bfq"].(float64); ok {
+			expma12Bfq = v
+		} else if v, ok := item["expma_12_bfq"].(int); ok {
+			expma12Bfq = float64(v)
+		} else if v, ok := item["expma_12_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				expma12Bfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					expma12Bfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["expma_12_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: expma_12_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["expma_12_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 expma_12_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["expma_12_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: expma_12_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["expma_12_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 expma_12_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 expma_50_bfq 的简单类型
-		expma50Bfq, ok := item["expma_50_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 expma_50_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var expma50Bfq float64
+		if item["expma_50_bfq"] == nil {
+			// 字段值为 null，使用零值
+			expma50Bfq = 0
+		} else if v, ok := item["expma_50_bfq"].(float64); ok {
+			expma50Bfq = v
+		} else if v, ok := item["expma_50_bfq"].(int); ok {
+			expma50Bfq = float64(v)
+		} else if v, ok := item["expma_50_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				expma50Bfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					expma50Bfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["expma_50_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: expma_50_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["expma_50_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 expma_50_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["expma_50_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: expma_50_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["expma_50_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 expma_50_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 kdj_bfq 的简单类型
-		kdjBfq, ok := item["kdj_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 kdj_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var kdjBfq float64
+		if item["kdj_bfq"] == nil {
+			// 字段值为 null，使用零值
+			kdjBfq = 0
+		} else if v, ok := item["kdj_bfq"].(float64); ok {
+			kdjBfq = v
+		} else if v, ok := item["kdj_bfq"].(int); ok {
+			kdjBfq = float64(v)
+		} else if v, ok := item["kdj_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				kdjBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					kdjBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["kdj_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: kdj_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["kdj_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 kdj_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["kdj_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: kdj_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["kdj_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 kdj_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 kdj_d_bfq 的简单类型
-		kdjDBfq, ok := item["kdj_d_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 kdj_d_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var kdjDBfq float64
+		if item["kdj_d_bfq"] == nil {
+			// 字段值为 null，使用零值
+			kdjDBfq = 0
+		} else if v, ok := item["kdj_d_bfq"].(float64); ok {
+			kdjDBfq = v
+		} else if v, ok := item["kdj_d_bfq"].(int); ok {
+			kdjDBfq = float64(v)
+		} else if v, ok := item["kdj_d_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				kdjDBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					kdjDBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["kdj_d_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: kdj_d_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["kdj_d_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 kdj_d_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["kdj_d_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: kdj_d_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["kdj_d_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 kdj_d_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 kdj_k_bfq 的简单类型
-		kdjKBfq, ok := item["kdj_k_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 kdj_k_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var kdjKBfq float64
+		if item["kdj_k_bfq"] == nil {
+			// 字段值为 null，使用零值
+			kdjKBfq = 0
+		} else if v, ok := item["kdj_k_bfq"].(float64); ok {
+			kdjKBfq = v
+		} else if v, ok := item["kdj_k_bfq"].(int); ok {
+			kdjKBfq = float64(v)
+		} else if v, ok := item["kdj_k_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				kdjKBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					kdjKBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["kdj_k_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: kdj_k_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["kdj_k_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 kdj_k_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["kdj_k_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: kdj_k_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["kdj_k_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 kdj_k_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 ktn_down_bfq 的简单类型
-		ktnDownBfq, ok := item["ktn_down_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 ktn_down_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var ktnDownBfq float64
+		if item["ktn_down_bfq"] == nil {
+			// 字段值为 null，使用零值
+			ktnDownBfq = 0
+		} else if v, ok := item["ktn_down_bfq"].(float64); ok {
+			ktnDownBfq = v
+		} else if v, ok := item["ktn_down_bfq"].(int); ok {
+			ktnDownBfq = float64(v)
+		} else if v, ok := item["ktn_down_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				ktnDownBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					ktnDownBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["ktn_down_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: ktn_down_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["ktn_down_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 ktn_down_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ktn_down_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: ktn_down_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ktn_down_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 ktn_down_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 ktn_mid_bfq 的简单类型
-		ktnMidBfq, ok := item["ktn_mid_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 ktn_mid_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var ktnMidBfq float64
+		if item["ktn_mid_bfq"] == nil {
+			// 字段值为 null，使用零值
+			ktnMidBfq = 0
+		} else if v, ok := item["ktn_mid_bfq"].(float64); ok {
+			ktnMidBfq = v
+		} else if v, ok := item["ktn_mid_bfq"].(int); ok {
+			ktnMidBfq = float64(v)
+		} else if v, ok := item["ktn_mid_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				ktnMidBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					ktnMidBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["ktn_mid_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: ktn_mid_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["ktn_mid_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 ktn_mid_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ktn_mid_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: ktn_mid_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ktn_mid_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 ktn_mid_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 ktn_upper_bfq 的简单类型
-		ktnUpperBfq, ok := item["ktn_upper_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 ktn_upper_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var ktnUpperBfq float64
+		if item["ktn_upper_bfq"] == nil {
+			// 字段值为 null，使用零值
+			ktnUpperBfq = 0
+		} else if v, ok := item["ktn_upper_bfq"].(float64); ok {
+			ktnUpperBfq = v
+		} else if v, ok := item["ktn_upper_bfq"].(int); ok {
+			ktnUpperBfq = float64(v)
+		} else if v, ok := item["ktn_upper_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				ktnUpperBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					ktnUpperBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["ktn_upper_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: ktn_upper_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["ktn_upper_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 ktn_upper_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ktn_upper_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: ktn_upper_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ktn_upper_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 ktn_upper_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 lowdays 的简单类型
-		lowdays, ok := item["lowdays"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 lowdays 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var lowdays float64
+		if item["lowdays"] == nil {
+			// 字段值为 null，使用零值
+			lowdays = 0
+		} else if v, ok := item["lowdays"].(float64); ok {
+			lowdays = v
+		} else if v, ok := item["lowdays"].(int); ok {
+			lowdays = float64(v)
+		} else if v, ok := item["lowdays"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				lowdays = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					lowdays = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["lowdays"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: lowdays")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["lowdays"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 lowdays 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["lowdays"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: lowdays")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["lowdays"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 lowdays 类型，期望 float64/int/string")
 		}
 		// 处理 topdays 的简单类型
-		topdays, ok := item["topdays"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 topdays 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var topdays float64
+		if item["topdays"] == nil {
+			// 字段值为 null，使用零值
+			topdays = 0
+		} else if v, ok := item["topdays"].(float64); ok {
+			topdays = v
+		} else if v, ok := item["topdays"].(int); ok {
+			topdays = float64(v)
+		} else if v, ok := item["topdays"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				topdays = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					topdays = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["topdays"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: topdays")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["topdays"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 topdays 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["topdays"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: topdays")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["topdays"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 topdays 类型，期望 float64/int/string")
 		}
 		// 处理 ma_bfq_10 的简单类型
-		maBfq10, ok := item["ma_bfq_10"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 ma_bfq_10 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var maBfq10 float64
+		if item["ma_bfq_10"] == nil {
+			// 字段值为 null，使用零值
+			maBfq10 = 0
+		} else if v, ok := item["ma_bfq_10"].(float64); ok {
+			maBfq10 = v
+		} else if v, ok := item["ma_bfq_10"].(int); ok {
+			maBfq10 = float64(v)
+		} else if v, ok := item["ma_bfq_10"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				maBfq10 = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					maBfq10 = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["ma_bfq_10"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: ma_bfq_10")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["ma_bfq_10"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 ma_bfq_10 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ma_bfq_10"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: ma_bfq_10")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ma_bfq_10"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 ma_bfq_10 类型，期望 float64/int/string")
 		}
 		// 处理 ma_bfq_20 的简单类型
-		maBfq20, ok := item["ma_bfq_20"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 ma_bfq_20 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var maBfq20 float64
+		if item["ma_bfq_20"] == nil {
+			// 字段值为 null，使用零值
+			maBfq20 = 0
+		} else if v, ok := item["ma_bfq_20"].(float64); ok {
+			maBfq20 = v
+		} else if v, ok := item["ma_bfq_20"].(int); ok {
+			maBfq20 = float64(v)
+		} else if v, ok := item["ma_bfq_20"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				maBfq20 = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					maBfq20 = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["ma_bfq_20"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: ma_bfq_20")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["ma_bfq_20"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 ma_bfq_20 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ma_bfq_20"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: ma_bfq_20")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ma_bfq_20"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 ma_bfq_20 类型，期望 float64/int/string")
 		}
 		// 处理 ma_bfq_250 的简单类型
-		maBfq250, ok := item["ma_bfq_250"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 ma_bfq_250 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var maBfq250 float64
+		if item["ma_bfq_250"] == nil {
+			// 字段值为 null，使用零值
+			maBfq250 = 0
+		} else if v, ok := item["ma_bfq_250"].(float64); ok {
+			maBfq250 = v
+		} else if v, ok := item["ma_bfq_250"].(int); ok {
+			maBfq250 = float64(v)
+		} else if v, ok := item["ma_bfq_250"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				maBfq250 = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					maBfq250 = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["ma_bfq_250"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: ma_bfq_250")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["ma_bfq_250"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 ma_bfq_250 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ma_bfq_250"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: ma_bfq_250")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ma_bfq_250"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 ma_bfq_250 类型，期望 float64/int/string")
 		}
 		// 处理 ma_bfq_30 的简单类型
-		maBfq30, ok := item["ma_bfq_30"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 ma_bfq_30 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var maBfq30 float64
+		if item["ma_bfq_30"] == nil {
+			// 字段值为 null，使用零值
+			maBfq30 = 0
+		} else if v, ok := item["ma_bfq_30"].(float64); ok {
+			maBfq30 = v
+		} else if v, ok := item["ma_bfq_30"].(int); ok {
+			maBfq30 = float64(v)
+		} else if v, ok := item["ma_bfq_30"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				maBfq30 = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					maBfq30 = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["ma_bfq_30"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: ma_bfq_30")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["ma_bfq_30"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 ma_bfq_30 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ma_bfq_30"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: ma_bfq_30")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ma_bfq_30"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 ma_bfq_30 类型，期望 float64/int/string")
 		}
 		// 处理 ma_bfq_5 的简单类型
-		maBfq5, ok := item["ma_bfq_5"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 ma_bfq_5 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var maBfq5 float64
+		if item["ma_bfq_5"] == nil {
+			// 字段值为 null，使用零值
+			maBfq5 = 0
+		} else if v, ok := item["ma_bfq_5"].(float64); ok {
+			maBfq5 = v
+		} else if v, ok := item["ma_bfq_5"].(int); ok {
+			maBfq5 = float64(v)
+		} else if v, ok := item["ma_bfq_5"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				maBfq5 = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					maBfq5 = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["ma_bfq_5"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: ma_bfq_5")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["ma_bfq_5"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 ma_bfq_5 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ma_bfq_5"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: ma_bfq_5")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ma_bfq_5"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 ma_bfq_5 类型，期望 float64/int/string")
 		}
 		// 处理 ma_bfq_60 的简单类型
-		maBfq60, ok := item["ma_bfq_60"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 ma_bfq_60 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var maBfq60 float64
+		if item["ma_bfq_60"] == nil {
+			// 字段值为 null，使用零值
+			maBfq60 = 0
+		} else if v, ok := item["ma_bfq_60"].(float64); ok {
+			maBfq60 = v
+		} else if v, ok := item["ma_bfq_60"].(int); ok {
+			maBfq60 = float64(v)
+		} else if v, ok := item["ma_bfq_60"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				maBfq60 = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					maBfq60 = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["ma_bfq_60"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: ma_bfq_60")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["ma_bfq_60"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 ma_bfq_60 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ma_bfq_60"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: ma_bfq_60")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ma_bfq_60"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 ma_bfq_60 类型，期望 float64/int/string")
 		}
 		// 处理 ma_bfq_90 的简单类型
-		maBfq90, ok := item["ma_bfq_90"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 ma_bfq_90 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var maBfq90 float64
+		if item["ma_bfq_90"] == nil {
+			// 字段值为 null，使用零值
+			maBfq90 = 0
+		} else if v, ok := item["ma_bfq_90"].(float64); ok {
+			maBfq90 = v
+		} else if v, ok := item["ma_bfq_90"].(int); ok {
+			maBfq90 = float64(v)
+		} else if v, ok := item["ma_bfq_90"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				maBfq90 = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					maBfq90 = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["ma_bfq_90"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: ma_bfq_90")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["ma_bfq_90"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 ma_bfq_90 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ma_bfq_90"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: ma_bfq_90")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ma_bfq_90"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 ma_bfq_90 类型，期望 float64/int/string")
 		}
 		// 处理 macd_bfq 的简单类型
-		macdBfq, ok := item["macd_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 macd_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var macdBfq float64
+		if item["macd_bfq"] == nil {
+			// 字段值为 null，使用零值
+			macdBfq = 0
+		} else if v, ok := item["macd_bfq"].(float64); ok {
+			macdBfq = v
+		} else if v, ok := item["macd_bfq"].(int); ok {
+			macdBfq = float64(v)
+		} else if v, ok := item["macd_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				macdBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					macdBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["macd_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: macd_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["macd_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 macd_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["macd_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: macd_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["macd_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 macd_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 macd_dea_bfq 的简单类型
-		macdDeaBfq, ok := item["macd_dea_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 macd_dea_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var macdDeaBfq float64
+		if item["macd_dea_bfq"] == nil {
+			// 字段值为 null，使用零值
+			macdDeaBfq = 0
+		} else if v, ok := item["macd_dea_bfq"].(float64); ok {
+			macdDeaBfq = v
+		} else if v, ok := item["macd_dea_bfq"].(int); ok {
+			macdDeaBfq = float64(v)
+		} else if v, ok := item["macd_dea_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				macdDeaBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					macdDeaBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["macd_dea_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: macd_dea_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["macd_dea_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 macd_dea_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["macd_dea_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: macd_dea_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["macd_dea_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 macd_dea_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 macd_dif_bfq 的简单类型
-		macdDifBfq, ok := item["macd_dif_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 macd_dif_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var macdDifBfq float64
+		if item["macd_dif_bfq"] == nil {
+			// 字段值为 null，使用零值
+			macdDifBfq = 0
+		} else if v, ok := item["macd_dif_bfq"].(float64); ok {
+			macdDifBfq = v
+		} else if v, ok := item["macd_dif_bfq"].(int); ok {
+			macdDifBfq = float64(v)
+		} else if v, ok := item["macd_dif_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				macdDifBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					macdDifBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["macd_dif_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: macd_dif_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["macd_dif_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 macd_dif_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["macd_dif_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: macd_dif_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["macd_dif_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 macd_dif_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 mass_bfq 的简单类型
-		massBfq, ok := item["mass_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 mass_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var massBfq float64
+		if item["mass_bfq"] == nil {
+			// 字段值为 null，使用零值
+			massBfq = 0
+		} else if v, ok := item["mass_bfq"].(float64); ok {
+			massBfq = v
+		} else if v, ok := item["mass_bfq"].(int); ok {
+			massBfq = float64(v)
+		} else if v, ok := item["mass_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				massBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					massBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["mass_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: mass_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["mass_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 mass_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["mass_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: mass_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["mass_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 mass_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 ma_mass_bfq 的简单类型
-		maMassBfq, ok := item["ma_mass_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 ma_mass_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var maMassBfq float64
+		if item["ma_mass_bfq"] == nil {
+			// 字段值为 null，使用零值
+			maMassBfq = 0
+		} else if v, ok := item["ma_mass_bfq"].(float64); ok {
+			maMassBfq = v
+		} else if v, ok := item["ma_mass_bfq"].(int); ok {
+			maMassBfq = float64(v)
+		} else if v, ok := item["ma_mass_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				maMassBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					maMassBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["ma_mass_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: ma_mass_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["ma_mass_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 ma_mass_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ma_mass_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: ma_mass_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ma_mass_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 ma_mass_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 mfi_bfq 的简单类型
-		mfiBfq, ok := item["mfi_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 mfi_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var mfiBfq float64
+		if item["mfi_bfq"] == nil {
+			// 字段值为 null，使用零值
+			mfiBfq = 0
+		} else if v, ok := item["mfi_bfq"].(float64); ok {
+			mfiBfq = v
+		} else if v, ok := item["mfi_bfq"].(int); ok {
+			mfiBfq = float64(v)
+		} else if v, ok := item["mfi_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				mfiBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					mfiBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["mfi_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: mfi_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["mfi_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 mfi_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["mfi_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: mfi_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["mfi_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 mfi_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 mtm_bfq 的简单类型
-		mtmBfq, ok := item["mtm_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 mtm_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var mtmBfq float64
+		if item["mtm_bfq"] == nil {
+			// 字段值为 null，使用零值
+			mtmBfq = 0
+		} else if v, ok := item["mtm_bfq"].(float64); ok {
+			mtmBfq = v
+		} else if v, ok := item["mtm_bfq"].(int); ok {
+			mtmBfq = float64(v)
+		} else if v, ok := item["mtm_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				mtmBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					mtmBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["mtm_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: mtm_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["mtm_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 mtm_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["mtm_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: mtm_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["mtm_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 mtm_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 mtmma_bfq 的简单类型
-		mtmmaBfq, ok := item["mtmma_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 mtmma_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var mtmmaBfq float64
+		if item["mtmma_bfq"] == nil {
+			// 字段值为 null，使用零值
+			mtmmaBfq = 0
+		} else if v, ok := item["mtmma_bfq"].(float64); ok {
+			mtmmaBfq = v
+		} else if v, ok := item["mtmma_bfq"].(int); ok {
+			mtmmaBfq = float64(v)
+		} else if v, ok := item["mtmma_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				mtmmaBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					mtmmaBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["mtmma_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: mtmma_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["mtmma_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 mtmma_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["mtmma_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: mtmma_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["mtmma_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 mtmma_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 obv_bfq 的简单类型
-		obvBfq, ok := item["obv_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 obv_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var obvBfq float64
+		if item["obv_bfq"] == nil {
+			// 字段值为 null，使用零值
+			obvBfq = 0
+		} else if v, ok := item["obv_bfq"].(float64); ok {
+			obvBfq = v
+		} else if v, ok := item["obv_bfq"].(int); ok {
+			obvBfq = float64(v)
+		} else if v, ok := item["obv_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				obvBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					obvBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["obv_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: obv_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["obv_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 obv_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["obv_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: obv_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["obv_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 obv_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 psy_bfq 的简单类型
-		psyBfq, ok := item["psy_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 psy_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var psyBfq float64
+		if item["psy_bfq"] == nil {
+			// 字段值为 null，使用零值
+			psyBfq = 0
+		} else if v, ok := item["psy_bfq"].(float64); ok {
+			psyBfq = v
+		} else if v, ok := item["psy_bfq"].(int); ok {
+			psyBfq = float64(v)
+		} else if v, ok := item["psy_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				psyBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					psyBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["psy_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: psy_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["psy_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 psy_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["psy_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: psy_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["psy_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 psy_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 psyma_bfq 的简单类型
-		psymaBfq, ok := item["psyma_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 psyma_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var psymaBfq float64
+		if item["psyma_bfq"] == nil {
+			// 字段值为 null，使用零值
+			psymaBfq = 0
+		} else if v, ok := item["psyma_bfq"].(float64); ok {
+			psymaBfq = v
+		} else if v, ok := item["psyma_bfq"].(int); ok {
+			psymaBfq = float64(v)
+		} else if v, ok := item["psyma_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				psymaBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					psymaBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["psyma_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: psyma_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["psyma_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 psyma_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["psyma_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: psyma_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["psyma_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 psyma_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 roc_bfq 的简单类型
-		rocBfq, ok := item["roc_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 roc_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var rocBfq float64
+		if item["roc_bfq"] == nil {
+			// 字段值为 null，使用零值
+			rocBfq = 0
+		} else if v, ok := item["roc_bfq"].(float64); ok {
+			rocBfq = v
+		} else if v, ok := item["roc_bfq"].(int); ok {
+			rocBfq = float64(v)
+		} else if v, ok := item["roc_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				rocBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					rocBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["roc_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: roc_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["roc_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 roc_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["roc_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: roc_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["roc_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 roc_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 maroc_bfq 的简单类型
-		marocBfq, ok := item["maroc_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 maroc_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var marocBfq float64
+		if item["maroc_bfq"] == nil {
+			// 字段值为 null，使用零值
+			marocBfq = 0
+		} else if v, ok := item["maroc_bfq"].(float64); ok {
+			marocBfq = v
+		} else if v, ok := item["maroc_bfq"].(int); ok {
+			marocBfq = float64(v)
+		} else if v, ok := item["maroc_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				marocBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					marocBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["maroc_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: maroc_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["maroc_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 maroc_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["maroc_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: maroc_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["maroc_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 maroc_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 rsi_bfq_12 的简单类型
-		rsiBfq12, ok := item["rsi_bfq_12"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 rsi_bfq_12 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var rsiBfq12 float64
+		if item["rsi_bfq_12"] == nil {
+			// 字段值为 null，使用零值
+			rsiBfq12 = 0
+		} else if v, ok := item["rsi_bfq_12"].(float64); ok {
+			rsiBfq12 = v
+		} else if v, ok := item["rsi_bfq_12"].(int); ok {
+			rsiBfq12 = float64(v)
+		} else if v, ok := item["rsi_bfq_12"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				rsiBfq12 = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					rsiBfq12 = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["rsi_bfq_12"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: rsi_bfq_12")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["rsi_bfq_12"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 rsi_bfq_12 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["rsi_bfq_12"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: rsi_bfq_12")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["rsi_bfq_12"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 rsi_bfq_12 类型，期望 float64/int/string")
 		}
 		// 处理 rsi_bfq_24 的简单类型
-		rsiBfq24, ok := item["rsi_bfq_24"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 rsi_bfq_24 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var rsiBfq24 float64
+		if item["rsi_bfq_24"] == nil {
+			// 字段值为 null，使用零值
+			rsiBfq24 = 0
+		} else if v, ok := item["rsi_bfq_24"].(float64); ok {
+			rsiBfq24 = v
+		} else if v, ok := item["rsi_bfq_24"].(int); ok {
+			rsiBfq24 = float64(v)
+		} else if v, ok := item["rsi_bfq_24"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				rsiBfq24 = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					rsiBfq24 = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["rsi_bfq_24"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: rsi_bfq_24")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["rsi_bfq_24"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 rsi_bfq_24 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["rsi_bfq_24"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: rsi_bfq_24")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["rsi_bfq_24"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 rsi_bfq_24 类型，期望 float64/int/string")
 		}
 		// 处理 rsi_bfq_6 的简单类型
-		rsiBfq6, ok := item["rsi_bfq_6"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 rsi_bfq_6 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var rsiBfq6 float64
+		if item["rsi_bfq_6"] == nil {
+			// 字段值为 null，使用零值
+			rsiBfq6 = 0
+		} else if v, ok := item["rsi_bfq_6"].(float64); ok {
+			rsiBfq6 = v
+		} else if v, ok := item["rsi_bfq_6"].(int); ok {
+			rsiBfq6 = float64(v)
+		} else if v, ok := item["rsi_bfq_6"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				rsiBfq6 = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					rsiBfq6 = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["rsi_bfq_6"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: rsi_bfq_6")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["rsi_bfq_6"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 rsi_bfq_6 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["rsi_bfq_6"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: rsi_bfq_6")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["rsi_bfq_6"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 rsi_bfq_6 类型，期望 float64/int/string")
 		}
 		// 处理 taq_down_bfq 的简单类型
-		taqDownBfq, ok := item["taq_down_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 taq_down_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var taqDownBfq float64
+		if item["taq_down_bfq"] == nil {
+			// 字段值为 null，使用零值
+			taqDownBfq = 0
+		} else if v, ok := item["taq_down_bfq"].(float64); ok {
+			taqDownBfq = v
+		} else if v, ok := item["taq_down_bfq"].(int); ok {
+			taqDownBfq = float64(v)
+		} else if v, ok := item["taq_down_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				taqDownBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					taqDownBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["taq_down_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: taq_down_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["taq_down_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 taq_down_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["taq_down_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: taq_down_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["taq_down_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 taq_down_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 taq_mid_bfq 的简单类型
-		taqMidBfq, ok := item["taq_mid_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 taq_mid_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var taqMidBfq float64
+		if item["taq_mid_bfq"] == nil {
+			// 字段值为 null，使用零值
+			taqMidBfq = 0
+		} else if v, ok := item["taq_mid_bfq"].(float64); ok {
+			taqMidBfq = v
+		} else if v, ok := item["taq_mid_bfq"].(int); ok {
+			taqMidBfq = float64(v)
+		} else if v, ok := item["taq_mid_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				taqMidBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					taqMidBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["taq_mid_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: taq_mid_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["taq_mid_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 taq_mid_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["taq_mid_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: taq_mid_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["taq_mid_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 taq_mid_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 taq_up_bfq 的简单类型
-		taqUpBfq, ok := item["taq_up_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 taq_up_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var taqUpBfq float64
+		if item["taq_up_bfq"] == nil {
+			// 字段值为 null，使用零值
+			taqUpBfq = 0
+		} else if v, ok := item["taq_up_bfq"].(float64); ok {
+			taqUpBfq = v
+		} else if v, ok := item["taq_up_bfq"].(int); ok {
+			taqUpBfq = float64(v)
+		} else if v, ok := item["taq_up_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				taqUpBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					taqUpBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["taq_up_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: taq_up_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["taq_up_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 taq_up_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["taq_up_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: taq_up_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["taq_up_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 taq_up_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 trix_bfq 的简单类型
-		trixBfq, ok := item["trix_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 trix_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var trixBfq float64
+		if item["trix_bfq"] == nil {
+			// 字段值为 null，使用零值
+			trixBfq = 0
+		} else if v, ok := item["trix_bfq"].(float64); ok {
+			trixBfq = v
+		} else if v, ok := item["trix_bfq"].(int); ok {
+			trixBfq = float64(v)
+		} else if v, ok := item["trix_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				trixBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					trixBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["trix_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: trix_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["trix_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 trix_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["trix_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: trix_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["trix_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 trix_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 trma_bfq 的简单类型
-		trmaBfq, ok := item["trma_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 trma_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var trmaBfq float64
+		if item["trma_bfq"] == nil {
+			// 字段值为 null，使用零值
+			trmaBfq = 0
+		} else if v, ok := item["trma_bfq"].(float64); ok {
+			trmaBfq = v
+		} else if v, ok := item["trma_bfq"].(int); ok {
+			trmaBfq = float64(v)
+		} else if v, ok := item["trma_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				trmaBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					trmaBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["trma_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: trma_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["trma_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 trma_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["trma_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: trma_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["trma_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 trma_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 vr_bfq 的简单类型
-		vrBfq, ok := item["vr_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 vr_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var vrBfq float64
+		if item["vr_bfq"] == nil {
+			// 字段值为 null，使用零值
+			vrBfq = 0
+		} else if v, ok := item["vr_bfq"].(float64); ok {
+			vrBfq = v
+		} else if v, ok := item["vr_bfq"].(int); ok {
+			vrBfq = float64(v)
+		} else if v, ok := item["vr_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				vrBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					vrBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["vr_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: vr_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["vr_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 vr_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["vr_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: vr_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["vr_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 vr_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 wr_bfq 的简单类型
-		wrBfq, ok := item["wr_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 wr_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var wrBfq float64
+		if item["wr_bfq"] == nil {
+			// 字段值为 null，使用零值
+			wrBfq = 0
+		} else if v, ok := item["wr_bfq"].(float64); ok {
+			wrBfq = v
+		} else if v, ok := item["wr_bfq"].(int); ok {
+			wrBfq = float64(v)
+		} else if v, ok := item["wr_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				wrBfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					wrBfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["wr_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: wr_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["wr_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 wr_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["wr_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: wr_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["wr_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 wr_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 wr1_bfq 的简单类型
-		wr1Bfq, ok := item["wr1_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 wr1_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var wr1Bfq float64
+		if item["wr1_bfq"] == nil {
+			// 字段值为 null，使用零值
+			wr1Bfq = 0
+		} else if v, ok := item["wr1_bfq"].(float64); ok {
+			wr1Bfq = v
+		} else if v, ok := item["wr1_bfq"].(int); ok {
+			wr1Bfq = float64(v)
+		} else if v, ok := item["wr1_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				wr1Bfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					wr1Bfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["wr1_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: wr1_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["wr1_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 wr1_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["wr1_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: wr1_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["wr1_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 wr1_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 xsii_td1_bfq 的简单类型
-		xsiiTd1Bfq, ok := item["xsii_td1_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 xsii_td1_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var xsiiTd1Bfq float64
+		if item["xsii_td1_bfq"] == nil {
+			// 字段值为 null，使用零值
+			xsiiTd1Bfq = 0
+		} else if v, ok := item["xsii_td1_bfq"].(float64); ok {
+			xsiiTd1Bfq = v
+		} else if v, ok := item["xsii_td1_bfq"].(int); ok {
+			xsiiTd1Bfq = float64(v)
+		} else if v, ok := item["xsii_td1_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				xsiiTd1Bfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					xsiiTd1Bfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["xsii_td1_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: xsii_td1_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["xsii_td1_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 xsii_td1_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["xsii_td1_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: xsii_td1_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["xsii_td1_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 xsii_td1_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 xsii_td2_bfq 的简单类型
-		xsiiTd2Bfq, ok := item["xsii_td2_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 xsii_td2_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var xsiiTd2Bfq float64
+		if item["xsii_td2_bfq"] == nil {
+			// 字段值为 null，使用零值
+			xsiiTd2Bfq = 0
+		} else if v, ok := item["xsii_td2_bfq"].(float64); ok {
+			xsiiTd2Bfq = v
+		} else if v, ok := item["xsii_td2_bfq"].(int); ok {
+			xsiiTd2Bfq = float64(v)
+		} else if v, ok := item["xsii_td2_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				xsiiTd2Bfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					xsiiTd2Bfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["xsii_td2_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: xsii_td2_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["xsii_td2_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 xsii_td2_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["xsii_td2_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: xsii_td2_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["xsii_td2_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 xsii_td2_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 xsii_td3_bfq 的简单类型
-		xsiiTd3Bfq, ok := item["xsii_td3_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 xsii_td3_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var xsiiTd3Bfq float64
+		if item["xsii_td3_bfq"] == nil {
+			// 字段值为 null，使用零值
+			xsiiTd3Bfq = 0
+		} else if v, ok := item["xsii_td3_bfq"].(float64); ok {
+			xsiiTd3Bfq = v
+		} else if v, ok := item["xsii_td3_bfq"].(int); ok {
+			xsiiTd3Bfq = float64(v)
+		} else if v, ok := item["xsii_td3_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				xsiiTd3Bfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					xsiiTd3Bfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["xsii_td3_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: xsii_td3_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["xsii_td3_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 xsii_td3_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["xsii_td3_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: xsii_td3_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["xsii_td3_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 xsii_td3_bfq 类型，期望 float64/int/string")
 		}
 		// 处理 xsii_td4_bfq 的简单类型
-		xsiiTd4Bfq, ok := item["xsii_td4_bfq"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 xsii_td4_bfq 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var xsiiTd4Bfq float64
+		if item["xsii_td4_bfq"] == nil {
+			// 字段值为 null，使用零值
+			xsiiTd4Bfq = 0
+		} else if v, ok := item["xsii_td4_bfq"].(float64); ok {
+			xsiiTd4Bfq = v
+		} else if v, ok := item["xsii_td4_bfq"].(int); ok {
+			xsiiTd4Bfq = float64(v)
+		} else if v, ok := item["xsii_td4_bfq"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				xsiiTd4Bfq = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					xsiiTd4Bfq = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["xsii_td4_bfq"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: idx_factor_pro")
+					log.Printf("字段: xsii_td4_bfq")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["xsii_td4_bfq"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 xsii_td4_bfq 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["xsii_td4_bfq"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: idx_factor_pro")
+			log.Printf("字段: xsii_td4_bfq")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["xsii_td4_bfq"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 xsii_td4_bfq 类型，期望 float64/int/string")
 		}
 		items[i] = IdxFactorProItem{
 			TsCode: tsCode,

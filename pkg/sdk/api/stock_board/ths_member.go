@@ -128,9 +128,50 @@ func ThsMember(ctx context.Context, client *sdk.Client, req *ThsMemberRequest) (
 			return nil, fmt.Errorf("无效的 con_name 类型")
 		}
 		// 处理 weight 的简单类型
-		weight, ok := item["weight"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 weight 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var weight float64
+		if item["weight"] == nil {
+			// 字段值为 null，使用零值
+			weight = 0
+		} else if v, ok := item["weight"].(float64); ok {
+			weight = v
+		} else if v, ok := item["weight"].(int); ok {
+			weight = float64(v)
+		} else if v, ok := item["weight"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				weight = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					weight = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["weight"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: ths_member")
+					log.Printf("字段: weight")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["weight"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 weight 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["weight"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ths_member")
+			log.Printf("字段: weight")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["weight"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 weight 类型，期望 float64/int/string")
 		}
 		// 处理 in_date 的简单类型
 		// 对 string 类型尝试多种转换

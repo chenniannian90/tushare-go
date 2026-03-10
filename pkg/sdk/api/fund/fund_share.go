@@ -111,9 +111,50 @@ func FundShare(ctx context.Context, client *sdk.Client, req *FundShareRequest) (
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 fd_share 的简单类型
-		fdShare, ok := item["fd_share"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 fd_share 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var fdShare float64
+		if item["fd_share"] == nil {
+			// 字段值为 null，使用零值
+			fdShare = 0
+		} else if v, ok := item["fd_share"].(float64); ok {
+			fdShare = v
+		} else if v, ok := item["fd_share"].(int); ok {
+			fdShare = float64(v)
+		} else if v, ok := item["fd_share"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				fdShare = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					fdShare = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["fd_share"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: fund_share")
+					log.Printf("字段: fd_share")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["fd_share"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 fd_share 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["fd_share"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fund_share")
+			log.Printf("字段: fd_share")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["fd_share"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 fd_share 类型，期望 float64/int/string")
 		}
 		items[i] = FundShareItem{
 			TsCode: tsCode,

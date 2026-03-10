@@ -169,14 +169,96 @@ func StkAhComparison(ctx context.Context, client *sdk.Client, req *StkAhComparis
 			return nil, fmt.Errorf("无效的 hk_name 类型")
 		}
 		// 处理 hk_pct_chg 的简单类型
-		hkPctChg, ok := item["hk_pct_chg"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 hk_pct_chg 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var hkPctChg float64
+		if item["hk_pct_chg"] == nil {
+			// 字段值为 null，使用零值
+			hkPctChg = 0
+		} else if v, ok := item["hk_pct_chg"].(float64); ok {
+			hkPctChg = v
+		} else if v, ok := item["hk_pct_chg"].(int); ok {
+			hkPctChg = float64(v)
+		} else if v, ok := item["hk_pct_chg"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				hkPctChg = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					hkPctChg = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["hk_pct_chg"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: stk_ah_comparison")
+					log.Printf("字段: hk_pct_chg")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["hk_pct_chg"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 hk_pct_chg 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["hk_pct_chg"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_ah_comparison")
+			log.Printf("字段: hk_pct_chg")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["hk_pct_chg"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 hk_pct_chg 类型，期望 float64/int/string")
 		}
 		// 处理 hk_close 的简单类型
-		hkClose, ok := item["hk_close"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 hk_close 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var hkClose float64
+		if item["hk_close"] == nil {
+			// 字段值为 null，使用零值
+			hkClose = 0
+		} else if v, ok := item["hk_close"].(float64); ok {
+			hkClose = v
+		} else if v, ok := item["hk_close"].(int); ok {
+			hkClose = float64(v)
+		} else if v, ok := item["hk_close"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				hkClose = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					hkClose = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["hk_close"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: stk_ah_comparison")
+					log.Printf("字段: hk_close")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["hk_close"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 hk_close 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["hk_close"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_ah_comparison")
+			log.Printf("字段: hk_close")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["hk_close"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 hk_close 类型，期望 float64/int/string")
 		}
 		// 处理 name 的简单类型
 		// 对 string 类型尝试多种转换
@@ -204,24 +286,188 @@ func StkAhComparison(ctx context.Context, client *sdk.Client, req *StkAhComparis
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 close 的简单类型
-		close, ok := item["close"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 close 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var close float64
+		if item["close"] == nil {
+			// 字段值为 null，使用零值
+			close = 0
+		} else if v, ok := item["close"].(float64); ok {
+			close = v
+		} else if v, ok := item["close"].(int); ok {
+			close = float64(v)
+		} else if v, ok := item["close"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				close = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					close = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["close"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: stk_ah_comparison")
+					log.Printf("字段: close")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["close"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 close 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["close"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_ah_comparison")
+			log.Printf("字段: close")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["close"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 close 类型，期望 float64/int/string")
 		}
 		// 处理 pct_chg 的简单类型
-		pctChg, ok := item["pct_chg"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 pct_chg 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var pctChg float64
+		if item["pct_chg"] == nil {
+			// 字段值为 null，使用零值
+			pctChg = 0
+		} else if v, ok := item["pct_chg"].(float64); ok {
+			pctChg = v
+		} else if v, ok := item["pct_chg"].(int); ok {
+			pctChg = float64(v)
+		} else if v, ok := item["pct_chg"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				pctChg = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					pctChg = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["pct_chg"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: stk_ah_comparison")
+					log.Printf("字段: pct_chg")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["pct_chg"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 pct_chg 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["pct_chg"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_ah_comparison")
+			log.Printf("字段: pct_chg")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["pct_chg"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 pct_chg 类型，期望 float64/int/string")
 		}
 		// 处理 ah_comparison 的简单类型
-		ahComparison, ok := item["ah_comparison"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 ah_comparison 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var ahComparison float64
+		if item["ah_comparison"] == nil {
+			// 字段值为 null，使用零值
+			ahComparison = 0
+		} else if v, ok := item["ah_comparison"].(float64); ok {
+			ahComparison = v
+		} else if v, ok := item["ah_comparison"].(int); ok {
+			ahComparison = float64(v)
+		} else if v, ok := item["ah_comparison"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				ahComparison = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					ahComparison = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["ah_comparison"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: stk_ah_comparison")
+					log.Printf("字段: ah_comparison")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["ah_comparison"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 ah_comparison 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ah_comparison"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_ah_comparison")
+			log.Printf("字段: ah_comparison")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ah_comparison"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 ah_comparison 类型，期望 float64/int/string")
 		}
 		// 处理 ah_premium 的简单类型
-		ahPremium, ok := item["ah_premium"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 ah_premium 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var ahPremium float64
+		if item["ah_premium"] == nil {
+			// 字段值为 null，使用零值
+			ahPremium = 0
+		} else if v, ok := item["ah_premium"].(float64); ok {
+			ahPremium = v
+		} else if v, ok := item["ah_premium"].(int); ok {
+			ahPremium = float64(v)
+		} else if v, ok := item["ah_premium"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				ahPremium = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					ahPremium = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["ah_premium"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: stk_ah_comparison")
+					log.Printf("字段: ah_premium")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["ah_premium"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 ah_premium 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ah_premium"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: stk_ah_comparison")
+			log.Printf("字段: ah_premium")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ah_premium"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 ah_premium 类型，期望 float64/int/string")
 		}
 		items[i] = StkAhComparisonItem{
 			HkCode: hkCode,

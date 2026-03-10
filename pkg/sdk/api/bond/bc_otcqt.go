@@ -271,29 +271,234 @@ func BcOtcqt(ctx context.Context, client *sdk.Client, req *BcOtcqtRequest) ([]Bc
 			return nil, fmt.Errorf("无效的 bond_type 类型")
 		}
 		// 处理 coupon_rate 的简单类型
-		couponRate, ok := item["coupon_rate"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 coupon_rate 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var couponRate float64
+		if item["coupon_rate"] == nil {
+			// 字段值为 null，使用零值
+			couponRate = 0
+		} else if v, ok := item["coupon_rate"].(float64); ok {
+			couponRate = v
+		} else if v, ok := item["coupon_rate"].(int); ok {
+			couponRate = float64(v)
+		} else if v, ok := item["coupon_rate"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				couponRate = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					couponRate = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["coupon_rate"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: bc_otcqt")
+					log.Printf("字段: coupon_rate")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["coupon_rate"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 coupon_rate 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["coupon_rate"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: bc_otcqt")
+			log.Printf("字段: coupon_rate")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["coupon_rate"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 coupon_rate 类型，期望 float64/int/string")
 		}
 		// 处理 buy_price 的简单类型
-		buyPrice, ok := item["buy_price"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 buy_price 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var buyPrice float64
+		if item["buy_price"] == nil {
+			// 字段值为 null，使用零值
+			buyPrice = 0
+		} else if v, ok := item["buy_price"].(float64); ok {
+			buyPrice = v
+		} else if v, ok := item["buy_price"].(int); ok {
+			buyPrice = float64(v)
+		} else if v, ok := item["buy_price"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				buyPrice = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					buyPrice = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["buy_price"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: bc_otcqt")
+					log.Printf("字段: buy_price")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["buy_price"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 buy_price 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["buy_price"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: bc_otcqt")
+			log.Printf("字段: buy_price")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["buy_price"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 buy_price 类型，期望 float64/int/string")
 		}
 		// 处理 sell_price 的简单类型
-		sellPrice, ok := item["sell_price"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 sell_price 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var sellPrice float64
+		if item["sell_price"] == nil {
+			// 字段值为 null，使用零值
+			sellPrice = 0
+		} else if v, ok := item["sell_price"].(float64); ok {
+			sellPrice = v
+		} else if v, ok := item["sell_price"].(int); ok {
+			sellPrice = float64(v)
+		} else if v, ok := item["sell_price"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				sellPrice = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					sellPrice = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["sell_price"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: bc_otcqt")
+					log.Printf("字段: sell_price")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["sell_price"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 sell_price 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["sell_price"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: bc_otcqt")
+			log.Printf("字段: sell_price")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["sell_price"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 sell_price 类型，期望 float64/int/string")
 		}
 		// 处理 buy_yield 的简单类型
-		buyYield, ok := item["buy_yield"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 buy_yield 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var buyYield float64
+		if item["buy_yield"] == nil {
+			// 字段值为 null，使用零值
+			buyYield = 0
+		} else if v, ok := item["buy_yield"].(float64); ok {
+			buyYield = v
+		} else if v, ok := item["buy_yield"].(int); ok {
+			buyYield = float64(v)
+		} else if v, ok := item["buy_yield"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				buyYield = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					buyYield = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["buy_yield"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: bc_otcqt")
+					log.Printf("字段: buy_yield")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["buy_yield"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 buy_yield 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["buy_yield"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: bc_otcqt")
+			log.Printf("字段: buy_yield")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["buy_yield"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 buy_yield 类型，期望 float64/int/string")
 		}
 		// 处理 sell_yield 的简单类型
-		sellYield, ok := item["sell_yield"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 sell_yield 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var sellYield float64
+		if item["sell_yield"] == nil {
+			// 字段值为 null，使用零值
+			sellYield = 0
+		} else if v, ok := item["sell_yield"].(float64); ok {
+			sellYield = v
+		} else if v, ok := item["sell_yield"].(int); ok {
+			sellYield = float64(v)
+		} else if v, ok := item["sell_yield"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				sellYield = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					sellYield = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["sell_yield"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: bc_otcqt")
+					log.Printf("字段: sell_yield")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["sell_yield"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 sell_yield 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["sell_yield"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: bc_otcqt")
+			log.Printf("字段: sell_yield")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["sell_yield"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 sell_yield 类型，期望 float64/int/string")
 		}
 		items[i] = BcOtcqtItem{
 			TradeDate: tradeDate,

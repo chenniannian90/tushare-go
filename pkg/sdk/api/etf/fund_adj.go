@@ -115,9 +115,50 @@ func FundAdj(ctx context.Context, client *sdk.Client, req *FundAdjRequest) ([]Fu
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 adj_factor 的简单类型
-		adjFactor, ok := item["adj_factor"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 adj_factor 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var adjFactor float64
+		if item["adj_factor"] == nil {
+			// 字段值为 null，使用零值
+			adjFactor = 0
+		} else if v, ok := item["adj_factor"].(float64); ok {
+			adjFactor = v
+		} else if v, ok := item["adj_factor"].(int); ok {
+			adjFactor = float64(v)
+		} else if v, ok := item["adj_factor"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				adjFactor = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					adjFactor = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["adj_factor"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: fund_adj")
+					log.Printf("字段: adj_factor")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["adj_factor"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 adj_factor 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["adj_factor"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: fund_adj")
+			log.Printf("字段: adj_factor")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["adj_factor"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 adj_factor 类型，期望 float64/int/string")
 		}
 		items[i] = FundAdjItem{
 			TsCode: tsCode,

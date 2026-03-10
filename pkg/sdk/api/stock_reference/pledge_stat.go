@@ -116,24 +116,188 @@ func PledgeStat(ctx context.Context, client *sdk.Client, req *PledgeStatRequest)
 			return nil, fmt.Errorf("无效的 pledge_count 类型，期望 int 或 float64")
 		}
 		// 处理 unrest_pledge 的简单类型
-		unrestPledge, ok := item["unrest_pledge"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 unrest_pledge 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var unrestPledge float64
+		if item["unrest_pledge"] == nil {
+			// 字段值为 null，使用零值
+			unrestPledge = 0
+		} else if v, ok := item["unrest_pledge"].(float64); ok {
+			unrestPledge = v
+		} else if v, ok := item["unrest_pledge"].(int); ok {
+			unrestPledge = float64(v)
+		} else if v, ok := item["unrest_pledge"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				unrestPledge = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					unrestPledge = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["unrest_pledge"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: pledge_stat")
+					log.Printf("字段: unrest_pledge")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["unrest_pledge"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 unrest_pledge 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["unrest_pledge"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: pledge_stat")
+			log.Printf("字段: unrest_pledge")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["unrest_pledge"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 unrest_pledge 类型，期望 float64/int/string")
 		}
 		// 处理 rest_pledge 的简单类型
-		restPledge, ok := item["rest_pledge"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 rest_pledge 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var restPledge float64
+		if item["rest_pledge"] == nil {
+			// 字段值为 null，使用零值
+			restPledge = 0
+		} else if v, ok := item["rest_pledge"].(float64); ok {
+			restPledge = v
+		} else if v, ok := item["rest_pledge"].(int); ok {
+			restPledge = float64(v)
+		} else if v, ok := item["rest_pledge"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				restPledge = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					restPledge = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["rest_pledge"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: pledge_stat")
+					log.Printf("字段: rest_pledge")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["rest_pledge"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 rest_pledge 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["rest_pledge"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: pledge_stat")
+			log.Printf("字段: rest_pledge")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["rest_pledge"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 rest_pledge 类型，期望 float64/int/string")
 		}
 		// 处理 total_share 的简单类型
-		totalShare, ok := item["total_share"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 total_share 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var totalShare float64
+		if item["total_share"] == nil {
+			// 字段值为 null，使用零值
+			totalShare = 0
+		} else if v, ok := item["total_share"].(float64); ok {
+			totalShare = v
+		} else if v, ok := item["total_share"].(int); ok {
+			totalShare = float64(v)
+		} else if v, ok := item["total_share"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				totalShare = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					totalShare = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["total_share"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: pledge_stat")
+					log.Printf("字段: total_share")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["total_share"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 total_share 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["total_share"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: pledge_stat")
+			log.Printf("字段: total_share")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["total_share"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 total_share 类型，期望 float64/int/string")
 		}
 		// 处理 pledge_ratio 的简单类型
-		pledgeRatio, ok := item["pledge_ratio"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 pledge_ratio 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var pledgeRatio float64
+		if item["pledge_ratio"] == nil {
+			// 字段值为 null，使用零值
+			pledgeRatio = 0
+		} else if v, ok := item["pledge_ratio"].(float64); ok {
+			pledgeRatio = v
+		} else if v, ok := item["pledge_ratio"].(int); ok {
+			pledgeRatio = float64(v)
+		} else if v, ok := item["pledge_ratio"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				pledgeRatio = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					pledgeRatio = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["pledge_ratio"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: pledge_stat")
+					log.Printf("字段: pledge_ratio")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["pledge_ratio"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 pledge_ratio 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["pledge_ratio"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: pledge_stat")
+			log.Printf("字段: pledge_ratio")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["pledge_ratio"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 pledge_ratio 类型，期望 float64/int/string")
 		}
 		items[i] = PledgeStatItem{
 			TsCode: tsCode,

@@ -376,9 +376,50 @@ func EtfBasic(ctx context.Context, client *sdk.Client, req *EtfBasicRequest) ([]
 			return nil, fmt.Errorf("无效的 custod_name 类型")
 		}
 		// 处理 mgt_fee 的简单类型
-		mgtFee, ok := item["mgt_fee"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 mgt_fee 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var mgtFee float64
+		if item["mgt_fee"] == nil {
+			// 字段值为 null，使用零值
+			mgtFee = 0
+		} else if v, ok := item["mgt_fee"].(float64); ok {
+			mgtFee = v
+		} else if v, ok := item["mgt_fee"].(int); ok {
+			mgtFee = float64(v)
+		} else if v, ok := item["mgt_fee"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				mgtFee = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					mgtFee = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["mgt_fee"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: etf_basic")
+					log.Printf("字段: mgt_fee")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["mgt_fee"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 mgt_fee 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["mgt_fee"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: etf_basic")
+			log.Printf("字段: mgt_fee")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["mgt_fee"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 mgt_fee 类型，期望 float64/int/string")
 		}
 		// 处理 etf_type 的简单类型
 		// 对 string 类型尝试多种转换

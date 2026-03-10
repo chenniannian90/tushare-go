@@ -80,24 +80,188 @@ func GgtDaily(ctx context.Context, client *sdk.Client, req *GgtDailyRequest) ([]
 			return nil, fmt.Errorf("无效的 trade_date 类型")
 		}
 		// 处理 buy_amount 的简单类型
-		buyAmount, ok := item["buy_amount"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 buy_amount 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var buyAmount float64
+		if item["buy_amount"] == nil {
+			// 字段值为 null，使用零值
+			buyAmount = 0
+		} else if v, ok := item["buy_amount"].(float64); ok {
+			buyAmount = v
+		} else if v, ok := item["buy_amount"].(int); ok {
+			buyAmount = float64(v)
+		} else if v, ok := item["buy_amount"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				buyAmount = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					buyAmount = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["buy_amount"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: ggt_daily")
+					log.Printf("字段: buy_amount")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["buy_amount"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 buy_amount 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["buy_amount"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ggt_daily")
+			log.Printf("字段: buy_amount")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["buy_amount"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 buy_amount 类型，期望 float64/int/string")
 		}
 		// 处理 buy_volume 的简单类型
-		buyVolume, ok := item["buy_volume"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 buy_volume 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var buyVolume float64
+		if item["buy_volume"] == nil {
+			// 字段值为 null，使用零值
+			buyVolume = 0
+		} else if v, ok := item["buy_volume"].(float64); ok {
+			buyVolume = v
+		} else if v, ok := item["buy_volume"].(int); ok {
+			buyVolume = float64(v)
+		} else if v, ok := item["buy_volume"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				buyVolume = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					buyVolume = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["buy_volume"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: ggt_daily")
+					log.Printf("字段: buy_volume")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["buy_volume"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 buy_volume 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["buy_volume"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ggt_daily")
+			log.Printf("字段: buy_volume")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["buy_volume"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 buy_volume 类型，期望 float64/int/string")
 		}
 		// 处理 sell_amount 的简单类型
-		sellAmount, ok := item["sell_amount"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 sell_amount 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var sellAmount float64
+		if item["sell_amount"] == nil {
+			// 字段值为 null，使用零值
+			sellAmount = 0
+		} else if v, ok := item["sell_amount"].(float64); ok {
+			sellAmount = v
+		} else if v, ok := item["sell_amount"].(int); ok {
+			sellAmount = float64(v)
+		} else if v, ok := item["sell_amount"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				sellAmount = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					sellAmount = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["sell_amount"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: ggt_daily")
+					log.Printf("字段: sell_amount")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["sell_amount"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 sell_amount 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["sell_amount"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ggt_daily")
+			log.Printf("字段: sell_amount")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["sell_amount"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 sell_amount 类型，期望 float64/int/string")
 		}
 		// 处理 sell_volume 的简单类型
-		sellVolume, ok := item["sell_volume"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 sell_volume 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var sellVolume float64
+		if item["sell_volume"] == nil {
+			// 字段值为 null，使用零值
+			sellVolume = 0
+		} else if v, ok := item["sell_volume"].(float64); ok {
+			sellVolume = v
+		} else if v, ok := item["sell_volume"].(int); ok {
+			sellVolume = float64(v)
+		} else if v, ok := item["sell_volume"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				sellVolume = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					sellVolume = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["sell_volume"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: ggt_daily")
+					log.Printf("字段: sell_volume")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["sell_volume"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 sell_volume 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["sell_volume"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: ggt_daily")
+			log.Printf("字段: sell_volume")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["sell_volume"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 sell_volume 类型，期望 float64/int/string")
 		}
 		items[i] = GgtDailyItem{
 			TradeDate: tradeDate,

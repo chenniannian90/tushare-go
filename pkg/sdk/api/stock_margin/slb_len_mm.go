@@ -136,24 +136,188 @@ func SlbLenMm(ctx context.Context, client *sdk.Client, req *SlbLenMmRequest) ([]
 			return nil, fmt.Errorf("无效的 name 类型")
 		}
 		// 处理 ope_inv 的简单类型
-		opeInv, ok := item["ope_inv"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 ope_inv 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var opeInv float64
+		if item["ope_inv"] == nil {
+			// 字段值为 null，使用零值
+			opeInv = 0
+		} else if v, ok := item["ope_inv"].(float64); ok {
+			opeInv = v
+		} else if v, ok := item["ope_inv"].(int); ok {
+			opeInv = float64(v)
+		} else if v, ok := item["ope_inv"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				opeInv = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					opeInv = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["ope_inv"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: slb_len_mm")
+					log.Printf("字段: ope_inv")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["ope_inv"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 ope_inv 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ope_inv"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: slb_len_mm")
+			log.Printf("字段: ope_inv")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ope_inv"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 ope_inv 类型，期望 float64/int/string")
 		}
 		// 处理 lent_qnt 的简单类型
-		lentQnt, ok := item["lent_qnt"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 lent_qnt 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var lentQnt float64
+		if item["lent_qnt"] == nil {
+			// 字段值为 null，使用零值
+			lentQnt = 0
+		} else if v, ok := item["lent_qnt"].(float64); ok {
+			lentQnt = v
+		} else if v, ok := item["lent_qnt"].(int); ok {
+			lentQnt = float64(v)
+		} else if v, ok := item["lent_qnt"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				lentQnt = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					lentQnt = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["lent_qnt"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: slb_len_mm")
+					log.Printf("字段: lent_qnt")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["lent_qnt"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 lent_qnt 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["lent_qnt"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: slb_len_mm")
+			log.Printf("字段: lent_qnt")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["lent_qnt"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 lent_qnt 类型，期望 float64/int/string")
 		}
 		// 处理 cls_inv 的简单类型
-		clsInv, ok := item["cls_inv"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 cls_inv 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var clsInv float64
+		if item["cls_inv"] == nil {
+			// 字段值为 null，使用零值
+			clsInv = 0
+		} else if v, ok := item["cls_inv"].(float64); ok {
+			clsInv = v
+		} else if v, ok := item["cls_inv"].(int); ok {
+			clsInv = float64(v)
+		} else if v, ok := item["cls_inv"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				clsInv = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					clsInv = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["cls_inv"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: slb_len_mm")
+					log.Printf("字段: cls_inv")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["cls_inv"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 cls_inv 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["cls_inv"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: slb_len_mm")
+			log.Printf("字段: cls_inv")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["cls_inv"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 cls_inv 类型，期望 float64/int/string")
 		}
 		// 处理 end_bal 的简单类型
-		endBal, ok := item["end_bal"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 end_bal 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var endBal float64
+		if item["end_bal"] == nil {
+			// 字段值为 null，使用零值
+			endBal = 0
+		} else if v, ok := item["end_bal"].(float64); ok {
+			endBal = v
+		} else if v, ok := item["end_bal"].(int); ok {
+			endBal = float64(v)
+		} else if v, ok := item["end_bal"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				endBal = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					endBal = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["end_bal"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: slb_len_mm")
+					log.Printf("字段: end_bal")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["end_bal"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 end_bal 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["end_bal"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: slb_len_mm")
+			log.Printf("字段: end_bal")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["end_bal"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 end_bal 类型，期望 float64/int/string")
 		}
 		items[i] = SlbLenMmItem{
 			TradeDate: tradeDate,

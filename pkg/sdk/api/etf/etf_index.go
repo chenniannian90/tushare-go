@@ -208,9 +208,50 @@ func EtfIndex(ctx context.Context, client *sdk.Client, req *EtfIndexRequest) ([]
 			return nil, fmt.Errorf("无效的 base_date 类型")
 		}
 		// 处理 bp 的简单类型
-		bp, ok := item["bp"].(float64)
-		if !ok {
-			return nil, fmt.Errorf("无效的 bp 类型")
+		// 处理 float64 类型 - 支持多种输入格式
+		var bp float64
+		if item["bp"] == nil {
+			// 字段值为 null，使用零值
+			bp = 0
+		} else if v, ok := item["bp"].(float64); ok {
+			bp = v
+		} else if v, ok := item["bp"].(int); ok {
+			bp = float64(v)
+		} else if v, ok := item["bp"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				bp = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					bp = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["bp"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: etf_index")
+					log.Printf("字段: bp")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["bp"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 bp 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["bp"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: etf_index")
+			log.Printf("字段: bp")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["bp"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 bp 类型，期望 float64/int/string")
 		}
 		// 处理 adj_circle 的简单类型
 		// 对 string 类型尝试多种转换

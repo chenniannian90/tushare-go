@@ -154,6 +154,52 @@ func {{Title .APICode}}(ctx context.Context, client *sdk.Client, req *{{Title .A
 		} else {
 			return nil, fmt.Errorf("无效的 {{$f.Name}} 类型，期望 int 或 float64")
 		}
+		{{- else if eq $f.Type "float" "float64" "double"}}
+		// 处理 float64 类型 - 支持多种输入格式
+		var {{lowerCamel $f.Name}} float64
+		if item["{{$f.Name}}"] == nil {
+			// 字段值为 null，使用零值
+			{{lowerCamel $f.Name}} = 0
+		} else if v, ok := item["{{$f.Name}}"].(float64); ok {
+			{{lowerCamel $f.Name}} = v
+		} else if v, ok := item["{{$f.Name}}"].(int); ok {
+			{{lowerCamel $f.Name}} = float64(v)
+		} else if v, ok := item["{{$f.Name}}"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				{{lowerCamel $f.Name}} = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					{{lowerCamel $f.Name}} = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["{{$f.Name}}"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: {{$.APICode}}")
+					log.Printf("字段: {{$f.Name}}")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["{{$f.Name}}"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 {{$f.Name}} 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["{{$f.Name}}"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: {{$.APICode}}")
+			log.Printf("字段: {{$f.Name}}")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["{{$f.Name}}"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 {{$f.Name}} 类型，期望 float64/int/string")
+		}
 		{{- else}}
 		{{lowerCamel $f.Name}}, ok := item["{{$f.Name}}"].({{goType $f.Type}})
 		if !ok {
