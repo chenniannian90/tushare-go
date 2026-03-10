@@ -14,15 +14,19 @@ import (
 	"time"
 )
 
+const (
+	defaultDataSource = "sina" // 默认数据源
+)
+
 // GetRealtimeList 获取实时排名列表（爬虫实现）
 // src: 数据源，"sina" 或 "dc"（东方财富）
 func GetRealtimeList(src string) ([]RealtimeListItem, error) {
 	if src == "" {
-		src = "sina" // 默认新浪
+		src = defaultDataSource
 	}
 
 	switch src {
-	case "sina", "sina.com.cn":
+	case defaultDataSource, "sina.com.cn":
 		return getSinaRealtimeList()
 	case "dc", "eastmoney", "eastmoney.com":
 		return getEastmoneyRealtimeList()
@@ -243,4 +247,14 @@ func convertQuoteItemToListItem(item RealtimeQuoteItem) RealtimeListItem {
 		Date:     item.Date,
 		Time:     item.Time,
 	}
+}
+
+// RealtimeListCrawlerRequest defines the request for realtime list crawler
+type RealtimeListCrawlerRequest struct {
+	Src string `json:"src,omitempty"` // Data source ("sina" or "dc")
+}
+
+// RealtimeListCrawler is a wrapper function that matches the standard API pattern
+func RealtimeListCrawler(ctx context.Context, client interface{}, req *RealtimeListCrawlerRequest) ([]RealtimeListItem, error) {
+	return GetRealtimeList(req.Src)
 }

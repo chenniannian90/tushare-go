@@ -19,26 +19,7 @@ func (r *Stock_featureTools) registerHkHold() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_feature.hk_hold",
-		Description: `获取沪深港股通持股明细，数据来源港交所。
-
-重要说明：
-- 这是港股通南向持股数据（内地资金通过港股通持有的港股）
-- 返回港股通持有的港股明细数据
-
-使用规则：
-1. ts_code 参数：必须传港股代码（格式如 09996.HK），不能传A股代码（如 600519.SH）
-2. 不传 ts_code：返回所有港股通持股数据（可能数据量很大，建议指定日期范围）
-3. exchange 参数：可选，类型为 SH（沪股通）/ SZ（深股通）/ HK（港股通南向）
-4. 建议始终指定 start_date 和 end_date 以控制返回数据量
-
-返回字段：
-- code: 交易所代码
-- trade_date: 交易日期
-- ts_code: 股票代码（港股代码）
-- name: 股票名称
-- vol: 持股数量
-- ratio: 占总股本比例（%）
-- exchange: 交易所类型`,
+		Description: "获取沪深港股通持股明细，数据来源港交所。",
 		InputSchema: json.RawMessage(schemaJSON),
 	}
 

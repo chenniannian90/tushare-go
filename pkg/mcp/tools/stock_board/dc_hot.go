@@ -18,23 +18,8 @@ func (r *Stock_boardTools) registerDcHot() {
 	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
-		Name: "stock_board.dc_hot",
-		Description: `获取东方财富App热榜数据，包括A股市场、ETF基金、港股市场、美股市场等等，每日盘中提取4次，收盘后4次，最晚22点提取一次。
-
-【⚠️ 权限要求】
-需要升级 Tushare 账户权限才能访问此接口
-访问限制：每天最多调用 2 次
-升级地址：https://tushare.pro/document/1?doc_id=108
-
-【参数说明】
-  - trade_date: 交易日期
-  - ts_code: 股票代码
-  - market: 市场类型（A股市场、ETF基金、港股市场、美股市场）
-  - hot_type: 热点类型（人气榜、飙升榜）
-  - is_new: 是否最新（Y/N，默认Y）
-
-【使用示例】
-{"trade_date": "20240308", "hot_type": "人气榜", "market": "A股市场", "is_new": "Y"}`,
+		Name:        "stock_board.dc_hot",
+		Description: "获取东方财富App热榜数据，包括A股市场、ETF基金、港股市场、美股市场等等，每日盘中提取4次，收盘后4次，最晚22点提取一次。",
 		InputSchema: json.RawMessage(schemaJSON),
 	}
 

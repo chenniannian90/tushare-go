@@ -50,7 +50,7 @@ func main() {
 	client := sdk.NewClient(config)
 	ctx := context.Background()
 
-	results := make([]TestResult, 0)
+	results := make([]TestResult, 0, 10)
 
 	fmt.Println("🚀 开始测试 Tushare MCP 工具...")
 	fmt.Println("=" + string(make([]byte, 60)))
@@ -95,8 +95,6 @@ func main() {
 
 // Stock Basic 工具测试
 func testStockBasicTools(ctx context.Context, client *sdk.Client) []TestResult {
-	var results []TestResult
-
 	tests := []struct {
 		name string
 		test func(context.Context, *sdk.Client) TestResult
@@ -108,6 +106,7 @@ func testStockBasicTools(ctx context.Context, client *sdk.Client) []TestResult {
 		{"stock_company", testStockCompany},
 		{"stk_managers", testStkManagers},
 	}
+	results := make([]TestResult, 0, len(tests))
 
 	for _, tt := range tests {
 		fmt.Printf("  测试 %s...\n", tt.name)
@@ -121,8 +120,6 @@ func testStockBasicTools(ctx context.Context, client *sdk.Client) []TestResult {
 
 // Stock Market 工具测试
 func testStockMarketTools(ctx context.Context, client *sdk.Client) []TestResult {
-	var results []TestResult
-
 	tests := []struct {
 		name string
 		test func(context.Context, *sdk.Client) TestResult
@@ -133,6 +130,7 @@ func testStockMarketTools(ctx context.Context, client *sdk.Client) []TestResult 
 		{"monthly", testMonthly},
 		{"adj_factor", testAdjFactor},
 	}
+	results := make([]TestResult, 0, len(tests))
 
 	for _, tt := range tests {
 		fmt.Printf("  测试 %s...\n", tt.name)
@@ -146,8 +144,6 @@ func testStockMarketTools(ctx context.Context, client *sdk.Client) []TestResult 
 
 // Stock Financial 工具测试
 func testStockFinancialTools(ctx context.Context, client *sdk.Client) []TestResult {
-	var results []TestResult
-
 	tests := []struct {
 		name string
 		test func(context.Context, *sdk.Client) TestResult
@@ -159,6 +155,7 @@ func testStockFinancialTools(ctx context.Context, client *sdk.Client) []TestResu
 		{"dividend", testDividend},
 		{"forecast", testForecast},
 	}
+	results := make([]TestResult, 0, len(tests))
 
 	for _, tt := range tests {
 		fmt.Printf("  测试 %s...\n", tt.name)
@@ -172,8 +169,6 @@ func testStockFinancialTools(ctx context.Context, client *sdk.Client) []TestResu
 
 // Stock Board 工具测试
 func testStockBoardTools(ctx context.Context, client *sdk.Client) []TestResult {
-	var results []TestResult
-
 	tests := []struct {
 		name string
 		test func(context.Context, *sdk.Client) TestResult
@@ -183,6 +178,7 @@ func testStockBoardTools(ctx context.Context, client *sdk.Client) []TestResult {
 		{"top_list", testTopList},
 		{"limit_list_d", testLimitListD},
 	}
+	results := make([]TestResult, 0, len(tests))
 
 	for _, tt := range tests {
 		fmt.Printf("  测试 %s...\n", tt.name)
@@ -196,8 +192,6 @@ func testStockBoardTools(ctx context.Context, client *sdk.Client) []TestResult {
 
 // Stock Feature 工具测试
 func testStockFeatureTools(ctx context.Context, client *sdk.Client) []TestResult {
-	var results []TestResult
-
 	tests := []struct {
 		name string
 		test func(context.Context, *sdk.Client) TestResult
@@ -206,6 +200,7 @@ func testStockFeatureTools(ctx context.Context, client *sdk.Client) []TestResult
 		{"stk_auction_c", testStkAuctionC},
 		{"report_rc", testReportRC},
 	}
+	results := make([]TestResult, 0, len(tests))
 
 	for _, tt := range tests {
 		fmt.Printf("  测试 %s...\n", tt.name)
@@ -219,8 +214,6 @@ func testStockFeatureTools(ctx context.Context, client *sdk.Client) []TestResult
 
 // Bond 工具测试
 func testBondTools(ctx context.Context, client *sdk.Client) []TestResult {
-	var results []TestResult
-
 	tests := []struct {
 		name string
 		test func(context.Context, *sdk.Client) TestResult
@@ -229,6 +222,7 @@ func testBondTools(ctx context.Context, client *sdk.Client) []TestResult {
 		{"cb_daily", testCbDaily},
 		{"bond_oc", testBondOC},
 	}
+	results := make([]TestResult, 0, len(tests))
 
 	for _, tt := range tests {
 		fmt.Printf("  测试 %s...\n", tt.name)
@@ -242,8 +236,6 @@ func testBondTools(ctx context.Context, client *sdk.Client) []TestResult {
 
 // Fund 工具测试
 func testFundTools(ctx context.Context, client *sdk.Client) []TestResult {
-	var results []TestResult
-
 	tests := []struct {
 		name string
 		test func(context.Context, *sdk.Client) TestResult
@@ -252,6 +244,7 @@ func testFundTools(ctx context.Context, client *sdk.Client) []TestResult {
 		{"fund_nav", testFundNav},
 		{"fund_manager", testFundManager},
 	}
+	results := make([]TestResult, 0, len(tests))
 
 	for _, tt := range tests {
 		fmt.Printf("  测试 %s...\n", tt.name)
@@ -265,8 +258,6 @@ func testFundTools(ctx context.Context, client *sdk.Client) []TestResult {
 
 // Index 工具测试
 func testIndexTools(ctx context.Context, client *sdk.Client) []TestResult {
-	var results []TestResult
-
 	tests := []struct {
 		name string
 		test func(context.Context, *sdk.Client) TestResult
@@ -275,6 +266,7 @@ func testIndexTools(ctx context.Context, client *sdk.Client) []TestResult {
 		{"index_daily", testIndexDaily},
 		{"index_member_all", testIndexMemberAll},
 	}
+	results := make([]TestResult, 0, len(tests))
 
 	for _, tt := range tests {
 		fmt.Printf("  测��� %s...\n", tt.name)
@@ -288,8 +280,6 @@ func testIndexTools(ctx context.Context, client *sdk.Client) []TestResult {
 
 // HK Stock 工具测试
 func testHKStockTools(ctx context.Context, client *sdk.Client) []TestResult {
-	var results []TestResult
-
 	tests := []struct {
 		name string
 		test func(context.Context, *sdk.Client) TestResult
@@ -297,6 +287,7 @@ func testHKStockTools(ctx context.Context, client *sdk.Client) []TestResult {
 		{"hk_basic", testHKBasic},
 		{"hk_daily", testHKDaily},
 	}
+	results := make([]TestResult, 0, len(tests))
 
 	for _, tt := range tests {
 		fmt.Printf("  测试 %s...\n", tt.name)
@@ -310,8 +301,6 @@ func testHKStockTools(ctx context.Context, client *sdk.Client) []TestResult {
 
 // US Stock 工具测试
 func testUSStockTools(ctx context.Context, client *sdk.Client) []TestResult {
-	var results []TestResult
-
 	tests := []struct {
 		name string
 		test func(context.Context, *sdk.Client) TestResult
@@ -319,6 +308,7 @@ func testUSStockTools(ctx context.Context, client *sdk.Client) []TestResult {
 		{"us_basic", testUSBasic},
 		{"us_daily", testUSDaily},
 	}
+	results := make([]TestResult, 0, len(tests))
 
 	for _, tt := range tests {
 		fmt.Printf("  测试 %s...\n", tt.name)
@@ -332,8 +322,6 @@ func testUSStockTools(ctx context.Context, client *sdk.Client) []TestResult {
 
 // ETF 工具测试
 func testETFTools(ctx context.Context, client *sdk.Client) []TestResult {
-	var results []TestResult
-
 	tests := []struct {
 		name string
 		test func(context.Context, *sdk.Client) TestResult
@@ -341,6 +329,7 @@ func testETFTools(ctx context.Context, client *sdk.Client) []TestResult {
 		{"etf_basic", testETFBasic},
 		{"fund_daily", testFundDaily},
 	}
+	results := make([]TestResult, 0, len(tests))
 
 	for _, tt := range tests {
 		fmt.Printf("  测试 %s...\n", tt.name)
@@ -984,7 +973,6 @@ func saveDetailedReport(results []TestResult,
 		failed   int
 		duration time.Duration
 	}) {
-
 	content := "# Tushare MCP 工具测试报告\n\n"
 	content += "**测试时间**: " + time.Now().Format("2006-01-02 15:04:05") + "\n"
 	content += "**测试目的**: 验证所有 MCP 工具的接口可用性和数据返回情况\n\n"

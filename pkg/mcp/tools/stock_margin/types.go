@@ -11,7 +11,7 @@ import (
 // MarginInput defines the input schema
 type MarginInput struct {
 TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期YYYYMMDD，下同)"`
-StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
+StartDate string `json:"start_date,omitempty" jsonschema:"��始日期"`
 EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
 ExchangeId string `json:"exchange_id,omitempty" jsonschema:"交易所代码(SSE上交所SZSE深交所BSE北交所)"`
 

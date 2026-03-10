@@ -18,29 +18,8 @@ func (r *Stock_boardTools) registerStkAuction() {
 	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
-		Name: "stock_board.stk_auction",
-		Description: `获取当日个股和ETF的集合竞价成交情况，每天9点25~29分之间可以获取当日的集合竞价成交数据。
-
-【最佳实践】
-推荐参数（返回约8000条数据）：
-  - 不指定任何参数：获取最新可用数据
-
-可选参数：
-  - trade_date: 指定日期（格式：YYYYMMDD），使用当天或最近日期
-  - ts_code: 特定股票代码
-  - start_date/end_date: 日期范围（通常返回0条数据，不推荐）
-
-【使用示例】
-参数1（推荐）：{} - 获取最新集合竞价数据
-参数2：{"trade_date": "20260309"} - 获取指定日期数据
-
-【注意事项】
-1. 历史日期（2025年）可能导致"无效的 turnover_rate 类型"错误
-2. 集合竞价数据不保存历史记录，日期范围查询通常无数据
-3. 最佳使用时间：交易日 9:25-9:29
-
-【返回字段】
-ts_code, trade_date, vol, price, amount, pre_close, turnover_rate, volume_ratio, float_share`,
+		Name:        "stock_board.stk_auction",
+		Description: "获取当日个股和ETF的集合竞价成交情况，每天9点25~29分之间可以获取当日的集合竞价成交数据",
 		InputSchema: json.RawMessage(schemaJSON),
 	}
 

@@ -4,11 +4,14 @@ package stock_reference
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
 
-// Top10FloatholdersRequest 表示 前十大流通股东 API 的请求
+// Top10FloatholdersRequest 表示 前十大流���股东 API 的请求
 type Top10FloatholdersRequest struct {
 	TsCode string `json:"ts_code,omitempty"` // TS代码
 	Period string `json:"period,omitempty"` // 报告期（YYYYMMDD格式，一般为每个季度最后一天）
@@ -19,6 +22,15 @@ type Top10FloatholdersRequest struct {
 
 // Top10FloatholdersItem 表示单个 前十大流通股东 数据项
 type Top10FloatholdersItem struct {
+	TsCode         string  `json:"ts_code"`           // TS代码
+	AnnDate        string  `json:"ann_date"`          // 公告日期
+	EndDate        string  `json:"end_date"`          // 报告期
+	HolderName     string  `json:"holder_name"`       // 股东名称
+	HoldAmount     float64 `json:"hold_amount"`       // 持有数量（股）
+	HoldRatio      float64 `json:"hold_ratio"`        // 持有比例（%）
+	HoldFloatRatio float64 `json:"hold_float_ratio"`  // 流通股持有比例（%）
+	HoldChange     float64 `json:"hold_change"`       // 相比上期变化（股）
+	HolderType     string  `json:"holder_type"`       // 股东类型
 }
 
 // Top10Floatholders 调用 前十大流通股东 API
@@ -42,7 +54,10 @@ func Top10Floatholders(ctx context.Context, client *sdk.Client, req *Top10Floath
 		params["end_date"] = req.EndDate
 	}
 
-	fields := []string{}
+	fields := []string{
+		"ts_code", "ann_date", "end_date", "holder_name",
+		"hold_amount", "hold_ratio", "hold_float_ratio", "hold_change", "holder_type",
+	}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -52,6 +67,233 @@ func Top10Floatholders(ctx context.Context, client *sdk.Client, req *Top10Floath
 	if err := client.CallAPIFlexible(ctx, "top10_floatholders", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []Top10FloatholdersItem{}, nil
+
+	items := make([]Top10FloatholdersItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code
+		var tsCode string
+		if item["ts_code"] == nil {
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: top10_floatholders")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+
+		// 处理 ann_date
+		var annDate string
+		if item["ann_date"] == nil {
+			annDate = ""
+		} else if v, ok := item["ann_date"].(string); ok {
+			annDate = v
+		} else if v, ok := item["ann_date"].(float64); ok {
+			annDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ann_date"].(int); ok {
+			annDate = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ann_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: top10_floatholders")
+			log.Printf("字段: ann_date")
+			log.Printf("错误: 类型转换失败，期望类型 string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ann_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 ann_date 类型")
+		}
+
+		// 处理 end_date
+		var endDate string
+		if item["end_date"] == nil {
+			endDate = ""
+		} else if v, ok := item["end_date"].(string); ok {
+			endDate = v
+		} else if v, ok := item["end_date"].(float64); ok {
+			endDate = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["end_date"].(int); ok {
+			endDate = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["end_date"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: top10_floatholders")
+			log.Printf("字段: end_date")
+			log.Printf("错误: 类型转换失败，期望类型 string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["end_date"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 end_date 类型")
+		}
+
+		// 处理 holder_name
+		var holderName string
+		if item["holder_name"] == nil {
+			holderName = ""
+		} else if v, ok := item["holder_name"].(string); ok {
+			holderName = v
+		} else if v, ok := item["holder_name"].(float64); ok {
+			holderName = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["holder_name"].(int); ok {
+			holderName = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["holder_name"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: top10_floatholders")
+			log.Printf("字段: holder_name")
+			log.Printf("错误: 类型转换失败，期望类型 string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["holder_name"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 holder_name 类型")
+		}
+
+		// 处理 hold_amount
+		var holdAmount float64
+		if item["hold_amount"] == nil {
+			holdAmount = 0
+		} else if v, ok := item["hold_amount"].(float64); ok {
+			holdAmount = v
+		} else if v, ok := item["hold_amount"].(int); ok {
+			holdAmount = float64(v)
+		} else if v, ok := item["hold_amount"].(string); ok {
+			if v == "" {
+				holdAmount = 0
+			} else {
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					holdAmount = parsed
+				} else {
+					return nil, fmt.Errorf("无效的 hold_amount 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			return nil, fmt.Errorf("无效的 hold_amount 类型，期望 float64/int/string")
+		}
+
+		// 处理 hold_ratio
+		var holdRatio float64
+		if item["hold_ratio"] == nil {
+			holdRatio = 0
+		} else if v, ok := item["hold_ratio"].(float64); ok {
+			holdRatio = v
+		} else if v, ok := item["hold_ratio"].(int); ok {
+			holdRatio = float64(v)
+		} else if v, ok := item["hold_ratio"].(string); ok {
+			if v == "" {
+				holdRatio = 0
+			} else {
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					holdRatio = parsed
+				} else {
+					return nil, fmt.Errorf("无效的 hold_ratio 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			return nil, fmt.Errorf("无效的 hold_ratio 类型，期望 float64/int/string")
+		}
+
+		// 处理 hold_float_ratio
+		var holdFloatRatio float64
+		if item["hold_float_ratio"] == nil {
+			holdFloatRatio = 0
+		} else if v, ok := item["hold_float_ratio"].(float64); ok {
+			holdFloatRatio = v
+		} else if v, ok := item["hold_float_ratio"].(int); ok {
+			holdFloatRatio = float64(v)
+		} else if v, ok := item["hold_float_ratio"].(string); ok {
+			if v == "" {
+				holdFloatRatio = 0
+			} else {
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					holdFloatRatio = parsed
+				} else {
+					return nil, fmt.Errorf("无效的 hold_float_ratio 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			return nil, fmt.Errorf("无效的 hold_float_ratio 类型，期望 float64/int/string")
+		}
+
+		// 处理 hold_change
+		var holdChange float64
+		if item["hold_change"] == nil {
+			holdChange = 0
+		} else if v, ok := item["hold_change"].(float64); ok {
+			holdChange = v
+		} else if v, ok := item["hold_change"].(int); ok {
+			holdChange = float64(v)
+		} else if v, ok := item["hold_change"].(string); ok {
+			if v == "" {
+				holdChange = 0
+			} else {
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					holdChange = parsed
+				} else {
+					return nil, fmt.Errorf("无效的 hold_change 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			return nil, fmt.Errorf("无效的 hold_change 类型，期望 float64/int/string")
+		}
+
+		// 处理 holder_type
+		var holderType string
+		if item["holder_type"] == nil {
+			holderType = ""
+		} else if v, ok := item["holder_type"].(string); ok {
+			holderType = v
+		} else if v, ok := item["holder_type"].(float64); ok {
+			holderType = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["holder_type"].(int); ok {
+			holderType = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["holder_type"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: top10_floatholders")
+			log.Printf("字段: holder_type")
+			log.Printf("错误: 类型转换失败，期望类型 string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["holder_type"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 holder_type 类型")
+		}
+
+		items[i] = Top10FloatholdersItem{
+			TsCode:         tsCode,
+			AnnDate:        annDate,
+			EndDate:        endDate,
+			HolderName:     holderName,
+			HoldAmount:     holdAmount,
+			HoldRatio:      holdRatio,
+			HoldFloatRatio: holdFloatRatio,
+			HoldChange:     holdChange,
+			HolderType:     holderType,
+		}
+	}
+
+	return items, nil
 }

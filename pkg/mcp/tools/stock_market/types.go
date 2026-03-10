@@ -167,6 +167,17 @@ type MonthlyOutput struct {
 	Total int              `json:"total" jsonschema:"Total count"`
 }
 
+// RealtimeCrawlerInput defines the input schema
+type RealtimeCrawlerInput struct {
+
+}
+
+// RealtimeCrawlerOutput defines the output schema
+type RealtimeCrawlerOutput struct {
+	Data  []stock_market.RealtimeQuoteItem `json:"data" jsonschema:"realtime_crawler data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
+}
+
 // RealtimeListInput defines the input schema
 type RealtimeListInput struct {
 Src string `json:"src,omitempty" jsonschema:"数据源 (sina-新浪 dc-东方财富，默认dc)"`
@@ -176,6 +187,17 @@ Src string `json:"src,omitempty" jsonschema:"数据源 (sina-新浪 dc-东方财
 // RealtimeListOutput defines the output schema
 type RealtimeListOutput struct {
 	Data  []stock_market.RealtimeListItem `json:"data" jsonschema:"realtime_list data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
+}
+
+// RealtimeListCrawlerInput defines the input schema
+type RealtimeListCrawlerInput struct {
+
+}
+
+// RealtimeListCrawlerOutput defines the output schema
+type RealtimeListCrawlerOutput struct {
+	Data  []stock_market.RealtimeListItem `json:"data" jsonschema:"realtime_list_crawler data list"`
 	Total int              `json:"total" jsonschema:"Total count"`
 }
 
@@ -202,6 +224,17 @@ Src string `json:"src,omitempty" jsonschema:"数据源 (sina-新浪 dc-东方财
 // RealtimeTickOutput defines the output schema
 type RealtimeTickOutput struct {
 	Data  []stock_market.RealtimeTickItem `json:"data" jsonschema:"realtime_tick data list"`
+	Total int              `json:"total" jsonschema:"Total count"`
+}
+
+// RealtimeTickCrawlerInput defines the input schema
+type RealtimeTickCrawlerInput struct {
+
+}
+
+// RealtimeTickCrawlerOutput defines the output schema
+type RealtimeTickCrawlerOutput struct {
+	Data  []stock_market.RealtimeTickItem `json:"data" jsonschema:"realtime_tick_crawler data list"`
 	Total int              `json:"total" jsonschema:"Total count"`
 }
 

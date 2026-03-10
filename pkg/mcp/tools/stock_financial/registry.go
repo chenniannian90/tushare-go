@@ -20,15 +20,15 @@ func NewStock_financialTools(server *mcp.Server, client *sdk.Client) *Stock_fina
 
 // RegisterAll registers all tools
 func (r *Stock_financialTools) RegisterAll() {
-	//r.registerBalancesheet()
-	//r.registerCashflow()
+	r.registerBalancesheet()
+	r.registerCashflow()
 	r.registerDisclosureDate()
-	//r.registerDividend()
-	//r.registerExpress()
-	//r.registerFinaAudit()
-	//r.registerFinaIndicator()
-	//r.registerFinaMainbz()
-	//r.registerForecast()
-	//r.registerIncome()
+	r.registerDividend()
+	r.registerExpress()
+	r.registerFinaAudit()
+	r.registerFinaIndicator()
+	r.registerFinaMainbz()
+	r.registerForecast()
+	r.registerIncome()
 
 }

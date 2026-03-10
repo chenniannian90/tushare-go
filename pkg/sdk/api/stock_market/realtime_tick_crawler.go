@@ -369,3 +369,14 @@ func extractCode(symbol string) string {
 	}
 	return symbol
 }
+
+// RealtimeTickCrawlerRequest defines the request for realtime tick crawler
+type RealtimeTickCrawlerRequest struct {
+	Code string `json:"code,omitempty"` // Stock code (6 digits)
+	Src  string `json:"src,omitempty"`  // Data source ("sina" or "dc")
+}
+
+// RealtimeTickCrawler is a wrapper function that matches the standard API pattern
+func RealtimeTickCrawler(ctx context.Context, client interface{}, req *RealtimeTickCrawlerRequest) ([]RealtimeTickItem, error) {
+	return GetRealtimeTick(req.Code, req.Src)
+}

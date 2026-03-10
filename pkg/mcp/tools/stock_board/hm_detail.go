@@ -18,31 +18,8 @@ func (r *Stock_boardTools) registerHmDetail() {
 	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
-		Name: "stock_board.hm_detail",
-		Description: `获取每日游资交易明细，数据开始于2022年8。游资分类名录，请点击游资名录。
-
-【最佳实践】
-推荐参数（返回约200+条数据）：
-  - trade_date: 指定交易日期（格式：YYYYMMDD）
-
-可选参数：
-  - ts_code: 特定股票代码
-  - hm_name: 游资营业部名称
-  - start_date/end_date: 日期范围
-
-【使用示例】
-参数1（推荐）：{"trade_date": "20240308"} - 获取指定日期游资交易明细
-参数2：{"ts_code": "000001.SZ", "trade_date": "20240308"} - 查询特定股票的游资交易
-参数3：{"hm_name": "东方财富拉萨", "trade_date": "20240308"} - 查询特定游资的交易
-
-【注意事项】
-1. 无需特殊权限，可直接使用
-2. 数据从2022年8月开始
-3. 建议使用最近的交易日期以获取有效数据
-4. 可用于分析游资动向和热点股票
-
-【返回字段】
-包含游资营业部、股票代码、买卖金额、交易时间等信息`,
+		Name:        "stock_board.hm_detail",
+		Description: "获取每日游资交易明细，数据开始于2022年8。游资分类名录，请点击游资名录",
 		InputSchema: json.RawMessage(schemaJSON),
 	}
 

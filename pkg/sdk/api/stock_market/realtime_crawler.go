@@ -303,3 +303,13 @@ func parseVolumeField(s string) int {
 	}
 	return parseInt(s)
 }
+
+// RealtimeCrawlerRequest defines the request for realtime crawler
+type RealtimeCrawlerRequest struct {
+	Symbols interface{} `json:"symbols,omitempty"` // Stock codes (string or []string)
+}
+
+// RealtimeCrawler is a wrapper function that matches the standard API pattern
+func RealtimeCrawler(ctx context.Context, client interface{}, req *RealtimeCrawlerRequest) ([]RealtimeQuoteItem, error) {
+	return GetRealtimeQuotes(req.Symbols)
+}
