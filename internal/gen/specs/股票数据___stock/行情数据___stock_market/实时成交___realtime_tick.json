@@ -21,5 +21,36 @@
       "required": false
     }
   ],
-  "response_fields": null
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码"
+    },
+    {
+      "name": "time",
+      "type": "str",
+      "description": "成交时间"
+    },
+    {
+      "name": "price",
+      "type": "float",
+      "description": "成交价"
+    },
+    {
+      "name": "volume",
+      "type": "int",
+      "description": "成交量"
+    },
+    {
+      "name": "direction",
+      "type": "str",
+      "description": "买卖方向"
+    },
+    {
+      "name": "amount",
+      "type": "float",
+      "description": "成交额"
+    }
+  ]
 }

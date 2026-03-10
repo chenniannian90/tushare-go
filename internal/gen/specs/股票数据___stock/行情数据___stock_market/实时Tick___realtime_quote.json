@@ -21,5 +21,171 @@
       "required": false
     }
   ],
-  "response_fields": null
+  "response_fields": [
+    {
+      "name": "ts_code",
+      "type": "str",
+      "description": "股票代码"
+    },
+    {
+      "name": "name",
+      "type": "str",
+      "description": "股票名称"
+    },
+    {
+      "name": "open",
+      "type": "float",
+      "description": "开盘价"
+    },
+    {
+      "name": "pre_close",
+      "type": "float",
+      "description": "昨收价"
+    },
+    {
+      "name": "price",
+      "type": "float",
+      "description": "当前价"
+    },
+    {
+      "name": "high",
+      "type": "float",
+      "description": "最高价"
+    },
+    {
+      "name": "low",
+      "type": "float",
+      "description": "最低价"
+    },
+    {
+      "name": "bid",
+      "type": "float",
+      "description": "买一价"
+    },
+    {
+      "name": "ask",
+      "type": "float",
+      "description": "卖一价"
+    },
+    {
+      "name": "volume",
+      "type": "int",
+      "description": "成交量"
+    },
+    {
+      "name": "amount",
+      "type": "float",
+      "description": "成交额"
+    },
+    {
+      "name": "date",
+      "type": "str",
+      "description": "日期"
+    },
+    {
+      "name": "time",
+      "type": "str",
+      "description": "时间"
+    },
+    {
+      "name": "b1_v",
+      "type": "int",
+      "description": "买一量"
+    },
+    {
+      "name": "b1_p",
+      "type": "float",
+      "description": "买一价"
+    },
+    {
+      "name": "b2_v",
+      "type": "int",
+      "description": "买二量"
+    },
+    {
+      "name": "b2_p",
+      "type": "float",
+      "description": "买二价"
+    },
+    {
+      "name": "b3_v",
+      "type": "int",
+      "description": "买三量"
+    },
+    {
+      "name": "b3_p",
+      "type": "float",
+      "description": "买三价"
+    },
+    {
+      "name": "b4_v",
+      "type": "int",
+      "description": "买四量"
+    },
+    {
+      "name": "b4_p",
+      "type": "float",
+      "description": "买四价"
+    },
+    {
+      "name": "b5_v",
+      "type": "int",
+      "description": "买五量"
+    },
+    {
+      "name": "b5_p",
+      "type": "float",
+      "description": "买五价"
+    },
+    {
+      "name": "a1_v",
+      "type": "int",
+      "description": "卖一量"
+    },
+    {
+      "name": "a1_p",
+      "type": "float",
+      "description": "卖一价"
+    },
+    {
+      "name": "a2_v",
+      "type": "int",
+      "description": "卖二量"
+    },
+    {
+      "name": "a2_p",
+      "type": "float",
+      "description": "卖二价"
+    },
+    {
+      "name": "a3_v",
+      "type": "int",
+      "description": "卖三量"
+    },
+    {
+      "name": "a3_p",
+      "type": "float",
+      "description": "卖三价"
+    },
+    {
+      "name": "a4_v",
+      "type": "int",
+      "description": "卖四量"
+    },
+    {
+      "name": "a4_p",
+      "type": "float",
+      "description": "卖四价"
+    },
+    {
+      "name": "a5_v",
+      "type": "int",
+      "description": "卖五量"
+    },
+    {
+      "name": "a5_p",
+      "type": "float",
+      "description": "卖五价"
+    }
+  ]
 }

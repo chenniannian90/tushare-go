@@ -4,6 +4,9 @@ package stock_market
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
+	"log"
 
 	"tushare-go/pkg/sdk"
 )
@@ -16,6 +19,12 @@ type RealtimeTickRequest struct {
 
 // RealtimeTickItem 表示单个 实时成交（爬虫） 数据项
 type RealtimeTickItem struct {
+	TsCode string `json:"ts_code"` // 股票代码
+	Time string `json:"time"` // 成交时间
+	Price float64 `json:"price"` // 成交价
+	Volume int `json:"volume"` // 成交量
+	Direction string `json:"direction"` // 买卖方向
+	Amount float64 `json:"amount"` // 成交额
 }
 
 // RealtimeTick 调用 实时成交（爬虫） API
@@ -30,7 +39,7 @@ func RealtimeTick(ctx context.Context, client *sdk.Client, req *RealtimeTickRequ
 		params["src"] = req.Src
 	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "time", "price", "volume", "direction", "amount"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -40,6 +49,197 @@ func RealtimeTick(ctx context.Context, client *sdk.Client, req *RealtimeTickRequ
 	if err := client.CallAPIFlexible(ctx, "realtime_tick", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []RealtimeTickItem{}, nil
+	items := make([]RealtimeTickItem, len(result.Items))
+	for i, item := range result.Items {
+		// 处理 ts_code 的简单类型
+		// 对 string 类型尝试多种转换
+		var tsCode string
+		if item["ts_code"] == nil {
+			// 字段值为 null，使用零值
+			tsCode = ""
+		} else if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		} else if v, ok := item["ts_code"].(float64); ok {
+			tsCode = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["ts_code"].(int); ok {
+			tsCode = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["ts_code"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: realtime_tick")
+			log.Printf("字段: ts_code")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["ts_code"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 ts_code 类型")
+		}
+		// 处理 time 的简单类型
+		// 对 string 类型尝试多种转换
+		var time string
+		if item["time"] == nil {
+			// 字段值为 null，使用零值
+			time = ""
+		} else if v, ok := item["time"].(string); ok {
+			time = v
+		} else if v, ok := item["time"].(float64); ok {
+			time = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["time"].(int); ok {
+			time = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["time"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: realtime_tick")
+			log.Printf("字段: time")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["time"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 time 类型")
+		}
+		// 处理 price 的简单类型
+		// 处理 float64 类型 - 支持多种输入格式
+		var price float64
+		if item["price"] == nil {
+			// 字段值为 null，使用零值
+			price = 0
+		} else if v, ok := item["price"].(float64); ok {
+			price = v
+		} else if v, ok := item["price"].(int); ok {
+			price = float64(v)
+		} else if v, ok := item["price"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				price = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					price = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["price"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: realtime_tick")
+					log.Printf("字段: price")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["price"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 price 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["price"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: realtime_tick")
+			log.Printf("字段: price")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["price"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 price 类型，期望 float64/int/string")
+		}
+		// 处理 volume 的简单类型
+		// 处理 int 类型 - JSON 数字解析为 float64，需要转换
+		var volume int
+		if item["volume"] == nil {
+			// 字段值为 null，使用零值
+			volume = 0
+		} else if v, ok := item["volume"].(float64); ok {
+			volume = int(v)
+		} else if v, ok := item["volume"].(int); ok {
+			volume = v
+		} else {
+			return nil, fmt.Errorf("无效的 volume 类型，期望 int 或 float64")
+		}
+		// 处理 direction 的简单类型
+		// 对 string 类型尝试多种转换
+		var direction string
+		if item["direction"] == nil {
+			// 字段值为 null，使用零值
+			direction = ""
+		} else if v, ok := item["direction"].(string); ok {
+			direction = v
+		} else if v, ok := item["direction"].(float64); ok {
+			direction = fmt.Sprintf("%.0f", v)
+		} else if v, ok := item["direction"].(int); ok {
+			direction = fmt.Sprintf("%d", v)
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["direction"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: realtime_tick")
+			log.Printf("字段: direction")
+			log.Printf("错误: 类型转换失败，期望类型 string，支持 string/float64/int")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["direction"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 direction 类型")
+		}
+		// 处理 amount 的简单类型
+		// 处理 float64 类型 - 支持多种输入格式
+		var amount float64
+		if item["amount"] == nil {
+			// 字段值为 null，使用零值
+			amount = 0
+		} else if v, ok := item["amount"].(float64); ok {
+			amount = v
+		} else if v, ok := item["amount"].(int); ok {
+			amount = float64(v)
+		} else if v, ok := item["amount"].(string); ok {
+			// 尝试解析字符串
+			if v == "" {
+				amount = 0
+			} else {
+				// 使用 fmt.Sscanf 解析字符串
+				var parsed float64
+				if _, err := fmt.Sscanf(v, "%f", &parsed); err == nil {
+					amount = parsed
+				} else {
+					itemJSON, _ := json.Marshal(item)
+					fieldJSON, _ := json.Marshal(item["amount"])
+					log.Printf("=== 字段解析失败 ===")
+					log.Printf("API: realtime_tick")
+					log.Printf("字段: amount")
+					log.Printf("错误: 无法解析字符串为 float64")
+					log.Printf("字段原始值: %s", string(fieldJSON))
+					log.Printf("字段实际类型: %T", item["amount"])
+					log.Printf("当前Item: %s", string(itemJSON))
+					log.Printf("===================")
+					return nil, fmt.Errorf("无效的 amount 类型: 无法解析字符串 %q", v)
+				}
+			}
+		} else {
+			itemJSON, _ := json.Marshal(item)
+			fieldJSON, _ := json.Marshal(item["amount"])
+			log.Printf("=== 字段解析失败 ===")
+			log.Printf("API: realtime_tick")
+			log.Printf("字段: amount")
+			log.Printf("错误: 类型转换失败，期望类型 float64，支持 float64/int/string")
+			log.Printf("字段原始值: %s", string(fieldJSON))
+			log.Printf("字段实际类型: %T", item["amount"])
+			log.Printf("当前Item: %s", string(itemJSON))
+			log.Printf("===================")
+			return nil, fmt.Errorf("无效的 amount 类型，期望 float64/int/string")
+		}
+		items[i] = RealtimeTickItem{
+			TsCode: tsCode,
+			Time: time,
+			Price: price,
+			Volume: volume,
+			Direction: direction,
+			Amount: amount,
+		}
+	}
+
+	return items, nil
 }
