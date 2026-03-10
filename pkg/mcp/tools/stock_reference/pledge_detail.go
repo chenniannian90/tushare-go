@@ -19,7 +19,7 @@ func (r *Stock_referenceTools) registerPledgeDetail() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_reference.pledge_detail",
-		Description: "获取股票质押明细数据",
+		Description: "获取上市公司股票质押明细数据，包含质押方、质权人、质押数量、质押比例等信息。注意事项：非所有股票都有质押数据，建议使用具体股票代码查询。返回字段：股票代码、公告日期、股东名称、质押数量、质押开始日期、质押结束日期、是否解除、质权人等。推荐测试代码：600593.SH（大连圣亚）有较多历史质押数据",
 		InputSchema: json.RawMessage(schemaJSON),
 	}
 

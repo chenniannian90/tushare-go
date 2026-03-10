@@ -19,7 +19,7 @@ func (r *Stock_referenceTools) registerShareFloat() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_reference.share_float",
-		Description: "获取限售股解禁",
+		Description: "获取限售股解禁数据，主要为股权分置改革时期的历史解禁记录。注意事项：数据主要集中在2007-2015年期间。推荐测试代码：600593.SH有11条历史解禁数据。返回字段：股票代码、解禁日期、解禁数量、解禁比例、股东名称、股份类型",
 		InputSchema: json.RawMessage(schemaJSON),
 	}
 

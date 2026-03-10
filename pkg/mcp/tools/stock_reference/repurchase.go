@@ -19,7 +19,7 @@ func (r *Stock_referenceTools) registerRepurchase() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_reference.repurchase",
-		Description: "获取上市公司回购股票数据",
+		Description: "获取上市公司回购股票数据，包含回购方案、实施进度等信息。注意事项：不填任何参数时，默认返回最新2000条数据，数据量较大，建议使用日期范围过滤。返回字段：股票代码、公告日期、回购进展、回购数量、回购金额等",
 		InputSchema: json.RawMessage(schemaJSON),
 	}
 

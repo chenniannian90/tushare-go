@@ -19,7 +19,7 @@ func (r *Stock_referenceTools) registerStkHoldernumber() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_reference.stk_holdernumber",
-		Description: "获取上市公司股东户数数据，数据不定期公布",
+		Description: "获取上市公司股东户数数据。注意事项：数据不定期公布，通常在季度报告中披露。返回字段：股票代码、公告日期、截止日期、股东户数",
 		InputSchema: json.RawMessage(schemaJSON),
 	}
 

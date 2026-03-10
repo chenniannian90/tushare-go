@@ -19,7 +19,7 @@ func (r *Stock_referenceTools) registerTop10Floatholders() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_reference.top10_floatholders",
-		Description: "获取上市公司前十大流通股东数据",
+		Description: "获取上市公司前十大流通股东数据。注意事项：period为报告期，通常是季度末日期（如：20231231、20240331）。返回多个历史报告期数据。返回字段：股东名称、持股数量、持股比例、持股变动等",
 		InputSchema: json.RawMessage(schemaJSON),
 	}
 

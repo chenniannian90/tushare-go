@@ -19,7 +19,7 @@ func (r *Stock_referenceTools) registerStkHoldertrade() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_reference.stk_holdertrade",
-		Description: "获取上市公司增减持数据，了解重要股东近期及历史上的股份增减变化",
+		Description: "获取上市公司股东增减持数据，了解重要股东的股份变动情况。注意事项：不填任何参数时，默认返回2000条数据，数据量较大，建议使用股票代码、日期范围或交易类型过滤。返回字段：股票代码、公告日期、股东名称、股东类型、交易类型(IN=增持,DE=减持)、变动数量、变动比例、后持股数等",
 		InputSchema: json.RawMessage(schemaJSON),
 	}
 

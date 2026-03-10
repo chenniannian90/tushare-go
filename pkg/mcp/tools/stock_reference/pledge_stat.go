@@ -19,7 +19,7 @@ func (r *Stock_referenceTools) registerPledgeStat() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_reference.pledge_stat",
-		Description: "获取股票质押统计数据",
+		Description: "获取股票质押统计数据，包含质押次数、未解押数量、质押比例等汇总信息。返回字段：pledge_count(质押次数)、unrest_pledge(未解押股数万股)、pledge_ratio(质押占总股本比例%)",
 		InputSchema: json.RawMessage(schemaJSON),
 	}
 

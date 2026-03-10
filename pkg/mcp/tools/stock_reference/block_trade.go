@@ -19,7 +19,7 @@ func (r *Stock_referenceTools) registerBlockTrade() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_reference.block_trade",
-		Description: "大宗交易",
+		Description: "查询A股大宗交易数据，包含交易价格、成交量、买卖方营业部等信息。参数说明：ts_code和trade_date至少填写一个。日期格式必须为YYYYMMDD（如：20240301）。返回字段：股票代码、交易日期、成交价格、成交量、成交金额、买方营业部、卖方营业部",
 		InputSchema: json.RawMessage(schemaJSON),
 	}
 

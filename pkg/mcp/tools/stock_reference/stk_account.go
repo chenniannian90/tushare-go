@@ -19,7 +19,7 @@ func (r *Stock_referenceTools) registerStkAccount() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_reference.stk_account",
-		Description: "获取股票账户开户数据，统计周期为一周",
+		Description: "获取股票账户开户周数据，统计周期为一周，每周统计一次新增开户数、总户数等。返回字段：weekly_new(本周新增开户数万户)、total(总账户数万户)、weekly_hold(本周持仓账户数万户)、weekly_trade(本周交易账户数万户)",
 		InputSchema: json.RawMessage(schemaJSON),
 	}
 

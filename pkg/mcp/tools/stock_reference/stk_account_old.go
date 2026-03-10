@@ -19,7 +19,7 @@ func (r *Stock_referenceTools) registerStkAccountOld() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_reference.stk_account_old",
-		Description: "获取股票账户开户数据旧版格式数据，数据从2008年1月开始，到2015年5月29，新数据请通过股票开户数据获取。",
+		Description: "获取股票账户开户数据旧版格式。注意事项：数据时间范围为2008年1月至2015年5月29日。新数据请通过stock_reference.stk_account获取。返回字段：日期、新增开户数、总户数等",
 		InputSchema: json.RawMessage(schemaJSON),
 	}
 
