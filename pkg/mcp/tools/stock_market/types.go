@@ -10,10 +10,10 @@ import (
 
 // AdjFactorInput defines the input schema
 type AdjFactorInput struct {
-TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码"`
-TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期(YYYYMMDD，下同)"`
-StartDate string `json:"start_date,omitempty" jsonschema:"开始日期"`
-EndDate string `json:"end_date,omitempty" jsonschema:"结束日期"`
+TsCode string `json:"ts_code,omitempty" jsonschema:"股票代码(格式: 000001.SZ或600000.SH。与trade_date至少填一个)"`
+TradeDate string `json:"trade_date,omitempty" jsonschema:"交易日期(格式: YYYYMMDD，如: 20240301。与ts_code至少填一个)"`
+StartDate string `json:"start_date,omitempty" jsonschema:"开始日期(格式: YYYYMMDD)"`
+EndDate string `json:"end_date,omitempty" jsonschema:"结束日期(格式: YYYYMMDD)"`
 
 }
 

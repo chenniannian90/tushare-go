@@ -19,7 +19,7 @@ func (r *Stock_marketTools) registerAdjFactor() {
 
 	tool := &mcp.Tool{
 		Name:        "stock_market.adj_factor",
-		Description: "本接口由Tushare自行生产，获取股票复权因子，可提取单只股票全部历史复权因子，也可以提取单日全部股票的复权因子。积分要求：2000积分起，5000以上可高频调取",
+		Description: "获取股票复权因子数据，用于计算股票的前复权和后复权价格。可提取单只股票全部历史复权因子，也可以提取单日全部股票的复权因子。注意事项：积分要求2000分起，5000分以上可高频调取。参数说明：ts_code和trade_date至少填写一个。返回字段：ts_code(股票代码)、trade_date(交易日期)、adj_factor(复权因子)",
 		InputSchema: json.RawMessage(schemaJSON),
 	}
 

@@ -18,6 +18,9 @@ type AdjFactorRequest struct {
 
 // AdjFactorItem 表示单个 复权因子 数据项
 type AdjFactorItem struct {
+	TsCode string `json:"ts_code"` // 股票代码
+	TradeDate string `json:"trade_date"` // 交易日期
+	AdjFactor float64 `json:"adj_factor"` // 复权因子
 }
 
 // AdjFactor 调用 复权因子 API
@@ -38,7 +41,7 @@ func AdjFactor(ctx context.Context, client *sdk.Client, req *AdjFactorRequest) (
 		params["end_date"] = req.EndDate
 	}
 
-	fields := []string{}
+	fields := []string{"ts_code", "trade_date", "adj_factor"}
 
 	var result struct {
 		Fields []string                 `json:"fields"`
@@ -48,6 +51,32 @@ func AdjFactor(ctx context.Context, client *sdk.Client, req *AdjFactorRequest) (
 	if err := client.CallAPIFlexible(ctx, "adj_factor", params, fields, &result); err != nil {
 		return nil, err
 	}
-	// No response fields defined, return empty items
-	return []AdjFactorItem{}, nil
+
+	items := make([]AdjFactorItem, 0, len(result.Items))
+	for _, item := range result.Items {
+		// 解析 ts_code 字段
+		var tsCode string
+		if v, ok := item["ts_code"].(string); ok {
+			tsCode = v
+		}
+
+		// 解析 trade_date 字段
+		var tradeDate string
+		if v, ok := item["trade_date"].(string); ok {
+			tradeDate = v
+		}
+
+		// 解析 adj_factor 字段
+		var adjFactor float64
+		if v, ok := item["adj_factor"].(float64); ok {
+			adjFactor = v
+		}
+
+		items = append(items, AdjFactorItem{
+			TsCode: tsCode,
+			TradeDate: tradeDate,
+			AdjFactor: adjFactor,
+		})
+	}
+	return items, nil
 }
