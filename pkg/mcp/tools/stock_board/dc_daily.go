@@ -18,8 +18,25 @@ func (r *Stock_boardTools) registerDcDaily() {
 	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
-		Name:        "stock_board.dc_daily",
-		Description: "获取东财概念板块、行业指数板块、地域板块行情数据，历史数据开始于2020年",
+		Name: "stock_board.dc_daily",
+		Description: `获取东财概念板块、行业指数板块、地域板块行情数据，历史数据开始于2020年。
+
+【⚠️ 权限要求】
+需要升级 Tushare 账户权限才能访问此接口
+访问限制：每天最多调用 2 次
+升级地址：https://tushare.pro/document/1?doc_id=108
+
+【参数说明】
+  - trade_date: 交易日期（格式：YYYYMMDD）
+  - ts_code: 板块代码
+  - idx_type: 板块类型（概念板块、行业板块、地域板块）
+  - start_date/end_date: 日期范围
+
+【使用示例】
+{"trade_date": "20240308", "idx_type": "概念板块"}
+
+【返回数据】
+板块代码、交易日期、收盘价、开盘价、涨跌幅等`,
 		InputSchema: json.RawMessage(schemaJSON),
 	}
 

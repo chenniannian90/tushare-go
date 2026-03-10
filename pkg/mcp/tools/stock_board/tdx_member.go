@@ -18,8 +18,26 @@ func (r *Stock_boardTools) registerTdxMember() {
 	schemaJSON, _ := json.Marshal(inputSchema)
 
 	tool := &mcp.Tool{
-		Name:        "stock_board.tdx_member",
-		Description: "获取通达信各板块成分股信息",
+		Name: "stock_board.tdx_member",
+		Description: `获取通达信各板块成分股信息。
+
+��最佳实践】
+推荐参数：
+  - ts_code: 板块代码（格式：xxxxxx.TDX，如 "1.TDX"）
+  - trade_date: 交易日期（格式：YYYYMMDD）
+
+【使用示例】
+参数1（推荐）：{"ts_code": "1.TDX", "trade_date": "20240308"} - 查询指定板块的成分股
+参数2：{"ts_code": "1.TDX"} - 获取最新成分股信息
+
+【注意事项】
+1. 无需特殊权限，可直接使用
+2. 板块代码格式必须是 xxxxxx.TDX
+3. 某些板块可能无成分股数据
+4. 建议配合 tdx_index 工具先查询可用的板块列表
+
+【返回字段】
+包含板块代码、成分股代码、成分股名称、权重等信息`,
 		InputSchema: json.RawMessage(schemaJSON),
 	}
 

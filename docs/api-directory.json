@@ -1,7 +1,8 @@
 {
   "title": "Tushare API 接口目录",
   "version": "1.0",
-  "last_updated": "2026-03-07",
+  "last_updated": "2026-03-09",
+  "doc_id_base_url": "https://tushare.pro/document/2?doc_id=",
   "categories": [
     {
       "id": "stock",
@@ -42,7 +43,7 @@
             { "name": "月线行情", "doc_id": 145 },
             { "name": "复权行情", "doc_id": 146 },
             { "name": "周/月线行情(每日更新)", "doc_id": 336 },
-            { "name": "周/月线复权行情(每���更新)", "doc_id": 365 },
+            { "name": "周/月线复权行情(每日更新)", "doc_id": 365 },
             { "name": "复权因子", "doc_id": 28 },
             { "name": "实时Tick（爬虫）", "doc_id": 315 },
             { "name": "实时成交（爬虫）", "doc_id": 316 },
@@ -233,49 +234,6 @@
       ]
     },
     {
-      "id": "futures",
-      "name": "期货数据",
-      "icon": "📅",
-      "doc_id": 134,
-      "apis": [
-        { "name": "合约信息", "doc_id": 135 },
-        { "name": "交易日历", "doc_id": 137 },
-        { "name": "日线行情", "doc_id": 138 },
-        { "name": "期货周/月线行情(每日更新)", "doc_id": 337 },
-        { "name": "历史分钟行情", "doc_id": 313 },
-        { "name": "实时分钟行情", "doc_id": 340 },
-        { "name": "仓单日报", "doc_id": 140 },
-        { "name": "每日结算参数", "doc_id": 141 },
-        { "name": "历史Tick行情", "doc_id": 314 },
-        { "name": "每日持仓排名", "doc_id": 139 },
-        { "name": "南华期货指数行情", "doc_id": 155 },
-        { "name": "期货主力与连续合约", "doc_id": 189 },
-        { "name": "期货主要品种交易周报", "doc_id": 216 },
-        { "name": "期货合约涨跌停价格", "doc_id": 368 }
-      ]
-    },
-    {
-      "id": "spot",
-      "name": "现货数据",
-      "icon": "💎",
-      "doc_id": 283,
-      "apis": [
-        { "name": "上海黄金基础信息", "doc_id": 284 },
-        { "name": "上海黄金现货日行情", "doc_id": 285 }
-      ]
-    },
-    {
-      "id": "options",
-      "name": "期权数据",
-      "icon": "🎯",
-      "doc_id": 157,
-      "apis": [
-        { "name": "期权合约信息", "doc_id": 158 },
-        { "name": "期权日线行情", "doc_id": 159 },
-        { "name": "期权分钟行情", "doc_id": 341 }
-      ]
-    },
-    {
       "id": "bond",
       "name": "债券专题",
       "icon": "🏛️",
@@ -296,16 +254,6 @@
         { "name": "大宗交易明细", "doc_id": 272 },
         { "name": "国债收益率曲线", "doc_id": 201 },
         { "name": "全球财经事件", "doc_id": 233 }
-      ]
-    },
-    {
-      "id": "forex",
-      "name": "外汇数据",
-      "icon": "💱",
-      "doc_id": 177,
-      "apis": [
-        { "name": "外汇基础信息（海外）", "doc_id": 178 },
-        { "name": "外汇日线行情", "doc_id": 179 }
       ]
     },
     {
@@ -343,162 +291,10 @@
         { "name": "美股现金流量表", "doc_id": 396 },
         { "name": "美股财务指标数据", "doc_id": 393 }
       ]
-    },
-    {
-      "id": "industry",
-      "name": "行业经济",
-      "icon": "🏭",
-      "doc_id": 82,
-      "subcategories": [
-        {
-          "id": "industry_tmt",
-          "name": "TMT行业",
-          "doc_id": 83,
-          "apis": [
-            { "name": "台湾电子产业月营收", "doc_id": 88 },
-            { "name": "台湾电子产业月营收明细", "doc_id": 87 },
-            { "name": "电影月度票房", "doc_id": 113 },
-            { "name": "电影周度票房", "doc_id": 114 },
-            { "name": "电影日度票房", "doc_id": 115 },
-            { "name": "影院日度票房", "doc_id": 116 },
-            { "name": "全国电影剧本备案数据", "doc_id": 156 },
-            { "name": "全国电视剧备案公示数据", "doc_id": 180 }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "macro",
-      "name": "宏观经济",
-      "icon": "🌍",
-      "doc_id": 147,
-      "subcategories": [
-        {
-          "id": "macro_domestic",
-          "name": "国内宏观",
-          "doc_id": 224,
-          "subcategories": [
-            {
-              "id": "macro_interest_rate",
-              "name": "利率数据",
-              "doc_id": 148,
-              "apis": [
-                { "name": "Shibor利率", "doc_id": 149 },
-                { "name": "Shibor报价数据", "doc_id": 150 },
-                { "name": "LPR贷款基础利率", "doc_id": 151 },
-                { "name": "Libor利率", "doc_id": 152 },
-                { "name": "Hibor利率", "doc_id": 153 },
-                { "name": "温州民间借贷利率", "doc_id": 173 },
-                { "name": "广州民间借贷利率", "doc_id": 174 }
-              ]
-            },
-            {
-              "id": "macro_economy",
-              "name": "国民经济",
-              "doc_id": 225,
-              "apis": [
-                { "name": "国内生产总值（GDP）", "doc_id": 227 }
-              ]
-            },
-            {
-              "id": "macro_price",
-              "name": "价格指数",
-              "doc_id": 226,
-              "apis": [
-                { "name": "居民消费价格指数（CPI）", "doc_id": 228 },
-                { "name": "工业生产者出厂价格指数（PPI）", "doc_id": 245 }
-              ]
-            },
-            {
-              "id": "macro_finance",
-              "name": "金融",
-              "doc_id": 240,
-              "subcategories": [
-                {
-                  "id": "macro_money_supply",
-                  "name": "货币供应量",
-                  "doc_id": 241,
-                  "apis": [
-                    { "name": "货币供应量（月）", "doc_id": 242 }
-                  ]
-                },
-                {
-                  "id": "macro_social_financing",
-                  "name": "社会融资",
-                  "doc_id": 309,
-                  "apis": [
-                    { "name": "社融增量（月度）", "doc_id": 310 }
-                  ]
-                }
-              ]
-            },
-            {
-              "id": "macro_business",
-              "name": "景气度",
-              "doc_id": 324,
-              "apis": [
-                { "name": "采购经理指数（PMI）", "doc_id": 325 }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "macro_international",
-          "name": "国际宏观",
-          "doc_id": 217,
-          "subcategories": [
-            {
-              "id": "macro_us_rate",
-              "name": "美国利率",
-              "doc_id": 218,
-              "apis": [
-                { "name": "国债收益率曲线利率", "doc_id": 219 },
-                { "name": "国债实际收益率曲线利率", "doc_id": 220 },
-                { "name": "短期国债利率", "doc_id": 221 },
-                { "name": "国债长期利率", "doc_id": 222 },
-                { "name": "国债长期利率平均值", "doc_id": 223 }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "llm_corpus",
-      "name": "大模型语料专题数据",
-      "icon": "🤖",
-      "doc_id": 142,
-      "apis": [
-        { "name": "国家政策库", "doc_id": 406 },
-        { "name": "券商研究报告", "doc_id": 415 },
-        { "name": "新闻快讯（短讯）", "doc_id": 143 },
-        { "name": "新闻通讯（长篇）", "doc_id": 195 },
-        { "name": "新闻联播文字稿", "doc_id": 154 },
-        { "name": "上市公司公告", "doc_id": 176 },
-        { "name": "上证e互动问答", "doc_id": 366 },
-        { "name": "深证易互动问答", "doc_id": 367 }
-      ]
-    },
-    {
-      "id": "wealth",
-      "name": "财富管理",
-      "icon": "💰",
-      "doc_id": 263,
-      "subcategories": [
-        {
-          "id": "wealth_fund_sales",
-          "name": "基金销售行业数据",
-          "doc_id": 264,
-          "apis": [
-            { "name": "各渠道公募基金销售保有规模占比", "doc_id": 265 },
-            { "name": "销售机构公募基金销售保有规模", "doc_id": 266 }
-          ]
-        }
-      ]
     }
   ],
   "statistics": {
-    "total_categories": 14,
+    "total_categories": 7,
     "total_apis": 200,
     "main_focus": "股票数据（9个子分类）",
     "coverage": [
@@ -509,7 +305,6 @@
       "债券",
       "外汇",
       "宏观经济"
-    ],
-    "doc_id_base_url": "https://tushare.pro/document/2?doc_id="
+    ]
   }
 }

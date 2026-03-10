@@ -21,17 +21,17 @@ func NewStock_featureTools(server *mcp.Server, client *sdk.Client) *Stock_featur
 // RegisterAll registers all tools
 func (r *Stock_featureTools) RegisterAll() {
 	r.registerBrokerRecommend()
-	r.registerCcassHold()
-	r.registerCcassHoldDetail()
+	//r.registerCcassHold()
+	//r.registerCcassHoldDetail()
 	r.registerCyqChips()
 	r.registerCyqPerf()
 	r.registerHkHold()
-	r.registerReportRc()
-	r.registerStkAhComparison()
-	r.registerStkAuctionC()
-	r.registerStkAuctionO()
+	//r.registerReportRc()
+	//r.registerStkAhComparison()
+	//r.registerStkAuctionC()
+	//r.registerStkAuctionO()
 	r.registerStkFactorPro()
-	r.registerStkNineturn()
+	//r.registerStkNineturn()
 	r.registerStkSurv()
 
 }

@@ -9,7 +9,7 @@ import (
 
 	"tushare-go/pkg/sdk"
 	"tushare-go/pkg/sdk/logger"
-	futures "tushare-go/pkg/sdk/api/futures"
+	index "tushare-go/pkg/sdk/api/index"
 )
 
 func main() {
@@ -42,10 +42,8 @@ func basicExample() {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	_, err := futures.TradeCal(ctx, client, &futures.TradeCalRequest{
-		Exchange: "SHFE",
-		StartDate: "20250101",
-		EndDate:   "20250103",
+	_, err := index.IndexBasic(ctx, client, &index.IndexBasicRequest{
+		Market: "SSE",
 	})
 
 	if err != nil {
@@ -56,30 +54,30 @@ func basicExample() {
 }
 
 // 文件配置示例
-func fileExample() {
-	println("\n=== 示例2：文件配置（输出到文件）===")
-
-	logger.Init(&logger.LogConfig{
-		Filename:   "app.log",      // 输出到文件
-		MaxSize:    10,             // 10MB
-		MaxAge:     30,             // 保留30天
-		MaxBackups: 3,              // 保留3个备份
-		Compress:   true,           // 压缩旧文件
-		Level:      "info",
-		Format:     "text",
-	})
-
-	logger.Info("日志系统已启动（文件模式）")
-	logger.Info("日志文件：app.log")
-
-	// 运行一些操作...
-	logger.Info("执行业务逻辑...")
-	time.Sleep(100 * time.Millisecond)
-	logger.Info("业务逻辑完成")
-
-	// 查看日志文件
-	println("请查看 app.log 文件查看日志内容")
-}
+// func fileExample() {
+// 	println("\n=== 示例2：文件配置（输出到文件）===")
+//
+// 	logger.Init(&logger.LogConfig{
+// 		Filename:   "app.log",      // 输出到文件
+// 		MaxSize:    10,             // 10MB
+// 		MaxAge:     30,             // 保留30天
+// 		MaxBackups: 3,              // 保留3个备份
+// 		Compress:   true,           // 压缩旧文件
+// 		Level:      "info",
+// 		Format:     "text",
+// 	})
+//
+// 	logger.Info("日志系统已启动（文件模式）")
+// 	logger.Info("日志文件：app.log")
+//
+// 	// 运行一些操作...
+// 	logger.Info("执行业务逻辑...")
+// 	time.Sleep(100 * time.Millisecond)
+// 	logger.Info("业务逻辑完成")
+//
+// 	// 查看日志文件
+// 	println("请查看 app.log 文件查看日志内容")
+// }
 
 // 高级配置示例
 func advancedExample() {
@@ -90,7 +88,9 @@ func advancedExample() {
 	if err != nil {
 		panic(err)
 	}
-	defer logFile.Close()
+	defer func() {
+		_ = logFile.Close()
+	}()
 
 	// 同时输出到控制台和文件
 	multiWriter := io.MultiWriter(os.Stdout, logFile)
@@ -143,9 +143,9 @@ func processBusinessLogic() {
 	// 步骤3
 	logger.WithFields(logger.Fields{
 		"step":     3,
-		"api_name": "trade_cal",
-		"exchange": "SHFE",
-	}).Info("获取交易日历")
+		"api_name": "index_basic",
+		"market":   "SSE",
+	}).Info("获取指数基本信息")
 
 	token := "412bca00819ea94f31287f3ab54a676d90861306f81c0405275991d1"
 	config, _ := sdk.NewConfig(token)
@@ -153,33 +153,26 @@ func processBusinessLogic() {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	calendar, err := futures.TradeCal(ctx, client, &futures.TradeCalRequest{
-		Exchange: "SHFE",
-		StartDate: "20250101",
-		EndDate:   "20250103",
+	indices, err := index.IndexBasic(ctx, client, &index.IndexBasicRequest{
+		Market: "SSE",
 	})
 
 	if err != nil {
-		logger.WithError(err).Error("获取交易日历失败")
+		logger.WithError(err).Error("获取指数基本信息失败")
 		return
 	}
 
-	logger.WithField("count", len(calendar)).Info("获取交易日历成功")
+	logger.WithField("count", len(indices)).Info("获取指数基本信息成功")
 
 	// 显示部分数据
-	for i, item := range calendar {
+	for i := range indices {
 		if i >= 2 {
 			break
 		}
-		status := "休市"
-		if item.IsOpen == "1" {
-			status = "交易"
-		}
 		logger.WithFields(logger.Fields{
-			"date":     item.CalDate,
-			"status":   status,
-			"exchange": item.Exchange,
-		}).Info("交易日历数据")
+			"index":   i + 1,
+			"example": "数据项已成功获取",
+		}).Info("指数数据")
 	}
 
 	// 完成

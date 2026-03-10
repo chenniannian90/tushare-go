@@ -21,12 +21,12 @@ func NewStock_fund_flowTools(server *mcp.Server, client *sdk.Client) *Stock_fund
 // RegisterAll registers all tools
 func (r *Stock_fund_flowTools) RegisterAll() {
 	r.registerMoneyflow()
-	r.registerMoneyflowCntThs()
-	r.registerMoneyflowDc()
+	//r.registerMoneyflowCntThs()
+	//r.registerMoneyflowDc()
 	r.registerMoneyflowHsgt()
-	r.registerMoneyflowIndDc()
-	r.registerMoneyflowIndThs()
-	r.registerMoneyflowMktDc()
-	r.registerMoneyflowThs()
+	//r.registerMoneyflowIndDc()
+	//r.registerMoneyflowIndThs()
+	//r.registerMoneyflowMktDc()
+	//r.registerMoneyflowThs()
 
 }

@@ -93,6 +93,53 @@ MCP 工具使用以下命名格式：`<module>.<tool_name>`
 - `us_stock.us_cal` - 美股交易日历
 - `us_stock.us_factor` - 美股因子数据
 
+#### 股票板块工具 (stock_board)
+
+股票板块工具提供了22个用于分析股票板块、热点、涨跌停等数据的工具。
+
+**可用工具**:
+- `stock_board.dc_daily` - 东财板块日线行情
+- `stock_board.dc_hot` - 东财热点榜
+- `stock_board.dc_index` - 东财板块指数
+- `stock_board.dc_member` - 东财板块成分股
+- `stock_board.hm_detail` - 游资营业部明细 ✅
+- `stock_board.hm_list` - 游资营业部列表
+- `stock_board.kpl_concept_cons` - 看涨概念成分
+- `stock_board.kpl_list` - 看涨榜列表
+- `stock_board.limit_cpt_list` - 涨跌停板块统计
+- `stock_board.limit_list_d` - 大宗交易（日频）
+- `stock_board.limit_list_ths` - 同花顺涨跌停
+- `stock_board.limit_step` - 连板步长
+- `stock_board.stk_auction` - 集合竞价 ✅ (推荐使用)
+- `stock_board.tdx_daily` - 同花顺日线行情
+- `stock_board.tdx_index` - 同花顺板块指数
+- `stock_board.tdx_member` - 同花顺板块成分股
+- `stock_board.ths_daily` - 同花顺日线行情
+- `stock_board.ths_hot` - 同花顺热点榜
+- `stock_board.ths_index` - 同花顺指数
+- `stock_board.ths_member` - 同花顺成分股
+- `stock_board.top_inst` - 龙虎榜机构
+- `stock_board.top_list` - 龙虎榜
+
+**重要说明**:
+- ✅ 标记的工具表示无需特殊权限即可使用
+- 大部分工具需要升级 Tushare 账户权限
+- 详细的最佳实践请参考: [Stock Board MCP 工具最佳实践](./STOCK_BOARD_MCP_BEST_PRACTICES.md)
+
+**推荐使用示例**:
+
+```python
+# 集合竞价（推荐）
+result = client.call_tool("stock_board.stk_auction", {})
+# 返回约 8000 条最新集合竞价数据
+
+# 游资营业部明细
+result = client.call_tool("stock_board.hm_detail", {
+    "trade_date": "20240308"
+})
+# 返回游资交易明细数据
+```
+
 ## HTTP 路由
 
 ### 路由格式
