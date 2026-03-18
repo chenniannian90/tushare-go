@@ -4,3 +4,5 @@ go.sum
 vendor
 script
 .env
+integration_test_report.json
+integration_test_report.md
