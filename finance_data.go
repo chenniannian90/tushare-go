@@ -67,7 +67,7 @@ func (api *TuShare) Forecast(params map[string]string, fields []string) (*APIRes
 
 	// ts_code & ann_date required
 	if (!hasTsCode && !hasAnnDate) || (hasTsCode && hasAnnDate) {
-		return nil, fmt.Errorf("Need one argument ts_code or ann_date")
+		return nil, fmt.Errorf("need one argument ts_code or ann_date")
 	}
 
 	body := map[string]interface{}{
