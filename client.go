@@ -8,23 +8,16 @@ import (
 	"mime"
 	"net/http"
 
-	"github.com/chenniannian90/tushare-go/stock"
+	"github.com/chenniannian90/tushare-go/stock/basic"
+	"github.com/chenniannian90/tushare-go/stock/market"
+	"github.com/chenniannian90/tushare-go/stock/finance"
+	"github.com/chenniannian90/tushare-go/stock/moneyflow"
+	"github.com/chenniannian90/tushare-go/stock/margin"
+	"github.com/chenniannian90/tushare-go/stock/reference"
+	"github.com/chenniannian90/tushare-go/stock/special"
+	"github.com/chenniannian90/tushare-go/stock/toplist"
 	"github.com/chenniannian90/tushare-go/index"
-	"github.com/chenniannian90/tushare-go/market"
-	"github.com/chenniannian90/tushare-go/finance"
-	"github.com/chenniannian90/tushare-go/hsgt"
-	"github.com/chenniannian90/tushare-go/margin"
-	"github.com/chenniannian90/tushare-go/toplist"
-	"github.com/chenniannian90/tushare-go/holder"
-	"github.com/chenniannian90/tushare-go/pledge"
-	"github.com/chenniannian90/tushare-go/concept"
-	"github.com/chenniannian90/tushare-go/ths"
-	"github.com/chenniannian90/tushare-go/sw"
-	"github.com/chenniannian90/tushare-go/limit"
-	"github.com/chenniannian90/tushare-go/research"
-	"github.com/chenniannian90/tushare-go/repurchase"
-	"github.com/chenniannian90/tushare-go/realtime"
-	"github.com/chenniannian90/tushare-go/fund"
+	"github.com/chenniannian90/tushare-go/etf"
 	"github.com/chenniannian90/tushare-go/types"
 )
 
@@ -37,23 +30,16 @@ type TuShare struct {
 	client *http.Client
 
 	// Sub-clients for different domains
-	Stock      *stock.Client
-	Index      *index.Client
+	Basic      *basic.Client
 	Market     *market.Client
 	Finance    *finance.Client
-	Hsgt       *hsgt.Client
+	Moneyflow  *moneyflow.Client
 	Margin     *margin.Client
+	Reference  *reference.Client
+	Special    *special.Client
 	Toplist    *toplist.Client
-	Holder     *holder.Client
-	Pledge     *pledge.Client
-	Concept    *concept.Client
-	Ths        *ths.Client
-	Sw         *sw.Client
-	Limit      *limit.Client
-	Research   *research.Client
-	Repurchase *repurchase.Client
-	Realtime   *realtime.Client
-	Fund       *fund.Client
+	Index      *index.Client
+	Etf        *etf.Client
 }
 
 // New TuShare default client
@@ -72,23 +58,16 @@ func NewWithClient(token string, httpClient *http.Client) *TuShare {
 	postFunc := api.PostData
 	tokenFunc := api.Token
 
-	api.Stock = stock.New(postFunc, tokenFunc)
-	api.Index = index.New(postFunc, tokenFunc)
+	api.Basic = basic.New(postFunc, tokenFunc)
 	api.Market = market.New(postFunc, tokenFunc)
 	api.Finance = finance.New(postFunc, tokenFunc)
-	api.Hsgt = hsgt.New(postFunc, tokenFunc)
+	api.Moneyflow = moneyflow.New(postFunc, tokenFunc)
 	api.Margin = margin.New(postFunc, tokenFunc)
+	api.Reference = reference.New(postFunc, tokenFunc)
+	api.Special = special.New(postFunc, tokenFunc)
 	api.Toplist = toplist.New(postFunc, tokenFunc)
-	api.Holder = holder.New(postFunc, tokenFunc)
-	api.Pledge = pledge.New(postFunc, tokenFunc)
-	api.Concept = concept.New(postFunc, tokenFunc)
-	api.Ths = ths.New(postFunc, tokenFunc)
-	api.Sw = sw.New(postFunc, tokenFunc)
-	api.Limit = limit.New(postFunc, tokenFunc)
-	api.Research = research.New(postFunc, tokenFunc)
-	api.Repurchase = repurchase.New(postFunc, tokenFunc)
-	api.Realtime = realtime.New(postFunc, tokenFunc)
-	api.Fund = fund.New(postFunc, tokenFunc)
+	api.Index = index.New(postFunc, tokenFunc)
+	api.Etf = etf.New(postFunc, tokenFunc)
 
 	return api
 }

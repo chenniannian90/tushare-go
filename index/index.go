@@ -18,7 +18,26 @@ func New(postData types.PostFunc, getToken types.TokenFunc) *Client {
 	}
 }
 
-// IndexDaily 指数日线行情
+// IndexDaily 获取指数日线行情
+
+// 参数说明:
+//   - ts_code: 指数代码
+//   - trade_date: 交易日期
+//   - start_date: 开始日期
+//   - end_date: 结束日期
+//   - limit: 单次返回数据长度
+
+// 输出字段:
+//   ts_code, trade_date, close, open, high, low, vol, amount
+
+// 示例:
+//
+// params := map[string]string{
+//     ts_code: "示例值",
+//     trade_date: "示例值",
+// }
+// fields := []string{"ts_code", "trade_date", "close", "open", ...}
+// resp, err := client.IndexDaily(params, fields)
 func (c *Client) IndexDaily(params map[string]string, fields []string) (*types.APIResponse, error) {
 	body := map[string]interface{}{
 		"api_name": "index_daily",
@@ -62,7 +81,24 @@ func (c *Client) IndexGlobal(params map[string]string, fields []string) (*types.
 	return c.postData(body)
 }
 
-// IndexBasic 指数基本信息
+// IndexBasic 获取指数基础信息
+
+// 参数说明:
+//   - market: 市场代码
+//   - publisher: 发布人
+//   - limit: 单次返回数据长度
+
+// 输出字段:
+//   ts_code, name, market, publisher, category, base_date, base_point, list_date
+
+// 示例:
+//
+// params := map[string]string{
+//     market: "示例值",
+//     publisher: "示例值",
+// }
+// fields := []string{"ts_code", "name", "market", "publisher", ...}
+// resp, err := client.IndexBasic(params, fields)
 func (c *Client) IndexBasic(params map[string]string, fields []string) (*types.APIResponse, error) {
 	body := map[string]interface{}{
 		"api_name": "index_basic",
@@ -73,7 +109,24 @@ func (c *Client) IndexBasic(params map[string]string, fields []string) (*types.A
 	return c.postData(body)
 }
 
-// IndexWeight 指数成分和权重
+// IndexWeight 获取指数成分和权重
+
+// 参数说明:
+//   - index_code: 指数代码
+//   - trade_date: 交易日期
+//   - limit: 单次返回数据长度
+
+// 输出字段:
+//   index_code, con_code, trade_date, weight, is_new
+
+// 示例:
+//
+// params := map[string]string{
+//     index_code: "示例值",
+//     trade_date: "示例值",
+// }
+// fields := []string{"index_code", "con_code", "trade_date", "weight", ...}
+// resp, err := client.IndexWeight(params, fields)
 func (c *Client) IndexWeight(params map[string]string, fields []string) (*types.APIResponse, error) {
 	body := map[string]interface{}{
 		"api_name": "index_weight",

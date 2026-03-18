@@ -13,12 +13,14 @@ import (
 
 // TestResult represents the result of testing a single API
 type TestResult struct {
-	APIName   string `json:"api_name"`
-	Success   bool   `json:"success"`
-	Error     string `json:"error,omitempty"`
-	HasData   bool   `json:"has_data"`
-	DataCount int    `json:"data_count,omitempty"`
-	Duration  string `json:"duration"`
+	APIName   string            `json:"api_name"`
+	Success   bool              `json:"success"`
+	Error     string            `json:"error,omitempty"`
+	HasData   bool              `json:"has_data"`
+	DataCount int               `json:"data_count,omitempty"`
+	Duration  string            `json:"duration"`
+	Params    map[string]string `json:"params"`
+	Fields    []string          `json:"fields,omitempty"`
 }
 
 // TestReport represents the full test report
@@ -52,10 +54,12 @@ func getToken() string {
 	return token
 }
 
-func runTest(apiName string, testFunc func() (*types.APIResponse, error)) TestResult {
+func runTest(apiName string, params map[string]string, fields []string, testFunc func() (*types.APIResponse, error)) TestResult {
 	start := time.Now()
 	result := TestResult{
 		APIName: apiName,
+		Params:  params,
+		Fields:  fields,
 	}
 
 	resp, err := testFunc()
@@ -127,322 +131,980 @@ func TestIntegrationAPIs(t *testing.T) {
 		testRealtimeAPIs(t, client)
 	})
 
+	// ETF APIs
+	t.Run("ETF", func(t *testing.T) {
+		testETFAPIs(t, client)
+	})
+
+	// Pledge APIs
+	t.Run("Pledge", func(t *testing.T) {
+		testPledgeAPIs(t, client)
+	})
+
+	// Toplist APIs
+	t.Run("Toplist", func(t *testing.T) {
+		testToplistAPIs(t, client)
+	})
+
+	// Holder APIs
+	t.Run("Holder", func(t *testing.T) {
+		testHolderAPIs(t, client)
+	})
+
+	// Concept APIs
+	t.Run("Concept", func(t *testing.T) {
+		testConceptAPIs(t, client)
+	})
+
+	// Ths APIs
+	t.Run("Ths", func(t *testing.T) {
+		testThsAPIs(t, client)
+	})
+
+	// Sw APIs
+	t.Run("Sw", func(t *testing.T) {
+		testSwAPIs(t, client)
+	})
+
+	// Limit APIs
+	t.Run("Limit", func(t *testing.T) {
+		testLimitAPIs(t, client)
+	})
+
+	// Research APIs
+	t.Run("Research", func(t *testing.T) {
+		testResearchAPIs(t, client)
+	})
+
+	// Repurchase APIs
+	t.Run("Repurchase", func(t *testing.T) {
+		testRepurchaseAPIs(t, client)
+	})
+
 	// Generate report
 	generateReport(t)
 }
 
 func testStockAPIs(t *testing.T, client *TuShare) {
-	apis := []struct {
-		name string
-		test func() (*types.APIResponse, error)
+	tests := []struct {
+		name   string
+		params map[string]string
+		fields []string
 	}{
 		{
 			"StockBasic",
-			func() (*types.APIResponse, error) {
-				return client.Stock.StockBasic(map[string]string{
-					"list_status": "L",
-					"exchange":    "SSE",
-					"limit":       "5",
-				}, nil)
+			map[string]string{
+				"list_status": "L",
+				"exchange":    "SSE",
+				"limit":       "5",
 			},
+			nil,
 		},
 		{
 			"TradeCal",
-			func() (*types.APIResponse, error) {
-				return client.Stock.TradeCal(map[string]string{
-					"exchange":  "SSE",
-					"start_date": "20240101",
-					"end_date":   "20240110",
-				}, nil)
+			map[string]string{
+				"exchange":  "SSE",
+				"start_date": "20240101",
+				"end_date":   "20240110",
 			},
+			nil,
 		},
 		{
 			"HSConst",
-			func() (*types.APIResponse, error) {
-				return client.Stock.HSConst(map[string]string{
-					"hs_type": "SH",
-				}, nil)
+			map[string]string{
+				"hs_type": "SH",
 			},
+			nil,
 		},
 		{
 			"StockCompany",
-			func() (*types.APIResponse, error) {
-				return client.Stock.StockCompany(map[string]string{
-					"exchange": "SSE",
-					"limit":    "5",
-				}, nil)
+			map[string]string{
+				"exchange": "SSE",
+				"limit":    "5",
 			},
+			nil,
 		},
 	}
 
-	for _, api := range apis {
-		t.Run(api.name, func(t *testing.T) {
-			result := runTest("Stock."+api.name, api.test)
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			result := runTest("Stock."+test.name, test.params, test.fields, func() (*types.APIResponse, error) {
+				return client.Basic.StockBasic(test.params, test.fields)
+			})
 			report.Results = append(report.Results, result)
 
 			if !result.Success {
-				t.Errorf("❌ %s: %s", api.name, result.Error)
+				t.Errorf("❌ %s: %s", test.name, result.Error)
 			} else if !result.HasData {
-				t.Logf("⚠️  %s: No data", api.name)
+				t.Logf("⚠️  %s: No data", test.name)
 			} else {
-				t.Logf("✅ %s: %d rows (%s)", api.name, result.DataCount, result.Duration)
+				t.Logf("✅ %s: %d rows (%s)", test.name, result.DataCount, result.Duration)
 			}
 		})
 	}
 }
 
 func testIndexAPIs(t *testing.T, client *TuShare) {
-	apis := []struct {
-		name string
-		test func() (*types.APIResponse, error)
+	tests := []struct {
+		name   string
+		params map[string]string
+		fields []string
 	}{
 		{
 			"IndexDaily",
-			func() (*types.APIResponse, error) {
-				return client.Index.IndexDaily(map[string]string{
-					"ts_code":    "000001.SH",
-					"start_date": "20240101",
-					"end_date":   "20240105",
-				}, nil)
+			map[string]string{
+				"ts_code":    "000001.SH",
+				"start_date": "20240101",
+				"end_date":   "20240105",
 			},
+			nil,
 		},
 		{
 			"IndexBasic",
-			func() (*types.APIResponse, error) {
-				return client.Index.IndexBasic(map[string]string{
-					"market": "SSE",
-					"limit":  "5",
-				}, nil)
+			map[string]string{
+				"ts_code":  "",
+				"market":   "",
+				"publisher": "",
+				"category": "",
+				"name":     "",
 			},
+			[]string{"ts_code", "name", "market", "publisher", "category", "base_date", "base_point", "list_date"},
 		},
 		{
 			"IndexWeight",
-			func() (*types.APIResponse, error) {
-				return client.Index.IndexWeight(map[string]string{
-					"index_code": "000001.SH",
-					"start_date": "20240101",
-					"end_date":   "20240102",
-				}, nil)
+			map[string]string{
+				"index_code": "",
+				"trade_date": "20240105",
 			},
+			[]string{"index_code", "con_code", "trade_date", "weight"},
 		},
 	}
 
-	for _, api := range apis {
-		t.Run(api.name, func(t *testing.T) {
-			result := runTest("Index."+api.name, api.test)
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			var apiFunc func() (*types.APIResponse, error)
+
+			switch test.name {
+			case "IndexDaily":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Index.IndexDaily(test.params, test.fields)
+				}
+			case "IndexBasic":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Index.IndexBasic(test.params, test.fields)
+				}
+			case "IndexWeight":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Index.IndexWeight(test.params, test.fields)
+				}
+			}
+
+			result := runTest("Index."+test.name, test.params, test.fields, apiFunc)
 			report.Results = append(report.Results, result)
 
 			if !result.Success {
-				t.Errorf("❌ %s: %s", api.name, result.Error)
+				t.Errorf("❌ %s: %s", test.name, result.Error)
 			} else if !result.HasData {
-				t.Logf("⚠️  %s: No data", api.name)
+				t.Logf("⚠️  %s: No data", test.name)
 			} else {
-				t.Logf("✅ %s: %d rows (%s)", api.name, result.DataCount, result.Duration)
+				t.Logf("✅ %s: %d rows (%s)", test.name, result.DataCount, result.Duration)
 			}
 		})
 	}
 }
 
 func testMarketAPIs(t *testing.T, client *TuShare) {
-	apis := []struct {
-		name string
-		test func() (*types.APIResponse, error)
+	tests := []struct {
+		name   string
+		params map[string]string
+		fields []string
 	}{
 		{
 			"Daily",
-			func() (*types.APIResponse, error) {
-				return client.Market.Daily(map[string]string{
-					"trade_date": "20240101",
-				}, nil)
+			map[string]string{
+				"trade_date": "20240102",
 			},
+			nil,
 		},
 		{
 			"DailyBasic",
-			func() (*types.APIResponse, error) {
-				return client.Market.DailyBasic(map[string]string{
-					"trade_date": "20240101",
-					"limit":      "5",
-				}, nil)
+			map[string]string{
+				"trade_date": "20240102",
 			},
+			nil,
 		},
 		{
 			"MoneyFlow",
-			func() (*types.APIResponse, error) {
-				return client.Market.MoneyFlow(map[string]string{
-					"ts_code":    "000001.SZ",
-					"trade_date": "20240101",
-				}, nil)
+			map[string]string{
+				"ts_code": "000001.SZ",
+				"limit":   "10",
 			},
+			nil,
 		},
 	}
 
-	for _, api := range apis {
-		t.Run(api.name, func(t *testing.T) {
-			result := runTest("Market."+api.name, api.test)
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			var apiFunc func() (*types.APIResponse, error)
+
+			switch test.name {
+			case "Daily":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Market.Daily(test.params, test.fields)
+				}
+			case "DailyBasic":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Market.DailyBasic(test.params, test.fields)
+				}
+			case "MoneyFlow":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Market.MoneyFlow(test.params, test.fields)
+				}
+			}
+
+			result := runTest("Market."+test.name, test.params, test.fields, apiFunc)
 			report.Results = append(report.Results, result)
 
 			if !result.Success {
-				t.Errorf("❌ %s: %s", api.name, result.Error)
+				t.Errorf("❌ %s: %s", test.name, result.Error)
 			} else if !result.HasData {
-				t.Logf("⚠️  %s: No data", api.name)
+				t.Logf("⚠️  %s: No data", test.name)
 			} else {
-				t.Logf("✅ %s: %d rows (%s)", api.name, result.DataCount, result.Duration)
+				t.Logf("✅ %s: %d rows (%s)", test.name, result.DataCount, result.Duration)
 			}
 		})
 	}
 }
 
 func testFinanceAPIs(t *testing.T, client *TuShare) {
-	apis := []struct {
-		name string
-		test func() (*types.APIResponse, error)
+	tests := []struct {
+		name   string
+		params map[string]string
+		fields []string
 	}{
 		{
 			"Income",
-			func() (*types.APIResponse, error) {
-				return client.Finance.Income(map[string]string{
-					"ts_code":    "000001.SZ",
-					"start_date": "20230101",
-					"end_date":   "20231231",
-					"limit":      "1",
-				}, nil)
+			map[string]string{
+				"ts_code":    "000001.SZ",
+				"start_date": "20230101",
+				"end_date":   "20231231",
+				"limit":      "1",
 			},
+			nil,
 		},
 		{
 			"BalanceSheet",
-			func() (*types.APIResponse, error) {
-				return client.Finance.BalanceSheet(map[string]string{
-					"ts_code":    "000001.SZ",
-					"start_date": "20230101",
-					"end_date":   "20231231",
-					"limit":      "1",
-				}, nil)
+			map[string]string{
+				"ts_code":    "000001.SZ",
+				"start_date": "20230101",
+				"end_date":   "20231231",
+				"limit":      "1",
 			},
+			nil,
 		},
 		{
 			"FinaIndicator",
-			func() (*types.APIResponse, error) {
-				return client.Finance.FinaIndicator(map[string]string{
-					"ts_code":    "000001.SZ",
-					"start_date": "20230101",
-					"end_date":   "20231231",
-					"limit":      "1",
-				}, nil)
+			map[string]string{
+				"ts_code":    "000001.SZ",
+				"start_date": "20230101",
+				"end_date":   "20231231",
+				"limit":      "1",
 			},
+			nil,
 		},
 	}
 
-	for _, api := range apis {
-		t.Run(api.name, func(t *testing.T) {
-			result := runTest("Finance."+api.name, api.test)
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			result := runTest("Finance."+test.name, test.params, test.fields, func() (*types.APIResponse, error) {
+				return client.Finance.Income(test.params, test.fields)
+			})
 			report.Results = append(report.Results, result)
 
 			if !result.Success {
-				t.Errorf("❌ %s: %s", api.name, result.Error)
+				t.Errorf("❌ %s: %s", test.name, result.Error)
 			} else if !result.HasData {
-				t.Logf("⚠️  %s: No data", api.name)
+				t.Logf("⚠️  %s: No data", test.name)
 			} else {
-				t.Logf("✅ %s: %d rows (%s)", api.name, result.DataCount, result.Duration)
+				t.Logf("✅ %s: %d rows (%s)", test.name, result.DataCount, result.Duration)
 			}
 		})
 	}
 }
 
 func testHsgtAPIs(t *testing.T, client *TuShare) {
-	apis := []struct {
-		name string
-		test func() (*types.APIResponse, error)
+	tests := []struct {
+		name   string
+		params map[string]string
+		fields []string
 	}{
 		{
 			"MoneyflowHsgt",
-			func() (*types.APIResponse, error) {
-				return client.Hsgt.MoneyflowHsgt(map[string]string{
-					"trade_date": "20240101",
-				}, nil)
+			map[string]string{
+				"start_date": "20240102",
+				"end_date":   "20240105",
 			},
+			nil,
 		},
 	}
 
-	for _, api := range apis {
-		t.Run(api.name, func(t *testing.T) {
-			result := runTest("Hsgt."+api.name, api.test)
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			result := runTest("Hsgt."+test.name, test.params, test.fields, func() (*types.APIResponse, error) {
+				return client.Moneyflow.MoneyflowHsgt(test.params, test.fields)
+			})
 			report.Results = append(report.Results, result)
 
 			if !result.Success {
-				t.Errorf("❌ %s: %s", api.name, result.Error)
+				t.Errorf("❌ %s: %s", test.name, result.Error)
 			} else if !result.HasData {
-				t.Logf("⚠️  %s: No data", api.name)
+				t.Logf("⚠️  %s: No data", test.name)
 			} else {
-				t.Logf("✅ %s: %d rows (%s)", api.name, result.DataCount, result.Duration)
+				t.Logf("✅ %s: %d rows (%s)", test.name, result.DataCount, result.Duration)
 			}
 		})
 	}
 }
 
 func testMarginAPIs(t *testing.T, client *TuShare) {
-	apis := []struct {
-		name string
-		test func() (*types.APIResponse, error)
+	tests := []struct {
+		name   string
+		params map[string]string
+		fields []string
 	}{
 		{
 			"Margin",
-			func() (*types.APIResponse, error) {
-				return client.Margin.Margin(map[string]string{
-					"trade_date": "20240101",
-				}, nil)
+			map[string]string{
+				"ts_code":    "000001.SZ",
+				"start_date": "20240102",
+				"end_date":   "20240105",
 			},
+			nil,
 		},
 	}
 
-	for _, api := range apis {
-		t.Run(api.name, func(t *testing.T) {
-			result := runTest("Margin."+api.name, api.test)
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			result := runTest("Margin."+test.name, test.params, test.fields, func() (*types.APIResponse, error) {
+				return client.Margin.Margin(test.params, test.fields)
+			})
 			report.Results = append(report.Results, result)
 
 			if !result.Success {
-				t.Errorf("❌ %s: %s", api.name, result.Error)
+				t.Errorf("❌ %s: %s", test.name, result.Error)
 			} else if !result.HasData {
-				t.Logf("⚠️  %s: No data", api.name)
+				t.Logf("⚠️  %s: No data", test.name)
 			} else {
-				t.Logf("✅ %s: %d rows (%s)", api.name, result.DataCount, result.Duration)
+				t.Logf("✅ %s: %d rows (%s)", test.name, result.DataCount, result.Duration)
 			}
 		})
 	}
 }
 
 func testRealtimeAPIs(t *testing.T, client *TuShare) {
-	apis := []struct {
-		name string
-		test func() (*types.APIResponse, error)
+	tests := []struct {
+		name   string
+		params map[string]string
+		fields []string
 	}{
 		{
 			"RTK",
-			func() (*types.APIResponse, error) {
-				return client.Realtime.RTK(map[string]string{}, nil)
-			},
+			map[string]string{},
+			nil,
 		},
 		{
 			"RealTimeQuote",
-			func() (*types.APIResponse, error) {
-				return client.Realtime.RealTimeQuote(map[string]string{
-					"ts_code": "000001.SZ",
-					"src":     "sz",
-				}, nil)
+			map[string]string{
+				"ts_code": "000001.SZ",
+				"src":     "sz",
 			},
+			nil,
 		},
 	}
 
-	for _, api := range apis {
-		t.Run(api.name, func(t *testing.T) {
-			result := runTest("Realtime."+api.name, api.test)
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			result := runTest("Realtime."+test.name, test.params, test.fields, func() (*types.APIResponse, error) {
+				return client.Market.RTK(test.params, test.fields)
+			})
 			report.Results = append(report.Results, result)
 
 			if !result.Success {
-				t.Errorf("❌ %s: %s", api.name, result.Error)
+				t.Errorf("❌ %s: %s", test.name, result.Error)
 			} else if !result.HasData {
-				t.Logf("⚠️  %s: No data", api.name)
+				t.Logf("⚠️  %s: No data", test.name)
 			} else {
-				t.Logf("✅ %s: %d rows (%s)", api.name, result.DataCount, result.Duration)
+				t.Logf("✅ %s: %d rows (%s)", test.name, result.DataCount, result.Duration)
+			}
+		})
+	}
+}
+
+func testETFAPIs(t *testing.T, client *TuShare) {
+	tests := []struct {
+		name   string
+		params map[string]string
+		fields []string
+	}{
+		{
+			"ETFBasic",
+			map[string]string{
+				"limit": "10",
+			},
+			nil,
+		},
+		{
+			"FundDaily",
+			map[string]string{
+				"ts_code": "159149.SZ",
+				"limit":   "5",
+			},
+			nil,
+		},
+		{
+			"FundAdj",
+			map[string]string{
+				"ts_code": "159149.SZ",
+				"limit":   "5",
+			},
+			nil,
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			var apiFunc func() (*types.APIResponse, error)
+
+			switch test.name {
+			case "ETFBasic":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Etf.ETFBasic(test.params, test.fields)
+				}
+			case "FundDaily":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Etf.FundDaily(test.params, test.fields)
+				}
+			case "FundAdj":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Etf.FundAdj(test.params, test.fields)
+				}
+			}
+
+			result := runTest("Etf."+test.name, test.params, test.fields, apiFunc)
+			report.Results = append(report.Results, result)
+
+			if !result.Success {
+				t.Errorf("❌ %s: %s", test.name, result.Error)
+			} else if !result.HasData {
+				t.Logf("⚠️  %s: No data", test.name)
+			} else {
+				t.Logf("✅ %s: %d rows (%s)", test.name, result.DataCount, result.Duration)
+			}
+		})
+	}
+}
+
+func testPledgeAPIs(t *testing.T, client *TuShare) {
+	tests := []struct {
+		name   string
+		params map[string]string
+		fields []string
+	}{
+		{
+			"PledgeStat",
+			map[string]string{
+				"ts_code": "600000.SH",
+				"limit":   "5",
+			},
+			nil,
+		},
+		{
+			"PledgeDetail",
+			map[string]string{
+				"ts_code": "600000.SH",
+				"limit":   "5",
+			},
+			nil,
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			var apiFunc func() (*types.APIResponse, error)
+
+			switch test.name {
+			case "PledgeStat":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Reference.PledgeStat(test.params, test.fields)
+				}
+			case "PledgeDetail":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Reference.PledgeDetail(test.params, test.fields)
+				}
+			}
+
+			result := runTest("Pledge."+test.name, test.params, test.fields, apiFunc)
+			report.Results = append(report.Results, result)
+
+			if !result.Success {
+				t.Errorf("❌ %s: %s", test.name, result.Error)
+			} else if !result.HasData {
+				t.Logf("⚠️  %s: No data", test.name)
+			} else {
+				t.Logf("✅ %s: %d rows (%s)", test.name, result.DataCount, result.Duration)
+			}
+		})
+	}
+}
+
+func testToplistAPIs(t *testing.T, client *TuShare) {
+	tests := []struct {
+		name   string
+		params map[string]string
+		fields []string
+	}{
+		{
+			"TopList",
+			map[string]string{
+				"trade_date": "20240105",
+				"limit":      "10",
+			},
+			nil,
+		},
+		{
+			"TopInst",
+			map[string]string{
+				"trade_date": "20240105",
+				"limit":      "10",
+			},
+			nil,
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			var apiFunc func() (*types.APIResponse, error)
+
+			switch test.name {
+			case "TopList":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Toplist.TopList(test.params, test.fields)
+				}
+			case "TopInst":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Toplist.TopInst(test.params, test.fields)
+				}
+			}
+
+			result := runTest("Toplist."+test.name, test.params, test.fields, apiFunc)
+			report.Results = append(report.Results, result)
+
+			if !result.Success {
+				t.Errorf("❌ %s: %s", test.name, result.Error)
+			} else if !result.HasData {
+				t.Logf("⚠️  %s: No data", test.name)
+			} else {
+				t.Logf("✅ %s: %d rows (%s)", test.name, result.DataCount, result.Duration)
+			}
+		})
+	}
+}
+
+func testHolderAPIs(t *testing.T, client *TuShare) {
+	tests := []struct {
+		name   string
+		params map[string]string
+		fields []string
+	}{
+		{
+			"Top10Holders",
+			map[string]string{
+				"ts_code": "600000.SH",
+				"limit":   "5",
+			},
+			nil,
+		},
+		{
+			"Top10FloatHolders",
+			map[string]string{
+				"ts_code": "600000.SH",
+				"limit":   "5",
+			},
+			nil,
+		},
+		{
+			"StkHolderNumber",
+			map[string]string{
+				"ts_code": "600000.SH",
+				"limit":   "5",
+			},
+			nil,
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			var apiFunc func() (*types.APIResponse, error)
+
+			switch test.name {
+			case "Top10Holders":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Reference.Top10Holders(test.params, test.fields)
+				}
+			case "Top10FloatHolders":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Reference.Top10FloatHolders(test.params, test.fields)
+				}
+			case "StkHolderNumber":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Reference.StkHolderNumber(test.params, test.fields)
+				}
+			}
+
+			result := runTest("Holder."+test.name, test.params, test.fields, apiFunc)
+			report.Results = append(report.Results, result)
+
+			if !result.Success {
+				t.Errorf("❌ %s: %s", test.name, result.Error)
+			} else if !result.HasData {
+				t.Logf("⚠️  %s: No data", test.name)
+			} else {
+				t.Logf("✅ %s: %d rows (%s)", test.name, result.DataCount, result.Duration)
+			}
+		})
+	}
+}
+
+func testConceptAPIs(t *testing.T, client *TuShare) {
+	tests := []struct {
+		name   string
+		params map[string]string
+		fields []string
+	}{
+		{
+			"Concept",
+			map[string]string{
+				"ts_code": "000001.SZ",
+				"limit":   "5",
+			},
+			nil,
+		},
+		{
+			"ConceptDetail",
+			map[string]string{
+				"ts_code": "000001.SZ",
+				"limit":   "5",
+			},
+			nil,
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			var apiFunc func() (*types.APIResponse, error)
+
+			switch test.name {
+			case "Concept":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Toplist.Concept(test.params, test.fields)
+				}
+			case "ConceptDetail":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Toplist.ConceptDetail(test.params, test.fields)
+				}
+			}
+
+			result := runTest("Concept."+test.name, test.params, test.fields, apiFunc)
+			report.Results = append(report.Results, result)
+
+			if !result.Success {
+				t.Errorf("❌ %s: %s", test.name, result.Error)
+			} else if !result.HasData {
+				t.Logf("⚠️  %s: No data", test.name)
+			} else {
+				t.Logf("✅ %s: %d rows (%s)", test.name, result.DataCount, result.Duration)
+			}
+		})
+	}
+}
+
+func testThsAPIs(t *testing.T, client *TuShare) {
+	tests := []struct {
+		name   string
+		params map[string]string
+		fields []string
+	}{
+		{
+			"ThsDaily",
+			map[string]string{
+				"limit": "10",
+			},
+			[]string{"ts_code", "trade_date", "open", "high", "low", "close", "pre_close", "avg_price", "change", "pct_change", "vol", "turnover_rate"},
+		},
+		{
+			"ThsMember",
+			map[string]string{
+				"index_code": "880001",
+				"limit":      "5",
+			},
+			nil,
+		},
+		{
+			"MoneyflowThs",
+			map[string]string{
+				"limit": "10",
+			},
+			[]string{"trade_date", "ts_code", "name", "pct_change", "latest", "net_amount", "net_d5_amount", "buy_lg_amount", "buy_lg_amount_rate", "buy_md_amount", "buy_md_amount_rate", "buy_sm_amount", "buy_sm_amount_rate"},
+		},
+		{
+			"MoneyflowIndThs",
+			map[string]string{
+				"limit": "10",
+			},
+			[]string{"trade_date", "ts_code", "industry", "lead_stock", "close", "pct_change", "company_num", "pct_change_stock", "close_price", "net_buy_amount", "net_sell_amount", "net_amount"},
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			var apiFunc func() (*types.APIResponse, error)
+
+			switch test.name {
+			case "ThsDaily":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Toplist.ThsDaily(test.params, test.fields)
+				}
+			case "ThsMember":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Toplist.ThsMember(test.params, test.fields)
+				}
+			case "MoneyflowThs":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Toplist.MoneyflowThs(test.params, test.fields)
+				}
+			case "MoneyflowIndThs":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Toplist.MoneyflowIndThs(test.params, test.fields)
+				}
+			}
+
+			result := runTest("Ths."+test.name, test.params, test.fields, apiFunc)
+			report.Results = append(report.Results, result)
+
+			if !result.Success {
+				t.Errorf("❌ %s: %s", test.name, result.Error)
+			} else if !result.HasData {
+				t.Logf("⚠️  %s: No data", test.name)
+			} else {
+				t.Logf("✅ %s: %d rows (%s)", test.name, result.DataCount, result.Duration)
+			}
+		})
+	}
+}
+
+func testSwAPIs(t *testing.T, client *TuShare) {
+	tests := []struct {
+		name   string
+		params map[string]string
+		fields []string
+	}{
+		{
+			"CiDaily",
+			map[string]string{
+				"limit": "10",
+			},
+			[]string{"ts_code", "trade_date", "name", "open", "low", "high", "close", "change", "pct_change", "vol", "amount", "pe", "pb", "float_mv", "total_mv"},
+		},
+		{
+			"SwDaily",
+			map[string]string{
+				"index_code": "801010",
+				"limit":      "5",
+			},
+			nil,
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			var apiFunc func() (*types.APIResponse, error)
+
+			switch test.name {
+			case "CiDaily":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Toplist.CiDaily(test.params, test.fields)
+				}
+			case "SwDaily":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Toplist.SwDaily(test.params, test.fields)
+				}
+			}
+
+			result := runTest("Sw."+test.name, test.params, test.fields, apiFunc)
+			report.Results = append(report.Results, result)
+
+			if !result.Success {
+				t.Errorf("❌ %s: %s", test.name, result.Error)
+			} else if !result.HasData {
+				t.Logf("⚠️  %s: No data", test.name)
+			} else {
+				t.Logf("✅ %s: %d rows (%s)", test.name, result.DataCount, result.Duration)
+			}
+		})
+	}
+}
+
+func testLimitAPIs(t *testing.T, client *TuShare) {
+	tests := []struct {
+		name   string
+		params map[string]string
+		fields []string
+	}{
+		{
+			"LimitList",
+			map[string]string{
+				"trade_date": "20240105",
+				"limit":      "10",
+			},
+			nil,
+		},
+		{
+			"STKLimit",
+			map[string]string{
+				"trade_date": "20240105",
+				"limit":      "10",
+			},
+			nil,
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			var apiFunc func() (*types.APIResponse, error)
+
+			switch test.name {
+			case "LimitList":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Toplist.LimitList(test.params, test.fields)
+				}
+			case "STKLimit":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Toplist.STKLimit(test.params, test.fields)
+				}
+			}
+
+			result := runTest("Limit."+test.name, test.params, test.fields, apiFunc)
+			report.Results = append(report.Results, result)
+
+			if !result.Success {
+				t.Errorf("❌ %s: %s", test.name, result.Error)
+			} else if !result.HasData {
+				t.Logf("⚠️  %s: No data", test.name)
+			} else {
+				t.Logf("✅ %s: %d rows (%s)", test.name, result.DataCount, result.Duration)
+			}
+		})
+	}
+}
+
+func testResearchAPIs(t *testing.T, client *TuShare) {
+	tests := []struct {
+		name   string
+		params map[string]string
+		fields []string
+	}{
+		{
+			"CyqChips",
+			map[string]string{
+				"ts_code": "600000.SH",
+				"limit":   "10",
+			},
+			nil,
+		},
+		{
+			"StkSurv",
+			map[string]string{
+				"limit": "10",
+			},
+			nil,
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			var apiFunc func() (*types.APIResponse, error)
+
+			switch test.name {
+			case "CyqChips":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Special.CyqChips(test.params, test.fields)
+				}
+			case "StkSurv":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Special.StkSurv(test.params, test.fields)
+				}
+			}
+
+			result := runTest("Research."+test.name, test.params, test.fields, apiFunc)
+			report.Results = append(report.Results, result)
+
+			if !result.Success {
+				t.Errorf("❌ %s: %s", test.name, result.Error)
+			} else if !result.HasData {
+				t.Logf("⚠️  %s: No data", test.name)
+			} else {
+				t.Logf("✅ %s: %d rows (%s)", test.name, result.DataCount, result.Duration)
+			}
+		})
+	}
+}
+
+func testRepurchaseAPIs(t *testing.T, client *TuShare) {
+	tests := []struct {
+		name   string
+		params map[string]string
+		fields []string
+	}{
+		{
+			"Repurchase",
+			map[string]string{
+				"limit": "10",
+			},
+			nil,
+		},
+		{
+			"ShareFloat",
+			map[string]string{
+				"limit": "10",
+			},
+			nil,
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			var apiFunc func() (*types.APIResponse, error)
+
+			switch test.name {
+			case "Repurchase":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Reference.Repurchase(test.params, test.fields)
+				}
+			case "ShareFloat":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Reference.ShareFloat(test.params, test.fields)
+				}
+			}
+
+			result := runTest("Repurchase."+test.name, test.params, test.fields, apiFunc)
+			report.Results = append(report.Results, result)
+
+			if !result.Success {
+				t.Errorf("❌ %s: %s", test.name, result.Error)
+			} else if !result.HasData {
+				t.Logf("⚠️  %s: No data", test.name)
+			} else {
+				t.Logf("✅ %s: %d rows (%s)", test.name, result.DataCount, result.Duration)
 			}
 		})
 	}
@@ -469,7 +1131,7 @@ func generateReport(t *testing.T) {
 	jsonData, _ := json.MarshalIndent(report, "", "  ")
 	os.WriteFile("integration_test_report.json", jsonData, 0644)
 
-	// Save markdown report
+	// Save markdown report with parameters
 	saveMarkdownReport()
 
 	// Print summary
@@ -506,8 +1168,8 @@ func saveMarkdownReport() {
 
 ### 📈 Stock APIs
 
-| API Name | Status | Data Rows | Duration | Notes |
-|----------|--------|-----------|----------|-------|
+| API Name | Status | Data Rows | Duration | Parameters | Fields | Notes |
+|----------|--------|-----------|----------|------------|--------|-------|
 `,
 		report.TestDate,
 		report.Token,
@@ -529,16 +1191,21 @@ func saveMarkdownReport() {
 			if !r.HasData {
 				dataCount = "-"
 			}
+			paramsStr := formatMap(r.Params)
+			fieldsStr := "nil"
+			if len(r.Fields) > 0 {
+				fieldsStr = fmt.Sprintf("[%s]", strings.Join(r.Fields, ", "))
+			}
 			notes := ""
 			if r.Error != "" {
 				notes = r.Error
 			}
-			md += fmt.Sprintf("| %s | %s | %s | %s | %s |\n",
-				r.APIName[6:], status, dataCount, r.Duration, notes)
+			md += fmt.Sprintf("| %s | %s | %s | %s | %s | %s | %s |\n",
+				r.APIName[6:], status, dataCount, r.Duration, paramsStr, fieldsStr, notes)
 		}
 	}
 
-	md += "\n### 📊 Index APIs\n\n| API Name | Status | Data Rows | Duration | Notes |\n|----------|--------|-----------|----------|-------|\n"
+	md += "\n### �� Index APIs\n\n| API Name | Status | Data Rows | Duration | Parameters | Fields | Notes |\n|----------|--------|-----------|----------|------------|--------|-------|\n"
 
 	for _, r := range report.Results {
 		if len(r.APIName) > 5 && r.APIName[:5] == "Index" {
@@ -552,16 +1219,21 @@ func saveMarkdownReport() {
 			if !r.HasData {
 				dataCount = "-"
 			}
+			paramsStr := formatMap(r.Params)
+			fieldsStr := "nil"
+			if len(r.Fields) > 0 {
+				fieldsStr = fmt.Sprintf("[%s]", strings.Join(r.Fields, ", "))
+			}
 			notes := ""
 			if r.Error != "" {
 				notes = r.Error
 			}
-			md += fmt.Sprintf("| %s | %s | %s | %s | %s |\n",
-				r.APIName[6:], status, dataCount, r.Duration, notes)
+			md += fmt.Sprintf("| %s | %s | %s | %s | %s | %s | %s |\n",
+				r.APIName[6:], status, dataCount, r.Duration, paramsStr, fieldsStr, notes)
 		}
 	}
 
-	md += "\n### 📉 Market APIs\n\n| API Name | Status | Data Rows | Duration | Notes |\n|----------|--------|-----------|----------|-------|\n"
+	md += "\n### 📉 Market APIs\n\n| API Name | Status | Data Rows | Duration | Parameters | Fields | Notes |\n|----------|--------|-----------|----------|------------|--------|-------|\n"
 
 	for _, r := range report.Results {
 		if len(r.APIName) > 6 && r.APIName[:6] == "Market" {
@@ -575,16 +1247,21 @@ func saveMarkdownReport() {
 			if !r.HasData {
 				dataCount = "-"
 			}
+			paramsStr := formatMap(r.Params)
+			fieldsStr := "nil"
+			if len(r.Fields) > 0 {
+				fieldsStr = fmt.Sprintf("[%s]", strings.Join(r.Fields, ", "))
+			}
 			notes := ""
 			if r.Error != "" {
 				notes = r.Error
 			}
-			md += fmt.Sprintf("| %s | %s | %s | %s | %s |\n",
-				r.APIName[7:], status, dataCount, r.Duration, notes)
+			md += fmt.Sprintf("| %s | %s | %s | %s | %s | %s | %s |\n",
+				r.APIName[7:], status, dataCount, r.Duration, paramsStr, fieldsStr, notes)
 		}
 	}
 
-	md += "\n### 💰 Finance APIs\n\n| API Name | Status | Data Rows | Duration | Notes |\n|----------|--------|-----------|----------|-------|\n"
+	md += "\n### 💰 Finance APIs\n\n| API Name | Status | Data Rows | Duration | Parameters | Fields | Notes |\n|----------|--------|-----------|----------|------------|--------|-------|\n"
 
 	for _, r := range report.Results {
 		if len(r.APIName) > 7 && r.APIName[:7] == "Finance" {
@@ -598,16 +1275,21 @@ func saveMarkdownReport() {
 			if !r.HasData {
 				dataCount = "-"
 			}
+			paramsStr := formatMap(r.Params)
+			fieldsStr := "nil"
+			if len(r.Fields) > 0 {
+				fieldsStr = fmt.Sprintf("[%s]", strings.Join(r.Fields, ", "))
+			}
 			notes := ""
 			if r.Error != "" {
 				notes = r.Error
 			}
-			md += fmt.Sprintf("| %s | %s | %s | %s | %s |\n",
-				r.APIName[8:], status, dataCount, r.Duration, notes)
+			md += fmt.Sprintf("| %s | %s | %s | %s | %s | %s | %s |\n",
+				r.APIName[8:], status, dataCount, r.Duration, paramsStr, fieldsStr, notes)
 		}
 	}
 
-	md += "\n### 🌊 Hsgt APIs\n\n| API Name | Status | Data Rows | Duration | Notes |\n|----------|--------|-----------|----------|-------|\n"
+	md += "\n### 🌊 Hsgt APIs\n\n| API Name | Status | Data Rows | Duration | Parameters | Fields | Notes |\n|----------|--------|-----------|----------|------------|--------|-------|\n"
 
 	for _, r := range report.Results {
 		if len(r.APIName) > 4 && r.APIName[:4] == "Hsgt" {
@@ -621,16 +1303,21 @@ func saveMarkdownReport() {
 			if !r.HasData {
 				dataCount = "-"
 			}
+			paramsStr := formatMap(r.Params)
+			fieldsStr := "nil"
+			if len(r.Fields) > 0 {
+				fieldsStr = fmt.Sprintf("[%s]", strings.Join(r.Fields, ", "))
+			}
 			notes := ""
 			if r.Error != "" {
 				notes = r.Error
 			}
-			md += fmt.Sprintf("| %s | %s | %s | %s | %s |\n",
-				r.APIName[5:], status, dataCount, r.Duration, notes)
+			md += fmt.Sprintf("| %s | %s | %s | %s | %s | %s | %s |\n",
+				r.APIName[5:], status, dataCount, r.Duration, paramsStr, fieldsStr, notes)
 		}
 	}
 
-	md += "\n### 💸 Margin APIs\n\n| API Name | Status | Data Rows | Duration | Notes |\n|----------|--------|-----------|----------|-------|\n"
+	md += "\n### 💸 Margin APIs\n\n| API Name | Status | Data Rows | Duration | Parameters | Fields | Notes |\n|----------|--------|-----------|----------|------------|--------|-------|\n"
 
 	for _, r := range report.Results {
 		if len(r.APIName) > 6 && r.APIName[:6] == "Margin" {
@@ -644,16 +1331,21 @@ func saveMarkdownReport() {
 			if !r.HasData {
 				dataCount = "-"
 			}
+			paramsStr := formatMap(r.Params)
+			fieldsStr := "nil"
+			if len(r.Fields) > 0 {
+				fieldsStr = fmt.Sprintf("[%s]", strings.Join(r.Fields, ", "))
+			}
 			notes := ""
 			if r.Error != "" {
 				notes = r.Error
 			}
-			md += fmt.Sprintf("| %s | %s | %s | %s | %s |\n",
-				r.APIName[7:], status, dataCount, r.Duration, notes)
+			md += fmt.Sprintf("| %s | %s | %s | %s | %s | %s | %s |\n",
+				r.APIName[7:], status, dataCount, r.Duration, paramsStr, fieldsStr, notes)
 		}
 	}
 
-	md += "\n### ⚡ Realtime APIs\n\n| API Name | Status | Data Rows | Duration | Notes |\n|----------|--------|-----------|----------|-------|\n"
+	md += "\n### ⚡ Realtime APIs\n\n| API Name | Status | Data Rows | Duration | Parameters | Fields | Notes |\n|----------|--------|-----------|----------|------------|--------|-------|\n"
 
 	for _, r := range report.Results {
 		if len(r.APIName) > 8 && r.APIName[:8] == "Realtime" {
@@ -667,17 +1359,341 @@ func saveMarkdownReport() {
 			if !r.HasData {
 				dataCount = "-"
 			}
+			paramsStr := formatMap(r.Params)
+			fieldsStr := "nil"
+			if len(r.Fields) > 0 {
+				fieldsStr = fmt.Sprintf("[%s]", strings.Join(r.Fields, ", "))
+			}
 			notes := ""
 			if r.Error != "" {
 				notes = r.Error
 			}
-			md += fmt.Sprintf("| %s | %s | %s | %s | %s |\n",
-				r.APIName[9:], status, dataCount, r.Duration, notes)
+			md += fmt.Sprintf("| %s | %s | %s | %s | %s | %s | %s |\n",
+				r.APIName[9:], status, dataCount, r.Duration, paramsStr, fieldsStr, notes)
 		}
 	}
 
-	md += fmt.Sprintf("\n---\n\n*Generated on %s*\n\n*Note: This report is automatically generated by integration tests.*\n",
+	md += "\n### 💱 ETF APIs\n\n| API Name | Status | Data Rows | Duration | Parameters | Fields | Notes |\n|----------|--------|-----------|----------|------------|--------|-------|\n"
+
+	for _, r := range report.Results {
+		if len(r.APIName) > 3 && r.APIName[:3] == "Etf" {
+			status := "✅ PASS"
+			if !r.Success {
+				status = "❌ FAIL"
+			} else if !r.HasData {
+				status = "⚠️ NO DATA"
+			}
+			dataCount := fmt.Sprintf("%d", r.DataCount)
+			if !r.HasData {
+				dataCount = "-"
+			}
+			paramsStr := formatMap(r.Params)
+			fieldsStr := "nil"
+			if len(r.Fields) > 0 {
+				fieldsStr = fmt.Sprintf("[%s]", strings.Join(r.Fields, ", "))
+			}
+			notes := ""
+			if r.Error != "" {
+				notes = r.Error
+			}
+			md += fmt.Sprintf("| %s | %s | %s | %s | %s | %s | %s |\n",
+				r.APIName[4:], status, dataCount, r.Duration, paramsStr, fieldsStr, notes)
+		}
+	}
+
+	// Pledge APIs
+	md += "\n### 📋 Pledge APIs\n\n| API Name | Status | Data Rows | Duration | Parameters | Fields | Notes |\n|----------|--------|-----------|----------|------------|--------|-------|\n"
+
+	for _, r := range report.Results {
+		if strings.HasPrefix(r.APIName, "Pledge.") {
+			status := "✅ PASS"
+			if !r.Success {
+				status = "❌ FAIL"
+			} else if !r.HasData {
+				status = "⚠️ NO DATA"
+			}
+			dataCount := fmt.Sprintf("%d", r.DataCount)
+			if !r.HasData {
+				dataCount = "-"
+			}
+			paramsStr := formatMap(r.Params)
+			fieldsStr := "nil"
+			if len(r.Fields) > 0 {
+				fieldsStr = fmt.Sprintf("[%s]", strings.Join(r.Fields, ", "))
+			}
+			notes := ""
+			if r.Error != "" {
+				notes = r.Error
+			}
+			parts := strings.Split(r.APIName, ".")
+			apiName := parts[len(parts)-1]
+			md += fmt.Sprintf("| %s | %s | %s | %s | %s | %s | %s |\n",
+				apiName, status, dataCount, r.Duration, paramsStr, fieldsStr, notes)
+		}
+	}
+
+	// Toplist APIs
+	md += "\n### 🏆 Toplist APIs\n\n| API Name | Status | Data Rows | Duration | Parameters | Fields | Notes |\n|----------|--------|-----------|----------|------------|--------|-------|\n"
+
+	for _, r := range report.Results {
+		if strings.HasPrefix(r.APIName, "Toplist.") {
+			status := "✅ PASS"
+			if !r.Success {
+				status = "❌ FAIL"
+			} else if !r.HasData {
+				status = "⚠️ NO DATA"
+			}
+			dataCount := fmt.Sprintf("%d", r.DataCount)
+			if !r.HasData {
+				dataCount = "-"
+			}
+			paramsStr := formatMap(r.Params)
+			fieldsStr := "nil"
+			if len(r.Fields) > 0 {
+				fieldsStr = fmt.Sprintf("[%s]", strings.Join(r.Fields, ", "))
+			}
+			notes := ""
+			if r.Error != "" {
+				notes = r.Error
+			}
+			parts := strings.Split(r.APIName, ".")
+			apiName := parts[len(parts)-1]
+			md += fmt.Sprintf("| %s | %s | %s | %s | %s | %s | %s |\n",
+				apiName, status, dataCount, r.Duration, paramsStr, fieldsStr, notes)
+		}
+	}
+
+	// Holder APIs
+	md += "\n### 👥 Holder APIs\n\n| API Name | Status | Data Rows | Duration | Parameters | Fields | Notes |\n|----------|--------|-----------|----------|------------|--------|-------|\n"
+
+	for _, r := range report.Results {
+		if strings.HasPrefix(r.APIName, "Holder.") {
+			status := "✅ PASS"
+			if !r.Success {
+				status = "❌ FAIL"
+			} else if !r.HasData {
+				status = "⚠️ NO DATA"
+			}
+			dataCount := fmt.Sprintf("%d", r.DataCount)
+			if !r.HasData {
+				dataCount = "-"
+			}
+			paramsStr := formatMap(r.Params)
+			fieldsStr := "nil"
+			if len(r.Fields) > 0 {
+				fieldsStr = fmt.Sprintf("[%s]", strings.Join(r.Fields, ", "))
+			}
+			notes := ""
+			if r.Error != "" {
+				notes = r.Error
+			}
+			parts := strings.Split(r.APIName, ".")
+			apiName := parts[len(parts)-1]
+			md += fmt.Sprintf("| %s | %s | %s | %s | %s | %s | %s |\n",
+				apiName, status, dataCount, r.Duration, paramsStr, fieldsStr, notes)
+		}
+	}
+
+	// Concept APIs
+	md += "\n### 💡 Concept APIs\n\n| API Name | Status | Data Rows | Duration | Parameters | Fields | Notes |\n|----------|--------|-----------|----------|------------|--------|-------|\n"
+
+	for _, r := range report.Results {
+		if strings.HasPrefix(r.APIName, "Concept.") {
+			status := "✅ PASS"
+			if !r.Success {
+				status = "❌ FAIL"
+			} else if !r.HasData {
+				status = "⚠️ NO DATA"
+			}
+			dataCount := fmt.Sprintf("%d", r.DataCount)
+			if !r.HasData {
+				dataCount = "-"
+			}
+			paramsStr := formatMap(r.Params)
+			fieldsStr := "nil"
+			if len(r.Fields) > 0 {
+				fieldsStr = fmt.Sprintf("[%s]", strings.Join(r.Fields, ", "))
+			}
+			notes := ""
+			if r.Error != "" {
+				notes = r.Error
+			}
+			parts := strings.Split(r.APIName, ".")
+			apiName := parts[len(parts)-1]
+			md += fmt.Sprintf("| %s | %s | %s | %s | %s | %s | %s |\n",
+				apiName, status, dataCount, r.Duration, paramsStr, fieldsStr, notes)
+		}
+	}
+
+	// Ths APIs
+	md += "\n### 📊 Ths APIs\n\n| API Name | Status | Data Rows | Duration | Parameters | Fields | Notes |\n|----------|--------|-----------|----------|------------|--------|-------|\n"
+
+	for _, r := range report.Results {
+		if strings.HasPrefix(r.APIName, "Ths.") {
+			status := "✅ PASS"
+			if !r.Success {
+				status = "❌ FAIL"
+			} else if !r.HasData {
+				status = "⚠️ NO DATA"
+			}
+			dataCount := fmt.Sprintf("%d", r.DataCount)
+			if !r.HasData {
+				dataCount = "-"
+			}
+			paramsStr := formatMap(r.Params)
+			fieldsStr := "nil"
+			if len(r.Fields) > 0 {
+				fieldsStr = fmt.Sprintf("[%s]", strings.Join(r.Fields, ", "))
+			}
+			notes := ""
+			if r.Error != "" {
+				notes = r.Error
+			}
+			parts := strings.Split(r.APIName, ".")
+			apiName := parts[len(parts)-1]
+			md += fmt.Sprintf("| %s | %s | %s | %s | %s | %s | %s |\n",
+				apiName, status, dataCount, r.Duration, paramsStr, fieldsStr, notes)
+		}
+	}
+
+	// Sw APIs
+	md += "\n### 📈 Sw APIs\n\n| API Name | Status | Data Rows | Duration | Parameters | Fields | Notes |\n|----------|--------|-----------|----------|------------|--------|-------|\n"
+
+	for _, r := range report.Results {
+		if strings.HasPrefix(r.APIName, "Sw.") {
+			status := "✅ PASS"
+			if !r.Success {
+				status = "❌ FAIL"
+			} else if !r.HasData {
+				status = "⚠️ NO DATA"
+			}
+			dataCount := fmt.Sprintf("%d", r.DataCount)
+			if !r.HasData {
+				dataCount = "-"
+			}
+			paramsStr := formatMap(r.Params)
+			fieldsStr := "nil"
+			if len(r.Fields) > 0 {
+				fieldsStr = fmt.Sprintf("[%s]", strings.Join(r.Fields, ", "))
+			}
+			notes := ""
+			if r.Error != "" {
+				notes = r.Error
+			}
+			parts := strings.Split(r.APIName, ".")
+			apiName := parts[len(parts)-1]
+			md += fmt.Sprintf("| %s | %s | %s | %s | %s | %s | %s |\n",
+				apiName, status, dataCount, r.Duration, paramsStr, fieldsStr, notes)
+		}
+	}
+
+	// Limit APIs
+	md += "\n### ⛔ Limit APIs\n\n| API Name | Status | Data Rows | Duration | Parameters | Fields | Notes |\n|----------|--------|-----------|----------|------------|--------|-------|\n"
+
+	for _, r := range report.Results {
+		if strings.HasPrefix(r.APIName, "Limit.") {
+			status := "✅ PASS"
+			if !r.Success {
+				status = "❌ FAIL"
+			} else if !r.HasData {
+				status = "⚠️ NO DATA"
+			}
+			dataCount := fmt.Sprintf("%d", r.DataCount)
+			if !r.HasData {
+				dataCount = "-"
+			}
+			paramsStr := formatMap(r.Params)
+			fieldsStr := "nil"
+			if len(r.Fields) > 0 {
+				fieldsStr = fmt.Sprintf("[%s]", strings.Join(r.Fields, ", "))
+			}
+			notes := ""
+			if r.Error != "" {
+				notes = r.Error
+			}
+			parts := strings.Split(r.APIName, ".")
+			apiName := parts[len(parts)-1]
+			md += fmt.Sprintf("| %s | %s | %s | %s | %s | %s | %s |\n",
+				apiName, status, dataCount, r.Duration, paramsStr, fieldsStr, notes)
+		}
+	}
+
+	// Research APIs
+	md += "\n### 🔬 Research APIs\n\n| API Name | Status | Data Rows | Duration | Parameters | Fields | Notes |\n|----------|--------|-----------|----------|------------|--------|-------|\n"
+
+	for _, r := range report.Results {
+		if strings.HasPrefix(r.APIName, "Research.") {
+			status := "✅ PASS"
+			if !r.Success {
+				status = "❌ FAIL"
+			} else if !r.HasData {
+				status = "⚠️ NO DATA"
+			}
+			dataCount := fmt.Sprintf("%d", r.DataCount)
+			if !r.HasData {
+				dataCount = "-"
+			}
+			paramsStr := formatMap(r.Params)
+			fieldsStr := "nil"
+			if len(r.Fields) > 0 {
+				fieldsStr = fmt.Sprintf("[%s]", strings.Join(r.Fields, ", "))
+			}
+			notes := ""
+			if r.Error != "" {
+				notes = r.Error
+			}
+			parts := strings.Split(r.APIName, ".")
+			apiName := parts[len(parts)-1]
+			md += fmt.Sprintf("| %s | %s | %s | %s | %s | %s | %s |\n",
+				apiName, status, dataCount, r.Duration, paramsStr, fieldsStr, notes)
+		}
+	}
+
+	// Repurchase APIs
+	md += "\n### 🔄 Repurchase APIs\n\n| API Name | Status | Data Rows | Duration | Parameters | Fields | Notes |\n|----------|--------|-----------|----------|------------|--------|-------|\n"
+
+	for _, r := range report.Results {
+		if strings.HasPrefix(r.APIName, "Repurchase.") {
+			status := "✅ PASS"
+			if !r.Success {
+				status = "❌ FAIL"
+			} else if !r.HasData {
+				status = "⚠️ NO DATA"
+			}
+			dataCount := fmt.Sprintf("%d", r.DataCount)
+			if !r.HasData {
+				dataCount = "-"
+			}
+			paramsStr := formatMap(r.Params)
+			fieldsStr := "nil"
+			if len(r.Fields) > 0 {
+				fieldsStr = fmt.Sprintf("[%s]", strings.Join(r.Fields, ", "))
+			}
+			notes := ""
+			if r.Error != "" {
+				notes = r.Error
+			}
+			parts := strings.Split(r.APIName, ".")
+			apiName := parts[len(parts)-1]
+			md += fmt.Sprintf("| %s | %s | %s | %s | %s | %s | %s |\n",
+				apiName, status, dataCount, r.Duration, paramsStr, fieldsStr, notes)
+		}
+	}
+
+	md += fmt.Sprintf("\n---\n\n*Generated on %s*\n\n*Note: This report is automatically generated by integration tests.*",
 		report.TestDate)
 
 	os.WriteFile("integration_test_report.md", []byte(md), 0644)
+}
+
+func formatMap(m map[string]string) string {
+	if len(m) == 0 {
+		return "{}"
+	}
+
+	pairs := make([]string, 0, len(m))
+	for k, v := range m {
+		pairs = append(pairs, fmt.Sprintf("%s:%s", k, v))
+	}
+	return "{" + strings.Join(pairs, ", ") + "}"
 }
