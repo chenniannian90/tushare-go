@@ -7,6 +7,25 @@ import (
 	"io"
 	"mime"
 	"net/http"
+
+	"github.com/chenniannian90/tushare-go/stock"
+	"github.com/chenniannian90/tushare-go/index"
+	"github.com/chenniannian90/tushare-go/market"
+	"github.com/chenniannian90/tushare-go/finance"
+	"github.com/chenniannian90/tushare-go/hsgt"
+	"github.com/chenniannian90/tushare-go/margin"
+	"github.com/chenniannian90/tushare-go/toplist"
+	"github.com/chenniannian90/tushare-go/holder"
+	"github.com/chenniannian90/tushare-go/pledge"
+	"github.com/chenniannian90/tushare-go/concept"
+	"github.com/chenniannian90/tushare-go/ths"
+	"github.com/chenniannian90/tushare-go/sw"
+	"github.com/chenniannian90/tushare-go/limit"
+	"github.com/chenniannian90/tushare-go/research"
+	"github.com/chenniannian90/tushare-go/repurchase"
+	"github.com/chenniannian90/tushare-go/realtime"
+	"github.com/chenniannian90/tushare-go/fund"
+	"github.com/chenniannian90/tushare-go/types"
 )
 
 // Endpoint URL
@@ -16,6 +35,25 @@ const Endpoint = "http://api.tushare.pro"
 type TuShare struct {
 	token  string
 	client *http.Client
+
+	// Sub-clients for different domains
+	Stock      *stock.Client
+	Index      *index.Client
+	Market     *market.Client
+	Finance    *finance.Client
+	Hsgt       *hsgt.Client
+	Margin     *margin.Client
+	Toplist    *toplist.Client
+	Holder     *holder.Client
+	Pledge     *pledge.Client
+	Concept    *concept.Client
+	Ths        *ths.Client
+	Sw         *sw.Client
+	Limit      *limit.Client
+	Research   *research.Client
+	Repurchase *repurchase.Client
+	Realtime   *realtime.Client
+	Fund       *fund.Client
 }
 
 // New TuShare default client
@@ -25,10 +63,34 @@ func New(token string) *TuShare {
 
 // NewWithClient TuShare client with arguments
 func NewWithClient(token string, httpClient *http.Client) *TuShare {
-	return &TuShare{
+	api := &TuShare{
 		token:  token,
 		client: httpClient,
 	}
+
+	// Initialize sub-clients
+	postFunc := api.PostData
+	tokenFunc := api.Token
+
+	api.Stock = stock.New(postFunc, tokenFunc)
+	api.Index = index.New(postFunc, tokenFunc)
+	api.Market = market.New(postFunc, tokenFunc)
+	api.Finance = finance.New(postFunc, tokenFunc)
+	api.Hsgt = hsgt.New(postFunc, tokenFunc)
+	api.Margin = margin.New(postFunc, tokenFunc)
+	api.Toplist = toplist.New(postFunc, tokenFunc)
+	api.Holder = holder.New(postFunc, tokenFunc)
+	api.Pledge = pledge.New(postFunc, tokenFunc)
+	api.Concept = concept.New(postFunc, tokenFunc)
+	api.Ths = ths.New(postFunc, tokenFunc)
+	api.Sw = sw.New(postFunc, tokenFunc)
+	api.Limit = limit.New(postFunc, tokenFunc)
+	api.Research = research.New(postFunc, tokenFunc)
+	api.Repurchase = repurchase.New(postFunc, tokenFunc)
+	api.Realtime = realtime.New(postFunc, tokenFunc)
+	api.Fund = fund.New(postFunc, tokenFunc)
+
+	return api
 }
 
 func (api *TuShare) request(method, path string, body interface{}) (*http.Request, error) {
@@ -43,7 +105,7 @@ func (api *TuShare) request(method, path string, body interface{}) (*http.Reques
 	return req, nil
 }
 
-func (api *TuShare) doRequest(req *http.Request) (*APIResponse, error) {
+func (api *TuShare) doRequest(req *http.Request) (*types.APIResponse, error) {
 	// Set http content type
 	req.Header.Set("Content-Type", "application/json")
 
@@ -75,7 +137,7 @@ func (api *TuShare) doRequest(req *http.Request) (*APIResponse, error) {
 	}
 
 	// Parse Request
-	var jsonData *APIResponse
+	var jsonData *types.APIResponse
 
 	err = json.Unmarshal(body, &jsonData)
 	if err != nil {
@@ -101,8 +163,8 @@ func (api *TuShare) Token() string {
 	return api.token
 }
 
-// postData sends a POST request to the API (internal)
-func (api *TuShare) postData(body map[string]interface{}) (*APIResponse, error) {
+// PostData sends a POST request to the API
+func (api *TuShare) PostData(body map[string]interface{}) (*types.APIResponse, error) {
 	req, err := api.request("POST", Endpoint, body)
 	if err != nil {
 		return nil, err

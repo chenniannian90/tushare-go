@@ -1,4 +1,4 @@
-package tushare
+package types
 
 // APIResponse tushare api response
 type APIResponse struct {
@@ -10,3 +10,9 @@ type APIResponse struct {
 		Items  [][]interface{} `json:"items"`
 	} `json:"data"`
 }
+
+// PostFunc represents the function to post data to API
+type PostFunc func(body map[string]interface{}) (*APIResponse, error)
+
+// TokenFunc represents the function to get API token
+type TokenFunc func() string
