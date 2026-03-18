@@ -13,7 +13,7 @@ func TestDaily(t *testing.T) {
 	// Check params
 	_, err := client.Daily(params, fields)
 	if err != nil {
-		ast.Equal(err.Error(), "Need one argument ts_code or trade_date")
+		ast.Equal(err.Error(), "need one argument ts_code or trade_date")
 	}
 
 	params["trade_date"] = "20181101"
@@ -46,7 +46,7 @@ func TestWeekly(t *testing.T) {
 	// Check params
 	_, err := client.Weekly(params, fields)
 	if err != nil {
-		ast.Equal(err.Error(), "Need one argument ts_code or trade_date")
+		ast.Equal(err.Error(), "need one argument ts_code or trade_date")
 	}
 
 	params["trade_date"] = "20181101"
@@ -79,7 +79,7 @@ func TestMonthly(t *testing.T) {
 	// Check params
 	_, err := client.Monthly(params, fields)
 	if err != nil {
-		ast.Equal(err.Error(), "Need one argument ts_code or trade_date")
+		ast.Equal(err.Error(), "need one argument ts_code or trade_date")
 	}
 
 	params["trade_date"] = "20181101"
@@ -112,7 +112,7 @@ func TestDailyBasic(t *testing.T) {
 	// Check params
 	_, err := client.DailyBasic(params, fields)
 	if err != nil {
-		ast.Equal(err.Error(), "Need one argument ts_code or trade_date")
+		ast.Equal(err.Error(), "need one argument ts_code or trade_date")
 	}
 
 	params["trade_date"] = "20181101"
@@ -120,7 +120,7 @@ func TestDailyBasic(t *testing.T) {
 
 	if err != nil {
 		if resp.Code == -2002 {
-			ast.Equal(err.Error(), "Your point is not enough to use this api")
+			ast.Equal(err.Error(), "your point is not enough to use this api")
 		}
 	}
 	if resp == nil {
@@ -147,7 +147,7 @@ func TestAdjFactor(t *testing.T) {
 	// Check params
 	_, err := client.AdjFactor(params, fields)
 	if err != nil {
-		ast.Equal(err.Error(), "Need one argument ts_code or trade_date")
+		ast.Equal(err.Error(), "need one argument ts_code or trade_date")
 	}
 
 	params["trade_date"] = "20181101"
@@ -183,7 +183,7 @@ func TestSuspend(t *testing.T) {
 	paramsTest["resume_date"] = "20181102"
 	_, err := client.Suspend(paramsTest, fields)
 	if err != nil {
-		ast.Equal(err.Error(), "Need one argument among ts_code, suspend_date, resume_date")
+		ast.Equal(err.Error(), "need one argument among ts_code, suspend_date, resume_date")
 	}
 
 	params["suspend_date"] = "20181101"

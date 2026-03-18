@@ -12,7 +12,7 @@ func TestRTK(t *testing.T) {
 	// Check params
 	_, err := client.RTK(params, fields)
 	if err != nil {
-		ast.Equal(err.Error(), "Need one argument ts_code or trade_date")
+		ast.Equal(err.Error(), "need one argument ts_code")
 	}
 	resp, err := client.RTK(params, fields)
 
@@ -33,7 +33,7 @@ func TestRealTimeQuote(t *testing.T) {
 	// Check params
 	_, err := client.RealTimeQuote(params, fields)
 	if err != nil {
-		ast.Equal(err.Error(), "Need one argument ts_code or trade_date")
+		ast.Equal(err.Error(), "need one argument ts_code")
 	}
 
 	params["trade_date"] = "20181101"
@@ -54,7 +54,7 @@ func TestRealTimeTick(t *testing.T) {
 	// Check params
 	_, err := client.RealTimeTick(params, fields)
 	if err != nil {
-		ast.Equal(err.Error(), "Need one argument ts_code or trade_date")
+		ast.Equal(err.Error(), "need one argument ts_code")
 	}
 
 	params["trade_date"] = "20181101"
@@ -75,7 +75,7 @@ func TestRealTimeList(t *testing.T) {
 	// Check params
 	_, err := client.RealTimeList(params, fields)
 	if err != nil {
-		ast.Equal(err.Error(), "Need one argument ts_code or trade_date")
+		ast.Equal(err.Error(), "need one argument ts_code")
 	}
 
 	params["trade_date"] = "20181101"

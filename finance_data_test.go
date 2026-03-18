@@ -20,7 +20,7 @@ func TestInCome(t *testing.T) {
 
 	if err != nil {
 		if resp.Code == -2002 {
-			ast.Equal(err.Error(), "Your point is not enough to use this api")
+			ast.Equal(err.Error(), "your point is not enough to use this api")
 		}
 	}
 	if resp == nil {
@@ -42,7 +42,7 @@ func TestBalanceSheet(t *testing.T) {
 
 	if err != nil {
 		if resp.Code == -2002 {
-			ast.Equal(err.Error(), "Your point is not enough to use this api")
+			ast.Equal(err.Error(), "your point is not enough to use this api")
 		}
 	}
 	if resp == nil {
@@ -64,7 +64,7 @@ func TestCashFlow(t *testing.T) {
 
 	if err != nil {
 		if resp.Code == -2002 {
-			ast.Equal(err.Error(), "Your point is not enough to use this api")
+			ast.Equal(err.Error(), "your point is not enough to use this api")
 		}
 	}
 	if resp == nil {
@@ -79,14 +79,14 @@ func TestForecast(t *testing.T) {
 	// Check params
 	_, err := client.Forecast(params, fields)
 	if err != nil {
-		ast.Equal(err.Error(), "Need one argument ts_code or ann_date")
+		ast.Equal(err.Error(), "need one argument ts_code or ann_date")
 	}
 	params["ts_code"] = "000001.SZ"
 	resp, err := client.Forecast(params, fields)
 
 	if err != nil {
 		if resp.Code == -2002 {
-			ast.Equal(err.Error(), "Your point is not enough to use this api")
+			ast.Equal(err.Error(), "your point is not enough to use this api")
 		}
 	}
 	if resp == nil {
@@ -101,7 +101,7 @@ func TestDividend(t *testing.T) {
 	resp, err := client.Dividend(params, fields)
 	if err != nil {
 		if resp.Code == -2002 {
-			ast.Equal(err.Error(), "Your point is not enough to use this api")
+			ast.Equal(err.Error(), "your point is not enough to use this api")
 		}
 	}
 	if resp == nil {
@@ -123,7 +123,7 @@ func TestExpress(t *testing.T) {
 
 	if err != nil {
 		if resp.Code == -2002 {
-			ast.Equal(err.Error(), "Your point is not enough to use this api")
+			ast.Equal(err.Error(), "your point is not enough to use this api")
 		}
 	}
 	if resp == nil {
@@ -145,7 +145,7 @@ func TestFinaIndicator(t *testing.T) {
 
 	if err != nil {
 		if resp.Code == -2002 {
-			ast.Equal(err.Error(), "Your point is not enough to use this api")
+			ast.Equal(err.Error(), "your point is not enough to use this api")
 		}
 	}
 	if resp == nil {
@@ -167,7 +167,7 @@ func TestFinaAudit(t *testing.T) {
 
 	if err != nil {
 		if resp.Code == -2002 {
-			ast.Equal(err.Error(), "Your point is not enough to use this api")
+			ast.Equal(err.Error(), "your point is not enough to use this api")
 		}
 	}
 	if resp == nil {
@@ -189,7 +189,7 @@ func TestFinaMainbz(t *testing.T) {
 
 	if err != nil {
 		if resp.Code == -2002 {
-			ast.Equal(err.Error(), "Your point is not enough to use this api")
+			ast.Equal(err.Error(), "your point is not enough to use this api")
 		}
 	}
 	if resp == nil {
@@ -204,7 +204,7 @@ func TestDisclosureDate(t *testing.T) {
 	resp, err := client.DisclosureDate(params, fields)
 	if err != nil {
 		if resp.Code == -2002 {
-			ast.Equal(err.Error(), "Your point is not enough to use this api")
+			ast.Equal(err.Error(), "your point is not enough to use this api")
 		}
 	}
 	if resp == nil {

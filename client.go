@@ -96,6 +96,12 @@ func (api *TuShare) doRequest(req *http.Request) (*APIResponse, error) {
 	return jsonData, nil
 }
 
+// Token returns the API token
+func (api *TuShare) Token() string {
+	return api.token
+}
+
+// postData sends a POST request to the API (internal)
 func (api *TuShare) postData(body map[string]interface{}) (*APIResponse, error) {
 	req, err := api.request("POST", Endpoint, body)
 	if err != nil {
