@@ -24,7 +24,7 @@ func (api *TuShare) RealTimeQuote(params map[string]string, fields []string) (*A
 
 	// ts_code & trade_date required
 	if !hasTsCode {
-		return nil, fmt.Errorf("Need one argument ts_code")
+		return nil, fmt.Errorf("need one argument ts_code")
 	}
 
 	body := map[string]interface{}{
@@ -42,7 +42,7 @@ func (api *TuShare) RealTimeTick(params map[string]string, fields []string) (*AP
 
 	// ts_code & trade_date required
 	if !hasTsCode {
-		return nil, fmt.Errorf("Need one argument ts_code")
+		return nil, fmt.Errorf("need one argument ts_code")
 	}
 
 	body := map[string]interface{}{

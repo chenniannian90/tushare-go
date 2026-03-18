@@ -10,7 +10,7 @@ func (api *TuShare) Daily(params map[string]string, fields []string) (*APIRespon
 
 	// ts_code & trade_date required
 	if (!hasTsCode && !hasTradeDate) || (hasTsCode && hasTradeDate) {
-		return nil, fmt.Errorf("Need one argument ts_code or trade_date")
+		return nil, fmt.Errorf("need one argument ts_code or trade_date")
 	}
 
 	if dateFormat := IsDateFormat(params["trade_date"], params["start_date"], params["end_date"]); !dateFormat {
@@ -35,7 +35,7 @@ func (api *TuShare) Weekly(params map[string]string, fields []string) (*APIRespo
 
 	// ts_code & trade_date required
 	if (!hasTsCode && !hasTradeDate) || (hasTsCode && hasTradeDate) {
-		return nil, fmt.Errorf("Need one argument ts_code or trade_date")
+		return nil, fmt.Errorf("need one argument ts_code or trade_date")
 	}
 
 	if dateFormat := IsDateFormat(params["trade_date"], params["start_date"], params["end_date"]); !dateFormat {
@@ -60,7 +60,7 @@ func (api *TuShare) Monthly(params map[string]string, fields []string) (*APIResp
 
 	// ts_code & trade_date required
 	if (!hasTsCode && !hasTradeDate) || (hasTsCode && hasTradeDate) {
-		return nil, fmt.Errorf("Need one argument ts_code or trade_date")
+		return nil, fmt.Errorf("need one argument ts_code or trade_date")
 	}
 
 	if dateFormat := IsDateFormat(params["trade_date"], params["start_date"], params["end_date"]); !dateFormat {
@@ -85,7 +85,7 @@ func (api *TuShare) DailyBasic(params map[string]string, fields []string) (*APIR
 
 	// ts_code & trade_date required
 	if (!hasTsCode && !hasTradeDate) || (hasTsCode && hasTradeDate) {
-		return nil, fmt.Errorf("Need one argument ts_code or trade_date")
+		return nil, fmt.Errorf("need one argument ts_code or trade_date")
 	}
 
 	if dateFormat := IsDateFormat(params["trade_date"], params["start_date"], params["end_date"]); !dateFormat {
@@ -110,7 +110,7 @@ func (api *TuShare) AdjFactor(params map[string]string, fields []string) (*APIRe
 
 	// ts_code & trade_date required
 	if (!hasTsCode && !hasTradeDate) || (hasTsCode && hasTradeDate) {
-		return nil, fmt.Errorf("Need one argument ts_code or trade_date")
+		return nil, fmt.Errorf("need one argument ts_code or trade_date")
 	}
 
 	if dateFormat := IsDateFormat(params["trade_date"], params["start_date"], params["end_date"]); !dateFormat {
@@ -147,7 +147,7 @@ func (api *TuShare) Suspend(params map[string]string, fields []string) (*APIResp
 	}
 
 	if argsCount != 1 {
-		return nil, fmt.Errorf("Need one argument among ts_code, suspend_date, resume_date")
+		return nil, fmt.Errorf("need one argument among ts_code, suspend_date, resume_date")
 	}
 
 	if dateFormat := IsDateFormat(params["suspend_date"], params["resume_date"]); !dateFormat {

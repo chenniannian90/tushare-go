@@ -12,7 +12,7 @@ func (api *TuShare) MoneyflowHsgt(params map[string]string, fields []string) (*A
 
 	// trade_date & start_date required
 	if (!hasTradeDate && !hasStartDate) || (hasTradeDate && hasStartDate) {
-		return nil, fmt.Errorf("Need one argument trade_date or start_date")
+		return nil, fmt.Errorf("need one argument trade_date or start_date")
 	}
 
 	body := map[string]interface{}{
@@ -33,7 +33,7 @@ func (api *TuShare) HsgtTop10(params map[string]string, fields []string) (*APIRe
 
 	// ts_code & trade_date required
 	if (!hasTsCode && !hasTradeDate) || (hasTsCode && hasTradeDate) {
-		return nil, fmt.Errorf("Need one argument ts_code or trade_date")
+		return nil, fmt.Errorf("need one argument ts_code or trade_date")
 	}
 
 	body := map[string]interface{}{
@@ -54,7 +54,7 @@ func (api *TuShare) GgtTop10(params map[string]string, fields []string) (*APIRes
 
 	// ts_code & trade_date required
 	if (!hasTsCode && !hasTradeDate) || (hasTsCode && hasTradeDate) {
-		return nil, fmt.Errorf("Need one argument ts_code or trade_date")
+		return nil, fmt.Errorf("need one argument ts_code or trade_date")
 	}
 
 	body := map[string]interface{}{
@@ -76,7 +76,7 @@ func (api *TuShare) Margin(params map[string]string, fields []string) (*APIRespo
 
 	// ts_code & trade_date required
 	if (!hasTsCode && !hasTradeDate) || (hasTsCode && hasTradeDate) {
-		return nil, fmt.Errorf("Need one argument ts_code or trade_date")
+		return nil, fmt.Errorf("need one argument ts_code or trade_date")
 	}
 
 	body := map[string]interface{}{
@@ -98,7 +98,7 @@ func (api *TuShare) MarginDetail(params map[string]string, fields []string) (*AP
 
 	// ts_code & trade_date required
 	if (!hasTsCode && !hasTradeDate) || (hasTsCode && hasTradeDate) {
-		return nil, fmt.Errorf("Need one argument ts_code or trade_date")
+		return nil, fmt.Errorf("need one argument ts_code or trade_date")
 	}
 
 	body := map[string]interface{}{

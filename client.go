@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"mime"
 	"net/http"
 )
@@ -52,7 +52,7 @@ func (api *TuShare) doRequest(req *http.Request) (*APIResponse, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 	//Handle network error
 	if resp.StatusCode != 200 {
 		return nil, fmt.Errorf("oops! Network error")
@@ -60,7 +60,7 @@ func (api *TuShare) doRequest(req *http.Request) (*APIResponse, error) {
 
 
 	// Read request
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -71,7 +71,7 @@ func (api *TuShare) doRequest(req *http.Request) (*APIResponse, error) {
 		return nil, err
 	}
 	if mimeType != "application/json" {
-		return nil, fmt.Errorf("Could not execute request (%s)", fmt.Sprintf("Response Content-Type is '%s', but should be 'application/json'.", mimeType))
+		return nil, fmt.Errorf("could not execute request (%s)", fmt.Sprintf("response Content-Type is '%s', but should be 'application/json'.", mimeType))
 	}
 
 	// Parse Request
@@ -85,12 +85,12 @@ func (api *TuShare) doRequest(req *http.Request) (*APIResponse, error) {
 	// @TODO: handle API exception
 	// Argument required
 	if jsonData.Code == -2001 {
-		return jsonData, fmt.Errorf("Argument error: %s", jsonData.Msg)
+		return jsonData, fmt.Errorf("argument error: %s", jsonData.Msg)
 	}
 
 	// Permission deny
 	if jsonData.Code == -2002 {
-		return jsonData, fmt.Errorf("Your point is not enough to use this api")
+		return jsonData, fmt.Errorf("your point is not enough to use this api")
 	}
 
 	return jsonData, nil
