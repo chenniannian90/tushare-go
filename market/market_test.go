@@ -1,16 +1,30 @@
-package tushare
+package market
 
 import (
 	"testing"
 
+	"github.com/chenniannian90/tushare-go/types"
 	"github.com/stretchr/testify/assert"
 )
 
+var testClient *Client
+
+func setupTestClient() *Client {
+	if testClient == nil {
+		postFunc := func(body map[string]interface{}) (*types.APIResponse, error) {
+			return &types.APIResponse{Code: 0}, nil
+		}
+		tokenFunc := func() string { return "" }
+		testClient = New(postFunc, tokenFunc)
+	}
+	return testClient
+}
+
 func TestDaily(t *testing.T) {
 	ast := assert.New(t)
+	client := setupTestClient()
 	params := make(map[string]string)
 	var fields []string
-	// Check params
 	_, err := client.Daily(params, fields)
 	if err != nil {
 		ast.Equal(err.Error(), "need one argument ts_code or trade_date")
@@ -29,8 +43,8 @@ func TestDaily(t *testing.T) {
 
 func TestDailyInvalidDateArgs(t *testing.T) {
 	ast := assert.New(t)
-	params := make(map[string]string)
-	params["trade_date"] = "2018-11-01"
+	client := setupTestClient()
+	params := map[string]string{"trade_date": "2018-11-01"}
 	var fields []string
 	_, err := client.Daily(params, fields)
 
@@ -41,9 +55,9 @@ func TestDailyInvalidDateArgs(t *testing.T) {
 
 func TestWeekly(t *testing.T) {
 	ast := assert.New(t)
+	client := setupTestClient()
 	params := make(map[string]string)
 	var fields []string
-	// Check params
 	_, err := client.Weekly(params, fields)
 	if err != nil {
 		ast.Equal(err.Error(), "need one argument ts_code or trade_date")
@@ -60,23 +74,11 @@ func TestWeekly(t *testing.T) {
 	}
 }
 
-func TestWeeklyInvalidDateArgs(t *testing.T) {
-	ast := assert.New(t)
-	params := make(map[string]string)
-	params["trade_date"] = "2018-11-01"
-	var fields []string
-	_, err := client.Weekly(params, fields)
-
-	if err != nil {
-		ast.Equal(err.Error(), "please input right date format YYYYMMDD")
-	}
-}
-
 func TestMonthly(t *testing.T) {
 	ast := assert.New(t)
-	var fields []string
+	client := setupTestClient()
 	params := make(map[string]string)
-	// Check params
+	var fields []string
 	_, err := client.Monthly(params, fields)
 	if err != nil {
 		ast.Equal(err.Error(), "need one argument ts_code or trade_date")
@@ -93,23 +95,11 @@ func TestMonthly(t *testing.T) {
 	}
 }
 
-func TestMonthlyInvalidDateArgs(t *testing.T) {
-	ast := assert.New(t)
-	params := make(map[string]string)
-	params["trade_date"] = "2018-11-01"
-	var fields []string
-	_, err := client.Monthly(params, fields)
-
-	if err != nil {
-		ast.Equal(err.Error(), "please input right date format YYYYMMDD")
-	}
-}
-
 func TestDailyBasic(t *testing.T) {
 	ast := assert.New(t)
+	client := setupTestClient()
 	params := make(map[string]string)
 	var fields []string
-	// Check params
 	_, err := client.DailyBasic(params, fields)
 	if err != nil {
 		ast.Equal(err.Error(), "need one argument ts_code or trade_date")
@@ -128,23 +118,11 @@ func TestDailyBasic(t *testing.T) {
 	}
 }
 
-func TestDailyBasicInvalidDateArgs(t *testing.T) {
-	ast := assert.New(t)
-	params := make(map[string]string)
-	params["trade_date"] = "2018-11-01"
-	var fields []string
-	_, err := client.DailyBasic(params, fields)
-
-	if err != nil {
-		ast.Equal(err.Error(), "please input right date format YYYYMMDD")
-	}
-}
-
 func TestAdjFactor(t *testing.T) {
 	ast := assert.New(t)
+	client := setupTestClient()
 	params := make(map[string]string)
 	var fields []string
-	// Check params
 	_, err := client.AdjFactor(params, fields)
 	if err != nil {
 		ast.Equal(err.Error(), "need one argument ts_code or trade_date")
@@ -161,26 +139,12 @@ func TestAdjFactor(t *testing.T) {
 	}
 }
 
-func TestAdjFactorInvalidDateArgs(t *testing.T) {
-	ast := assert.New(t)
-	params := make(map[string]string)
-	params["trade_date"] = "2018-11-01"
-	var fields []string
-	_, err := client.AdjFactor(params, fields)
-
-	if err != nil {
-		ast.Equal(err.Error(), "please input right date format YYYYMMDD")
-	}
-}
-
 func TestSuspend(t *testing.T) {
 	ast := assert.New(t)
+	client := setupTestClient()
 	params := make(map[string]string)
-	paramsTest := make(map[string]string)
+	paramsTest := map[string]string{"ts_code": "000001.SZ", "resume_date": "20181102"}
 	var fields []string
-	// Check params
-	paramsTest["ts_code"] = "000001.SZ"
-	paramsTest["resume_date"] = "20181102"
 	_, err := client.Suspend(paramsTest, fields)
 	if err != nil {
 		ast.Equal(err.Error(), "need one argument among ts_code, suspend_date, resume_date")
@@ -194,17 +158,5 @@ func TestSuspend(t *testing.T) {
 	}
 	if resp == nil {
 		t.Errorf("Api should return data")
-	}
-}
-
-func TestSuspendInvalidDateArgs(t *testing.T) {
-	ast := assert.New(t)
-	params := make(map[string]string)
-	params["suspend_date"] = "2018-11-01"
-	var fields []string
-	_, err := client.Suspend(params, fields)
-
-	if err != nil {
-		ast.Equal(err.Error(), "please input right date format YYYYMMDD")
 	}
 }

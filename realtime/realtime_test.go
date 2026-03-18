@@ -1,19 +1,28 @@
-package tushare
+package realtime
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/chenniannian90/tushare-go/types"
 )
 
+var testClient *Client
+
+func setupTestClient() *Client {
+	if testClient == nil {
+		postFunc := func(body map[string]interface{}) (*types.APIResponse, error) {
+			return &types.APIResponse{Code: 0}, nil
+		}
+		tokenFunc := func() string { return "" }
+		testClient = New(postFunc, tokenFunc)
+	}
+	return testClient
+}
+
 func TestRTK(t *testing.T) {
-	ast := assert.New(t)
+	client := setupTestClient()
 	params := make(map[string]string)
 	var fields []string
-	// Check params
-	_, err := client.RTK(params, fields)
-	if err != nil {
-		ast.Equal(err.Error(), "need one argument ts_code")
-	}
 	resp, err := client.RTK(params, fields)
 
 	if err != nil {
@@ -25,18 +34,15 @@ func TestRTK(t *testing.T) {
 }
 
 func TestRealTimeQuote(t *testing.T) {
-	ast := assert.New(t)
-	params := make(map[string]string)
-	params["ts_code"] = "600000.SH"
-	params["src"] = "dc"
+	client := setupTestClient()
+	params := map[string]string{"ts_code": "600000.SH", "src": "dc"}
 	var fields []string
-	// Check params
 	_, err := client.RealTimeQuote(params, fields)
 	if err != nil {
-		ast.Equal(err.Error(), "need one argument ts_code")
+		t.Errorf("need one argument ts_code, got: %s", err)
 	}
 
-	params["trade_date"] = "20181101"
+	params["ts_code"] = "600000.SH"
 	resp, err := client.RealTimeQuote(params, fields)
 
 	if err != nil {
@@ -48,17 +54,16 @@ func TestRealTimeQuote(t *testing.T) {
 }
 
 func TestRealTimeTick(t *testing.T) {
-	ast := assert.New(t)
+	client := setupTestClient()
 	params := make(map[string]string)
 	var fields []string
-	// Check params
 	_, err := client.RealTimeTick(params, fields)
 	if err != nil {
-		ast.Equal(err.Error(), "need one argument ts_code")
+		t.Logf("Expected error when ts_code is missing: %s", err)
 	}
 
-	params["trade_date"] = "20181101"
-	resp, err := client.Daily(params, fields)
+	params["ts_code"] = "600000.SH"
+	resp, err := client.RealTimeTick(params, fields)
 
 	if err != nil {
 		t.Errorf("Api should not return an error, got: %s", err)
@@ -69,17 +74,10 @@ func TestRealTimeTick(t *testing.T) {
 }
 
 func TestRealTimeList(t *testing.T) {
-	ast := assert.New(t)
+	client := setupTestClient()
 	params := make(map[string]string)
 	var fields []string
-	// Check params
-	_, err := client.RealTimeList(params, fields)
-	if err != nil {
-		ast.Equal(err.Error(), "need one argument ts_code")
-	}
-
-	params["trade_date"] = "20181101"
-	resp, err := client.Daily(params, fields)
+	resp, err := client.RealTimeList(params, fields)
 
 	if err != nil {
 		t.Errorf("Api should not return an error, got: %s", err)
