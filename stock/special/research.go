@@ -28,9 +28,3 @@ func (c *Client) HmList(params map[string]string, fields []string) (*types.APIRe
 		"api_name": "hm_list", "token": c.getToken(), "params": params, "fields": fields,
 	})
 }
-
-func (c *Client) HmDetail(params map[string]string, fields []string) (*types.APIResponse, error) {
-	return c.postData(map[string]interface{}{
-		"api_name": "hm_detail", "token": c.getToken(), "params": params, "fields": fields,
-	})
-}

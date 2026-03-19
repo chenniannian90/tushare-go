@@ -49,28 +49,28 @@ func TestSubClientsInitialized(t *testing.T) {
 	api := New("test_token")
 
 	// Check that all sub-clients are initialized
-	if api.Basic == nil {
+	if api.StockBasic == nil {
 		t.Errorf("New() should initialize Basic client")
 	}
-	if api.Market == nil {
+	if api.StockMarket == nil {
 		t.Errorf("New() should initialize Market client")
 	}
-	if api.Finance == nil {
+	if api.StockFinance == nil {
 		t.Errorf("New() should initialize Finance client")
 	}
-	if api.Moneyflow == nil {
+	if api.StockMoneyflow == nil {
 		t.Errorf("New() should initialize Moneyflow client")
 	}
-	if api.Margin == nil {
+	if api.StockMargin == nil {
 		t.Errorf("New() should initialize Margin client")
 	}
-	if api.Reference == nil {
+	if api.StockReference == nil {
 		t.Errorf("New() should initialize Reference client")
 	}
-	if api.Special == nil {
+	if api.StockSpecial == nil {
 		t.Errorf("New() should initialize Special client")
 	}
-	if api.Toplist == nil {
+	if api.StockToplist == nil {
 		t.Errorf("New() should initialize Toplist client")
 	}
 	if api.Index == nil {

@@ -126,11 +126,6 @@ func TestIntegrationAPIs(t *testing.T) {
 		testMarginAPIs(t, client)
 	})
 
-	// Realtime APIs
-	t.Run("Realtime", func(t *testing.T) {
-		testRealtimeAPIs(t, client)
-	})
-
 	// ETF APIs
 	t.Run("ETF", func(t *testing.T) {
 		testETFAPIs(t, client)
@@ -203,7 +198,7 @@ func testStockAPIs(t *testing.T, client *TuShare) {
 		{
 			"TradeCal",
 			map[string]string{
-				"exchange":  "SSE",
+				"exchange":   "SSE",
 				"start_date": "20240101",
 				"end_date":   "20240110",
 			},
@@ -224,12 +219,68 @@ func testStockAPIs(t *testing.T, client *TuShare) {
 			},
 			nil,
 		},
+		{
+			"BakBasic",
+			map[string]string{
+				"ts_code": "000001.SZ",
+				"limit":   "5",
+			},
+			nil,
+		},
+		{
+			"NameChange",
+			map[string]string{
+				"ts_code": "600000.SH",
+				"limit":   "5",
+			},
+			nil,
+		},
+		{
+			"NewShare",
+			map[string]string{
+				"start_date": "20240101",
+				"end_date":   "20240131",
+				"limit":      "5",
+			},
+			nil,
+		},
 	}
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
 			result := runTest("Stock."+test.name, test.params, test.fields, func() (*types.APIResponse, error) {
-				return client.Basic.StockBasic(test.params, test.fields)
+				var apiFunc func() (*types.APIResponse, error)
+				switch test.name {
+				case "StockBasic":
+					apiFunc = func() (*types.APIResponse, error) {
+						return client.StockBasic.StockBasic(test.params, test.fields)
+					}
+				case "TradeCal":
+					apiFunc = func() (*types.APIResponse, error) {
+						return client.StockBasic.TradeCal(test.params, test.fields)
+					}
+				case "HSConst":
+					apiFunc = func() (*types.APIResponse, error) {
+						return client.StockBasic.HSConst(test.params, test.fields)
+					}
+				case "StockCompany":
+					apiFunc = func() (*types.APIResponse, error) {
+						return client.StockBasic.StockCompany(test.params, test.fields)
+					}
+				case "BakBasic":
+					apiFunc = func() (*types.APIResponse, error) {
+						return client.StockBasic.BakBasic(test.params, test.fields)
+					}
+				case "NameChange":
+					apiFunc = func() (*types.APIResponse, error) {
+						return client.StockBasic.NameChange(test.params, test.fields)
+					}
+				case "NewShare":
+					apiFunc = func() (*types.APIResponse, error) {
+						return client.StockBasic.NewShare(test.params, test.fields)
+					}
+				}
+				return apiFunc()
 			})
 			report.Results = append(report.Results, result)
 
@@ -262,11 +313,11 @@ func testIndexAPIs(t *testing.T, client *TuShare) {
 		{
 			"IndexBasic",
 			map[string]string{
-				"ts_code":  "",
-				"market":   "",
+				"ts_code":   "",
+				"market":    "",
 				"publisher": "",
-				"category": "",
-				"name":     "",
+				"category":  "",
+				"name":      "",
 			},
 			[]string{"ts_code", "name", "market", "publisher", "category", "base_date", "base_point", "list_date"},
 		},
@@ -277,6 +328,39 @@ func testIndexAPIs(t *testing.T, client *TuShare) {
 				"trade_date": "20240105",
 			},
 			[]string{"index_code", "con_code", "trade_date", "weight"},
+		},
+		{
+			"IndexDailyBasic",
+			map[string]string{
+				"ts_code":    "000001.SH",
+				"start_date": "20240101",
+				"end_date":   "20240105",
+			},
+			nil,
+		},
+		{
+			"IndexClassify",
+			map[string]string{
+				"level": "L1",
+				"src":   "SW2021",
+			},
+			nil,
+		},
+		{
+			"IndexGlobal",
+			map[string]string{
+				"limit": "10",
+			},
+			nil,
+		},
+		{
+			"IndexMember",
+			map[string]string{
+				"index_code": "801010.SI", // 申万一级行业指数 - 银行
+				"level":      "L1",       // 一级行业
+				"limit":      "10",
+			},
+			nil,
 		},
 	}
 
@@ -296,6 +380,22 @@ func testIndexAPIs(t *testing.T, client *TuShare) {
 			case "IndexWeight":
 				apiFunc = func() (*types.APIResponse, error) {
 					return client.Index.IndexWeight(test.params, test.fields)
+				}
+			case "IndexDailyBasic":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Index.IndexDailyBasic(test.params, test.fields)
+				}
+			case "IndexClassify":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Index.IndexClassify(test.params, test.fields)
+				}
+			case "IndexGlobal":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Index.IndexGlobal(test.params, test.fields)
+				}
+			case "IndexMember":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.Index.IndexMember(test.params, test.fields)
 				}
 			}
 
@@ -341,6 +441,88 @@ func testMarketAPIs(t *testing.T, client *TuShare) {
 			},
 			nil,
 		},
+		{
+			"DailyInfo",
+			map[string]string{
+				"trade_date": "20240102",
+			},
+			nil,
+		},
+		{
+			"SzDailyInfo",
+			map[string]string{
+				"trade_date": "20240102",
+			},
+			nil,
+		},
+		{
+			"Weekly",
+			map[string]string{
+				"ts_code":    "000001.SZ",
+				"start_date": "20240101",
+				"end_date":   "20240131",
+				"limit":      "5",
+			},
+			nil,
+		},
+		{
+			"Monthly",
+			map[string]string{
+				"ts_code":    "000001.SZ",
+				"start_date": "20230101",
+				"end_date":   "20231231",
+				"limit":      "5",
+			},
+			nil,
+		},
+		{
+			"AdjFactor",
+			map[string]string{
+				"ts_code":    "000001.SZ",
+				"start_date": "20240101",
+				"end_date":   "20240110",
+			},
+			nil,
+		},
+		{
+			"Suspend",
+			map[string]string{
+				"ts_code": "000001.SZ",
+				"limit":   "10",
+			},
+			nil,
+		},
+		{
+			"RTK",
+			map[string]string{
+				"ts_code": "000001.SZ",
+				"limit":   "10",
+			},
+			nil,
+		},
+		{
+			"RealTimeQuote",
+			map[string]string{
+				"ts_code": "000001.SZ,600000.SH",
+				"fields":  "ts_code,price,change,pct_chg,volume,amount",
+			},
+			nil,
+		},
+		{
+			"RealTimeTick",
+			map[string]string{
+				"ts_code": "000001.SZ",
+				"limit":   "100",
+			},
+			nil,
+		},
+		{
+			"RealTimeList",
+			map[string]string{
+				"limit": "10",
+			},
+			nil,
+		},
 	}
 
 	for _, test := range tests {
@@ -350,15 +532,55 @@ func testMarketAPIs(t *testing.T, client *TuShare) {
 			switch test.name {
 			case "Daily":
 				apiFunc = func() (*types.APIResponse, error) {
-					return client.Market.Daily(test.params, test.fields)
+					return client.StockMarket.Daily(test.params, test.fields)
 				}
 			case "DailyBasic":
 				apiFunc = func() (*types.APIResponse, error) {
-					return client.Market.DailyBasic(test.params, test.fields)
+					return client.StockMarket.DailyBasic(test.params, test.fields)
 				}
 			case "MoneyFlow":
 				apiFunc = func() (*types.APIResponse, error) {
-					return client.Market.MoneyFlow(test.params, test.fields)
+					return client.StockMarket.MoneyFlow(test.params, test.fields)
+				}
+			case "DailyInfo":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.StockMarket.DailyInfo(test.params, test.fields)
+				}
+			case "SzDailyInfo":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.StockMarket.SzDailyInfo(test.params, test.fields)
+				}
+			case "Weekly":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.StockMarket.Weekly(test.params, test.fields)
+				}
+			case "Monthly":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.StockMarket.Monthly(test.params, test.fields)
+				}
+			case "AdjFactor":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.StockMarket.AdjFactor(test.params, test.fields)
+				}
+			case "Suspend":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.StockMarket.Suspend(test.params, test.fields)
+				}
+			case "RTK":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.StockMarket.RTK(test.params, test.fields)
+				}
+			case "RealTimeQuote":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.StockMarket.RealTimeQuote(test.params, test.fields)
+				}
+			case "RealTimeTick":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.StockMarket.RealTimeTick(test.params, test.fields)
+				}
+			case "RealTimeList":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.StockMarket.RealTimeList(test.params, test.fields)
 				}
 			}
 
@@ -403,6 +625,16 @@ func testFinanceAPIs(t *testing.T, client *TuShare) {
 			nil,
 		},
 		{
+			"CashFlow",
+			map[string]string{
+				"ts_code":    "000001.SZ",
+				"start_date": "20230101",
+				"end_date":   "20231231",
+				"limit":      "1",
+			},
+			nil,
+		},
+		{
 			"FinaIndicator",
 			map[string]string{
 				"ts_code":    "000001.SZ",
@@ -412,12 +644,103 @@ func testFinanceAPIs(t *testing.T, client *TuShare) {
 			},
 			nil,
 		},
+		{
+			"FinaAudit",
+			map[string]string{
+				"ts_code": "000001.SZ",
+				"limit":   "5",
+			},
+			nil,
+		},
+		{
+			"FinaMainbz",
+			map[string]string{
+				"ts_code": "000001.SZ",
+				"limit":   "5",
+			},
+			nil,
+		},
+		{
+			"Forecast",
+			map[string]string{
+				"ts_code": "000001.SZ",
+				"limit":   "5",
+			},
+			nil,
+		},
+		{
+			"Express",
+			map[string]string{
+				"ts_code": "000001.SZ",
+				"limit":   "5",
+			},
+			nil,
+		},
+		{
+			"Dividend",
+			map[string]string{
+				"ts_code": "000001.SZ",
+				"limit":   "5",
+			},
+			nil,
+		},
+		{
+			"DisclosureDate",
+			map[string]string{
+				"ts_code": "000001.SZ",
+				"limit":   "5",
+			},
+			nil,
+		},
 	}
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
 			result := runTest("Finance."+test.name, test.params, test.fields, func() (*types.APIResponse, error) {
-				return client.Finance.Income(test.params, test.fields)
+				var apiFunc func() (*types.APIResponse, error)
+				switch test.name {
+				case "Income":
+					apiFunc = func() (*types.APIResponse, error) {
+						return client.StockFinance.Income(test.params, test.fields)
+					}
+				case "BalanceSheet":
+					apiFunc = func() (*types.APIResponse, error) {
+						return client.StockFinance.BalanceSheet(test.params, test.fields)
+					}
+				case "CashFlow":
+					apiFunc = func() (*types.APIResponse, error) {
+						return client.StockFinance.CashFlow(test.params, test.fields)
+					}
+				case "FinaIndicator":
+					apiFunc = func() (*types.APIResponse, error) {
+						return client.StockFinance.FinaIndicator(test.params, test.fields)
+					}
+				case "FinaAudit":
+					apiFunc = func() (*types.APIResponse, error) {
+						return client.StockFinance.FinaAudit(test.params, test.fields)
+					}
+				case "FinaMainbz":
+					apiFunc = func() (*types.APIResponse, error) {
+						return client.StockFinance.FinaMainbz(test.params, test.fields)
+					}
+				case "Forecast":
+					apiFunc = func() (*types.APIResponse, error) {
+						return client.StockFinance.Forecast(test.params, test.fields)
+					}
+				case "Express":
+					apiFunc = func() (*types.APIResponse, error) {
+						return client.StockFinance.Express(test.params, test.fields)
+					}
+				case "Dividend":
+					apiFunc = func() (*types.APIResponse, error) {
+						return client.StockFinance.Dividend(test.params, test.fields)
+					}
+				case "DisclosureDate":
+					apiFunc = func() (*types.APIResponse, error) {
+						return client.StockFinance.DisclosureDate(test.params, test.fields)
+					}
+				}
+				return apiFunc()
 			})
 			report.Results = append(report.Results, result)
 
@@ -446,12 +769,41 @@ func testHsgtAPIs(t *testing.T, client *TuShare) {
 			},
 			nil,
 		},
+		{
+			"HsgtTop10",
+			map[string]string{
+				"trade_date": "20240105",
+			},
+			nil,
+		},
+		{
+			"GgtTop10",
+			map[string]string{
+				"trade_date": "20240105",
+			},
+			nil,
+		},
 	}
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
 			result := runTest("Hsgt."+test.name, test.params, test.fields, func() (*types.APIResponse, error) {
-				return client.Moneyflow.MoneyflowHsgt(test.params, test.fields)
+				var apiFunc func() (*types.APIResponse, error)
+				switch test.name {
+				case "MoneyflowHsgt":
+					apiFunc = func() (*types.APIResponse, error) {
+						return client.StockMoneyflow.MoneyflowHsgt(test.params, test.fields)
+					}
+				case "HsgtTop10":
+					apiFunc = func() (*types.APIResponse, error) {
+						return client.StockMoneyflow.HsgtTop10(test.params, test.fields)
+					}
+				case "GgtTop10":
+					apiFunc = func() (*types.APIResponse, error) {
+						return client.StockMoneyflow.GgtTop10(test.params, test.fields)
+					}
+				}
+				return apiFunc()
 			})
 			report.Results = append(report.Results, result)
 
@@ -481,42 +833,11 @@ func testMarginAPIs(t *testing.T, client *TuShare) {
 			},
 			nil,
 		},
-	}
-
-	for _, test := range tests {
-		t.Run(test.name, func(t *testing.T) {
-			result := runTest("Margin."+test.name, test.params, test.fields, func() (*types.APIResponse, error) {
-				return client.Margin.Margin(test.params, test.fields)
-			})
-			report.Results = append(report.Results, result)
-
-			if !result.Success {
-				t.Errorf("❌ %s: %s", test.name, result.Error)
-			} else if !result.HasData {
-				t.Logf("⚠️  %s: No data", test.name)
-			} else {
-				t.Logf("✅ %s: %d rows (%s)", test.name, result.DataCount, result.Duration)
-			}
-		})
-	}
-}
-
-func testRealtimeAPIs(t *testing.T, client *TuShare) {
-	tests := []struct {
-		name   string
-		params map[string]string
-		fields []string
-	}{
 		{
-			"RTK",
-			map[string]string{},
-			nil,
-		},
-		{
-			"RealTimeQuote",
+			"MarginDetail",
 			map[string]string{
 				"ts_code": "000001.SZ",
-				"src":     "sz",
+				"limit":   "10",
 			},
 			nil,
 		},
@@ -524,8 +845,19 @@ func testRealtimeAPIs(t *testing.T, client *TuShare) {
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			result := runTest("Realtime."+test.name, test.params, test.fields, func() (*types.APIResponse, error) {
-				return client.Market.RTK(test.params, test.fields)
+			result := runTest("Margin."+test.name, test.params, test.fields, func() (*types.APIResponse, error) {
+				var apiFunc func() (*types.APIResponse, error)
+				switch test.name {
+				case "Margin":
+					apiFunc = func() (*types.APIResponse, error) {
+						return client.StockMargin.Margin(test.params, test.fields)
+					}
+				case "MarginDetail":
+					apiFunc = func() (*types.APIResponse, error) {
+						return client.StockMargin.MarginDetail(test.params, test.fields)
+					}
+				}
+				return apiFunc()
 			})
 			report.Results = append(report.Results, result)
 
@@ -626,6 +958,22 @@ func testPledgeAPIs(t *testing.T, client *TuShare) {
 			},
 			nil,
 		},
+		{
+			"BlockTrade",
+			map[string]string{
+				"trade_date": "20240105",
+				"limit":      "10",
+			},
+			nil,
+		},
+		{
+			"StkAccount",
+			map[string]string{
+				"trade_date": "20240105",
+				"limit":      "10",
+			},
+			nil,
+		},
 	}
 
 	for _, test := range tests {
@@ -635,11 +983,19 @@ func testPledgeAPIs(t *testing.T, client *TuShare) {
 			switch test.name {
 			case "PledgeStat":
 				apiFunc = func() (*types.APIResponse, error) {
-					return client.Reference.PledgeStat(test.params, test.fields)
+					return client.StockReference.PledgeStat(test.params, test.fields)
 				}
 			case "PledgeDetail":
 				apiFunc = func() (*types.APIResponse, error) {
-					return client.Reference.PledgeDetail(test.params, test.fields)
+					return client.StockReference.PledgeDetail(test.params, test.fields)
+				}
+			case "BlockTrade":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.StockReference.BlockTrade(test.params, test.fields)
+				}
+			case "StkAccount":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.StockReference.StkAccount(test.params, test.fields)
 				}
 			}
 
@@ -688,11 +1044,11 @@ func testToplistAPIs(t *testing.T, client *TuShare) {
 			switch test.name {
 			case "TopList":
 				apiFunc = func() (*types.APIResponse, error) {
-					return client.Toplist.TopList(test.params, test.fields)
+					return client.StockToplist.TopList(test.params, test.fields)
 				}
 			case "TopInst":
 				apiFunc = func() (*types.APIResponse, error) {
-					return client.Toplist.TopInst(test.params, test.fields)
+					return client.StockToplist.TopInst(test.params, test.fields)
 				}
 			}
 
@@ -749,15 +1105,15 @@ func testHolderAPIs(t *testing.T, client *TuShare) {
 			switch test.name {
 			case "Top10Holders":
 				apiFunc = func() (*types.APIResponse, error) {
-					return client.Reference.Top10Holders(test.params, test.fields)
+					return client.StockReference.Top10Holders(test.params, test.fields)
 				}
 			case "Top10FloatHolders":
 				apiFunc = func() (*types.APIResponse, error) {
-					return client.Reference.Top10FloatHolders(test.params, test.fields)
+					return client.StockReference.Top10FloatHolders(test.params, test.fields)
 				}
 			case "StkHolderNumber":
 				apiFunc = func() (*types.APIResponse, error) {
-					return client.Reference.StkHolderNumber(test.params, test.fields)
+					return client.StockReference.StkHolderNumber(test.params, test.fields)
 				}
 			}
 
@@ -806,11 +1162,11 @@ func testConceptAPIs(t *testing.T, client *TuShare) {
 			switch test.name {
 			case "Concept":
 				apiFunc = func() (*types.APIResponse, error) {
-					return client.Toplist.Concept(test.params, test.fields)
+					return client.StockToplist.Concept(test.params, test.fields)
 				}
 			case "ConceptDetail":
 				apiFunc = func() (*types.APIResponse, error) {
-					return client.Toplist.ConceptDetail(test.params, test.fields)
+					return client.StockToplist.ConceptDetail(test.params, test.fields)
 				}
 			}
 
@@ -863,6 +1219,13 @@ func testThsAPIs(t *testing.T, client *TuShare) {
 			},
 			[]string{"trade_date", "ts_code", "industry", "lead_stock", "close", "pct_change", "company_num", "pct_change_stock", "close_price", "net_buy_amount", "net_sell_amount", "net_amount"},
 		},
+		{
+			"ThsIndex",
+			map[string]string{
+				"limit": "10",
+			},
+			nil,
+		},
 	}
 
 	for _, test := range tests {
@@ -872,19 +1235,23 @@ func testThsAPIs(t *testing.T, client *TuShare) {
 			switch test.name {
 			case "ThsDaily":
 				apiFunc = func() (*types.APIResponse, error) {
-					return client.Toplist.ThsDaily(test.params, test.fields)
+					return client.StockToplist.ThsDaily(test.params, test.fields)
 				}
 			case "ThsMember":
 				apiFunc = func() (*types.APIResponse, error) {
-					return client.Toplist.ThsMember(test.params, test.fields)
+					return client.StockToplist.ThsMember(test.params, test.fields)
 				}
 			case "MoneyflowThs":
 				apiFunc = func() (*types.APIResponse, error) {
-					return client.Toplist.MoneyflowThs(test.params, test.fields)
+					return client.StockToplist.MoneyflowThs(test.params, test.fields)
 				}
 			case "MoneyflowIndThs":
 				apiFunc = func() (*types.APIResponse, error) {
-					return client.Toplist.MoneyflowIndThs(test.params, test.fields)
+					return client.StockToplist.MoneyflowIndThs(test.params, test.fields)
+				}
+			case "ThsIndex":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.StockToplist.ThsIndex(test.params, test.fields)
 				}
 			}
 
@@ -932,11 +1299,11 @@ func testSwAPIs(t *testing.T, client *TuShare) {
 			switch test.name {
 			case "CiDaily":
 				apiFunc = func() (*types.APIResponse, error) {
-					return client.Toplist.CiDaily(test.params, test.fields)
+					return client.StockToplist.CiDaily(test.params, test.fields)
 				}
 			case "SwDaily":
 				apiFunc = func() (*types.APIResponse, error) {
-					return client.Toplist.SwDaily(test.params, test.fields)
+					return client.StockToplist.SwDaily(test.params, test.fields)
 				}
 			}
 
@@ -985,11 +1352,11 @@ func testLimitAPIs(t *testing.T, client *TuShare) {
 			switch test.name {
 			case "LimitList":
 				apiFunc = func() (*types.APIResponse, error) {
-					return client.Toplist.LimitList(test.params, test.fields)
+					return client.StockToplist.LimitList(test.params, test.fields)
 				}
 			case "STKLimit":
 				apiFunc = func() (*types.APIResponse, error) {
-					return client.Toplist.STKLimit(test.params, test.fields)
+					return client.StockToplist.STKLimit(test.params, test.fields)
 				}
 			}
 
@@ -1028,6 +1395,13 @@ func testResearchAPIs(t *testing.T, client *TuShare) {
 			},
 			nil,
 		},
+		{
+			"HmList",
+			map[string]string{
+				"limit": "10",
+			},
+			nil,
+		},
 	}
 
 	for _, test := range tests {
@@ -1037,11 +1411,15 @@ func testResearchAPIs(t *testing.T, client *TuShare) {
 			switch test.name {
 			case "CyqChips":
 				apiFunc = func() (*types.APIResponse, error) {
-					return client.Special.CyqChips(test.params, test.fields)
+					return client.StockSpecial.CyqChips(test.params, test.fields)
 				}
 			case "StkSurv":
 				apiFunc = func() (*types.APIResponse, error) {
-					return client.Special.StkSurv(test.params, test.fields)
+					return client.StockSpecial.StkSurv(test.params, test.fields)
+				}
+			case "HmList":
+				apiFunc = func() (*types.APIResponse, error) {
+					return client.StockSpecial.HmList(test.params, test.fields)
 				}
 			}
 
@@ -1088,11 +1466,11 @@ func testRepurchaseAPIs(t *testing.T, client *TuShare) {
 			switch test.name {
 			case "Repurchase":
 				apiFunc = func() (*types.APIResponse, error) {
-					return client.Reference.Repurchase(test.params, test.fields)
+					return client.StockReference.Repurchase(test.params, test.fields)
 				}
 			case "ShareFloat":
 				apiFunc = func() (*types.APIResponse, error) {
-					return client.Reference.ShareFloat(test.params, test.fields)
+					return client.StockReference.ShareFloat(test.params, test.fields)
 				}
 			}
 
@@ -1119,9 +1497,13 @@ func maskToken(token string) string {
 
 func generateReport(t *testing.T) {
 	report.Total = len(report.Results)
+	noDataCount := 0
 	for _, r := range report.Results {
 		if r.Success {
 			report.Passed++
+			if !r.HasData {
+				noDataCount++
+			}
 		} else {
 			report.Failed++
 		}
@@ -1132,21 +1514,23 @@ func generateReport(t *testing.T) {
 	os.WriteFile("integration_test_report.json", jsonData, 0644)
 
 	// Save markdown report with parameters
-	saveMarkdownReport()
+	saveMarkdownReport(noDataCount)
 
 	// Print summary
 	t.Log("\n" + strings.Repeat("=", 50))
 	t.Log("           Integration Test Summary")
 	t.Log(strings.Repeat("=", 50))
 	t.Logf("📊 Total APIs Tested: %d", report.Total)
-	t.Logf("✅ Passed: %d", report.Passed)
+	t.Logf("✅ Passed (with data): %d", report.Passed-noDataCount)
+	t.Logf("⚠️  Passed (no data): %d", noDataCount)
 	t.Logf("❌ Failed: %d", report.Failed)
 	t.Logf("📈 Success Rate: %.1f%%", float64(report.Passed)/float64(report.Total)*100)
 	t.Log(strings.Repeat("=", 50))
 }
 
-func saveMarkdownReport() {
+func saveMarkdownReport(noDataCount int) {
 	successRate := float64(report.Passed) / float64(report.Total) * 100
+	withDataCount := report.Passed - noDataCount
 
 	md := fmt.Sprintf(`# Tushare API Integration Test Report
 
@@ -1158,7 +1542,8 @@ func saveMarkdownReport() {
 
 | Metric | Count |
 |--------|-------|
-| ✅ Passed | %d |
+| ✅ Passed (with data) | %d |
+| ⚠️  Passed (no data) | %d |
 | ❌ Failed | %d |
 | 📊 Success Rate | %.1f%% |
 
@@ -1174,7 +1559,8 @@ func saveMarkdownReport() {
 		report.TestDate,
 		report.Token,
 		report.Total,
-		report.Passed,
+		withDataCount,
+		noDataCount,
 		report.Failed,
 		successRate,
 	)
@@ -1678,6 +2064,44 @@ func saveMarkdownReport() {
 			md += fmt.Sprintf("| %s | %s | %s | %s | %s | %s | %s |\n",
 				apiName, status, dataCount, r.Duration, paramsStr, fieldsStr, notes)
 		}
+	}
+
+	// APIs with No Data - Important Indicator
+	md += "\n## ⚠️ APIs with No Data\n\n"
+	md += "The following APIs executed successfully but returned no data. This could indicate:\n"
+	md += "- API endpoint is not available or deprecated\n"
+	md += "- Test parameters don't match available data\n"
+	md += "- Data source has no records for the requested criteria\n\n"
+
+	md += "| API Name | Category | Duration | Parameters | Fields | Notes |\n"
+	md += "|----------|----------|----------|------------|--------|-------|\n"
+
+	hasNoDataAPIs := false
+	for _, r := range report.Results {
+		if r.Success && !r.HasData {
+			hasNoDataAPIs = true
+			paramsStr := formatMap(r.Params)
+			fieldsStr := "nil"
+			if len(r.Fields) > 0 {
+				fieldsStr = fmt.Sprintf("[%s]", strings.Join(r.Fields, ", "))
+			}
+			notes := ""
+			if r.Error != "" {
+				notes = r.Error
+			}
+			parts := strings.Split(r.APIName, ".")
+			category := parts[0]
+			apiName := parts[len(parts)-1]
+			if len(parts) > 2 {
+				category = strings.Join(parts[:len(parts)-1], ".")
+			}
+			md += fmt.Sprintf("| %s | %s | %s | %s | %s | %s |\n",
+				apiName, category, r.Duration, paramsStr, fieldsStr, notes)
+		}
+	}
+
+	if !hasNoDataAPIs {
+		md += "| *No APIs returned empty data* | *-* | *-* | *-* | *-* | *-* |\n"
 	}
 
 	md += fmt.Sprintf("\n---\n\n*Generated on %s*\n\n*Note: This report is automatically generated by integration tests.*",

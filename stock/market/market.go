@@ -2,8 +2,8 @@ package market
 
 import (
 	"fmt"
-	"regexp"
 	"github.com/chenniannian90/tushare-go/types"
+	"regexp"
 )
 
 type Client struct {
@@ -55,10 +55,11 @@ func (c *Client) SzDailyInfo(params map[string]string, fields []string) (*types.
 
 // 示例:
 //
-// params := map[string]string{
-//     ts_code: "示例值",
-//     trade_date: "示例值",
-// }
+//	params := map[string]string{
+//	    ts_code: "示例值",
+//	    trade_date: "示例值",
+//	}
+//
 // fields := []string{"ts_code", "trade_date", "open", "high", ...}
 // resp, err := client.Daily(params, fields)
 func (c *Client) Daily(params map[string]string, fields []string) (*types.APIResponse, error) {
@@ -86,10 +87,11 @@ func (c *Client) Daily(params map[string]string, fields []string) (*types.APIRes
 
 // 示例:
 //
-// params := map[string]string{
-//     ts_code: "示例值",
-//     start_date: "示例值",
-// }
+//	params := map[string]string{
+//	    ts_code: "示例值",
+//	    start_date: "示例值",
+//	}
+//
 // fields := []string{"ts_code", "trade_date", "open", "high", ...}
 // resp, err := client.Weekly(params, fields)
 func (c *Client) Weekly(params map[string]string, fields []string) (*types.APIResponse, error) {
@@ -117,10 +119,11 @@ func (c *Client) Weekly(params map[string]string, fields []string) (*types.APIRe
 
 // 示例:
 //
-// params := map[string]string{
-//     ts_code: "示例值",
-//     start_date: "示例值",
-// }
+//	params := map[string]string{
+//	    ts_code: "示例值",
+//	    start_date: "示例值",
+//	}
+//
 // fields := []string{"ts_code", "trade_date", "open", "high", ...}
 // resp, err := client.Monthly(params, fields)
 func (c *Client) Monthly(params map[string]string, fields []string) (*types.APIResponse, error) {
@@ -164,9 +167,15 @@ func (c *Client) Suspend(params map[string]string, fields []string) (*types.APIR
 	_, hasTradeDate := params["suspend_date"]
 	_, hasResumeDate := params["resume_date"]
 	argsCount := 0
-	if hasTsCode { argsCount++ }
-	if hasTradeDate { argsCount++ }
-	if hasResumeDate { argsCount++ }
+	if hasTsCode {
+		argsCount++
+	}
+	if hasTradeDate {
+		argsCount++
+	}
+	if hasResumeDate {
+		argsCount++
+	}
 	if argsCount != 1 {
 		return nil, fmt.Errorf("need one argument among ts_code, suspend_date, resume_date")
 	}
@@ -207,7 +216,7 @@ func (c *Client) RTK(params map[string]string, fields []string) (*types.APIRespo
 //   ts_code, trade_date, close, open, high, low, vol, amount
 
 // 示例:
-//
+
 // params := map[string]string{"ts_code": "000001.SZ"}
 // fields := []string{"ts_code", "trade_date", "close", "open", ...}
 // resp, err := client.RealTimeQuote(params, fields)

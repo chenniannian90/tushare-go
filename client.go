@@ -8,16 +8,16 @@ import (
 	"mime"
 	"net/http"
 
+	"github.com/chenniannian90/tushare-go/etf"
+	"github.com/chenniannian90/tushare-go/index"
 	"github.com/chenniannian90/tushare-go/stock/basic"
-	"github.com/chenniannian90/tushare-go/stock/market"
 	"github.com/chenniannian90/tushare-go/stock/finance"
-	"github.com/chenniannian90/tushare-go/stock/moneyflow"
 	"github.com/chenniannian90/tushare-go/stock/margin"
+	"github.com/chenniannian90/tushare-go/stock/market"
+	"github.com/chenniannian90/tushare-go/stock/moneyflow"
 	"github.com/chenniannian90/tushare-go/stock/reference"
 	"github.com/chenniannian90/tushare-go/stock/special"
 	"github.com/chenniannian90/tushare-go/stock/toplist"
-	"github.com/chenniannian90/tushare-go/index"
-	"github.com/chenniannian90/tushare-go/etf"
 	"github.com/chenniannian90/tushare-go/types"
 )
 
@@ -30,16 +30,16 @@ type TuShare struct {
 	client *http.Client
 
 	// Sub-clients for different domains
-	Basic      *basic.Client
-	Market     *market.Client
-	Finance    *finance.Client
-	Moneyflow  *moneyflow.Client
-	Margin     *margin.Client
-	Reference  *reference.Client
-	Special    *special.Client
-	Toplist    *toplist.Client
-	Index      *index.Client
-	Etf        *etf.Client
+	StockBasic     *basic.Client
+	StockMarket    *market.Client
+	StockFinance   *finance.Client
+	StockMoneyflow *moneyflow.Client
+	StockMargin    *margin.Client
+	StockReference *reference.Client
+	StockSpecial   *special.Client
+	StockToplist   *toplist.Client
+	Index          *index.Client
+	Etf            *etf.Client
 }
 
 // New TuShare default client
@@ -58,14 +58,14 @@ func NewWithClient(token string, httpClient *http.Client) *TuShare {
 	postFunc := api.PostData
 	tokenFunc := api.Token
 
-	api.Basic = basic.New(postFunc, tokenFunc)
-	api.Market = market.New(postFunc, tokenFunc)
-	api.Finance = finance.New(postFunc, tokenFunc)
-	api.Moneyflow = moneyflow.New(postFunc, tokenFunc)
-	api.Margin = margin.New(postFunc, tokenFunc)
-	api.Reference = reference.New(postFunc, tokenFunc)
-	api.Special = special.New(postFunc, tokenFunc)
-	api.Toplist = toplist.New(postFunc, tokenFunc)
+	api.StockBasic = basic.New(postFunc, tokenFunc)
+	api.StockMarket = market.New(postFunc, tokenFunc)
+	api.StockFinance = finance.New(postFunc, tokenFunc)
+	api.StockMoneyflow = moneyflow.New(postFunc, tokenFunc)
+	api.StockMargin = margin.New(postFunc, tokenFunc)
+	api.StockReference = reference.New(postFunc, tokenFunc)
+	api.StockSpecial = special.New(postFunc, tokenFunc)
+	api.StockToplist = toplist.New(postFunc, tokenFunc)
 	api.Index = index.New(postFunc, tokenFunc)
 	api.Etf = etf.New(postFunc, tokenFunc)
 
@@ -98,7 +98,6 @@ func (api *TuShare) doRequest(req *http.Request) (*types.APIResponse, error) {
 	if resp.StatusCode != 200 {
 		return nil, fmt.Errorf("oops! Network error")
 	}
-
 
 	// Read request
 	body, err := io.ReadAll(resp.Body)
