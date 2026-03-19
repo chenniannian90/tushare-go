@@ -10,7 +10,7 @@ func TestNew(t *testing.T) {
 	api := New(token)
 
 	if api == nil {
-		t.Errorf("New() should return a non-nil TuShare instance")
+		t.Fatalf("New() should return a non-nil TuShare instance")
 	}
 	if api.token != token {
 		t.Errorf("New() token = %v, want %v", api.token, token)
@@ -26,7 +26,7 @@ func TestNewWithClient(t *testing.T) {
 	api := NewWithClient(token, customClient)
 
 	if api == nil {
-		t.Errorf("NewWithClient() should return a non-nil TuShare instance")
+		t.Fatalf("NewWithClient() should return a non-nil TuShare instance")
 	}
 	if api.token != token {
 		t.Errorf("NewWithClient() token = %v, want %v", api.token, token)

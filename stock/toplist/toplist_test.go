@@ -74,3 +74,17 @@ func TestConceptDetail(t *testing.T) {
 		t.Errorf("Api should return data")
 	}
 }
+
+func TestAuctionSip(t *testing.T) {
+	client := setupTestClient()
+	params := map[string]string{"trade_date": "20250218"}
+	fields := []string{"ts_code", "trade_date", "vol", "price", "amount", "turnover_rate", "volume_ratio"}
+	resp, err := client.AuctionSip(params, fields)
+
+	if err != nil {
+		t.Errorf("Api should not return an error, got: %s", err)
+	}
+	if resp == nil {
+		t.Errorf("Api should return data")
+	}
+}
