@@ -6,3 +6,8 @@ script
 .env
 integration_test_report.json
 integration_test_report.md
+cmd
+docs
+examples
+quote_example
+sina_realtime_example
