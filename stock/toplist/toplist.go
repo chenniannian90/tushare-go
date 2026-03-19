@@ -123,3 +123,30 @@ func (c *Client) MoneyflowIndThs(params map[string]string, fields []string) (*ty
 		"api_name": "moneyflow_ind_ths", "token": c.getToken(), "params": params, "fields": fields,
 	})
 }
+
+// AuctionSip 获取开盘竞价成交数据（当日）
+//
+// Tushare API: stk_auction
+// 描述: 获取当日个股和ETF的集合竞价成交情况，每天9点25~29分之间可以获取当日的集合竞价成交数据
+//
+// 参数说明:
+//   - ts_code: 股票代码（非必填）
+//   - trade_date: 交易日期 YYYYMMDD格式（非必填）
+//   - start_date: 开始日期（非必填）
+//   - end_date: 结束日期（非必填）
+//
+// 输出字段:
+//   ts_code, trade_date, vol, price, amount, pre_close, turnover_rate, volume_ratio, float_share
+//
+// 示例:
+//
+//	params := map[string]string{
+//	    "trade_date": "20250318",
+//	}
+//	fields := []string{"ts_code", "trade_date", "vol", "price", "amount", "turnover_rate", "volume_ratio"}
+//	resp, err := client.AuctionSip(params, fields)
+func (c *Client) AuctionSip(params map[string]string, fields []string) (*types.APIResponse, error) {
+	return c.postData(map[string]interface{}{
+		"api_name": "stk_auction", "token": c.getToken(), "params": params, "fields": fields,
+	})
+}

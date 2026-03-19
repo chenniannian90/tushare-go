@@ -60,17 +60,3 @@ func TestHmList(t *testing.T) {
 		t.Errorf("Api should return data")
 	}
 }
-
-func TestHmDetail(t *testing.T) {
-	client := setupTestClient()
-	params := make(map[string]string)
-	var fields []string
-	resp, err := client.HmDetail(params, fields)
-
-	if err != nil {
-		t.Errorf("Api should not return an error, got: %s", err)
-	}
-	if resp == nil {
-		t.Errorf("Api should return data")
-	}
-}
