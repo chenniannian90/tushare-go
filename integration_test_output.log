@@ -1,0 +1,287 @@
+=== RUN   TestIntegrationAPIs
+    integration_test.go:95: 🚀 Starting API Integration Tests
+    integration_test.go:96: Token: 412b****91d1
+    integration_test.go:97: 
+=== RUN   TestIntegrationAPIs/Stock
+=== RUN   TestIntegrationAPIs/Stock/StockBasic
+    integration_test.go:246: ✅ StockBasic: 5 rows (126.018542ms)
+=== RUN   TestIntegrationAPIs/Stock/TradeCal
+    integration_test.go:246: ✅ TradeCal: 2307 rows (237.327292ms)
+=== RUN   TestIntegrationAPIs/Stock/HSConst
+    integration_test.go:246: ✅ HSConst: 5490 rows (214.305083ms)
+=== RUN   TestIntegrationAPIs/Stock/StockCompany
+    integration_test.go:246: ✅ StockCompany: 5 rows (53.030208ms)
+=== RUN   TestIntegrationAPIs/Index
+=== RUN   TestIntegrationAPIs/Index/IndexDaily
+    integration_test.go:315: ✅ IndexDaily: 4 rows (54.603ms)
+=== RUN   TestIntegrationAPIs/Index/IndexBasic
+    integration_test.go:315: ✅ IndexBasic: 8000 rows (134.149ms)
+=== RUN   TestIntegrationAPIs/Index/IndexWeight
+    integration_test.go:315: ✅ IndexWeight: 4660 rows (93.175ms)
+=== RUN   TestIntegrationAPIs/Market
+=== RUN   TestIntegrationAPIs/Market/Daily
+    integration_test.go:378: ✅ Daily: 5329 rows (141.093ms)
+=== RUN   TestIntegrationAPIs/Market/DailyBasic
+    integration_test.go:378: ✅ DailyBasic: 5329 rows (237.988042ms)
+=== RUN   TestIntegrationAPIs/Market/MoneyFlow
+    integration_test.go:378: ✅ MoneyFlow: 10 rows (62.234958ms)
+=== RUN   TestIntegrationAPIs/Finance
+=== RUN   TestIntegrationAPIs/Finance/Income
+    integration_test.go:434: ✅ Income: 1 rows (55.760417ms)
+=== RUN   TestIntegrationAPIs/Finance/BalanceSheet
+    integration_test.go:434: ✅ BalanceSheet: 1 rows (56.782708ms)
+=== RUN   TestIntegrationAPIs/Finance/FinaIndicator
+    integration_test.go:434: ✅ FinaIndicator: 1 rows (55.79375ms)
+=== RUN   TestIntegrationAPIs/Hsgt
+=== RUN   TestIntegrationAPIs/Hsgt/MoneyflowHsgt
+    integration_test.go:468: ✅ MoneyflowHsgt: 4 rows (62.823958ms)
+=== RUN   TestIntegrationAPIs/Margin
+=== RUN   TestIntegrationAPIs/Margin/Margin
+    integration_test.go:503: ✅ Margin: 12 rows (55.003166ms)
+=== RUN   TestIntegrationAPIs/Realtime
+=== RUN   TestIntegrationAPIs/Realtime/RTK
+    integration_test.go:540: ⚠️  RTK: No data
+=== RUN   TestIntegrationAPIs/Realtime/RealTimeQuote
+    integration_test.go:540: ⚠️  RealTimeQuote: No data
+=== RUN   TestIntegrationAPIs/ETF
+=== RUN   TestIntegrationAPIs/ETF/ETFBasic
+    integration_test.go:618: ✅ ETFBasic: 10 rows (54.130375ms)
+=== RUN   TestIntegrationAPIs/ETF/FundDaily
+    integration_test.go:618: ✅ FundDaily: 5 rows (55.151ms)
+=== RUN   TestIntegrationAPIs/ETF/FundAdj
+    integration_test.go:618: ✅ FundAdj: 5 rows (54.720583ms)
+=== RUN   TestIntegrationAPIs/ETF/Moneyflow
+    integration_test.go:618: ✅ Moneyflow: 10 rows (53.552792ms)
+=== RUN   TestIntegrationAPIs/Pledge
+=== RUN   TestIntegrationAPIs/Pledge/PledgeStat
+    integration_test.go:671: ✅ PledgeStat: 5 rows (56.573083ms)
+=== RUN   TestIntegrationAPIs/Pledge/PledgeDetail
+    integration_test.go:671: ✅ PledgeDetail: 2 rows (57.609958ms)
+=== RUN   TestIntegrationAPIs/Toplist
+=== RUN   TestIntegrationAPIs/Toplist/TopList
+    integration_test.go:724: ✅ TopList: 10 rows (56.425792ms)
+=== RUN   TestIntegrationAPIs/Toplist/TopInst
+    integration_test.go:724: ✅ TopInst: 10 rows (54.736625ms)
+=== RUN   TestIntegrationAPIs/Holder
+=== RUN   TestIntegrationAPIs/Holder/Top10Holders
+    integration_test.go:789: ✅ Top10Holders: 5 rows (61.99625ms)
+=== RUN   TestIntegrationAPIs/Holder/Top10FloatHolders
+    integration_test.go:789: ✅ Top10FloatHolders: 5 rows (60.9745ms)
+=== RUN   TestIntegrationAPIs/Holder/StkHolderNumber
+    integration_test.go:789: ✅ StkHolderNumber: 5 rows (54.946542ms)
+=== RUN   TestIntegrationAPIs/Concept
+=== RUN   TestIntegrationAPIs/Concept/Concept
+    integration_test.go:842: ✅ Concept: 5 rows (54.648083ms)
+=== RUN   TestIntegrationAPIs/Concept/ConceptDetail
+    integration_test.go:842: ✅ ConceptDetail: 5 rows (73.006459ms)
+=== RUN   TestIntegrationAPIs/Ths
+=== RUN   TestIntegrationAPIs/Ths/ThsDaily
+    integration_test.go:893: ⚠️  ThsDaily: No data
+=== RUN   TestIntegrationAPIs/Ths/ThsMember
+    integration_test.go:895: ✅ ThsMember: 5 rows (54.607583ms)
+=== RUN   TestIntegrationAPIs/Sw
+=== RUN   TestIntegrationAPIs/Sw/CiDaily
+    integration_test.go:946: ⚠️  CiDaily: No data
+=== RUN   TestIntegrationAPIs/Sw/SwDaily
+    integration_test.go:948: ✅ SwDaily: 5 rows (55.631375ms)
+=== RUN   TestIntegrationAPIs/Limit
+=== RUN   TestIntegrationAPIs/Limit/LimitList
+    integration_test.go:1001: ✅ LimitList: 10 rows (54.64575ms)
+=== RUN   TestIntegrationAPIs/Limit/STKLimit
+    integration_test.go:1001: ✅ STKLimit: 10 rows (54.865416ms)
+=== RUN   TestIntegrationAPIs/Research
+=== RUN   TestIntegrationAPIs/Research/CyqChips
+    integration_test.go:1053: ✅ CyqChips: 10 rows (60.485584ms)
+=== RUN   TestIntegrationAPIs/Research/StkSurv
+    integration_test.go:1053: ✅ StkSurv: 10 rows (77.918166ms)
+=== RUN   TestIntegrationAPIs/Repurchase
+=== RUN   TestIntegrationAPIs/Repurchase/Repurchase
+    integration_test.go:1104: ✅ Repurchase: 10 rows (54.081667ms)
+=== RUN   TestIntegrationAPIs/Repurchase/ShareFloat
+    integration_test.go:1104: ✅ ShareFloat: 10 rows (54.832042ms)
+=== RUN   TestIntegrationAPIs/Fund
+=== RUN   TestIntegrationAPIs/Fund/OpenFundInfo
+    integration_test.go:1154: ⚠️  OpenFundInfo: No data
+=== RUN   TestIntegrationAPIs/Fund/OpenFundDaily
+    integration_test.go:1154: ⚠️  OpenFundDaily: No data
+=== NAME  TestIntegrationAPIs
+    integration_test.go:1187: 
+        ==================================================
+    integration_test.go:1188:            Integration Test Summary
+    integration_test.go:1189: ==================================================
+    integration_test.go:1190: 📊 Total APIs Tested: 42
+    integration_test.go:1191: ✅ Passed: 42
+    integration_test.go:1192: ❌ Failed: 0
+    integration_test.go:1193: 📈 Success Rate: 100.0%
+    integration_test.go:1194: ==================================================
+--- PASS: TestIntegrationAPIs (3.20s)
+    --- PASS: TestIntegrationAPIs/Stock (0.63s)
+        --- PASS: TestIntegrationAPIs/Stock/StockBasic (0.13s)
+        --- PASS: TestIntegrationAPIs/Stock/TradeCal (0.24s)
+        --- PASS: TestIntegrationAPIs/Stock/HSConst (0.21s)
+        --- PASS: TestIntegrationAPIs/Stock/StockCompany (0.05s)
+    --- PASS: TestIntegrationAPIs/Index (0.28s)
+        --- PASS: TestIntegrationAPIs/Index/IndexDaily (0.05s)
+        --- PASS: TestIntegrationAPIs/Index/IndexBasic (0.13s)
+        --- PASS: TestIntegrationAPIs/Index/IndexWeight (0.09s)
+    --- PASS: TestIntegrationAPIs/Market (0.44s)
+        --- PASS: TestIntegrationAPIs/Market/Daily (0.14s)
+        --- PASS: TestIntegrationAPIs/Market/DailyBasic (0.24s)
+        --- PASS: TestIntegrationAPIs/Market/MoneyFlow (0.06s)
+    --- PASS: TestIntegrationAPIs/Finance (0.17s)
+        --- PASS: TestIntegrationAPIs/Finance/Income (0.06s)
+        --- PASS: TestIntegrationAPIs/Finance/BalanceSheet (0.06s)
+        --- PASS: TestIntegrationAPIs/Finance/FinaIndicator (0.06s)
+    --- PASS: TestIntegrationAPIs/Hsgt (0.06s)
+        --- PASS: TestIntegrationAPIs/Hsgt/MoneyflowHsgt (0.06s)
+    --- PASS: TestIntegrationAPIs/Margin (0.06s)
+        --- PASS: TestIntegrationAPIs/Margin/Margin (0.06s)
+    --- PASS: TestIntegrationAPIs/Realtime (0.11s)
+        --- PASS: TestIntegrationAPIs/Realtime/RTK (0.06s)
+        --- PASS: TestIntegrationAPIs/Realtime/RealTimeQuote (0.05s)
+    --- PASS: TestIntegrationAPIs/ETF (0.22s)
+        --- PASS: TestIntegrationAPIs/ETF/ETFBasic (0.05s)
+        --- PASS: TestIntegrationAPIs/ETF/FundDaily (0.06s)
+        --- PASS: TestIntegrationAPIs/ETF/FundAdj (0.05s)
+        --- PASS: TestIntegrationAPIs/ETF/Moneyflow (0.05s)
+    --- PASS: TestIntegrationAPIs/Pledge (0.11s)
+        --- PASS: TestIntegrationAPIs/Pledge/PledgeStat (0.06s)
+        --- PASS: TestIntegrationAPIs/Pledge/PledgeDetail (0.06s)
+    --- PASS: TestIntegrationAPIs/Toplist (0.11s)
+        --- PASS: TestIntegrationAPIs/Toplist/TopList (0.06s)
+        --- PASS: TestIntegrationAPIs/Toplist/TopInst (0.05s)
+    --- PASS: TestIntegrationAPIs/Holder (0.18s)
+        --- PASS: TestIntegrationAPIs/Holder/Top10Holders (0.06s)
+        --- PASS: TestIntegrationAPIs/Holder/Top10FloatHolders (0.06s)
+        --- PASS: TestIntegrationAPIs/Holder/StkHolderNumber (0.05s)
+    --- PASS: TestIntegrationAPIs/Concept (0.13s)
+        --- PASS: TestIntegrationAPIs/Concept/Concept (0.05s)
+        --- PASS: TestIntegrationAPIs/Concept/ConceptDetail (0.07s)
+    --- PASS: TestIntegrationAPIs/Ths (0.12s)
+        --- PASS: TestIntegrationAPIs/Ths/ThsDaily (0.06s)
+        --- PASS: TestIntegrationAPIs/Ths/ThsMember (0.05s)
+    --- PASS: TestIntegrationAPIs/Sw (0.11s)
+        --- PASS: TestIntegrationAPIs/Sw/CiDaily (0.06s)
+        --- PASS: TestIntegrationAPIs/Sw/SwDaily (0.06s)
+    --- PASS: TestIntegrationAPIs/Limit (0.11s)
+        --- PASS: TestIntegrationAPIs/Limit/LimitList (0.05s)
+        --- PASS: TestIntegrationAPIs/Limit/STKLimit (0.05s)
+    --- PASS: TestIntegrationAPIs/Research (0.14s)
+        --- PASS: TestIntegrationAPIs/Research/CyqChips (0.06s)
+        --- PASS: TestIntegrationAPIs/Research/StkSurv (0.08s)
+    --- PASS: TestIntegrationAPIs/Repurchase (0.11s)
+        --- PASS: TestIntegrationAPIs/Repurchase/Repurchase (0.05s)
+        --- PASS: TestIntegrationAPIs/Repurchase/ShareFloat (0.05s)
+    --- PASS: TestIntegrationAPIs/Fund (0.11s)
+        --- PASS: TestIntegrationAPIs/Fund/OpenFundInfo (0.05s)
+        --- PASS: TestIntegrationAPIs/Fund/OpenFundDaily (0.05s)
+PASS
+ok  	github.com/chenniannian90/tushare-go	3.215s
+?   	github.com/chenniannian90/tushare-go/concept	[no test files]
+=== RUN   TestETFBasic
+--- PASS: TestETFBasic (0.00s)
+=== RUN   TestFundDaily
+--- PASS: TestFundDaily (0.00s)
+=== RUN   TestFundAdj
+--- PASS: TestFundAdj (0.00s)
+PASS
+ok  	github.com/chenniannian90/tushare-go/etf	(cached)
+=== RUN   TestInCome
+--- PASS: TestInCome (0.00s)
+=== RUN   TestBalanceSheet
+--- PASS: TestBalanceSheet (0.00s)
+=== RUN   TestCashFlow
+--- PASS: TestCashFlow (0.00s)
+=== RUN   TestForecast
+--- PASS: TestForecast (0.00s)
+=== RUN   TestDividend
+--- PASS: TestDividend (0.00s)
+=== RUN   TestExpress
+--- PASS: TestExpress (0.00s)
+=== RUN   TestFinaIndicator
+--- PASS: TestFinaIndicator (0.00s)
+=== RUN   TestFinaAudit
+--- PASS: TestFinaAudit (0.00s)
+=== RUN   TestFinaMainbz
+--- PASS: TestFinaMainbz (0.00s)
+=== RUN   TestDisclosureDate
+--- PASS: TestDisclosureDate (0.00s)
+PASS
+ok  	github.com/chenniannian90/tushare-go/finance	(cached)
+?   	github.com/chenniannian90/tushare-go/fund	[no test files]
+=== RUN   TestTop10Holders
+--- PASS: TestTop10Holders (0.00s)
+=== RUN   TestTop10FloatHolders
+--- PASS: TestTop10FloatHolders (0.00s)
+=== RUN   TestStkHolderNumber
+--- PASS: TestStkHolderNumber (0.00s)
+PASS
+ok  	github.com/chenniannian90/tushare-go/holder	(cached)
+=== RUN   TestMoneyflowHsgt
+--- PASS: TestMoneyflowHsgt (0.00s)
+=== RUN   TestHsgtTop10
+--- PASS: TestHsgtTop10 (0.00s)
+=== RUN   TestGgtTop10
+--- PASS: TestGgtTop10 (0.00s)
+PASS
+ok  	github.com/chenniannian90/tushare-go/hsgt	(cached)
+?   	github.com/chenniannian90/tushare-go/index	[no test files]
+?   	github.com/chenniannian90/tushare-go/limit	[no test files]
+=== RUN   TestMargin
+--- PASS: TestMargin (0.00s)
+=== RUN   TestMarginDetail
+--- PASS: TestMarginDetail (0.00s)
+PASS
+ok  	github.com/chenniannian90/tushare-go/margin	(cached)
+=== RUN   TestDaily
+--- PASS: TestDaily (0.00s)
+=== RUN   TestDailyInvalidDateArgs
+--- PASS: TestDailyInvalidDateArgs (0.00s)
+=== RUN   TestWeekly
+--- PASS: TestWeekly (0.00s)
+=== RUN   TestMonthly
+--- PASS: TestMonthly (0.00s)
+=== RUN   TestDailyBasic
+--- PASS: TestDailyBasic (0.00s)
+=== RUN   TestAdjFactor
+--- PASS: TestAdjFactor (0.00s)
+=== RUN   TestSuspend
+--- PASS: TestSuspend (0.00s)
+PASS
+ok  	github.com/chenniannian90/tushare-go/market	(cached)
+?   	github.com/chenniannian90/tushare-go/pledge	[no test files]
+=== RUN   TestRTK
+--- PASS: TestRTK (0.00s)
+=== RUN   TestRealTimeQuote
+--- PASS: TestRealTimeQuote (0.00s)
+=== RUN   TestRealTimeTick
+    realtime_test.go:62: Expected error when ts_code is missing: need one argument ts_code
+--- PASS: TestRealTimeTick (0.00s)
+=== RUN   TestRealTimeList
+--- PASS: TestRealTimeList (0.00s)
+PASS
+ok  	github.com/chenniannian90/tushare-go/realtime	(cached)
+?   	github.com/chenniannian90/tushare-go/repurchase	[no test files]
+?   	github.com/chenniannian90/tushare-go/research	[no test files]
+=== RUN   TestStockBasic
+--- PASS: TestStockBasic (0.00s)
+=== RUN   TestInvalidField
+--- PASS: TestInvalidField (0.00s)
+=== RUN   TestTradeCal
+--- PASS: TestTradeCal (0.00s)
+=== RUN   TestHSConst
+--- PASS: TestHSConst (0.00s)
+=== RUN   TestHSConstParamsRequired
+--- PASS: TestHSConstParamsRequired (0.00s)
+=== RUN   TestNameChange
+--- PASS: TestNameChange (0.00s)
+=== RUN   TestStockCompany
+--- PASS: TestStockCompany (0.00s)
+=== RUN   TestNewShare
+--- PASS: TestNewShare (0.00s)
+PASS
+ok  	github.com/chenniannian90/tushare-go/stock	(cached)
+?   	github.com/chenniannian90/tushare-go/sw	[no test files]
+?   	github.com/chenniannian90/tushare-go/ths	[no test files]
+?   	github.com/chenniannian90/tushare-go/toplist	[no test files]
+?   	github.com/chenniannian90/tushare-go/types	[no test files]

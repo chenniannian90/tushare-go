@@ -7,6 +7,18 @@ import (
 	"io"
 	"mime"
 	"net/http"
+
+	"github.com/chenniannian90/tushare-go/stock/basic"
+	"github.com/chenniannian90/tushare-go/stock/market"
+	"github.com/chenniannian90/tushare-go/stock/finance"
+	"github.com/chenniannian90/tushare-go/stock/moneyflow"
+	"github.com/chenniannian90/tushare-go/stock/margin"
+	"github.com/chenniannian90/tushare-go/stock/reference"
+	"github.com/chenniannian90/tushare-go/stock/special"
+	"github.com/chenniannian90/tushare-go/stock/toplist"
+	"github.com/chenniannian90/tushare-go/index"
+	"github.com/chenniannian90/tushare-go/etf"
+	"github.com/chenniannian90/tushare-go/types"
 )
 
 // Endpoint URL
@@ -16,6 +28,18 @@ const Endpoint = "http://api.tushare.pro"
 type TuShare struct {
 	token  string
 	client *http.Client
+
+	// Sub-clients for different domains
+	Basic      *basic.Client
+	Market     *market.Client
+	Finance    *finance.Client
+	Moneyflow  *moneyflow.Client
+	Margin     *margin.Client
+	Reference  *reference.Client
+	Special    *special.Client
+	Toplist    *toplist.Client
+	Index      *index.Client
+	Etf        *etf.Client
 }
 
 // New TuShare default client
@@ -25,10 +49,27 @@ func New(token string) *TuShare {
 
 // NewWithClient TuShare client with arguments
 func NewWithClient(token string, httpClient *http.Client) *TuShare {
-	return &TuShare{
+	api := &TuShare{
 		token:  token,
 		client: httpClient,
 	}
+
+	// Initialize sub-clients
+	postFunc := api.PostData
+	tokenFunc := api.Token
+
+	api.Basic = basic.New(postFunc, tokenFunc)
+	api.Market = market.New(postFunc, tokenFunc)
+	api.Finance = finance.New(postFunc, tokenFunc)
+	api.Moneyflow = moneyflow.New(postFunc, tokenFunc)
+	api.Margin = margin.New(postFunc, tokenFunc)
+	api.Reference = reference.New(postFunc, tokenFunc)
+	api.Special = special.New(postFunc, tokenFunc)
+	api.Toplist = toplist.New(postFunc, tokenFunc)
+	api.Index = index.New(postFunc, tokenFunc)
+	api.Etf = etf.New(postFunc, tokenFunc)
+
+	return api
 }
 
 func (api *TuShare) request(method, path string, body interface{}) (*http.Request, error) {
@@ -43,7 +84,7 @@ func (api *TuShare) request(method, path string, body interface{}) (*http.Reques
 	return req, nil
 }
 
-func (api *TuShare) doRequest(req *http.Request) (*APIResponse, error) {
+func (api *TuShare) doRequest(req *http.Request) (*types.APIResponse, error) {
 	// Set http content type
 	req.Header.Set("Content-Type", "application/json")
 
@@ -75,7 +116,7 @@ func (api *TuShare) doRequest(req *http.Request) (*APIResponse, error) {
 	}
 
 	// Parse Request
-	var jsonData *APIResponse
+	var jsonData *types.APIResponse
 
 	err = json.Unmarshal(body, &jsonData)
 	if err != nil {
@@ -96,7 +137,13 @@ func (api *TuShare) doRequest(req *http.Request) (*APIResponse, error) {
 	return jsonData, nil
 }
 
-func (api *TuShare) postData(body map[string]interface{}) (*APIResponse, error) {
+// Token returns the API token
+func (api *TuShare) Token() string {
+	return api.token
+}
+
+// PostData sends a POST request to the API
+func (api *TuShare) PostData(body map[string]interface{}) (*types.APIResponse, error) {
 	req, err := api.request("POST", Endpoint, body)
 	if err != nil {
 		return nil, err

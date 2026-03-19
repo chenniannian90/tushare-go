@@ -1,33 +1,27 @@
-package tushare
+package basic
 
 import (
-	"fmt"
-	"os"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/chenniannian90/tushare-go/types"
 )
 
-var token = ""
-var client = New(token)
+var testClient *Client
 
-func init() {
-	envToken := os.Getenv("TUSHARE_TOKEN")
-	if envToken != "" {
-		token = envToken
+func setupTestClient() *Client {
+	if testClient == nil {
+		postFunc := func(body map[string]interface{}) (*types.APIResponse, error) {
+			return &types.APIResponse{Code: 0}, nil
+		}
+		tokenFunc := func() string { return "" }
+		testClient = New(postFunc, tokenFunc)
 	}
-}
-
-func TestMain(m *testing.M) {
-	client = New(token)
-	os.Exit(m.Run())
+	return testClient
 }
 
 func TestStockBasic(t *testing.T) {
+	client := setupTestClient()
 	params := make(map[string]string)
-	params["is_hs"] = "N"
-	params["list_status"] = "L"
-	params["exchange"] = "SSE"
 	var fields []string
 	resp, err := client.StockBasic(params, fields)
 
@@ -39,42 +33,37 @@ func TestStockBasic(t *testing.T) {
 	}
 }
 
-func TestInvalidField(t *testing.T) {
-	ast := assert.New(t)
+func TestBakBasic(t *testing.T) {
+	client := setupTestClient()
 	params := make(map[string]string)
 	var fields []string
-	fields = append(fields, "invalid_field")
-	resp, err := client.StockBasic(params, fields)
+	resp, err := client.BakBasic(params, fields)
 
 	if err != nil {
-		if resp.Code == -2001 {
-			ast.Equal(err.Error(), fmt.Sprintf("Argument error: %s", resp.Msg))
-		}
+		t.Errorf("Api should not return an error, got: %s", err)
+	}
+	if resp == nil {
+		t.Errorf("Api should return data")
 	}
 }
 
 func TestTradeCal(t *testing.T) {
+	client := setupTestClient()
 	params := make(map[string]string)
-	params["exchange"] = "SSE"
-	params["start_date"] = "2017-01-01"
-	params["end_date"] = "2019-01-01"
-	params["is_open"] = "1"
 	var fields []string
 	resp, err := client.TradeCal(params, fields)
 
 	if err != nil {
 		t.Errorf("Api should not return an error, got: %s", err)
 	}
-
 	if resp == nil {
 		t.Errorf("Api should return data")
 	}
 }
 
 func TestHSConst(t *testing.T) {
-	params := make(map[string]string)
-	params["hs_type"] = "SH"
-	params["is_new"] = "1"
+	client := setupTestClient()
+	params := map[string]string{"hs_type": "SH"}
 	var fields []string
 	resp, err := client.HSConst(params, fields)
 
@@ -84,23 +73,17 @@ func TestHSConst(t *testing.T) {
 	if resp == nil {
 		t.Errorf("Api should return data")
 	}
-}
 
-func TestHSConstParamsRequired(t *testing.T) {
-	ast := assert.New(t)
-	params := make(map[string]string)
-	var fields []string
-	_, err := client.HSConst(params, fields)
-	if err != nil {
-		ast.Equal(err.Error(), "hs_type required")
+	// Test without hs_type should return error
+	_, err = client.HSConst(map[string]string{}, fields)
+	if err == nil {
+		t.Errorf("Api should return an error when hs_type is missing")
 	}
 }
 
 func TestNameChange(t *testing.T) {
+	client := setupTestClient()
 	params := make(map[string]string)
-	params["ts_code"] = "000001.SZ"
-	params["start_date"] = "2017-01-01"
-	params["end_date"] = "2019-01-01"
 	var fields []string
 	resp, err := client.NameChange(params, fields)
 
@@ -113,16 +96,13 @@ func TestNameChange(t *testing.T) {
 }
 
 func TestStockCompany(t *testing.T) {
-	ast := assert.New(t)
+	client := setupTestClient()
 	params := make(map[string]string)
-	params["exchange"] = "SSE"
 	var fields []string
 	resp, err := client.StockCompany(params, fields)
 
 	if err != nil {
-		if resp.Code == -2002 {
-			ast.Equal(err.Error(), "Your point is not enough to use this api")
-		}
+		t.Errorf("Api should not return an error, got: %s", err)
 	}
 	if resp == nil {
 		t.Errorf("Api should return data")
@@ -130,17 +110,13 @@ func TestStockCompany(t *testing.T) {
 }
 
 func TestNewShare(t *testing.T) {
-	ast := assert.New(t)
+	client := setupTestClient()
 	params := make(map[string]string)
-	params["start_date"] = "2017-01-01"
-	params["end_date"] = "2019-01-01"
 	var fields []string
 	resp, err := client.NewShare(params, fields)
 
 	if err != nil {
-		if resp.Code == -2002 {
-			ast.Equal(err.Error(), "Your point is not enough to use this api")
-		}
+		t.Errorf("Api should not return an error, got: %s", err)
 	}
 	if resp == nil {
 		t.Errorf("Api should return data")

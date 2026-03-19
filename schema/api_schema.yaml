@@ -1,0 +1,636 @@
+version: "1.0.0"
+description: "Tushare Pro API Schema"
+categories:
+  - id: stock
+    name: "股票数据"
+    subcategories:
+      - id: basic
+        name: "基础数据"
+        apis:
+          - doc_id: 25
+            name: "股票列表"
+            api_name: stock_basic
+            url: "https://tushare.pro/document/2?doc_id=25"
+          - doc_id: 329
+            name: "每日股本（盘前）"
+            api_name: daily_basic
+            url: "https://tushare.pro/document/2?doc_id=329"
+          - doc_id: 26
+            name: "交易日历"
+            api_name: trade_cal
+            url: "https://tushare.pro/document/2?doc_id=26"
+          - doc_id: 397
+            name: "ST股票列表"
+            api_name: st_basic
+            url: "https://tushare.pro/document/2?doc_id=397"
+          - doc_id: 423
+            name: "ST风险警示板股票"
+            api_name: st_stock
+            url: "https://tushare.pro/document/2?doc_id=423"
+          - doc_id: 398
+            name: "沪深港通股票列表"
+            api_name: hs_const
+            url: "https://tushare.pro/document/2?doc_id=398"
+          - doc_id: 100
+            name: "股票曾用名"
+            api_name: namechange
+            url: "https://tushare.pro/document/2?doc_id=100"
+          - doc_id: 112
+            name: "上市公司基本信息"
+            api_name: stock_company
+            url: "https://tushare.pro/document/2?doc_id=112"
+          - doc_id: 193
+            name: "上市公司管理层"
+            api_name: stk_managers
+            url: "https://tushare.pro/document/2?doc_id=193"
+          - doc_id: 194
+            name: "管理层薪酬和持股"
+            api_name: stk_rewards
+            url: "https://tushare.pro/document/2?doc_id=194"
+          - doc_id: 375
+            name: "北交所新旧代码对照"
+            api_name: bse_mapping
+            url: "https://tushare.pro/document/2?doc_id=375"
+          - doc_id: 123
+            name: "IPO新股上市"
+            api_name: new_share
+            url: "https://tushare.pro/document/2?doc_id=123"
+          - doc_id: 262
+            name: "股票历史列表"
+            api_name: stock_basic_hist
+            url: "https://tushare.pro/document/2?doc_id=262"
+      - id: market
+        name: "行情数据"
+        apis:
+          - doc_id: 27
+            name: "历史日线"
+            api_name: daily
+            url: "https://tushare.pro/document/2?doc_id=27"
+          - doc_id: 372
+            name: "实时日线"
+            api_name: daily_std
+            url: "https://tushare.pro/document/2?doc_id=372"
+          - doc_id: 370
+            name: "历史分钟"
+            api_name: stk_mins
+            url: "https://tushare.pro/document/2?doc_id=370"
+          - doc_id: 374
+            name: "实时分钟"
+            api_name: stk_mins_std
+            url: "https://tushare.pro/document/2?doc_id=374"
+          - doc_id: 144
+            name: "周线行情"
+            api_name: weekly
+            url: "https://tushare.pro/document/2?doc_id=144"
+          - doc_id: 145
+            name: "月线行情"
+            api_name: monthly
+            url: "https://tushare.pro/document/2?doc_id=145"
+          - doc_id: 146
+            name: "复权行情"
+            api_name: adj_factor
+            url: "https://tushare.pro/document/2?doc_id=146"
+          - doc_id: 336
+            name: "周/月线行情(每日更新)"
+            api_name: weekly_md
+            url: "https://tushare.pro/document/2?doc_id=336"
+          - doc_id: 365
+            name: "周/月线复权行情(每日更新)"
+            api_name: adj_factor_wm
+            url: "https://tushare.pro/document/2?doc_id=365"
+          - doc_id: 28
+            name: "复权因子"
+            api_name: adj_factor
+            url: "https://tushare.pro/document/2?doc_id=28"
+          - doc_id: 315
+            name: "实时Tick（爬虫）"
+            api_name: idxt
+            url: "https://tushare.pro/document/2?doc_id=315"
+          - doc_id: 316
+            name: "实时成交（爬虫）"
+            api_name: idxd
+            url: "https://tushare.pro/document/2?doc_id=316"
+          - doc_id: 317
+            name: "实时排名（爬虫）"
+            api_name: idxx
+            url: "https://tushare.pro/document/2?doc_id=317"
+          - doc_id: 32
+            name: "每日指标"
+            api_name: daily_basic
+            url: "https://tushare.pro/document/2?doc_id=32"
+          - doc_id: 109
+            name: "通用行情接口"
+            api_name: universal
+            url: "https://tushare.pro/document/2?doc_id=109"
+          - doc_id: 183
+            name: "每日涨跌停价格"
+            api_name: stk_limit
+            url: "https://tushare.pro/document/2?doc_id=183"
+          - doc_id: 214
+            name: "每日停复牌信息"
+            api_name: suspend
+            url: "https://tushare.pro/document/2?doc_id=214"
+          - doc_id: 48
+            name: "沪深股通十大成交股"
+            api_name: hk_hold
+            url: "https://tushare.pro/document/2?doc_id=48"
+          - doc_id: 49
+            name: "港股通十大成交股"
+            api_name: gg_hold
+            url: "https://tushare.pro/document/2?doc_id=49"
+          - doc_id: 196
+            name: "港股通每日成交统计"
+            api_name: gg_trade
+            url: "https://tushare.pro/document/2?doc_id=196"
+          - doc_id: 197
+            name: "港股通每月成交统计"
+            api_name: gg_trade_month
+            url: "https://tushare.pro/document/2?doc_id=197"
+          - doc_id: 255
+            name: "备用行情"
+            api_name: bak_daily
+            url: "https://tushare.pro/document/2?doc_id=255"
+      - id: finance
+        name: "财务数据"
+        apis:
+          - doc_id: 33
+            name: "利润表"
+            api_name: income
+            url: "https://tushare.pro/document/2?doc_id=33"
+          - doc_id: 36
+            name: "资产负债表"
+            api_name: balancesheet
+            url: "https://tushare.pro/document/2?doc_id=36"
+          - doc_id: 44
+            name: "现金流量表"
+            api_name: cashflow
+            url: "https://tushare.pro/document/2?doc_id=44"
+          - doc_id: 45
+            name: "业绩预告"
+            api_name: forecast
+            url: "https://tushare.pro/document/2?doc_id=45"
+          - doc_id: 46
+            name: "业绩快报"
+            api_name: express
+            url: "https://tushare.pro/document/2?doc_id=46"
+          - doc_id: 103
+            name: "分红送股数据"
+            api_name: dividend
+            url: "https://tushare.pro/document/2?doc_id=103"
+          - doc_id: 79
+            name: "财务指标数据"
+            api_name: fina_indicator
+            url: "https://tushare.pro/document/2?doc_id=79"
+          - doc_id: 80
+            name: "财务审计意见"
+            api_name: fina_audit
+            url: "https://tushare.pro/document/2?doc_id=80"
+          - doc_id: 81
+            name: "主营业务构成"
+            api_name: fina_mainbz
+            url: "https://tushare.pro/document/2?doc_id=81"
+          - doc_id: 162
+            name: "财报披露日期表"
+            api_name: disclosure_date
+            url: "https://tushare.pro/document/2?doc_id=162"
+      - id: reference
+        name: "参考数据"
+        apis:
+          - doc_id: 451
+            name: "个股异常波动"
+            api_name: stk_abnormal
+            url: "https://tushare.pro/document/2?doc_id=451"
+          - doc_id: 452
+            name: "个股严重异常波动"
+            api_name: stk_serious
+            url: "https://tushare.pro/document/2?doc_id=452"
+          - doc_id: 453
+            name: "交易所重点提示证券"
+            api_name: stk_warning
+            url: "https://tushare.pro/document/2?doc_id=453"
+          - doc_id: 61
+            name: "前十大股东"
+            api_name: top10holders
+            url: "https://tushare.pro/document/2?doc_id=61"
+          - doc_id: 62
+            name: "前十大流通股东"
+            api_name: top10floatholders
+            url: "https://tushare.pro/document/2?doc_id=62"
+          - doc_id: 110
+            name: "股权质押统计数据"
+            api_name: pledge_stat
+            url: "https://tushare.pro/document/2?doc_id=110"
+          - doc_id: 111
+            name: "股权质押明细数据"
+            api_name: pledge_detail
+            url: "https://tushare.pro/document/2?doc_id=111"
+          - doc_id: 124
+            name: "股票回购"
+            api_name: repurchase
+            url: "https://tushare.pro/document/2?doc_id=124"
+          - doc_id: 160
+            name: "限售股解禁"
+            api_name: share_float
+            url: "https://tushare.pro/document/2?doc_id=160"
+          - doc_id: 161
+            name: "大宗交易"
+            api_name: block_trade
+            url: "https://tushare.pro/document/2?doc_id=161"
+          - doc_id: 164
+            name: "股票开户数据（停）"
+            api_name: user_login
+            url: "https://tushare.pro/document/2?doc_id=164"
+          - doc_id: 165
+            name: "股票开户数据（旧）"
+            api_name: user_login_old
+            url: "https://tushare.pro/document/2?doc_id=165"
+          - doc_id: 166
+            name: "股东人数"
+            api_name: stk_holder_number
+            url: "https://tushare.pro/document/2?doc_id=166"
+          - doc_id: 175
+            name: "股东增减持"
+            api_name: stk_holders_change
+            url: "https://tushare.pro/document/2?doc_id=175"
+      - id: special
+        name: "特色数据"
+        apis:
+          - doc_id: 292
+            name: "券商盈利预测数据"
+            api_name: broker_profit
+            url: "https://tushare.pro/document/2?doc_id=292"
+          - doc_id: 293
+            name: "每日筹码及胜率"
+            api_name: cyq_chips
+            url: "https://tushare.pro/document/2?doc_id=293"
+          - doc_id: 294
+            name: "每日筹码分布"
+            api_name: cyq_dist
+            url: "https://tushare.pro/document/2?doc_id=294"
+          - doc_id: 328
+            name: "股票技术面因子(专业版）"
+            api_name: stk_factor
+            url: "https://tushare.pro/document/2?doc_id=328"
+          - doc_id: 295
+            name: "中央结算系统持股统计"
+            api_name: ccass_stat
+            url: "https://tushare.pro/document/2?doc_id=295"
+          - doc_id: 274
+            name: "中央结算系统持股明细"
+            api_name: ccass_detail
+            url: "https://tushare.pro/document/2?doc_id=274"
+          - doc_id: 188
+            name: "沪深股通持股明细"
+            api_name: hk_hold_detail
+            url: "https://tushare.pro/document/2?doc_id=188"
+          - doc_id: 353
+            name: "股票开盘集合竞价数据"
+            api_name: auction
+            url: "https://tushare.pro/document/2?doc_id=353"
+          - doc_id: 354
+            name: "股票收盘集合竞价数据"
+            api_name: auction_detail
+            url: "https://tushare.pro/document/2?doc_id=354"
+          - doc_id: 364
+            name: "神奇九转指标"
+            api_name: tdx
+            url: "https://tushare.pro/document/2?doc_id=364"
+          - doc_id: 399
+            name: "AH股比价"
+            api_name: ah_spot
+            url: "https://tushare.pro/document/2?doc_id=399"
+          - doc_id: 275
+            name: "机构调研数据"
+            api_name: org_survey
+            url: "https://tushare.pro/document/2?doc_id=275"
+          - doc_id: 267
+            name: "券商月度金股"
+            api_name: broker_rec
+            url: "https://tushare.pro/document/2?doc_id=267"
+      - id: margin
+        name: "两融及转融通"
+        apis:
+          - doc_id: 58
+            name: "融资融券交易汇总"
+            api_name: margin
+            url: "https://tushare.pro/document/2?doc_id=58"
+          - doc_id: 59
+            name: "融资融券交易明细"
+            api_name: margin_detail
+            url: "https://tushare.pro/document/2?doc_id=59"
+          - doc_id: 326
+            name: "融资融券标的（盘前）"
+            api_name: margin_std
+            url: "https://tushare.pro/document/2?doc_id=326"
+          - doc_id: 332
+            name: "转融券交易汇总(停）"
+            api_name: ssl_ol
+            url: "https://tushare.pro/document/2?doc_id=332"
+          - doc_id: 331
+            name: "转融资交易汇总"
+            api_name: ssl_lend
+            url: "https://tushare.pro/document/2?doc_id=331"
+          - doc_id: 333
+            name: "转融券交易明细(停）"
+            api_name: ssl_ol_detail
+            url: "https://tushare.pro/document/2?doc_id=333"
+          - doc_id: 334
+            name: "做市借券交易汇总(停）"
+            api_name: ssl_mkt
+            url: "https://tushare.pro/document/2?doc_id=334"
+      - id: moneyflow
+        name: "资金流向数据"
+        apis:
+          - doc_id: 170
+            name: "个股资金流向"
+            api_name: moneyflow
+            url: "https://tushare.pro/document/2?doc_id=170"
+          - doc_id: 348
+            name: "个股资金流向（THS）"
+            api_name: moneyflow_ths
+            url: "https://tushare.pro/document/2?doc_id=348"
+          - doc_id: 349
+            name: "个股资金流向（DC）"
+            api_name: moneyflow_dc
+            url: "https://tushare.pro/document/2?doc_id=349"
+          - doc_id: 371
+            name: "板块资金流向（THS)"
+            api_name: moneyflow_block_ths
+            url: "https://tushare.pro/document/2?doc_id=371"
+          - doc_id: 343
+            name: "行业资金流向（THS）"
+            api_name: moneyflow_ind_ths
+            url: "https://tushare.pro/document/2?doc_id=343"
+          - doc_id: 344
+            name: "板块资金流向（DC）"
+            api_name: moneyflow_block_dc
+            url: "https://tushare.pro/document/2?doc_id=344"
+          - doc_id: 345
+            name: "大盘资金流向（DC）"
+            api_name: moneyflow_index_dc
+            url: "https://tushare.pro/document/2?doc_id=345"
+          - doc_id: 47
+            name: "沪深港通资金流向"
+            api_name: moneyflow_hsgt
+            url: "https://tushare.pro/document/2?doc_id=47"
+      - id: toplist
+        name: "打板专题数据"
+        apis:
+          - doc_id: 106
+            name: "龙虎榜每日统计单"
+            api_name: top_list
+            url: "https://tushare.pro/document/2?doc_id=106"
+          - doc_id: 107
+            name: "龙虎榜机构交易单"
+            api_name: top_inst
+            url: "https://tushare.pro/document/2?doc_id=107"
+          - doc_id: 355
+            name: "同花顺涨跌停榜单"
+            api_name: limit_list_ths
+            url: "https://tushare.pro/document/2?doc_id=355"
+          - doc_id: 298
+            name: "涨跌停和炸板数据"
+            api_name: limit_list
+            url: "https://tushare.pro/document/2?doc_id=298"
+          - doc_id: 356
+            name: "涨停股票连板天梯"
+            api_name: limit_list_d
+            url: "https://tushare.pro/document/2?doc_id=356"
+          - doc_id: 357
+            name: "涨停最强板块统计"
+            api_name: limit_list_sec
+            url: "https://tushare.pro/document/2?doc_id=357"
+          - doc_id: 259
+            name: "同花顺行业概念板块"
+            api_name: concept
+            url: "https://tushare.pro/document/2?doc_id=259"
+          - doc_id: 260
+            name: "同花顺概念和行业指数行情"
+            api_name: ths_daily
+            url: "https://tushare.pro/document/2?doc_id=260"
+          - doc_id: 261
+            name: "同花顺行业概念成分"
+            api_name: ths_member
+            url: "https://tushare.pro/document/2?doc_id=261"
+          - doc_id: 362
+            name: "东方财富概念板块"
+            api_name: concept_em
+            url: "https://tushare.pro/document/2?doc_id=362"
+          - doc_id: 363
+            name: "东方财富概念成分"
+            api_name: concept_member_em
+            url: "https://tushare.pro/document/2?doc_id=363"
+          - doc_id: 382
+            name: "东财概念和行业指数行情"
+            api_name: em_daily
+            url: "https://tushare.pro/document/2?doc_id=382"
+          - doc_id: 369
+            name: "开盘竞价成交（当日）"
+            api_name: auction_sip
+            url: "https://tushare.pro/document/2?doc_id=369"
+          - doc_id: 311
+            name: "市场游资最全名录"
+            api_name: hot
+            url: "https://tushare.pro/document/2?doc_id=311"
+          - doc_id: 312
+            name: "游资交易每日明细"
+            api_name: hot_detail
+            url: "https://tushare.pro/document/2?doc_id=312"
+          - doc_id: 320
+            name: "同花顺App热榜数"
+            api_name: ths_hot
+            url: "https://tushare.pro/document/2?doc_id=320"
+          - doc_id: 321
+            name: "东方财富App热榜"
+            api_name: em_hot
+            url: "https://tushare.pro/document/2?doc_id=321"
+          - doc_id: 376
+            name: "通达信板块信息"
+            api_name: tdx_sector
+            url: "https://tushare.pro/document/2?doc_id=376"
+          - doc_id: 377
+            name: "通达信板块成分"
+            api_name: tdx_member
+            url: "https://tushare.pro/document/2?doc_id=377"
+          - doc_id: 378
+            name: "通达信板块行情"
+            api_name: tdx_daily
+            url: "https://tushare.pro/document/2?doc_id=378"
+          - doc_id: 347
+            name: "榜单数据（开盘啦）"
+            api_name: bk_lists
+            url: "https://tushare.pro/document/2?doc_id=347"
+          - doc_id: 351
+            name: "题材成分（开盘啦）"
+            api_name: bk_members
+            url: "https://tushare.pro/document/2?doc_id=351"
+          - doc_id: 421
+            name: "题材数据（东方财富）"
+            api_name: em_ctheme
+            url: "https://tushare.pro/document/2?doc_id=421"
+          - doc_id: 422
+            name: "题材成分（东方财富）"
+            api_name: em_ctmember
+            url: "https://tushare.pro/document/2?doc_id=422"
+  - id: etf
+    name: "ETF专题"
+    subcategories:
+      - id: basic
+        name: "ETF基础"
+        apis:
+          - doc_id: 454
+            name: "深交所ETF实时快照"
+            api_name: etf_snap
+            url: "https://tushare.pro/document/2?doc_id=454"
+          - doc_id: 385
+            name: "ETF基本信息"
+            api_name: etf_basic
+            url: "https://tushare.pro/document/2?doc_id=385"
+          - doc_id: 386
+            name: "ETF基准指数"
+            api_name: etf_base
+            url: "https://tushare.pro/document/2?doc_id=386"
+          - doc_id: 416
+            name: "ETF实时分钟"
+            api_name: etf_min_std
+            url: "https://tushare.pro/document/2?doc_id=416"
+          - doc_id: 387
+            name: "ETF历史分钟"
+            api_name: etf_min
+            url: "https://tushare.pro/document/2?doc_id=387"
+          - doc_id: 400
+            name: "ETF实时日线"
+            api_name: etf_daily_std
+            url: "https://tushare.pro/document/2?doc_id=400"
+          - doc_id: 127
+            name: "ETF日线行情"
+            api_name: fund_daily
+            url: "https://tushare.pro/document/2?doc_id=127"
+          - doc_id: 199
+            name: "ETF复权因子"
+            api_name: fund_adj
+            url: "https://tushare.pro/document/2?doc_id=199"
+          - doc_id: 408
+            name: "ETF份额规模"
+            api_name: etf_size
+            url: "https://tushare.pro/document/2?doc_id=408"
+  - id: index
+    name: "指数专题"
+    subcategories:
+      - id: basic
+        name: "指数基础"
+        apis:
+          - doc_id: 94
+            name: "指数基本信息"
+            api_name: index_basic
+            url: "https://tushare.pro/document/2?doc_id=94"
+          - doc_id: 95
+            name: "指数日线行情"
+            api_name: index_daily
+            url: "https://tushare.pro/document/2?doc_id=95"
+          - doc_id: 403
+            name: "指数实时日线"
+            api_name: index_daily_std
+            url: "https://tushare.pro/document/2?doc_id=403"
+          - doc_id: 420
+            name: "指数实时分钟"
+            api_name: index_min_std
+            url: "https://tushare.pro/document/2?doc_id=420"
+          - doc_id: 171
+            name: "指数周线行情"
+            api_name: index_weekly
+            url: "https://tushare.pro/document/2?doc_id=171"
+          - doc_id: 419
+            name: "指数历史分钟"
+            api_name: index_min
+            url: "https://tushare.pro/document/2?doc_id=419"
+          - doc_id: 172
+            name: "指数月线行情"
+            api_name: index_monthly
+            url: "https://tushare.pro/document/2?doc_id=172"
+          - doc_id: 96
+            name: "指数成分和权重"
+            api_name: index_weight
+            url: "https://tushare.pro/document/2?doc_id=96"
+          - doc_id: 128
+            name: "大盘指数每日指标"
+            api_name: index_basic
+            url: "https://tushare.pro/document/2?doc_id=128"
+          - doc_id: 181
+            name: "申万行业分类"
+            api_name: index_classify
+            url: "https://tushare.pro/document/2?doc_id=181"
+          - doc_id: 335
+            name: "申万行业成分（分级）"
+            api_name: index_member
+            url: "https://tushare.pro/document/2?doc_id=335"
+          - doc_id: 327
+            name: "申万行业指数日行情"
+            api_name: sw_daily
+            url: "https://tushare.pro/document/2?doc_id=327"
+          - doc_id: 417
+            name: "申万实时行情"
+            api_name: sw_daily_std
+            url: "https://tushare.pro/document/2?doc_id=417"
+          - doc_id: 373
+            name: "中信行业成分"
+            api_name: citic_member
+            url: "https://tushare.pro/document/2?doc_id=373"
+          - doc_id: 308
+            name: "中信行业指数日行情"
+            api_name: citic_daily
+            url: "https://tushare.pro/document/2?doc_id=308"
+          - doc_id: 211
+            name: "国际主要指数"
+            api_name: index_global
+            url: "https://tushare.pro/document/2?doc_id=211"
+          - doc_id: 358
+            name: "指数技术面因子(专业版)"
+            api_name: index_factor
+            url: "https://tushare.pro/document/2?doc_id=358"
+          - doc_id: 215
+            name: "沪深市场每日交易统计"
+            api_name: index_market
+            url: "https://tushare.pro/document/2?doc_id=215"
+          - doc_id: 268
+            name: "深圳市场每日交易情况"
+            api_name: index_market_sz
+            url: "https://tushare.pro/document/2?doc_id=268"
+  - id: fund
+    name: "公募基金"
+    subcategories:
+      - id: basic
+        name: "基金基础"
+        apis:
+          - doc_id: 19
+            name: "基金列表"
+            api_name: fund_basic
+            url: "https://tushare.pro/document/2?doc_id=19"
+          - doc_id: 118
+            name: "基金管理人"
+            api_name: fund_manager
+            url: "https://tushare.pro/document/2?doc_id=118"
+          - doc_id: 208
+            name: "基金经理"
+            api_name: fund_manager_info
+            url: "https://tushare.pro/document/2?doc_id=208"
+          - doc_id: 207
+            name: "基金规模"
+            api_name: fund_scale
+            url: "https://tushare.pro/document/2?doc_id=207"
+          - doc_id: 119
+            name: "基金净值"
+            api_name: fund_nav
+            url: "https://tushare.pro/document/2?doc_id=119"
+          - doc_id: 120
+            name: "基金分红"
+            api_name: fund_dividend
+            url: "https://tushare.pro/document/2?doc_id=120"
+          - doc_id: 121
+            name: "基金持仓"
+            api_name: fund_portfolio
+            url: "https://tushare.pro/document/2?doc_id=121"
+          - doc_id: 359
+            name: "基金技术面因子(专业版)"
+            api_name: fund_factor
+            url: "https://tushare.pro/document/2?doc_id=359"
